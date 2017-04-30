@@ -4,6 +4,7 @@
 
 Buildnotes.rtf
 ApiKeys.h
+.DS_Store
 
 ## Build generated
 build/
