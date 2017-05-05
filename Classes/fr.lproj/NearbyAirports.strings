@@ -1,0 +1,9 @@
+
+/* Class = "UISegmentedControl"; 18.segmentTitles[0] = "Proches"; ObjectID = "18"; */
+"18.segmentTitles[0]" = "Proches2";
+
+/* Class = "UISegmentedControl"; 18.segmentTitles[1] = "Trajet"; ObjectID = "18"; */
+"18.segmentTitles[1]" = "Trajet2";
+
+/* Class = "UISearchBar"; placeholder = "Saisir l'identifiant de l'aéroport"; ObjectID = "41"; */
+"41.placeholder" = "Saisir l'identifiant de l'aéroport";

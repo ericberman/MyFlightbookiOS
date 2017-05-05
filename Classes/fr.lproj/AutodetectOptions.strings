@@ -1,0 +1,78 @@
+
+/* Class = "UILabel"; text = "Détection automatique des décollages et atterrissages:"; ObjectID = "9"; */
+"9.text" = "Détection automatique des décollages et atterrissages:";
+
+/* Class = "UILabel"; text = "Enregistrer les données de vol:"; ObjectID = "10"; */
+"10.text" = "Enregistrer les données de vol:";
+
+/* Class = "UISegmentedControl"; 18.segmentTitles[0] = "Désactivé"; ObjectID = "18"; Note = "Auto-fill hobbs"; */
+"18.segmentTitles[0]" = "Désactivé";
+
+/* Class = "UISegmentedControl"; 18.segmentTitles[1] = "Vol"; ObjectID = "18"; Note = "Auto-fill hobbs"; */
+"18.segmentTitles[1]" = "Vol";
+
+/* Class = "UISegmentedControl"; 18.segmentTitles[2] = "Moteur"; ObjectID = "18"; Note = "Auto-fill hobbs"; */
+"18.segmentTitles[2]" = "Moteur";
+
+/* Class = "UILabel"; text = "Saisie automatique du Hobbs d'arrivée par:"; ObjectID = "20"; */
+"20.text" = "Saisie automatique du Hobbs d'arrivée par:";
+
+/* Class = "UISegmentedControl"; 22.segmentTitles[0] = "Désactivée"; ObjectID = "22"; Note = "Auto-fill for total time\n"; */
+"22.segmentTitles[0]" = "Désactivée";
+
+/* Class = "UISegmentedControl"; 22.segmentTitles[1] = "Vol"; ObjectID = "22"; Note = "Auto-fill for total time\n"; */
+"22.segmentTitles[1]" = "Vol";
+
+/* Class = "UISegmentedControl"; 22.segmentTitles[2] = "Moteur"; ObjectID = "22"; Note = "Auto-fill for total time\n"; */
+"22.segmentTitles[2]" = "Moteur";
+
+/* Class = "UISegmentedControl"; 22.segmentTitles[3] = "Hobbs"; ObjectID = "22"; Note = "Auto-fill for total time\n"; */
+"22.segmentTitles[3]" = "Hobbs";
+
+/* Class = "UILabel"; text = "Saisie automatique du Temps Total par:"; ObjectID = "23"; */
+"23.text" = "Saisie automatique du Temps Total par:";
+
+/* Class = "UILabel"; text = "Utiliser l'heure locale:"; ObjectID = "41"; */
+"41.text" = "Utiliser l'heure locale:";
+
+/* Class = "UILabel"; text = "Entrez durées en format hh:mm:"; ObjectID = "42"; */
+"42.text" = "Entrez durées en format hh:mm:";
+
+/* Class = "UILabel"; text = "Inclure les heliports"; ObjectID = "64"; */
+"64.text" = "Inclure les heliports";
+
+/* Class = "UILabel"; text = "La vitesse de décollage (Kts)"; ObjectID = "76"; */
+"76.text" = "La vitesse de décollage (Kts)";
+
+/* Class = "UISegmentedControl"; 77.segmentTitles[0] = "20"; ObjectID = "77"; */
+"77.segmentTitles[0]" = "20";
+
+/* Class = "UISegmentedControl"; 77.segmentTitles[1] = "40"; ObjectID = "77"; */
+"77.segmentTitles[1]" = "40";
+
+/* Class = "UISegmentedControl"; 77.segmentTitles[2] = "55"; ObjectID = "77"; */
+"77.segmentTitles[2]" = "55";
+
+/* Class = "UISegmentedControl"; 77.segmentTitles[3] = "70"; ObjectID = "77"; */
+"77.segmentTitles[3]" = "70";
+
+/* Class = "UISegmentedControl"; 77.segmentTitles[4] = "85"; ObjectID = "77"; */
+"77.segmentTitles[4]" = "85";
+
+/* Class = "UISegmentedControl"; 77.segmentTitles[5] = "100"; ObjectID = "77"; */
+"77.segmentTitles[5]" = "100";
+
+/* Class = "UISegmentedControl"; 84.segmentTitles[0] = "Norme"; ObjectID = "84"; */
+"84.segmentTitles[0]" = "Norme";
+
+/* Class = "UISegmentedControl"; 84.segmentTitles[1] = "Satellite"; ObjectID = "84"; */
+"84.segmentTitles[1]" = "Satellite";
+
+/* Class = "UILabel"; text = "Show images for flights:"; ObjectID = "0pm-yI-Vkq"; */
+"0pm-yI-Vkq.text" = "Afficher les images pour les vols:";
+
+/* Class = "UISegmentedControl"; 84.segmentTitles[2] = "Hybride"; ObjectID = "84"; */
+"84.segmentTitles[2]" = "Hybride";
+
+/* Class = "UILabel"; text = "Use nearest tenth of an hour"; ObjectID = "Pkd-WF-W6L"; */
+"Pkd-WF-W6L.text" = "Utilisez dixième d'heure";

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UIApplication">
+            <connections>
+                <outlet property="delegate" destination="3" id="99"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <customObject id="3" customClass="MFBAppDelegate">
+            <connections>
+                <outlet property="leMain" destination="183" id="190"/>
+                <outlet property="tabBarController" destination="106" id="113"/>
+                <outlet property="tabNewFlight" destination="181" id="253"/>
+                <outlet property="tabProfile" destination="234" id="254"/>
+                <outlet property="tabRecents" destination="201" id="255"/>
+                <outlet property="tbiRecent" destination="202" id="240"/>
+                <outlet property="window" destination="2" id="9"/>
+            </connections>
+        </customObject>
+        <window opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" visibleAtLaunch="YES" id="2">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <animations/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="rootViewController" destination="106" id="259"/>
+            </connections>
+        </window>
+        <tabBarController id="106">
+            <extendedEdge key="edgesForExtendedLayout"/>
+            <tabBar key="tabBar" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" selectedItem="Myn-AJ-tv7" id="107">
+                <rect key="frame" x="0.0" y="519" width="320" height="49"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                <animations/>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </tabBar>
+            <viewControllers>
+                <navigationController title="newFlight" id="181" userLabel="newFlight">
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <tabBarItem key="tabBarItem" tag="1" title="New Flight" image="newflight.png" id="182"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translucent="NO" id="185">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <viewControllers>
+                        <viewController title="editFlight" nibName="LEEditController" id="183" userLabel="editFlight" customClass="LEEditController">
+                            <extendedEdge key="edgesForExtendedLayout"/>
+                            <toolbarItems/>
+                            <navigationItem key="navigationItem" title="New Flight" id="184">
+                                <barButtonItem key="rightBarButtonItem" title="Reset" id="210">
+                                    <connections>
+                                        <action selector="resetFlight" destination="183" id="231"/>
+                                    </connections>
+                                </barButtonItem>
+                            </navigationItem>
+                        </viewController>
+                    </viewControllers>
+                    <connections>
+                        <outlet property="delegate" destination="183" id="187"/>
+                    </connections>
+                </navigationController>
+                <navigationController title="recentFlights" toolbarHidden="NO" id="201" userLabel="RecentFlights">
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <tabBarItem key="tabBarItem" systemItem="recents" id="202"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translucent="NO" id="205">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <viewControllers>
+                        <viewController nibName="RecentFlights" id="203" customClass="RecentFlights">
+                            <extendedEdge key="edgesForExtendedLayout"/>
+                            <toolbarItems/>
+                            <navigationItem key="navigationItem" title="Recent Flights" id="204"/>
+                        </viewController>
+                    </viewControllers>
+                    <toolbar key="toolbar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="209">
+                        <rect key="frame" x="0.0" y="416" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </toolbar>
+                    <connections>
+                        <outlet property="delegate" destination="203" id="208"/>
+                    </connections>
+                </navigationController>
+                <navigationController title="MyAircraft" id="214" userLabel="MyAircraft">
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <tabBarItem key="tabBarItem" title="My Aircraft" image="aircraft.png" id="215"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translucent="NO" id="218">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <viewControllers>
+                        <viewController title="My Aircraft" nibName="MyAircraft" id="216" customClass="MyAircraft">
+                            <extendedEdge key="edgesForExtendedLayout"/>
+                            <toolbarItems/>
+                            <navigationItem key="navigationItem" title="My Aircraft" id="217"/>
+                        </viewController>
+                    </viewControllers>
+                </navigationController>
+                <navigationController title="Profile" id="234" userLabel="Profile">
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <tabBarItem key="tabBarItem" title="Profile" id="238"/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translucent="NO" id="236">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <viewControllers>
+                        <viewController title="Profile" nibName="SignInControllerViewController" id="159" userLabel="profile" customClass="SignInControllerViewController">
+                            <extendedEdge key="edgesForExtendedLayout"/>
+                            <tabBarItem key="tabBarItem" tag="6" title="Profile" image="profile.png" id="160"/>
+                            <toolbarItems/>
+                            <navigationItem key="navigationItem" title="Profile" id="239"/>
+                        </viewController>
+                    </viewControllers>
+                </navigationController>
+                <navigationController title="Flying Totals" id="223" userLabel="FlyingTotals">
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <tabBarItem key="tabBarItem" tag="2" title="Totals" image="totals.png" id="170"/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translucent="NO" id="225">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <viewControllers>
+                        <viewController title="Totals" nibName="Totals" id="169" userLabel="totals" customClass="Totals">
+                            <extendedEdge key="edgesForExtendedLayout"/>
+                            <toolbarItems/>
+                            <navigationItem key="navigationItem" title="Flying Totals" id="228"/>
+                        </viewController>
+                    </viewControllers>
+                </navigationController>
+                <navigationController title="Flying Currency" id="219" userLabel="FlyingCurrency">
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <tabBarItem key="tabBarItem" tag="3" title="Currency" image="currency.png" id="174"/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translucent="NO" id="221">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <viewControllers>
+                        <tableViewController title="Currency" nibName="Currency" id="173" userLabel="currency" customClass="Currency">
+                            <extendedEdge key="edgesForExtendedLayout"/>
+                            <toolbarItems/>
+                            <navigationItem key="navigationItem" title="Flying Currency" id="227"/>
+                        </tableViewController>
+                    </viewControllers>
+                </navigationController>
+                <navigationController title="Nearest" nibName="" definesPresentationContext="YES" id="Sd6-46-CZZ" userLabel="Nearest">
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <tabBarItem key="tabBarItem" tag="4" title="Nearest" image="runway.png" id="Myn-AJ-tv7"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="c39-QB-NQl">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <viewControllers>
+                        <viewController title="Nearest" nibName="NearbyAirports" id="v0a-da-7Yg" customClass="NearbyAirports">
+                            <extendedEdge key="edgesForExtendedLayout"/>
+                            <navigationItem key="navigationItem" title="Nearest" id="xby-lf-QHY"/>
+                        </viewController>
+                    </viewControllers>
+                </navigationController>
+                <navigationController title="Visited" id="246" userLabel="VisitedAirports">
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <tabBarItem key="tabBarItem" title="Visités" image="airporttab.png" id="250"/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translucent="NO" id="247">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <viewControllers>
+                        <viewController title="Visited Airports" nibName="VisitedAirports" id="248" customClass="VisitedAirports">
+                            <extendedEdge key="edgesForExtendedLayout"/>
+                            <navigationItem key="navigationItem" title="Visited Airports" id="249"/>
+                        </viewController>
+                    </viewControllers>
+                </navigationController>
+                <navigationController title="Training" id="85p-Wh-MJr" userLabel="Training">
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <tabBarItem key="tabBarItem" title="Training" image="training.png" id="kBm-gw-uQu"/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translucent="NO" id="6Rk-ID-Axh">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <viewControllers>
+                        <viewController title="Training" nibName="Training" id="zWK-Gi-YXN" customClass="Training">
+                            <extendedEdge key="edgesForExtendedLayout"/>
+                            <navigationItem key="navigationItem" title="Training" id="06D-Rq-LJ2"/>
+                        </viewController>
+                    </viewControllers>
+                </navigationController>
+            </viewControllers>
+            <connections>
+                <outlet property="delegate" destination="3" id="168"/>
+            </connections>
+        </tabBarController>
+    </objects>
+    <resources>
+        <image name="aircraft.png" width="30" height="30"/>
+        <image name="airporttab.png" width="30" height="30"/>
+        <image name="currency.png" width="30" height="30"/>
+        <image name="newflight.png" width="30" height="30"/>
+        <image name="profile.png" width="30" height="30"/>
+        <image name="runway.png" width="30" height="30"/>
+        <image name="totals.png" width="30" height="30"/>
+        <image name="training.png" width="30" height="30"/>
+    </resources>
+</document>

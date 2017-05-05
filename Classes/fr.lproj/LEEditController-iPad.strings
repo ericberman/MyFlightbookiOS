@@ -1,0 +1,108 @@
+
+/* Class = "UIButton"; normalTitle = "Circuit d'attente"; ObjectID = "567"; */
+"567.normalTitle" = "Circuit d'attente";
+
+/* Class = "UILabel"; text = "Total:"; ObjectID = "569"; */
+"569.text" = "Atterrissages:";
+
+/* Class = "UILabel"; text = "Nuit (Complet):"; ObjectID = "573"; */
+"573.text" = "Nuit (Complet):";
+
+/* Class = "UILabel"; text = "Jour (Complet):"; ObjectID = "574"; */
+"574.text" = "Jour (Complet):";
+
+/* Class = "UILabel"; text = "Approches:"; ObjectID = "575"; */
+"575.text" = "Approches:";
+
+/* Class = "UILabel"; text = "Commentaires:"; ObjectID = "576"; */
+"576.text" = "Commentaires:";
+
+/* Class = "UITextField"; placeholder = "Commentaires"; ObjectID = "577"; */
+"577.placeholder" = "Commentaires";
+
+/* Class = "UITextField"; placeholder = "Trajet"; ObjectID = "579"; */
+"579.placeholder" = "Trajet";
+
+/* Class = "UILabel"; text = "Trajet:"; ObjectID = "581"; */
+"581.text" = "Trajet:";
+
+/* Class = "UITextField"; placeholder = "(Aéronef)"; ObjectID = "583"; */
+"583.placeholder" = "(Aéronef)";
+
+/* Class = "UILabel"; text = "Simulateur:"; ObjectID = "595"; */
+"595.text" = "Simulateur:";
+
+/* Class = "UILabel"; text = "Cdt. de bord:"; ObjectID = "596"; */
+"596.text" = "Cdt. de bord:";
+
+/* Class = "UILabel"; text = "Copilote:"; ObjectID = "597"; */
+"597.text" = "Copilote:";
+
+/* Class = "UILabel"; text = "Instruction:"; ObjectID = "598"; */
+"598.text" = "Instruction:";
+
+/* Class = "UILabel"; text = "Double:"; ObjectID = "599"; */
+"599.text" = "Double:";
+
+/* Class = "UILabel"; text = "Sim. VSV:"; ObjectID = "600"; */
+"600.text" = "Sim. VSV:";
+
+/* Class = "UILabel"; text = "VSV:"; ObjectID = "601"; */
+"601.text" = "VSV:";
+
+/* Class = "UILabel"; text = "Nuit:"; ObjectID = "602"; */
+"602.text" = "Nuit:";
+
+/* Class = "UILabel"; text = "Navigation:"; ObjectID = "603"; */
+"603.text" = "Navigation:";
+
+/* Class = "UILabel"; text = "Temps Total:"; ObjectID = "604"; */
+"604.text" = "Temps Total:";
+
+/* Class = "UIButton"; normalTitle = "MyFlightbook"; ObjectID = "605"; */
+"605.normalTitle" = "MyFlightbook";
+
+/* Class = "UIButton"; normalTitle = "Facebook"; ObjectID = "606"; */
+"606.normalTitle" = "Facebook";
+
+/* Class = "UIButton"; normalTitle = "Twitter"; ObjectID = "607"; */
+"607.normalTitle" = "Twitter";
+
+/* Class = "UITextView"; text = "Twitter et Facebook peuvent être activés sur http://MyFlightbook.com"; ObjectID = "611"; */
+"611.text" = "Activer Facebook et Twitter dans votre profil à http://myflightbook.com";
+
+/* Class = "UILabel"; text = "(Longitude)"; ObjectID = "612"; */
+"612.text" = "(Longitude)";
+
+/* Class = "UILabel"; text = "(Latitude)"; ObjectID = "613"; */
+"613.text" = "(Latitude)";
+
+/* Class = "UILabel"; text = "(Sunrise)"; ObjectID = "614"; */
+"614.text" = "(Lever du soleil)";
+
+/* Class = "UILabel"; text = "(Sunset)"; ObjectID = "615"; */
+"615.text" = "(Coucher du soleil)";
+
+/* Class = "UILabel"; text = "Type de Vol:"; ObjectID = "620"; */
+"620.text" = "Type de Vol:";
+
+/* Class = "UILabel"; text = "00:00:00"; ObjectID = "621"; */
+"621.text" = "00:00:00";
+
+/* Class = "UILabel"; text = "Temps écoulé:"; ObjectID = "622"; */
+"622.text" = "Temps écoulé:";
+
+/* Class = "UILabel"; text = "(inconnu)"; ObjectID = "623"; */
+"623.text" = "(inconnu)";
+
+/* Class = "UILabel"; text = "Qualité GPS:"; ObjectID = "624"; */
+"624.text" = "Qualité GPS:";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "625"; */
+"625.text" = "--";
+
+/* Class = "UILabel"; text = "(inconnu)"; ObjectID = "627"; */
+"627.text" = "(inconnu)";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "SeW-g0-aTj"; */
+"SeW-g0-aTj.text" = "--";

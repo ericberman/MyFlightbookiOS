@@ -1,0 +1,799 @@
+//
+//	USAdditions.m
+//	WSDLParser
+//
+//	Created by John Ogle on 9/5/08.
+//	Copyright 2008 LightSPEED Technologies. All rights reserved.
+//	Modified by Matthew Faupel on 2009-05-06 to use NSDate instead of NSCalendarDate (for iPhone compatibility).
+//	Modifications copyright (c) 2009 Micropraxis Ltd.
+//	Modified by Henri Asseily on 2009-09-04 for SOAP 1.2 faults
+//
+//
+//	NSData (MBBase64) category taken from "MiloBird" at http://www.cocoadev.com/index.pl?BaseSixtyFour
+//
+
+#import "USAdditions.h"
+#import "NSDate+ISO8601Parsing.h"
+#import "NSDate+ISO8601Unparsing.h"
+#import <libxml/parser.h>
+#import <libxml/xpath.h>
+#import <libxml/xpathInternals.h>
+#import <libxml/c14n.h>
+
+@implementation NSString (USAdditions)
+
+- (NSString *)stringByEscapingXML
+{
+	NSMutableString *escapedString = [[self mutableCopy] autorelease];
+	[escapedString replaceOccurrencesOfString:@"&" withString:@"&amp;" options:0 range:NSMakeRange(0, [escapedString length])];
+	[escapedString replaceOccurrencesOfString:@"\"" withString:@"&quot;" options:0 range:NSMakeRange(0, [escapedString length])];
+	[escapedString replaceOccurrencesOfString:@"'" withString:@"&apos;" options:0 range:NSMakeRange(0, [escapedString length])];
+	[escapedString replaceOccurrencesOfString:@"<" withString:@"&lt;" options:0 range:NSMakeRange(0, [escapedString length])];
+	[escapedString replaceOccurrencesOfString:@">" withString:@"&gt;" options:0 range:NSMakeRange(0, [escapedString length])];
+	return escapedString;
+}
+
+- (NSString *)stringByUnescapingXML
+{
+	NSMutableString *unescapedString = [[self mutableCopy] autorelease];
+	[unescapedString replaceOccurrencesOfString:@"&quot;" withString:@"\"" options:0 range:NSMakeRange(0, [unescapedString length])];
+	[unescapedString replaceOccurrencesOfString:@"&apos;" withString:@"'" options:0 range:NSMakeRange(0, [unescapedString length])];
+	[unescapedString replaceOccurrencesOfString:@"&lt;" withString:@"<" options:0 range:NSMakeRange(0, [unescapedString length])];
+	[unescapedString replaceOccurrencesOfString:@"&gt;" withString:@">" options:0 range:NSMakeRange(0, [unescapedString length])];
+	[unescapedString replaceOccurrencesOfString:@"&amp;" withString:@"&" options:0 range:NSMakeRange(0, [unescapedString length])];
+	return unescapedString;
+}
+
+- (const xmlChar *)xmlString
+{
+	return (xmlChar *)[[self stringByEscapingXML] UTF8String];
+}
+
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
+{
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = elName;
+	}
+	
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], [self xmlString]);
+	
+	return node;
+}
+
++ (NSString *)deserializeNode:(xmlNodePtr)cur
+{
+	xmlChar *elementText = xmlNodeListGetString(cur->doc, cur->children, 1);
+	NSString *elementString = @"";
+	
+	if(elementText != NULL) {
+		elementString = [NSString stringWithCString:(char*)elementText encoding:NSUTF8StringEncoding];
+		xmlFree(elementText);
+	}
+	
+	return [elementString stringByUnescapingXML];
+}
+
+@end
+
+@implementation NSNumber (USAdditions)
+
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
+{
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = elName;
+	}
+	
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], [[self stringValue] xmlString]);
+	
+	return node;
+}
+
++ (NSNumber *)deserializeNode:(xmlNodePtr)cur
+{
+	NSString *stringValue = [NSString deserializeNode:cur];
+	return [NSNumber numberWithDouble:[stringValue doubleValue]];
+}
+
+@end
+
+@implementation NSDecimalNumber (USAdditions)
+
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
+{
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = elName;
+	}
+	
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], [[self stringValue] xmlString]);
+	
+	return node;
+}
+
++ (NSDecimalNumber *)deserializeString:(NSString *)stringValue
+{
+	stringValue = [stringValue stringByReplacingOccurrencesOfString:@"," withString:@"."];
+	return [NSDecimalNumber decimalNumberWithString:stringValue];
+}
+
++ (NSDecimalNumber *)deserializeNode:(xmlNodePtr)cur
+{
+    NSString *stringValue = [NSString deserializeNode:cur];
+    return [NSDecimalNumber decimalNumberWithString:stringValue];
+}
+
+@end
+
+@implementation NSDate (USAdditions)
+
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
+{
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = elName;
+	}
+	
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], [[self ISO8601DateString] xmlString]);
+	
+	return node;
+}
+
++ (NSDate *)deserializeNode:(xmlNodePtr)cur
+{
+	return [NSDate dateWithISO8601String:[NSString deserializeNode:cur]];
+}
+
+@end
+
+@implementation NSData (USAdditions)
+
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
+{
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = elName;
+	}
+	
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], [[self base64Encoding] xmlString]);
+	
+	return node;
+}
+
++ (NSData *)deserializeNode:(xmlNodePtr)cur
+{
+	if(cur != NULL)
+	{
+		NSString *deserializedStringResult = [NSString deserializeNode:cur];
+		if(deserializedStringResult != nil)
+		{
+			return [NSData dataWithBase64EncodedString:deserializedStringResult];
+		}
+	}
+	
+	return nil;
+}
+
+@end
+
+
+static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+
+
+@implementation NSData (MBBase64)
+
++ (id)dataWithBase64EncodedString:(NSString *)string;
+{
+	if (string == nil)
+		[NSException raise:NSInvalidArgumentException format:@"Error: String must not be nil"];
+	if ([string length] == 0)
+		return [NSData data];
+	
+	static char *decodingTable = NULL;
+	if (decodingTable == NULL)
+	{
+		decodingTable = malloc(256);
+		if (decodingTable == NULL)
+			return nil;
+		memset(decodingTable, CHAR_MAX, 256);
+		NSUInteger i;
+		for (i = 0; i < 64; i++)
+			decodingTable[(short)encodingTable[i]] = i;
+	}
+	
+	const char *characters = [string cStringUsingEncoding:NSASCIIStringEncoding];
+	if (characters == NULL)     //  Not an ASCII string!
+		return nil;
+	char *bytes = malloc((([string length] + 3) / 4) * 3);
+	if (bytes == NULL)
+		return nil;
+	NSUInteger length = 0;
+
+	NSUInteger i = 0;
+	while (YES)
+	{
+		char buffer[4];
+		short bufferLength;
+		for (bufferLength = 0; bufferLength < 4; i++)
+		{
+			if (characters[i] == '\0')
+				break;
+			if (isspace(characters[i]) || characters[i] == '=')
+				continue;
+			buffer[bufferLength] = decodingTable[(short)characters[i]];
+			if (buffer[bufferLength++] == CHAR_MAX)      //  Illegal character!
+			{
+				free(bytes);
+				return nil;
+			}
+		}
+		
+		if (bufferLength == 0)
+			break;
+		if (bufferLength == 1)      //  At least two characters are needed to produce one byte!
+		{
+			free(bytes);
+			return nil;
+		}
+		
+		//  Decode the characters in the buffer to bytes.
+		bytes[length++] = (buffer[0] << 2) | (buffer[1] >> 4);
+		if (bufferLength > 2)
+			bytes[length++] = (buffer[1] << 4) | (buffer[2] >> 2);
+		if (bufferLength > 3)
+			bytes[length++] = (buffer[2] << 6) | buffer[3];
+	}
+	
+	bytes = realloc(bytes, length);
+	return [NSData dataWithBytesNoCopy:bytes length:length];
+}
+
+- (NSString *)base64Encoding;
+{
+	if ([self length] == 0)
+		return @"";
+
+	char *characters = malloc((([self length] + 2) / 3) * 4);
+	if (characters == NULL)
+		return nil;
+	NSUInteger length = 0;
+	
+	NSUInteger i = 0;
+	while (i < [self length])
+	{
+		char buffer[3] = {0,0,0};
+		short bufferLength = 0;
+		while (bufferLength < 3 && i < [self length])
+			buffer[bufferLength++] = ((char *)[self bytes])[i++];
+		
+		//  Encode the bytes in the buffer to four characters, including padding "=" characters if necessary.
+		characters[length++] = encodingTable[(buffer[0] & 0xFC) >> 2];
+		characters[length++] = encodingTable[((buffer[0] & 0x03) << 4) | ((buffer[1] & 0xF0) >> 4)];
+		if (bufferLength > 1)
+			characters[length++] = encodingTable[((buffer[1] & 0x0F) << 2) | ((buffer[2] & 0xC0) >> 6)];
+		else characters[length++] = '=';
+		if (bufferLength > 2)
+			characters[length++] = encodingTable[buffer[2] & 0x3F];
+		else characters[length++] = '=';	
+	}
+	
+	return [[[NSString alloc] initWithBytesNoCopy:characters length:length encoding:NSASCIIStringEncoding freeWhenDone:YES] autorelease];
+}
+
+@end
+
+@implementation USBoolean
+
+@synthesize boolValue=value;
+
+- (id)initWithBool:(BOOL)aValue
+{
+	self = [super init];
+	if(self != nil) {
+		value = aValue;
+	}
+	
+	return self;
+}
+
+- (NSString *)stringValue
+{
+	return value ? @"true" : @"false";
+}
+
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
+{
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = elName;
+	}
+	
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], [[self stringValue] xmlString]);
+	
+	return node;
+}
+
++ (USBoolean *)deserializeNode:(xmlNodePtr)cur
+{
+	NSString *stringValue = [NSString deserializeNode:cur];
+	
+	if([stringValue isEqualToString:@"true"]) {
+		return [[[USBoolean alloc] initWithBool:YES] autorelease];
+	} else if([stringValue isEqualToString:@"false"]) {
+		return [[[USBoolean alloc] initWithBool:NO] autorelease];
+	}
+	
+	return nil;
+}
+
+- (void)encodeWithCoder:(NSCoder*)coder
+{
+	[coder encodeValueOfObjCType:@encode(BOOL) at:&value];
+}
+
+- (id)initWithCoder:(NSCoder*)coder
+{
+	if (self=[super init]) {
+		[coder decodeValueOfObjCType:@encode(BOOL) at:&value];
+	}
+	return self;
+}
+
+@end
+
+@implementation SOAPFault
+
+@synthesize faultcode, faultstring, faultactor, detail;
+
++ (id)deserializeFaultDetails:(xmlNodePtr)cur expectedExceptions:(NSDictionary *)exceptions
+{
+    if (cur->children) {
+        cur = cur->children;
+        if (cur && cur->type == XML_ELEMENT_NODE) {
+            // check if any expected exception is in details
+            for (NSString *eName in [exceptions allKeys]) {
+                if (xmlStrEqual(cur->name, (const xmlChar *) [eName cStringUsingEncoding:NSASCIIStringEncoding])) {
+                    // expect only one exception
+                    return [NSClassFromString([exceptions objectForKey:eName]) deserializeNode:cur];
+                }
+            }
+        }
+        
+        cur = cur->parent;
+    }
+    
+    // the old NSString fallback
+    return [NSString deserializeNode:cur];
+}
+
++ (SOAPFault *)deserializeNode:(xmlNodePtr)cur expectedExceptions:(NSDictionary *)exceptions
+{
+	SOAPFault *soapFault = [[SOAPFault new] autorelease];
+	NSString *ns = [NSString stringWithCString:(char*)cur->ns->href encoding:NSUTF8StringEncoding];
+	if (! ns) return soapFault;
+	if ([ns isEqualToString:@"http://schemas.xmlsoap.org/soap/envelope/"]) {
+		// soap 1.1
+		for( cur = cur->children ; cur != NULL ; cur = cur->next ) {
+			if(cur->type == XML_ELEMENT_NODE) {
+				if(xmlStrEqual(cur->name, (const xmlChar *) "faultcode")) {
+					soapFault.faultcode = [NSString deserializeNode:cur];
+				}
+				if(xmlStrEqual(cur->name, (const xmlChar *) "faultstring")) {
+					soapFault.faultstring = [NSString deserializeNode:cur];
+				}
+				if(xmlStrEqual(cur->name, (const xmlChar *) "faultactor")) {
+					soapFault.faultactor = [NSString deserializeNode:cur];
+				}
+				if(xmlStrEqual(cur->name, (const xmlChar *) "detail")) {
+                    soapFault.detail = [SOAPFault deserializeFaultDetails:cur expectedExceptions:exceptions];
+				}
+			}
+		}
+	} else if ([ns isEqualToString:@"http://www.w3.org/2003/05/soap-envelope"]) {
+		// soap 1.2
+				
+		for( cur = cur->children ; cur != NULL ; cur = cur->next ) {
+			if(cur->type == XML_ELEMENT_NODE) {
+				if(xmlStrEqual(cur->name, (const xmlChar *) "Code")) {
+					xmlNodePtr newcur = cur;
+					for ( newcur = newcur->children; newcur != NULL ; newcur = newcur->next ) {
+						if(xmlStrEqual(newcur->name, (const xmlChar *) "Value")) {
+							soapFault.faultcode = [NSString deserializeNode:newcur];
+							break;
+						}
+					}
+					// TODO: Add Subcode handling
+				}
+				if(xmlStrEqual(cur->name, (const xmlChar *) "Reason")) {
+					xmlChar *theReason = xmlNodeGetContent(cur);
+					if (theReason != NULL) {
+						soapFault.faultstring = [NSString stringWithCString:(char*)theReason encoding:NSUTF8StringEncoding];
+						xmlFree(theReason);
+					}
+				}
+				if(xmlStrEqual(cur->name, (const xmlChar *) "Node")) {
+					soapFault.faultactor = [NSString deserializeNode:cur];
+				}
+				if(xmlStrEqual(cur->name, (const xmlChar *) "Detail")) {
+					soapFault.detail = [SOAPFault deserializeFaultDetails:cur expectedExceptions:exceptions];
+				}
+				// TODO: Add "Role" ivar
+			}
+		}
+	}
+
+	return soapFault;
+}
+
+- (NSString *)simpleFaultString
+{
+	NSString *simpleString = [faultstring stringByReplacingOccurrencesOfString: @"System.Web.Services.Protocols.SoapException: " withString: @""];
+	NSRange suffixRange = [simpleString rangeOfString: @"\n   at "];
+
+	if (suffixRange.length > 0)
+		simpleString = [simpleString substringToIndex: suffixRange.location];
+
+	return simpleString;
+}
+
+- (void)dealloc
+{
+	[faultcode release];
+	[faultstring release];
+	[faultactor release];
+	[detail release];
+	[super dealloc];
+}
+
+@end
+
+@implementation SOAPSigner
+
+@synthesize delegate;
+
+- (id) initWithDelegate:(id<SOAPSignerDelegate>)del
+{
+    self = [super init];
+    if (self != nil) {
+        delegate = del;
+    }
+    return self;
+}
+
+int register_namespaces(xmlXPathContextPtr xpathCtx, const xmlChar* nsList) {
+    xmlChar* nsListDup;
+    xmlChar* prefix;
+    xmlChar* href;
+    xmlChar* next;
+    
+    if(!xpathCtx || !nsList) {
+        return -1;
+    }
+    
+    nsListDup = xmlStrdup(nsList);
+    if(nsListDup == NULL) {
+        return -1;	
+    }
+    
+    next = nsListDup; 
+    while(next != NULL) {
+        /* skip spaces */
+        while((*next) == ' ') next++;
+        if((*next) == '\0') break;
+        
+        /* find prefix */
+        prefix = next;
+        next = (xmlChar*)xmlStrchr(next, '=');
+        if(next == NULL) {
+            xmlFree(nsListDup);
+            return -1;	
+        }
+        *(next++) = '\0';	
+        
+        /* find href */
+        href = next;
+        next = (xmlChar*)xmlStrchr(next, ' ');
+        if(next != NULL) {
+            *(next++) = '\0';	
+        }
+        
+        /* do register namespace */
+        if(xmlXPathRegisterNs(xpathCtx, prefix, href) != 0) {
+            xmlFree(nsListDup);
+            return -1;	
+        }
+    }
+    
+    xmlFree(nsListDup);
+    return 0;
+}
+
+xmlXPathObjectPtr execute_xpath_expression(xmlDocPtr doc, const xmlChar* xpathExpr, const xmlChar* nsList) {
+    xmlXPathContextPtr xpathCtx; 
+    xmlXPathObjectPtr xpathObj; 
+    
+    if (!doc || !xpathExpr) {
+        return NULL;
+    }
+    
+    /* Create xpath evaluation context */
+    xpathCtx = xmlXPathNewContext(doc);
+    if(xpathCtx == NULL) {
+        return NULL;
+    }
+    
+    /* Register namespaces from list (if any) */
+    if((nsList != NULL) && (register_namespaces(xpathCtx, nsList) < 0)) {
+        xmlXPathFreeContext(xpathCtx); 
+        return NULL;
+    }
+    
+    /* Evaluate xpath expression */
+    xpathObj = xmlXPathEvalExpression(xpathExpr, xpathCtx);
+    xmlXPathFreeContext(xpathCtx); 
+    
+    return xpathObj; 
+}
+
+- (xmlNodePtr)securityHeaderTemplate
+{
+    xmlNodePtr securityRoot = xmlNewNode(NULL, (const xmlChar*)"Security");
+    xmlNsPtr wsse = xmlNewNs(securityRoot, (const xmlChar*)"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", (const xmlChar*)"wsse");
+    xmlSetNs(securityRoot, wsse);
+    
+    xmlNodePtr n0 = securityRoot;
+    xmlNodePtr n1 = xmlNewNode(NULL, (const xmlChar*)"Signature");
+    xmlNsPtr ds = xmlNewNs(securityRoot, (const xmlChar*)"http://www.w3.org/2000/09/xmldsig#", (const xmlChar*)"ds");
+    xmlSetNs(n1, ds);
+    xmlAddChild(n0, n1);
+    
+    n0 = n1;
+    n1 = xmlNewNode(ds, (const xmlChar*)"SignedInfo");
+    xmlAddChild(n0, n1);
+    
+    n0 = n1;
+    n1 = xmlNewNode(ds, (const xmlChar*)"SignatureValue");
+    xmlAddNextSibling(n0, n1);
+    
+    n1 = xmlNewNode(ds, (const xmlChar*)"CanonicalizationMethod");
+    xmlNewProp(n1, (const xmlChar*)"Algorithm", (const xmlChar*)"http://www.w3.org/2001/10/xml-exc-c14n#");
+    xmlAddChild(n0, n1);
+    
+    n1 = xmlNewNode(ds, (const xmlChar*)"SignatureMethod");
+    xmlNewProp(n1, (const xmlChar*)"Algorithm", (const xmlChar*)"http://www.w3.org/2000/09/xmldsig#rsa-sha1");
+    xmlAddChild(n0, n1);
+    
+    n1 = xmlNewNode(ds, (const xmlChar*)"Reference");
+    xmlNewProp(n1, (const xmlChar*)"URI", (const xmlChar*)"");
+    xmlAddChild(n0, n1);
+    
+    n0 = n1;
+    n1 = xmlNewNode(ds, (const xmlChar*)"Transforms");
+    xmlAddChild(n0, n1);
+    
+    n0 = n1;
+    n1 = xmlNewNode(ds, (const xmlChar*)"DigestMethod");
+    xmlNewProp(n1, (const xmlChar*)"Algorithm", (const xmlChar*)"http://www.w3.org/2000/09/xmldsig#sha1");
+    xmlAddSibling(n0, n1);
+    
+    n1 = xmlNewNode(ds, (const xmlChar*)"DigestValue");
+    xmlAddSibling(n0, n1);
+    
+    n1 = xmlNewNode(ds, (const xmlChar*)"Transform");
+    xmlNewProp(n1, (const xmlChar*)"Algorithm", (const xmlChar*)"http://www.w3.org/2002/06/xmldsig-filter2");
+    xmlAddChild(n0, n1);
+    
+    n0 = n1;
+    n1 = xmlNewNode(NULL, (const xmlChar*)"XPath");
+    ds = xmlNewNs(n1, (const xmlChar*)"http://www.w3.org/2002/06/xmldsig-filter2", (const xmlChar*)"ds");
+    xmlNewNs(n1, (const xmlChar*)"http://schemas.xmlsoap.org/soap/envelope/", (const xmlChar*)"soap");
+    xmlNewProp(n1, (const xmlChar*)"Filter", (const xmlChar*)"intersect");
+    xmlNodeSetContent(n1, [@"/soap:Envelope/soap:Body/*" xmlString]);
+    xmlSetNs(n1, ds);
+    xmlAddChild(n0, n1);    
+    
+    n1 = xmlNewNode(ds, (const xmlChar*)"Transform");
+    xmlNewProp(n1, (const xmlChar*)"Algorithm", (const xmlChar*)"http://www.w3.org/2001/10/xml-exc-c14n#");
+    xmlAddSibling(n0, n1);
+    
+    
+    return securityRoot;
+}
+
+- (NSString *)signRequest:(NSString *)req
+{
+    // TODO: handle errors
+    
+    // convert request back to xmlDoc
+    NSData *reqData = [req dataUsingEncoding:NSUTF8StringEncoding];
+    xmlDocPtr doc = xmlReadMemory([reqData bytes], 
+                                  (int) [reqData length],  // Cast to (int) to remove 64-bit warning; function is limited to (int)
+                                  NULL, 
+                                  NULL, 
+                                  XML_PARSE_COMPACT | XML_PARSE_NOBLANKS);
+    
+    // find the SOAP Header
+    xmlXPathObjectPtr xpathObj = execute_xpath_expression(doc, 
+                                                          (const xmlChar *)"/soap:Envelope/soap:Header",
+                                                          (const xmlChar *)"soap=http://schemas.xmlsoap.org/soap/envelope/");
+    
+    xmlNodePtr headerPtr = (xpathObj && xpathObj->nodesetval && xpathObj->nodesetval->nodeTab)
+                           ? xpathObj->nodesetval->nodeTab[0]
+                           : NULL;
+
+    // if not present create it
+    if (!headerPtr) {
+        xmlNsPtr *nss = xmlGetNsList(doc, doc->children);
+        xmlNsPtr soap = NULL;
+        for(int i = 0; nss && nss[i]; i++) {
+            if (xmlStrcmp(nss[i]->href, (const xmlChar *)"http://schemas.xmlsoap.org/soap/envelope/") == 0) {
+                soap = nss[i];
+                break;
+            }
+        }
+        
+        headerPtr = xmlNewDocNode(doc, soap, (const xmlChar *)"Header", NULL);
+        xmlAddPrevSibling(doc->children->children, headerPtr); // the envelope and the body should be there
+    }
+    
+    // add the security template in the header
+    xmlAddChild(headerPtr, [self securityHeaderTemplate]);
+    xmlXPathFreeObject(xpathObj);
+    
+    // find the referenced content (the XPath expression in the template + all children)
+    xpathObj = execute_xpath_expression(doc, 
+                                        (const xmlChar *)"/soap:Envelope/soap:Body//node() "
+                                        "| /soap:Envelope/soap:Body//node()/namespace::* "
+                                        "| /soap:Envelope/soap:Body//node()/attribute::*",
+                                        (const xmlChar *)"soap=http://schemas.xmlsoap.org/soap/envelope/");
+    
+    xmlChar *canonicalized;
+    int size = xmlC14NDocDumpMemory(doc, xpathObj->nodesetval, 1, NULL, 1, &canonicalized);
+    
+    // calculate and add its digest value
+    NSString *digestValue = [delegate base64Encode:[delegate digestData:[NSData dataWithBytes:canonicalized length:size]]];
+    xmlFree(canonicalized);
+    xmlXPathFreeObject(xpathObj);
+    
+    xpathObj = execute_xpath_expression(doc, 
+                                        (const xmlChar *)"/soap:Envelope/soap:Header/wsse:Security/ds:Signature/ds:SignedInfo/ds:Reference/ds:DigestValue",
+                                        (const xmlChar *)"soap=http://schemas.xmlsoap.org/soap/envelope/ "
+                                        "wsse=http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd "
+                                        "ds=http://www.w3.org/2000/09/xmldsig#");
+    
+    xmlNodePtr dvPtr = xpathObj->nodesetval->nodeTab[0];
+    xmlNodeSetContent(dvPtr, [digestValue xmlString]);
+    xmlXPathFreeObject(xpathObj);
+    
+    // sign the SignedInfo
+    xpathObj = execute_xpath_expression(doc, 
+                                        (const xmlChar *)"/soap:Envelope/soap:Header/wsse:Security/ds:Signature/ds:SignedInfo/descendant-or-self::node() "
+                                        "| /soap:Envelope/soap:Header/wsse:Security/ds:Signature/ds:SignedInfo/descendant-or-self::node()/namespace::* "
+                                        "| /soap:Envelope/soap:Header/wsse:Security/ds:Signature/ds:SignedInfo/descendant-or-self::node()/attribute::*",
+                                        (const xmlChar *)"soap=http://schemas.xmlsoap.org/soap/envelope/ "
+                                        "wsse=http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd "
+                                        "ds=http://www.w3.org/2000/09/xmldsig#");
+    
+    size = xmlC14NDocDumpMemory(doc, xpathObj->nodesetval, 1, NULL, 1, &canonicalized);
+
+    NSData *signedData = [delegate signWSData:[NSData dataWithBytes:canonicalized length:size]];
+    xmlFree(canonicalized);
+    xmlXPathFreeObject(xpathObj);
+    
+    // if the signing fails for any reason return NULL so that the request is not sent at all
+    if (!signedData) {
+        xmlFreeDoc(doc);
+        return nil;
+    }
+    
+    NSString *signatureValue = [delegate base64Encode:signedData];
+    xpathObj = execute_xpath_expression(doc, 
+                                        (const xmlChar *)"/soap:Envelope/soap:Header/wsse:Security/ds:Signature/ds:SignatureValue",
+                                        (const xmlChar *)"soap=http://schemas.xmlsoap.org/soap/envelope/ "
+                                        "wsse=http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd "
+                                        "ds=http://www.w3.org/2000/09/xmldsig#");
+    
+    xmlNodePtr svPtr = xpathObj->nodesetval->nodeTab[0];
+    xmlNodeSetContent(svPtr, [signatureValue xmlString]);
+    xmlXPathFreeObject(xpathObj);    
+    
+    xmlC14NDocDumpMemory(doc, NULL, 1, NULL, 1, &canonicalized);
+    NSString *serializedForm = [NSString stringWithCString:(const char*)canonicalized encoding:NSUTF8StringEncoding];
+    
+    xmlFree(canonicalized);
+    xmlFreeDoc(doc);
+    
+    return serializedForm;
+}
+@end
+
+@implementation BasicSSLCredentialsManager
+
++ (id)managerWithUsername:(NSString *)usr andPassword:(NSString *)pwd
+{
+    return [[[BasicSSLCredentialsManager alloc]
+             initWithUsername:usr andPassword:pwd] autorelease];
+}
+
+- (id)initWithUsername:(NSString *)usr andPassword:(NSString *)pwd
+{
+    self = [super init];
+    if (self != nil) {
+        username = [usr retain];
+        password = [pwd retain];
+    }
+    return self;
+}
+
+- (BOOL)canAuthenticateForAuthenticationMethod:(NSString *)authMethod
+{
+    return [authMethod isEqualToString:NSURLAuthenticationMethodHTTPBasic];
+}
+
+- (BOOL)authenticateForChallenge:(NSURLAuthenticationChallenge *)challenge
+{
+    if ([challenge previousFailureCount] > 0) {        
+        return NO;
+    }
+    
+    NSURLCredential *newCredential = nil;
+    NSURLProtectionSpace *protectionSpace = [challenge protectionSpace];
+
+    // client authentication - NSURLAuthenticationMethodHTTPBasic
+    if ([protectionSpace.authenticationMethod isEqualToString:
+         NSURLAuthenticationMethodHTTPBasic]) {
+        
+        newCredential=[NSURLCredential 
+                       credentialWithUser:username
+                                 password:password
+                              persistence:NSURLCredentialPersistenceForSession];
+        
+        [[challenge sender] useCredential:newCredential 
+               forAuthenticationChallenge:challenge];
+        
+        return YES;
+    }
+
+    [NSException raise:@"Authentication method not supported" 
+                format:@"%@ not supported.", [protectionSpace authenticationMethod]];
+    return NO;
+}
+
+-(void)dealloc
+{
+    [username release];
+    [password release];
+    [super dealloc];
+}
+@end

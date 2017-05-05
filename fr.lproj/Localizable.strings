@@ -1,0 +1,1056 @@
+/* Speed in knots.  '%.1f' is replaced by the actual speed; leave it there. */
+"%.1fkts" = "%.1fkts";
+
+/* Feet */
+"ft" = "pieds";
+
+/* Invalid GPS data */
+"--" = "--";
+
+/* meters */
+"meters" = "m";
+
+/* Label for number of flights to show - e.g., '30 days of flights' or '2 years of flights'; leave the %@ alone since this gets the timespan at runtime */
+"%@ of flights" = "%@ de vols";
+
+/* For a visited airport, this puts the distance at the first %@, the number of visits at the %d, and the date of the visit at the latter %@; e.g., '(3.2nm) 2 visits on Jan 10 2010', so leave the %d and %@ intact */
+"%@%d visits on %@" = "%1$@%2$d visite(s) au %3$@";
+
+/* For a visited airport, this puts the distance at the first %@, the number of visits at the %d, and the earliest/latest dates at the other %@; e.g., '(3.2nm) 2 visits from Jan 10 2010 to Mar 31, 2011', so leave the %d/%@ intact */
+"%@%d visites from %@ to %@" = "%1$@%2$d visite(s) du %3$@ au %4$@";
+
+/* Number of days to show recent flights for; leave the %d alone since this is replaced by the number at runtime */
+"%d days" = "%d derniers jours";
+
+/* Number of years to show recent flights for; '%d' is replaced with number at runtime */
+"%d years" = "%d dernières années";
+
+/* Distance to an airport; the '%.1f' gets replaced by the numerical value at runtime; leave it there */
+"(%.1fnm) " = "(%.1fnm) ";
+
+/* # of unique visited airports that were found; '%d' gets replaced at runtime; leave it there! */
+"(%d unique airports found)" = "(%d aéroports trouvés)";
+
+/* Placeholder for unknown tailnumber */
+"(Aircraft)" = "(Aéronef)";
+
+/* Prompt UTC Date/Time that is currently un-set (tapping sets it to NOW in UTC) */
+"(Tap for Now)" = "(Tapez pour maintenant)";
+
+/* Prompt for date that is currently un-set (tapping sets it to TODAY) */
+"(Tap for Today)" = "(Tapez pour aujourd'hui)";
+
+/* Prompt to select a make/model for an aircraft */
+"(Tap to select)" = "(Tapez)";
+
+/* Not sure if we are in flight or on the ground */
+"(unknown)" = "(inconnu)";
+
+/* 1 year */
+"1 year" = "1 dernière année";
+
+/* New user 'Next steps' message */
+"\r\nBefore you can enter flights, you must set up at least one aircraft that you fly." = "\r\nAvant de saisir des vols, vous devez paramétrer au moins un avion.";
+
+/* Disclaimer acceptance button title */
+"Accept" = "Accepter";
+
+/* Create Account validation - confirm age */
+"Accounts are only available for people 14 and over.  Please confirm that you are 14 or over." = "L'ouverture de compte ne peut se faire que pour des personnes ayant au moins 14 ans. Merci de confirmer que vous avez au moins 14 ans.";
+
+/* Add a comment for this image */
+"Add a comment for this image" = "Ecrire un commentaire pour cette photo";
+
+/* Button to add a new flight */
+"Add Flight" = "Ajouter un vol";
+
+/* Aircraft added successfully */
+"Aircraft added successfully" = "Avion ajouté avec succès";
+
+/* Aircraft updated successfully */
+"Aircraft updated successfully" = "Avion mis à jour avec succès";
+
+/* In visited airports, the table of contents on the right has A, B, ... Z for quick access to individual airports and 'All' for all airports */
+"All" = "Tous";
+
+/* The 'airport' that shows all visited airports */
+"All Airports" = "Tous les aéroports";
+
+/* Delete Flight confirmation */
+"Are you sure you want to delete this flight?  This CANNOT be undone!" = "Effacer ce vol?  Ne peut être annulé!";
+
+/* Reset Flight confirmation */
+"Are you sure you want to reset this flight?  This CANNOT be undone" = "Enlever ce vol?  Ne peut être annulé";
+
+/* Error message title */
+"Authentication Issue" = "Problème d'authentication";
+
+/* Indiates an ATD (FAA training device type) */
+"Aviation Training Device (ATD)" = "Simulateur approuvé (ATD)";
+
+/* Cancel (button) */
+"Cancel" = "Annuler";
+
+/* Error - cannot reach server */
+"Cannot contact MyFlightbook.com.  Your flight has been saved to your recent flight list.  You can post it from there later." = "Ne peut se connecter au site MyFlightbook.com.  Votre vol a été sauvegardé dans votre liste des vols récents. Vous pourrez le transférer plus tard.";
+
+/* Close button on error message */
+"Close" = "Fermer";
+
+/* Title of confirm message to delete a flight */
+"Confirm Deletion" = "Confirmer suppression";
+
+/* Button title to create an aircraft */
+"Create" = "Créer";
+
+/* Title for create account screen */
+"Create Account" = "Créer un compte";
+
+/* Progress indicator */
+"Creating Account..." = "Création du compte en cours";
+
+/* Title for 'delete' button in image list */
+"Delete" = "Effacer";
+
+/* Error - must have aircraft */
+"Each flight must specify an aircraft.  Create one now?" = "Chaque vol doit être rattaché à un avion.  Voulez-vous en créer un maintenant?";
+
+/* Title for generic error message */
+"Error" = "Erreur";
+
+/* Title for error message when flight delete fails */
+"Error deleting flight" = "Erreur dans la suppression du vol";
+
+/* Title Error message when loading currency */
+"Error loading currency" = "Erreur dans le chargement de la situation du pilote";
+
+/* Title for error message on recent flights */
+"Error loading recent flights" = "Erreur dans le chargement des vols récents";
+
+/* Title for error message */
+"Error loading totals" = "Erreur dans le chargement des totaux";
+
+/* Title when an error occurs loading visited airports */
+"Error loading visited airports" = "Erreur dans le chargement des aéroports visités";
+
+/* Title for error */
+"Error saving flight" = "Erreur dans l'enregistrement du vol";
+
+/* Excellent GPS quality */
+"Excellent" = "Excellent";
+
+/* Title for flight properties list page */
+"Flight Properties" = "Caractéristiques du Vol";
+
+/* Flight has been queued for later uploading */
+"Flight Queued" = "Vols dans la liste";
+
+/* Title for list of flights awaiting upload */
+"Flights pending upload" = "Vols en attente de transfert vers le site";
+
+/* If a full-stop landing is detected, this is written into the comments for flight telemetry.  the %@ is replaced either with nothing or with 'night' to indicate a night landing */
+"Full-stop %@landing" = "atterrissages complets type :%@";
+
+/* Progress indicator for currency */
+"Getting Currency..." = "Récupération des Privilèges en cours";
+
+/* Progress - getting recent flights */
+"Getting Recent Flights..." = "Récupération des vols";
+
+/* progress indicator */
+"Getting Totals..." = "Récupération des totaux";
+
+/* Progress indicator while getting visited airports */
+"Getting Visited Airports..." = "Récupération des aéroports visités...";
+
+/* Good GPS quality */
+"Good" = "Bonne";
+
+/* Template for hours */
+"hrs" = "hrs";
+
+/* Title for image management screen (where you can add/delete/tap-to-edit images) */
+"Images" = "Photos";
+
+/* Disclaimer warning message title */
+"Important" = "Important";
+
+/* Flight status */
+"In Flight" = "En vol";
+
+/* Status while app is launching */
+"Initializing..." = "En cours d'initialisation...";
+
+/* In flight telemetry, this is shown next to a landing event */
+"Landing" = "Atterrissages";
+
+/* Loading... prompt */
+"Loading..." = "En cours de chargement...";
+
+/* Status message at app startup */
+"Loading; please wait..." = "En cours de chargement, patientez...";
+
+/* GPS disclaimer */
+"MyFlightbook uses GPS to find nearest airports, detect takeoff and landing, and to record your flight path." = "MyFlightbook utilise le GPS pour trouver les aéroports les plus proches, pour détecter les décollages et atterrissages, et enregistrer la route parcourue.";
+
+/* Night as an adjective - i.e., a night landing */
+"night " = "de nuit ";
+
+/* Error message if app cannot connect to the Internet */
+"No access to the Internet" = "Pas d'accès internet";
+
+/* Title for No Aircraft error */
+"No Aircraft" = "Pas d'avion";
+
+/* No aircraft found */
+"No aircraft found.  You can add one above." = "Pas d'avion trouvé.  Vous pouvez en ajouter un ci-dessus.";
+
+/* Frequently Used Aircraft Header */
+"Frequently Used Aircraft" = "Aéronef fréquemment utilisé";
+
+/* Archived Aircraft Header */
+"Archived Aircraft" = "Autres aéronef";
+
+/* Unable to retrieve flying currency */
+"No currency is available." = "Pas de maintient de compétence trouvée";
+
+/* No flights found in date range */
+"No flights found for selected dates." = "Aucun vol.";
+
+/* No totals retrieved */
+"No totals are available." = "Pas de cumuls disponibles.";
+
+/* OK */
+"OK" = "OK";
+
+/* Flight status */
+"On Ground" = "Au Sol";
+
+/* Options button for autodetect, etc. */
+"Options" = "Options";
+
+/* Prompt to view/edit endorsements */
+"Endorsements" = "Endossements";
+
+/* Prompt to view achievements */
+"Achievements" = "Réalisations";
+
+/* Prompt to view Ratings Progress */
+"Ratings Progress" = "Progrès vers la certification";
+
+/* Prompt for students */
+"Students" = "Les étudiants";
+
+/* Prompt for Instructors */
+"Instructors" = "Les instructeurs";
+
+/* Prompt for 8710 form */
+"8710Form" = "8710 Forme";
+
+/* Error message for training if offline or not signed in */
+"TrainingNotAvailable" = "Vous devez être connecté et avoir accès à Internet pour afficher les éléments de formation.";
+
+/* FAQ prompt */
+"FAQ" = "Questions fréquentes";
+
+/* Create Account validation - password too short */
+"Password must be at least 6 characters long." = "Mot de passe de 6 signes minimum.";
+
+/* Create Account validation - emails don't match */
+"Please enter your email address twice." = "Merci de saisir votre adresse mail deux fois";
+
+/* Create Account validation - passwords don't match */
+"Please enter your password twice." = "Merci de saisir votre mot de passe deux fois.";
+
+/* Create Account validation - no password question */
+"Please provide a password question." = "Merci de fournir une question en relation avec le mot de passe.";
+
+/* Validation - Missing Password */
+"Please provide a password." = "Mot de passe requis.";
+
+/* Error - no username */
+"Please provide a username." = "Utilisateur requis.";
+
+/* Create Account validation - no secret answer */
+"Please provide an answer to the password question." = "Merci de fournir une réponse en relation avec le mot de passe.";
+
+/* Create Account validation - no email */
+"Please provide an email address." = "Merci de fournir une adresse mail.";
+
+/* Error: please select a model */
+"Please select a model for the aircraft" = "Merci de sélectionner un modèle pour l'avion";
+
+/* Error: please select a valid tailnumber */
+"Please specify a valid tailnumber." = "Merci de spécifier une immatriculation valable";
+
+/* Poor GPS quality */
+"Poor" = "Faible";
+
+/* Displayed when pulling to refresh */
+"Pull to refresh..." = "Tirer pour rafraichir...";
+
+/* Indicates an actual aircraft */
+"Real Aircraft" = "Avion Réel";
+
+/* Indicates an anonymous aircraft */
+"Anonymous Aircraft" = "Cet avion est anonyme";
+
+/* Subtitle for anonymous aircraft */
+"Anonymous Subtitle" = "(C'est à dire, pas immatriculation spécifique.)";
+
+/* Title for list of recent flights */
+"Recent Flights" = "Vols Récents";
+
+/* Displayed after pulling to indicate that a release will refresh */
+"Release to refresh" = "Relacher pour rafraichir";
+
+/* Reset button on flight entry */
+"Reset" = "Remise à zéro";
+
+/* status message while retrieving user aircraft */
+"Retrieving aircraft list..." = "Récupération liste des aéronefs";
+
+/* Progress indicator while retrieving makes/models of aircraft */
+"Retrieving Makes and Models..." = "Récupération modèles aéronefs";
+
+/* Progress: Signing In */
+"Signing in..." = "S'identifier";
+
+/* Indicates a training device where instrument approaches can count towards instrument currency */
+"Sim: Log approaches" = "Sim: Logger les approches";
+
+/* Indicates a device where instrument approaches and landings count towards instrument currency and passenger carrying currency */
+"Sim: Log approaches, landings" = "Sim: Logger les approaches, les atterrissages";
+
+/* Indicates an uncertified sim such as Microsoft Flight Simulator */
+"Sim: Uncertified" = "Sim: Non certifié";
+
+/* Title for success message box */
+"Success" = "succès";
+
+/* Error: Tailnumber has nothing beyond the country code */
+"Tailnumber has nothing beyond the country code." = "Immatriculation incomplète après le code pays.";
+
+/* Error - aircraft tailnumber must begin with a valid country code */
+"Tailnumber is not valid - it must begin with a valid country code (e.g., \"N\" in the US.)" = "Immatriculation invalide - Elle doit commencer avec un code pays valable (ex.: \"F\" pour la France).";
+
+/* In flight telemetry, this is shown to indicate a takeoff event */
+"Takeoff" = "Décollage détecté";
+
+/* Prompt on button to specify a date/time that is not yet specified */
+"Tap for Now" = "Tapez pour maintenant";
+
+/* Prompt on button to specify a date that is not yet specified */
+"Tap for Today" = "Tapez pour aujourd'hui";
+
+/* Error - authentication failure */
+"Unable to authenticate.  Please check your email address and password and ensure that you have Internet access" = "Impossible d'authentifier. Vérifier l'accès internet, l'adresse mail et le mot de passe";
+
+/* Error deleting flight */
+"Unable to delete the flight." = "Impossible de supprimer le vol";
+
+/* Button to update an existing flight */
+"Update Flight" = "Mettre à jour Vol";
+
+/* Progress: updating aircraft */
+"Updating aircraft..." = "Mise à jour de la fiche aéronef...";
+
+/* Progress: uploading aircraft data */
+"Uploading aircraft data..." = "Enregistrer aéronef";
+
+/* Progress indicator */
+"Uploading flight data..." = "Enregistrer le Vol";
+
+/* Use in flight disclaimer */
+"Use of this during flight could be a distraction and could violate regulations, including 14 CFR 91.21 and 47 CFR 22.925.\r\nYou are responsible for the consequences of any use of this software." = "L'utilisation en vol L’UTILISATION EN VOL PEUT ETRE ILLEGAL ET PROVOQUER UNE DISTRACTION. VOUS ETES RESPONSABLE DES CONSEQUENCES DE SON UTILISATION ! VERIFIER 14 CFR 91.21 ET CFR 22.295 EN PARTICULIER, OU TOUTE REGLEMENTATION APPLICABLE A LA SITUATION.";
+
+/* Bucket for quick access to previously used properties; KEEP THIS SHORT - e.g., 'previously used' is too long to fit in the right margin! */
+"Used" = "Utilisé";
+
+/* New user welcome message title */
+"Welcome to MyFlightbook!" = "Bienvenue sur MyFlightbook!";
+
+/* Prompt if you are not signed in. */
+"You are not signed in.  Please sign in or create an account." = "Vous n'êtes pas identifié. Merci de vous identifier ou de créer un compte";
+
+/* Prompt if you are signed in. */
+"You are signed in." = "Vous êtes connecté.";
+
+/* Must be signed in to create an aircraft */
+"You must be signed in to create an aircraft" = "Vous devez vous connecter pour créer un aéronef";
+
+/* Must be signed in to view currency */
+"You must be signed in to view currency" = "Vous devez être identifié pour voir votre statut";
+
+/* Error - must be signed in to view flights */
+"You must be signed in to view recent flights." = "Vous devez être identifié pour voir les vols récents.";
+
+/* No comment provided by engineer. */
+"You must be signed in to view totals." = "Vous devez être identifié pour consulter vos cumuls.";
+
+/* No aircraft error message */
+"You must set up at least one aircraft before you can enter flights" = "Vous devez saisir au moins un aéronef, avant de pouvoir saisir un vol";
+
+/* Can't see visited airports if not signed in. */
+"You must sign in to view visited airports." = "Vous devez être identifé pour pour consulter les aéroports visités.";
+
+/* Flight successfully added */
+"Your flight was successfully added on MyFlightbook" = "Votre vol a été enregistré sur MyFlightbook.com";
+
+/* Flight successfully updated */
+"Your flight was successfully updated on MyFlightbook" = "Votre vol a été correctement mis à jour sur MyFlightbook";
+
+/* No Route */
+"(No Route)" = "(Pas de route)";
+
+/* No Comment */
+"(No Comment)" = "(Pas de commentaire)";
+
+/* Properties progress */
+"Setting up properties..." = "Récupération des propriétés de vol disponibles";
+
+/* Totals - All Time */
+"All Time" = "Sélection complète";
+
+/* Totals - Trailing 12 months */
+"12 Months" = "12 derniers mois";
+
+/* Totals - Trailing 6 months */
+"6 Months" = "6 derniers mois";
+
+/* Totals - Trailing 90 days */
+"Trailing 90" = "90 derniers jours";
+
+/* Totals - Trailing 30 days */
+"Trailing 30" = "90 derniers jours";
+
+/* Totals - Year-to-date */
+"YTD" = "Cette année";
+
+/* Totals - This month */
+"This Month" = "Mois en cours";
+
+/* Totals - Custom Period */
+"Specific Dates" = "Les dates spécifiées";
+
+/* Totals - Previous Month */
+"Previous Month" = "Mois précédent";
+
+/* Totals - Previous Year */
+"Previous Year" = "Année précédente";
+
+/* Start Date */
+"Start Date" = "Date de début";
+
+/* End Date */
+"End Date" = "Date de fin";
+
+/* Select Dates for totals */
+"Date Range" = "Période sélectionnée";
+
+/* Currency Disclaimer */
+"Currency Disclaimer" = "Notes importantes";
+
+/* Choose Flights */
+"FlightSearch" = "Trouver les vols";
+
+/* All flights are selected */
+"All Flights" = "(Tous les vols)";
+
+/* Not all flights are selected */
+"Not all flights" = "(Sélection partielle des vols)";
+
+/* Number of flights to show in History */
+"Number of flights" = "Premiers %d vols affichés";
+
+/* Show all flights in recent flights */
+"AllFlightHistory" = "Affichage complet";
+
+/* Find Flights title */
+"FindFlights" = "Recherche des vols";
+
+/* General Text */
+"TextContains" = "Contient";
+
+/* General Text Prompt */
+"TextContainsPrompt" = "Texte pour a recherche";
+
+/* Airport Criteria */
+"AirportsVisited" = "Aéroports";
+
+/* Airport Criteria Prompt */
+"AirportsVisitedPrompt" = "Aéroports visités";
+
+/* Date criteria */
+"FlightDate" = "Sélection par Dates ou Période";
+
+/* Aircraft Criteria */
+"FlightAircraft" = "Type d'aéronef";
+
+/* Make/Model Criteria */
+"FlightModel" = "Constructeur et modèle";
+
+/* Model Free-text */
+"FlightModelName" = "Nom de modèle";
+
+/* Model Free-text Prompt */
+"FlightModelNamePrompt" = "Nom de modèle";
+
+/* Airport Criteria */
+"Airports" = "Aéroports";
+
+/* All flights that visit a given airport */
+"FlightQueryDistanceAllFlights" = "Tous les vols";
+
+/* Local flights only at a given airport */
+"FlightQueryDistanceLocalFlights" = "Vols locaux uniquement";
+
+/* Non-local flights that left or arrived at a given airport */
+"FlightQueryDistanceNonLocalFlights" = "Autres que vols locaux";
+
+/* Category-class Criteria */
+"ccHeader" = "Catégorie / Classe";
+
+/* Any category-class */
+"ccAny" = "Toutes les catégories / classes";
+
+/* ASEL */
+"ccASEL" = "Avion, SEP (t)";
+
+/* AMEL */
+"ccAMEL" = "Avion, MEP (t)";
+
+/* ASES */
+"ccASES" = "Avion, SEP (h)";
+
+/* ASES */
+"ccAMES" = "Avion, MEP (h)";
+
+/* Glider */
+"ccGlider" = "Planeur";
+
+/* Helicopter */
+"ccHelicopter" = "Hélicoptère";
+
+/* Gyroplane */
+"ccGyroplane" = "Autogire";
+
+/* Powered Lift */
+"ccPoweredLift" = "Sustentation motorisée";
+
+/* Airship */
+"ccAirship" = "Dirigeable";
+
+/* Hot Air Balloon */
+"ccHotAirBalloon" = "Montgolfière";
+
+/* Gas Balloon */
+"ccGasBalloon" = "Ballon captif";
+
+/* Powered Parachute Land */
+"ccPoweredParachuteLand" = "Paramoteur (t)";
+
+/* Powered Parachute Sea */
+"ccPoweredParachuteSea" = "Paramoteur (h)";
+
+/* WeightShiftControlLand */
+"ccWeightShiftControlLand" = "ULM pendulaire (t)";
+
+/* WeightShiftControlSea */
+"ccWeightShiftControlSea" = "ULM pendulaire (h)";
+
+/* Powered Paraglider */
+"ccPoweredParaglider" = "Paramoteur";
+
+/* UAS */
+"ccUAS" = "Drone";
+
+/* Aircraft Features for search */
+"AircraftFeatures" = "Charactéristiques aéronefs";
+
+/* Aircraft Feature = Tailwheel */
+"afTailwheel" = "Train classique";
+
+/* Aircraft Feature = High Performance */
+"afHighPerf" = "Haute performance";
+
+/* Aircraft Feature = Glass Cockpit */
+"afGlass" = "Glass Cockpit";
+
+/* Aircraft Feature = Complex */
+"afComplex" = "Complexe";
+
+/* Aircraft Feature = Retractable gear */
+"afRetract" = "Train rentrant";
+
+/* Aircraft Feature = Constant Speed Propellor */
+"afCSProp" = "Hélice à pas variable";
+
+/* Aircraft Feature = Flaps */
+"afFlaps" = "Volets";
+
+/* Aircraft Feature = Motorglider */
+"afMotorGlider" = "Planeur à moteur";
+
+/* Aircraft Feature = Engine Type Any */
+"afEngineAny" = "Tout Moteur";
+
+/* Aircraft Feature = Engine Type Piston */
+"afEnginePiston" = "Piston Moteur";
+
+/* Aircraft Feature = Engine Type Jet */
+"afEngineJet" = "Turboréacteur";
+
+/* Aircraft Feature = Engine Type TurboProp */
+"afEngineTurboprop" = "Turboprop";
+
+/* Aircraft Feature = Engine Type Electric */
+"afEngineElectric" = "Electrique";
+
+/* Aircraft Feature = Engine Type Turbine (Any)  */
+"afEngineTurbine" = "Moteur à turbine (Tout)";
+
+/* Aircraft Feature = Instance Any */
+"afInstanceAny" = "Tous les aéronefs";
+
+/* Aircraft Feature = Instance Real */
+"afInstanceReal" = "Avion réel";
+
+/* Aircraft Feature = Instance Training Device */
+"afInstanceTraining" = "Dispositifs de formation";
+
+/* Flight characteristics */
+"FlightFeatures" = "Charactéristiques de vol";
+
+/* Flight has full-stop landings */
+"ffFSLanding" = "Atterissages complets";
+
+/* Flight has full-stop night-landings */
+"ffFSNightLanding" = "Atterissages complets - Nuit";
+
+/* Flight has instrument approaches */
+"ffApproaches" = "Approches IFR";
+
+/* Flight has holding procedures */
+"ffHold" = "Procédures d'attente";
+
+/* Flight has Telemetry Data */
+"ffTelemetry" = "Données télémétriques";
+
+/* Flight has Cross-country time */
+"ffXC" = "Temps navigation";
+
+/* Flight has simulated IMC */
+"ffSimIMC" = "Simulation VSV (vol sans visibilité)";
+
+/* Flight has actual IMC time */
+"ffIMC" = "VSV (vol sans visibilité)";
+
+/* Flight has night flight time */
+"ffNight" = "Nuit";
+
+/* Flight is public */
+"ffIsPublic" = "Données du vol partagées";
+
+/* Flight has Dual time logged */
+"ffDual" = "Double commande";
+
+/* Flight has CFI time logged */
+"ffCFI" = "Instruction";
+
+/* Flight has SIC time logged */
+"ffSIC" = "Copilote";
+
+/* Flight has PIC time logged */
+"ffPIC" = "Commandant de Bord";
+
+/* Flight is signed */
+"ffSigned" = "Vol est signé";
+
+/* Progress message when uploading an image; the %d is replaced by numbers (e.g. '2 of 4') */ 
+"Uploading Image %d of %d" = "Téléchargement de  %d image(s) sur  %d";
+
+/* Status after uploading images; %d and %@ get replaced by numbers and the error message, respectively; keep them */ 
+"%d of %d images uploaded.  Error: %@" = "%d image(s) sur  %d image(s) téléchargée(s). Erreur : %@";
+
+/* Error message if there were errors uploading an image */ 
+"Error uploading Pictures" = "Erreur dans le téléchargement d'images";
+
+/* Can't upload with videos unless on wifi */
+"ErrorNeedWifiForVids" = "Téléchargement de la vidéo nécessite WiFi.";
+
+/* Progress message when uploading pending flights */ 
+"Flight %d of %d" = "Téléchargement de %d vol(s) sur  %d";
+
+/* Let a CFI sign this flight */
+"SignFlight" = "Signer";
+
+/* Sign-in strings */
+/* E-mail prompt */
+"E-mail" = "Adresse Email:";
+
+/* Password prompt */
+"Password" = "Mot de passe:";
+
+/* Create an Account prompt */
+"Create a free Account" = "Création du compte (C'est gratuit)";
+
+/* Need account prompt */
+"Need an account" = "Besoin d'un compte? C'est gratuit!";
+
+/* Contact Us prompt */
+"Contact Us" = "Contactez nous ici";
+
+/* Prompt to follow on Facebook */
+"Follow on Facebook" = "Suivre MyFlightbook";
+
+/* Prompt for password reset */
+"Forgot Password?" = "Forgot Password?";
+
+/* About MyFlightbook prompt */
+"About MyFlightbook" = "À propos de MyFlightbook";
+
+/* Prompt for signing in */
+"Sign-in Header" = "MyFlightbook est un carnet de vol pour pilotes, utilisant des services dans le nuage. Vos données sont protégées par un accès sécurisé.";
+
+/* Sign-in */
+"Sign-in" = "Connexion sécurisée";
+
+/* Sign-out */
+"Sign-out" = "Déconnectez";
+
+/* Reset Password Prompt */
+"Reset Password" = "Mot de passe oublié?";
+
+/* New Account Strings */
+/* Email Prompt */
+"E-mail" = "Adresse Email:";
+
+/* Confirm E-mail */
+"Confirm E-mail" = "Confirmez Email:";
+
+/* Password prompt */
+"Password" = "Mot de passe:";
+
+/* Confirm Password prompt */
+"Confirm Password" = "Confirmez mot de passe:";
+
+/* First Name prompt */
+"First Name" = "Prénom:";
+
+/* Last Name prompt */
+"Last Name" = "Nom:";
+
+/* Secret Question Prompt */
+"Secret Question" = "Question:";
+
+/* Secret Answer Prompt */
+"Secret Answer" = "Réponse:";
+
+/* Age verification prompt */
+"I am at least 14 years old" = "J'ai au moins 14 ans";
+
+/* Create Account button */
+"Create Account" = "Créez un compte";
+
+/* View Privacy Policy prompt */
+"View Privacy Policy" = "Règle de vie privée";
+
+/* View Terms and Conditions prompt */
+"View Terms and Conditions" = "Conditions d'utilisation";
+
+/* Terms and Conditions agreement */
+"By creating an account, you are agreeing to the terms and conditions." = "En créant un compte vous acceptez les conditions d'utilisation.";
+
+/* Question/Answer Rationale 1 */
+"For password recovery, please provide a question and answer." = "Dans le cas où vous avez oublié votre mot de passe, s'il vous plaît fournir une question de sécurité et de réponse. 
+
+Une bonne question de sécurité est quelque chose que:
+
+- Seulement, vous savez, et ne pas oublier
+- Ne change pas au fil du temps
+- A court, l'orthographe sans ambiguïté et la capitalisation.
+
+Vous pouvez choisir un dans la liste fournie, le modifier, ou faire un de vos propres.";
+
+/* Optional */
+"(Optional)" = "(En option)";
+
+/* Aircraft Strings */
+/* TailNumber prompt */
+"Tail" = "Immatriculation:";
+
+/* Make/Model Prompt */
+"Model" = "Modèle:";
+
+/* Type of aircraft */
+"Kind of Aircraft" = "Le type d'aéronef:";
+
+/* Submit - Add */
+"Add Aircraft" = "Ajouter Avion";
+
+/* Submit - Update */
+"Update Aircraft" = "Mise à jour de avion";
+
+/* Prompt to create a new model on MyFlightbook.com */
+"Add Model Prompt" = "Votre avion n'est pas visible dans la liste? Vous pouvez l'ajouter sur http://myflightbook.com.";
+
+/* Prompt to edit model on MyFlightbook.com */
+"WrongModelPrompt" = "Vous pouvez modifier le modèle de cet avion à http://myflightbook.com.";
+
+/* View aircraft schedule */
+"ACSchedule" = "Programme";
+
+/* Label saying tail will be auto-assigned if it is not a real aircraft */
+"(Will be auto-assigned)" = "(Sera automatiquement relié)";
+
+/* Model Hint */
+"(Tap to select model)" = "(Pas de modèle spécifié)";
+
+/* Notes Header */
+"NotesHeader" = "Remarques sur cet avion";
+
+/* Public Notes */
+"PublicNotes" = "Les notes publiques";
+
+/* Private Notes */
+"PrivateNotes" = "Les notes privées";
+
+/* Public Notes Description */
+"PublicNotesDesc" = "Fournir une note";
+
+/* Private Notes Description */
+"PrivateNotesDesc" = "Fournir une note";
+
+/* Tail Hint */
+"(Tail)" = "(Immatriculation)";
+
+/* VOR Check */
+"VOR" = "VOR:";
+
+/* Transponder */
+"Transponder" = "Transpondeur:";
+
+/* Pitot/Static */
+"Pitot/Static" = "Pitot/statique:";
+
+/* Altimeter */
+"Altimeter" = "Altimètre:";
+
+/* ELT */
+"ELT" = "Balise de détresse:";
+
+/* Annual */
+"Annual" = "Annuelle ou CDN:";
+
+/* 100 hour */
+"100 hour" = "100 Heures:";
+
+/* Oil Change */
+"Oil Change" = "Vidange:";
+
+/* New Engine: */
+"New Engine" = "Nouveau moteur:";
+
+/* Date that renewal is required */
+"RegistrationRenewal" = "Enregistrement";
+
+/* Maintenance header */
+"Maintenance and Inspections" = "Maintenance et inspections";
+
+/* Maintenance Prompt */
+"Maintenance Prompt" = "Renseignement ci-dessous de la dernière date ou du dernier compteur pour:";
+
+/* Sign in and account Placeholder strings */
+/* E-Mail Placeholder */
+"E-Mail Placeholder" = "EMail";
+
+/* Password Placeholder */
+"Password Placeholder" = "Mot de passe";
+
+/* Question Placeholder */
+"Question Placeholder" = "Question";
+
+/* Answer Placeholder */
+"Answer Placeholder" = "Réponse";
+
+/* Generic Add */
+"Add" = "Ajouter";
+
+/* Generic Update */
+"Update" ="Mettre à jour";
+
+/* Currency */
+/* Currency Valid format string */
+"CurrencyValid" = "A jour jusqu'au: %@";
+
+/* Currency Expired format string */
+"CurrencyExpired" = "Date d'expiration: %@";
+
+/* Flight Editing */
+/* Sharing Header */
+"Sharing" = "Partage";
+
+/* In the Cockpit */
+"In the Cockpit" = "Dans le cockpit";
+
+/* Properties Header */
+"Properties" = "Caractéristiques";
+
+/* Images Header */
+"Images" = "Images";
+
+/* Hobbs End prompt */
+"Hobbs End:" = "Fin Hobbs:";
+
+/* Engine Stop prompt */
+"Engine Stop:" = "Arrêt Moteur:";
+
+/* First Takeoff prompt */
+"First Takeoff:" = "Début du Vol:";
+
+/* Last Landing prompt */
+"Last Landing:" = "Fin de Vol:";
+
+/* Hobbs Start prompt */
+"Hobbs Start:" = "Début Hobbs:";
+
+/* Engine Start prompt */
+"Engine Start:" = "Mise en route moteur:";
+
+/* Flight Properties */
+"Flight Properties" = "Modifier Caractéristiques du Vol";
+
+/* Options Strings */
+/* Entering Times */
+"Entering Times" = "Temps";
+
+/* Auto-Fill */
+"Auto-Fill" = "Saisie automatique";
+
+/* Nearest Airports */
+"Nearest Airports" = "Aéroports les plus proches";
+
+/* Maps */
+"MapOptions" = "Options de cartographie";
+
+/* Support */
+"SupportPrompt" = "Soutien MyFlightbook";
+
+/* Explanation about additional functionality on MyFlightbook */
+"OnlineSettingsExplanation" = "Fonctionnalités et paramètres de votre compte sont complémentaires sur MyFlightbook.com";
+
+/* Image Options */
+"ImageOptions" = "Options d'image";
+
+/* Link to additional preferences */
+"AdditionalOptions" = "Aller à MyFlightbook.com";
+
+/* Aircraft Preferences Header */
+"AircraftPrefsHeader" = "Remplir automatiquement de nouveaux vols dans cet avion";
+
+/* Aircraft - Show Aircraft	 */
+"ShowAircraft" = "Montrer cet avion pour de couveaux vols";
+
+/* Aircraft Role = None */
+"RoleNone" = "Ne pas remplir automatiquement";
+
+/* Aircraft Role = PIC */
+"RolePIC" = "Si PIC est vide, elle a mis égal au Temps Total";
+
+/* Aircraft Role = SIC */
+"RoleSIC" = "Si SIC est vide, elle a mis égal au Temps Total";
+
+/* Aircraft Role = CFI */
+"RoleCFI" = "Si CFI est vide, elle a mis égal au Temps Total";
+
+/* Import flight */
+"AddFlightPrompt" = "Souhaitez-vous ajouter un vol à votre journal de bord de l'application '%@'?";
+
+/* Unable to share telemetry */
+"errCantShareTelemetry" = "Impossible de partager télémétrie";
+
+/* No telemetry to share */
+"errNoTelemetry" = "Aucune télémétrie à part";
+
+/* Import Flight Telemetry */
+"InitFromTelemetry" = "Initialiser un vol de la trajectoire de vol importé?";
+
+/* Activity In Progress */
+"ActivityInProgress" = "S'il vous plaît, attendez...";
+
+/* About MyFlightbook */
+"AboutMyFlightbook" = "En partie couvert par le brevet américain 8,700,236.\n\nCertaines parties du code furent générées en utilisant le projet wsdl2objc disponible à http://code.google.com/p/wsdl2objc/, en utilisant la licence (http://www.opensource.org/licenses/mit-license.php).\n\nIl m'a été demandé d'apporter les précisions suivantes:\n\nCopyright (c) 2010-2011\n\nToute personne ayant obtenu une copie de ce logiciel et de sa documentation associée(le \"Logiciel\"), est autorisée, sans compensation financière , d'utiliser le Logiciel sans restrictions, incluant, sans limitation, le droit de l'utiliser, de le copier, de le modifier, de le fusioner , de la publier, de le distribuer, de le sous licencier, et/ou de vendre des copies du Logiciel et de permettre aux personnes à qui le Logiciel est fourni de faire de même, à la condition suivante:\n\nLa notice de copyright susmentionnée et cette permission doivent êtres inclues dans toutes les copies ou parties du Logiciel.\n\nLE LOGICIEL EST FOURNI \"EN L'ETAT\", SANS AUCUNE GARANTIE, EXPRESSE OU SOUS ENTENDUE, INCLUANT NOTAMENT LES GARANTIES DE COMMERCIALISATIONS, ADAPTATION A DES USAGES PARTICULIERS. EN AUCUN CAS, LES AUTEURS OU DETENTEURS DE DROITS NE PEUVENT ETRE TENUS POUR RESPONSABLES DE DOMMAGES ET AUTRES CONSEQUENCES, QUE CE SOIT DANS UN CADRE CONTRACTUEL, QUEL QU'EN SOIT LES TORTS, DECOULANTS DE, OU EN RAPPORT AVEC LE LOGICIEL, SA PROPRIETE OU SON UTILISATION.\n\nMerci, Maxime Desouches, pour la traduction française!";
+
+/* Autodetect Warning */
+"AutodetectWarning" = "MyFlightbook essaiera de détecter automatiquement les décollages et atterrissages et peut enregister les données du vol pour affichage ultérieur. Ces données ne sont pas aussi fiables que celles obtenues à partir d'un GPS-Avion.\n\nL'utilisation de cette fonctionnalité GPS en arrière-plan peut réduire considérablement la vie de la batterie.\n\nL’UTILISATION EN VOL PEUT ETRE ILLEGAL ET PROVOQUER UNE DISTRACTION. VOUS ETES RESPONSABLE DES CONSEQUENCES DE SON UTILISATION! VERIFIER 14 CFR 91.21 ET CFR 22.295 EN PARTICULIER , OU TOUTE REGLEMENTATION APPLICABLE A LA SITUATION.";
+
+/* Sharing prompt */
+"SharingPrompt" = "Activer Facebook et Twitter à http://myflightbook.com";
+
+/* Watch Glance - last flight */
+"LastFlight" = "Votre dernier vol était il ya %d jour(s)";
+
+/* Watch Glance - No data */
+"NoLastFlight" = "(Pas de vol récente a été trouvé)";
+
+/* Watch - Pause */
+"WatchPause" = "Pause";
+
+/* Watch - Resume */
+"WatchPlay" = "Reprise";
+
+/* Watch - Unreachable */
+"WatchNoReach" = "Impossible de se connecter à l'application sur iPhone";
+
+/* Security Questions */
+"SecurityQuestions" = "Quel était le nom de votre premier animal de compagnie?
+Où avez-vous sur votre lune de miel?
+Quels ont été les quatre derniers chiffres de votre numéro de téléphone de l'enfance?
+Quelle ville vous étiez dans le 31 décembre 1999?
+Quel était le nom de votre 4ème professeur de catégorie?
+Où étiez-vous quand vous avez eu votre première boisson alcoolisée?
+Quelle était la mascotte de votre école?
+Quelle est la marque de votre première voiture?
+Qui était votre héros d'enfance?
+Quel est le nom de votre ami d'enfance préféré?
+Quel est le nom de la réception de votre mariage lieu a eu lieu?";
+
+/* Approach Helper - Title */
+"ApproachHelper" = "Détails pour Approches aux instruments:";
+
+/* Approach Helper - Quantity */
+"NumApproaches" = "# d'approches";
+
+/* Approach Helper - Approach Name */
+"ApproachType" = "Type d'approche";
+
+/* Approach Helper - Runway */
+"ApproachRunway" = "Piste";
+
+/* Approach Helper - Airport */
+"ApproachAirport" = "Aéroport";
+
+/* Approach Helper - Add to approach count */
+"ApproachAddToCount" = "Ajouter au nombre total d'approches";
+
+/* Total Time Calculator - Prompt */
+"tcAddTimeRangePrompt" = "Si votre vol avait plusieurs segments, vous pouvez ajouter le temps total ici.";
+
+/* Total Time Calculator - Segment Start */
+"tcAddTimeStartPrompt" = "Début du segment:";
+
+/* Total Time Calculator - Segment End */
+"tcAddTimeEndPrompt" = "Fin de segment:";
+
+/* Total Time Calculator - Copy */
+"tcCopyResult" = "Copie";
+
+/* Total Time Calculator - Add */
+"tcAddSegment" = "Ajouter";
+
+/* Total Time Calculator - Add and update */
+"tcAddSegmentAndUpdate" = "Mettre à jour";
+
+/* Total Time Calculator - Error - bad times */
+"tcErrBadTime" = "Les horaires doivent être entre 00:00 et 24:00";

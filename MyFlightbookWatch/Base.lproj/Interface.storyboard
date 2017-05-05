@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch42" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11508"/>
+    </dependencies>
+    <scenes>
+        <!--New Flight-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller identifier="newFlightController" title="New Flight" id="AgC-eL-Hgc" customClass="CockpitInterfaceController" customModule="MyFlightbookWatch_Extension">
+                    <items>
+                        <group width="1" alignment="left" id="XAW-rX-sCE" userLabel="grpUnstarted">
+                            <items>
+                                <button width="1" alignment="center" title="Start" id="3wl-uG-bEo" userLabel="btnStartFlight">
+                                    <connections>
+                                        <action selector="startFlight" destination="AgC-eL-Hgc" id="wGs-PF-wp1"/>
+                                    </connections>
+                                </button>
+                            </items>
+                        </group>
+                        <group width="1" alignment="left" hidden="YES" layout="vertical" id="S7v-ub-XzZ" userLabel="grpInProgress">
+                            <items>
+                                <button width="1" alignment="left" title="Stop" id="DCK-pb-YMS" userLabel="btnFinishFlight">
+                                    <connections>
+                                        <action selector="endFlight" destination="AgC-eL-Hgc" id="j3m-la-eYO"/>
+                                    </connections>
+                                </button>
+                                <group width="1" alignment="left" id="fR5-YY-Tm6" userLabel="grpTimer">
+                                    <items>
+                                        <label alignment="center" text="00:00:00" id="v4u-hw-uIX"/>
+                                    </items>
+                                </group>
+                                <button alignment="left" verticalAlignment="center" id="aM3-Fg-mXb">
+                                    <group key="contentGroup" width="1" alignment="left" id="b7L-T3-cr2">
+                                        <items>
+                                            <imageView alignment="left" image="Pause.png" id="pvu-ZV-66Z"/>
+                                            <label alignment="center" text="(status)" id="gXe-ti-mdb"/>
+                                            <imageView alignment="right" verticalAlignment="center" image="Recording.png" id="tgk-Qt-c7m"/>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <action selector="pausePlay" destination="AgC-eL-Hgc" id="R03-ww-ZfK"/>
+                                    </connections>
+                                </button>
+                            </items>
+                        </group>
+                        <group width="1" alignment="left" hidden="YES" id="CHE-Du-W5Y" userLabel="grpFinished">
+                            <items>
+                                <label alignment="left" text="Your flight is ready to be submitted.  You can do this on your iPhone." numberOfLines="6" id="28e-TE-zBE">
+                                    <fontDescription key="font" style="UICTFontTextStyleBody"/>
+                                </label>
+                            </items>
+                        </group>
+                        <group width="1" alignment="left" verticalAlignment="bottom" id="7HC-eq-6ct" userLabel="grpGPS">
+                            <items>
+                                <group alignment="left" verticalAlignment="bottom" layout="vertical" id="TYF-b9-v6Z" userLabel="grpLatLon">
+                                    <items>
+                                        <label alignment="left" text="--" id="QA5-os-H6g"/>
+                                        <label alignment="left" text="--" id="cs5-da-haJ"/>
+                                    </items>
+                                </group>
+                                <group alignment="right" verticalAlignment="bottom" layout="vertical" id="TUE-bu-3jb" userLabel="grpSpeedAlt">
+                                    <items>
+                                        <label alignment="left" text="--" id="0zK-zA-yDY" userLabel="lblSpeed"/>
+                                        <label alignment="left" text="--" id="du3-Y8-lqu"/>
+                                    </items>
+                                </group>
+                            </items>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="btnEnd" destination="DCK-pb-YMS" id="OdH-xG-lu6"/>
+                        <outlet property="btnPausePlay" destination="aM3-Fg-mXb" id="H1B-GK-yar"/>
+                        <outlet property="btnStart" destination="3wl-uG-bEo" id="Okq-dY-HBi"/>
+                        <outlet property="grpFinished" destination="CHE-Du-W5Y" id="nSd-yQ-g4T"/>
+                        <outlet property="grpInProgress" destination="S7v-ub-XzZ" id="gnh-vs-dfg"/>
+                        <outlet property="grpUnstarted" destination="XAW-rX-sCE" id="Nqp-cG-hoL"/>
+                        <outlet property="imgPausePlay" destination="pvu-ZV-66Z" id="NNN-aj-akP"/>
+                        <outlet property="imgRecording" destination="tgk-Qt-c7m" id="gS2-Up-uu8"/>
+                        <outlet property="lblAlt" destination="du3-Y8-lqu" id="rgn-7V-EeL"/>
+                        <outlet property="lblLat" destination="QA5-os-H6g" id="LBe-W4-wjE"/>
+                        <outlet property="lblLon" destination="cs5-da-haJ" id="975-zL-5Oo"/>
+                        <outlet property="lblSpeed" destination="0zK-zA-yDY" id="3OW-BS-XWi"/>
+                        <outlet property="lblStatus" destination="gXe-ti-mdb" id="8ld-83-Pma"/>
+                        <outlet property="lblTimer" destination="v4u-hw-uIX" id="Qxi-Xm-aez"/>
+                        <segue destination="nTf-GX-DXe" kind="relationship" relationship="nextPage" id="7qs-dg-AMG"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="235" y="347"/>
+        </scene>
+        <!--Totals-->
+        <scene sceneID="AcB-q4-rW9">
+            <objects>
+                <controller identifier="totalsController" title="Totals" id="tOL-R1-d3W" customClass="TotalsInterfaceController" customModule="MyFlightbookWatch_Extension">
+                    <items>
+                        <table alignment="left" id="Tfz-kD-CTx">
+                            <items>
+                                <tableRow identifier="tblTotals" id="bQl-Sr-a8H" customClass="TotalsTableRowController" customModule="MyFlightbookWatch_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="LO0-4L-dhp">
+                                        <items>
+                                            <group width="120" alignment="left" layout="vertical" id="EtD-QV-eMo">
+                                                <items>
+                                                    <label alignment="left" text="(Total Title)" numberOfLines="3" id="bnr-IQ-0HI" userLabel="lblTotalTitle">
+                                                        <color key="textColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                                    </label>
+                                                    <label alignment="left" text="(Total Value)" id="hqE-VQ-Sp2" userLabel="lblTotalValue">
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
+                                                    </label>
+                                                </items>
+                                            </group>
+                                            <label alignment="left" text="(Total sub values)" numberOfLines="3" id="3JG-ve-Z4o" userLabel="lblSubdesc">
+                                                <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                            </label>
+                                        </items>
+                                        <color key="backgroundColor" red="0.87805986404418945" green="0.87803357839584351" blue="0.87804853916168213" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="lblTotalsSubDesc" destination="3JG-ve-Z4o" id="dad-bI-xLK"/>
+                                        <outlet property="lblTotalsTitle" destination="bnr-IQ-0HI" id="lc2-Xh-RbN"/>
+                                        <outlet property="lblTotalsValue" destination="hqE-VQ-Sp2" id="IIW-GM-Veb"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                        <label alignment="left" text="No totals are available.  Make sure you are signed in , and force-press to refresh." numberOfLines="5" id="QPq-4Q-DAs" userLabel="lblError"/>
+                    </items>
+                    <menu key="menu" id="2mv-ib-vzK">
+                        <items>
+                            <menuItem title="Refresh" icon="resume" id="ouE-ce-g91">
+                                <connections>
+                                    <action selector="refresh" destination="tOL-R1-d3W" id="mgD-m3-SNw"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                    <connections>
+                        <outlet property="lblError" destination="QPq-4Q-DAs" id="Ajj-Nc-ctQ"/>
+                        <outlet property="table" destination="Tfz-kD-CTx" id="CzX-YI-mjg"/>
+                        <segue destination="jxf-FK-QQY" kind="relationship" relationship="nextPage" id="pmF-V0-Osc"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="638" y="347"/>
+        </scene>
+        <!--recentFlightsController-->
+        <scene sceneID="SPD-H5-fCq">
+            <objects>
+                <controller identifier="recentsController" title="Recents" id="nTf-GX-DXe" userLabel="recentFlightsController" customClass="RecentsInterfaceController" customModule="MyFlightbookWatch_Extension">
+                    <items>
+                        <table alignment="left" id="ElS-fm-sFT">
+                            <items>
+                                <tableRow identifier="tblRecents" id="JCU-Ll-iOg" customClass="RecentsTableRowController" customModule="MyFlightbookWatch_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="Oe9-yz-ed8">
+                                        <items>
+                                            <group width="1" alignment="left" id="joN-IV-PpX" userLabel="grpDateAndTime">
+                                                <items>
+                                                    <label alignment="left" text="(Date)" id="sct-u8-VI5" userLabel="(lblDate)">
+                                                        <color key="textColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                                    </label>
+                                                    <label alignment="right" text="(Time)" id="kzR-VQ-JhG" userLabel="lblTotalTime">
+                                                        <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
+                                                    </label>
+                                                </items>
+                                            </group>
+                                            <label alignment="left" text="(Route)" id="fht-DO-PGT" userLabel="(lbl Route)">
+                                                <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
+                                            </label>
+                                            <label alignment="left" text="(Comments)" numberOfLines="3" id="TQn-WP-2i6" userLabel="(lblComment)">
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
+                                            </label>
+                                        </items>
+                                        <color key="backgroundColor" red="0.87805986404418945" green="0.87803357839584351" blue="0.87804853916168213" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="lblComment" destination="TQn-WP-2i6" id="7W2-ZT-mUA"/>
+                                        <outlet property="lblDate" destination="sct-u8-VI5" id="vuE-l4-gqh"/>
+                                        <outlet property="lblRoute" destination="fht-DO-PGT" id="aH1-ed-hNG"/>
+                                        <outlet property="lblTotal" destination="kzR-VQ-JhG" id="5nI-cJ-Qi9"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                        <label alignment="left" text="No flights are available.  Make sure you are signed in , and force-press to refresh." numberOfLines="6" id="1JO-7S-UDd" userLabel="lblError"/>
+                    </items>
+                    <menu key="menu" id="KWU-4p-p4k">
+                        <items>
+                            <menuItem title="Refresh" icon="resume" id="zLb-3A-hc6">
+                                <connections>
+                                    <action selector="refresh" destination="nTf-GX-DXe" id="fGd-f3-3WE"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                    <connections>
+                        <outlet property="lblError" destination="1JO-7S-UDd" id="1cY-hX-g7X"/>
+                        <outlet property="table" destination="ElS-fm-sFT" id="M2q-DT-CBI"/>
+                        <segue destination="tOL-R1-d3W" kind="relationship" relationship="nextPage" id="aMK-z2-Nho"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="432" y="347"/>
+        </scene>
+        <!--Currency-->
+        <scene sceneID="Z8c-Ny-l0b">
+            <objects>
+                <controller identifier="currencyController" title="Currency" id="jxf-FK-QQY" customClass="CurrencyInterfaceController" customModule="MyFlightbookWatch_Extension">
+                    <items>
+                        <table alignment="left" id="UCK-9d-Di6">
+                            <items>
+                                <tableRow identifier="tblCurrency" id="UNM-A7-wVd" customClass="CurrencyTableRowController" customModule="MyFlightbookWatch_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="Klu-OL-v4A">
+                                        <items>
+                                            <label alignment="left" text="(Currency Attribute)" numberOfLines="2" id="kcd-ex-Ed6" userLabel="lblCurrencyTitle">
+                                                <color key="textColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                            </label>
+                                            <label alignment="left" text="(Currency Expiration)" numberOfLines="2" id="6jE-c6-txL" userLabel="lblCurrencyStatus">
+                                                <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
+                                            </label>
+                                            <label alignment="left" text="(Currency Discrepancy)" id="I7C-Za-7j8" userLabel="lblCurrencyDiscrepancy">
+                                                <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                            </label>
+                                        </items>
+                                        <color key="backgroundColor" red="0.87805986404418945" green="0.87803357839584351" blue="0.87804853916168213" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="lblCurrencyDiscrepancy" destination="I7C-Za-7j8" id="xrj-e9-ZXp"/>
+                                        <outlet property="lblCurrencyStatus" destination="6jE-c6-txL" id="Zga-IC-JHP"/>
+                                        <outlet property="lblCurrencyTitle" destination="kcd-ex-Ed6" id="QlV-HC-kbF"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                        <label alignment="left" text="No currency is available.  Make sure you are signed in , and force-press to refresh." numberOfLines="5" id="JPe-4X-D0f" userLabel="lblError"/>
+                    </items>
+                    <menu key="menu" id="7vd-Od-S3U">
+                        <items>
+                            <menuItem title="Refresh" icon="resume" id="5Hx-73-LFQ">
+                                <connections>
+                                    <action selector="refresh" destination="jxf-FK-QQY" id="k5b-HE-mOC"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                    <connections>
+                        <outlet property="lblError" destination="JPe-4X-D0f" id="veY-a2-i5n"/>
+                        <outlet property="table" destination="UCK-9d-Di6" id="M19-y7-oTj"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="840" y="347"/>
+        </scene>
+        <!--Static Notification Interface Controller-->
+        <scene sceneID="AEw-b0-oYE">
+            <objects>
+                <notificationController id="YCC-NB-fut">
+                    <items>
+                        <label alignment="left" text="Alert Label" id="XkS-y5-khE"/>
+                    </items>
+                    <notificationCategory key="notificationCategory" identifier="myCategory" id="JfB-70-Muf"/>
+                    <connections>
+                        <outlet property="notificationAlertLabel" destination="XkS-y5-khE" id="49B-RR-99y"/>
+                        <segue destination="gdX-wl-uQE" kind="relationship" relationship="dynamicNotificationInterface" id="fKh-qV-3T2"/>
+                    </connections>
+                </notificationController>
+            </objects>
+            <point key="canvasLocation" x="235" y="1001"/>
+        </scene>
+        <!--Notification Controller-->
+        <scene sceneID="KIl-fV-djm">
+            <objects>
+                <controller id="gdX-wl-uQE" customClass="NotificationController" customModule="MyFlightbookWatch" customModuleProvider="target"/>
+            </objects>
+            <point key="canvasLocation" x="553" y="1001"/>
+        </scene>
+    </scenes>
+</document>

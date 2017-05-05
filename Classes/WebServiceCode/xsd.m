@@ -1,0 +1,11 @@
+#import "xsd.h"
+#import <libxml/xmlstring.h>
+#if TARGET_OS_IPHONE
+#import <CFNetwork/CFNetwork.h>
+#endif
+#ifndef ADVANCED_AUTHENTICATION
+#define ADVANCED_AUTHENTICATION 0
+#endif
+#if ADVANCED_AUTHENTICATION && TARGET_OS_IPHONE
+#import <Security/Security.h>
+#endif

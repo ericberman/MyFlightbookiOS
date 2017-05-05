@@ -1,0 +1,105 @@
+
+/* Class = "UIViewController"; title = "Profile"; ObjectID = "159"; */
+"159.title" = "Profile";
+
+/* Class = "UITabBarItem"; title = "Profile"; ObjectID = "160"; */
+"160.title" = "Profile";
+
+/* Class = "UIViewController"; title = "Totals"; ObjectID = "169"; */
+"169.title" = "Totals";
+
+/* Class = "UITabBarItem"; title = "Totaux"; ObjectID = "170"; */
+"170.title" = "Totaux";
+
+/* Class = "UITableViewController"; title = "Currency"; ObjectID = "173"; */
+"173.title" = "Currency";
+
+/* Class = "UITabBarItem"; title = "Statut"; ObjectID = "174"; */
+"174.title" = "Statut";
+
+/* Class = "UINavigationController"; title = "newFlight"; ObjectID = "181"; */
+"181.title" = "newFlight";
+
+/* Class = "UITabBarItem"; title = "Nouveau vol"; ObjectID = "182"; */
+"182.title" = "Nouveau vol";
+
+/* Class = "UIViewController"; title = "editFlight"; ObjectID = "183"; */
+"183.title" = "editFlight";
+
+/* Class = "UINavigationItem"; title = "Nouveau vol"; ObjectID = "184"; */
+"184.title" = "Nouveau vol";
+
+/* Class = "UINavigationController"; title = "recentFlights"; ObjectID = "201"; */
+"201.title" = "recentFlights";
+
+/* Class = "UINavigationItem"; title = "Vols Récents"; ObjectID = "204"; */
+"204.title" = "Vols Récents";
+
+/* Class = "UIBarButtonItem"; title = "Remise à zéro"; ObjectID = "210"; */
+"210.title" = "Remise à zéro";
+
+/* Class = "UINavigationController"; title = "MyAircraft"; ObjectID = "214"; */
+"214.title" = "MyAircraft";
+
+/* Class = "UITabBarItem"; title = "Aéronefs"; ObjectID = "215"; */
+"215.title" = "Aéronefs";
+
+/* Class = "UIViewController"; title = "My Aircraft"; ObjectID = "216"; */
+"216.title" = "My Aircraft";
+
+/* Class = "UINavigationItem"; title = "Aéronefs"; ObjectID = "217"; */
+"217.title" = "Aéronefs";
+
+/* Class = "UINavigationController"; title = "Flying Currency"; ObjectID = "219"; */
+"219.title" = "Flying Currency";
+
+/* Class = "UINavigationController"; title = "Flying Totals"; ObjectID = "223"; */
+"223.title" = "Flying Totals";
+
+/* Class = "UINavigationItem"; title = "Statut des compétences"; ObjectID = "227"; */
+"227.title" = "Statut des compétences";
+
+/* Class = "UINavigationItem"; title = "Totaux"; ObjectID = "228"; */
+"228.title" = "Totaux";
+
+/* Class = "UINavigationController"; title = "Profile"; ObjectID = "234"; */
+"234.title" = "Profile";
+
+/* Class = "UITabBarItem"; title = "Profile"; ObjectID = "238"; */
+"238.title" = "Profile";
+
+/* Class = "UINavigationItem"; title = "Profile"; ObjectID = "239"; */
+"239.title" = "Profile";
+
+/* Class = "UINavigationController"; title = "Visited"; ObjectID = "246"; */
+"246.title" = "Visited";
+
+/* Class = "UIViewController"; title = "Aéroports Visités"; ObjectID = "248"; */
+"248.title" = "Aéroports Visités";
+
+/* Class = "UINavigationItem"; title = "Aéroports visités"; ObjectID = "249"; */
+"249.title" = "Aéroports visités";
+
+/* Class = "UITabBarItem"; title = "Visités"; ObjectID = "250"; */
+"250.title" = "Visités";
+
+/* Class = "UINavigationItem"; title = "Formation"; ObjectID = "6lA-P9-7rX"; */
+"6lA-P9-7rX.title" = "Formation";
+
+/* Class = "UINavigationController"; title = "Training"; ObjectID = "CNf-n2-7iz"; */
+"CNf-n2-7iz.title" = "Training";
+
+/* Class = "UIViewController"; title = "Plus proche"; ObjectID = "J1a-bI-O91"; */
+"J1a-bI-O91.title" = "Plus proche";
+
+/* Class = "UINavigationItem"; title = "Plus proche"; ObjectID = "NfM-l4-11B"; */
+"NfM-l4-11B.title" = "Plus proche";
+
+/* Class = "UIViewController"; title = "Formation"; ObjectID = "W3A-jv-s8H"; */
+"W3A-jv-s8H.title" = "Formation";
+
+/* Class = "UITabBarItem"; title = "Plus proche"; ObjectID = "Myn-AJ-tv7"; */
+"Myn-AJ-tv7.title" = "Plus proche";
+
+/* Class = "UITabBarItem"; title = "Formation"; ObjectID = "kBm-gw-uQu"; */
+"kBm-gw-uQu.title" = "Formation";

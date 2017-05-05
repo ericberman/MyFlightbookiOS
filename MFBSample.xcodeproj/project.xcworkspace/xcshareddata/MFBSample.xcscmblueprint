@@ -1,0 +1,35 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "55bf5bd2-5cbb-4bdb-bb92-2b1674955497++4928",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "639f78d5-f54e-0410-a9bb-231162db69cc++505" : {
+
+    },
+    "55bf5bd2-5cbb-4bdb-bb92-2b1674955497++4928" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "639f78d5-f54e-0410-a9bb-231162db69cc++505" : 0,
+    "55bf5bd2-5cbb-4bdb-bb92-2b1674955497++4928" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "7A235F0F-08AA-46EE-AC9B-1D7579C51207",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "639f78d5-f54e-0410-a9bb-231162db69cc++505" : "MyFlightbook\/MFBIphone\/wsdl2objcRW\/",
+    "55bf5bd2-5cbb-4bdb-bb92-2b1674955497++4928" : "MyFlightbook\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "MFBSample",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "MFBIphone\/MFBSample.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/webmail.hothpark.com:8443\/svn\/repos",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "55bf5bd2-5cbb-4bdb-bb92-2b1674955497++4928"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/wsdl2objc.googlecode.com\/svn",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "639f78d5-f54e-0410-a9bb-231162db69cc++505"
+    }
+  ]
+}

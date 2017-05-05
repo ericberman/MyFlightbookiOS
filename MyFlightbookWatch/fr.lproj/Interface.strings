@@ -1,0 +1,96 @@
+
+/* Class = "WKInterfaceLabel"; text = "(Speed)"; ObjectID = "0zK-zA-yDY"; */
+"0zK-zA-yDY.text" = "(Speed)";
+
+/* Class = "WKInterfaceDate"; format = "HH:mm:ss z"; ObjectID = "1A2-SN-xwQ"; */
+"1A2-SN-xwQ.format" = "HH:mm:ss z";
+
+/* Class = "WKInterfaceLabel"; text = "(error)"; ObjectID = "1JO-7S-UDd"; */
+"1JO-7S-UDd.text" = "Aucun vol sont disponibles. Assurez-vous que vous êtes connecté, et la force-presse pour se rafraîchir.";
+
+/* Class = "WKInterfaceLabel"; text = "Votre vol est prêt à être soumis. Vous pouvez le faire sur votre iPhone."; ObjectID = "28e-TE-zBE"; */
+"28e-TE-zBE.text" = "Votre vol est prêt à être soumis. Vous pouvez le faire sur votre iPhone.";
+
+/* Class = "WKInterfaceLabel"; text = "Label"; ObjectID = "3JG-ve-Z4o"; */
+"3JG-ve-Z4o.text" = "Label";
+
+/* Class = "WKInterfaceButton"; title = "Commencer"; ObjectID = "3wl-uG-bEo"; */
+"3wl-uG-bEo.title" = "Commencer";
+
+/* Class = "WKInterfaceMenuItem"; title = "Synchronisez"; ObjectID = "5Hx-73-LFQ"; */
+"5Hx-73-LFQ.title" = "Synchronisez";
+
+/* Class = "WKInterfaceLabel"; text = "Label"; ObjectID = "6jE-c6-txL"; */
+"6jE-c6-txL.text" = "Label";
+
+/* Class = "WKInterfaceController"; title = "Nouveau vol"; ObjectID = "AgC-eL-Hgc"; */
+"AgC-eL-Hgc.title" = "Nouveau vol";
+
+/* Class = "WKInterfaceButton"; title = "Arrêter"; ObjectID = "DCK-pb-YMS"; */
+"DCK-pb-YMS.title" = "Arrêter";
+
+/* Class = "WKInterfaceLabel"; text = "Label"; ObjectID = "I7C-Za-7j8"; */
+"I7C-Za-7j8.text" = "Label";
+
+/* Class = "WKInterfaceLabel"; text = "(error)"; ObjectID = "JPe-4X-D0f"; */
+"JPe-4X-D0f.text" = "Statut ne sont pas disponibles. Assurez-vous que vous êtes connecté, et la force-presse pour se rafraîchir.";
+
+/* Class = "WKInterfaceLabel"; text = "(Latitude)"; ObjectID = "QA5-os-H6g"; */
+"QA5-os-H6g.text" = "(Latitude)";
+
+/* Class = "WKInterfaceLabel"; text = "(error)"; ObjectID = "QPq-4Q-DAs"; */
+"QPq-4Q-DAs.text" = "Aucun totaux sont disponibles. Assurez-vous que vous êtes connecté, et la force-presse pour se rafraîchir.";
+
+/* Class = "WKInterfaceLabel"; text = "(Comments)"; ObjectID = "TQn-WP-2i6"; */
+"TQn-WP-2i6.text" = "(Comments)";
+
+/* Class = "WKInterfaceLabel"; text = "Alert Label"; ObjectID = "XkS-y5-khE"; */
+"XkS-y5-khE.text" = "Alert Label";
+
+/* Class = "WKInterfaceLabel"; text = "Label"; ObjectID = "bnr-IQ-0HI"; */
+"bnr-IQ-0HI.text" = "Label";
+
+/* Class = "WKInterfaceLabel"; text = "(Longitude)"; ObjectID = "cs5-da-haJ"; */
+"cs5-da-haJ.text" = "(Longitude)";
+
+/* Class = "WKInterfaceLabel"; text = "(Alt)"; ObjectID = "du3-Y8-lqu"; */
+"du3-Y8-lqu.text" = "(Alt)";
+
+/* Class = "WKInterfaceLabel"; text = "(Route)"; ObjectID = "fht-DO-PGT"; */
+"fht-DO-PGT.text" = "(Route)";
+
+/* Class = "WKInterfaceLabel"; text = "(status)"; ObjectID = "gXe-ti-mdb"; */
+"gXe-ti-mdb.text" = "(status)";
+
+/* Class = "WKInterfaceDate"; format = "HH:mm:ss 'UTC'"; ObjectID = "hHA-jA-z4v"; */
+"hHA-jA-z4v.format" = "HH:mm:ss 'UTC'";
+
+/* Class = "WKInterfaceLabel"; text = "Label"; ObjectID = "hqE-VQ-Sp2"; */
+"hqE-VQ-Sp2.text" = "Label";
+
+/* Class = "WKInterfaceController"; title = "Statut"; ObjectID = "jxf-FK-QQY"; */
+"jxf-FK-QQY.title" = "Statut";
+
+/* Class = "WKInterfaceLabel"; text = "Label"; ObjectID = "kcd-ex-Ed6"; */
+"kcd-ex-Ed6.text" = "Label";
+
+/* Class = "WKInterfaceLabel"; text = "(Time)"; ObjectID = "kzR-VQ-JhG"; */
+"kzR-VQ-JhG.text" = "(Time)";
+
+/* Class = "WKInterfaceController"; title = "Historique"; ObjectID = "nTf-GX-DXe"; */
+"nTf-GX-DXe.title" = "Historique";
+
+/* Class = "WKInterfaceMenuItem"; title = "Synchronisez"; ObjectID = "ouE-ce-g91"; */
+"ouE-ce-g91.title" = "Synchronisez";
+
+/* Class = "WKInterfaceLabel"; text = "(Date)"; ObjectID = "sct-u8-VI5"; */
+"sct-u8-VI5.text" = "(Date)";
+
+/* Class = "WKInterfaceController"; title = "Totaux"; ObjectID = "tOL-R1-d3W"; */
+"tOL-R1-d3W.title" = "Totaux";
+
+/* Class = "WKInterfaceLabel"; text = "00:00:00"; ObjectID = "v4u-hw-uIX"; */
+"v4u-hw-uIX.text" = "00:00:00";
+
+/* Class = "WKInterfaceMenuItem"; title = "Synchronisez"; ObjectID = "zLb-3A-hc6"; */
+"zLb-3A-hc6.title" = "Synchronisez";

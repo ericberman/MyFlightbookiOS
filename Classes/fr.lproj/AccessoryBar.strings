@@ -1,0 +1,12 @@
+
+/* Class = "UIBarButtonItem"; title = "Delete"; ObjectID = "4"; */
+"4.title" = "Supprimer";
+
+/* Class = "UIBarButtonItem"; title = "Done"; ObjectID = "5"; */
+"5.title" = "OK";
+
+/* Class = "UIBarButtonItem"; title = "Next"; ObjectID = "7"; */
+"7.title" = "Suivant";
+
+/* Class = "UIBarButtonItem"; title = "Previous"; ObjectID = "8"; */
+"8.title" = "Précédent";
