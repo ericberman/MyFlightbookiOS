@@ -19,6 +19,16 @@ Most everything in the project includes MFBAppDelegate.h.  This defines "MFBHOST
 
 There is a #ifdef DEBUG surrounding an alternative DNS name; set this to whatever test environment you are using.  Note that the structure must still be https://{MFBHOSTNAME}/logbook/{rest of URL}.
 
+I *STRONGLY* recommend creating an additional scheme to test retail vs. debug mode.  There are a few differences in functionality between the two modes:
+* The aforementioend MFBHOSTNAME determines which server you will hit.  PLEASE DO NOT USE THE LIVE SITE if you will be changing any data.  I can point you to a test server.  
+* Most significant functional difference: if DEBUG is defined, starting the engine will simulate a series of GPS events.
+* Some logging only occurs when DEBUG is allowed
+* You can only use HTTP with a 192.* address (i.e., local); otherwise, must be HTTPS
+
+Note that you can tell which server you are using by going to the Profile tab, tapping "About MyFlightbook", and then scrolling to the bottom; it will show you the following information:
+[MFBHostname] [Takeoff Speed] [Landing Speed] [Version]
+E.g., "MyFlightbook.com 70 55 3.0.1"
+
 ## 3 Using Soap
 MyFlightbook uses SOAP (no snickering) to make it's web service calls.  You can find the current WSDL [here](http://myflightbook.com/logbook/public/webservice.asmx?WSDL).  
 
