@@ -11,7 +11,6 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		28216C970DB411BC00E5133A /* LEEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28216C960DB411BC00E5133A /* LEEditController.m */; };
 		9A020B3310FFEF3F00801349 /* RecentFlights.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A020B3110FFEF3F00801349 /* RecentFlights.m */; };
-		9A05C955133840EF0078ABE4 /* cameramarker.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A05C954133840EF0078ABE4 /* cameramarker.png */; };
 		9A0C938511E63A850062AF27 /* FlightProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C938311E63A850062AF27 /* FlightProperties.m */; };
 		9A0DD9F8158579BE00FB6DF2 /* FixedImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0DD9F7158579BE00FB6DF2 /* FixedImageCell.m */; };
 		9A0EDBC31288FD9C00153C6E /* Default-Landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A0EDBC01288FD9C00153C6E /* Default-Landscape.png */; };
@@ -156,11 +155,6 @@
 		9A84718A11EBE3EE00395608 /* Icon-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A84718911EBE3EE00395608 /* Icon-iPad.png */; };
 		9A87ECCC10FB94A2009D1BEE /* about.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A87ECCA10FB94A2009D1BEE /* about.m */; };
 		9A897FC711B7299F00E98C93 /* mfb.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FC611B7299F00E98C93 /* mfb.sqlite */; };
-		9A897FD4166688D000D9019C /* cameramarker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FD3166688D000D9019C /* cameramarker@2x.png */; };
-		9A897FD7166688E200D9019C /* siginvalid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FD5166688E100D9019C /* siginvalid@2x.png */; };
-		9A897FD8166688E200D9019C /* sigok@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FD6166688E100D9019C /* sigok@2x.png */; };
-		9A897FDA16668D7B00D9019C /* sigok.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FD916668D7A00D9019C /* sigok.png */; };
-		9A897FDC16668D8F00D9019C /* siginvalid.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FDB16668D8C00D9019C /* siginvalid.png */; };
 		9A897FDE1666919100D9019C /* centermap@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FDD1666919000D9019C /* centermap@2x.png */; };
 		9A897FE011B72A4800E98C93 /* LocalAirports.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A897FDF11B72A4800E98C93 /* LocalAirports.m */; };
 		9A897FE01666B39800D9019C /* sunrise@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FDF1666B39700D9019C /* sunrise@2x.png */; };
@@ -294,6 +288,12 @@
 		9AAA7CE11715E4CA00429F78 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AAA7CDC1715E4CA00429F78 /* Icon@2x.png */; };
 		9AAE151519DA71D7000FC586 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AAE151319DA71D7000FC586 /* Launch Screen.xib */; };
 		9AB8B349170347BA0012E3CE /* NavigableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AB8B348170347BA0012E3CE /* NavigableCell.m */; };
+		9ABC6B391EBCD96C00EE9C97 /* cameramarker.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ABC6B371EBCD96C00EE9C97 /* cameramarker.png */; };
+		9ABC6B3A1EBCD96C00EE9C97 /* cameramarker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ABC6B381EBCD96C00EE9C97 /* cameramarker@2x.png */; };
+		9ABC6B3F1EBCD9E100EE9C97 /* siginvalid.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ABC6B3B1EBCD9E100EE9C97 /* siginvalid.png */; };
+		9ABC6B401EBCD9E100EE9C97 /* siginvalid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ABC6B3C1EBCD9E100EE9C97 /* siginvalid@2x.png */; };
+		9ABC6B411EBCD9E100EE9C97 /* sigok.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ABC6B3D1EBCD9E100EE9C97 /* sigok.png */; };
+		9ABC6B421EBCD9E100EE9C97 /* sigok@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ABC6B3E1EBCD9E100EE9C97 /* sigok@2x.png */; };
 		9AC264341BE6CEA900914D30 /* Recording.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A196C2F112312EB007A7DD1 /* Recording.png */; };
 		9AC264351BE6CEA900914D30 /* Recording@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A5E746D1710E8F7004C58CC /* Recording@2x.png */; };
 		9AC264361BE6CEA900914D30 /* Recording@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A902D7D1A210E7700698017 /* Recording@3x.png */; };
@@ -445,7 +445,6 @@
 		8D1107310486CEB800E47090 /* MFBSample-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MFBSample-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		9A020B3010FFEF3F00801349 /* RecentFlights.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentFlights.h; sourceTree = "<group>"; };
 		9A020B3110FFEF3F00801349 /* RecentFlights.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentFlights.m; sourceTree = "<group>"; };
-		9A05C954133840EF0078ABE4 /* cameramarker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cameramarker.png; path = ../images/cameramarker.png; sourceTree = "<group>"; };
 		9A0C938211E63A850062AF27 /* FlightProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlightProperties.h; sourceTree = "<group>"; };
 		9A0C938311E63A850062AF27 /* FlightProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlightProperties.m; sourceTree = "<group>"; };
 		9A0DD9F6158579BE00FB6DF2 /* FixedImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixedImageCell.h; sourceTree = "<group>"; };
@@ -630,11 +629,6 @@
 		9A87F5121BD172AB00F9479D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AccessoryBar.strings; sourceTree = "<group>"; };
 		9A87F51A1BD2AF5100F9479D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = "fr.lproj/LEEditController-iPad.strings"; sourceTree = "<group>"; };
 		9A897FC611B7299F00E98C93 /* mfb.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = mfb.sqlite; sourceTree = "<group>"; };
-		9A897FD3166688D000D9019C /* cameramarker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cameramarker@2x.png"; path = "../images/cameramarker@2x.png"; sourceTree = "<group>"; };
-		9A897FD5166688E100D9019C /* siginvalid@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "siginvalid@2x.png"; path = "../images/siginvalid@2x.png"; sourceTree = "<group>"; };
-		9A897FD6166688E100D9019C /* sigok@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sigok@2x.png"; path = "../images/sigok@2x.png"; sourceTree = "<group>"; };
-		9A897FD916668D7A00D9019C /* sigok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sigok.png; path = ../images/sigok.png; sourceTree = "<group>"; };
-		9A897FDB16668D8C00D9019C /* siginvalid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = siginvalid.png; path = ../images/siginvalid.png; sourceTree = "<group>"; };
 		9A897FDD1666919000D9019C /* centermap@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "centermap@2x.png"; sourceTree = "<group>"; };
 		9A897FDE11B72A4800E98C93 /* LocalAirports.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocalAirports.h; path = ../LocalAirports.h; sourceTree = "<group>"; };
 		9A897FDF11B72A4800E98C93 /* LocalAirports.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocalAirports.m; path = ../LocalAirports.m; sourceTree = "<group>"; };
@@ -771,6 +765,12 @@
 		9AB8B347170347BA0012E3CE /* NavigableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigableCell.h; sourceTree = "<group>"; };
 		9AB8B348170347BA0012E3CE /* NavigableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigableCell.m; sourceTree = "<group>"; };
 		9ABC6B361EBCD74300EE9C97 /* ApiKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApiKeys.h; sourceTree = "<group>"; };
+		9ABC6B371EBCD96C00EE9C97 /* cameramarker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cameramarker.png; sourceTree = "<group>"; };
+		9ABC6B381EBCD96C00EE9C97 /* cameramarker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cameramarker@2x.png"; sourceTree = "<group>"; };
+		9ABC6B3B1EBCD9E100EE9C97 /* siginvalid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = siginvalid.png; sourceTree = "<group>"; };
+		9ABC6B3C1EBCD9E100EE9C97 /* siginvalid@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "siginvalid@2x.png"; sourceTree = "<group>"; };
+		9ABC6B3D1EBCD9E100EE9C97 /* sigok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sigok.png; sourceTree = "<group>"; };
+		9ABC6B3E1EBCD9E100EE9C97 /* sigok@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sigok@2x.png"; sourceTree = "<group>"; };
 		9AC4E1AB10FA509A0075CC1B /* imageSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imageSelector.h; sourceTree = "<group>"; };
 		9AC4E1AC10FA509A0075CC1B /* imageSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = imageSelector.m; sourceTree = "<group>"; };
 		9AC6AF0A1BD01575004AB2E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Base.lproj/Launch Screen.xib"; sourceTree = "<group>"; };
@@ -1208,8 +1208,8 @@
 				9A902D761A210C9900698017 /* backspace@3x.png */,
 				9ACD18BA11023CEE00B294F7 /* btnBack.png */,
 				9ACD18BB11023CEE00B294F7 /* btnForward.png */,
-				9A05C954133840EF0078ABE4 /* cameramarker.png */,
-				9A897FD3166688D000D9019C /* cameramarker@2x.png */,
+				9ABC6B371EBCD96C00EE9C97 /* cameramarker.png */,
+				9ABC6B381EBCD96C00EE9C97 /* cameramarker@2x.png */,
 				9AAA71E710EEC97300D5D3B6 /* centermap.png */,
 				9A897FDD1666919000D9019C /* centermap@2x.png */,
 				9A902D731A210BF100698017 /* centermap@3x.png */,
@@ -1281,11 +1281,11 @@
 				9A52ECAF1B6574D000DE8A83 /* schedule.png */,
 				9A52ECB01B6574D000DE8A83 /* schedule@2x.png */,
 				9A52ECB11B6574D000DE8A83 /* schedule@3x.png */,
-				9A897FDB16668D8C00D9019C /* siginvalid.png */,
-				9A897FD5166688E100D9019C /* siginvalid@2x.png */,
+				9ABC6B3B1EBCD9E100EE9C97 /* siginvalid.png */,
+				9ABC6B3C1EBCD9E100EE9C97 /* siginvalid@2x.png */,
+				9ABC6B3D1EBCD9E100EE9C97 /* sigok.png */,
+				9ABC6B3E1EBCD9E100EE9C97 /* sigok@2x.png */,
 				9A902D7F1A210F2700698017 /* siginvalid@3x.png */,
-				9A897FD916668D7A00D9019C /* sigok.png */,
-				9A897FD6166688E100D9019C /* sigok@2x.png */,
 				9A902D801A210F2700698017 /* sigok@3x.png */,
 				9A16571D14DC59B8004FDC35 /* sunrise.png */,
 				9A897FDF1666B39700D9019C /* sunrise@2x.png */,
@@ -1732,6 +1732,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A1014BD10DD551800FA37D4 /* Icon.png in Resources */,
+				9ABC6B3F1EBCD9E100EE9C97 /* siginvalid.png in Resources */,
 				9A1014C110DD56A500FA37D4 /* icon-small.png in Resources */,
 				9A902D621A21078300698017 /* totals@3x.png in Resources */,
 				9A1014C310DD57DE00FA37D4 /* iTunesArtwork in Resources */,
@@ -1754,6 +1755,7 @@
 				9A4F3B5A18177BA1009E575C /* Icon-iPadRetina152x152.png in Resources */,
 				9A1A8B951EAA560F008F938B /* .gitignore in Resources */,
 				9A196C30112312EB007A7DD1 /* Recording.png in Resources */,
+				9ABC6B401EBCD9E100EE9C97 /* siginvalid@2x.png in Resources */,
 				9A58E0541131AC4C005988FA /* aircraft.png in Resources */,
 				9AA0BBEE113DEDF50032DA0F /* noSound.wav in Resources */,
 				9A6DDB9511A8547D0053C8AA /* MFBIcon.gif in Resources */,
@@ -1763,8 +1765,8 @@
 				9A84718A11EBE3EE00395608 /* Icon-iPad.png in Resources */,
 				9A0EDBC31288FD9C00153C6E /* Default-Landscape.png in Resources */,
 				9A0EDBC41288FD9C00153C6E /* Default-Portrait.png in Resources */,
+				9ABC6B411EBCD9E100EE9C97 /* sigok.png in Resources */,
 				9A0EDBDF1289021100153C6E /* Default-PortraitUpsideDown.png in Resources */,
-				9A05C955133840EF0078ABE4 /* cameramarker.png in Resources */,
 				9AEC4CA313AD4B7C0044897B /* Pause.png in Resources */,
 				9ADFA4F6193921CA00FF30B7 /* currency@2x.png in Resources */,
 				9A20B155192D34E600A8F64F /* LICENCE.md in Resources */,
@@ -1844,6 +1846,7 @@
 				9A954D481531FBD6000E00ED /* PrepFlight.xib.txt in Resources */,
 				9A902D821A210F2700698017 /* sigok@3x.png in Resources */,
 				9A60CAE2180DFCFF00BE813A /* EditCellNoLabel.xib in Resources */,
+				9ABC6B391EBCD96C00EE9C97 /* cameramarker.png in Resources */,
 				9A954D491531FBD6000E00ED /* ProfileEditController-iPad.xib.txt in Resources */,
 				9A954D4A1531FBD6000E00ED /* ProfileEditController.xib.txt in Resources */,
 				9A954D4B1531FBD6000E00ED /* RecentFlights.xib.txt in Resources */,
@@ -1878,6 +1881,7 @@
 				9A954DA71531FBFC000E00ED /* MyAircraft.xib.txt in Resources */,
 				9A52ECB31B6574D000DE8A83 /* schedule@2x.png in Resources */,
 				9A954DA81531FBFC000E00ED /* NearbyAirports.xib.txt in Resources */,
+				9ABC6B3A1EBCD96C00EE9C97 /* cameramarker@2x.png in Resources */,
 				9A954DA91531FBFC000E00ED /* NewAircraft-iPad.xib.txt in Resources */,
 				9A954DAA1531FBFC000E00ED /* NewAircraft.xib.txt in Resources */,
 				9A954DAB1531FBFC000E00ED /* newuser.xib.txt in Resources */,
@@ -1907,11 +1911,7 @@
 				9A902D7A1A210D2200698017 /* airport@3x.png in Resources */,
 				9AA77D8A1618CAC000B36935 /* Default-Landscape@2x.png in Resources */,
 				9AA77D8B1618CAC000B36935 /* Default-Portrait@2x.png in Resources */,
-				9A897FD4166688D000D9019C /* cameramarker@2x.png in Resources */,
-				9A897FD7166688E200D9019C /* siginvalid@2x.png in Resources */,
-				9A897FD8166688E200D9019C /* sigok@2x.png in Resources */,
-				9A897FDA16668D7B00D9019C /* sigok.png in Resources */,
-				9A897FDC16668D8F00D9019C /* siginvalid.png in Resources */,
+				9ABC6B421EBCD9E100EE9C97 /* sigok@2x.png in Resources */,
 				9A897FDE1666919100D9019C /* centermap@2x.png in Resources */,
 				9A897FE01666B39800D9019C /* sunrise@2x.png in Resources */,
 				9A897FE21666B3A700D9019C /* sunset@2x.png in Resources */,
