@@ -166,7 +166,6 @@
 		9A897FE01666B39800D9019C /* sunrise@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FDF1666B39700D9019C /* sunrise@2x.png */; };
 		9A897FE21666B3A700D9019C /* sunset@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FE11666B3A700D9019C /* sunset@2x.png */; };
 		9A8BF94010E1846E002F01ED /* Aircraft.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A8BF93C10E1846E002F01ED /* Aircraft.m */; };
-		9A8BF94110E1846E002F01ED /* Buildnotes.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 9A8BF93D10E1846E002F01ED /* Buildnotes.rtf */; };
 		9A8BF94210E1846E002F01ED /* MFBSoapCall.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A8BF93F10E1846E002F01ED /* MFBSoapCall.m */; };
 		9A8D628015851392001105F2 /* DateRangeSelector.xib.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9A8D627E15851392001105F2 /* DateRangeSelector.xib.txt */; };
 		9A8D6283158513AB001105F2 /* DateRangeSelector.xib.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9A8D6281158513AB001105F2 /* DateRangeSelector.xib.txt */; };
@@ -479,7 +478,6 @@
 		9A1860111BE7D5FE00E88A26 /* RecentsTableRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentsTableRowController.swift; sourceTree = "<group>"; };
 		9A196C2F112312EB007A7DD1 /* Recording.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Recording.png; sourceTree = "<group>"; };
 		9A1A8B941EAA560F008F938B /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		9A1A8B961EAA5D97008F938B /* ApiKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApiKeys.h; sourceTree = "<group>"; };
 		9A1A8B971EAA5E5D008F938B /* ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = "<group>"; };
 		9A20B150192D34D300A8F64F /* iRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iRate.h; sourceTree = "<group>"; };
 		9A20B151192D34D300A8F64F /* iRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iRate.m; sourceTree = "<group>"; };
@@ -644,7 +642,6 @@
 		9A897FE11666B3A700D9019C /* sunset@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sunset@2x.png"; sourceTree = "<group>"; };
 		9A8BF93B10E1846E002F01ED /* Aircraft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Aircraft.h; path = ../Aircraft.h; sourceTree = "<group>"; };
 		9A8BF93C10E1846E002F01ED /* Aircraft.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Aircraft.m; path = ../Aircraft.m; sourceTree = "<group>"; };
-		9A8BF93D10E1846E002F01ED /* Buildnotes.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Buildnotes.rtf; sourceTree = "<group>"; };
 		9A8BF93E10E1846E002F01ED /* MFBSoapCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MFBSoapCall.h; path = ../MFBSoapCall.h; sourceTree = "<group>"; };
 		9A8BF93F10E1846E002F01ED /* MFBSoapCall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MFBSoapCall.m; path = ../MFBSoapCall.m; sourceTree = "<group>"; };
 		9A8D627F15851392001105F2 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text; name = fr; path = Classes/fr.lproj/DateRangeSelector.xib.txt; sourceTree = "<group>"; };
@@ -773,6 +770,7 @@
 		9AB188E51E8082C30010FDBA /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AutodetectOptions.strings; sourceTree = "<group>"; };
 		9AB8B347170347BA0012E3CE /* NavigableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigableCell.h; sourceTree = "<group>"; };
 		9AB8B348170347BA0012E3CE /* NavigableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigableCell.m; sourceTree = "<group>"; };
+		9ABC6B361EBCD74300EE9C97 /* ApiKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApiKeys.h; sourceTree = "<group>"; };
 		9AC4E1AB10FA509A0075CC1B /* imageSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imageSelector.h; sourceTree = "<group>"; };
 		9AC4E1AC10FA509A0075CC1B /* imageSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = imageSelector.m; sourceTree = "<group>"; };
 		9AC6AF0A1BD01575004AB2E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Base.lproj/Launch Screen.xib"; sourceTree = "<group>"; };
@@ -934,11 +932,10 @@
 			children = (
 				9ACE9E8B1D075299004274F9 /* MyFlightbook-Bridging-Header.h */,
 				9A3E12F0127DD606008D672E /* Exif */,
-				9A8BF93D10E1846E002F01ED /* Buildnotes.rtf */,
 				9AB21C5C10DF27850042AD88 /* Model classes */,
 				9A69201D10CCBD8800DF1CA6 /* WebServiceCode */,
 				9AB3C2961115F540001401C8 /* UIClasses */,
-				9A1A8B961EAA5D97008F938B /* ApiKeys.h */,
+				9ABC6B361EBCD74300EE9C97 /* ApiKeys.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1744,7 +1741,6 @@
 				9A960C9C10DE9B1C00843113 /* profile.png in Resources */,
 				9A4F3B5F18177C9A009E575C /* Default~iphone.png in Resources */,
 				9A2BD09A10E04619001D4043 /* totals.png in Resources */,
-				9A8BF94110E1846E002F01ED /* Buildnotes.rtf in Resources */,
 				9AD832F110E29D3F007817A4 /* currency.png in Resources */,
 				9AFAC07110E594F000225E90 /* runway.png in Resources */,
 				9A902D661A2108CC00698017 /* sunset@3x.png in Resources */,
