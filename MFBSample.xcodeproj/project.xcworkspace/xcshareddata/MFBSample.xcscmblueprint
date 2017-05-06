@@ -1,14 +1,18 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "AA48CE183040DDF2B4959096098C1DF9BC385270",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "AA48CE183040DDF2B4959096098C1DF9BC385270+++72A3354",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "AA48CE183040DDF2B4959096098C1DF9BC385270" : 9223372036854775807
+    "AA48CE183040DDF2B4959096098C1DF9BC385270+++CC02056" : 9223372036854775807,
+    "AA48CE183040DDF2B4959096098C1DF9BC385270+++644FCCE" : 9223372036854775807,
+    "AA48CE183040DDF2B4959096098C1DF9BC385270+++72A3354" : 9223372036854775807
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "7A235F0F-08AA-46EE-AC9B-1D7579C51207",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "AA48CE183040DDF2B4959096098C1DF9BC385270" : "..\/MyFlightbook\/MFBIphone"
+    "AA48CE183040DDF2B4959096098C1DF9BC385270+++CC02056" : "..\/MyFlightbook\/MFBIphone",
+    "AA48CE183040DDF2B4959096098C1DF9BC385270+++644FCCE" : "..\/MyFlightbook\/MFBIphone",
+    "AA48CE183040DDF2B4959096098C1DF9BC385270+++72A3354" : "MyFlightbookiOS\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "MFBSample",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
@@ -17,12 +21,17 @@
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ericberman\/MyFlightbookiOS.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "AA48CE183040DDF2B4959096098C1DF9BC385270"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "AA48CE183040DDF2B4959096098C1DF9BC385270+++644FCCE"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ericberman\/MyFlightbookiOS.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "AA48CE183040DDF2B4959096098C1DF9BC385270"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "AA48CE183040DDF2B4959096098C1DF9BC385270+++72A3354"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ericberman\/MyFlightbookiOS.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "AA48CE183040DDF2B4959096098C1DF9BC385270+++CC02056"
     }
   ]
 }
