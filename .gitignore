@@ -8,7 +8,7 @@ ApiKeys.h
 
 ## Build generated
 build/
-DerivedData/
+WSDLtoObjC Backup/
 
 ## Various settings
 *.pbxuser
