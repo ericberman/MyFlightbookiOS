@@ -137,7 +137,6 @@
 		9A6C3B4115728E10004EB8FA /* ExpandHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6C3B4015728E10004EB8FA /* ExpandHeaderCell.m */; };
 		9A6C3B4315728F27004EB8FA /* ExpandHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A6C3B4215728F27004EB8FA /* ExpandHeaderCell.xib */; };
 		9A6DDB9511A8547D0053C8AA /* MFBIcon.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DDB9111A8547D0053C8AA /* MFBIcon.gif */; };
-		9A768C171E89C6BC00332E4A /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9A768C161E89C6BB00332E4A /* LICENSE.txt */; };
 		9A77CDA011050421006E7531 /* RouteAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A77CD9F11050421006E7531 /* RouteAnnotation.m */; };
 		9A77CF97110569D0006E7531 /* airport.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A77CF96110569D0006E7531 /* airport.png */; };
 		9A78376E13E8AB99007CD501 /* VADetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A78376C13E8AB98007CD501 /* VADetails.m */; };
@@ -294,6 +293,7 @@
 		9ABC6B401EBCD9E100EE9C97 /* siginvalid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ABC6B3C1EBCD9E100EE9C97 /* siginvalid@2x.png */; };
 		9ABC6B411EBCD9E100EE9C97 /* sigok.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ABC6B3D1EBCD9E100EE9C97 /* sigok.png */; };
 		9ABC6B421EBCD9E100EE9C97 /* sigok@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ABC6B3E1EBCD9E100EE9C97 /* sigok@2x.png */; };
+		9ABC6B441EBE2E4B00EE9C97 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 9ABC6B431EBE2E4B00EE9C97 /* LICENSE */; };
 		9AC264341BE6CEA900914D30 /* Recording.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A196C2F112312EB007A7DD1 /* Recording.png */; };
 		9AC264351BE6CEA900914D30 /* Recording@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A5E746D1710E8F7004C58CC /* Recording@2x.png */; };
 		9AC264361BE6CEA900914D30 /* Recording@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A902D7D1A210E7700698017 /* Recording@3x.png */; };
@@ -597,7 +597,6 @@
 		9A6C3B4015728E10004EB8FA /* ExpandHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpandHeaderCell.m; sourceTree = "<group>"; };
 		9A6C3B4215728F27004EB8FA /* ExpandHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpandHeaderCell.xib; sourceTree = "<group>"; };
 		9A6DDB9111A8547D0053C8AA /* MFBIcon.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = MFBIcon.gif; sourceTree = "<group>"; };
-		9A768C161E89C6BB00332E4A /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		9A77CD9E11050421006E7531 /* RouteAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteAnnotation.h; sourceTree = "<group>"; };
 		9A77CD9F11050421006E7531 /* RouteAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteAnnotation.m; sourceTree = "<group>"; };
 		9A77CF96110569D0006E7531 /* airport.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = airport.png; sourceTree = "<group>"; };
@@ -771,6 +770,7 @@
 		9ABC6B3C1EBCD9E100EE9C97 /* siginvalid@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "siginvalid@2x.png"; sourceTree = "<group>"; };
 		9ABC6B3D1EBCD9E100EE9C97 /* sigok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sigok.png; sourceTree = "<group>"; };
 		9ABC6B3E1EBCD9E100EE9C97 /* sigok@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sigok@2x.png"; sourceTree = "<group>"; };
+		9ABC6B431EBE2E4B00EE9C97 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		9AC4E1AB10FA509A0075CC1B /* imageSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imageSelector.h; sourceTree = "<group>"; };
 		9AC4E1AC10FA509A0075CC1B /* imageSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = imageSelector.m; sourceTree = "<group>"; };
 		9AC6AF0A1BD01575004AB2E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Base.lproj/Launch Screen.xib"; sourceTree = "<group>"; };
@@ -955,7 +955,7 @@
 			children = (
 				9A1A8B971EAA5E5D008F938B /* ReadMe.md */,
 				9A1A8B941EAA560F008F938B /* .gitignore */,
-				9A768C161E89C6BB00332E4A /* LICENSE.txt */,
+				9ABC6B431EBE2E4B00EE9C97 /* LICENSE */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -1836,8 +1836,8 @@
 				9A954D431531FBD6000E00ED /* NewAircraft-iPad.xib.txt in Resources */,
 				9A954D441531FBD6000E00ED /* NewAircraft.xib.txt in Resources */,
 				9ADFA5091939271B00FF30B7 /* Training.xib in Resources */,
+				9ABC6B441EBE2E4B00EE9C97 /* LICENSE in Resources */,
 				9A902D681A21095E00698017 /* runway@3x.png in Resources */,
-				9A768C171E89C6BC00332E4A /* LICENSE.txt in Resources */,
 				9A954D451531FBD6000E00ED /* newuser.xib.txt in Resources */,
 				9A954D461531FBD6000E00ED /* popupEntry-iPad.xib.txt in Resources */,
 				9A954D471531FBD6000E00ED /* popupEntry.xib.txt in Resources */,
