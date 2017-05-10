@@ -985,7 +985,6 @@
 				9A954D531531FBE9000E00ED /* French View Strings */,
 				9A954CEF1531FB98000E00ED /* English View Strings */,
 				9A8BF95010E1B9E7002F01ED /* Views */,
-				9A84718911EBE3EE00395608 /* Icon-iPad.png */,
 				9A897FC611B7299F00E98C93 /* mfb.sqlite */,
 				9AA0BBED113DEDF50032DA0F /* noSound.wav */,
 				9A8BF94F10E1B9C7002F01ED /* Images */,
@@ -1243,6 +1242,7 @@
 				9A902D691A210A9D00698017 /* Favorite@3x.png */,
 				9AAA7CD91715E4CA00429F78 /* Icon-iPad-small.png */,
 				9ADFA50A193FB92D00FF30B7 /* Icon-iPad-small@2x.png */,
+				9A84718911EBE3EE00395608 /* Icon-iPad.png */,
 				9AFEFFA01BD03FE20083043A /* Icon-iPad.png */,
 				9AAA7CDA1715E4CA00429F78 /* Icon-iPad@2x.png */,
 				9A4F3B5618177BA1009E575C /* Icon-iPad76x76.png */,
@@ -1283,9 +1283,9 @@
 				9A52ECB11B6574D000DE8A83 /* schedule@3x.png */,
 				9ABC6B3B1EBCD9E100EE9C97 /* siginvalid.png */,
 				9ABC6B3C1EBCD9E100EE9C97 /* siginvalid@2x.png */,
+				9A902D7F1A210F2700698017 /* siginvalid@3x.png */,
 				9ABC6B3D1EBCD9E100EE9C97 /* sigok.png */,
 				9ABC6B3E1EBCD9E100EE9C97 /* sigok@2x.png */,
-				9A902D7F1A210F2700698017 /* siginvalid@3x.png */,
 				9A902D801A210F2700698017 /* sigok@3x.png */,
 				9A16571D14DC59B8004FDC35 /* sunrise.png */,
 				9A897FDF1666B39700D9019C /* sunrise@2x.png */,
@@ -1304,7 +1304,7 @@
 				9A61876B1711DFC4007C7754 /* twitter@2x.png */,
 				9A902D5A1A2102E800698017 /* twitter@3x.png */,
 			);
-			name = Images;
+			path = Images;
 			sourceTree = "<group>";
 		};
 		9A8BF95010E1B9E7002F01ED /* Views */ = {
