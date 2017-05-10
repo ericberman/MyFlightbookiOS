@@ -981,7 +981,7 @@
 			isa = PBXGroup;
 			children = (
 				9AD541BC1A17CB2400BD3850 /* Images.xcassets */,
-				9AC83AD319E4402F0092C7BB /* Data tracks for testing */,
+				9AC83AD319E4402F0092C7BB /* DataTracks */,
 				9A954D531531FBE9000E00ED /* French View Strings */,
 				9A954CEF1531FB98000E00ED /* English View Strings */,
 				9A8BF95010E1B9E7002F01ED /* Views */,
@@ -1510,14 +1510,14 @@
 			name = "Resources-iPad";
 			sourceTree = "<group>";
 		};
-		9AC83AD319E4402F0092C7BB /* Data tracks for testing */ = {
+		9AC83AD319E4402F0092C7BB /* DataTracks */ = {
 			isa = PBXGroup;
 			children = (
 				9AC83ACF19E440260092C7BB /* tracklog.gpx */,
 				9AC83AD019E440260092C7BB /* tracklog.kml */,
 				9A565B6E13E3545800BEFFA7 /* GPSSamples.csv */,
 			);
-			name = "Data tracks for testing";
+			path = DataTracks;
 			sourceTree = "<group>";
 		};
 		9ACDC8CD1BDFEA1300B0A077 /* MyFlightbookWatch */ = {
