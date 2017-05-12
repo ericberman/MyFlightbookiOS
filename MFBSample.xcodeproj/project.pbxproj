@@ -270,7 +270,6 @@
 		9AA09D7414684EBA00192184 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ACED2961337C66F00E3DC8F /* AssetsLibrary.framework */; };
 		9AA09D7514684EBA00192184 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AA09D6814684DC800192184 /* AudioToolbox.framework */; };
 		9AA09D7614684EBA00192184 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A7E42B611810DBF002000A4 /* SystemConfiguration.framework */; };
-		9AA0BBEE113DEDF50032DA0F /* noSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9AA0BBED113DEDF50032DA0F /* noSound.wav */; };
 		9AA1C9C21E56066700E38D50 /* noimage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA1C9C11E56066700E38D50 /* noimage@2x.png */; };
 		9AA4EC3410F1A85200322BE0 /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA4EC3310F1A85200322BE0 /* checkmark.png */; };
 		9AA5E44219DDB9030065810A /* Telemetry.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA5E44119DDB9030065810A /* Telemetry.m */; };
@@ -745,7 +744,6 @@
 		9AA09D6814684DC800192184 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		9AA09D6D14684E3A00192184 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		9AA0BBE5113DD3E00032DA0F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		9AA0BBED113DEDF50032DA0F /* noSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = noSound.wav; sourceTree = "<group>"; };
 		9AA1C9C11E56066700E38D50 /* noimage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noimage@2x.png"; sourceTree = "<group>"; };
 		9AA4EC3310F1A85200322BE0 /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
 		9AA5E44019DDB9030065810A /* Telemetry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Telemetry.h; path = Classes/Telemetry.h; sourceTree = SOURCE_ROOT; };
@@ -986,7 +984,6 @@
 				9A954CEF1531FB98000E00ED /* English View Strings */,
 				9A8BF95010E1B9E7002F01ED /* Views */,
 				9A897FC611B7299F00E98C93 /* mfb.sqlite */,
-				9AA0BBED113DEDF50032DA0F /* noSound.wav */,
 				9A8BF94F10E1B9C7002F01ED /* Images */,
 				8D1107310486CEB800E47090 /* MFBSample-Info.plist */,
 				9A7A7D98147F4DD0003A6912 /* Localizable.strings */,
@@ -1757,7 +1754,6 @@
 				9A196C30112312EB007A7DD1 /* Recording.png in Resources */,
 				9ABC6B401EBCD9E100EE9C97 /* siginvalid@2x.png in Resources */,
 				9A58E0541131AC4C005988FA /* aircraft.png in Resources */,
-				9AA0BBEE113DEDF50032DA0F /* noSound.wav in Resources */,
 				9A6DDB9511A8547D0053C8AA /* MFBIcon.gif in Resources */,
 				9A897FC711B7299F00E98C93 /* mfb.sqlite in Resources */,
 				9ADFA4F01939003300FF30B7 /* newflight@2x.png in Resources */,
