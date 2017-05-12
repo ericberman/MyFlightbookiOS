@@ -154,6 +154,8 @@
         BOOL fDateOnly = (self.cpt.Type == MFBWebServiceSvc_CFPPropertyType_cfpDate);
         dp.datePickerMode = fDateOnly ? UIDatePickerModeDate : UIDatePickerModeDateAndTime;
         dp.timeZone =  (fDateOnly || [AutodetectOptions UseLocalTime]) ? [NSTimeZone systemTimeZone] : [NSTimeZone timeZoneForSecondsFromGMT:0];
+        dp.locale = (fDateOnly ||[AutodetectOptions UseLocalTime]) ? [NSLocale currentLocale] : [NSLocale localeWithLocaleIdentifier:@"en-GB"];
+
 
         [dp removeTarget:nil action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
         if ([self.txt.text length] == 0)   // initialize it to now

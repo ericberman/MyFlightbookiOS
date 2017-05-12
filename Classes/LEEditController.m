@@ -1270,6 +1270,7 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
     self.datePicker.date = dt;
     self.datePicker.datePickerMode = UIDatePickerModeDateAndTime;
     self.datePicker.timeZone = [AutodetectOptions UseLocalTime] ? [NSTimeZone systemTimeZone] : [NSTimeZone timeZoneForSecondsFromGMT:0];
+    self.datePicker.locale = [AutodetectOptions UseLocalTime] ? [NSLocale currentLocale] : [NSLocale localeWithLocaleIdentifier:@"en-GB"];
     return YES;
 }
 
