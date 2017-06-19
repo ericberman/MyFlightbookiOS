@@ -637,6 +637,9 @@
 /* Flight has Telemetry Data */
 "ffTelemetry" = "Données télémétriques";
 
+/* Flight has Images or Videos */
+"ffImages" = "Images ou vidéos";
+
 /* Flight has Cross-country time */
 "ffXC" = "Temps navigation";
 

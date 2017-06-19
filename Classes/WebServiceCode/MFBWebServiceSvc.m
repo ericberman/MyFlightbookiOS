@@ -8667,6 +8667,7 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 		IsMultiEngineHeli = 0;
 		IsTurbine = 0;
 		HasTelemetry = 0;
+		HasImages = 0;
 		IsMotorglider = 0;
 		AircraftInstanceTypes = 0;
 	}
@@ -8716,6 +8717,7 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 	if(IsMultiEngineHeli != nil) [IsMultiEngineHeli release];
 	if(IsTurbine != nil) [IsTurbine release];
 	if(HasTelemetry != nil) [HasTelemetry release];
+	if(HasImages != nil) [HasImages release];
 	if(IsMotorglider != nil) [IsMotorglider release];
 	
 	[super dealloc];
@@ -8879,6 +8881,9 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 	if(self.HasTelemetry != 0) {
 		xmlAddChild(node, [self.HasTelemetry xmlNodeForDoc:node->doc elementName:@"HasTelemetry" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
+	if(self.HasImages != 0) {
+		xmlAddChild(node, [self.HasImages xmlNodeForDoc:node->doc elementName:@"HasImages" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
 	if(self.IsMotorglider != 0) {
 		xmlAddChild(node, [self.IsMotorglider xmlNodeForDoc:node->doc elementName:@"IsMotorglider" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
@@ -8930,6 +8935,7 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 @synthesize IsMultiEngineHeli;
 @synthesize IsTurbine;
 @synthesize HasTelemetry;
+@synthesize HasImages;
 @synthesize IsMotorglider;
 @synthesize AircraftInstanceTypes;
 /* attributes */
@@ -10299,6 +10305,39 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 				id newChild = [elementClass deserializeNode:cur];
 				
 				self.HasTelemetry = newChild;
+			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "HasImages")) {
+				
+				Class elementClass = nil;
+				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if(instanceType == NULL) {
+					elementClass = [USBoolean class];
+				} else {
+					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
+					
+					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
+					
+					NSString *elementClassString = nil;
+					if([elementTypeArray count] > 1) {
+						NSString *prefix = [elementTypeArray objectAtIndex:0];
+						NSString *localName = [elementTypeArray objectAtIndex:1];
+						
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
+						
+						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
+						
+						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
+					} else {
+						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
+					}
+					
+					elementClass = NSClassFromString(elementClassString);
+					xmlFree(instanceType);
+				}
+				
+				id newChild = [elementClass deserializeNode:cur];
+				
+				self.HasImages = newChild;
 			}
 			if(xmlStrEqual(cur->name, (const xmlChar *) "IsMotorglider")) {
 				

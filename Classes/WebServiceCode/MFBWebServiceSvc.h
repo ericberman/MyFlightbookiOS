@@ -1049,6 +1049,7 @@ SOAPSigner *soapSigner;
 	USBoolean * IsMultiEngineHeli;
 	USBoolean * IsTurbine;
 	USBoolean * HasTelemetry;
+	USBoolean * HasImages;
 	USBoolean * IsMotorglider;
 	MFBWebServiceSvc_AircraftInstanceRestriction AircraftInstanceTypes;
 /* attributes */
@@ -1105,6 +1106,7 @@ SOAPSigner *soapSigner;
 @property (nonatomic, retain) USBoolean * IsMultiEngineHeli;
 @property (nonatomic, retain) USBoolean * IsTurbine;
 @property (nonatomic, retain) USBoolean * HasTelemetry;
+@property (nonatomic, retain) USBoolean * HasImages;
 @property (nonatomic, retain) USBoolean * IsMotorglider;
 @property (nonatomic, assign) MFBWebServiceSvc_AircraftInstanceRestriction AircraftInstanceTypes;
 /* attributes */

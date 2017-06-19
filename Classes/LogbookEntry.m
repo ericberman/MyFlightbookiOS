@@ -913,6 +913,7 @@ NSString * const _szkeyPOTwitter = @"_poPostTwitter";
     f.HasTotalTime = [[USBoolean alloc] initWithBool:NO];
     f.HasSimIMCTime = [[USBoolean alloc] initWithBool:NO];
     f.HasTelemetry = [[USBoolean alloc] initWithBool:NO];
+    f.HasImages = [[USBoolean alloc] initWithBool:NO];
     f.HasXC = [[USBoolean alloc] initWithBool:NO];
     f.IsComplex = [[USBoolean alloc] initWithBool:NO];
     f.IsConstantSpeedProp = [[USBoolean alloc] initWithBool:NO];
@@ -946,7 +947,7 @@ NSString * const _szkeyPOTwitter = @"_poPostTwitter";
 {
     return (self.HasApproaches.boolValue || self.HasCFI.boolValue || self.HasDual.boolValue || self.HasFullStopLandings.boolValue || self.HasLandings.boolValue || self.HasAnyInstrument.boolValue || self.HasTotalTime.boolValue ||
             self.HasGroundSim.boolValue || self.HasHolds.boolValue || self.HasIMC.boolValue || self.HasNight.boolValue || self.HasNightLandings.boolValue ||
-            self.HasPIC.boolValue || self.IsPublic.boolValue || self.HasSIC.boolValue || self.HasSimIMCTime.boolValue || self.HasTelemetry.boolValue || self.HasXC.boolValue || self.IsSigned.boolValue);
+            self.HasPIC.boolValue || self.IsPublic.boolValue || self.HasSIC.boolValue || self.HasSimIMCTime.boolValue || self.HasTelemetry.boolValue || self.HasImages.boolValue || self.HasXC.boolValue || self.IsSigned.boolValue);
 }
 
 - (BOOL) hasAircraftCharacteristics

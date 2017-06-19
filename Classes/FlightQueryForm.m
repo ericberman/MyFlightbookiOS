@@ -61,7 +61,7 @@ typedef enum _afRows {afTailwheel = 1, afHighPerf, afGlass, afComplex, afRetract
     afEngineAny, afEnginePiston, afEngineTurboProp, afEngineJet, afEngineTurbine, afEngineElectric,
     afInstanceAny, afInstanceReal, afInstanceTraining, afMax = afInstanceTraining} afRows;
 
-typedef enum _ffRows {ffFSLanding = 1, ffFSNightLanding, ffApproaches, ffHold, ffTelemetry, ffXC, ffSimIMC, ffActualIMC, ffNight, 
+typedef enum _ffRows {ffFSLanding = 1, ffFSNightLanding, ffApproaches, ffHold, ffTelemetry, ffImages, ffXC, ffSimIMC, ffActualIMC, ffNight,
 ffIsPublic, ffDual, ffCFI, ffSIC, ffPIC, ffSigned, ffMax = ffSigned} ffRows;
 
 static NSArray * makesInUse = nil;
@@ -562,6 +562,10 @@ static NSArray * makesInUse = nil;
                     cell.textLabel.text = NSLocalizedString(@"ffTelemetry", @"Flight has Telemetry Data");
                     cell.accessoryType = self.fq.HasTelemetry.boolValue ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
                     break;
+                case ffImages:
+                    cell.textLabel.text = NSLocalizedString(@"ffImages", @"Flight has Images or Videos");
+                    cell.accessoryType = self.fq.HasImages.boolValue ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+                    break;
                 case ffXC:
                     cell.textLabel.text = NSLocalizedString(@"ffXC", @"Flight has PIC time logged");
                     cell.accessoryType = self.fq.HasXC.boolValue ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
@@ -833,6 +837,9 @@ static NSArray * makesInUse = nil;
                     break;
                 case ffTelemetry:
                     self.fq.HasTelemetry.boolValue = !self.fq.HasTelemetry.boolValue;
+                    break;
+                case ffImages:
+                    self.fq.HasImages.boolValue = !self.fq.HasImages.boolValue;
                     break;
                 case ffXC:
                     self.fq.HasXC.boolValue = !self.fq.HasXC.boolValue;

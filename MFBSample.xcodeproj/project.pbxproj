@@ -759,6 +759,7 @@
 		9AAA7CDB1715E4CA00429F78 /* Icon-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-small@2x.png"; sourceTree = "<group>"; };
 		9AAA7CDC1715E4CA00429F78 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		9AB188E51E8082C30010FDBA /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AutodetectOptions.strings; sourceTree = "<group>"; };
+		9AB4F3D71EF86693001915E0 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9AB8B347170347BA0012E3CE /* NavigableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigableCell.h; sourceTree = "<group>"; };
 		9AB8B348170347BA0012E3CE /* NavigableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigableCell.m; sourceTree = "<group>"; };
 		9ABC6B361EBCD74300EE9C97 /* ApiKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApiKeys.h; sourceTree = "<group>"; };
@@ -862,7 +863,6 @@
 		9AE4B7B116FE80EE0001BD2C /* EditCellDetail.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditCellDetail.xib; sourceTree = "<group>"; };
 		9AEA025C111F37C700E84958 /* AutodetectOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutodetectOptions.h; sourceTree = "<group>"; };
 		9AEA025D111F37C700E84958 /* AutodetectOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutodetectOptions.m; sourceTree = "<group>"; };
-		9AEB1FA314EC2A90002098EE /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = /Users/ericberman/Documents/MyFlightbook/MFBIphone/fr.lproj/Localizable.strings; sourceTree = "<absolute>"; };
 		9AEB4B441A0DE5C200629998 /* CountryCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountryCode.h; sourceTree = "<group>"; };
 		9AEB4B451A0DE5C200629998 /* CountryCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountryCode.m; sourceTree = "<group>"; };
 		9AEC4C9113ABFCDA0044897B /* TotalsRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TotalsRow.h; sourceTree = "<group>"; };
@@ -2318,7 +2318,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				9A7A7D97147F4DD0003A6912 /* en */,
-				9AEB1FA314EC2A90002098EE /* fr */,
+				9AB4F3D71EF86693001915E0 /* fr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
