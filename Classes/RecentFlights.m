@@ -470,14 +470,32 @@ BOOL fCouldBeMoreFlights;
         
 		le = (MFBWebServiceSvc_LogbookEntry *) (self.rgFlights)[indexPath.row];
         ci = (le == nil || le.FlightID == nil) ? nil : (CommentedImage *) (self.dictImages)[le.FlightID];
+        
+        NSAssert(le != nil, @"NULL le in existing flights - we are going to crash!!!");
     }
 	else if (indexPath.section == [self PendingFlightsSection])
     {
-        LogbookEntry * l = (LogbookEntry *) (mfbApp().rgPendingFlights)[indexPath.row];
+        // We could have a race condition where we are fetching a pending flight after it has been submitted.
+        LogbookEntry * l;
+        
+        NSUInteger row = indexPath.row;
+        NSUInteger cPending = mfbApp().rgPendingFlights.count;
+        
+        if (row >= cPending)
+        {
+            l = [[LogbookEntry alloc] init];
+            l.entryData.Date = [NSDate date];
+            l.entryData.TailNumDisplay = @"...";
+        }
+        else
+            l = (LogbookEntry *) (mfbApp().rgPendingFlights)[indexPath.row];
+
         errString = l.errorString;
         if ([l.rgPicsForFlight count] > 0)
             ci = (CommentedImage *) (l.rgPicsForFlight)[0];
 		le = l.entryData;
+        NSAssert(le != nil, @"NULL le in pending flights - we are going to crash!!!");
+        
     }
 
     NSAssert(le != nil, @"NULL le - we are going to crash!!!");
