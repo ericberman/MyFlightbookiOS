@@ -1249,7 +1249,7 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
         {
             case rowEngineStart:
                 [self startEngine];
-                if (fWasUnknownEngineStart)
+                if (fWasUnknownEngineStart && self.le.entryData.isNewFlight)
                     [self resetDateOfFlight];
                 break;
             case rowEngineEnd:
@@ -1257,7 +1257,7 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
                 break;
             case rowFlightStart:
                 [self startFlight];
-                if (fWasUnknownEngineStart && fWasUnknownFlightStart)
+                if (fWasUnknownEngineStart && fWasUnknownFlightStart && self.le.entryData.isNewFlight)
                     [self resetDateOfFlight];
                 break;
             case rowFlightEnd:
@@ -1418,11 +1418,17 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
 
 - (void) startEngine
 {
-    if (![self.le.entryData isKnownEngineStart])
-        [self resetDateOfFlight];
-	[self autofillClosest];
+    if (self.le.entryData.isNewFlight)
+    {
+        if (!self.le.entryData.isKnownEngineStart)
+            [self resetDateOfFlight];
+        [self autofillClosest];
+    }
 	
 	[self initFormFromLE];
+    
+    if (!self.le.entryData.isNewFlight)
+        return;
     
     mfbApp().mfbloc.currentFlightState = fsOnGround;
     [mfbApp() updateWatchContext];
@@ -1587,11 +1593,15 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
 
 - (void) stopEngine
 {
-	[self autofillClosest];
+    [self autoHobbs];
+    [self autoTotal];
+
+    if (!self.le.entryData.isNewFlight)
+        return;
+
+    [self autofillClosest];
 	[mfbApp().mfbloc stopRecordingFlightData];
 	self.idimgRecording.hidden = YES;
-	[self autoHobbs];
-    [self autoTotal];
 	[self initFormFromLE];
     [self.le unPauseFlight];
     [mfbApp() updateWatchContext];
@@ -1608,21 +1618,23 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
 
 - (void) startFlight
 {
-    if (![self.le.entryData isKnownEngineStart] && ![self.le.entryData isKnownFlightStart])
-        [self resetDateOfFlight];
-    
-	if ([NSDate isUnknownDate:self.le.entryData.FlightStart])
-		[self autofillClosest];
-	
-	[mfbApp().mfbloc startRecordingFlightData]; // will ignore recording if not set to do so.
-    [mfbApp() updateWatchContext];
+    if (self.le.entryData.isNewFlight)
+    {
+        if (![self.le.entryData isKnownEngineStart] && ![self.le.entryData isKnownFlightStart])
+            [self resetDateOfFlight];
+        
+        [self autofillClosest];
+        
+        [mfbApp().mfbloc startRecordingFlightData]; // will ignore recording if not set to do so.
+        [mfbApp() updateWatchContext];
+    }
 
 	[self initFormFromLE];
 }
 
 - (void) stopFlight
 {
-	[self initFormFromLE];
+    [self initFormFromLE];
     [self autoHobbs];
     [self autoTotal];
     [mfbApp() updateWatchContext];
