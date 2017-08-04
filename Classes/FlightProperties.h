@@ -31,7 +31,6 @@
 #import "MFBWebServiceSvc.h"
 #import "MFBAppDelegate.h"
 #import "PullRefreshTableViewController.h"
-#import "NumPad.h"
 #import "AccessoryBar.h"
 
 @interface FlightProperties : PullRefreshTableViewController <UITextFieldDelegate, AccessoryBarDelegate, UISearchBarDelegate> {

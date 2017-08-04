@@ -232,7 +232,7 @@
     return YES;
 }
 
-- (void) configureCell:(UIView *)vwInput andAccessory:(UIView *) vwAcc andDatePicker:(UIDatePicker *) dp defValue:(NSNumber *)defVal
+- (void) configureCell:(UIView *) vwAcc andDatePicker:(UIDatePicker *) dp defValue:(NSNumber *)defVal
 {
     self.lbl.text = cpt.Title;
 	if (self.cfp == nil || [self.cfp isDefaultForType:self.cpt])
@@ -267,6 +267,7 @@
             self.txt.keyboardType = UIKeyboardTypeDefault;
             // turn off autocorrect if we have previous values from which to choose.  This prevents spacebar from accepting the propoosed text.
             [self.txt setAutocorrectionType: (self.cpt.PreviousValues.string.count > 0) ? UITextAutocorrectionTypeNo : UITextAutocorrectionTypeDefault];
+            self.txt.autocapitalizationType = UITextAutocapitalizationTypeSentences;
             break;
         case MFBWebServiceSvc_CFPPropertyType_cfpDate:
         case MFBWebServiceSvc_CFPPropertyType_cfpDateTime:
@@ -278,18 +279,19 @@
         case MFBWebServiceSvc_CFPPropertyType_cfpCurrency:
             self.txt.keyboardType = UIKeyboardTypeDecimalPad;
             self.txt.NumberType = ntDecimal;
-            self.txt.inputView = vwInput;
+            self.txt.autocorrectionType = UITextAutocorrectionTypeNo;
             break;
         case MFBWebServiceSvc_CFPPropertyType_cfpDecimal:
             // assume it's a time unless the PlanDecimal flags (0x00200000) is set, in which case force decimal
             self.txt.NumberType = ((self.cpt.Flags.unsignedIntegerValue & 0x00200000) == 0) ? ntTime : ntDecimal;
-            self.txt.inputView = vwInput;
+            self.txt.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+            self.txt.autocorrectionType = UITextAutocorrectionTypeNo;
             if (defVal != nil)
                 [self setAutoFillValue:defVal];
             break;
         case MFBWebServiceSvc_CFPPropertyType_cfpInteger:
             self.txt.NumberType = ntInteger;
-            self.txt.inputView = vwInput;
+            self.txt.keyboardType = UIKeyboardTypeNumberPad;
             break;
         default:
             break;

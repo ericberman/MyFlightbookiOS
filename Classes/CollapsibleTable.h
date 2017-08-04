@@ -32,7 +32,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "AccessoryBar.h"
-#import "NumPad.h"
 #import "ExpandHeaderCell.h"
 
 @protocol Invalidatable

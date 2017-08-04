@@ -37,14 +37,13 @@
 @property (nonatomic, strong) EditCell * cellSegmentEnd;
 @property (nonatomic, strong) NSMutableArray<NSNumber *> * values;
 @property (nonatomic, strong) AccessoryBar * vwAccessory;
-@property (nonatomic, strong) NumPad * vwNumPad;
 @property (nonatomic, strong) NSString * errorString;
 
 @end
 
 @implementation TotalsCalculator
 
-@synthesize cellSegmentStart, cellSegmentEnd, values, delegate, vwAccessory, vwNumPad, errorString;
+@synthesize cellSegmentStart, cellSegmentEnd, values, delegate, vwAccessory, errorString;
 
 enum timecalcRows {sectTimeGroupStart, rowEquation = sectTimeGroupStart, rowSegmentStart, rowSegmentEnd, sectTimeGroupEnd,
     sectActionsStart = sectTimeGroupEnd, rowCopy = sectActionsStart, rowAdd, rowUpdate, sectActionsEnd};
@@ -63,7 +62,6 @@ EditCell * cellToActivateAfterReload = nil;
     [super viewDidLoad];
     
     self.vwAccessory = [AccessoryBar getAccessoryBar:self];
-    self.vwNumPad = [NumPad getNumPad];
     
     // Do any additional setup after loading the view.
     cellToActivateAfterReload = self.cellSegmentStart = [self getEditCell:NSLocalizedString(@"tcAddTimeStartPrompt", @"Total Time Calculator - Segment Start")];
@@ -75,7 +73,6 @@ EditCell * cellToActivateAfterReload = nil;
 - (void) viewDidUnload {
     [super viewDidUnload];
     self.vwAccessory = nil;
-    self.vwNumPad = nil;
     self.values = nil;
     self.errorString = nil;
     self.cellSegmentStart = self.cellSegmentEnd = nil;
@@ -84,9 +81,8 @@ EditCell * cellToActivateAfterReload = nil;
 - (EditCell *) getEditCell:(NSString *) label {
     EditCell * ec = [EditCell getEditCell:self.tableView withAccessory:UITableViewCellAccessoryNone];
     ec.txt.delegate = self;
-    ec.txt.inputView = self.vwNumPad;
     ec.txt.inputAccessoryView = self.vwAccessory;
-    ec.txt.autocorrectionType = UITextAutocorrectionTypeNo;
+    ec.txt.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     ec.txt.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
     ec.txt.autocorrectionType = UITextAutocorrectionTypeNo;
     ec.txt.NumberType = ntTime;
@@ -278,7 +274,6 @@ EditCell * cellToActivateAfterReload = nil;
 {
     self.ipActive = [self.tableView indexPathForCell:[self owningCell:textField]];
     [self enableNextPrev:self.vwAccessory];
-    [self.vwNumPad setTextDelegate:textField];
 
     return YES;
 }
@@ -293,6 +288,11 @@ EditCell * cellToActivateAfterReload = nil;
     if (row == rowSegmentStart)
         [self nextClicked];
     return YES;
+}
+
+- (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    return [textField isValidNumber:[textField.text stringByReplacingCharactersInRange:range withString:string]];
 }
 
 #pragma mark -

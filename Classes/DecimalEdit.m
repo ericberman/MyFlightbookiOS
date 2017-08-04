@@ -209,7 +209,7 @@ static NSNumberFormatter * _nfDecimal = nil;
     
     NSRegularExpression * re;
     if (self.NumberType == ntInteger)
-        re = [NSRegularExpression regularExpressionWithPattern:@"^\\d+$" options:NSRegularExpressionAnchorsMatchLines error:nil];
+        re = [NSRegularExpression regularExpressionWithPattern:@"^\\d*$" options:NSRegularExpressionAnchorsMatchLines error:nil];
     else if (self.NumberType == ntDecimal || (self.NumberType == ntTime && !self.IsHHMM))
     {
         NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];

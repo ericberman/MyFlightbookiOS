@@ -36,8 +36,8 @@
 @property (nonatomic, strong) NSArray * indices;
 
 @property (strong, readwrite) FlightProps * flightProps;
-@property (strong, readwrite) NumPad * vwNumPad;
 @property (strong, readwrite) AccessoryBar * vwAccessory;
+@property (strong, readwrite) UITextField * activeTextField;
 
 @property (strong, readwrite) NSMutableDictionary * dictPropCells;
 
@@ -48,7 +48,7 @@
 
 @implementation FlightProperties
 
-@synthesize le, flightProps, content, indices, vwNumPad, rgAllProps, rgFilteredProps, vwAccessory, datePicker, dictPropCells;
+@synthesize le, flightProps, content, activeTextField, indices, rgAllProps, rgFilteredProps, vwAccessory, datePicker, dictPropCells;
 
 static NSString * szKeyRowValues = @"rowValues";
 static NSString * szKeyHeaderTitle = @"headerTitle";
@@ -115,7 +115,6 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
     [self setUpIndices];
     [self refreshFilteredProps:@""];
     
-    self.vwNumPad = [NumPad getNumPad];
     self.vwAccessory = [AccessoryBar getAccessoryBar:self];
 }
 
@@ -220,7 +219,7 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
     // Configure the cell...
     cell.txt.delegate = self;
     cell.flightPropDelegate = self.flightProps;
-    [cell configureCell:self.vwNumPad andAccessory:self.vwAccessory andDatePicker:self.datePicker defValue:self.le.entryData.TotalFlightTime];
+    [cell configureCell:self.vwAccessory andDatePicker:self.datePicker defValue:self.le.entryData.TotalFlightTime];
     
     return cell;
 }
@@ -308,11 +307,11 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
     self.indices = nil;
     self.rgFilteredProps = nil;
     self.rgAllProps = nil;
-    self.vwNumPad = nil;
     self.vwAccessory = nil;
     self.datePicker = nil;
     self.searchBar = nil;
     self.dictPropCells = nil;
+    self.activeTextField = nil;
 
     [super viewDidUnload];
 }
@@ -413,10 +412,12 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
     
     BOOL fShouldEdit = [pc prepForEditing];
     
-    [self.vwNumPad setTextDelegate:textField];
     self.ipActive = [self.tableView indexPathForCell:pc];
     
     [self enableNextPrev:self.vwAccessory];
+    
+    if (fShouldEdit)
+        self.activeTextField = textField;
     
     return fShouldEdit;
 }
@@ -424,6 +425,7 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
 - (BOOL) textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
+    self.activeTextField = nil;
     return YES;
 }
 
@@ -449,8 +451,8 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
 #pragma mark AccessoryViewDelegates
 - (void) deleteClicked
 {
-    self.vwNumPad.delegate.text = @"";
-    PropertyCell * pc = [self owningPropertyCell:self.vwNumPad.delegate];
+    PropertyCell * pc = [self owningPropertyCell:self.activeTextField];
+    self.activeTextField.text = @"";
     if (pc != nil && pc.cpt != nil &&
         (pc.cpt.Type == MFBWebServiceSvc_CFPPropertyType_cfpDateTime || pc.cpt.Type == MFBWebServiceSvc_CFPPropertyType_cfpDate))
         pc.cfp.DateValue = nil;

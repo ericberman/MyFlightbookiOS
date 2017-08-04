@@ -31,7 +31,6 @@
 #import "ButtonCell.h"
 #import "ExpandHeaderCell.h"
 #import "DecimalEdit.h"
-#import "NumPad.h"
 #import "Util.h"
 #import "MakeModel.h"
 #import "ImageComment.h"
@@ -45,7 +44,6 @@
 - (void) updateMakes;
 
 @property (nonatomic, strong) AccessoryBar * vwAccessory;
-@property (nonatomic, strong) NumPad * vwNumPad;
 @property (strong) IBOutlet WaitView * idVwWait;
 @property (readwrite, strong) NSMutableArray * rgImages;
 @property (readwrite, strong) MFBWebServiceSvc_Aircraft * ac;
@@ -66,7 +64,7 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
     rowMaintFirst = rowMaintHeader, rowVOR, rowXPnder, rowPitot, rowAltimeter, rowELT, rowAnnual, row100hr, rowOil, rowEngine, rowRegistration, rowMaintLast = rowRegistration,
     rowImageHeader};
 
-@synthesize datePicker, picker, idVwWait, rgImages, ac, vwAccessory, vwNumPad, delegate, szTailnumberLast;
+@synthesize datePicker, picker, idVwWait, rgImages, ac, vwAccessory, delegate, szTailnumberLast;
 #pragma mark - ViewController
 - (instancetype)initWithStyle:(UITableViewStyle)style
 {
@@ -107,7 +105,6 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
     if (self.rgImages == nil)
         self.rgImages = [[NSMutableArray alloc] init];
 
-    self.vwNumPad = [NumPad getNumPad];
     self.vwAccessory = [AccessoryBar getAccessoryBar:self];
     
     self.navigationItem.title = [self.ac isNew] ? NSLocalizedString(@"Add Aircraft", @"Submit - Add") : self.ac.TailNumber;
@@ -151,7 +148,6 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
     self.rgImages = nil;
     self.ac = nil;
     self.vwAccessory = nil;
-    self.vwNumPad = nil;
     self.szTailnumberLast = nil;
     [super viewDidUnload];
 }
@@ -299,8 +295,8 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
 - (EditCell *) decimalCell:(NSNumber *) num withPrompt:(NSString *) szPrompt forTableView:(UITableView *) tableView
 {
     EditCell * ec = [EditCell getEditCellDetail:tableView withAccessory:self.vwAccessory];
-    ec.txt.inputView = self.vwNumPad;
-    self.vwNumPad.delegate = ec.txt;
+    ec.txt.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    ec.txt.autocorrectionType = UITextAutocorrectionTypeNo;
     [ec.txt setValue:num withDefault:@0.0];
     ec.txt.NumberType = ntDecimal;
     ec.txt.delegate = self;
@@ -823,6 +819,7 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
     }
 }
 
+
 - (BOOL) textViewShouldBeginEditing:(UITextView *)textView
 {
     self.ipActive = [self.tableView indexPathForCell:[self owningCell:textView]];
@@ -882,7 +879,6 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
     self.vwAccessory.btnDelete.enabled = (row != rowInstanceType);
     
     // If this was a picker-tied edit cell, set up the picker correctly.
-    // If it is a numPad cell, ensure the delegate is set.
     switch (row)
     {
         case rowAltimeter:
@@ -974,7 +970,6 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
         case row100hr:
         case rowOil:
         case rowEngine:
-            self.vwNumPad.delegate = textField;
             break;
     }
     return YES;
@@ -996,6 +991,10 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
         case rowTailnum:
             self.ac.TailNumber = szNew;
             break;
+        case rowOil:
+        case rowEngine:
+        case row100hr:
+            return [textField isValidNumber:[textField.text stringByReplacingCharactersInRange:range withString:string]];
         default:
             break;
     }

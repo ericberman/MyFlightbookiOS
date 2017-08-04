@@ -27,6 +27,7 @@
 
 #import "Util.h"
 #import "MFBAppDelegate.h"
+#import "DecimalEdit.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation NSDate(MFBAdditions)

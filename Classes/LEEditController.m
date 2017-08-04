@@ -38,10 +38,10 @@
 #import "math.h"
 #import "RecentFlights.h"
 #import "ApproachEditor.h"
+#import "DecimalEdit.h"
 
 @interface LEEditController()
 @property (nonatomic, strong) AccessoryBar * vwAccessory;
-@property (nonatomic, strong) NumPad * vwNumPad;
 @property (nonatomic, strong) UIPopoverController * popoverControl;
 @property (nonatomic, strong) NSTimer * timerElapsed;
 @property (nonatomic, strong) UITextField * activeTextField;
@@ -76,7 +76,7 @@
 @synthesize idLblStatus, idLblSpeed, idLblAltitude, idLblQuality, idimgRecording, idbtnPausePlay, idbtnAppendNearest, idlblElapsedTime, timerElapsed;
 @synthesize lblLat, lblLon, lblSunset, lblSunrise;
 @synthesize cellComments, cellDateAndTail, cellGPS, cellLandings, cellRoute, cellSharing, cellTimeBlock;
-@synthesize vwAccessory, vwNumPad, idVwWait, activeTextField, flightProps;
+@synthesize vwAccessory, idVwWait, activeTextField, flightProps;
 @synthesize dictPropCells;
 @synthesize idSharingPrompt;
 
@@ -239,7 +239,8 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 - (void) setNumericField:(UITextField *) txt toType:(int) nt
 {
     txt.NumberType = nt;
-    txt.inputView = self.vwNumPad;
+    txt.keyboardType = nt == ntInteger ? UIKeyboardTypeNumberPad : UIKeyboardTypeNumbersAndPunctuation;
+    txt.autocorrectionType = UITextAutocorrectionTypeNo;
     txt.inputAccessoryView = self.vwAccessory;
     txt.delegate = self;
 }
@@ -271,7 +272,6 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 
     // Set the accessory view and the inputview for our various text boxes.
     self.vwAccessory = [AccessoryBar getAccessoryBar:self];
-    self.vwNumPad = [NumPad getNumPad];
     
     // Set numeric fields
     [self setNumericField:self.idLandings toType:ntInteger];
@@ -471,7 +471,6 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     self.idbtnAppendNearest = nil;
     self.idlblElapsedTime = nil;
     self.le = nil;
-    self.vwNumPad = nil;
     self.vwAccessory = nil;
     self.cellComments = nil;
     self.cellDateAndTail = nil;
@@ -1065,7 +1064,7 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
                     pc.cfp = cfp;
                 pc.txt.delegate = self;
                 pc.flightPropDelegate = self.flightProps;
-                [pc configureCell:self.vwNumPad andAccessory:self.vwAccessory andDatePicker:self.datePicker defValue:self.le.entryData.TotalFlightTime];
+                [pc configureCell:self.vwAccessory andDatePicker:self.datePicker defValue:self.le.entryData.TotalFlightTime];
                 return pc;
             }
     }
@@ -1277,7 +1276,6 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
 - (BOOL) textFieldShouldBeginEditing:(UITextField *)textField
 {
     BOOL fShouldEdit = YES;
-    [self.vwNumPad setTextDelegate:textField];
     UITableViewCell * tc = [self owningCellGeneric:textField];
     self.ipActive = [self.tableView indexPathForCell:tc];
     NSInteger row = [self cellIDFromIndexPath:self.ipActive];

@@ -47,7 +47,7 @@
 - (void) setAutoFillValue:(NSNumber *) num;
 + (PropertyCell *) getPropertyCell:(UITableView *) tableView withCPT:(MFBWebServiceSvc_CustomPropertyType *) cpt andFlightProperty:(MFBWebServiceSvc_CustomFlightProperty *) cfp;
 - (void) styleLabelAsDefault:(BOOL) fIsDefault;
-- (void) configureCell:(UIView *)vwInput andAccessory:(UIView *) vwAcc andDatePicker:(UIDatePicker *) dp defValue:(NSNumber *) num;
+- (void) configureCell:(UIView *) vwAcc andDatePicker:(UIDatePicker *) dp defValue:(NSNumber *) num;
 - (BOOL) handleClick;
 - (BOOL) handleTextUpdate:(UITextField *) textField;
 - (BOOL) prepForEditing;

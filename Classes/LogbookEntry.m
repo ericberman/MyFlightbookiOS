@@ -31,6 +31,7 @@
 #import "FlightProps.h"
 #import "Util.h"
 #import "Airports.h"
+#import "DecimalEdit.h"
 
 @interface LogbookEntry ()
 @end

@@ -252,9 +252,6 @@
 		9A960C9C10DE9B1C00843113 /* profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A960C9B10DE9B1C00843113 /* profile.png */; };
 		9A99506016E3C10200C61594 /* PropertyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A99505F16E3C10200C61594 /* PropertyCell.m */; };
 		9A99506216E3C17F00C61594 /* PropertyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A99506116E3C17F00C61594 /* PropertyCell.xib */; };
-		9A99506416E3D5E500C61594 /* NumPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A99506316E3D5E500C61594 /* NumPad.xib */; };
-		9A99506616E3D5FD00C61594 /* NumPad-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A99506516E3D5FD00C61594 /* NumPad-iPad.xib */; };
-		9A99506916E3D7A100C61594 /* NumPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A99506816E3D7A000C61594 /* NumPad.m */; };
 		9A99507416E694EA00C61594 /* AccessoryBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A99507316E694EA00C61594 /* AccessoryBar.m */; };
 		9A99507716E69D5C00C61594 /* AccessoryBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A99507516E69D5C00C61594 /* AccessoryBar.xib */; };
 		9A9CB2691E513B28002B2E11 /* TotalsCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CB2681E513B28002B2E11 /* TotalsCalculator.m */; };
@@ -732,10 +729,6 @@
 		9A99505E16E3C10200C61594 /* PropertyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropertyCell.h; sourceTree = "<group>"; };
 		9A99505F16E3C10200C61594 /* PropertyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PropertyCell.m; sourceTree = "<group>"; };
 		9A99506116E3C17F00C61594 /* PropertyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PropertyCell.xib; sourceTree = "<group>"; };
-		9A99506316E3D5E500C61594 /* NumPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NumPad.xib; sourceTree = "<group>"; };
-		9A99506516E3D5FD00C61594 /* NumPad-iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "NumPad-iPad.xib"; sourceTree = "<group>"; };
-		9A99506716E3D7A000C61594 /* NumPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumPad.h; sourceTree = "<group>"; };
-		9A99506816E3D7A000C61594 /* NumPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumPad.m; sourceTree = "<group>"; };
 		9A99507216E694EA00C61594 /* AccessoryBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessoryBar.h; sourceTree = "<group>"; };
 		9A99507316E694EA00C61594 /* AccessoryBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessoryBar.m; sourceTree = "<group>"; };
 		9A9CB2671E513B28002B2E11 /* TotalsCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TotalsCalculator.h; sourceTree = "<group>"; };
@@ -1325,8 +1318,6 @@
 				9A820A971D970359001EDEDF /* MakeModel.xib */,
 				9A5A0846147ED35300C05C50 /* MyAircraft.xib */,
 				9A5A0848147ED35300C05C50 /* NearbyAirports.xib */,
-				9A99506516E3D5FD00C61594 /* NumPad-iPad.xib */,
-				9A99506316E3D5E500C61594 /* NumPad.xib */,
 				9A5A085A147ED35300C05C50 /* RecentFlights.xib */,
 				9A5A085C147ED35300C05C50 /* Totals.xib */,
 				9A5A085E147ED35300C05C50 /* TotalsRow.xib */,
@@ -1427,8 +1418,6 @@
 			children = (
 				9A52F0F613E5DE5D00D75504 /* DecimalEdit.h */,
 				9A52F0F713E5DE5D00D75504 /* DecimalEdit.m */,
-				9A99506716E3D7A000C61594 /* NumPad.h */,
-				9A99506816E3D7A000C61594 /* NumPad.m */,
 				9A99507216E694EA00C61594 /* AccessoryBar.h */,
 				9A99507316E694EA00C61594 /* AccessoryBar.m */,
 				9A804AF316EE445F002F77CA /* DateRangeViewController.h */,
@@ -1914,8 +1903,6 @@
 				9A902D5E1A21046600698017 /* profile@3x.png in Resources */,
 				9A99506216E3C17F00C61594 /* PropertyCell.xib in Resources */,
 				9A902D7E1A210E7700698017 /* Recording@3x.png in Resources */,
-				9A99506416E3D5E500C61594 /* NumPad.xib in Resources */,
-				9A99506616E3D5FD00C61594 /* NumPad-iPad.xib in Resources */,
 				9A99507716E69D5C00C61594 /* AccessoryBar.xib in Resources */,
 				9A804AF716EE445F002F77CA /* DateRangeViewController.xib in Resources */,
 				9A23CF9B16F4DE9A001C9098 /* Checkbox-Sel.png in Resources */,
@@ -2087,7 +2074,6 @@
 				9A42300C157B953F00FF99D4 /* ProgressCell.m in Sources */,
 				9A0DD9F8158579BE00FB6DF2 /* FixedImageCell.m in Sources */,
 				9A99506016E3C10200C61594 /* PropertyCell.m in Sources */,
-				9A99506916E3D7A100C61594 /* NumPad.m in Sources */,
 				9A99507416E694EA00C61594 /* AccessoryBar.m in Sources */,
 				9A40A30716E7C9FA0001B6FD /* Util.m in Sources */,
 				9A804AF616EE445F002F77CA /* DateRangeViewController.m in Sources */,

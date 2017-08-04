@@ -27,6 +27,7 @@
 
 #import "ApproachEditor.h"
 #import "EditCell.h"
+#import "DecimalEdit.h"
 
 @interface ApproachEditor ()
 @property (strong) NSArray<NSString *> * airportList;
@@ -124,6 +125,7 @@ enum appchRows {rowCount, rowApproachType, rowRunway, rowAirport, rowAddToTotals
         case rowCount:
             ec.txt.keyboardType = UIKeyboardTypeNumberPad;
             ec.txt.text = self.approachDescription.approachCount == 0 ? @"" : [NSString stringWithFormat:@"%ld", (long) self.approachDescription.approachCount];
+            ec.txt.NumberType = ntInteger;
             ec.txt.placeholder = ec.lbl.text = NSLocalizedString(@"NumApproaches", @"Approach Helper - Quantity");
             ec.txt.returnKeyType = UIReturnKeyNext;
             break;
