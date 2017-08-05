@@ -91,6 +91,7 @@ typedef enum _cacheStatus {cacheInvalid, cacheValid, cacheValidButRefresh} Cache
 #define mfbApp() ((MFBAppDelegate *) [[UIApplication sharedApplication] delegate])
 
 #define _szKeyPrefRecordFlightData @"keyAutoDetectRoute"
+#define _szKeyPrefRecordHighRes @"keyRecordHighRes"
 #define _szKeyPrefAutoDetect @"keyAutoDetectTakeOffAndLanding"
 #define _szKeyPrefIsRecording @"keyPrefIsRecording"
 #define _szKeyPrefPendingFlights @"keyPendingFlights"

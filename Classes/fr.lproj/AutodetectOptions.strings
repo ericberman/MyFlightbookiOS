@@ -76,3 +76,11 @@
 
 /* Class = "UILabel"; text = "Use nearest tenth of an hour"; ObjectID = "Pkd-WF-W6L"; */
 "Pkd-WF-W6L.text" = "Utilisez dixième d'heure";
+
+/* Class = "UILabel"; text = "Record High Resolution"; ObjectID = "5cU-q7-bDt"; */
+"5cU-q7-bDt.text" = "Enregistrement en haute résolution";
+
+/* Class = "UILabel"; text = "Slower to upload/download, but works better with apps like CloudAhoy"; ObjectID = "vSc-Pf-R1W"; */
+"vSc-Pf-R1W.text" = "Plus lent, mais fonctionne mieux avec des applications comme CloudAhoy";
+
+

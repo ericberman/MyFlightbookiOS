@@ -86,6 +86,7 @@ typedef NS_ENUM(NSInteger, FlightState) {
 }
 
 @property (readwrite) BOOL fRecordFlightData;
+@property (readwrite) BOOL fRecordHighRes;
 @property (readwrite) BOOL fRecordingIsPaused;
 @property (assign) NSInteger cSamplesSinceWaking;
 @property (readwrite, strong) id<AutoDetectDelegate> delegate;

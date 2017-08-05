@@ -40,7 +40,7 @@
 
 @implementation AutodetectOptions
 
-@synthesize idswAutoDetect, idswRecordFlight, idswSegmentedHobbs, idswSegmentedTotal, idswTakeoffSpeed, idswUseHHMM, idswUseLocal, idswUseHeliports, idswMapOptions, idswRoundNearestTenth;
+@synthesize idswAutoDetect, idswRecordFlight, idswRecordHighRes, idswSegmentedHobbs, idswSegmentedTotal, idswTakeoffSpeed, idswUseHHMM, idswUseLocal, idswUseHeliports, idswMapOptions, idswRoundNearestTenth;
 @synthesize cellAutoHobbs, cellAutoOptions, cellAutoTotal, cellHHMM, cellLocalTime, cellHeliports, cellWarnings, cellTOSpeed, cellMapOptions, cellImages;
 @synthesize txtWarnings;
 
@@ -69,7 +69,7 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
 - (void)viewDidUnload {
 	// Release any retained subviews of the main view.
 	// e.g. self.myOutlet = nil;
-	self.idswAutoDetect = self.idswRecordFlight = self.idswUseHHMM = self.idswUseLocal = self.idswUseHeliports = self.idswRoundNearestTenth = nil;
+	self.idswAutoDetect = self.idswRecordFlight = self.idswRecordHighRes = self.idswUseHHMM = self.idswUseLocal = self.idswUseHeliports = self.idswRoundNearestTenth = nil;
 	self.idswSegmentedHobbs = self.idswSegmentedTotal = self.idswTakeoffSpeed = self.idswMapOptions = nil;
     self.cellLocalTime = self.cellHHMM = self.cellAutoTotal = self.cellAutoOptions = self.cellTOSpeed = self.cellAutoHobbs = self.cellHeliports = self.cellWarnings = self.cellImages = nil;
     self.cellTOSpeed = self.cellMapOptions = nil;
@@ -84,6 +84,7 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
     self.navigationController.toolbarHidden = YES;
 	self.idswAutoDetect.on = [AutodetectOptions autodetectTakeoffs];
     self.idswRecordFlight.on = [AutodetectOptions recordTelemetry];
+    self.idswRecordHighRes.on = [AutodetectOptions recordHighRes];
     self.idswUseHeliports.on = [AutodetectOptions includeHeliports];
     self.idswUseHHMM.on = [AutodetectOptions HHMMPref];
     self.idswUseLocal.on = [AutodetectOptions UseLocalTime];
@@ -300,6 +301,12 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
 	mfbApp().mfbloc.fRecordFlightData = self.idswRecordFlight.on;
 }
 
+- (IBAction) recordHighResClicked:(UISwitch *)sender
+{
+    [[NSUserDefaults standardUserDefaults] setBool:sender.on forKey:_szKeyPrefRecordHighRes];
+    mfbApp().mfbloc.fRecordHighRes = sender.on;
+}
+
 - (IBAction) useHHMMClicked:(UISwitch *)sender
 {
     [[NSUserDefaults standardUserDefaults] setBool:sender.on forKey:szPrefKeyHHMM];
@@ -380,6 +387,11 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
 + (BOOL) recordTelemetry
 {
     return [[NSUserDefaults standardUserDefaults] boolForKey:_szKeyPrefRecordFlightData];
+}
+
++ (BOOL) recordHighRes
+{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:_szKeyPrefRecordHighRes];
 }
 
 + (int) autoHobbsMode

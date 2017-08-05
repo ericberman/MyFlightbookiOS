@@ -46,7 +46,7 @@
 #warning GPS SIM IS ON!!!
 #endif
 
-@synthesize fRecordFlightData, fRecordingIsPaused;
+@synthesize fRecordFlightData, fRecordHighRes, fRecordingIsPaused;
 @synthesize flightTrackData;
 @synthesize cSamplesSinceWaking, delegate;
 @synthesize fIsBlessed;
@@ -67,6 +67,7 @@ static int vLanding = LANDING_SPEED_DEFAULT;
         self.cSamplesSinceWaking = 0;
         self.currentFlightState = fsOnGround;
         self.fRecordFlightData = NO;
+        self.fRecordHighRes = [[NSUserDefaults standardUserDefaults] boolForKey:_szKeyPrefRecordHighRes];
         self.flightTrackData = [NSMutableString new];
         self.rgAllSamples = [NSMutableArray new];
         self.fIsBlessed = NO;
@@ -117,6 +118,8 @@ static int vLanding = LANDING_SPEED_DEFAULT;
     
     NSArray * ar = [defs objectForKey:_szKeyPrefFlightSamples];
     self.rgAllSamples = [NSMutableArray arrayWithArray:ar == nil ? @[] : ar];
+    
+    self.fRecordHighRes = [defs boolForKey:_szKeyPrefRecordHighRes];
 
     [MFBLocation refreshTakeoffSpeed];
 }
@@ -376,7 +379,7 @@ static int vLanding = LANDING_SPEED_DEFAULT;
     
     // record this if appropriate - we do the valid time check here to avoid too tightly clustered
     // samples, but any event (landing/takeoff) will set it to be true.
-    if (app.fDebugMode || (fRecordable && (fForceRecord || (fValidTime && fValidSample))))
+    if (app.fDebugMode || self.fRecordHighRes || (fRecordable && (fForceRecord || (fValidTime && fValidSample))))
         [self recordLocation:newLocation withEvent:szEvent];
     
     if (fRecordable)

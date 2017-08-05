@@ -43,6 +43,7 @@ enum autoTotal {autoTotalNone = 0, autoTotalFlight, autoTotalEngine, autoTotalHo
 
 @property (nonatomic, strong) IBOutlet UISwitch * idswAutoDetect;
 @property (nonatomic, strong) IBOutlet UISwitch * idswRecordFlight;
+@property (nonatomic, strong) IBOutlet UISwitch * idswRecordHighRes;
 @property (nonatomic, strong) IBOutlet UISwitch * idswUseHHMM;
 @property (nonatomic, strong) IBOutlet UISwitch * idswRoundNearestTenth;
 @property (nonatomic, strong) IBOutlet UISwitch * idswUseLocal;
@@ -67,6 +68,7 @@ enum autoTotal {autoTotalNone = 0, autoTotalFlight, autoTotalEngine, autoTotalHo
 
 - (IBAction) autoDetectClicked:(UISwitch *)sender;
 - (IBAction) recordFlightClicked:(UISwitch *)sender;
+- (IBAction) recordHighResClicked:(UISwitch *)sender;
 - (IBAction) roundNearestTenthClicked:(UISwitch *) sender;
 - (IBAction) useHHMMClicked:(UISwitch *)sender;
 - (IBAction) useLocalClicked:(UISwitch *)sender;
@@ -85,6 +87,7 @@ enum autoTotal {autoTotalNone = 0, autoTotalFlight, autoTotalEngine, autoTotalHo
 + (BOOL) UseLocalTime;
 + (BOOL) autodetectTakeoffs;
 + (BOOL) recordTelemetry;
++ (BOOL) recordHighRes;
 + (BOOL) includeHeliports;
 + (BOOL) showFlightImages;
 + (MKMapType) mapType;
