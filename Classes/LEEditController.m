@@ -39,6 +39,7 @@
 #import "RecentFlights.h"
 #import "ApproachEditor.h"
 #import "DecimalEdit.h"
+#import "TextCell.h"
 
 @interface LEEditController()
 @property (nonatomic, strong) AccessoryBar * vwAccessory;
@@ -47,6 +48,7 @@
 @property (nonatomic, strong) UITextField * activeTextField;
 @property (strong) FlightProps * flightProps;
 @property (nonatomic, strong) NSMutableDictionary * dictPropCells;
+@property (nonatomic, strong) UIImage * digitizedSig;
 
 
 - (void) updatePausePlay;
@@ -77,7 +79,7 @@
 @synthesize lblLat, lblLon, lblSunset, lblSunrise;
 @synthesize cellComments, cellDateAndTail, cellGPS, cellLandings, cellRoute, cellSharing, cellTimeBlock;
 @synthesize vwAccessory, idVwWait, activeTextField, flightProps;
-@synthesize dictPropCells;
+@synthesize dictPropCells, digitizedSig;
 @synthesize idSharingPrompt;
 
 NSString * const _szKeyCachedImageArray = @"cachedImageArrayKey";
@@ -86,12 +88,13 @@ NSString * const _szKeyTwitterState = @"keyTwitterState";
 NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
 NSString * const _szkeyITCCollapseState = @"keyITCCollapseState";
 
-enum sections {sectGeneral, sectInCockpit, sectTimes, sectProperties, sectImages, sectSharing, sectLast};
+enum sections {sectGeneral, sectInCockpit, sectTimes, sectProperties, sectSignature, sectImages, sectSharing, sectLast};
 enum rows {
     rowGeneralFirst, rowDateTail = rowGeneralFirst, rowComments, rowRoute, rowLandings, rowGeneralLast=rowLandings,
     rowCockpitFirst, rowCockpitHeader = rowCockpitFirst, rowGPS, rowHobbsStart, rowEngineStart, rowFlightStart, rowFlightEnd, rowEngineEnd, rowHobbsEnd, rowCockpitLast = rowHobbsEnd,
     rowTimes,
     rowPropertiesHeader, rowAddProperties,
+    rowSigFirst, rowSigHeader, rowSigState, rowSigComment, rowSigValidity, rowSigLast = rowSigValidity,
     rowImagesHeader,
     rowSharing,
     rowImageFirst = 1000,
@@ -254,6 +257,14 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
             [vw addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:txt action:@selector(becomeFirstResponder)]];
 }
 
+- (void) asyncLoadDigitizedSig
+{
+    @autoreleasepool {
+        NSString * szURL = [NSString stringWithFormat:@"https://%@/logbook/public/ViewSig.aspx?id=%d", MFBHOSTNAME, self.le.entryData.FlightID.intValue];
+        self.digitizedSig = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:szURL]]];
+        [self.tableView reloadData];
+    }
+}
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
@@ -348,6 +359,8 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
             [self.expandedSections addIndex:sectInCockpit];
         [self.expandedSections addIndex:sectProperties];
     }
+    if (self.le.entryData.isSigned)
+        [self.expandedSections addIndex:sectSignature];
     
     /* Set up toolbar and submit buttons */
     UIBarButtonItem * biSign = [[UIBarButtonItem alloc]
@@ -426,9 +439,11 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     
     self.idSharingPrompt.text = NSLocalizedString(@"SharingPrompt", @"Sharing prompt");
     
+    if (self.le.entryData.isSigned && self.le.entryData.HasDigitizedSig)
+        [NSThread detachNewThreadSelector:@selector(asyncLoadDigitizedSig) toTarget:self withObject:nil];
+    
     [mfbApp() registerNotifyResetAll:self];
 }
-
 
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.
@@ -484,6 +499,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     self.flightProps = nil;
     self.dictPropCells = nil;
     self.idSharingPrompt = nil;
+    self.digitizedSig = nil;
     [super viewDidUnload];
 }
 
@@ -899,6 +915,8 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
             return rowSharing;
         case sectTimes:
             return rowTimes;
+        case sectSignature:
+            return rowSigHeader + row;
         default:
             return 0;
     }
@@ -925,6 +943,8 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
             return 1;
         case sectTimes:
             return 1;
+        case sectSignature:
+            return self.le.entryData.isSigned ? ([self isExpanded:sectSignature] ? rowSigLast - rowSigFirst : 1) : 0;
         default:
             return 0;
     }
@@ -936,6 +956,8 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
     {
         case sectSharing:
             return NSLocalizedString(@"Sharing", @"Sharing Header");
+        case sectSignature:
+            return self.le.entryData.CFISignatureState == MFBWebServiceSvc_SignatureState_None ? nil : @"";
         default:
             return @"";
     }
@@ -990,6 +1012,8 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
             return [ExpandHeaderCell getHeaderCell:tableView withTitle:NSLocalizedString(@"Images", @"Images Header") forSection:sectImages initialState:[self isExpanded:sectImages]];
         case rowPropertiesHeader:
             return [ExpandHeaderCell getHeaderCell:tableView withTitle:NSLocalizedString(@"Properties", @"Properties Header") forSection:sectProperties initialState:[self isExpanded:sectProperties]];
+        case rowSigHeader:
+            return [ExpandHeaderCell getHeaderCell:tableView withTitle:NSLocalizedString(@"sigHeader", @"Signature Section Title") forSection:sectSignature initialState:YES];
         case rowDateTail:
             return self.cellDateAndTail;
         case rowComments:
@@ -1028,6 +1052,48 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }
+        case rowSigState:
+        {
+            static NSString * cellID = @"SigStateCell";
+            UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+            if (cell == nil)
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            NSDateFormatter * df = [NSDateFormatter new];
+            df.dateStyle = NSDateFormatterShortStyle;
+            cell.textLabel.text = [NSString stringWithFormat:NSLocalizedString(@"sigStateTemplate1", @"Signature Status - date and CFI"), [df stringFromDate:self.le.entryData.CFISignatureDate], self.le.entryData.CFIName];
+            cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"sigStateTemplate2", @"Signature Status - certificate & Expiration"), self.le.entryData.CFICertificate, [df stringFromDate:self.le.entryData.CFIExpiration]];
+            cell.textLabel.adjustsFontSizeToFitWidth = YES;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.imageView.image = [UIImage imageNamed:self.le.entryData.CFISignatureState == MFBWebServiceSvc_SignatureState_Valid ? @"sigok" : @"siginvalid"];
+            return cell;
+        }
+            break;
+        case rowSigComment:
+        {
+            TextCell * tc = [TextCell getTextCell:tableView];
+            tc.accessoryType = UITableViewCellAccessoryNone;
+            tc.txt.text = self.le.entryData.CFIComments;
+            tc.selectionStyle = UITableViewCellSelectionStyleNone;
+            tc.txt.adjustsFontSizeToFitWidth = YES;
+            return tc;
+        }
+            break;
+            
+        case rowSigValidity:
+        {
+            static NSString * cellID = @"SigValidityCell";
+            UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+            if (cell == nil)
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.textLabel.text = (self.le.entryData.CFISignatureState == MFBWebServiceSvc_SignatureState_Valid) ? NSLocalizedString(@"sigStateValid", @"Signature Valid") : NSLocalizedString(@"sigStateInvalid", @"Signature Invalid");
+            cell.textLabel.adjustsFontSizeToFitWidth = YES;
+            cell.imageView.image = self.digitizedSig;
+            return cell;
+        }
+            break;
         default:
             if (indexPath.section == sectImages)
             {
@@ -1091,6 +1157,11 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
             return heightTimes;
         case rowSharing:
             return heightSharing;
+        case rowSigComment:
+            if ([self cellIDFromIndexPath:indexPath] == rowSigComment && self.le.entryData.CFIComments.length == 0)
+                return 0;
+            else
+                return UITableViewAutomaticDimension;
         default:
             if (indexPath.section == sectImages && indexPath.row > 0)
                 return 100;
@@ -1181,6 +1252,9 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
                 [[NSUserDefaults standardUserDefaults] setBool:![self isExpanded:indexPath.section] forKey:_szkeyITCCollapseState];
                 [[NSUserDefaults standardUserDefaults] synchronize];
             }
+            break;
+        case rowSigHeader:
+            [self toggleSection:indexPath.section];
             break;
         case rowHobbsEnd:
         case rowHobbsStart:

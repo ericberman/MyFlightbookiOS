@@ -99,6 +99,7 @@
 - (BOOL) isNewOrPending;
 - (BOOL) isInInitialState;  // checks to see if a flight is empty but for the starting hobbs
 - (BOOL) isEmpty;           // checks to see if a flight is truly empty.
+- (BOOL) isSigned; 
 - (void)encodeWithCoderMFB:(NSCoder *)encoder;
 - (instancetype)initWithCoderMFB:(NSCoder *)decoder;
 + (MFBWebServiceSvc_LogbookEntry *) getNewLogbookEntry;

@@ -595,6 +595,11 @@ NSString * const _szkeyPOTwitter = @"_poPostTwitter";
     return self.HobbsStart.doubleValue == 0.0 && self.isInInitialState;
 }
 
+- (BOOL) isSigned
+{
+    return self.CFISignatureState == MFBWebServiceSvc_SignatureState_Valid || self.CFISignatureState == MFBWebServiceSvc_SignatureState_Invalid;
+}
+
 - (void)encodeWithCoderMFB:(NSCoder *)encoder
 {
 	[encoder encodeObject:self.FlightID forKey:_szkeyFlightID];
