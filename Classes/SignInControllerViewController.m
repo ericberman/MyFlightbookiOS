@@ -115,7 +115,7 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
 - (void) UpdateProfileWorker
 {
     @autoreleasepool {
-        MFBAppDelegate * app = mfbApp();
+        MFBAppDelegate * app = [MFBAppDelegate threadSafeAppDelegate];
         if ([app.userProfile GetAuthToken])
             [self performSelectorOnMainThread:@selector(UpdateProfileFinished) withObject:nil waitUntilDone:NO];
         else
