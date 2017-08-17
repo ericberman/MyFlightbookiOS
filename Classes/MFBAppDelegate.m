@@ -454,7 +454,7 @@ static BOOL fAppLaunchFinished = NO;
     else
         self.rgPendingFlights = [[NSMutableArray alloc] init];
     // set a badge for the # of pending flights.
-    [self addBadgeForPendingFlights];
+    [self performSelectorOnMainThread:@selector(addBadgeForPendingFlights) withObject:nil waitUntilDone:NO];
     
     // and select the correct tab
     [self.userProfile LoadPrefs];
@@ -473,7 +473,7 @@ static BOOL fAppLaunchFinished = NO;
         // Initialize the aircraft list; only update the progress indicator if the cache is invalid.
         if ([[Aircraft sharedAircraft] cacheStatus:self.userProfile.AuthToken] != cacheValid && [self isOnLine])
         {
-            self.vwWait.lblPrompt.text = NSLocalizedString(@"Retrieving aircraft list...", @"status message while retrieving user aircraft");
+            [self.vwWait.lblPrompt performSelectorOnMainThread:@selector(setText:) withObject:NSLocalizedString(@"Retrieving aircraft list...", @"status message while retrieving user aircraft") waitUntilDone:NO];
             [[Aircraft sharedAircraft] performSelectorOnMainThread:@selector(refreshIfNeeded) withObject:nil waitUntilDone:YES];
         }
     }
@@ -509,10 +509,17 @@ static BOOL fAppLaunchFinished = NO;
     [iRate sharedInstance].verboseLogging = YES;
 }
 
+static MFBAppDelegate * _mainApp = nil;
++ (MFBAppDelegate *) threadSafeAppDelegate
+{
+    return _mainApp;
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions 
 {
 	NSLog(@"MyFlightbook: hello - launch, baseURL is %@", MFBHOSTNAME);
     
+    _mainApp = self;
     self.notifyDataChanged = [[NSMutableArray alloc] init];
     self.notifyResetAll = [[NSMutableArray alloc] init];
     
@@ -557,6 +564,7 @@ static BOOL fAppLaunchFinished = NO;
 	[self saveState];
 	if (_db != nil)
 		sqlite3_close(_db);
+    _mainApp = nil;
 }
 
 - (void) applicationDidEnterBackground:(UIApplication *)application
@@ -580,6 +588,7 @@ static BOOL fAppLaunchFinished = NO;
 {
     NSLog(@"Entered foreground");
     
+    _mainApp = self;
     // ALWAYS start updating location in foreground
     [self.mfbloc.locManager startUpdatingLocation];
     if ([self.mfbloc.locManager respondsToSelector:@selector(setAllowsBackgroundLocationUpdates:)])
@@ -591,7 +600,8 @@ static BOOL fAppLaunchFinished = NO;
 - (void) appReactivateBackground
 {
     static BOOL fNeedsRefreshOnActivate;
-    
+    _mainApp = self;
+
     if (!fNeedsRefreshOnActivate)
     {
         NSLog(@"AppReactivate - 1st time, skipping refresh");
@@ -620,6 +630,7 @@ static BOOL fAppLaunchFinished = NO;
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    _mainApp = self;
 	NSLog(@"ApplicationDidBecomeActive\r\n");
     
     // restore the state of recording data.

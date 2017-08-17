@@ -91,7 +91,7 @@
 
 - (void) tearDown
 {
-    [self.activityIndicator stopAnimating];
+    [self.activityIndicator performSelectorOnMainThread:@selector(stopAnimating) withObject:nil waitUntilDone:NO];
     if (self.view.superview != nil)
         [self.view performSelectorOnMainThread:@selector(removeFromSuperview) withObject:nil waitUntilDone:NO];
 }

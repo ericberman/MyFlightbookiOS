@@ -136,9 +136,7 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
 
 - (UIImage *) loadImageFromMFBInfo
 {
-	MFBAppDelegate * app = mfbApp();
-	
-	if (![app isOnLine])
+	if (![[MFBAppDelegate threadSafeAppDelegate] isOnLine])
 		return nil;
 	
 	NSURL * url = [self.imgInfo urlForImage];	

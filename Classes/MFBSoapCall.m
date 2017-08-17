@@ -48,7 +48,7 @@ static NSMutableArray * _rgHackRetain = nil;
 #pragma mark Actual functionality
 - (MFBWebServiceSoapBinding *) setUpBinding:(BOOL)fSecure
 {
-	if (![mfbApp() isOnLine])
+	if (![[MFBAppDelegate threadSafeAppDelegate] isOnLine])
 	{
 		self.errorString = NSLocalizedString(@"No access to the Internet", @"Error message if app cannot connect to the Internet");
 		return nil;
@@ -156,18 +156,29 @@ static NSMutableArray * _rgHackRetain = nil;
     return [self makeCallAsync:callToMake asSecure:YES];
 }
 
+- (void) networkIndicatorOn
+{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+}
+
+- (void) networkIndicatorOff
+{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+}
+
+// TODO: We should never be calling this any more.  Call only on background threads.  networkActivityIndicator can't be set from background thread.
 - (BOOL) makeCallSynchronous:(MFBWebServiceSoapBindingResponse * (^)(MFBWebServiceSoapBinding * b)) callToMake asSecure:(BOOL) fSecure
 {
     BOOL retVal = YES;
     
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [self performSelectorOnMainThread:@selector(networkIndicatorOn) withObject:nil waitUntilDone:NO];
     
     MFBWebServiceSoapBinding * binding = [self setUpBinding:fSecure];
     if (binding != nil)
     {
         MFBWebServiceSoapBindingResponse *response = callToMake(binding);
         retVal = [self parseResponse:response];
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        [self performSelectorOnMainThread:@selector(networkIndicatorOff) withObject:nil waitUntilDone:NO];
     }
     else
         retVal = NO;

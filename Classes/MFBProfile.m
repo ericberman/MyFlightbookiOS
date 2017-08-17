@@ -127,7 +127,7 @@ NSString * const _szKeyCachedTokenRetrievalDate = @"keyCacheTokenDate";
 	// (b) it is still valid.
 	if (self.AuthToken != nil && [self.AuthToken length] > 0 && timeSinceLastAuth < CACHE_LIFETIME)
     {
-        if (timeSinceLastAuth < CACHE_REFRESH || ![mfbApp() isOnLine])
+        if (timeSinceLastAuth < CACHE_REFRESH || ![[MFBAppDelegate threadSafeAppDelegate] isOnLine])
             return cacheValid;
         else
             return cacheValidButRefresh;
@@ -195,7 +195,7 @@ NSString * const _szKeyCachedTokenRetrievalDate = @"keyCacheTokenDate";
 		NSLog(@"Authtoken successfully retrieved - updating cache");
 		[self cacheAuthCreds];
         if (szUserCached == nil || [szUserCached compare:self.UserName] != NSOrderedSame) // signed in as someone new
-            [self clearOldUserContent];
+            [self performSelectorOnMainThread:@selector(clearOldUserContent) withObject:nil waitUntilDone:YES];
 		return YES;
 	}
 	

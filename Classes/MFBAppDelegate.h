@@ -134,6 +134,7 @@ typedef enum _cacheStatus {cacheInvalid, cacheValid, cacheValidButRefresh} Cache
 - (void) registerNotifyResetAll:(id<Invalidatable>)sender;
 
 - (BOOL) isOnLine;
++ (MFBAppDelegate *) threadSafeAppDelegate;
 
 - (RecentFlights *) recentsView;
 

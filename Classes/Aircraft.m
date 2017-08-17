@@ -190,7 +190,7 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
 		szCachedToken != nil && [szCachedToken compare:szAuthToken] == NSOrderedSame &&
 		timeSinceLastRefresh < CACHE_LIFETIME)
     {
-        if (timeSinceLastRefresh < CACHE_REFRESH || ![mfbApp() isOnLine])
+        if (timeSinceLastRefresh < CACHE_REFRESH || ![[MFBAppDelegate threadSafeAppDelegate] isOnLine])
             return cacheValid;
         else
             return cacheValidButRefresh;

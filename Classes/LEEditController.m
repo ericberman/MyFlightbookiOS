@@ -262,7 +262,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     @autoreleasepool {
         NSString * szURL = [NSString stringWithFormat:@"https://%@/logbook/public/ViewSig.aspx?id=%d", MFBHOSTNAME, self.le.entryData.FlightID.intValue];
         self.digitizedSig = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:szURL]]];
-        [self.tableView reloadData];
+        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }
 }
 
