@@ -71,7 +71,7 @@ class CurrencyInterfaceController: RefreshableTableController {
                 case MFBWebServiceSvc_CurrencyState_GettingClose:
                     row.lblCurrencyStatus.setTextColor(UIColor.blue)
                 case MFBWebServiceSvc_CurrencyState_OK:
-                    row.lblCurrencyStatus.setTextColor(UIColor(colorLiteralRed: 0, green: 0.5, blue: 0, alpha: 1.0))
+                    row.lblCurrencyStatus.setTextColor(UIColor(red: 0, green: 0.5, blue: 0, alpha: 1.0))
                 default:
                     break;
                 }
