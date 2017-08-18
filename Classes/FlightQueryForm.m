@@ -333,6 +333,8 @@ static NSArray * makesInUse = nil;
 }
 
 #pragma mark - Table view data source
+- (UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {return nil; }
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {return nil; }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
