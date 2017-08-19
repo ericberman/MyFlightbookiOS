@@ -96,7 +96,7 @@ class CockpitInterfaceController: WKInterfaceController, WCSessionDelegate, Sess
     }
     
     func handleActivation(_ session:WCSession) {
-        refresh([WATCH_MESSAGE_ACTION: WATCH_ACTION_START])
+        refresh([WATCH_MESSAGE_REQUEST_DATA : WATCH_REQUEST_STATUS]);
     }
     
     @IBAction func startFlight() {
