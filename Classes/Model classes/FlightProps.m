@@ -162,7 +162,7 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
 	NSLog(@"loadCustomPropertyTypes");
 	self.errorString = @"";
     
-    MFBAppDelegate * app = mfbApp();
+    MFBAppDelegate * app = [MFBAppDelegate threadSafeAppDelegate];
 	
 	BOOL fNetworkAvail = [app isOnLine];
 	

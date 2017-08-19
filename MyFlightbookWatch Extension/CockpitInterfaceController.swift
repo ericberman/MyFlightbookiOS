@@ -127,6 +127,19 @@ class CockpitInterfaceController: WKInterfaceController, WCSessionDelegate, Sess
         lblTimer.setText(NSString(format: "%02d:%02d:%02d", elapsedSeconds / 3600, (elapsedSeconds % 3600) / 60, elapsedSeconds % 60) as String!)
     }
     
+    func updateMainMenus(_ watchData : SharedWatch)
+    {
+        self.clearAllMenuItems()
+        if (watchData.flightStage == flightStageInProgress) {
+            if (watchData.isPaused) {
+                self.addMenuItem(withImageNamed: "Play", title: NSLocalizedString("WatchPlay", comment: "Watch - Resume"), action: #selector(CockpitInterfaceController.pausePlay))
+            }
+            else {
+                self.addMenuItem(withImageNamed: "Pause", title: NSLocalizedString("WatchPause", comment: "Watch - Pause"), action: #selector(CockpitInterfaceController.pausePlay))
+            }
+        }
+    }
+    
     func updateScreen(_ watchData : SharedWatch!) {
         lblLat.setText(watchData.latDisplay)
         lblLon.setText(watchData.lonDisplay)
@@ -140,15 +153,7 @@ class CockpitInterfaceController: WKInterfaceController, WCSessionDelegate, Sess
         grpUnstarted.setHidden(watchData.flightStage != flightStageUnstarted)
         imgRecording.setHidden(!watchData.isRecording)
         
-        self.clearAllMenuItems()
-        if (watchData.flightStage == flightStageInProgress) {
-            if (watchData.isPaused) {
-                self.addMenuItem(withImageNamed: "Play", title: NSLocalizedString("WatchPlay", comment: "Watch - Resume"), action: #selector(CockpitInterfaceController.pausePlay))
-            }
-            else {
-                self.addMenuItem(withImageNamed: "Pause", title: NSLocalizedString("WatchPause", comment: "Watch - Pause"), action: #selector(CockpitInterfaceController.pausePlay))
-            }
-        }
+        self.performSelector(onMainThread:#selector(updateMainMenus(_:)), with: watchData, waitUntilDone: false)
     }
     
     func updateStatusMessage(_ dictResult: [String : Any]) {
