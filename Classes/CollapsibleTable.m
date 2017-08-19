@@ -86,6 +86,10 @@ BOOL fSelectFirst = NO;
 - (void) viewDidLoad
 {
     [super viewDidLoad];
+
+    // Fix an iOS 11 issue with going under the UITabBar?
+    if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
+        self.edgesForExtendedLayout = UIRectEdgeNone;
 }
 - (void) viewDidUnload
 {
