@@ -1166,7 +1166,7 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
         BOOL fIsNew = self.ac.AircraftID.intValue < 0;
         NSString * targetURL = fIsNew ? MFBAIRCRAFTIMAGEUPLOADPAGENEW : MFBAIRCRAFTIMAGEUPLOADPAGE;
         NSString * key = fIsNew ? ac.TailNumber : ac.AircraftID.stringValue;
-        [CommentedImage uploadImages:self.rgImages withStatusLabel:self.idVwWait.lblPrompt toPage:targetURL authString:mfbApp().userProfile.AuthToken keyName:MFB_KEYAIRCRAFTIMAGE keyValue:key];
+        [CommentedImage uploadImages:self.rgImages withStatusLabel:self.idVwWait.lblPrompt toPage:targetURL authString:[MFBAppDelegate threadSafeAppDelegate].userProfile.AuthToken keyName:MFB_KEYAIRCRAFTIMAGE keyValue:key];
         [self performSelectorOnMainThread:@selector(imagesComplete:) withObject:ar waitUntilDone:NO];
     }
 }

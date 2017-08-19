@@ -512,9 +512,12 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
 	if (pageName == nil || [pageName length] == 0)
 		return;
 	
-	for (CommentedImage * ci in rgImages)
-	{
+    dispatch_async(dispatch_get_main_queue(), ^{
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    });
+    
+    for (CommentedImage * ci in rgImages)
+	{
 		// skip if this isn't a commented image
 		if (![ci isKindOfClass:[CommentedImage class]])
 			continue;
@@ -601,8 +604,10 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
             }
         }
 	}
-	
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;	
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    });
 	
 	if (cErrors > 0)
 	{
