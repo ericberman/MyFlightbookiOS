@@ -34,6 +34,7 @@
 #import "ButtonCell.h"
 #import "TextCell.h"
 #import "NewUserTableController.h"
+#import "FlightProps.h"
 
 @interface SignInControllerViewController ()
 @property (nonatomic, strong) NSString * szUser;
@@ -117,7 +118,13 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
     @autoreleasepool {
         MFBAppDelegate * app = [MFBAppDelegate threadSafeAppDelegate];
         if ([app.userProfile GetAuthToken])
+        {
             [self performSelectorOnMainThread:@selector(UpdateProfileFinished) withObject:nil waitUntilDone:NO];
+            [NSThread detachNewThreadWithBlock:^() {
+                FlightProps * fp = [[FlightProps alloc] init];
+                [fp loadCustomPropertyTypes];
+            }];
+        }
         else
             [self performSelectorOnMainThread:@selector(showError:) withObject:app.userProfile.ErrorString waitUntilDone:NO];
         

@@ -95,8 +95,6 @@
 
 @property (nonatomic, strong) IBOutlet UITextView * idSharingPrompt;
 
-@property (strong) IBOutlet WaitView * idVwWait;
-
 // Cockpit view IBActions
 - (IBAction) viewClosest;
 - (IBAction) autofillClosest;

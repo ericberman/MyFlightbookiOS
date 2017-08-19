@@ -66,7 +66,7 @@
 - (void) stopEngine;
 - (void) startFlight;
 - (void) stopFlight;
-- (void) refreshProperties:(UIView *) sender;
+- (void) refreshProperties;
 - (void) viewProperties:(UIView *) sender;
 @end
 
@@ -78,7 +78,7 @@
 @synthesize idLblStatus, idLblSpeed, idLblAltitude, idLblQuality, idimgRecording, idbtnPausePlay, idbtnAppendNearest, idlblElapsedTime, timerElapsed;
 @synthesize lblLat, lblLon, lblSunset, lblSunrise;
 @synthesize cellComments, cellDateAndTail, cellGPS, cellLandings, cellRoute, cellSharing, cellTimeBlock;
-@synthesize vwAccessory, idVwWait, activeTextField, flightProps;
+@synthesize vwAccessory, activeTextField, flightProps;
 @synthesize dictPropCells, digitizedSig;
 @synthesize idSharingPrompt;
 
@@ -350,6 +350,8 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 	
 	[self initFormFromLE];
     
+    [self refreshProperties];
+    
     [self.expandedSections removeAllIndexes];
     if ([self.le.rgPicsForFlight count] > 0)
         [self.expandedSections addIndex:sectImages];
@@ -494,7 +496,6 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     self.cellRoute = nil;
     self.cellSharing = nil;
     self.cellTimeBlock = nil;
-    self.idVwWait = nil;
     self.activeTextField = nil;
     self.flightProps = nil;
     self.dictPropCells = nil;
@@ -1230,19 +1231,9 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
     switch ([self cellIDFromIndexPath:indexPath])
     {
         case rowAddProperties:
-            if ([self.le.entryData isNewOrPending])
-                [self refreshProperties:cell];
-            else
-                [self viewProperties:cell];
+            [self viewProperties:cell];
             break;
         case rowPropertiesHeader:
-            if (![self.le.entryData isNewOrPending] && !self.le.propsHaveBeenDownloaded && ![self isExpanded:indexPath.section])
-            {
-                // this will expand on completion
-                [self refreshProperties:cell];
-                break;
-            }
-            // else fall through
         case rowCockpitHeader:
         case rowImagesHeader:
             [self toggleSection:indexPath.section];
@@ -1976,15 +1967,7 @@ static NSDateFormatter * dfSunriseSunset = nil;
         [self.navigationController pushViewController:vwProps animated:YES];
 }
 
-- (void) refreshPropertiesUIWorker:(UIView *) sender
-{
-    if ([self.le.entryData isNewOrPending])
-        [self viewProperties:sender];
-    else
-        [self toggleSection:sectProperties];
-}
-
-- (void) refreshPropertiesWorker:(UIView *) sender
+- (void) refreshPropertiesWorker
 {
     @autoreleasepool {    
     FlightProps * fp = [[FlightProps alloc] init];
@@ -2020,14 +2003,12 @@ static NSDateFormatter * dfSunriseSunset = nil;
         }
     }
     
-    [self.idVwWait tearDown];
-
     if (!fError)
-        [self performSelectorOnMainThread:@selector(refreshPropertiesUIWorker:) withObject:sender waitUntilDone:NO];
+        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }
 }
 
-- (void) refreshProperties:(UIView *) sender
+- (void) refreshProperties
 {
     // First, see if either of these tasks will hit the web.  We will show the waitview only if we need
     // to hit the web, in order to minimize flashing
@@ -2036,12 +2017,8 @@ static NSDateFormatter * dfSunriseSunset = nil;
     BOOL fIsLocal = [self.le.entryData isNewOrPending];
     BOOL fHitWeb = (cs != cacheValid || !fIsLocal);
 
-	if (self.idVwWait != nil && fHitWeb)
-        [self.idVwWait setUpForView:self.view.window 
-                          withLabel:NSLocalizedString(@"Setting up properties...", @"Properties progress")
-                      inOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
-
-    [NSThread detachNewThreadSelector:@selector(refreshPropertiesWorker:) toTarget:self withObject:sender];
+    if (fHitWeb)
+        [NSThread detachNewThreadSelector:@selector(refreshPropertiesWorker) toTarget:self withObject:nil];
 }
 
 #pragma mark - UIPopoverControllerDelegate functions

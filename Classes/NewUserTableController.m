@@ -35,6 +35,7 @@
 #import "ViewFlightWebPage.h"
 #import "CheckboxCell.h"
 #import "SecurityQuestionPicker.h"
+#import "FlightProps.h"
 
 @interface NewUserTableController ()
 
@@ -360,6 +361,11 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
     // cache the relevant credentials, load any aircraft, and go to the default page for the user!
     [app.userProfile SavePrefs];
     [[Aircraft sharedAircraft] refreshIfNeeded];
+    
+    [NSThread detachNewThreadWithBlock:^() {
+        FlightProps * fp = [[FlightProps alloc] init];
+        [fp loadCustomPropertyTypes];
+    }];
     
     UIAlertView * av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Welcome to MyFlightbook!", @"New user welcome message title")
                                                    message:NSLocalizedString(@"\r\nBefore you can enter flights, you must set up at least one aircraft that you fly.", @"New user 'Next steps' message")
