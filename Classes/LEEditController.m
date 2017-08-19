@@ -236,7 +236,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 
 - (void) invalidateViewController
 {
-    [self resetFlight];
+    [self performSelectorOnMainThread:@selector(resetFlight) withObject:nil waitUntilDone:NO];
 }
 
 - (void) setNumericField:(UITextField *) txt toType:(int) nt

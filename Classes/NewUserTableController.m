@@ -378,7 +378,7 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
 - (void) createUserWorker
 {
     @autoreleasepool {
-        MFBAppDelegate * app = mfbApp();
+        MFBAppDelegate * app = [MFBAppDelegate threadSafeAppDelegate];
         BOOL fSuccess = [app.userProfile createUser:self.nuo] && [app.userProfile isValid];
         
         [self.vwWait tearDown];

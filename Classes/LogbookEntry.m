@@ -224,7 +224,7 @@ NSString * const _szkeyPOTwitter = @"_poPostTwitter";
         {
             [CommentedImage uploadImages:self.rgPicsForFlight withStatusLabel:self.progressLabel toPage:MFBFLIGHTIMAGEUPLOADPAGE authString:self.szAuthToken keyName:MFB_KEYFLIGHTIMAGE	keyValue:[self.entryData.FlightID stringValue]];
             // If this was a pending flight, it will be in the pending flight list.  Remove it, if so.
-            [mfbApp() dequeuePendingFlight:self];
+            [[MFBAppDelegate threadSafeAppDelegate] dequeuePendingFlight:self];
         }
         [self performSelectorOnMainThread:@selector(operationCompleted:) withObject:sc waitUntilDone:NO];
     }

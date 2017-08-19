@@ -98,7 +98,7 @@ NSString * const _szKeyCachedTokenRetrievalDate = @"keyCacheTokenDate";
 
 - (void) clearOldUserContent
 {
-    MFBAppDelegate * app = mfbApp();
+    MFBAppDelegate * app = [MFBAppDelegate threadSafeAppDelegate];
     Aircraft * ac = [Aircraft sharedAircraft];
     [ac invalidateCachedAircraft];
     ac.DefaultAircraftID = -1;
