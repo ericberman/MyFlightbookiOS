@@ -34,7 +34,7 @@
 
 @synthesize LocaleCode, CountryName, Prefix, ID;
 
-static NSMutableArray * rgAllCountryCodes = nil;
+static NSMutableArray<CountryCode *> * rgAllCountryCodes = nil;
 
 - (instancetype) initFromRow:(sqlite3_stmt *) row
 {
@@ -53,12 +53,12 @@ static NSMutableArray * rgAllCountryCodes = nil;
     return [NSString stringWithFormat:@"%ld: %@ %@ %@", (long) self.ID, self.Prefix, self.LocaleCode, self.CountryName];
 }
 
-+ (NSArray *) AllCountryCodes
++ (NSArray<CountryCode *> *) AllCountryCodes
 {
     if (rgAllCountryCodes != nil)
         return rgAllCountryCodes;
 
-    rgAllCountryCodes = [[NSMutableArray alloc] init];
+    rgAllCountryCodes = [[NSMutableArray<CountryCode *> alloc] init];
     sqlite3 * db = mfbApp().getdb;
     sqlite3_stmt * sqlCountryCodes = nil;
     if (sqlite3_prepare(db, [@"SELECT * FROM countrycodes " cStringUsingEncoding:NSASCIIStringEncoding], -1, &sqlCountryCodes, NULL) != SQLITE_OK)

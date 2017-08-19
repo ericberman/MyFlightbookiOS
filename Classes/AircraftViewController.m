@@ -711,7 +711,7 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
 		case rowTailnum:
 		{
 			if (component == 0)
-				return ((CountryCode *)([CountryCode AllCountryCodes])[row]).Prefix;
+				return [CountryCode AllCountryCodes][row].Prefix;
 			else
 			{
 				int iOffset = 0;
@@ -928,9 +928,10 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
 					[self.picker selectRow:0 inComponent:0 animated:YES];
 			}
 			
+            NSArray<CountryCode *> * rgCodes = [CountryCode AllCountryCodes];
             CountryCode * ccBest = [CountryCode BestGuessPrefixForTail:self.ac.TailNumber];
-            NSInteger iPref = (ccBest == nil) ? 0 : ccBest.ID;
-			NSString * szPref = ((CountryCode *) ([CountryCode AllCountryCodes])[iPref]).Prefix;
+            NSInteger iPref = (ccBest == nil) ? 0 : [rgCodes indexOfObject:ccBest];
+			NSString * szPref = rgCodes[iPref].Prefix;
 			if (iPref >= 0)
                 [self.picker selectRow:iPref inComponent:0 animated:YES];
 			

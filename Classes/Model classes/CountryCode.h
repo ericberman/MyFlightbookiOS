@@ -29,7 +29,7 @@
 
 @interface CountryCode : NSObject
 
-+ (NSArray *) AllCountryCodes;
++ (NSArray<CountryCode *> *) AllCountryCodes;
 + (CountryCode *) BestGuessForLocale:(NSString *) locale;
 + (CountryCode *) BestGuessPrefixForTail:(NSString *) szTail;
 + (CountryCode *) BestGuessForCurrentLocale;
