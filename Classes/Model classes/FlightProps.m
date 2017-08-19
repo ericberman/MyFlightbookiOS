@@ -127,7 +127,7 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
 {
     NSMutableArray * rgcpt = [[NSMutableArray alloc] init];
     
-    MFBAppDelegate * app = mfbApp();
+    MFBAppDelegate * app = [MFBAppDelegate threadSafeAppDelegate];
         
     sqlite3_stmt * sqlCpt = nil;
     
