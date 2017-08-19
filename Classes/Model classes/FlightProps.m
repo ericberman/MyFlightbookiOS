@@ -223,7 +223,7 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
 	if ([idFlight intValue] <=0)
 		return YES;
 	
-	BOOL fNetworkAvail = [mfbApp() isOnLine];
+	BOOL fNetworkAvail = [[MFBAppDelegate threadSafeAppDelegate] isOnLine];
 	if (!fNetworkAvail)
 	{
 		self.errorString = NSLocalizedString(@"No connection to the Internet is available", @"Error: Offline");

@@ -1990,7 +1990,7 @@ static NSDateFormatter * dfSunriseSunset = nil;
     {
         if (self.le.entryData.CustomProperties == nil || !self.le.propsHaveBeenDownloaded)
         {
-            if ((self.le.propsHaveBeenDownloaded = [fp loadPropertiesForFlight:self.le.entryData.FlightID forUser:mfbApp().userProfile.AuthToken]))
+            if ((self.le.propsHaveBeenDownloaded = [fp loadPropertiesForFlight:self.le.entryData.FlightID forUser:[MFBAppDelegate threadSafeAppDelegate].userProfile.AuthToken]))
                 self.le.entryData.CustomProperties = fp.rgFlightProps;
             else
             {
