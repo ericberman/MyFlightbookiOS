@@ -286,7 +286,7 @@
             self.txt.NumberType = ((self.cpt.Flags.unsignedIntegerValue & 0x00200000) == 0) ? ntTime : ntDecimal;
             self.txt.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
             self.txt.autocorrectionType = UITextAutocorrectionTypeNo;
-            self.txt.value = self.cfp.DecValue; // Fix bug #37. re-assign it; this will respect the number type.
+            [self.txt setValue:self.cfp.DecValue withDefault:@0.0]; // Fix bug #37. re-assign it; this will respect the number type.
             if (defVal != nil)
                 [self setAutoFillValue:defVal];
             break;
