@@ -69,7 +69,7 @@
 
 + (FlightProps *) getFlightPropsNoNet;
 
-@property (readwrite, strong) NSMutableArray * rgPropTypes;
+@property (readwrite, strong) NSMutableArray<MFBWebServiceSvc_CustomPropertyType *> * rgPropTypes;
 @property (readwrite, strong) MFBWebServiceSvc_ArrayOfCustomFlightProperty * rgFlightProps;
 @property (readwrite, strong) NSString * errorString;
 
