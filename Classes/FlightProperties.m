@@ -31,7 +31,7 @@
 #import "Util.h"
 
 @interface FlightProperties ()
-@property (strong) NSArray<MFBWebServiceSvc_CustomFlightProperty *> * rgFilteredProps;
+@property (strong) NSArray<MFBWebServiceSvc_CustomPropertyType *> * rgFilteredProps;
 @property (nonatomic, strong) NSMutableArray * content;
 @property (nonatomic, strong) NSArray * indices;
 
@@ -157,23 +157,12 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
     return self.searchBar.text.length > 0;
 }
 
-- (MFBWebServiceSvc_CustomPropertyType *) CustomPropertyTypeAtIndex:(int)row forTable:(UITableView *) tableView
-{
-    return (self.searchActive) ? (self.rgFilteredProps)[row] :  (self.flightProps.rgPropTypes)[row];
-}
-
 - (MFBWebServiceSvc_CustomFlightProperty *) FlightPropertyForType:(MFBWebServiceSvc_CustomPropertyType *) cpt
 {
 	for (MFBWebServiceSvc_CustomFlightProperty * cfp in self.rgAllProps)
 		if ([cfp.PropTypeID intValue] == [cpt.PropTypeID intValue])
 			return cfp;
 	return nil;    
-}
-
-- (MFBWebServiceSvc_CustomFlightProperty *) FlightPropertyAtIndex:(int) row forTable:(UITableView *) tableView
-{
-	MFBWebServiceSvc_CustomPropertyType * cpt = [self CustomPropertyTypeAtIndex:row forTable:tableView];
-    return [self FlightPropertyForType:cpt];
 }
 
 - (MFBWebServiceSvc_CustomPropertyType *) cptForIndexPath:(NSIndexPath *) indexPath forTable:(UITableView *) tableView
