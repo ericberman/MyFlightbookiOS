@@ -73,13 +73,13 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
 
 - (void) setPropTypeArray:(NSArray *) ar
 {
-    @synchronized(self)
+    @synchronized([FlightProps sharedPropTypes])
     {
         [self.rgPropTypes removeAllObjects];
         [self.rgPropTypes addObjectsFromArray:ar];
         // Identify the locked ones
-        for (int i = 0; i < self.rgPropTypes.count; i++)
-            self.rgPropTypes[i].isLocked = [self isLockedPropertyType:self.rgPropTypes[i].PropTypeID.intValue];
+        for (MFBWebServiceSvc_CustomPropertyType * cpt in self.rgPropTypes)
+            cpt.isLocked = [self isLockedPropertyType:cpt.PropTypeID.intValue];
     }
 }
 
