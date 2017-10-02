@@ -79,7 +79,7 @@ EditCell * cellToActivateAfterReload = nil;
 }
 
 - (EditCell *) getEditCell:(NSString *) label {
-    EditCell * ec = [EditCell getEditCell:self.tableView withAccessory:UITableViewCellAccessoryNone];
+    EditCell * ec = [EditCell getEditCell:self.tableView withAccessory:nil];
     ec.txt.delegate = self;
     ec.txt.inputAccessoryView = self.vwAccessory;
     ec.txt.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
