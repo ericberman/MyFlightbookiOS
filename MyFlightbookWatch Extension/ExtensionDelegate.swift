@@ -51,7 +51,7 @@ open class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
     
     func initSession() {
         if (WCSession.isSupported()) {
-            session = WCSession.default()
+            session = WCSession.default
             session.delegate = self
             session.activate()
         }

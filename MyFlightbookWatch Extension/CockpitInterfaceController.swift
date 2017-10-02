@@ -111,7 +111,7 @@ class CockpitInterfaceController: WKInterfaceController, WCSessionDelegate, Sess
         refresh([WATCH_MESSAGE_ACTION: WATCH_ACTION_TOGGLE_PAUSE])
     }
     
-    func updateTime(_:Timer) {
+    @objc func updateTime(_:Timer) {
         if let wd = latestData {
             if (!wd.isPaused && wd.flightStage == flightStageInProgress) {
                 if let dtLast = self.latestUpdate {
@@ -127,7 +127,7 @@ class CockpitInterfaceController: WKInterfaceController, WCSessionDelegate, Sess
         lblTimer.setText(NSString(format: "%02d:%02d:%02d", elapsedSeconds / 3600, (elapsedSeconds % 3600) / 60, elapsedSeconds % 60) as String!)
     }
     
-    func updateMainMenus(_ watchData : SharedWatch)
+    @objc func updateMainMenus(_ watchData : SharedWatch)
     {
         self.clearAllMenuItems()
         if (watchData.flightStage == flightStageInProgress) {
