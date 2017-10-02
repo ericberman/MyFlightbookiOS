@@ -203,6 +203,8 @@ static NSNumberFormatter * _nfDecimal = nil;
 #pragma mark utility
 - (BOOL) isValidNumber:(NSString *) szProposed
 {
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    szProposed = [szProposed stringByReplacingOccurrencesOfString:formatter.groupingSeparator withString:@""];  // strip any thousand's separators.
     NSRange rangeWhole, rangeResult;
     rangeWhole.location = 0;
     rangeWhole.length = szProposed.length;
@@ -212,8 +214,7 @@ static NSNumberFormatter * _nfDecimal = nil;
         re = [NSRegularExpression regularExpressionWithPattern:@"^\\d*$" options:NSRegularExpressionAnchorsMatchLines error:nil];
     else if (self.NumberType == ntDecimal || (self.NumberType == ntTime && !self.IsHHMM))
     {
-        NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-        NSString * szDecimal = [formatter decimalSeparator];
+        NSString * szDecimal = formatter.decimalSeparator;
         if ([szDecimal compare:@"."] == NSOrderedSame)
             szDecimal = @"\\.";
         re = [NSRegularExpression regularExpressionWithPattern:[NSString stringWithFormat:@"^\\d*%@?\\d*$", szDecimal] options:NSRegularExpressionAnchorsMatchLines error:nil];
