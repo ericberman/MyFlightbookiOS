@@ -670,7 +670,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 	if ([self.le.entryData isNewFlight])
 	{
 		// LE should already be in sync with the UI.
-		self.le.entryData.FlightData = [mfbApp().mfbloc flightDataAsString];
+		self.le.entryData.FlightData = [MFBAppDelegate threadSafeAppDelegate].mfbloc.flightDataAsString;
 		
 		NSUserDefaults * defs = [NSUserDefaults standardUserDefaults];
 		[defs setObject:[NSKeyedArchiver archivedDataWithRootObject:@[le]] forKey:_szKeyCurrentFlight];
