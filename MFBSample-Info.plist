@@ -54,7 +54,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.0.5</string>
+	<string>3.0.6</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -73,7 +73,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>3.0.51</string>
+	<string>3.0.60</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
@@ -115,13 +115,13 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>MyFlightbook allows you to attach pictures or videos to your flights or to aircraft that you fly.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>MyFlightbook can use GPS to find nearest airports, detect takeoff and landing, and record your flight path.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>MyFlightbook can use GPS to find nearest airports, detect takeoff and landing, and record your flight path.</string>
-    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>MyFlightbook can use GPS to find nearest airports, detect takeoff and landing, and record your flight path.</string>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>MyFlightbook can use GPS to find nearest airports, detect takeoff and landing, and record your flight path.</string>
-    <key>NSMainNibFile</key>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>MyFlightbook can use GPS to find nearest airports, detect takeoff and landing, and record your flight path.</string>
+	<key>NSMainNibFile</key>
 	<string>MainWindow</string>
 	<key>NSMainNibFile~ipad</key>
 	<string>MainWindow-iPad</string>
