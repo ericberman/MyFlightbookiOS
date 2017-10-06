@@ -6,5 +6,8 @@
 
 */
 "NSLocationAlwaysUsageDescription" = "At your discretion, MyFlightbook can use GPS to find nearest airports, detect takeoff and landing, and record your flight path.";
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "At your discretion, MyFlightbook can use GPS to find nearest airports, detect takeoff and landing, and record your flight path.";
+"NSLocationWhenInUseUsageDescription" = "At your discretion, MyFlightbook can use GPS to find nearest airports, detect takeoff and landing, and record your flight path.";
 "NSCameraUsageDescription" = "MyFlightbook allows you to attach pictures to your flights or to aircraft that you fly.";
 "NSMicrophoneUsageDescription" = "MyFlightbook uses the microphone when you attach a video to a flight.";
+

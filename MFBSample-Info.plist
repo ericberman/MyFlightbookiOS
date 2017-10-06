@@ -117,7 +117,11 @@
 	<string>MyFlightbook allows you to attach pictures or videos to your flights or to aircraft that you fly.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>MyFlightbook can use GPS to find nearest airports, detect takeoff and landing, and record your flight path.</string>
-	<key>NSMainNibFile</key>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>MyFlightbook can use GPS to find nearest airports, detect takeoff and landing, and record your flight path.</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>MyFlightbook can use GPS to find nearest airports, detect takeoff and landing, and record your flight path.</string>
+    <key>NSMainNibFile</key>
 	<string>MainWindow</string>
 	<key>NSMainNibFile~ipad</key>
 	<string>MainWindow-iPad</string>

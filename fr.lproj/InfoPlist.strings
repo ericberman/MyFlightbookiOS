@@ -6,5 +6,8 @@
 
 */
 "NSLocationAlwaysUsageDescription" = "À votre discrétion, MyFlightbook peut utiliser le GPS pour trouver aéroports les plus proches, détecter le décollage et l'atterrissage, et d'enregistrer votre trajectoire de vol.";
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "À votre discrétion, MyFlightbook peut utiliser le GPS pour trouver aéroports les plus proches, détecter le décollage et l'atterrissage, et d'enregistrer votre trajectoire de vol.";
+"NSLocationWhenInUseUsageDescription" = "À votre discrétion, MyFlightbook peut utiliser le GPS pour trouver aéroports les plus proches, détecter le décollage et l'atterrissage, et d'enregistrer votre trajectoire de vol.";
 "NSCameraUsageDescription" = "MyFlightbook vous permet de joindre des photos à vos vols ou à un aéronef que vous pilotez.";
 "NSMicrophoneUsageDescription" = "MyFlightbook utilise le microphone lorsque vous joignez une vidéo à un vol.";"
+
