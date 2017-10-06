@@ -843,7 +843,7 @@ static MFBAppDelegate * _mainApp = nil;
 - (WCSession *) setUpWatchSession {
     self.fSuppressWatchNotification = NO;
 
-    if (![WCSession isSupported]) {
+    if (![WCSession isSupported] || ![[WCSession class] respondsToSelector:@selector(activationState)]) {
         return nil;
     }
     if (self.watchSession == nil)
