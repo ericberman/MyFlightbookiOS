@@ -41,9 +41,9 @@
 #import <WatchConnectivity/WatchConnectivity.h>
 
 #ifdef DEBUG
-#define MFBHOSTNAME @"myflightbook.com"
+//#define MFBHOSTNAME @"myflightbook.com"
 //#define MFBHOSTNAME @"webmail.hothpark.com"
-//#define MFBHOSTNAME @"developer.myflightbook.com"
+#define MFBHOSTNAME @"developer.myflightbook.com"
 #else
 #define MFBHOSTNAME @"myflightbook.com"
 #endif
