@@ -87,6 +87,7 @@
 @interface MFBWebServiceSvc_VisitedAirport (Sortable)
 - (NSComparisonResult) compareName:(MFBWebServiceSvc_VisitedAirport *) va;
 - (NSString *) AllCodes;
+- (NSString *) description;
 @end
 
 @interface MFBWebServiceSvc_LatLong(Description)

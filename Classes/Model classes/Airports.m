@@ -446,7 +446,7 @@ static NSRegularExpression * _reAirports = nil;
 @implementation MFBWebServiceSvc_VisitedAirport(Sortable)
 - (NSComparisonResult) compareName:(MFBWebServiceSvc_VisitedAirport *) va
 {
-    return [self.Airport.Name compare:va.Airport.Name];    
+    return [self.Airport.Name compare:va.Airport.Name options:NSCaseInsensitiveSearch];    
 }
 
 - (NSString *) AllCodes
@@ -454,6 +454,11 @@ static NSRegularExpression * _reAirports = nil;
     if (Aliases == nil)
         return Code;
     return [NSString stringWithFormat:@"%@,%@", Code, Aliases];
+}
+
+- (NSString *) description
+{
+    return self.Airport.description;
 }
 
 // Allow a visited airport to be annotatable based on the underlying airport.
