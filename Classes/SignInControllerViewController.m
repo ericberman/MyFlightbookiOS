@@ -120,10 +120,7 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
         if ([app.userProfile GetAuthToken])
         {
             [self performSelectorOnMainThread:@selector(UpdateProfileFinished) withObject:nil waitUntilDone:NO];
-            [NSThread detachNewThreadWithBlock:^() {
-                FlightProps * fp = [[FlightProps alloc] init];
-                [fp loadCustomPropertyTypes];
-            }];
+            [[[FlightProps alloc] init] loadCustomPropertyTypes];
         }
         else
             [self performSelectorOnMainThread:@selector(showError:) withObject:app.userProfile.ErrorString waitUntilDone:NO];
@@ -347,8 +344,8 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
 #pragma mark - Table view delegate
 - (void) pushURL:(NSString *) szURL
 {
-	ViewFlightWebPage * vwWeb = [[ViewFlightWebPage alloc] init];
-	[vwWeb viewWebPage:szURL];
+    ViewFlightWebPage * vwWeb = [[ViewFlightWebPage alloc] init];
+    [vwWeb viewWebPage:szURL];
 	[self.navigationController pushViewController:vwWeb animated:YES];
 }
 

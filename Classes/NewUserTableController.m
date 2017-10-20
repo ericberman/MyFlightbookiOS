@@ -353,6 +353,12 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
     [av show];
 }
 
+- (void) refreshPropsWorker {
+    @autoreleasepool {
+        [[[FlightProps alloc] init] loadCustomPropertyTypes];
+    }
+}
+
 - (void) createUserFinishedSuccess
 {
 	MFBAppDelegate * app = mfbApp();
@@ -362,10 +368,7 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
     [app.userProfile SavePrefs];
     [[Aircraft sharedAircraft] refreshIfNeeded];
     
-    [NSThread detachNewThreadWithBlock:^() {
-        FlightProps * fp = [[FlightProps alloc] init];
-        [fp loadCustomPropertyTypes];
-    }];
+    [NSThread detachNewThreadSelector:@selector(refreshPropsWorker) toTarget:self withObject:nil];
     
     UIAlertView * av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Welcome to MyFlightbook!", @"New user welcome message title")
                                                    message:NSLocalizedString(@"\r\nBefore you can enter flights, you must set up at least one aircraft that you fly.", @"New user 'Next steps' message")
@@ -403,15 +406,15 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
 
 - (void) viewPrivacy
 {
-	ViewFlightWebPage * vwWeb = [[ViewFlightWebPage alloc] init];
-	[vwWeb viewWebPage:@"https://MyFlightbook.com/logbook/public/privacy.aspx?naked=1"];
+    ViewFlightWebPage * vwWeb = [[ViewFlightWebPage alloc] init];
+    [vwWeb viewWebPage:@"https://MyFlightbook.com/logbook/public/privacy.aspx?naked=1"];
 	[self.navigationController pushViewController:vwWeb animated:YES];
 }
 
 - (void) viewTAndC
 {
-	ViewFlightWebPage * vwWeb = [[ViewFlightWebPage alloc] init];
-	[vwWeb viewWebPage:@"https://myflightbook.com/logbook/Public/TandC.aspx?naked=1"];
+    ViewFlightWebPage * vwWeb = [[ViewFlightWebPage alloc] init];
+    [vwWeb viewWebPage:@"https://myflightbook.com/logbook/Public/TandC.aspx?naked=1"];
 	[self.navigationController pushViewController:vwWeb animated:YES];
 }
 
