@@ -843,7 +843,7 @@ static MFBAppDelegate * _mainApp = nil;
 - (WCSession *) setUpWatchSession {
     self.fSuppressWatchNotification = NO;
 
-    if (![WCSession isSupported] || ![[WCSession class] respondsToSelector:@selector(activationState)]) {
+    if (![WCSession isSupported]) {
         return nil;
     }
     if (self.watchSession == nil)
@@ -852,8 +852,10 @@ static MFBAppDelegate * _mainApp = nil;
     if (self.watchSession.delegate != self)
         self.watchSession.delegate = self;
     
-    if (self.watchSession.activationState != WCSessionActivationStateActivated)
-        [self.watchSession activateSession];
+    // Activate the session if (a) it responds to activateSession AND (EITHER it doesn't respond to ActivationState OR it isn't activated)
+    if ([self.watchSession respondsToSelector:@selector(activateSession)] &&
+        (![self.watchSession respondsToSelector:@selector(activationState)] || self.watchSession.activationState != WCSessionActivationStateActivated))
+            [self.watchSession activateSession];
     
     return self.watchSession;
 }
