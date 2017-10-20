@@ -623,6 +623,7 @@
 		9A87F50F1BD1627700F9479D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/about.strings; sourceTree = "<group>"; };
 		9A87F5121BD172AB00F9479D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AccessoryBar.strings; sourceTree = "<group>"; };
 		9A87F51A1BD2AF5100F9479D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = "fr.lproj/LEEditController-iPad.strings"; sourceTree = "<group>"; };
+		9A8901F91F9A4E800023CE34 /* HostName.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HostName.h; sourceTree = "<group>"; };
 		9A897FC611B7299F00E98C93 /* mfb.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = mfb.sqlite; sourceTree = "<group>"; };
 		9A897FDD1666919000D9019C /* centermap@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "centermap@2x.png"; sourceTree = "<group>"; };
 		9A897FDE11B72A4800E98C93 /* LocalAirports.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocalAirports.h; path = ../LocalAirports.h; sourceTree = "<group>"; };
@@ -927,6 +928,7 @@
 				9A69201D10CCBD8800DF1CA6 /* WebServiceCode */,
 				9AB3C2961115F540001401C8 /* UIClasses */,
 				9ABC6B361EBCD74300EE9C97 /* ApiKeys.h */,
+				9A8901F91F9A4E800023CE34 /* HostName.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";

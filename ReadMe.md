@@ -2,7 +2,7 @@
 See the license agreement for the code.  My one additional rule is "no laughing."  You will see lots of remnants from where I was building my first "Hello World" iOS app, from which this evolved.  Heck, it's still called "MFBSample" because I didn't originally intend for it to become the actual codebase...it just kinda grew.
 
 Anyhow...
-## 1. Create an ApiKeys file
+## 1. Create an ApiKeys file and HostName file
 You'll need to create an "ApiKeyS.h" file with the following structure:
 ~~~~
 #ifndef ApiKeys_h
@@ -13,6 +13,22 @@ NSString * const _szKeyAppToken = @"[api key for web service goes here]";
 #endif /* ApiKeys_h */
 ~~~~
 The actual value for the web service key is the token that you use to identify this app as being authorized to make web service calls.
+
+You'll also need to create a file called "HostName.h", which specifies the domain name (see below for more information) of the server against which you will run.
+
+The structure of this file is this:
+~~~~
+#ifndef HostName_h
+#define HostName_h
+
+#ifdef DEBUG
+#define MFBHOSTNAME @"[your debug server name - e.g., debug.myflightbook.com]"
+#else
+#define MFBHOSTNAME @"[the production server name - typically myflightbook.com]"
+#endif
+
+#endif /* HostName_h */
+~~~~
 
 ## 2 Debugging
 Most everything in the project includes MFBAppDelegate.h.  This defines "MFBHOSTNAME", which is the DNS name of the web service.  In retail, this is MyFlightbook.com, but for debugging you may wish to point to a private test server.  
@@ -28,6 +44,9 @@ I *STRONGLY* recommend creating an additional scheme to test retail vs. debug mo
 Note that you can tell which server you are using by going to the Profile tab, tapping "About MyFlightbook", and then scrolling to the bottom; it will show you the following information:
 [MFBHostname] [Takeoff Speed] [Landing Speed] [Version]
 E.g., "MyFlightbook.com 70 55 3.0.1" means that it is hitting the live site, using 70kts as a takeoff speed and 55 as a landing speed, and it is version 3.0.1 of the app.
+
+The main difference between DEBUG and retail (i.e., not DEBUG) is what happens when you tap "engine start" in the new flight screen.  In a DEBUG build, this will feed to the app simulated GPS data from the
+file "GPSSamples.csv".  This is useful for testing autodetection and such in the debugger. 
 
 ## 3 Using SOAP
 MyFlightbook uses SOAP (remember my rule - no laughing!) to make it's web service calls.  You can find the current WSDL [here](http://myflightbook.com/logbook/public/webservice.asmx?WSDL).  

@@ -39,14 +39,7 @@
 #import "CollapsibleTable.h"
 #import "SharedWatch.h"
 #import <WatchConnectivity/WatchConnectivity.h>
-
-#ifdef DEBUG
-//#define MFBHOSTNAME @"myflightbook.com"
-//#define MFBHOSTNAME @"webmail.hothpark.com"
-#define MFBHOSTNAME @"developer.myflightbook.com"
-#else
-#define MFBHOSTNAME @"myflightbook.com"
-#endif
+#import "HostName.h"
 
 #ifdef DEBUG
 // 2 minute cache lifetime in debug
