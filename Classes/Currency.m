@@ -26,7 +26,7 @@
 //
 
 #import "Currency.h"
-#import "ViewFlightWebPage.h"
+#import "HostedWebViewViewController.h"
 
 @implementation Currency
 
@@ -269,8 +269,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == sectDisclaimer)
     {	
-        ViewFlightWebPage * vwWeb = [[ViewFlightWebPage alloc] init];
-        [vwWeb viewWebPage:@"https://myflightbook.com/logbook/Public/CurrencyDisclaimer.aspx?naked=1"];
+        HostedWebViewViewController * vwWeb = [[HostedWebViewViewController alloc] initWithURL:@"https://myflightbook.com/logbook/Public/CurrencyDisclaimer.aspx?naked=1"];
         [self.navigationController pushViewController:vwWeb animated:YES];
     }
     // Navigation logic may go here. Create and push another view controller.

@@ -28,13 +28,14 @@
 #import "SignInControllerViewController.h"
 #import "EditCell.h"
 #import "MFBAppDelegate.h"
-#import "ViewFlightWebPage.h"
+#import "HostedWebViewViewController.h"
 #import "about.h"
 #import "util.h"
 #import "ButtonCell.h"
 #import "TextCell.h"
 #import "NewUserTableController.h"
 #import "FlightProps.h"
+#import "HostedWebViewViewController.h"
 
 @interface SignInControllerViewController ()
 @property (nonatomic, strong) NSString * szUser;
@@ -344,8 +345,7 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
 #pragma mark - Table view delegate
 - (void) pushURL:(NSString *) szURL
 {
-    ViewFlightWebPage * vwWeb = [[ViewFlightWebPage alloc] init];
-    [vwWeb viewWebPage:szURL];
+    HostedWebViewViewController * vwWeb = [[HostedWebViewViewController alloc] initWithURL:szURL];
 	[self.navigationController pushViewController:vwWeb animated:YES];
 }
 
@@ -402,8 +402,17 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
             [self showAbout];
             break;
         case cidFAQ:
+        {
             [self.tableView endEditing:YES];
-            [self pushURL:[NSString stringWithFormat:@"https://%@/logbook/public/FAQ.aspx?naked=1", MFBHOSTNAME]];
+            NSString * szProtocol = @"https";
+#ifdef DEBUG
+            if ([MFBHOSTNAME hasPrefix:@"192."] || [MFBHOSTNAME hasPrefix:@"10."])
+                szProtocol = @"http";
+#endif
+            NSString * szURL = [NSString stringWithFormat:@"%@://%@/logbook/public/authredir.aspx?u=%@&p=%@&d=faq&naked=",
+            szProtocol, MFBHOSTNAME, [self.szUser stringByURLEncodingString], [self.szPass stringByURLEncodingString]];
+            [self pushURL:szURL];
+        }
             break;
         case cidSupport:
         {

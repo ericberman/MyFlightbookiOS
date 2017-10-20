@@ -37,7 +37,7 @@
 #import "TextCell.h"
 #import "CheckboxCell.h"
 #import "CountryCode.h"
-#import "ViewFlightWebPage.h"
+#import "HostedWebViewViewController.h"
 
 @interface AircraftViewController ()
 - (void) findFlights:(id)sender;
@@ -1104,8 +1104,7 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
     NSString * szURL = [NSString stringWithFormat:@"https://%@/logbook/public/authredir.aspx?u=%@&p=%@&d=aircraftschedule&naked=1&ac=%d",
                         MFBHOSTNAME, [mfbApp().userProfile.UserName stringByURLEncodingString], [mfbApp().userProfile.Password stringByURLEncodingString], self.ac.AircraftID.intValue];
     
-    ViewFlightWebPage * vwWeb = [[ViewFlightWebPage alloc] init];
-    [vwWeb viewWebPage:szURL];
+    HostedWebViewViewController * vwWeb = [[HostedWebViewViewController alloc] initWithURL:szURL];
     [self.navigationController pushViewController:vwWeb animated:YES];
 }
 

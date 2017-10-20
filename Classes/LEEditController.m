@@ -29,7 +29,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "imageSelector.h"
-#import "ViewFlightWebPage.h"
+#import "HostedWebViewViewController.h"
 #import "NearbyAirports.h"
 #import "FlightProps.h"
 #import "FlightProperties.h"
@@ -1942,8 +1942,7 @@ static NSDateFormatter * dfSunriseSunset = nil;
 						[self.le.entryData.FlightID intValue],
 						[(mfbApp()).userProfile.AuthToken stringByURLEncodingString]];
 	
-	ViewFlightWebPage * vwWeb = [[ViewFlightWebPage alloc] init];
-	[vwWeb viewWebPage:szURL];
+    HostedWebViewViewController * vwWeb = [[HostedWebViewViewController alloc] initWithURL:szURL];
     [mfbApp() invalidateCachedTotals];   // this flight could now be invalid
 	[self.navigationController pushViewController:vwWeb animated:YES];
 }

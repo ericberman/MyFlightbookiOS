@@ -103,7 +103,6 @@
 		9A5A0880147ED35300C05C50 /* Totals.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A5A085C147ED35300C05C50 /* Totals.xib */; };
 		9A5A0881147ED35300C05C50 /* TotalsRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A5A085E147ED35300C05C50 /* TotalsRow.xib */; };
 		9A5A0882147ED35300C05C50 /* VADetails.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A5A0860147ED35300C05C50 /* VADetails.xib */; };
-		9A5A0883147ED35300C05C50 /* ViewFlightWebPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A5A0862147ED35300C05C50 /* ViewFlightWebPage.xib */; };
 		9A5A0884147ED35300C05C50 /* VisitedAirportRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A5A0864147ED35300C05C50 /* VisitedAirportRow.xib */; };
 		9A5A0885147ED35300C05C50 /* VisitedAirports.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A5A0866147ED35300C05C50 /* VisitedAirports.xib */; };
 		9A5A0886147ED35300C05C50 /* WaitView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A5A0868147ED35300C05C50 /* WaitView.xib */; };
@@ -153,6 +152,7 @@
 		9A8407A416FBA9E300EA1211 /* Collapsed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A8407A216FBA9E300EA1211 /* Collapsed@2x.png */; };
 		9A84718A11EBE3EE00395608 /* Icon-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A84718911EBE3EE00395608 /* Icon-iPad.png */; };
 		9A87ECCC10FB94A2009D1BEE /* about.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A87ECCA10FB94A2009D1BEE /* about.m */; };
+		9A8901FF1F9A71160023CE34 /* HostedWebViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A8901FD1F9A71160023CE34 /* HostedWebViewViewController.m */; };
 		9A897FC711B7299F00E98C93 /* mfb.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FC611B7299F00E98C93 /* mfb.sqlite */; };
 		9A897FDE1666919100D9019C /* centermap@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FDD1666919000D9019C /* centermap@2x.png */; };
 		9A897FE011B72A4800E98C93 /* LocalAirports.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A897FDF11B72A4800E98C93 /* LocalAirports.m */; };
@@ -303,7 +303,6 @@
 		9AC83AD119E440260092C7BB /* tracklog.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 9AC83ACF19E440260092C7BB /* tracklog.gpx */; };
 		9AC83AD219E440260092C7BB /* tracklog.kml in Resources */ = {isa = PBXBuildFile; fileRef = 9AC83AD019E440260092C7BB /* tracklog.kml */; };
 		9ACC119119E232FF00AA4E3C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9ACC118F19E232FF00AA4E3C /* InfoPlist.strings */; };
-		9ACD17C111015FE400B294F7 /* ViewFlightWebPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACD17BF11015FE400B294F7 /* ViewFlightWebPage.m */; };
 		9ACD18BC11023CEE00B294F7 /* btnBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACD18BA11023CEE00B294F7 /* btnBack.png */; };
 		9ACD18BD11023CEE00B294F7 /* btnForward.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACD18BB11023CEE00B294F7 /* btnForward.png */; };
 		9ACDC8D01BDFEA1300B0A077 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9ACDC8CE1BDFEA1300B0A077 /* Interface.storyboard */; };
@@ -624,6 +623,8 @@
 		9A87F5121BD172AB00F9479D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AccessoryBar.strings; sourceTree = "<group>"; };
 		9A87F51A1BD2AF5100F9479D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = "fr.lproj/LEEditController-iPad.strings"; sourceTree = "<group>"; };
 		9A8901F91F9A4E800023CE34 /* HostName.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HostName.h; sourceTree = "<group>"; };
+		9A8901FC1F9A71160023CE34 /* HostedWebViewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HostedWebViewViewController.h; sourceTree = "<group>"; };
+		9A8901FD1F9A71160023CE34 /* HostedWebViewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HostedWebViewViewController.m; sourceTree = "<group>"; };
 		9A897FC611B7299F00E98C93 /* mfb.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = mfb.sqlite; sourceTree = "<group>"; };
 		9A897FDD1666919000D9019C /* centermap@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "centermap@2x.png"; sourceTree = "<group>"; };
 		9A897FDE11B72A4800E98C93 /* LocalAirports.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocalAirports.h; path = ../LocalAirports.h; sourceTree = "<group>"; };
@@ -785,7 +786,6 @@
 		9AC6AF211BD0158C004AB2E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Totals.xib; sourceTree = "<group>"; };
 		9AC6AF221BD0158D004AB2E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TotalsRow.xib; sourceTree = "<group>"; };
 		9AC6AF231BD0158E004AB2E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/VADetails.xib; sourceTree = "<group>"; };
-		9AC6AF241BD0158F004AB2E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ViewFlightWebPage.xib; sourceTree = "<group>"; };
 		9AC6AF251BD01590004AB2E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/VisitedAirportRow.xib; sourceTree = "<group>"; };
 		9AC6AF261BD01591004AB2E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/VisitedAirports.xib; sourceTree = "<group>"; };
 		9AC6AF271BD01592004AB2E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WaitView.xib; sourceTree = "<group>"; };
@@ -797,8 +797,6 @@
 		9AC83AD019E440260092C7BB /* tracklog.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tracklog.kml; sourceTree = "<group>"; };
 		9ACC119019E232FF00AA4E3C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9ACC119219E2331700AA4E3C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		9ACD17BE11015FE400B294F7 /* ViewFlightWebPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewFlightWebPage.h; sourceTree = "<group>"; };
-		9ACD17BF11015FE400B294F7 /* ViewFlightWebPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewFlightWebPage.m; sourceTree = "<group>"; };
 		9ACD18BA11023CEE00B294F7 /* btnBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btnBack.png; sourceTree = "<group>"; };
 		9ACD18BB11023CEE00B294F7 /* btnForward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btnForward.png; sourceTree = "<group>"; };
 		9ACDC8CC1BDFEA1300B0A077 /* MyFlightbookWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFlightbookWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1118,8 +1116,6 @@
 				9A7C143115336317007EB69A /* RecentFlightCell.h */,
 				9A4587BC14C205500045AF51 /* RecentFlightCell.m */,
 				9A2D594114C3485800FD8F05 /* RecentFlightCell.xib */,
-				9ACD17BE11015FE400B294F7 /* ViewFlightWebPage.h */,
-				9ACD17BF11015FE400B294F7 /* ViewFlightWebPage.m */,
 				9A020B3010FFEF3F00801349 /* RecentFlights.h */,
 				9A020B3110FFEF3F00801349 /* RecentFlights.m */,
 			);
@@ -1130,20 +1126,22 @@
 			isa = PBXGroup;
 			children = (
 				9ADB297A16F66C4B008D9582 /* CustomTableCells */,
-				9AC7B8BD14D0ADAB009139BF /* PullRefreshTableViewController.h */,
-				9AC7B8BE14D0ADAB009139BF /* PullRefreshTableViewController.m */,
+				9A60D6C916F90BDE00F9DFFF /* CollapsibleTable.h */,
+				9A60D6CA16F90BDE00F9DFFF /* CollapsibleTable.m */,
+				9A79E308156E9B7100EBEF48 /* FlightQueryForm.h */,
+				9A79E309156E9B7100EBEF48 /* FlightQueryForm.m */,
 				9A121392111D3073001CDDB6 /* ImageComment.h */,
 				9A121393111D3073001CDDB6 /* ImageComment.m */,
 				9AC4E1AB10FA509A0075CC1B /* imageSelector.h */,
 				9AC4E1AC10FA509A0075CC1B /* imageSelector.m */,
 				9AFAC07810E5968800225E90 /* NearbyAirports.h */,
 				9AFAC07910E5968800225E90 /* NearbyAirports.m */,
+				9AC7B8BD14D0ADAB009139BF /* PullRefreshTableViewController.h */,
+				9AC7B8BE14D0ADAB009139BF /* PullRefreshTableViewController.m */,
 				9A12131F111D1FDD001CDDB6 /* WaitView.h */,
 				9A121320111D1FDD001CDDB6 /* WaitView.m */,
-				9A79E308156E9B7100EBEF48 /* FlightQueryForm.h */,
-				9A79E309156E9B7100EBEF48 /* FlightQueryForm.m */,
-				9A60D6C916F90BDE00F9DFFF /* CollapsibleTable.h */,
-				9A60D6CA16F90BDE00F9DFFF /* CollapsibleTable.m */,
+				9A8901FC1F9A71160023CE34 /* HostedWebViewViewController.h */,
+				9A8901FD1F9A71160023CE34 /* HostedWebViewViewController.m */,
 			);
 			name = "UI Utility Classes";
 			sourceTree = "<group>";
@@ -1324,7 +1322,6 @@
 				9A5A085C147ED35300C05C50 /* Totals.xib */,
 				9A5A085E147ED35300C05C50 /* TotalsRow.xib */,
 				9A5A0860147ED35300C05C50 /* VADetails.xib */,
-				9A5A0862147ED35300C05C50 /* ViewFlightWebPage.xib */,
 				9A5A0864147ED35300C05C50 /* VisitedAirportRow.xib */,
 				9A5A0866147ED35300C05C50 /* VisitedAirports.xib */,
 				9A5A0868147ED35300C05C50 /* WaitView.xib */,
@@ -1782,7 +1779,6 @@
 				9A5A0880147ED35300C05C50 /* Totals.xib in Resources */,
 				9A5A0881147ED35300C05C50 /* TotalsRow.xib in Resources */,
 				9A5A0882147ED35300C05C50 /* VADetails.xib in Resources */,
-				9A5A0883147ED35300C05C50 /* ViewFlightWebPage.xib in Resources */,
 				9A5A0884147ED35300C05C50 /* VisitedAirportRow.xib in Resources */,
 				9A5A0885147ED35300C05C50 /* VisitedAirports.xib in Resources */,
 				9A902D701A210B0B00698017 /* currency@3x.png in Resources */,
@@ -2032,7 +2028,6 @@
 				9AC4E1AE10FA509A0075CC1B /* imageSelector.m in Sources */,
 				9A87ECCC10FB94A2009D1BEE /* about.m in Sources */,
 				9A020B3310FFEF3F00801349 /* RecentFlights.m in Sources */,
-				9ACD17C111015FE400B294F7 /* ViewFlightWebPage.m in Sources */,
 				9A77CDA011050421006E7531 /* RouteAnnotation.m in Sources */,
 				9A121322111D1FDD001CDDB6 /* WaitView.m in Sources */,
 				9A121395111D3073001CDDB6 /* ImageComment.m in Sources */,
@@ -2049,6 +2044,7 @@
 				9A3E1377127DE704008D672E /* EXFJFIF.m in Sources */,
 				9A3E1378127DE704008D672E /* EXFJpeg.m in Sources */,
 				9A3E1379127DE704008D672E /* EXFMetaData.m in Sources */,
+				9A8901FF1F9A71160023CE34 /* HostedWebViewViewController.m in Sources */,
 				9A3E137A127DE704008D672E /* EXFTagDefinitionHolder.m in Sources */,
 				9A3E137B127DE704008D672E /* EXFUtils.m in Sources */,
 				9AEC4C9313ABFCDA0044897B /* TotalsRow.m in Sources */,
@@ -2268,14 +2264,6 @@
 				9AC6AF231BD0158E004AB2E3 /* Base */,
 			);
 			name = VADetails.xib;
-			sourceTree = "<group>";
-		};
-		9A5A0862147ED35300C05C50 /* ViewFlightWebPage.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9AC6AF241BD0158F004AB2E3 /* Base */,
-			);
-			name = ViewFlightWebPage.xib;
 			sourceTree = "<group>";
 		};
 		9A5A0864147ED35300C05C50 /* VisitedAirportRow.xib */ = {

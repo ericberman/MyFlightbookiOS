@@ -28,7 +28,6 @@
 #import <UIKit/UIKit.h>
 #import "CollapsibleTable.h"
 #import "MFBAppDelegate.h"
-#import "ViewFlightWebPage.h"
 
 @interface Training : CollapsibleTable
 

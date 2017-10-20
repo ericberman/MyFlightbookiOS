@@ -26,6 +26,7 @@
 //
 
 #import "Training.h"
+#import "HostedWebViewViewController.h"
 
 @interface Training ()
 
@@ -125,8 +126,7 @@ enum _trainingLinks {cidFirst, cidInstructors = cidFirst, cidStudents, cidEndors
     NSString * szURL = [NSString stringWithFormat:@"%@://%@/logbook/public/authredir.aspx?u=%@&p=%@&d=%@&naked=1",
                    szProtocol, MFBHOSTNAME, [mfbApp().userProfile.UserName stringByURLEncodingString], [mfbApp().userProfile.Password stringByURLEncodingString], szDest];
 
-	ViewFlightWebPage * vwWeb = [[ViewFlightWebPage alloc] init];
-	[vwWeb viewWebPage:szURL];
+	HostedWebViewViewController * vwWeb = [[HostedWebViewViewController alloc] initWithURL:szURL];
 	[self.navigationController pushViewController:vwWeb animated:YES];
 }
 

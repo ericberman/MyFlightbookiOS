@@ -32,10 +32,10 @@
 #import "Util.h"
 #import "DecimalEdit.h"
 #import "MFBAppDelegate.h"
-#import "ViewFlightWebPage.h"
 #import "CheckboxCell.h"
 #import "SecurityQuestionPicker.h"
 #import "FlightProps.h"
+#import "HostedWebViewViewController.h"
 
 @interface NewUserTableController ()
 
@@ -406,15 +406,13 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
 
 - (void) viewPrivacy
 {
-    ViewFlightWebPage * vwWeb = [[ViewFlightWebPage alloc] init];
-    [vwWeb viewWebPage:@"https://MyFlightbook.com/logbook/public/privacy.aspx?naked=1"];
+	HostedWebViewViewController * vwWeb = [[HostedWebViewViewController alloc] initWithURL:@"https://MyFlightbook.com/logbook/public/privacy.aspx?naked=1"];
 	[self.navigationController pushViewController:vwWeb animated:YES];
 }
 
 - (void) viewTAndC
 {
-    ViewFlightWebPage * vwWeb = [[ViewFlightWebPage alloc] init];
-    [vwWeb viewWebPage:@"https://myflightbook.com/logbook/Public/TandC.aspx?naked=1"];
+	HostedWebViewViewController * vwWeb = [[HostedWebViewViewController alloc] initWithURL:@"https://myflightbook.com/logbook/Public/TandC.aspx?naked=1"];
 	[self.navigationController pushViewController:vwWeb animated:YES];
 }
 
