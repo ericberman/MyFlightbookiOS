@@ -53,7 +53,8 @@
     {
         self.edgesForExtendedLayout = UIRectEdgeNone;
         self.navigationController.navigationBar.translucent = NO;
-        [self.navigationController setToolbarHidden:NO];
+        self.navigationController.toolbar.translucent = NO;
+        self.navigationController.toolbarHidden = NO;
         
         UIImage * imgBack = [UIImage imageNamed:@"btnBack.png"];
         UIImage * imgForward = [UIImage imageNamed:@"btnForward.png"];

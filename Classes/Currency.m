@@ -64,6 +64,8 @@
 - (void) viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
+    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.toolbarHidden = YES;
 }
 
 - (void) invalidateViewController
