@@ -9,13 +9,18 @@
 
 @interface HostedWebViewViewController ()
 
-@property (strong, nonatomic) WKWebView * webview;
 @property (strong, nonatomic) NSString * szurl;
 @end
 
 @implementation HostedWebViewViewController
 
-@synthesize webview, szurl;
+@synthesize szurl;
+
+- (WKWebView *) webview {
+    if ([self.view isKindOfClass:[WKWebView class]])
+        return (WKWebView *) self.view;
+    return nil;
+}
 
 - (instancetype) initWithURL:(NSString *)szURL
 {
@@ -31,7 +36,7 @@
     WKWebViewConfiguration *conf = [[WKWebViewConfiguration alloc] init];
     conf.preferences.javaScriptEnabled = YES;
     
-    self.view = self.webview = [[WKWebView alloc] initWithFrame:self.view.frame configuration:conf];
+    self.view = [[WKWebView alloc] initWithFrame:self.view.frame configuration:conf];
     self.webview.navigationDelegate = self;
     self.webview.UIDelegate = self;
     
@@ -114,6 +119,8 @@
 }
 
 - (void) webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+    if (error.code == NSURLErrorCancelled)
+        return;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     UIAlertView * av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Title for generic error message") message:error.localizedDescription delegate:nil cancelButtonTitle:NSLocalizedString(@"Close", @"Close button on error message") otherButtonTitles:nil];
     [av show];
