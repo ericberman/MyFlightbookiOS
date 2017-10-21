@@ -410,8 +410,10 @@ BOOL fSelectFirst = NO;
         if (!fCamera) {
             NSURL *url = info[UIImagePickerControllerReferenceURL];
             PHFetchResult *res = [PHAsset fetchAssetsWithALAssetURLs:[NSArray arrayWithObject:url] options:nil];
-            PHAsset *thisPhoto = [res objectAtIndex: 0];
-            loc = [thisPhoto location];
+            if (res.count > 0) {
+                PHAsset *thisPhoto = [res objectAtIndex: 0];
+                loc = [thisPhoto location];
+            }
         }
         
         CommentedImage * ci = [[CommentedImage alloc] init];
