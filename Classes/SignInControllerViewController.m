@@ -409,7 +409,7 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
             if ([MFBHOSTNAME hasPrefix:@"192."] || [MFBHOSTNAME hasPrefix:@"10."])
                 szProtocol = @"http";
 #endif
-            NSString * szURL = [NSString stringWithFormat:@"%@://%@/logbook/public/authredir.aspx?u=%@&p=%@&d=faq&naked=",
+            NSString * szURL = [NSString stringWithFormat:@"%@://%@/logbook/public/authredir.aspx?u=%@&p=%@&d=faq&naked=1",
             szProtocol, MFBHOSTNAME, [self.szUser stringByURLEncodingString], [self.szPass stringByURLEncodingString]];
             [self pushURL:szURL];
         }
