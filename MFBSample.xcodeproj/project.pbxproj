@@ -2918,8 +2918,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone;
 				PRODUCT_NAME = MyFlightbook;
-				PROVISIONING_PROFILE = "34792b95-bbce-4414-83fe-903104dfb76d";
-				PROVISIONING_PROFILE_SPECIFIER = "Eric Dev Profile MM28 Aug 2017";
+				PROVISIONING_PROFILE = "e48e3b8e-b543-4007-8c93-04a95751c9e3";
+				PROVISIONING_PROFILE_SPECIFIER = "Eric Dev Profile MM28 Nov 2017";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Classes/MyFlightbook-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -2957,8 +2957,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone;
 				PRODUCT_NAME = MyFlightbook;
-				PROVISIONING_PROFILE = "34792b95-bbce-4414-83fe-903104dfb76d";
-				PROVISIONING_PROFILE_SPECIFIER = "Eric Dev Profile MM28 Aug 2017";
+				PROVISIONING_PROFILE = "e48e3b8e-b543-4007-8c93-04a95751c9e3";
+				PROVISIONING_PROFILE_SPECIFIER = "Eric Dev Profile MM28 Nov 2017";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Classes/MyFlightbook-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3088,8 +3088,8 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "34792b95-bbce-4414-83fe-903104dfb76d";
-				PROVISIONING_PROFILE_SPECIFIER = "Eric Dev Profile MM28 Aug 2017";
+				PROVISIONING_PROFILE = "e48e3b8e-b543-4007-8c93-04a95751c9e3";
+				PROVISIONING_PROFILE_SPECIFIER = "Eric Dev Profile MM28 Nov 2017";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3139,8 +3139,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "34792b95-bbce-4414-83fe-903104dfb76d";
-				PROVISIONING_PROFILE_SPECIFIER = "Eric Dev Profile MM28 Aug 2017";
+				PROVISIONING_PROFILE = "e48e3b8e-b543-4007-8c93-04a95751c9e3";
+				PROVISIONING_PROFILE_SPECIFIER = "Eric Dev Profile MM28 Nov 2017";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
@@ -3244,8 +3244,8 @@
 				OTHER_CFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "34792b95-bbce-4414-83fe-903104dfb76d";
-				PROVISIONING_PROFILE_SPECIFIER = "Eric Dev Profile MM28 Aug 2017";
+				PROVISIONING_PROFILE = "e48e3b8e-b543-4007-8c93-04a95751c9e3";
+				PROVISIONING_PROFILE_SPECIFIER = "Eric Dev Profile MM28 Nov 2017";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Model classes/MyFlightbookWatch Extension-Bridging-Header.h";
@@ -3294,8 +3294,8 @@
 				OTHER_CFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "34792b95-bbce-4414-83fe-903104dfb76d";
-				PROVISIONING_PROFILE_SPECIFIER = "Eric Dev Profile MM28 Aug 2017";
+				PROVISIONING_PROFILE = "e48e3b8e-b543-4007-8c93-04a95751c9e3";
+				PROVISIONING_PROFILE_SPECIFIER = "Eric Dev Profile MM28 Nov 2017";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Model classes/MyFlightbookWatch Extension-Bridging-Header.h";
