@@ -127,6 +127,8 @@
 	<string>MainWindow-iPad</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>MyFlightbook uses the microphone when you attach a video to a flight.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>MyFlightbook saves pictures that you take into your library so that you have your own copy of it.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>MyFlightbook allows you to attach pictures or videos to your flights or to aircraft that you fly.</string>
 	<key>UIBackgroundModes</key>
