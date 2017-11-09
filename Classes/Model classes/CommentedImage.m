@@ -216,7 +216,7 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
 - (void) saveImageFromCameraWorker:(NSDictionary *) dictMetaData
 {
     @autoreleasepool {
-        MFBAppDelegate * app = mfbApp();
+        MFBAppDelegate * app = [MFBAppDelegate threadSafeAppDelegate];
         
         // save a local copy for ourselves, with GPS data
         NSMutableDictionary * dictAdditionalData = [[NSMutableDictionary alloc] init];
