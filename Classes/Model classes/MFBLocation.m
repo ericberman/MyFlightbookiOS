@@ -282,8 +282,8 @@ static int vLanding = LANDING_SPEED_DEFAULT;
     BOOL fForceRecord = NO; // true to record even a sample that we would otherwise discard.
     static CLLocation * PreviousLoc = nil;
     static BOOL fPreviousLocWasNight = NO;
-    MFBAppDelegate * app = mfbApp();
-	
+    MFBAppDelegate * app = [MFBAppDelegate threadSafeAppDelegate];
+    
 	self.lastSeenLoc = newLocation; // keep this, even if it's noisy (still useful for nearby airports)
 	if (self.currentLoc != nil)
 	{
@@ -397,12 +397,15 @@ static int vLanding = LANDING_SPEED_DEFAULT;
 		[self.delegate newLocation:newLocation];
     
     // Update watch data
-    SharedWatch * sw = mfbApp().watchData;
+    SharedWatch * sw = app.watchData;
+    BOOL fSendUpdate = (sw.latDisplay == nil || sw.latDisplay.length == 0);
     sw.latDisplay = [MFBLocation latitudeDisplay:lastSeenLoc.coordinate.latitude];
     sw.lonDisplay = [MFBLocation longitudeDisplay:lastSeenLoc.coordinate.longitude];
     sw.flightstatus = [MFBLocation flightStateDisplay:self.currentFlightState];
     sw.speedDisplay = [MFBLocation speedDisplay:lastSeenLoc.speed * MPS_TO_KNOTS];
     sw.altDisplay = [MFBLocation altitudeDisplay:lastSeenLoc];
+    if (fSendUpdate)
+        [app updateWatchContext];
 }
 
 - (void) locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error

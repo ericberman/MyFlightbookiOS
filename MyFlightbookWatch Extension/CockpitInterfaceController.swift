@@ -91,7 +91,6 @@ class CockpitInterfaceController: WKInterfaceController, WCSessionDelegate, Sess
         super.didDeactivate()
         let watchDelegate = WKExtension.shared().delegate as! ExtensionDelegate
         watchDelegate.setHandler(nil, forMessage: WATCH_RESPONSE_STATUS)
-        watchDelegate.setHandler(nil, forMessage: WATCH_RESPONSE_STATUS)
         self.timer?.invalidate()
     }
     

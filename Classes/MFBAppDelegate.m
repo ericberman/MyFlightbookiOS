@@ -399,8 +399,6 @@ static BOOL fAppLaunchFinished = NO;
             self.tabBarController.selectedIndex = iTab;
     }
 
-    self.leMain.view = self.leMain.view; // force view to load to ensure it is valid below.
-    
 	NSMutableArray * rgImages = [NSMutableArray arrayWithArray:self.leMain.le.rgPicsForFlight];
 	// Now get any additional images
 	for (LogbookEntry * lbe in self.rgPendingFlights)
@@ -551,6 +549,7 @@ static MFBAppDelegate * _mainApp = nil;
     // Apple Watch support
     self.watchData = [SharedWatch new];
     [self setUpWatchSession];
+    self.leMain.view = self.leMain.view; // force view to load to ensure it is valid.  Also initializes for shared watch.
     
     // use a background process to do most of the initialization.
     [NSThread detachNewThreadSelector:@selector(appLaunchWorker) toTarget:self withObject:nil];
