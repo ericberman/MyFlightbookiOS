@@ -46,6 +46,7 @@
     return @[@"CONTACT",
              @"COPTER",
              @"GCA",
+             @"GLS",
              @"ILS",
              @"ILS (Cat I)",
              @"ILS (Cat II)",
