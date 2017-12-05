@@ -323,7 +323,7 @@ BOOL fCouldBeMoreFlights;
 - (void) submitPendingFlightCompleted:(MFBSoapCall *) sc fromCaller:(LogbookEntry *) le
 {
     MFBAppDelegate * app = mfbApp();
-    if ([le.errorString length] == 0) // success!
+    if ([le.errorString length] == 0 && !le.entryData.isQueued) // success!
     {
         [app dequeuePendingFlight:le];
         [[iRate sharedInstance] logEvent:NO];   // ask user to rate the app if they have saved the requesite # of flights
@@ -360,7 +360,7 @@ BOOL fCouldBeMoreFlights;
     MFBAppDelegate * app = mfbApp();
     LogbookEntry * le = (LogbookEntry *) (app.rgPendingFlights)[index];
     
-    if ([le.errorString length] == 0) // no holdover error
+    if (!le.entryData.isQueued && le.errorString.length == 0) // no holdover error
     {
         le.szAuthToken = app.userProfile.AuthToken;
         le.progressLabel = self.cellProgress.progressDetailLabel;

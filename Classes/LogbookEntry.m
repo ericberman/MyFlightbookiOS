@@ -560,6 +560,10 @@ NSString * const _szkeyPOTwitter = @"_poPostTwitter";
 	return (self.FlightID != nil && [self.FlightID intValue] < 0);
 }
 
+- (BOOL) isQueued {
+    return self.FlightID != nil && self.FlightID.intValue == QUEUED_FLIGHT_UNSUBMITTED.intValue;
+}
+
 // isInitialState means a basically empty flight, but it COULD have a pre-initialized hobbs starting time.
 - (BOOL) isInInitialState
 {
@@ -683,7 +687,43 @@ NSString * const _szkeyPOTwitter = @"_poPostTwitter";
 		self.CatClassOverride = @0;
 	
 	return self;
-}	
+}
+
+#pragma mark - Clone/Reverse
+- (MFBWebServiceSvc_LogbookEntry *) clone {
+    // A bit of a hack for a deep copy: encode it then decode it.
+    NSData * thisArchived = [NSKeyedArchiver archivedDataWithRootObject:self];
+    MFBWebServiceSvc_LogbookEntry * leNew = [NSKeyedUnarchiver unarchiveObjectWithData:thisArchived];
+    leNew.FlightID = NEW_FLIGHT_ID;
+    
+    if (self.CustomProperties != nil)
+        for (MFBWebServiceSvc_CustomFlightProperty * cfp in self.CustomProperties.CustomFlightProperty) {
+            cfp.FlightID = NEW_FLIGHT_ID;
+            cfp.PropID = NEW_PROP_ID;
+        }
+    
+    leNew.Date = [NSDate new];
+    leNew.EngineStart = [NSDate distantPast];
+    leNew.EngineEnd = [NSDate distantPast];
+    leNew.FlightStart = [NSDate distantPast];
+    leNew.FlightEnd = [NSDate distantPast];
+    leNew.HobbsEnd = @0.0;
+    leNew.HobbsStart = @0.0;
+    leNew.FlightData = @"";
+    leNew.FlightImages = [[MFBWebServiceSvc_ArrayOfMFBImageInfo alloc] init];
+    
+    return leNew;
+}
+
+- (MFBWebServiceSvc_LogbookEntry *) cloneAndReverse {
+    MFBWebServiceSvc_LogbookEntry * leNew = [self clone];
+    NSArray<NSString *> * ar = [Airports CodesFromString:leNew.Route];
+    NSMutableString * s = [[NSMutableString alloc] init];
+    for (long i = ar.count - 1; i >= 0; i--)
+        [s appendFormat:@"%@ ", ar[i]];
+    leNew.Route = s;
+    return leNew;
+}
 
 #pragma mark - Known/Unknown Times
 - (BOOL) isKnownFlightStart

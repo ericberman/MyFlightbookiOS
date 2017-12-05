@@ -43,6 +43,7 @@
 #define PropTypeID_TachEnd      96
 #define PropTypeID_ApproachName 267
 
+#define NEW_PROP_ID @-1
 
 @interface FlightProps : NSObject <MFBSoapCallDelegate> {
 }

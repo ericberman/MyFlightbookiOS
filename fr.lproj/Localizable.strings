@@ -1072,3 +1072,19 @@ Quel est le nom de la réception de votre mariage lieu a eu lieu?";
 
 /* Signature Status - certificate & Expiration */
 "sigStateTemplate2" = "CFI #%1$@, expiration %2$@";
+
+/* Flight Action Menu Prompt */
+"flightActionMenuPrompt" = "Choisissez une action pour ce vol";
+
+/* Flight Action - repeat a flight */
+"flightActionRepeatFlight" = "Répétez ce vol";
+
+/* Flight Action - repeat and reverse flight */
+"flightActionReverseFlight" = "Répétez et inversez ce vol";
+
+/* Flight Action - repeated flight created */
+"flightActionRepeatComplete" = "Le vol a été créé. Vous pouvez le modifier dans les vols récents.";
+
+/* Flight Action Complete Title */
+"flightActionComplete" = "Complet";
+

@@ -30,7 +30,9 @@
 #import "MFBSoapCall.h"
 #import "MFBAppDelegate.h"
 
+#define NEW_FLIGHT_ID @-1
 #define PENDING_FLIGHT_ID @-2
+#define QUEUED_FLIGHT_UNSUBMITTED @-3
 
 @interface LogbookEntry : MFBAsyncOperation <MFBSoapCallDelegate, NSCoding> {
 	@private
@@ -97,6 +99,7 @@
 - (BOOL) isNewFlight;
 - (BOOL) isPending;
 - (BOOL) isNewOrPending;
+- (BOOL) isQueued;
 - (BOOL) isInInitialState;  // checks to see if a flight is empty but for the starting hobbs
 - (BOOL) isEmpty;           // checks to see if a flight is truly empty.
 - (BOOL) isSigned; 
@@ -116,6 +119,9 @@
 - (MFBWebServiceSvc_CustomFlightProperty *) addProperty:(NSNumber *) idPropType withString:(NSString *) sz;
 - (MFBWebServiceSvc_CustomFlightProperty *) addProperty:(NSNumber *) idPropType withBool:(BOOL) fBool;
 - (MFBWebServiceSvc_CustomFlightProperty *) addProperty:(NSNumber *) idPropType withDate:(NSDate *) dt;
+
+- (MFBWebServiceSvc_LogbookEntry *) clone;
+- (MFBWebServiceSvc_LogbookEntry *) cloneAndReverse;
 
 - (NSString *) fromJSONDictionary:(NSDictionary *) dict dateFormatter:(NSDateFormatter *) dfDate dateTimeFormatter:(NSDateFormatter *) dfDateTime;
 @end

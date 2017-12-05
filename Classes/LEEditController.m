@@ -386,17 +386,21 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     
 	UIBarButtonItem * bbGallery = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(pickImages:)];
 	UIBarButtonItem * bbCamera = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(takePicture:)];
+    UIBarButtonItem * bbSend = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(sendFlight:)];
     bbGallery.enabled = self.canUsePhotoLibrary;
     bbCamera.enabled = self.canUseCamera;
     
     bbGallery.style = bbCamera.style = UIBarButtonItemStylePlain;
     
     NSMutableArray * ar = [[NSMutableArray alloc] init];
-    [ar addObject:biOptions];
-    if ([self.le.entryData isNewFlight])
+    if ([self.le.entryData isNewFlight]) {
+        [ar addObject:biOptions];
         [ar addObject:biReset];
+    }
     if (![self.le.entryData isNewOrPending] && self.le.entryData.CFISignatureState != MFBWebServiceSvc_SignatureState_Valid)
         [ar addObject:biSign];
+    if (![self.le.entryData isNewOrPending])
+        [ar addObject:bbSend];
     [ar addObject:biSpacer];
     [ar addObject:bbGallery];
     [ar addObject:bbCamera];
@@ -861,8 +865,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 
     // if it's a new flight, queue it.  We set the id to -2 to distinguish it from a new flight.
     // If it's pending, we just no-op and tell the user it's still queued.
-    if (fIsNew) 
-        self.le.entryData.FlightID = PENDING_FLIGHT_ID;
+    self.le.entryData.FlightID = PENDING_FLIGHT_ID;
     
     // add it to the pending flight queue - it will start submitting when recent flights are viewed
     [app queueFlightForLater:self.le];
@@ -2243,5 +2246,37 @@ static NSDateFormatter * dfSunriseSunset = nil;
 - (void) updateTotal:(NSNumber *)value {
     self.le.entryData.TotalFlightTime = value;
     self.idTotalTime.value = value;
+}
+
+#pragma mark - Send actions
+- (void) repeatFlight:(BOOL) fReverse {
+    LogbookEntry * leNew = [[LogbookEntry alloc] init];
+
+    leNew.entryData  = fReverse ? [self.le.entryData cloneAndReverse] : [self.le.entryData clone];
+    leNew.entryData.FlightID = QUEUED_FLIGHT_UNSUBMITTED;   // don't auto-submit this flight!
+    MFBAppDelegate * app = [MFBAppDelegate threadSafeAppDelegate];
+    [app queueFlightForLater:leNew];
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(flightUpdated:)])
+        [self.delegate flightUpdated:self];
+    UIAlertView * uiv = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"flightActionComplete", @"Flight Action Complete Title") message:NSLocalizedString(@"flightActionRepeatComplete", @"Flight Action - repeated flight created") delegate:nil cancelButtonTitle:NSLocalizedString(@"Close", @"Close button on error message") otherButtonTitles:nil];
+    [uiv show];
+}
+
+- (void) sendFlight:(id) sender {
+    UIAlertController * uac = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"flightActionMenuPrompt", @"Actions for this flight") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [uac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"flightActionRepeatFlight", @"Flight Action - repeat a flight") style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        [self repeatFlight:NO];
+    }]];
+
+    [uac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"flightActionReverseFlight", @"Flight Action - repeat and reverse flight") style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        [self repeatFlight:YES];
+    }]];
+    
+    [uac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel (button)") style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
+        [uac dismissViewControllerAnimated:YES completion:nil];
+    }]];
+
+    [self presentViewController:uac animated:YES completion:nil];
 }
 @end
