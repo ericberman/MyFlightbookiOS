@@ -58,7 +58,6 @@
 @property (readwrite, strong) NSString * szEmail2;
 @property (readwrite, strong) NSString * szPass2;
 @property (readwrite, strong) NSString * szLastError;
-@property (readwrite) BOOL IsOver14;
 
 - (BOOL) isValid;
 @end

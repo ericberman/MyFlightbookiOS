@@ -45,14 +45,13 @@
 - (void) createUser;
 - (void) viewPrivacy;
 - (void) viewTAndC;
-- (void) toggleAge:(UIButton *)sender;
 
 @end
 
 @implementation NewUserTableController
 
-enum sectNewUser {sectCredentials, sectName, sectQAExplanation, sectQA, sectAge, sectLegal, sectCreate, sectLast};
-enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastName, rowAge, rowQAExplanation1, rowQuestion, rowAnswer,
+enum sectNewUser {sectCredentials, sectName, sectQAExplanation, sectQA, sectLegal, sectCreate, sectLast};
+enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastName, rowQAExplanation1, rowQuestion, rowAnswer,
     rowPrivacy, rowTandC, rowAgree, rowCreate};
 
 @synthesize vwWait, vwAccessory, nuo;
@@ -99,8 +98,6 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
 {
     switch (ip.section)
     {
-        case sectAge:
-            return rowAge;
         case sectCreate:
             return rowAgree + ip.row;
         case sectCredentials:
@@ -127,8 +124,6 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
 {
     switch (section)
     {
-        case sectAge:
-            return 1;
         case sectCreate:
             return rowCreate - rowAgree + 1;
         case sectCredentials:
@@ -186,17 +181,9 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
     ButtonCell * bc;
     TextCell * tc;
     EditCell * ec;
-    CheckboxCell * cc;
     
     switch (row)
     {
-        case rowAge:
-            cell = cc = [CheckboxCell getButtonCell:tableView];
-            [cc.btn setTitle:NSLocalizedString(@"I am at least 14 years old", @"Age verification prompt") forState:0];
-            [cc.btn setIsCheckbox];
-            [cc.btn addTarget:self action:@selector(toggleAge:) forControlEvents:UIControlEventTouchUpInside];
-            cc.btn.selected = self.nuo.IsOver14;
-            break;
         case rowAgree:
             cell = tc = [TextCell getTextCellTransparent:tableView];
             tc.txt.text = NSLocalizedString(@"By creating an account, you are agreeing to the terms and conditions.", @"Terms and Conditions agreement");
@@ -414,12 +401,6 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
 {
 	HostedWebViewViewController * vwWeb = [[HostedWebViewViewController alloc] initWithURL:@"https://myflightbook.com/logbook/Public/TandC.aspx?naked=1"];
 	[self.navigationController pushViewController:vwWeb animated:YES];
-}
-
-- (void) toggleAge:(UIButton *) sender
-{
-    self.nuo.IsOver14 = sender.selected;
-    [self.tableView endEditing:YES];
 }
 
 #pragma mark UITextFieldDelegate

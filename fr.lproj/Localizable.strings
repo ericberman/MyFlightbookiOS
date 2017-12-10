@@ -55,9 +55,6 @@
 /* Disclaimer acceptance button title */
 "Accept" = "Accepter";
 
-/* Create Account validation - confirm age */
-"Accounts are only available for people 14 and over.  Please confirm that you are 14 or over." = "L'ouverture de compte ne peut se faire que pour des personnes ayant au moins 14 ans. Merci de confirmer que vous avez au moins 14 ans.";
-
 /* Add a comment for this image */
 "Add a comment for this image" = "Ecrire un commentaire pour cette photo";
 
@@ -749,9 +746,6 @@
 
 /* Secret Answer Prompt */
 "Secret Answer" = "Réponse:";
-
-/* Age verification prompt */
-"I am at least 14 years old" = "J'ai au moins 14 ans";
 
 /* Create Account button */
 "Create Account" = "Créez un compte";

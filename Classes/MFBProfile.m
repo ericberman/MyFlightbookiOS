@@ -298,15 +298,13 @@ NSString * const _szKeyCachedTokenRetrievalDate = @"keyCacheTokenDate";
 @end
 
 @implementation NewUserObject
-@synthesize szEmail2, szPass2, IsOver14, szLastError;
+@synthesize szEmail2, szPass2, szLastError;
 
 
 - (BOOL) isValid
 {
     self.szLastError = @"";
     
-	if (!self.IsOver14)
-		self.szLastError = NSLocalizedString(@"Accounts are only available for people 14 and over.  Please confirm that you are 14 or over.", @"Create Account validation - confirm age");
 	if ([self.szPass length] == 0 || [self.szPass compare:self.szPass2] != NSOrderedSame)
 		self.szLastError = NSLocalizedString(@"Please enter your password twice.", @"Create Account validation - passwords don't match");
 	if ([self.szEmail length] == 0 || [self.szEmail compare:self.szEmail2] != NSOrderedSame)
