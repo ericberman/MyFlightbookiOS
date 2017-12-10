@@ -79,7 +79,7 @@
         
 		BOOL fHeliports = [AutodetectOptions includeHeliports];
 		
-		NSString * szSql = [NSString stringWithFormat:@"SELECT ap.*, %@ FROM airports ap WHERE ap.latitude BETWEEN %.8F AND %.8F AND ap.longitude BETWEEN %.8F AND %.8F AND Type IN %@ ORDER BY ROUND(Distance, 2) ASC, Preferred DESC %@",
+		NSString * szSql = [NSString stringWithFormat:@"SELECT ap.*, %@ FROM airports ap WHERE ap.latitude BETWEEN %.8F AND %.8F AND ap.longitude BETWEEN %.8F AND %.8F AND Type IN %@ ORDER BY ROUND(Distance, 2) ASC, Preferred DESC, length(AirportID) DESC %@",
                             [self distanceColumnFromLoc:curLoc],
 							minLat, maxLat, minLong, maxLong,
 							(fHeliports) ? @"('H', 'A', 'S')" : @"('A', 'S')",
