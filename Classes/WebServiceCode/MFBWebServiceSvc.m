@@ -6714,6 +6714,7 @@ NSString * MFBWebServiceSvc_CFPPropertyType_stringFromEnum(MFBWebServiceSvc_CFPP
 	if((self = [super init])) {
 		PropTypeID = 0;
 		Title = 0;
+		SortKey = 0;
 		IsFavorite = 0;
 		FormatString = 0;
 		Type = 0;
@@ -6729,6 +6730,7 @@ NSString * MFBWebServiceSvc_CFPPropertyType_stringFromEnum(MFBWebServiceSvc_CFPP
 	[soapSigner release];
 	if(PropTypeID != nil) [PropTypeID release];
 	if(Title != nil) [Title release];
+	if(SortKey != nil) [SortKey release];
 	if(IsFavorite != nil) [IsFavorite release];
 	if(FormatString != nil) [FormatString release];
 	if(Description != nil) [Description release];
@@ -6773,6 +6775,9 @@ NSString * MFBWebServiceSvc_CFPPropertyType_stringFromEnum(MFBWebServiceSvc_CFPP
 	if(self.Title != 0) {
 		xmlAddChild(node, [self.Title xmlNodeForDoc:node->doc elementName:@"Title" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
+	if(self.SortKey != 0) {
+		xmlAddChild(node, [self.SortKey xmlNodeForDoc:node->doc elementName:@"SortKey" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
 	if(self.IsFavorite != 0) {
 		xmlAddChild(node, [self.IsFavorite xmlNodeForDoc:node->doc elementName:@"IsFavorite" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
@@ -6795,6 +6800,7 @@ NSString * MFBWebServiceSvc_CFPPropertyType_stringFromEnum(MFBWebServiceSvc_CFPP
 /* elements */
 @synthesize PropTypeID;
 @synthesize Title;
+@synthesize SortKey;
 @synthesize IsFavorite;
 @synthesize FormatString;
 @synthesize Type;
@@ -6899,6 +6905,39 @@ NSString * MFBWebServiceSvc_CFPPropertyType_stringFromEnum(MFBWebServiceSvc_CFPP
 				id newChild = [elementClass deserializeNode:cur];
 				
 				self.Title = newChild;
+			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "SortKey")) {
+				
+				Class elementClass = nil;
+				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if(instanceType == NULL) {
+					elementClass = [NSString class];
+				} else {
+					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
+					
+					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
+					
+					NSString *elementClassString = nil;
+					if([elementTypeArray count] > 1) {
+						NSString *prefix = [elementTypeArray objectAtIndex:0];
+						NSString *localName = [elementTypeArray objectAtIndex:1];
+						
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
+						
+						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
+						
+						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
+					} else {
+						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
+					}
+					
+					elementClass = NSClassFromString(elementClassString);
+					xmlFree(instanceType);
+				}
+				
+				id newChild = [elementClass deserializeNode:cur];
+				
+				self.SortKey = newChild;
 			}
 			if(xmlStrEqual(cur->name, (const xmlChar *) "IsFavorite")) {
 				

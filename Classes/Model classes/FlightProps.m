@@ -637,6 +637,7 @@ static char UIB_ISLOCKED_KEY;
 {
 	[encoder encodeInt32:self.Type forKey:@"cptType"];
 	[encoder encodeObject:self.Title forKey:@"cptTitle"];
+    [encoder encodeObject:self.SortKey forKey:@"cptSortKey"];
 	[encoder encodeObject:self.PropTypeID forKey:@"cptPropTypeID"];
 	[encoder encodeObject:self.FormatString forKey:@"cptFormatString"];
     [encoder encodeObject:self.Description forKey:@"cptDescription"];
@@ -652,6 +653,7 @@ static char UIB_ISLOCKED_KEY;
 	
 	self.Type = (MFBWebServiceSvc_CFPPropertyType) [decoder decodeInt32ForKey:@"cptType"];
 	self.Title = [decoder decodeObjectForKey:@"cptTitle"];
+    self.SortKey = [decoder decodeObjectForKey:@"cptSortKey"];
 	self.PropTypeID = [decoder decodeObjectForKey:@"cptPropTypeID"];
 	self.FormatString = [decoder decodeObjectForKey:@"cptFormatString"];
     self.Description = [decoder decodeObjectForKey:@"cptDescription"];

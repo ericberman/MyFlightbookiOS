@@ -823,6 +823,7 @@ SOAPSigner *soapSigner;
 /* elements */
 	NSNumber * PropTypeID;
 	NSString * Title;
+	NSString * SortKey;
 	USBoolean * IsFavorite;
 	NSString * FormatString;
 	MFBWebServiceSvc_CFPPropertyType Type;
@@ -842,6 +843,7 @@ SOAPSigner *soapSigner;
 /* elements */
 @property (nonatomic, retain) NSNumber * PropTypeID;
 @property (nonatomic, retain) NSString * Title;
+@property (nonatomic, retain) NSString * SortKey;
 @property (nonatomic, retain) USBoolean * IsFavorite;
 @property (nonatomic, retain) NSString * FormatString;
 @property (nonatomic, assign) MFBWebServiceSvc_CFPPropertyType Type;
