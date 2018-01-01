@@ -324,12 +324,12 @@ static NSRegularExpression * _reAirports = nil;
     self.Code = @((char *)sqlite3_column_text(row, 0));
     self.Name = @((char *)sqlite3_column_text(row, 1));
     self.LatLong = [MFBWebServiceSvc_LatLong new];
-    self.LatLong.Latitude = @(sqlite3_column_double(row, 2));
-    self.LatLong.Longitude = @(sqlite3_column_double(row, 3));
+    self.LatLong.Latitude = @(sqlite3_column_double(row, 4));
+    self.LatLong.Longitude = @(sqlite3_column_double(row, 5));
     self.Latitude = self.LatLong.Latitude.stringValue;
     self.Longitude = self.LatLong.Longitude.stringValue;
-    self.FacilityTypeCode = @((char *)sqlite3_column_text(row, 4));
-    // column 5 is sourceusername - ignore it.
+    self.FacilityTypeCode = @((char *)sqlite3_column_text(row, 2));
+    // column 3 is sourceusername - ignore it.
     // column 6 is preferred - ignore it
     self.DistanceFromPosition = @(sqlite3_column_double(row, 7));
     return self;

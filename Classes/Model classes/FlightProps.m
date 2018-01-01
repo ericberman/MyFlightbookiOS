@@ -682,10 +682,13 @@ static char UIB_ISLOCKED_KEY;
     {
         self.PropTypeID = @(sqlite3_column_int(row, 0));
         self.Title = @((char *)sqlite3_column_text(row, 1));
-        self.FormatString = @((char *) sqlite3_column_text(row, 2));
-        self.Type = (MFBWebServiceSvc_CFPPropertyType) sqlite3_column_int(row, 3) + 1;
-        self.Flags = @(sqlite3_column_int(row, 4));
-        char * descString = (char *)sqlite3_column_text(row, 5);
+        self.SortKey = @((char *) sqlite3_column_text(row, 2));
+        if (self.SortKey == nil || self.SortKey.length == 0)
+            self.SortKey = self.Title;
+        self.FormatString = @((char *) sqlite3_column_text(row, 3));
+        self.Type = (MFBWebServiceSvc_CFPPropertyType) sqlite3_column_int(row, 4) + 1;
+        self.Flags = @(sqlite3_column_int(row, 5));
+        char * descString = (char *)sqlite3_column_text(row, 6);
         self.Description = (descString == NULL) ? @"" : @(descString);
         self.IsFavorite = [[USBoolean alloc] initWithBool:NO];
         self.PreviousValues = [MFBWebServiceSvc_ArrayOfString new];
