@@ -2276,6 +2276,11 @@ static NSDateFormatter * dfSunriseSunset = nil;
     [uac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel (button)") style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
         [uac dismissViewControllerAnimated:YES completion:nil];
     }]];
+    
+    UIBarButtonItem * bbi = (UIBarButtonItem *) sender;
+    UIView * bbiView = [bbi valueForKey:@"view"];
+    uac.popoverPresentationController.sourceView = bbiView;
+    uac.popoverPresentationController.sourceRect = bbiView.frame;
 
     [self presentViewController:uac animated:YES completion:nil];
 }
