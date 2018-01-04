@@ -865,7 +865,8 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 
     // if it's a new flight, queue it.  We set the id to -2 to distinguish it from a new flight.
     // If it's pending, we just no-op and tell the user it's still queued.
-    self.le.entryData.FlightID = PENDING_FLIGHT_ID;
+    if (self.le.entryData.isNewOrPending)
+        self.le.entryData.FlightID = PENDING_FLIGHT_ID;
     
     // add it to the pending flight queue - it will start submitting when recent flights are viewed
     [app queueFlightForLater:self.le];
