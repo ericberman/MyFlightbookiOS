@@ -789,7 +789,7 @@ static MFBAppDelegate * _mainApp = nil;
 
         [self invalidateCachedTotals];
         [self saveState];
-        [self addBadgeForPendingFlights];
+        [self performSelectorOnMainThread:@selector(addBadgeForPendingFlights) withObject:nil waitUntilDone:NO];
     }
 }
 
@@ -800,7 +800,7 @@ static MFBAppDelegate * _mainApp = nil;
     [[self recentsView].tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
 	[self invalidateCachedTotals];
 	[self saveState];
-	[self addBadgeForPendingFlights];
+    [self performSelectorOnMainThread:@selector(addBadgeForPendingFlights) withObject:nil waitUntilDone:NO];
 }
 
 #pragma mark Watchkit
