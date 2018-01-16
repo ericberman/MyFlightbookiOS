@@ -35,6 +35,7 @@
 @property (nonatomic, strong) MFBWebServiceSvc_FlightQuery * fq;
 @property (readwrite) BOOL fSuppressRefresh;
 @property (nonatomic, strong) NSMutableArray * rgUsedProps;
+@property (readwrite) BOOL fShowAllAircraft;
 
 @property (nonatomic, strong) EditCell * ecText;
 @property (nonatomic, strong) EditCell * ecModelName;
@@ -43,7 +44,7 @@
 
 @implementation FlightQueryForm
 
-@synthesize delegate, fq, ecText, ecAirports, ecModelName, fSuppressRefresh;
+@synthesize delegate, fq, ecText, ecAirports, ecModelName, fSuppressRefresh, fShowAllAircraft;
 
 typedef enum _fqSections {fqsText = 0, 
 fqsDate, 
@@ -146,6 +147,39 @@ static NSArray * makesInUse = nil;
         if ([sz length] == 0)
             [self.fq.AirportList.string removeObject:sz];
     }
+}
+
+// Determines the number of aircraft to hide.
+// This is 0 if:
+// a) The user has clicked on "show all aircraft"
+// b) All aircraft are active
+// c) The current query references an inactive aircraft
+// Otherwise, it is the number of hidden (inactive) aircraft
+- (NSInteger) numberHiddenAircraft {
+    NSArray * rgAllAircraft = [Aircraft sharedAircraft].rgAircraftForUser;
+    if (self.fShowAllAircraft)
+        return 0;
+    
+    NSArray * rgActiveAircraft = [[Aircraft sharedAircraft] AircraftForSelection:@-1];
+    
+    // check for all aircraft are active
+    if (rgAllAircraft.count == rgActiveAircraft.count) {
+        self.fShowAllAircraft = YES;
+        return 0;
+    }
+    
+    for (MFBWebServiceSvc_Aircraft * ac in self.fq.AircraftList.Aircraft) {
+        if (![rgActiveAircraft containsObject:ac]) {
+            self.fShowAllAircraft = YES;
+            return 0;
+        }
+    }
+    
+    return rgAllAircraft.count - rgActiveAircraft.count;
+}
+
+- (NSArray *) availableAircraft {
+    return self.numberHiddenAircraft == 0 ? [Aircraft sharedAircraft].rgAircraftForUser : [[Aircraft sharedAircraft] AircraftForSelection:@-1];
 }
 
 #pragma mark Object Lifecycle
@@ -352,7 +386,7 @@ static NSArray * makesInUse = nil;
         case fqsDate:
             return [self rowsInSection:section withItemCount:MFBWebServiceSvc_DateRanges_Custom];
         case fqsAircraft:
-            return [self rowsInSection:section withItemCount:[[Aircraft sharedAircraft].rgAircraftForUser count]];
+            return [self rowsInSection:section withItemCount:self.availableAircraft.count + (self.fShowAllAircraft ? 0 : 1)];
         case fqsMakes:
             return [self rowsInSection:section withItemCount:[makesInUse count] + 1];
         case fqsAircraftFeatures:
@@ -472,7 +506,15 @@ static NSArray * makesInUse = nil;
                 return [ExpandHeaderCell getHeaderCell:self.tableView withTitle:NSLocalizedString(@"FlightAircraft", @"Aircraft Criteria") forSection:indexPath.section initialState:[self isExpanded:indexPath.section]];
 
             UITableViewCell *cell = [self getSubtitleCell];
-            MFBWebServiceSvc_Aircraft * ac = (MFBWebServiceSvc_Aircraft *) ([Aircraft sharedAircraft].rgAircraftForUser)[indexPath.row - 1];
+            NSArray * rgAircraft = self.availableAircraft;
+            if (!self.fShowAllAircraft && indexPath.row == rgAircraft.count + 1) {
+                cell.textLabel.text = NSLocalizedString(@"ShowAllAircraft", @"Show all aircraft");
+                cell.detailTextLabel.text = @"";
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                return cell;
+            }
+                
+            MFBWebServiceSvc_Aircraft * ac = (MFBWebServiceSvc_Aircraft *) rgAircraft[indexPath.row - 1];
             cell.textLabel.text = ac.TailNumber;
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", ac.ModelCommonName, ac.ModelDescription];
             cell.accessoryType = [self.fq.AircraftList.Aircraft containsObject:ac] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
@@ -702,11 +744,24 @@ static NSArray * makesInUse = nil;
             break;
         case fqsAircraft:
             {
-                MFBWebServiceSvc_Aircraft * ac = (MFBWebServiceSvc_Aircraft *)([Aircraft sharedAircraft].rgAircraftForUser)[indexPath.row - 1];
-                if ([self.fq.AircraftList.Aircraft containsObject:ac])
-                    [self.fq.AircraftList.Aircraft removeObject:ac];
-                else
-                    [self.fq.AircraftList.Aircraft addObject:ac];    
+                NSArray * rgAircraft = self.availableAircraft;
+                if (!self.fShowAllAircraft && indexPath.row == rgAircraft.count + 1) {
+                    // show all
+                    NSInteger newRowCount = self.numberHiddenAircraft - 1;  // remove one for the "Show all" row
+                    self.fShowAllAircraft = YES;
+                    NSMutableArray * rg = [[NSMutableArray alloc] initWithCapacity:newRowCount];
+                    for (int i = 1; i <= newRowCount; i++)
+                        [rg addObject:[NSIndexPath indexPathForRow:i inSection:indexPath.section]];
+                    
+                    [self.tableView insertRowsAtIndexPaths:rg withRowAnimation:UITableViewRowAnimationTop];
+                }
+                else {
+                    MFBWebServiceSvc_Aircraft * ac = (MFBWebServiceSvc_Aircraft *)rgAircraft[indexPath.row - 1];
+                    if ([self.fq.AircraftList.Aircraft containsObject:ac])
+                        [self.fq.AircraftList.Aircraft removeObject:ac];
+                    else
+                        [self.fq.AircraftList.Aircraft addObject:ac];
+                }
                 [self.tableView reloadData];
             }
             break;

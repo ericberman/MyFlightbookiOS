@@ -484,6 +484,9 @@
 /* Aircraft Criteria */
 "FlightAircraft" = "Type d'aéronef";
 
+/* Show all aircraft */
+"ShowAllAircraft" = "Afficher tous les aéronefs";
+
 /* Make/Model Criteria */
 "FlightModel" = "Constructeur et modèle";
 
