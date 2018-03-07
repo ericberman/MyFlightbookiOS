@@ -543,6 +543,10 @@ static MFBAppDelegate * _mainApp = nil;
     self.lastKnownNetworkStatus = [self.reachability currentReachabilityStatus];
     fNetworkStateKnown = YES;
     
+    // Enable icons on the badge (for pending flights)
+    UIUserNotificationSettings* notificationSettings = [UIUserNotificationSettings settingsForTypes: UIUserNotificationTypeBadge categories:nil];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
+    
     // Ensure that a profile object is set up
     self.userProfile = [MFBProfile new];
 
