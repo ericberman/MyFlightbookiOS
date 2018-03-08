@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 11/28/09.
-//  Copyright 2009-2017 MyFlightbook LLC. All rights reserved.
+//  Copyright 2009-2018 MyFlightbook LLC. All rights reserved.
 //
 
 #import "MFBAppDelegate.h"
@@ -785,12 +785,6 @@ static MFBAppDelegate * _mainApp = nil;
     if (![self.rgPendingFlights containsObject:le])
     {
         [self.rgPendingFlights addObject:le];
-        // force a reload
-        if ([NSThread isMainThread])
-            [[self recentsView].tableView reloadData];
-        else
-            [[self recentsView].tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
-
         [self invalidateCachedTotals];
         [self saveState];
         [self performSelectorOnMainThread:@selector(addBadgeForPendingFlights) withObject:nil waitUntilDone:NO];
@@ -801,7 +795,6 @@ static MFBAppDelegate * _mainApp = nil;
 {
 	[self.rgPendingFlights removeObject:le];
     // force a reload
-    [[self recentsView].tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
 	[self invalidateCachedTotals];
 	[self saveState];
     [self performSelectorOnMainThread:@selector(addBadgeForPendingFlights) withObject:nil waitUntilDone:NO];

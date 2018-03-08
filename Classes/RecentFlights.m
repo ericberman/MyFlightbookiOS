@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 1/14/10.
-//  Copyright 2010-2017 MyFlightbook LLC. All rights reserved.
+//  Copyright 2010-2018 MyFlightbook LLC. All rights reserved.
 //
 
 #import "RecentFlights.h"
@@ -38,6 +38,8 @@
 @property (atomic, strong) NSIndexPath * ipSelectedCell;
 @property (atomic, strong) id JSONObjToImport;
 @property (nonatomic, strong) NSURL * urlTelemetry;
+
+- (BOOL) hasPendingFlights;
 @end
 
 @implementation RecentFlights
@@ -46,42 +48,37 @@ static const int cFlightsPageSize=15;   // number of flights to download at a ti
 
 enum _tagRecentFlightsAlerts {alertConfirmDelete, alertConfirmImport, alertConfirmImportTelemetry};
 
-int iFlightInProgress, cFlightsToSubmit;
+NSInteger iFlightInProgress, cFlightsToSubmit;
 BOOL fCouldBeMoreFlights;
 
 @synthesize rgFlights, errorString, fq, cellProgress, uploadInProgress, dictImages, ipSelectedCell, JSONObjToImport, urlTelemetry;
 
-- (void) asyncLoadThumbnailsForFlights:(NSArray *) flights
-{
-    if (flights == nil)
-        return;
-    
-    if (![AutodetectOptions showFlightImages])
+- (void) asyncLoadThumbnailsForFlights:(NSArray *) flights {
+    if (flights == nil || ![AutodetectOptions showFlightImages])
         return;
     
     @autoreleasepool {
-    for (MFBWebServiceSvc_LogbookEntry * le in flights)
-    {
-        CommentedImage * ci = [CommentedImage new];
-        if ([le.FlightImages.MFBImageInfo count] > 0)
-            ci.imgInfo = (MFBWebServiceSvc_MFBImageInfo *) (le.FlightImages.MFBImageInfo)[0];
-        else // try to get an aircraft image.
-        {
-            MFBWebServiceSvc_Aircraft * ac = [[Aircraft sharedAircraft] AircraftByID:[le.AircraftID intValue]];
-            if ([ac.AircraftImages.MFBImageInfo count] > 0)
-                ci.imgInfo = (MFBWebServiceSvc_MFBImageInfo *) (ac.AircraftImages.MFBImageInfo)[0];
-            else
-                ci.imgInfo = nil;
+        for (MFBWebServiceSvc_LogbookEntry * le in flights) {
+            // crash if you store into a dictionary using nil key, so check for that
+            if (le == nil || le.FlightID == nil || self.dictImages[le.FlightID] != nil)
+                continue;
+            
+            CommentedImage * ci = [CommentedImage new];
+            if ([le.FlightImages.MFBImageInfo count] > 0)
+                ci.imgInfo = (MFBWebServiceSvc_MFBImageInfo *) (le.FlightImages.MFBImageInfo)[0];
+            else  {
+                // try to get an aircraft image.
+                MFBWebServiceSvc_Aircraft * ac = [[Aircraft sharedAircraft] AircraftByID:[le.AircraftID intValue]];
+                if ([ac.AircraftImages.MFBImageInfo count] > 0)
+                    ci.imgInfo = (MFBWebServiceSvc_MFBImageInfo *) (ac.AircraftImages.MFBImageInfo)[0];
+                else
+                    ci.imgInfo = nil;
+            }
+            
+            [ci GetThumbnail];
+            self.dictImages[le.FlightID] = ci;
         }
-        
-        [ci GetThumbnail];
-        
-        if (le != nil && le.FlightID != nil)    // crash if you store into a dictionary using nil key
-            (self.dictImages)[le.FlightID] = ci;
-        
-        if (ci.imgInfo != nil)
-            [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-    }
+        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }
 }
 
@@ -140,6 +137,12 @@ BOOL fCouldBeMoreFlights;
 
 - (void) refresh:(BOOL) fSubmitPending
 {
+    if (!mfbApp().isOnLine) {
+        self.errorString = NSLocalizedString(@"No connection to the Internet is available", @"Error: Offline");
+        [self showError:self.errorString withTitle:NSLocalizedString(@"Error loading recent flights", @"Title for error message on recent flights")];
+        return;
+    }
+    
     [self.dictImages removeAllObjects];
     self.dictImages = [NSMutableDictionary new];
     self.rgFlights = [[NSMutableArray alloc] init];
@@ -150,7 +153,7 @@ BOOL fCouldBeMoreFlights;
     // if we are forcing a resubmit, clear any errors and resubmit; this will cause 
     // loadFlightsForUser to be called (refreshing the existing flights.)
     // Otherwise, just do the refresh directly.
-    if (fSubmitPending && [app.rgPendingFlights count] > 0)
+    if (fSubmitPending && self.hasPendingFlights)
     {
         // clear the errors from pending flights so that they can potentially go again.
         for (LogbookEntry * le in app.rgPendingFlights)
@@ -208,7 +211,7 @@ BOOL fCouldBeMoreFlights;
     [super viewDidUnload];
 }
 
-#pragma mark Loading recent flights
+#pragma View a flight
 - (LEEditController *) pushViewControllerForFlight:(LogbookEntry *) le
 {
     LEEditController * leView = [[LEEditController alloc]
@@ -220,6 +223,7 @@ BOOL fCouldBeMoreFlights;
     return leView;
 }
 
+#pragma mark Loading recent flights / infinite scroll
 - (void) loadFlightsForUser
 {
 	self.errorString = @"";
@@ -298,42 +302,23 @@ BOOL fCouldBeMoreFlights;
         mfbApp().watchData.latestFlight = [((MFBWebServiceSvc_LogbookEntry *) self.rgFlights[0]) toSimpleItem];
 }
 
-#pragma mark Section management
-- (BOOL) hasPendingFlights
-{
+#pragma pendingflights
+- (BOOL) hasPendingFlights {
 	return [mfbApp().rgPendingFlights count] > 0;
 }
 
-- (NSInteger) ExistingFlightsSection
-{
-	return [self hasPendingFlights] ? 2 : 1;
-}
-
-- (NSInteger) PendingFlightsSection
-{
-    return [self hasPendingFlights] ? 1 : -1;
-}
-
-- (NSInteger) DateRangeSection
-{
-    return 0;
-}
-
-#pragma submitPendingFlights
-- (void) submitPendingFlightCompleted:(MFBSoapCall *) sc fromCaller:(LogbookEntry *) le
-{
+- (void) submitPendingFlightCompleted:(MFBSoapCall *) sc fromCaller:(LogbookEntry *) le {
     MFBAppDelegate * app = mfbApp();
-    if ([le.errorString length] == 0 && !le.entryData.isQueued) // success!
-    {
+    if ([le.errorString length] == 0 && !le.entryData.isQueued) { // success
         [app dequeuePendingFlight:le];
         [[iRate sharedInstance] logEvent:NO];   // ask user to rate the app if they have saved the requesite # of flights
         NSLog(@"iRate eventCount: %ld, uses: %ld", (long) [iRate sharedInstance].eventCount, (long) [iRate sharedInstance].usesCount);
+        [self.tableView reloadData];
     }
     
     iFlightInProgress++;
     
-    if (iFlightInProgress >= cFlightsToSubmit)
-    {
+    if (iFlightInProgress >= cFlightsToSubmit) {
         NSLog(@"No more flights to submit");
         self.uploadInProgress = NO;
         [self refresh:NO];
@@ -342,8 +327,7 @@ BOOL fCouldBeMoreFlights;
         [self submitPendingFlight];
 }
 
-- (void) submitPendingFlight
-{
+- (void) submitPendingFlight {
     float progressValue = ((float) iFlightInProgress + 1.0) / ((float) cFlightsToSubmit);
     if (self.cellProgress == nil)
         self.cellProgress = [ProgressCell getProgressCell:self.tableView];
@@ -355,13 +339,12 @@ BOOL fCouldBeMoreFlights;
 
     // Take this off of the BACK of the array, since we're going to remove it if successful and don't want to screw up
     // the other indices.
-    int index = cFlightsToSubmit - iFlightInProgress - 1;
-    NSLog(@"iFlight=%d, cFlights=%d, rgCount=%lu, index=%d", iFlightInProgress, cFlightsToSubmit, (unsigned long)[mfbApp().rgPendingFlights count], index);
     MFBAppDelegate * app = mfbApp();
+    NSInteger index = cFlightsToSubmit - iFlightInProgress - 1;
+    NSLog(@"iFlight=%ld, cFlights=%ld, rgCount=%lu, index=%ld", (long) iFlightInProgress, cFlightsToSubmit, app.rgPendingFlights.count, index);
     LogbookEntry * le = (LogbookEntry *) (app.rgPendingFlights)[index];
     
-    if (!le.entryData.isQueued && le.errorString.length == 0) // no holdover error
-    {
+    if (!le.entryData.isQueued && le.errorString.length == 0) { // no holdover error
         le.szAuthToken = app.userProfile.AuthToken;
         le.progressLabel = self.cellProgress.progressDetailLabel;
         [le setDelegate:self completionBlock:^(MFBSoapCall * sc, MFBAsyncOperation * ao) {
@@ -373,15 +356,11 @@ BOOL fCouldBeMoreFlights;
         [self submitPendingFlightCompleted:nil fromCaller:le];
 }
 
-- (void) submitPendingFlights
-{
-    if (![self hasPendingFlights])
+- (void) submitPendingFlights {
+    if (![self hasPendingFlights] || ![mfbApp() isOnLine])
         return;
     
-    if (![mfbApp() isOnLine])
-        return;
-    
-    cFlightsToSubmit = (int) [mfbApp().rgPendingFlights count];
+    cFlightsToSubmit = mfbApp().rgPendingFlights.count;
     
     if (cFlightsToSubmit == 0)
         return;
@@ -392,120 +371,143 @@ BOOL fCouldBeMoreFlights;
     
     [self submitPendingFlight];
 }
-                                            
 
 #pragma mark Table view methods
+typedef enum {sectFlightQuery, sectUploadInProgress, sectPendingFlights, sectExistingFlights} RecentSection;
+
+- (RecentSection) sectionFromIndexPathSection:(NSInteger) section {
+    BOOL fHasPendingFlights = self.hasPendingFlights;
+    switch (section) {
+        case 0:
+            return sectFlightQuery;
+        case 1:
+            return (self.uploadInProgress) ? sectUploadInProgress : (fHasPendingFlights ? sectPendingFlights : sectExistingFlights);
+        default:
+            return sectExistingFlights;
+    }
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	return [self hasPendingFlights] ? 3 : 2;
 }
 
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (section == [self ExistingFlightsSection])
-        return self.rgFlights.count + ((self.callInProgress || fCouldBeMoreFlights) ? 1 : 0);
-	else if (section == [self DateRangeSection])
-        return 1;
-    else if (section == [self PendingFlightsSection])
-		return self.uploadInProgress ? 1 : [mfbApp().rgPendingFlights count];
-    return 0; // should never happen.
+    switch ([self sectionFromIndexPathSection:section]) {
+        case sectFlightQuery:
+            return 1;
+        case sectUploadInProgress:
+            return 1;
+        case sectPendingFlights:
+            return mfbApp().rgPendingFlights.count;
+        case sectExistingFlights:
+            return self.rgFlights.count + ((self.callInProgress || fCouldBeMoreFlights) ? 1 : 0);
+        default:
+            NSAssert(NO, @"Unknown section requested");
+            return 0;
+    }
+}
+
+- (NSString *) tableView:(UITableView *) tableView titleForHeaderInSection:(NSInteger) section
+{
+    switch ([self sectionFromIndexPathSection:section]) {
+        case sectExistingFlights:
+            if ([self.rgFlights count] > 0)
+                return NSLocalizedString(@"Recent Flights", @"Title for list of recent flights");
+            else
+                return NSLocalizedString(@"No flights found for selected dates.", @"No flights found in date range");
+        case sectPendingFlights:
+            return NSLocalizedString(@"Flights pending upload", @"Title for list of flights awaiting upload");
+        case sectUploadInProgress:
+        case sectFlightQuery:
+            return @"";
+    }
 }
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    MFBWebServiceSvc_LogbookEntry * le = nil;
+    CommentedImage * ci = nil;
+    NSString * errString = @"";
     
-	static NSString * CellIdentifier = @"recentflightcell";
-    static NSString * CellQuerySelector = @"querycell";
-    
-    if (indexPath.section == [self DateRangeSection])
-    {
-        UITableViewCell *cellSelector = [tableView dequeueReusableCellWithIdentifier:CellQuerySelector];
-        if (cellSelector == nil)
-        {
-            cellSelector = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellQuerySelector];
-            cellSelector.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    switch ([self sectionFromIndexPathSection:indexPath.section]) {
+        case sectFlightQuery: {
+            static NSString * CellQuerySelector = @"querycell";
+            UITableViewCell *cellSelector = [tableView dequeueReusableCellWithIdentifier:CellQuerySelector];
+            if (cellSelector == nil) {
+                cellSelector = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellQuerySelector];
+                cellSelector.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            }
+            NSAssert(cellSelector, @"cellSelector (flight query) is nil, we are about to crash");
+            cellSelector.textLabel.text = NSLocalizedString(@"FlightSearch", @"Choose Flights");
+            cellSelector.detailTextLabel.text = [self.fq isUnrestricted] ? NSLocalizedString(@"All Flights", @"All flights are selected") : NSLocalizedString(@"Not all flights", @"Not all flights are selected");
+            return cellSelector;
         }
-        cellSelector.textLabel.text = NSLocalizedString(@"FlightSearch", @"Choose Flights");
-        cellSelector.detailTextLabel.text = [self.fq isUnrestricted] ? 
-        NSLocalizedString(@"All Flights", @"All flights are selected") :
-        NSLocalizedString(@"Not all flights", @"Not all flights are selected");
-        if (cellSelector == nil)
-            NSLog(@"Selector cell is nil!!!  we are about to crash");
-        return cellSelector;
+        case sectUploadInProgress: {
+            if (self.cellProgress == nil)
+                self.cellProgress = [ProgressCell getProgressCell:self.tableView];
+            NSAssert(self.cellProgress, @"cellProgress is nil, we are about to crash");
+            return self.cellProgress;
+        }
+        case sectPendingFlights: {
+            // We could have a race condition where we are fetching a pending flight after it has been submitted.
+            LogbookEntry * l;
+            
+            NSUInteger row = indexPath.row;
+            NSUInteger cPending = mfbApp().rgPendingFlights.count;
+            
+            if (row >= cPending) {
+                l = [[LogbookEntry alloc] init];
+                l.entryData.Date = [NSDate date];
+                l.entryData.TailNumDisplay = @"...";
+            }
+            else
+                l = (LogbookEntry *) (mfbApp().rgPendingFlights)[indexPath.row];
+            
+            errString = l.errorString;
+            ci = (l.rgPicsForFlight != nil && l.rgPicsForFlight.count > 0) ? (CommentedImage *) (l.rgPicsForFlight)[0] : nil;
+            le = l.entryData;
+            NSAssert(le != nil, @"NULL le in pending flights - we are going to crash!!!");
+            break;
+        }
+        case sectExistingFlights: {
+            BOOL fIsTriggerRow = (indexPath.row >= self.rgFlights.count);   // is this the row to trigger the next batch of flights?
+            if (fIsTriggerRow)
+            {
+                [self loadFlightsForUser];  // get the next batch
+                return [self waitCellWithText:NSLocalizedString(@"Getting Recent Flights...", @"Progress - getting recent flights")];
+            }
+            
+            le = (MFBWebServiceSvc_LogbookEntry *) (self.rgFlights)[indexPath.row];
+            ci = (le == nil || le.FlightID == nil) ? nil : (CommentedImage *) (self.dictImages)[le.FlightID];
+            
+            NSAssert(le != nil, @"NULL le in existing flights - we are going to crash!!!");
+            break;
+        }
     }
     
-    // if we are uploading pending flights, show a progress cell instead of the actual pending flights
-    if (indexPath.section == [self PendingFlightsSection] && self.uploadInProgress)
-    {
-        if (self.cellProgress == nil)
-            self.cellProgress = [ProgressCell getProgressCell:self.tableView];
-        
-        if (self.cellProgress == nil)
-            NSLog(@"Progress cell is nil!!!; we are about to crash!");
-        return self.cellProgress;
-    }
+    NSAssert(le != nil, @"NULL le - we are going to crash!!!");
     
-    // otherwise, we are showing actual flights.
+    // If we are here, we are showing actual flights.
+    static NSString * CellIdentifier = @"recentflightcell";
     RecentFlightCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"RecentFlightCell" owner:self options:nil];
         id firstObject = topLevelObjects[0];
         if ([firstObject isKindOfClass:[RecentFlightCell class]] )
-            cell = firstObject;     
-        else 
-            cell = topLevelObjects[1];
-	}
-    
-    // Set up the cell...
-	MFBWebServiceSvc_LogbookEntry * le = nil;
-    CommentedImage * ci = nil;
-	NSString * errString = @"";
-	if (indexPath.section == [self ExistingFlightsSection])
-    {
-        BOOL fIsTriggerRow = (indexPath.row >= self.rgFlights.count);   // is this the row to trigger the next batch of flights?
-        if (fIsTriggerRow)
-        {
-            [self loadFlightsForUser];  // get the next batch
-            return [self waitCellWithText:NSLocalizedString(@"Getting Recent Flights...", @"Progress - getting recent flights")];
-        }
-        
-		le = (MFBWebServiceSvc_LogbookEntry *) (self.rgFlights)[indexPath.row];
-        ci = (le == nil || le.FlightID == nil) ? nil : (CommentedImage *) (self.dictImages)[le.FlightID];
-        
-        NSAssert(le != nil, @"NULL le in existing flights - we are going to crash!!!");
-    }
-	else if (indexPath.section == [self PendingFlightsSection])
-    {
-        // We could have a race condition where we are fetching a pending flight after it has been submitted.
-        LogbookEntry * l;
-        
-        NSUInteger row = indexPath.row;
-        NSUInteger cPending = mfbApp().rgPendingFlights.count;
-        
-        if (row >= cPending)
-        {
-            l = [[LogbookEntry alloc] init];
-            l.entryData.Date = [NSDate date];
-            l.entryData.TailNumDisplay = @"...";
-        }
+            cell = firstObject;
         else
-            l = (LogbookEntry *) (mfbApp().rgPendingFlights)[indexPath.row];
-
-        errString = l.errorString;
-        if ([l.rgPicsForFlight count] > 0)
-            ci = (CommentedImage *) (l.rgPicsForFlight)[0];
-		le = l.entryData;
-        NSAssert(le != nil, @"NULL le in pending flights - we are going to crash!!!");
-        
+            cell = topLevelObjects[1];
     }
-
-    NSAssert(le != nil, @"NULL le - we are going to crash!!!");
+    NSAssert(cell != nil, @"nil flight cell - we are going to crash!!!");
     
-	NSDateFormatter * df = [[NSDateFormatter alloc] init];
-	[df setDateStyle:NSDateFormatterShortStyle];
-
+    // Set up the cell with the flight...
+    NSDateFormatter * df = [[NSDateFormatter alloc] init];
+    [df setDateStyle:NSDateFormatterShortStyle];
+    
     if ([AutodetectOptions showFlightImages]) {
         cell.imgHasPics.image = le.FlightImages.MFBImageInfo.count > 0 ? nil : [UIImage imageNamed:@"noimage"];
-
+        
         if (ci != nil && [ci hasThumbnailCache])
             cell.imgHasPics.image = [ci GetThumbnail];
         cell.imgHasPics.hidden = NO;
@@ -515,8 +517,7 @@ BOOL fCouldBeMoreFlights;
     cell.lblRoute.textColor = [UIColor blackColor];
     cell.lblComments.textColor = [UIColor blackColor];
     cell.lblComments.text = [le.Comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if ([cell.lblComments.text length] == 0)
-    {
+    if (cell.lblComments.text.length == 0) {
         cell.lblComments.text = NSLocalizedString(@"(No Comment)", @"No Comment");
         cell.lblComments.textColor = [UIColor grayColor];
     }
@@ -529,21 +530,17 @@ BOOL fCouldBeMoreFlights;
     else
         cell.imgSigState.image = nil;
     
-    if ([errString length] == 0)
-    {
+    if ([errString length] == 0) {
         cell.lblRoute.text = [le.Route stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        if ([cell.lblRoute.text length] == 0)
-        {
+        if ([cell.lblRoute.text length] == 0) {
             cell.lblRoute.text = NSLocalizedString(@"(No Route)", @"No Route");
             cell.lblRoute.textColor = [UIColor grayColor];
         }
-    }
-    else
-    {
+    } else {
         cell.lblRoute.text = [errString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         cell.lblRoute.textColor = [UIColor redColor];
     }
-
+    
     if (le.TailNumDisplay == nil)
         le.TailNumDisplay = [[Aircraft sharedAircraft] AircraftByID:[le.AircraftID intValue]].TailNumber;
     
@@ -555,13 +552,8 @@ BOOL fCouldBeMoreFlights;
     else
         szTime = [NSString stringWithFormat:@"%.1f%@", decTotal, szTimeTemplate];
     
-    cell.lblTitle.text = [NSString stringWithFormat:@"%@ - %@ (%@)", 
-                          [df stringFromDate:le.Date],
-                          le.TailNumDisplay,
-                          szTime];
+    cell.lblTitle.text = [NSString stringWithFormat:@"%@ - %@ (%@)", [df stringFromDate:le.Date], le.TailNumDisplay, szTime];
     
-    if (cell == nil)
-        NSLog(@"Cell in recent flights is nil!!! Section=%ld, row=%ld", (long)indexPath.section, (long)indexPath.row);
     return cell;
 }
 
@@ -569,40 +561,45 @@ BOOL fCouldBeMoreFlights;
     if (self.callInProgress || isLoading)
         return;
 
-	LogbookEntry * le;
+	LogbookEntry * le = nil;
 	
-    if (indexPath.section == [self DateRangeSection])
-    {
-        if (indexPath.row == 0) // flight criteria
-        {
+    switch ([self sectionFromIndexPathSection:indexPath.section]) {
+        case sectFlightQuery: {
+            NSAssert(indexPath.row == 0, @"Flight query row must only have one row!");
             FlightQueryForm * fqf = [FlightQueryForm new];
             fqf.delegate = self;
             [fqf setQuery:self.fq];
             [self.navigationController pushViewController:fqf animated:YES];
+            return;
         }
-        return;
+        case sectUploadInProgress:
+            return;
+        case sectExistingFlights:
+            le = [[LogbookEntry alloc] init];
+            le.entryData = (MFBWebServiceSvc_LogbookEntry *) (self.rgFlights)[indexPath.row];
+            break;
+        case sectPendingFlights:
+            le = (mfbApp().rgPendingFlights)[indexPath.row];
+            break;
     }
-	else if (indexPath.section == [self ExistingFlightsSection])
-	{
-		le = [[LogbookEntry alloc] init];
-		le.entryData = (MFBWebServiceSvc_LogbookEntry *) (self.rgFlights)[indexPath.row];
-	}
-	else
-		le = (mfbApp().rgPendingFlights)[indexPath.row];
 
+    NSAssert(le != nil, @"Unable to find the flight to display!");
     [self pushViewControllerForFlight:le];
 }
 
-// Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return (indexPath.section != [self DateRangeSection]);
+    switch ([self sectionFromIndexPathSection:indexPath.section]) {
+        case sectFlightQuery:
+        case sectUploadInProgress:
+            return NO;
+        case sectExistingFlights:
+        case sectPendingFlights:
+            return YES;
+    }
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	if (editingStyle == UITableViewCellEditingStyleDelete)
-	{
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (editingStyle == UITableViewCellEditingStyleDelete) {
         self.ipSelectedCell = indexPath;
 		UIAlertView * avConfirm = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Confirm Deletion", @"Title of confirm message to delete a flight")
                                                              message:NSLocalizedString(@"Are you sure you want to delete this flight?  This CANNOT be undone!", @"Delete Flight confirmation") delegate:self 
@@ -612,9 +609,26 @@ BOOL fCouldBeMoreFlights;
 	}
 }
 
-- (void) importFlightFinished:(LogbookEntry *) le
+#pragma mark QueryDelegate
+- (void) queryUpdated:(MFBWebServiceSvc_FlightQuery *) f
 {
+    self.fq = f;
+    [self refresh];
+}
+
+#pragma mark Reachability Delegate
+- (void) networkAcquired
+{
+    if (self.uploadInProgress)
+        return;
     
+    NSLog(@"RecentFlights: Network acquired - submitting any pending flights");
+    fCouldBeMoreFlights = YES;
+    [self performSelectorOnMainThread:@selector(submitPendingFlights) withObject:nil waitUntilDone:NO];
+}
+
+#pragma mark Import
+- (void) importFlightFinished:(LogbookEntry *) le {
     LEEditController * lev = [self pushViewControllerForFlight:le];
     
     // Check for an existing new flight in-progress.
@@ -641,20 +655,20 @@ BOOL fCouldBeMoreFlights;
     [self performSelectorOnMainThread:@selector(importFlightFinished:) withObject:le waitUntilDone:NO];
 }
 
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    switch (alertView.tag)
-    {
+#pragma mark Handle alerts
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    switch (alertView.tag) {
         case alertConfirmDelete:
-            if (buttonIndex == 1)
-            {
+            if (buttonIndex == 1) {
                 MFBAppDelegate * app = mfbApp();
                 LogbookEntry * le = [[LogbookEntry alloc] init];
                 
                 NSIndexPath * ip = self.ipSelectedCell;
                 
-                if (ip.section == [self ExistingFlightsSection])
-                { // deleting an existing flight
+                RecentSection rs = [self sectionFromIndexPathSection:ip.section];
+                
+                if (rs == sectExistingFlights) {
+                    // deleting an existing flight
                     le.szAuthToken = app.userProfile.AuthToken;
                     MFBWebServiceSvc_LogbookEntry * leToDelete = (MFBWebServiceSvc_LogbookEntry *) (self.rgFlights)[ip.row];
                     int idFlightToDelete = [leToDelete.FlightID intValue];
@@ -663,8 +677,7 @@ BOOL fCouldBeMoreFlights;
                     [le setDelegate:self completionBlock:^(MFBSoapCall * sc, MFBAsyncOperation * ao) {
                         if ([sc.errorString length] == 0)
                             [self refresh]; // will call invalidatecached totals
-                        else
-                        {
+                        else {
                             NSString * szError = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Unable to delete the flight.", @"Error deleting flight"), sc.errorString];
                             UIAlertView * av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error deleting flight", @"Title for error message when flight delete fails") message:szError delegate:nil cancelButtonTitle:NSLocalizedString(@"Close", @"Close button on error message") otherButtonTitles:nil];
                             [av show];
@@ -672,70 +685,36 @@ BOOL fCouldBeMoreFlights;
                     }];
                     [le deleteFlight:idFlightToDelete];
                 }
-                else
+                else if (rs == sectPendingFlights)
                     [app dequeuePendingFlight:(LogbookEntry *) (app.rgPendingFlights)[ip.row]];
                 self.ipSelectedCell = nil;
             }
             break;
         case alertConfirmImport:
-            {
-                if (buttonIndex == 1)
-                {
-                    [LogbookEntry addPendingJSONFlights:self.JSONObjToImport];
-                    self.JSONObjToImport = nil;
-                }
+        {
+            if (buttonIndex == 1) {
+                [LogbookEntry addPendingJSONFlights:self.JSONObjToImport];
+                self.JSONObjToImport = nil;
             }
+        }
             break;
         case alertConfirmImportTelemetry:
-            {
-                if (buttonIndex == 1)
-                {
-                    UIAlertView *av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"ActivityInProgress", @"Activity In Progress") message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles: nil];
-                    UIActivityIndicatorView *aiv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-                    aiv.center = CGPointMake(av.bounds.size.width / 2, av.bounds.size.height - 60);
-                    [av setValue:aiv forKey:@"accessoryView"];
-                    [aiv startAnimating];
-                    [av show];
-                    [NSThread detachNewThreadSelector:@selector(importFlightWorker:) toTarget:self withObject:av];
-                }
+        {
+            if (buttonIndex == 1) {
+                UIAlertView *av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"ActivityInProgress", @"Activity In Progress") message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles: nil];
+                UIActivityIndicatorView *aiv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+                aiv.center = CGPointMake(av.bounds.size.width / 2, av.bounds.size.height - 60);
+                [av setValue:aiv forKey:@"accessoryView"];
+                [aiv startAnimating];
+                [av show];
+                [NSThread detachNewThreadSelector:@selector(importFlightWorker:) toTarget:self withObject:av];
             }
+        }
             break;
     }
-	
-	// No matter what other path happens above, reload the data
-	[self.tableView reloadData];
-}
-
-- (NSString *) tableView:(UITableView *) tableView titleForHeaderInSection:(NSInteger) section
-{
-    if (section == [self ExistingFlightsSection])
-    {
-        if ([self.rgFlights count] > 0)
-            return NSLocalizedString(@"Recent Flights", @"Title for list of recent flights");
-        else
-            return NSLocalizedString(@"No flights found for selected dates.", @"No flights found in date range");
-    }
-    if (section == [self PendingFlightsSection])
-        return NSLocalizedString(@"Flights pending upload", @"Title for list of flights awaiting upload");
-    return @"";
-}
-
-#pragma mark QueryDelegate
-- (void) queryUpdated:(MFBWebServiceSvc_FlightQuery *) f
-{
-    self.fq = f;
-    [self refresh];
-}
-
-#pragma mark Reachability Delegate
-- (void) networkAcquired
-{
-    if (self.uploadInProgress)
-        return;
     
-    NSLog(@"RecentFlights: Network acquired - submitting any pending flights");
-    fCouldBeMoreFlights = YES;
-    [self performSelectorOnMainThread:@selector(submitPendingFlights) withObject:nil waitUntilDone:NO];
+    // No matter what other path happens above, reload the data
+    [self.tableView reloadData];
 }
 
 #pragma mark Add flight via URL
