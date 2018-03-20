@@ -1970,6 +1970,13 @@ static NSDateFormatter * dfSunriseSunset = nil;
         [self.navigationController pushViewController:vwProps animated:YES];
 }
 
+- (void) showError:(NSString *) msg {
+    UIAlertView * a = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Title for generic error message")
+                                                 message:msg delegate:nil
+                                       cancelButtonTitle:NSLocalizedString(@"Close", @"Close button on error message") otherButtonTitles:nil];
+    [a show];
+}
+
 - (void) refreshPropertiesWorker
 {
     @autoreleasepool {    
@@ -1991,16 +1998,13 @@ static NSDateFormatter * dfSunriseSunset = nil;
     }
     else
     {
-        if (self.le.entryData.CustomProperties == nil || !self.le.propsHaveBeenDownloaded)
+        if (self.le.entryData.CustomProperties == nil || (self.le.entryData.CustomProperties.CustomFlightProperty.count == 0 && !self.le.propsHaveBeenDownloaded))
         {
             if ((self.le.propsHaveBeenDownloaded = [fp loadPropertiesForFlight:self.le.entryData.FlightID forUser:[MFBAppDelegate threadSafeAppDelegate].userProfile.AuthToken]))
                 self.le.entryData.CustomProperties = fp.rgFlightProps;
             else
             {
-                UIAlertView * a = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Title for generic error message")
-                                                              message:fp.errorString delegate:nil 
-                                                    cancelButtonTitle:NSLocalizedString(@"Close", @"Close button on error message") otherButtonTitles:nil];
-                [a performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:NO];
+                [self performSelectorOnMainThread:@selector(showError:) withObject:fp.errorString waitUntilDone:NO];
                 fError = YES;
             }
         }
