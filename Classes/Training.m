@@ -32,7 +32,7 @@
 
 @end
 
-enum _trainingLinks {cidFirst, cidInstructors = cidFirst, cidStudents, cidEndorsements, cid8710, cidAchievements, cidMilestoneProgress, cidLast = cidMilestoneProgress};
+enum _trainingLinks {cidFirst, cidInstructors = cidFirst, cidStudents, cidReqSignatures, cidEndorsements, cid8710, cidAchievements, cidMilestoneProgress, cidLast = cidMilestoneProgress};
 
 @implementation Training
 
@@ -98,6 +98,9 @@ enum _trainingLinks {cidFirst, cidInstructors = cidFirst, cidStudents, cidEndors
         case cidInstructors:
             cell.textLabel.text = NSLocalizedString(@"Instructors", @"Prompt for Instructors");
             break;
+        case cidReqSignatures:
+            cell.textLabel.text = NSLocalizedString(@"ReqSignatures", @"Prompt for Requesting Signatures");
+            break;
         case cid8710:
             cell.textLabel.text = NSLocalizedString(@"8710Form", @"Prompt for 8710 form");
             break;
@@ -147,6 +150,9 @@ enum _trainingLinks {cidFirst, cidInstructors = cidFirst, cidStudents, cidEndors
             break;
         case cidInstructors:
             [self pushAuthURL:@"instructorsFixed"];
+            break;
+        case cidReqSignatures:
+            [self pushAuthURL:@"reqSigs"];
             break;
         case cidStudents:
             [self pushAuthURL:@"studentsFixed"];

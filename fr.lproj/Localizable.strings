@@ -241,6 +241,9 @@
 /* Prompt for Instructors */
 "Instructors" = "Les instructeurs";
 
+/* Prompt for Requesting Signatures */
+"ReqSignatures" = "Demander des signatures";
+
 /* Prompt for 8710 form */
 "8710Form" = "8710 Forme";
 

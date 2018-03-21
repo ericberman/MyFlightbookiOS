@@ -341,7 +341,7 @@ BOOL fCouldBeMoreFlights;
     // the other indices.
     MFBAppDelegate * app = mfbApp();
     NSInteger index = cFlightsToSubmit - iFlightInProgress - 1;
-    NSLog(@"iFlight=%ld, cFlights=%ld, rgCount=%lu, index=%ld", (long) iFlightInProgress, cFlightsToSubmit, app.rgPendingFlights.count, index);
+    NSLog(@"iFlight=%ld, cFlights=%ld, rgCount=%lu, index=%ld", (long) iFlightInProgress, cFlightsToSubmit, (long) app.rgPendingFlights.count, index);
     LogbookEntry * le = (LogbookEntry *) (app.rgPendingFlights)[index];
     
     if (!le.entryData.isQueued && le.errorString.length == 0) { // no holdover error
