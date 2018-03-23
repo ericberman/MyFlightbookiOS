@@ -173,7 +173,7 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
         return self.imgCached = [[UIImage alloc] initWithCGImage:oneRef];
     }
 	else
-		return (self.imgCached = [UIImage imageWithContentsOfFile:[self FullFilePathName]]);
+        return self.szCacheFileName.length == 0 ? nil : (self.imgCached = [UIImage imageWithContentsOfFile:[self FullFilePathName]]);
 }
 
 - (BOOL) hasThumbnailCache
