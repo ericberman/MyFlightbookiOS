@@ -48,7 +48,7 @@
 "360.text" = "Approches:";
 
 /* Class = "UILabel"; text = "Total:"; ObjectID = "361"; */
-"361.text" = "Total:";
+"361.text" = "Atterrissages:";
 
 /* Class = "UILabel"; text = "Jour (Complet):"; ObjectID = "362"; */
 "362.text" = "Jour (Complet):";
