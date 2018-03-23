@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 2/7/10.
-//  Copyright 2010-2017 MyFlightbook LLC. All rights reserved.
+//  Copyright 2010-2018 MyFlightbook LLC. All rights reserved.
 //
 
 #import "AutodetectOptions.h"
@@ -37,6 +37,7 @@
 #define keyIncludeHeliports @"keyIncludeHeliports"
 #define keyMapMode @"keyMappingMode"
 #define keyShowImages @"keyShowImages"
+#define keyShowFlightTimes @"keyShowFlightTimes"
 
 @implementation AutodetectOptions
 
@@ -90,6 +91,7 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
     self.idswUseLocal.on = [AutodetectOptions UseLocalTime];
     self.idswRoundNearestTenth.on = [AutodetectOptions roundTotalToNearestTenth];
     self.idswShowImages.on = [AutodetectOptions showFlightImages];
+    self.idswShowFlightTimes.on = [AutodetectOptions showFlightTimes];
     
     self.idswTakeoffSpeed.selectedSegmentIndex = 0;
     int toCurrent = [AutodetectOptions TakeoffSpeed];
@@ -352,6 +354,10 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
     [[NSUserDefaults standardUserDefaults] setBool:!sender.on forKey:keyShowImages];
 }
 
+- (IBAction)showFlightTimesClicked:(UISwitch *)sender {
+    [[NSUserDefaults standardUserDefaults] setBool:!sender.on forKey:keyShowFlightTimes];
+}
+
 #pragma mark - GetCurrentSettings
 + (BOOL) HHMMPref
 {
@@ -416,5 +422,10 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
 + (BOOL) showFlightImages
 {
     return ![[NSUserDefaults standardUserDefaults] boolForKey:keyShowImages];
+}
+
++ (BOOL) showFlightTimes
+{
+    return ![[NSUserDefaults standardUserDefaults] boolForKey:keyShowFlightTimes];
 }
 @end

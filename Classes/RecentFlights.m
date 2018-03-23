@@ -501,58 +501,10 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectPendingFlights, sectExi
     }
     NSAssert(cell != nil, @"nil flight cell - we are going to crash!!!");
     
-    // Set up the cell with the flight...
-    NSDateFormatter * df = [[NSDateFormatter alloc] init];
-    [df setDateStyle:NSDateFormatterShortStyle];
-    
-    if ([AutodetectOptions showFlightImages]) {
-        cell.imgHasPics.image = le.FlightImages.MFBImageInfo.count > 0 ? nil : [UIImage imageNamed:@"noimage"];
-        
-        if (ci != nil && [ci hasThumbnailCache])
-            cell.imgHasPics.image = [ci GetThumbnail];
-        cell.imgHasPics.hidden = NO;
-    } else
-        cell.imgHasPics.hidden = YES;
-    
-    cell.lblRoute.textColor = [UIColor blackColor];
-    cell.lblComments.textColor = [UIColor blackColor];
-    cell.lblComments.text = [le.Comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if (cell.lblComments.text.length == 0) {
-        cell.lblComments.text = NSLocalizedString(@"(No Comment)", @"No Comment");
-        cell.lblComments.textColor = [UIColor grayColor];
-    }
-    
-    cell.imgSigState.hidden = (le.CFISignatureState == MFBWebServiceSvc_SignatureState_None);
-    if (le.CFISignatureState == MFBWebServiceSvc_SignatureState_Valid)
-        cell.imgSigState.image = [UIImage imageNamed:@"sigok"];
-    else if (le.CFISignatureState == MFBWebServiceSvc_SignatureState_Invalid)
-        cell.imgSigState.image = [UIImage imageNamed:@"siginvalid"];
-    else
-        cell.imgSigState.image = nil;
-    
-    if ([errString length] == 0) {
-        cell.lblRoute.text = [le.Route stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        if ([cell.lblRoute.text length] == 0) {
-            cell.lblRoute.text = NSLocalizedString(@"(No Route)", @"No Route");
-            cell.lblRoute.textColor = [UIColor grayColor];
-        }
-    } else {
-        cell.lblRoute.text = [errString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        cell.lblRoute.textColor = [UIColor redColor];
-    }
-    
     if (le.TailNumDisplay == nil)
         le.TailNumDisplay = [[Aircraft sharedAircraft] AircraftByID:[le.AircraftID intValue]].TailNumber;
     
-    NSString * szTimeTemplate = NSLocalizedString(@"hrs", @"Template for hours");
-    NSString * szTime;
-    double decTotal = (le.TotalFlightTime == nil) ? 0.0 : [le.TotalFlightTime doubleValue];
-    if ([AutodetectOptions HHMMPref])
-        szTime = [UITextField stringFromNumber:@(decTotal) forType:ntTime inHHMM:YES];
-    else
-        szTime = [NSString stringWithFormat:@"%.1f%@", decTotal, szTimeTemplate];
-    
-    cell.lblTitle.text = [NSString stringWithFormat:@"%@ - %@ (%@)", [df stringFromDate:le.Date], le.TailNumDisplay, szTime];
+    [cell setFlight:le withImage:ci withError:errString];
     
     return cell;
 }

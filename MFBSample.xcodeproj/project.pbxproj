@@ -520,6 +520,7 @@
 		9A42300B157B953F00FF99D4 /* ProgressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressCell.m; sourceTree = "<group>"; };
 		9A4587B414BF63700045AF51 /* tower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tower.png; sourceTree = "<group>"; };
 		9A4587BC14C205500045AF51 /* RecentFlightCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentFlightCell.m; sourceTree = "<group>"; };
+		9A49D7172065AD9E0095D8B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AutodetectOptions.strings; sourceTree = "<group>"; };
 		9A4EC3101BE816FA008E2DF6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Interface.strings; sourceTree = "<group>"; };
 		9A4F3B5618177BA1009E575C /* Icon-iPad76x76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad76x76.png"; sourceTree = "<group>"; };
 		9A4F3B5718177BA1009E575C /* Icon-iPadRetina152x152.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPadRetina152x152.png"; sourceTree = "<group>"; };
@@ -753,7 +754,6 @@
 		9AAA7CDA1715E4CA00429F78 /* Icon-iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad@2x.png"; sourceTree = "<group>"; };
 		9AAA7CDB1715E4CA00429F78 /* Icon-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-small@2x.png"; sourceTree = "<group>"; };
 		9AAA7CDC1715E4CA00429F78 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
-		9AB188E51E8082C30010FDBA /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AutodetectOptions.strings; sourceTree = "<group>"; };
 		9AB4F3D71EF86693001915E0 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9AB8B347170347BA0012E3CE /* NavigableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigableCell.h; sourceTree = "<group>"; };
 		9AB8B348170347BA0012E3CE /* NavigableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigableCell.m; sourceTree = "<group>"; };
@@ -2171,7 +2171,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				9AC6AF0D1BD01578004AB2E3 /* Base */,
-				9AB188E51E8082C30010FDBA /* fr */,
+				9A49D7172065AD9E0095D8B6 /* fr */,
 			);
 			name = AutodetectOptions.xib;
 			sourceTree = "<group>";

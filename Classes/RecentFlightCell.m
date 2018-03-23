@@ -22,14 +22,16 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 1/14/12.
-//  Copyright (c) 2012-2017 MyFlightbook LLC. All rights reserved.
+//  Copyright (c) 2012-2018 MyFlightbook LLC. All rights reserved.
 //
 
 #import "RecentFlightCell.h"
+#import "DecimalEdit.h"
+#import "AutodetectOptions.h"
 
 @implementation RecentFlightCell
 
-@synthesize imgHasPics, imgSigState, lblComments, lblRoute, lblTitle;
+@synthesize imgHasPics, imgSigState, lblComments;
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -58,26 +60,112 @@
     CGFloat dxWidth = f.size.height * 1.2;
     CGFloat dxHeight = f.size.height;
     
-    if (self.imgHasPics.hidden) {
+    BOOL fShowImages = [AutodetectOptions showFlightImages];
+    
+    self.imgHasPics.hidden = !fShowImages;
+    
+    if (!fShowImages)
         dxWidth = MARGIN;
-        dxHeight = 0;
-    }
+
     CGRect rImage = CGRectMake(MARGIN, 1.0, dxWidth - 2 * MARGIN, dxHeight - 1.0);
     self.imgHasPics.frame = rImage;
     self.imgHasPics.contentMode = UIViewContentModeScaleAspectFit;
     
-    CGFloat xLabels = rImage.origin.x + rImage.size.width + MARGIN;
+    CGFloat imageWidth =  fShowImages ? self.imgHasPics.frame.size.width : 0;
+    
+    CGFloat xLabels = rImage.origin.x + imageWidth + MARGIN;
     CGFloat dxSig =  (self.imgSigState.hidden ? 0 : self.imgSigState.frame.size.width);
     
-    CGRect rTitle = CGRectMake(xLabels, self.lblTitle.frame.origin.y, f.size.width - xLabels - 2 * MARGIN - dxSig, self.lblTitle.frame.size.height);
-    self.lblTitle.frame = rTitle;
-    
-    CGRect rRoute = CGRectMake(xLabels, self.lblRoute.frame.origin.y, f.size.width - xLabels -2 * MARGIN - dxSig, self.lblRoute.frame.size.height);
-    self.lblRoute.frame = rRoute;
-
-    CGRect rComments = CGRectMake(xLabels, self.lblComments.frame.origin.y, f.size.width - xLabels -2 * MARGIN - dxSig, self.lblComments.frame.size.height);
+    CGRect rComments = CGRectMake(xLabels, self.lblComments.frame.origin.y, f.size.width - xLabels -2 * MARGIN - dxSig, (dxHeight - MARGIN - self.lblComments.frame.origin.y));
     self.lblComments.frame = rComments;
+    
+    // remove margins/padding.
+    [self.lblComments setTextContainerInset:UIEdgeInsetsZero];
+    self.lblComments.textContainer.lineFragmentPadding = 0; // to remove left padding
 }
 
+- (NSAttributedString *) attributedLabel:(NSString *) label forValue:(NSNumber *) num withFont:(UIFont *) font inHHMM:(BOOL) useHHMM numType:(int) nt
+{
+    if (num.doubleValue == 0)
+        return [[NSAttributedString alloc] init];
+    
+    NSMutableAttributedString * attrString = [[NSMutableAttributedString alloc] initWithString:label attributes:@{NSFontAttributeName : font}];
+    [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@": %@ ", [UITextField stringFromNumber:num forType:nt inHHMM:useHHMM]]]];
+    return attrString;
+}
 
+- (void) setFlight:(MFBWebServiceSvc_LogbookEntry *)le withImage:(id)ci withError:(NSString *) szErr
+{
+    NSMutableAttributedString * attrString = [[NSMutableAttributedString alloc] init];
+    UIFont * baseFont = self.lblComments.font;
+    BOOL fUseHHMM = [AutodetectOptions HHMMPref];
+    UIFont * boldFont = [UIFont fontWithDescriptor:[[baseFont fontDescriptor] fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold] size:baseFont.pointSize];
+    UIFont * largeBoldFont = [UIFont fontWithDescriptor:[[baseFont fontDescriptor] fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold] size:baseFont.pointSize * 1.2];
+    UIFont * italicFont = [UIFont fontWithDescriptor:[[baseFont fontDescriptor] fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitItalic] size:baseFont.pointSize];
+    
+    NSDateFormatter * df = [[NSDateFormatter alloc] init];
+    [df setDateStyle:NSDateFormatterShortStyle];
+    
+    szErr = [szErr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (szErr.length != 0)
+        [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", szErr] attributes:@{NSForegroundColorAttributeName : [UIColor redColor]}]];
+
+    [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[df stringFromDate:le.Date]  attributes:@{NSFontAttributeName : largeBoldFont}]];
+
+    [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" (%@) ", le.TailNumDisplay] attributes:@{NSFontAttributeName : boldFont}]];
+    
+    NSString * trimmedRoute = [le.Route stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (trimmedRoute.length == 0) {
+        [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@\n", NSLocalizedString(@"(No Route)", @"No Route")]
+                                                                           attributes:@{NSForegroundColorAttributeName : [UIColor grayColor] }]];
+    } else
+        [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@\n", le.Route]
+                                                                           attributes:@{NSFontAttributeName : italicFont,
+                                                                                        NSForegroundColorAttributeName : [UIColor darkGrayColor]
+                                                                                        }]];
+    
+    NSString * trimmedComments = [le.Comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (trimmedComments.length == 0) {
+        [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"(No Comment)", @"No Comment")
+                                                                           attributes:@{NSForegroundColorAttributeName : [UIColor grayColor] }]];
+    }
+    else
+        [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:trimmedComments]];
+    
+    if ([AutodetectOptions showFlightTimes]) {
+        [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
+        
+        // Add various values
+        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldLandings", @"Entry Field: Landings") forValue:le.Landings withFont:boldFont inHHMM:fUseHHMM numType:ntInteger]];
+        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldApproaches", @"Entry Field: Approaches") forValue:le.Approaches withFont:boldFont inHHMM:fUseHHMM numType:ntInteger]];
+        
+        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldNight", @"Entry Field: Night") forValue:le.Nighttime withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
+        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldSimIMC", @"Entry Field: Simulated IMC") forValue:le.SimulatedIFR withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
+        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldIMC", @"Entry Field: Actual IMC") forValue:le.IMC withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
+        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldXC", @"Entry Field: XC") forValue:le.CrossCountry withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
+        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldDual", @"Entry Field: Dual") forValue:le.Dual withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
+        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldGround", @"Entry Field: Ground Sim") forValue:le.GroundSim withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
+        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldCFI", @"Entry Field: CFI") forValue:le.CFI withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
+        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldSIC", @"Entry Field: SIC") forValue:le.SIC withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
+        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldPIC", @"Entry Field: PIC") forValue:le.PIC withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
+        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldTotal", @"Entry Field: Total") forValue:le.TotalFlightTime withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
+    }
+    
+    self.lblComments.attributedText = attrString;
+    
+    if ([AutodetectOptions showFlightImages]) {
+        self.imgHasPics.image = le.FlightImages.MFBImageInfo.count > 0 ? nil : [UIImage imageNamed:@"noimage"];
+        
+        if (ci != nil && [ci hasThumbnailCache])
+            self.imgHasPics.image = [ci GetThumbnail];
+    }
+    
+    self.imgSigState.hidden = (le.CFISignatureState == MFBWebServiceSvc_SignatureState_None);
+    if (le.CFISignatureState == MFBWebServiceSvc_SignatureState_Valid)
+        self.imgSigState.image = [UIImage imageNamed:@"sigok"];
+    else if (le.CFISignatureState == MFBWebServiceSvc_SignatureState_Invalid)
+        self.imgSigState.image = [UIImage imageNamed:@"siginvalid"];
+    else
+        self.imgSigState.image = nil;
+}
 @end

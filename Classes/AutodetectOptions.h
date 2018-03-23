@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 2/7/10.
-//  Copyright 2010-2017 MyFlightbook LLC. All rights reserved.
+//  Copyright 2010-2018 MyFlightbook LLC. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -49,6 +49,7 @@ enum autoTotal {autoTotalNone = 0, autoTotalFlight, autoTotalEngine, autoTotalHo
 @property (nonatomic, strong) IBOutlet UISwitch * idswUseLocal;
 @property (nonatomic, strong) IBOutlet UISwitch * idswUseHeliports;
 @property (nonatomic, strong) IBOutlet UISwitch * idswShowImages;
+@property (nonatomic, strong) IBOutlet UISwitch * idswShowFlightTimes;
 @property (nonatomic, strong) IBOutlet UISegmentedControl * idswTakeoffSpeed;
 @property (nonatomic, strong) IBOutlet UISegmentedControl * idswSegmentedHobbs;
 @property (nonatomic, strong) IBOutlet UISegmentedControl * idswSegmentedTotal;
@@ -78,6 +79,7 @@ enum autoTotal {autoTotalNone = 0, autoTotalFlight, autoTotalEngine, autoTotalHo
 - (IBAction) takeOffSpeedCanged:(UISegmentedControl *)sender;
 - (IBAction) mapTypeChanged:(UISegmentedControl *)sender;
 - (IBAction) showImagesClicked:(UISwitch *) sender;
+- (IBAction) showFlightTimesClicked:(UISwitch *)sender;
 
 + (int) autoTotalMode;
 + (BOOL) roundTotalToNearestTenth;
@@ -90,5 +92,6 @@ enum autoTotal {autoTotalNone = 0, autoTotalFlight, autoTotalEngine, autoTotalHo
 + (BOOL) recordHighRes;
 + (BOOL) includeHeliports;
 + (BOOL) showFlightImages;
++ (BOOL) showFlightTimes;
 + (MKMapType) mapType;
 @end

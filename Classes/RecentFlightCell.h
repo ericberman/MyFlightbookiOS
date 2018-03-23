@@ -22,22 +22,19 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 1/14/12.
-//  Copyright (c) 2012-2017 MyFlightbook LLC. All rights reserved.
+//  Copyright (c) 2012-2018 MyFlightbook LLC. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+#import "MFBWebServiceSvc.h"
+#import "CommentedImage.h"
 
 @interface RecentFlightCell : UITableViewCell {
-    UIImageView * imgHasPics;
-    UILabel * lblTitle;
-    UILabel * lblRoute;
-    UILabel * lblComments;
 }
 
 @property (nonatomic, strong) IBOutlet UIImageView * imgHasPics;
 @property (nonatomic, strong) IBOutlet UIImageView * imgSigState;
-@property (nonatomic, strong) IBOutlet UILabel * lblTitle;
-@property (nonatomic, strong) IBOutlet UILabel * lblRoute;
-@property (nonatomic, strong) IBOutlet UILabel * lblComments;
+@property (nonatomic, strong) IBOutlet UITextView * lblComments;
 
+- (void) setFlight:(MFBWebServiceSvc_LogbookEntry *) le withImage:(CommentedImage *)ci withError:(NSString *) szErr;
 @end

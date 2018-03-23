@@ -83,4 +83,5 @@
 /* Class = "UILabel"; text = "Slower to upload/download, but works better with apps like CloudAhoy"; ObjectID = "vSc-Pf-R1W"; */
 "vSc-Pf-R1W.text" = "Plus lent, mais fonctionne mieux avec des applications comme CloudAhoy";
 
-
+/* Class = "UILabel"; text = "Show times for flights"; ObjectID = "LKd-q7-csB"; */
+"LKd-q7-csB.text" = "Afficher les heures de vol";
