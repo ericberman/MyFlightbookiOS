@@ -36,8 +36,6 @@
 UIAlertViewDelegate, MFBSoapCallDelegate, QueryDelegate, ReachabilityDelegate> {
 }
 
-@property (readwrite, strong) NSMutableArray * rgFlights;
-@property (readwrite, strong) NSString * errorString;
 @property (nonatomic, strong) IBOutlet ProgressCell * cellProgress;
 @property (nonatomic, strong) MFBWebServiceSvc_FlightQuery * fq;
 

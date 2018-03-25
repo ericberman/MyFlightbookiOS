@@ -38,6 +38,8 @@
 @property (atomic, strong) NSIndexPath * ipSelectedCell;
 @property (atomic, strong) id JSONObjToImport;
 @property (nonatomic, strong) NSURL * urlTelemetry;
+@property (readwrite, strong) NSMutableArray * rgFlights;
+@property (readwrite, strong) NSString * errorString;
 
 - (BOOL) hasPendingFlights;
 @end
@@ -453,17 +455,16 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectPendingFlights, sectExi
             // We could have a race condition where we are fetching a pending flight after it has been submitted.
             LogbookEntry * l;
             
-            NSUInteger row = indexPath.row;
-            NSUInteger cPending = mfbApp().rgPendingFlights.count;
-            
-            if (row >= cPending) {
+            @try {
+                l = (LogbookEntry *) (mfbApp().rgPendingFlights)[indexPath.row];
+            }
+            @catch (NSException * ex) {
+                // shouldn't happen, but if it does, just create a dummy entry
                 l = [[LogbookEntry alloc] init];
                 l.entryData.Date = [NSDate date];
                 l.entryData.TailNumDisplay = @"...";
             }
-            else
-                l = (LogbookEntry *) (mfbApp().rgPendingFlights)[indexPath.row];
-            
+
             errString = l.errorString;
             ci = (l.rgPicsForFlight != nil && l.rgPicsForFlight.count > 0) ? (CommentedImage *) (l.rgPicsForFlight)[0] : nil;
             le = l.entryData;
