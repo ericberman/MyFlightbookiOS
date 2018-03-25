@@ -164,6 +164,16 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
         [self crossFillFrom:self.idTotalTime to:(UITextField *)sender.view];
 }
 
+- (void) setHighWaterHobbs:(UILongPressGestureRecognizer *) sender {
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        UITextField * target = (UITextField *) sender.view;
+        NSNumber * highWaterHobbs = [[Aircraft sharedAircraft] getHighWaterHobbsForAircraft:self.le.entryData.AircraftID];
+        if (highWaterHobbs != nil && highWaterHobbs.doubleValue > 0) {
+            target.value = self.le.entryData.HobbsStart = highWaterHobbs;
+        }
+    }
+}
+
 #pragma mark - Object Life Cycle / initialization
 // The designated initializer. Override to perform setup that is required before the view is loaded.
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -1029,8 +1039,11 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
             return self.cellLandings;
         case rowGPS:
             return self.cellGPS;
-        case rowHobbsStart:
-            return [self decimalCell:tableView withPrompt:NSLocalizedString(@"Hobbs Start:", @"Hobbs Start prompt") andValue:self.le.entryData.HobbsStart selector:@selector(hobbsChanged:) andInflation:(nt == timeHobbsStart)];
+        case rowHobbsStart: {
+            EditCell * dcell = [self decimalCell:tableView withPrompt:NSLocalizedString(@"Hobbs Start:", @"Hobbs Start prompt") andValue:self.le.entryData.HobbsStart selector:@selector(hobbsChanged:) andInflation:(nt == timeHobbsStart)];
+            [self enableLongPressForField:dcell.txt withSelector:@selector(setHighWaterHobbs:)];
+            return dcell;
+        }
         case rowHobbsEnd:
             return [self decimalCell:tableView withPrompt:NSLocalizedString(@"Hobbs End:", @"Hobbs End prompt") andValue:self.le.entryData.HobbsEnd selector:@selector(hobbsChanged:) andInflation:(nt == timeHobbsEnd)];
         case rowEngineStart:
@@ -1135,7 +1148,7 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
                     pc.cfp = cfp;
                 pc.txt.delegate = self;
                 pc.flightPropDelegate = self.flightProps;
-                [pc configureCell:self.vwAccessory andDatePicker:self.datePicker defValue:self.le.entryData.TotalFlightTime];
+                [pc configureCell:self.vwAccessory andDatePicker:self.datePicker defValue:(cpt.PropTypeID.intValue == PropTypeID_TachStart) ? [[Aircraft sharedAircraft] getHighWaterTachForAircraft:self.le.entryData.AircraftID] : self.le.entryData.TotalFlightTime];
                 return pc;
             }
     }

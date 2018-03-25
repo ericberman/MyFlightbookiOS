@@ -30,6 +30,7 @@
 #import "MFBSoapCall.h"
 #import "RecentFlightCell.h"
 #import "DecimalEdit.h"
+#import "FlightProps.h"
 #import "iRate.h"
 
 @interface RecentFlights()
@@ -278,6 +279,21 @@ BOOL fCouldBeMoreFlights;
             self.rgFlights = [NSMutableArray arrayWithArray:rgIncrementalResults];
         else
             [self.rgFlights addObjectsFromArray:rgIncrementalResults];
+        
+        // Update any high-water mark tach/hobbs
+        Aircraft * aircraft = [Aircraft sharedAircraft];
+        for (MFBWebServiceSvc_LogbookEntry * le in self.rgFlights) {
+            [aircraft setHighWaterHobbs:le.HobbsEnd forAircraft:le.AircraftID];
+            if (le.CustomProperties != nil && le.CustomProperties.CustomFlightProperty != nil) {
+                for(MFBWebServiceSvc_CustomFlightProperty * cfp in le.CustomProperties.CustomFlightProperty) {
+                    if (cfp.PropTypeID.intValue == PropTypeID_TachEnd) {
+                        [aircraft setHighWaterTach:cfp.DecValue forAircraft:le.AircraftID];
+                        break;
+                    }
+                }
+            }
+        }
+            
         [NSThread detachNewThreadSelector:@selector(asyncLoadThumbnailsForFlights:) toTarget:self withObject:rgIncrementalResults];
 	}
 }

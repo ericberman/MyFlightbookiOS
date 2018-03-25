@@ -32,7 +32,9 @@
 #import "CountryCode.h"
 
 @interface Aircraft ()
-    @property (assign) int aircraftIDPreferred;    
+@property (assign) int aircraftIDPreferred;
+@property (nonatomic, readwrite) NSMutableDictionary<NSNumber *, NSNumber *> * dictHighWaterHobbs;
+@property (nonatomic, readwrite) NSMutableDictionary<NSNumber *, NSNumber *> * dictHighWaterTach;
 @end
 
 @implementation Aircraft
@@ -42,7 +44,7 @@ NSString * const _szKeyCachedAircraft = @"keyCacheAircraft";
 NSString * const _szKeyCachedAircraftRetrievalDate = @"keyCacheAircraftDate";
 NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
 
-@synthesize rgAircraftForUser, errorString, aircraftIDPreferred, rgAircraftInstanceTypes, rgMakeModels;
+@synthesize rgAircraftForUser, errorString, aircraftIDPreferred, rgAircraftInstanceTypes, rgMakeModels, dictHighWaterHobbs, dictHighWaterTach;
 
 #define CONTEXT_DELETE_AIRCRAFT 1085683
 #define CONTEXT_AIRCRAFTFORUSER 8503832
@@ -56,6 +58,8 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
 		self.rgAircraftForUser = [self cachedAircraft];
         self.aircraftIDPreferred = self.DefaultAircraftID;
 		self.errorString = @"";
+        self.dictHighWaterHobbs = [NSMutableDictionary new];
+        self.dictHighWaterTach = [NSMutableDictionary new];
 
 		self.rgAircraftInstanceTypes = @[NSLocalizedString(@"Real Aircraft", @"Indicates an actual aircraft"),
             NSLocalizedString(@"Sim: Uncertified", @"Indicates an uncertified sim such as Microsoft Flight Simulator"),
@@ -67,7 +71,6 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
 	}
 	return self;
 }
-
 
 + (Aircraft *) sharedAircraft
 {
@@ -495,6 +498,31 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
     return [[dictMakesUsed allValues] sortedArrayUsingComparator:^NSComparisonResult(MFBWebServiceSvc_SimpleMakeModel * obj1, MFBWebServiceSvc_SimpleMakeModel * obj2) {
         return [obj1.Description compare:obj2.Description];
     }];
+}
+
+#pragma mark - tach/hobbs high-water
+- (void) setHighWaterTach:(NSNumber *) tach forAircraft:(NSNumber *) aircraftID {
+    if (tach == nil || tach.doubleValue == 0)
+        return;
+    
+    if ([self getHighWaterTachForAircraft:aircraftID].doubleValue < tach.doubleValue)
+        self.dictHighWaterTach[aircraftID] = tach;
+}
+
+- (NSNumber *) getHighWaterTachForAircraft:(NSNumber *) aircraftID {
+    return self.dictHighWaterTach[aircraftID];
+}
+
+- (void) setHighWaterHobbs:(NSNumber *) hobbs forAircraft:(NSNumber *) aircraftID {
+    if (hobbs == nil || hobbs.doubleValue == 0)
+        return;
+    
+    if ([self getHighWaterHobbsForAircraft:aircraftID].doubleValue < hobbs.doubleValue)
+        self.dictHighWaterHobbs[aircraftID] = hobbs;
+}
+
+- (NSNumber *) getHighWaterHobbsForAircraft:(NSNumber *) aircraftID {
+    return self.dictHighWaterHobbs[aircraftID];
 }
 
 @end

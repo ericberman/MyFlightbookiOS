@@ -32,26 +32,25 @@
 
 
 @interface Aircraft : MFBAsyncOperation <MFBSoapCallDelegate> {
-	NSArray * rgAircraftForUser;
-	NSString * errorString;
-	int aircraftIDPreferred;
-	NSArray * rgCountryCodes;
-	NSArray * rgAircraftInstanceTypes;
-	NSArray * rgMakeModels;
 }
 
 #define MINTAILNUM	3
 #define TAILNUMDIGITS 7
 
-@property (readwrite, strong) NSArray * rgAircraftForUser;
+@property (readwrite, strong) NSArray<MFBWebServiceSvc_Aircraft *> * rgAircraftForUser;
 @property (readwrite, strong) NSString * errorString;
-@property (nonatomic, strong) NSArray * rgAircraftInstanceTypes;
-@property (nonatomic, strong) NSArray * rgMakeModels;
+@property (nonatomic, strong) NSArray<NSString *> * rgAircraftInstanceTypes;
+@property (nonatomic, strong) NSArray<MFBWebServiceSvc_SimpleMakeModel *> * rgMakeModels;
 @property (nonatomic, readwrite) int DefaultAircraftID;
 
 + (Aircraft *) sharedAircraft;
 + (NSString *) PrefixSIM;
 + (NSString *) PrefixAnonymous;
+
+- (void) setHighWaterTach:(NSNumber *) tach forAircraft:(NSNumber *) aircraftID;
+- (NSNumber *) getHighWaterTachForAircraft:(NSNumber *) aircraftID;
+- (void) setHighWaterHobbs:(NSNumber *) hobbs forAircraft:(NSNumber *) aircraftID;
+- (NSNumber *) getHighWaterHobbsForAircraft:(NSNumber *) aircraftID;
 
 - (void) clearAircraft;
 - (void) cacheAircraft:(NSArray *) rgAircraft forUser:(NSString *) szAuthToken;
@@ -73,7 +72,6 @@
 - (NSString *) descriptionOfModelId:(NSInteger) idModel;
 - (BOOL) validateAircraftForUser:(MFBWebServiceSvc_Aircraft *) ac;
 - (NSArray *) AircraftForSelection:(NSNumber *) acIDToInclude;
-
 @end
 
 @interface MFBWebServiceSvc_SimpleMakeModel (MFBExtensions)

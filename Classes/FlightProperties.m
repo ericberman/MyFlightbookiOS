@@ -208,7 +208,7 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
     // Configure the cell...
     cell.txt.delegate = self;
     cell.flightPropDelegate = self.flightProps;
-    [cell configureCell:self.vwAccessory andDatePicker:self.datePicker defValue:self.le.entryData.TotalFlightTime];
+    [cell configureCell:self.vwAccessory andDatePicker:self.datePicker defValue:(cpt.PropTypeID.intValue == PropTypeID_TachStart) ? [[Aircraft sharedAircraft] getHighWaterTachForAircraft:self.le.entryData.AircraftID] : self.le.entryData.TotalFlightTime];
     
     return cell;
 }
