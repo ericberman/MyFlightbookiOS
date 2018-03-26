@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 5/24/12.
-//  Copyright (c) 2012-2017 MyFlightbook LLC. All rights reserved.
+//  Copyright (c) 2012-2018 MyFlightbook LLC. All rights reserved.
 //
 
 #import "FlightQueryForm.h"
@@ -34,17 +34,21 @@
 @interface FlightQueryForm ()
 @property (nonatomic, strong) MFBWebServiceSvc_FlightQuery * fq;
 @property (readwrite) BOOL fSuppressRefresh;
-@property (nonatomic, strong) NSMutableArray * rgUsedProps;
+@property (nonatomic, strong) NSMutableArray<MFBWebServiceSvc_CustomPropertyType *> * rgUsedProps;
 @property (readwrite) BOOL fShowAllAircraft;
 
 @property (nonatomic, strong) EditCell * ecText;
 @property (nonatomic, strong) EditCell * ecModelName;
 @property (nonatomic, strong) EditCell * ecAirports;
+@property (nonatomic, strong) EditCell * ecQueryName;
+
++ (NSMutableArray<MFBWebServiceSvc_CannedQuery *> *) rgCannedQueries;
++ (void) setRgCannedProperties:(NSMutableArray<MFBWebServiceSvc_CannedQuery *> *) value;
 @end
 
 @implementation FlightQueryForm
 
-@synthesize delegate, fq, ecText, ecAirports, ecModelName, fSuppressRefresh, fShowAllAircraft;
+@synthesize delegate, fq, ecText, ecAirports, ecModelName, ecQueryName, fSuppressRefresh, fShowAllAircraft;
 
 typedef enum _fqSections {fqsText = 0, 
 fqsDate, 
@@ -55,7 +59,10 @@ fqsMakes,
 fqsCatClass,
 fqsFlightFeatures,
 fqsProperties,
-fqsMax = fqsProperties} fqSections;
+fqsNamedQueries,
+fqsMax = fqsNamedQueries
+    
+} fqSections;
 
 // aircraft features
 typedef enum _afRows {afTailwheel = 1, afHighPerf, afGlass, afComplex, afRetract, afCSProp, afFlaps, afMotorGlider,
@@ -66,6 +73,19 @@ typedef enum _ffRows {ffFSLanding = 1, ffFSNightLanding, ffApproaches, ffHold, f
 ffIsPublic, ffDual, ffCFI, ffSIC, ffPIC, ffSigned, ffMax = ffSigned} ffRows;
 
 static NSArray * makesInUse = nil;
+
+BOOL fSkipLoadText = NO;
+
+static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
+
+#pragma mark Canned Properties
++ (NSMutableArray<MFBWebServiceSvc_CannedQuery *> *) rgCannedQueries {
+    @synchronized(self) { return _rgCannedQueries; }
+}
+
++ (void) setRgCannedProperties:(NSMutableArray<MFBWebServiceSvc_CannedQuery *> *) value {
+    @synchronized(self) { _rgCannedQueries = value; }
+}
 
 #pragma mark Data Management
 - (void) refreshMakes
@@ -125,7 +145,7 @@ static NSArray * makesInUse = nil;
 
 - (void) resetFlight
 {
-    self.fq = [MFBWebServiceSvc_FlightQuery getNewFlightQuery];
+    self.fq = (MFBWebServiceSvc_FlightQuery *) [MFBWebServiceSvc_FlightQuery getNewFlightQuery];
     [self.expandedSections removeAllIndexes];
     self.ecText.txt.text = @"";
     self.ecAirports.txt.text = @"";
@@ -134,6 +154,9 @@ static NSArray * makesInUse = nil;
 
 - (void) loadText
 {
+    if (fSkipLoadText)
+        return;
+    
     // update the text fields
     self.fq.GeneralText = self.ecText.txt.text;
     self.fq.ModelName = self.ecModelName.txt.text;
@@ -147,6 +170,10 @@ static NSArray * makesInUse = nil;
         if ([sz length] == 0)
             [self.fq.AirportList.string removeObject:sz];
     }
+    
+    if (self.ecQueryName.txt.text.length > 0 && !fSkipLoadText)
+        [self AddCannedQuery:self.fq withName:self.ecQueryName.txt.text];
+
 }
 
 // Determines the number of aircraft to hide.
@@ -203,6 +230,96 @@ static NSArray * makesInUse = nil;
     [super didReceiveMemoryWarning];
 }
 
+#pragma mark - canned query management
+- (void) refreshCannedQueries {
+    if (!mfbApp().isOnLine)
+        return;
+    
+    NSString * authtoken = mfbApp().userProfile.AuthToken;
+    if ([authtoken length] == 0)
+        return;
+
+    MFBWebServiceSvc_GetNamedQueriesForUser * gnqSVC = [MFBWebServiceSvc_GetNamedQueriesForUser new];
+    gnqSVC.szAuthToken = authtoken;
+
+    MFBSoapCall * sc = [[MFBSoapCall alloc] init];
+    sc.logCallData = NO;
+    sc.delegate = self;
+    
+    [sc makeCallAsync:^(MFBWebServiceSoapBinding * b, MFBSoapCall * sc) {
+        [b GetNamedQueriesForUserAsyncUsingParameters:gnqSVC delegate:sc];
+    }];
+}
+
+- (void) deleteCannedQuery:(MFBWebServiceSvc_CannedQuery *) fq {
+    if (!mfbApp().isOnLine)
+        return;
+
+    NSString * authtoken = mfbApp().userProfile.AuthToken;
+    if ([authtoken length] == 0)
+        return;
+    
+    MFBWebServiceSvc_DeleteNamedQueryForUser * dnqSVC = [MFBWebServiceSvc_DeleteNamedQueryForUser new];
+    dnqSVC.szAuthToken = authtoken;
+    dnqSVC.cq = fq;
+    MFBSoapCall * sc = [[MFBSoapCall alloc] init];
+    sc.logCallData = NO;
+    sc.delegate = self;
+    
+    [sc makeCallAsync:^(MFBWebServiceSoapBinding *b, MFBSoapCall *sc) {
+        [b DeleteNamedQueryForUserAsyncUsingParameters:dnqSVC delegate:sc];
+    }];
+}
+
+- (void) AddCannedQuery:(MFBWebServiceSvc_FlightQuery *) fq withName:(NSString *) szName {
+    if (!mfbApp().isOnLine)
+        return;
+    
+    NSString * authtoken = mfbApp().userProfile.AuthToken;
+    if ([authtoken length] == 0)
+        return;
+    
+    if (fq == nil || fq.isUnrestricted)
+        return;
+    
+    MFBWebServiceSvc_AddNamedQueryForUser * anqSVC = [MFBWebServiceSvc_AddNamedQueryForUser new];
+    anqSVC.szAuthToken = authtoken;
+    anqSVC.fq = fq;
+    anqSVC.szName = szName;
+    
+    MFBSoapCall * sc = [[MFBSoapCall alloc] init];
+    sc.logCallData = NO;
+    sc.delegate = self;
+    
+    [sc makeCallAsync:^(MFBWebServiceSoapBinding * b, MFBSoapCall * sc) {
+        [b AddNamedQueryForUserAsyncUsingParameters:anqSVC delegate:sc];
+    }];
+}
+
+- (void) BodyReturned:(id)body
+{
+    if ([body isKindOfClass:[MFBWebServiceSvc_GetNamedQueriesForUserResponse class]]) {
+        MFBWebServiceSvc_GetNamedQueriesForUserResponse * resp = (MFBWebServiceSvc_GetNamedQueriesForUserResponse *) body;
+        FlightQueryForm.rgCannedProperties = resp.GetNamedQueriesForUserResult.CannedQuery;
+    }
+    else if ([body isKindOfClass:[MFBWebServiceSvc_DeleteNamedQueryForUserResponse class]]) {
+        MFBWebServiceSvc_DeleteNamedQueryForUserResponse * resp = (MFBWebServiceSvc_DeleteNamedQueryForUserResponse *) body;
+        FlightQueryForm.rgCannedProperties = resp.DeleteNamedQueryForUserResult.CannedQuery;
+    }
+    else if ([body isKindOfClass:[MFBWebServiceSvc_AddNamedQueryForUserResponse class]]) {
+        MFBWebServiceSvc_AddNamedQueryForUserResponse * resp = (MFBWebServiceSvc_AddNamedQueryForUserResponse *) body;
+        FlightQueryForm.rgCannedProperties = resp.AddNamedQueryForUserResult.CannedQuery;
+    }
+}
+
+- (void) ResultCompleted:(MFBSoapCall *)sc {
+    [self.tableView reloadData];
+    // silently fail any error, since this is all background anyhow.  But still log it
+    if (sc.errorString.length > 0)
+        NSLog(@"CannedQuery error: %@", sc.errorString);
+}
+
+#pragma mark - load/unload
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -220,6 +337,9 @@ static NSArray * makesInUse = nil;
                                   action:@selector(resetFlight)];
     self.navigationItem.rightBarButtonItem = biReset;
     self.navigationItem.title = NSLocalizedString(@"FindFlights", @"Find Flights title");
+    
+    if (FlightQueryForm.rgCannedQueries == nil)
+        [self refreshCannedQueries];
 }
 
 - (void)viewDidUnload
@@ -244,7 +364,14 @@ static NSArray * makesInUse = nil;
     }
     if (self.delegate != nil)
         [self.delegate queryUpdated:self.fq];
+    
     [super viewWillDisappear:animated];
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    fSkipLoadText = NO;
 }
 
 #pragma mark Utility functions
@@ -288,6 +415,7 @@ static NSArray * makesInUse = nil;
         case fqsFlightFeatures:
         case fqsCatClass:
         case fqsProperties:
+        case fqsNamedQueries:
             return YES;
         case fqsText:
         default:
@@ -316,6 +444,8 @@ static NSArray * makesInUse = nil;
         [self.expandedSections addIndex:fqsFlightFeatures];
     if ([self.fq hasProperties])
         [self.expandedSections addIndex:fqsProperties];
+    if (FlightQueryForm.rgCannedQueries.count > 0)
+        [self.expandedSections addIndex:fqsNamedQueries];
 }
 
 - (NSInteger) rowsInSection:(NSInteger) section withItemCount:(NSInteger) items
@@ -370,6 +500,12 @@ static NSArray * makesInUse = nil;
 - (UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {return nil; }
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {return nil; }
 
+- (NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section == fqsNamedQueries)
+        return NSLocalizedString(@"QueryNameHeaderDesc", "@Query name header description");
+    return @"";
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return fqsMax + 1;
@@ -397,6 +533,8 @@ static NSArray * makesInUse = nil;
             return [self rowsInSection:section withItemCount:MFBWebServiceSvc_CatClassID_PoweredParaglider];
         case fqsProperties:
             return [self rowsInSection:section withItemCount:self.rgUsedProps.count];
+        case fqsNamedQueries:
+            return [self rowsInSection:fqsNamedQueries withItemCount: 1 + FlightQueryForm.rgCannedQueries.count];
     }
     return 0;
 }
@@ -711,12 +849,54 @@ static NSArray * makesInUse = nil;
             return cell;
         }
             break;
+        case fqsNamedQueries: {
+            if (indexPath.row == 0) // header row
+                return [ExpandHeaderCell getHeaderCell:self.tableView withTitle:NSLocalizedString(@"QueryNameHeader", @"Header for query names") forSection:indexPath.section initialState:[self isExpanded:indexPath.section]];
+            else if (indexPath.row == 1) {
+                self.ecQueryName = [EditCell getEditCell:self.tableView withAccessory:nil];
+                self.ecQueryName.lbl.text = NSLocalizedString(@"QueryNamePrompt", @"Prompt for query name");
+                self.ecQueryName.txt.placeholder = NSLocalizedString(@"QueryNamePrompt", @"Prompt for query name");
+                self.ecQueryName.txt.returnKeyType = UIReturnKeyDone;
+                self.ecQueryName.txt.autocapitalizationType = UITextAutocapitalizationTypeWords;
+                [self.ecQueryName.txt setDelegate:self];
+                return self.ecQueryName;
+            }
+            else {
+                UITableViewCell * cell = [self getSubtitleCell];
+                cell.textLabel.text = FlightQueryForm.rgCannedQueries[indexPath.row - 2].QueryName;
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                return cell;
+            }
+        }
+            break;
     }
     
     @throw [NSException exceptionWithName:@"Invalid indexpath" reason:@"Request for cell in AutodetectOptions with invalid indexpath" userInfo:@{@"indexPath:" : indexPath}];
 }
 
 #pragma mark - Table view delegate
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return  ([mfbApp() isOnLine] && indexPath.section == fqsNamedQueries && indexPath.row > 2);
+}
+
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        if (![self tableView:tableView canEditRowAtIndexPath:indexPath])
+            return;
+
+        MFBWebServiceSvc_CannedQuery * cq = FlightQueryForm.rgCannedQueries[indexPath.row - 2];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:NSLocalizedString(@"QueryDeleteConfirm", @"Confirm Delete Named Query") preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"OK") style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction *action) {
+                                                              [self deleteCannedQuery:cq];
+                                                          }]];
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel (button)") style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction *action) { }]];
+        [self presentViewController:alertController animated:YES completion:^{}];
+    }
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -907,6 +1087,12 @@ static NSArray * makesInUse = nil;
             }
             [self.tableView reloadData];
             break;
+        case fqsNamedQueries:
+            if (indexPath.row > 1) {
+                self.fq = FlightQueryForm.rgCannedQueries[indexPath.row - 2];
+                fSkipLoadText = YES;    // as we disappear, don't re-read from text cells - it can overwrite the saved query!
+                [self.navigationController popViewControllerAnimated:YES];
+            }
         default:
             break;
     }

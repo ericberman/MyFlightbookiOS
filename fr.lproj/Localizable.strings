@@ -673,6 +673,18 @@
 /* Flight is signed */
 "ffSigned" = "Vol est signé";
 
+/* Query name header description */
+"QueryNameHeaderDesc" = "Donnez un nom à cette requête ou sélectionnez des requêtes précédemment nommées";
+
+/* Prompt for query name */
+"QueryNamePrompt" = "Nom";
+
+/* Header for query names */
+"QueryNameHeader" = "Requêtes enregistrées";
+
+/* Confirm Delete Named Query */
+"QueryDeleteConfirm" = "Êtes-vous sûr de vouloir supprimer cette requête? Ça ne peut pas être annulé.";
+
 /* Progress message when uploading an image; the %d is replaced by numbers (e.g. '2 of 4') */ 
 "Uploading Image %d of %d" = "Téléchargement de  %d image(s) sur  %d";
 

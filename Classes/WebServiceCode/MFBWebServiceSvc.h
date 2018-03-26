@@ -85,6 +85,14 @@
 @class MFBWebServiceSvc_CreateUser;
 @class MFBWebServiceSvc_CreateUserResponse;
 @class MFBWebServiceSvc_UserEntity;
+@class MFBWebServiceSvc_GetNamedQueriesForUser;
+@class MFBWebServiceSvc_GetNamedQueriesForUserResponse;
+@class MFBWebServiceSvc_ArrayOfCannedQuery;
+@class MFBWebServiceSvc_CannedQuery;
+@class MFBWebServiceSvc_AddNamedQueryForUser;
+@class MFBWebServiceSvc_AddNamedQueryForUserResponse;
+@class MFBWebServiceSvc_DeleteNamedQueryForUser;
+@class MFBWebServiceSvc_DeleteNamedQueryForUserResponse;
 @class MFBWebServiceSvc_SuggestAircraft;
 @class MFBWebServiceSvc_SuggestAircraftResponse;
 @class MFBWebServiceSvc_SuggestModels;
@@ -2310,6 +2318,163 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
+@interface MFBWebServiceSvc_GetNamedQueriesForUser : NSObject <NSCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	NSString * szAuthToken;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_GetNamedQueriesForUser *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, retain) NSString * szAuthToken;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_CannedQuery : MFBWebServiceSvc_FlightQuery {
+/* elements */
+	NSString * QueryName;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_CannedQuery *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+/* elements */
+@property (nonatomic, retain) NSString * QueryName;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_ArrayOfCannedQuery : NSObject <NSCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	NSMutableArray *CannedQuery;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_ArrayOfCannedQuery *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+- (void)addCannedQuery:(MFBWebServiceSvc_CannedQuery *)toAdd;
+@property (nonatomic, readonly) NSMutableArray * CannedQuery;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_GetNamedQueriesForUserResponse : NSObject <NSCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	MFBWebServiceSvc_ArrayOfCannedQuery * GetNamedQueriesForUserResult;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_GetNamedQueriesForUserResponse *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, retain) MFBWebServiceSvc_ArrayOfCannedQuery * GetNamedQueriesForUserResult;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_AddNamedQueryForUser : NSObject <NSCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	NSString * szAuthToken;
+	MFBWebServiceSvc_FlightQuery * fq;
+	NSString * szName;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_AddNamedQueryForUser *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, retain) NSString * szAuthToken;
+@property (nonatomic, retain) MFBWebServiceSvc_FlightQuery * fq;
+@property (nonatomic, retain) NSString * szName;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_AddNamedQueryForUserResponse : NSObject <NSCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	MFBWebServiceSvc_ArrayOfCannedQuery * AddNamedQueryForUserResult;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_AddNamedQueryForUserResponse *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, retain) MFBWebServiceSvc_ArrayOfCannedQuery * AddNamedQueryForUserResult;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_DeleteNamedQueryForUser : NSObject <NSCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	NSString * szAuthToken;
+	MFBWebServiceSvc_CannedQuery * cq;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_DeleteNamedQueryForUser *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, retain) NSString * szAuthToken;
+@property (nonatomic, retain) MFBWebServiceSvc_CannedQuery * cq;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_DeleteNamedQueryForUserResponse : NSObject <NSCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	MFBWebServiceSvc_ArrayOfCannedQuery * DeleteNamedQueryForUserResult;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_DeleteNamedQueryForUserResponse *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, retain) MFBWebServiceSvc_ArrayOfCannedQuery * DeleteNamedQueryForUserResult;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
 @interface MFBWebServiceSvc_SuggestAircraft : NSObject <NSCoding> {
 SOAPSigner *soapSigner;
 /* elements */
@@ -2595,6 +2760,12 @@ SOAPSigner *soapSigner;
 - (void)AuthTokenForUserAsyncUsingParameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoapBindingResponse *)CreateUserUsingParameters:(MFBWebServiceSvc_CreateUser *)aParameters ;
 - (void)CreateUserAsyncUsingParameters:(MFBWebServiceSvc_CreateUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
+- (MFBWebServiceSoapBindingResponse *)GetNamedQueriesForUserUsingParameters:(MFBWebServiceSvc_GetNamedQueriesForUser *)aParameters ;
+- (void)GetNamedQueriesForUserAsyncUsingParameters:(MFBWebServiceSvc_GetNamedQueriesForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
+- (MFBWebServiceSoapBindingResponse *)AddNamedQueryForUserUsingParameters:(MFBWebServiceSvc_AddNamedQueryForUser *)aParameters ;
+- (void)AddNamedQueryForUserAsyncUsingParameters:(MFBWebServiceSvc_AddNamedQueryForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
+- (MFBWebServiceSoapBindingResponse *)DeleteNamedQueryForUserUsingParameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters ;
+- (void)DeleteNamedQueryForUserAsyncUsingParameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoapBindingResponse *)SuggestAircraftUsingParameters:(MFBWebServiceSvc_SuggestAircraft *)aParameters ;
 - (void)SuggestAircraftAsyncUsingParameters:(MFBWebServiceSvc_SuggestAircraft *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoapBindingResponse *)SuggestModelsUsingParameters:(MFBWebServiceSvc_SuggestModels *)aParameters ;
@@ -2819,6 +2990,30 @@ SOAPSigner *soapSigner;
 	parameters:(MFBWebServiceSvc_CreateUser *)aParameters
 ;
 @end
+@interface MFBWebServiceSoapBinding_GetNamedQueriesForUser : MFBWebServiceSoapBindingOperation {
+	MFBWebServiceSvc_GetNamedQueriesForUser * parameters;
+}
+@property (nonatomic, retain) MFBWebServiceSvc_GetNamedQueriesForUser * parameters;
+- (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_GetNamedQueriesForUser *)aParameters
+;
+@end
+@interface MFBWebServiceSoapBinding_AddNamedQueryForUser : MFBWebServiceSoapBindingOperation {
+	MFBWebServiceSvc_AddNamedQueryForUser * parameters;
+}
+@property (nonatomic, retain) MFBWebServiceSvc_AddNamedQueryForUser * parameters;
+- (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_AddNamedQueryForUser *)aParameters
+;
+@end
+@interface MFBWebServiceSoapBinding_DeleteNamedQueryForUser : MFBWebServiceSoapBindingOperation {
+	MFBWebServiceSvc_DeleteNamedQueryForUser * parameters;
+}
+@property (nonatomic, retain) MFBWebServiceSvc_DeleteNamedQueryForUser * parameters;
+- (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters
+;
+@end
 @interface MFBWebServiceSoapBinding_SuggestAircraft : MFBWebServiceSoapBindingOperation {
 	MFBWebServiceSvc_SuggestAircraft * parameters;
 }
@@ -2952,6 +3147,12 @@ SOAPSigner *soapSigner;
 - (void)AuthTokenForUserAsyncUsingParameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoap12BindingResponse *)CreateUserUsingParameters:(MFBWebServiceSvc_CreateUser *)aParameters ;
 - (void)CreateUserAsyncUsingParameters:(MFBWebServiceSvc_CreateUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
+- (MFBWebServiceSoap12BindingResponse *)GetNamedQueriesForUserUsingParameters:(MFBWebServiceSvc_GetNamedQueriesForUser *)aParameters ;
+- (void)GetNamedQueriesForUserAsyncUsingParameters:(MFBWebServiceSvc_GetNamedQueriesForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
+- (MFBWebServiceSoap12BindingResponse *)AddNamedQueryForUserUsingParameters:(MFBWebServiceSvc_AddNamedQueryForUser *)aParameters ;
+- (void)AddNamedQueryForUserAsyncUsingParameters:(MFBWebServiceSvc_AddNamedQueryForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
+- (MFBWebServiceSoap12BindingResponse *)DeleteNamedQueryForUserUsingParameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters ;
+- (void)DeleteNamedQueryForUserAsyncUsingParameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoap12BindingResponse *)SuggestAircraftUsingParameters:(MFBWebServiceSvc_SuggestAircraft *)aParameters ;
 - (void)SuggestAircraftAsyncUsingParameters:(MFBWebServiceSvc_SuggestAircraft *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoap12BindingResponse *)SuggestModelsUsingParameters:(MFBWebServiceSvc_SuggestModels *)aParameters ;
@@ -3174,6 +3375,30 @@ SOAPSigner *soapSigner;
 @property (nonatomic, retain) MFBWebServiceSvc_CreateUser * parameters;
 - (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)aDelegate
 	parameters:(MFBWebServiceSvc_CreateUser *)aParameters
+;
+@end
+@interface MFBWebServiceSoap12Binding_GetNamedQueriesForUser : MFBWebServiceSoap12BindingOperation {
+	MFBWebServiceSvc_GetNamedQueriesForUser * parameters;
+}
+@property (nonatomic, retain) MFBWebServiceSvc_GetNamedQueriesForUser * parameters;
+- (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_GetNamedQueriesForUser *)aParameters
+;
+@end
+@interface MFBWebServiceSoap12Binding_AddNamedQueryForUser : MFBWebServiceSoap12BindingOperation {
+	MFBWebServiceSvc_AddNamedQueryForUser * parameters;
+}
+@property (nonatomic, retain) MFBWebServiceSvc_AddNamedQueryForUser * parameters;
+- (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_AddNamedQueryForUser *)aParameters
+;
+@end
+@interface MFBWebServiceSoap12Binding_DeleteNamedQueryForUser : MFBWebServiceSoap12BindingOperation {
+	MFBWebServiceSvc_DeleteNamedQueryForUser * parameters;
+}
+@property (nonatomic, retain) MFBWebServiceSvc_DeleteNamedQueryForUser * parameters;
+- (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters
 ;
 @end
 @interface MFBWebServiceSoap12Binding_SuggestAircraft : MFBWebServiceSoap12BindingOperation {

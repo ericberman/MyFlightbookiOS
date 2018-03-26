@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -35,7 +35,7 @@
 - (void) queryUpdated:(MFBWebServiceSvc_FlightQuery *) fq;
 @end
 
-@interface FlightQueryForm : CollapsibleTable<DateRangeChanged, UITextFieldDelegate> {
+@interface FlightQueryForm : CollapsibleTable<DateRangeChanged, UITextFieldDelegate, MFBSoapCallDelegate> {
     id<QueryDelegate> delegate;
 @private
     MFBWebServiceSvc_FlightQuery * fq;
