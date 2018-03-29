@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -543,10 +543,6 @@ static MFBAppDelegate * _mainApp = nil;
     self.lastKnownNetworkStatus = [self.reachability currentReachabilityStatus];
     fNetworkStateKnown = YES;
     
-    // Enable icons on the badge (for pending flights)
-    UIUserNotificationSettings* notificationSettings = [UIUserNotificationSettings settingsForTypes: UIUserNotificationTypeBadge categories:nil];
-    [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
-    
     // Ensure that a profile object is set up
     self.userProfile = [MFBProfile new];
 
@@ -774,6 +770,12 @@ static MFBAppDelegate * _mainApp = nil;
 	int cPendingFlights = (int) [self.rgPendingFlights count];
 	
 	NSString * szBadge = (cPendingFlights == 0) ? nil : [NSString stringWithFormat:@"%d", cPendingFlights];
+    
+    // Request notification permission to show the badge for pending flights.
+    if (cPendingFlights > 0) {
+        UIUserNotificationSettings* notificationSettings = [UIUserNotificationSettings settingsForTypes: UIUserNotificationTypeBadge categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
+    }
 	
 	if (self.tbiRecent != nil)
 		self.tbiRecent.badgeValue = szBadge;
