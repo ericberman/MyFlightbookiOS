@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2012-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 5/17/12.
-//  Copyright (c) 2012-2017 MyFlightbook LLC. All rights reserved.
+//  Copyright (c) 2012-2018 MyFlightbook LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -64,6 +64,14 @@
 typedef NS_ENUM(NSInteger, FlightState) {
     fsOnGround, fsInFlight, fsJustLanded
 } ;
+
+typedef NS_ENUM(NSInteger, NightFlightOptions) {
+    nfoCivilTwilight, nfoSunset, nfoSunsetPlus15, nfoSunsetPlus30, nfoSunsetPlus60, nfoLast
+};
+
+typedef NS_ENUM(NSInteger, NightLandingOptions) {
+    nflSunsetPlus60, nflNight, nflLast
+};
 
 @protocol AutoDetectDelegate
 - (NSString *) takeoffDetected;
@@ -107,6 +115,8 @@ typedef NS_ENUM(NSInteger, FlightState) {
 + (void) refreshTakeoffSpeed;
 - (void) startRecordingFlightData;
 - (void) stopRecordingFlightData;
++ (NSString *) nightFlightOptionName:(NightFlightOptions)nf;
++ (NSString *) nightLandingOptionName:(NightLandingOptions)nl;
 
 + (int) TakeOffSpeed;
 + (int) LandingSpeed;

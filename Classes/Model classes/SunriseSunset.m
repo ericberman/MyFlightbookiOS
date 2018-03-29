@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 8/15/11.
-//  Copyright 2011-2017 MyFlightbook LLC. All rights reserved.
+//  Copyright 2011-2018 MyFlightbook LLC. All rights reserved.
 //
 
 #import "SunriseSunset.h"
@@ -476,10 +476,10 @@ static double calcSunsetUTC(double JD, double latitude, double longitude)
 static NSDateFormatter * m_df;
 #endif
 
-@synthesize Date, Sunset, Sunrise, Latitude, Longitude, isNight, isFAANight, isCivilNight, solarAngle;
+@synthesize Date, Sunset, Sunrise, Latitude, Longitude, isNight, isFAANight, isWithinNightOffset, NightFlightOffset, NightLandingOffset, isCivilNight, solarAngle;
 
 // Code below adapted from http://www.srrb.noaa.gov/highlights/sunrise/sunrise.html and http://www.srrb.noaa.gov/highlights/sunrise/calcdetails.html
-- (SunriseSunset *) initWithDate:(NSDate *) dt Latitude:(double) latitude Longitude:(double) longitude
+- (SunriseSunset *) initWithDate:(NSDate *) dt Latitude:(double) latitude Longitude:(double) longitude nightOffset:(int) nightOffset
 {
     self = [super init];
 #ifdef DEBUG
@@ -496,6 +496,8 @@ static NSDateFormatter * m_df;
         self.Date = dt;
         self.Latitude = latitude;
         self.Longitude = longitude;
+        self.NightFlightOffset = nightOffset;
+        self.NightLandingOffset = 60;
         [self ComputeTimesAtLocation:dt];
     }
     
@@ -504,7 +506,7 @@ static NSDateFormatter * m_df;
 
 - (instancetype) init
 {
-    return [self initWithDate:nil Latitude:0 Longitude:0];
+    return [self initWithDate:nil Latitude:0 Longitude:0 nightOffset:0];
 }
 
 
@@ -583,6 +585,7 @@ static NSDateFormatter * m_df;
     // (c) time is before sunrise - figure out the previous sunset and compare to that
     self.isNight = self.isCivilNight;
     self.isFAANight = NO;
+    self.isWithinNightOffset = NO;
     if ([self.Sunrise compare:dt] == NSOrderedAscending && [self.Sunset compare:dt] == NSOrderedDescending)
     {
         // between sunrise and sunset - it's daytime no matter how you slice it; use default values (set above)
@@ -602,8 +605,10 @@ static NSDateFormatter * m_df;
 #endif
 
             self.isNight = [dtNextSunrise compare:dt] == NSOrderedAscending;  // we've already determined that we're after sunset, we just need to be before sunrise
-            self.isFAANight = ([(NSDate *)[dtNextSunrise dateByAddingTimeInterval:-3600] compare:dt] == NSOrderedDescending &&
-                               [(NSDate *)[self.Sunset dateByAddingTimeInterval:3600] compare:dt] == NSOrderedAscending);
+            self.isFAANight = ([(NSDate *)[dtNextSunrise dateByAddingTimeInterval:-self.NightLandingOffset * 60] compare:dt] == NSOrderedDescending &&
+                               [(NSDate *)[self.Sunset dateByAddingTimeInterval:self.NightLandingOffset * 60] compare:dt] == NSOrderedAscending);
+            self.isWithinNightOffset = ([(NSDate *)[dtNextSunrise dateByAddingTimeInterval:-self.NightFlightOffset * 60] compare:dt] == NSOrderedDescending &&
+                                       [(NSDate *)[self.Sunset dateByAddingTimeInterval:self.NightFlightOffset * 60] compare:dt] == NSOrderedAscending);
         }
     }
     else if ([Sunrise compare:dt] == NSOrderedDescending)
@@ -618,8 +623,10 @@ static NSDateFormatter * m_df;
             NSDate * dtPrevSunset = [self MinutesToDateTime:dtYesterday forMinutes:prevSunset];
 
             self.isNight = [dtPrevSunset compare:dt] == NSOrderedAscending; // we've already determined that we're before sunrise, we just need to be after sunset.
-            self.isFAANight = ([(NSDate *)[dtPrevSunset dateByAddingTimeInterval:3600]  compare:dt] == NSOrderedAscending &&
-                               [(NSDate *)[self.Sunrise dateByAddingTimeInterval:-3600] compare:dt] == NSOrderedDescending);
+            self.isFAANight = ([(NSDate *)[dtPrevSunset dateByAddingTimeInterval:self.NightLandingOffset * 60]  compare:dt] == NSOrderedAscending &&
+                               [(NSDate *)[self.Sunrise dateByAddingTimeInterval:-self.NightLandingOffset * 60] compare:dt] == NSOrderedDescending);
+            self.isWithinNightOffset = ([(NSDate *)[dtPrevSunset dateByAddingTimeInterval:self.NightFlightOffset * 60]  compare:dt] == NSOrderedAscending &&
+                               [(NSDate *)[self.Sunrise dateByAddingTimeInterval:-self.NightFlightOffset * 60] compare:dt] == NSOrderedDescending);
         }
     }
      

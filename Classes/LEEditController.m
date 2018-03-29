@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -1889,7 +1889,7 @@ static NSDateFormatter * dfSunriseSunset = nil;
     
     if (self.lblSunrise != nil && self.lblSunset != nil)
     {
-        SunriseSunset * s = [[SunriseSunset alloc] initWithDate:[NSDate date] Latitude:lat Longitude:lon];
+        SunriseSunset * s = [[SunriseSunset alloc] initWithDate:[NSDate date] Latitude:lat Longitude:lon nightOffset:0];
         if (dfSunriseSunset == nil)
         {
             dfSunriseSunset = [[NSDateFormatter alloc] init];

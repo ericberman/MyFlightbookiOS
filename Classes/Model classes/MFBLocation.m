@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 5/17/12.
-//  Copyright (c) 2012-2017 MyFlightbook LLC. All rights reserved.
+//  Copyright (c) 2012-2018 MyFlightbook LLC. All rights reserved.
 //
 
 #import "MFBAppDelegate.h"
@@ -122,6 +122,68 @@ static int vLanding = LANDING_SPEED_DEFAULT;
     self.fRecordHighRes = [defs boolForKey:_szKeyPrefRecordHighRes];
 
     [MFBLocation refreshTakeoffSpeed];
+}
+
+#pragma mark - Night flight options
++ (NSString *) nightFlightOptionName:(NightFlightOptions)nf {
+    switch (nf) {
+        case nfoSunset:
+            return NSLocalizedString(@"NFSunset", @"Night flight starts sunset");
+        case nfoCivilTwilight:
+            return NSLocalizedString(@"NFCivilTwighlight", @"Night flight starts End of civil twilight");
+        case nfoSunsetPlus15:
+            return NSLocalizedString(@"NFSunsetPlus15", @"Night flight starts Sunset + 15 minutes");
+        case nfoSunsetPlus30:
+            return NSLocalizedString(@"NFSunsetPlus30", @"Night flight starts Sunset + 30 minutes");
+        case nfoSunsetPlus60:
+            return NSLocalizedString(@"NFSunsetPlus60", @"Night flight starts Sunset + 60 minutes");
+        default:
+            return @"";
+    }
+}
++ (NSString *) nightLandingOptionName:(NightLandingOptions)nl {
+    switch (nl) {
+        default:
+            return @"";
+        case nflNight:
+            return NSLocalizedString(@"NFLNight", @"Night Landings: Night");
+        case nflSunsetPlus60:
+            return NSLocalizedString(@"NFLSunsetPlus1Hour", @"Night Landings: 60 minutes after sunset");
+    }
+}
+
+- (int) NightFlightSunsetOffset {
+    switch ([AutodetectOptions nightFlightPref]) {
+        case nfoCivilTwilight:
+        case nfoSunset:
+        case nfoLast:
+            return 0;
+        case nfoSunsetPlus15:
+            return 15;
+        case nfoSunsetPlus30:
+            return 30;
+        case nfoSunsetPlus60:
+            return 60;
+    }
+}
+
+- (BOOL) IsNightForFlight:(SunriseSunset *) sst {
+    // short circuit daytime
+    if (sst == nil || !sst.isNight)
+        return NO;
+    
+    switch ([AutodetectOptions nightFlightPref]) {
+        case nfoCivilTwilight:
+            return sst.isCivilNight;
+        case nfoSunset:
+            return true;    // we already verified that isNight is true above.
+        case nfoSunsetPlus15:
+        case nfoSunsetPlus30:
+        case nfoSunsetPlus60:
+            return sst.isWithinNightOffset;
+        case nfoLast:
+            return NO;
+    }
 }
 
 #pragma mark CLLocation Management
@@ -228,7 +290,7 @@ static int vLanding = LANDING_SPEED_DEFAULT;
 }
 
 // Call to cause a state transition.  Don't call multiple times in a row!!
-- (FlightState) setFlightState:(FlightState) fs atSST:(SunriseSunset *) sst withNotes:(NSMutableString *) szNotes
+- (FlightState) setFlightState:(FlightState) fs atNight:(BOOL)fIsNightForLandings withNotes:(NSMutableString *) szNotes
 {
     if (fs == self.currentFlightState)
         return fs;
@@ -242,7 +304,7 @@ static int vLanding = LANDING_SPEED_DEFAULT;
                 if ([self.delegate flightCouldBeInProgress])
                 {
                     [szNotes appendFormat:@" %@",[self.delegate takeoffDetected]];
-                    if (sst.isFAANight)
+                    if (fIsNightForLandings)
                         [szNotes appendFormat:@" %@",[self.delegate nightTakeoffDetected]];
                 }
             }
@@ -262,7 +324,7 @@ static int vLanding = LANDING_SPEED_DEFAULT;
                 NSLog(@"setFlightState: Full-stop landing!");
                 self.currentFlightState = fsOnGround;
                 if (self.delegate != nil && [self.delegate flightCouldBeInProgress])
-                    [szNotes appendFormat:@" %@",[self.delegate fsLandingDetected:sst.isFAANight]];
+                    [szNotes appendFormat:@" %@",[self.delegate fsLandingDetected:fIsNightForLandings]];
             }
             break;
     }
@@ -317,16 +379,19 @@ static int vLanding = LANDING_SPEED_DEFAULT;
     
 	if (fValidSample)
 	{
-        SunriseSunset * sst = [[SunriseSunset alloc] initWithDate:self.lastSeenLoc.timestamp Latitude:self.lastSeenLoc.coordinate.latitude Longitude:self.lastSeenLoc.coordinate.longitude];
+        SunriseSunset * sst = [[SunriseSunset alloc] initWithDate:self.lastSeenLoc.timestamp Latitude:self.lastSeenLoc.coordinate.latitude Longitude:self.lastSeenLoc.coordinate.longitude nightOffset:self.NightFlightSunsetOffset];
         BOOL fAutodetect = [[NSUserDefaults standardUserDefaults] boolForKey:_szKeyPrefAutoDetect];
+        
+        BOOL fIsNightForFlight = [self IsNightForFlight:sst];
+        BOOL fIsNightForLandings = ([AutodetectOptions nightLandingPref] == nflNight) ? fIsNightForFlight : sst.isFAANight;
 
-        if (PreviousLoc != nil && fPreviousLocWasNight && sst.isCivilNight && fAutodetect)
+        if (PreviousLoc != nil && fPreviousLocWasNight && fIsNightForFlight && fAutodetect)
         {
             NSTimeInterval t = [newLocation.timestamp timeIntervalSinceDate:PreviousLoc.timestamp] / 3600.0;    // time is in seconds, convert it to hours
             if (t < .5 && self.delegate.flightCouldBeInProgress)	// limit of half an hour between samples for night time
                 [self.delegate addNightTime:t];
         }
-        fPreviousLocWasNight = sst.isCivilNight;
+        fPreviousLocWasNight = fIsNightForFlight;
         PreviousLoc = lastSeenLoc;
 
         
@@ -339,7 +404,7 @@ static int vLanding = LANDING_SPEED_DEFAULT;
                     if (s < sLanding)
                     {
                         [szEvent appendString:NSLocalizedString(@"Landing", @"In flight telemetry, this is shown next to a landing event")];
-                        fs = [self setFlightState:fsJustLanded atSST:sst withNotes:szEvent];
+                        fs = [self setFlightState:fsJustLanded atNight:fIsNightForLandings withNotes:szEvent];
                         fForceRecord = YES;  // enable recording of this event in telemetry
                     }
                     break;
@@ -349,7 +414,7 @@ static int vLanding = LANDING_SPEED_DEFAULT;
                     {
                         [szEvent appendString:NSLocalizedString(@"Takeoff", @"In flight telemetry, this is shown to indicate a takeoff event")];
                         [self startRecordingFlightData];
-                        fs = [self setFlightState:fsInFlight atSST:sst withNotes:szEvent];
+                        fs = [self setFlightState:fsInFlight atNight:fIsNightForLandings withNotes:szEvent];
                         fForceRecord = YES;  // enable recording of this event in telemetry
                     }
                     break;
@@ -358,8 +423,8 @@ static int vLanding = LANDING_SPEED_DEFAULT;
             // see if we've had a full-stop landing
             if (fs == fsJustLanded && s < FULL_STOP_SPEED)
             {
-                [szEvent appendFormat:NSLocalizedString(@"Full-stop %@landing", @"If a full-stop landing is detected, this is written into the comments for flight telemetry.  the %@ is replaced either with nothing or with 'night' to indicate a night landing"), sst.isFAANight ? NSLocalizedString(@"night ", @"Night as an adjective - i.e., a night landing") : @""];
-                fs = [self setFlightState:fsOnGround atSST:sst withNotes:szEvent];
+                [szEvent appendFormat:NSLocalizedString(@"Full-stop %@landing", @"If a full-stop landing is detected, this is written into the comments for flight telemetry.  the %@ is replaced either with nothing or with 'night' to indicate a night landing"), fIsNightForLandings ? NSLocalizedString(@"night ", @"Night as an adjective - i.e., a night landing") : @""];
+                fs = [self setFlightState:fsOnGround atNight:fIsNightForLandings withNotes:szEvent];
                 fForceRecord = YES;  // enable recording of this event in telemetry
             }
 		}
@@ -546,6 +611,4 @@ static int vLanding = LANDING_SPEED_DEFAULT;
         return NSLocalizedString(@"(unknown)", @"Not sure if we are in flight or on the ground");
     
 }
-
-
 @end

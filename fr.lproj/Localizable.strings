@@ -961,6 +961,36 @@ Vous pouvez choisir un dans la liste fournie, le modifier, ou faire un de vos pr
 /* Link to additional preferences */
 "AdditionalOptions" = "Aller à MyFlightbook.com";
 
+/* Night flight options */
+"NightFlightStarts" = "Le vol de nuit commence:";
+
+/* Night flight starts sunset */
+"NFSunset" = "Le coucher du soleil";
+
+/* Night flight starts End of civil twilight */
+"NFCivilTwighlight" = "Fin du crépuscule civil";
+
+/* Night flight starts Sunset + 15 minutes */
+"NFSunsetPlus15" = "15 minutes après le coucher du soleil";
+
+/* Night flight starts Sunset + 30 minutes */
+"NFSunsetPlus30" = "30 minutes après le coucher du soleil";
+
+/* Night flight starts Sunset + 60 minutes */
+"NFSunsetPlus60" = "1 heure après le coucher du soleil";
+
+/* Night Landing options */
+"NightLandingsStart" = "Atterrissages de nuit se produisent:";
+
+/* Night Landings: Night */
+"NFLNight" = "Pendant le vol de nuit";
+
+/* Night Landings: 60 minutes after sunset */
+"NFLSunsetPlus1Hour" = "1 heure après le coucher du soleil";
+
+/* Night Section */
+"NightOptions" = "Nuit";
+
 /* Aircraft Preferences Header */
 "AircraftPrefsHeader" = "Remplir automatiquement de nouveaux vols dans cet avion";
 

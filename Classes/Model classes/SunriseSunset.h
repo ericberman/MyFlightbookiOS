@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 8/15/11.
-//  Copyright 2011-2017 MyFlightbook LLC. All rights reserved.
+//  Copyright 2011-2018 MyFlightbook LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -39,9 +39,12 @@
 @property (nonatomic, readwrite) BOOL isNight;
 @property (nonatomic, readwrite) BOOL isFAANight;
 @property (nonatomic, readwrite) BOOL isCivilNight;
+@property (nonatomic, readwrite) BOOL isWithinNightOffset;
+@property (nonatomic, readwrite) int NightLandingOffset;
+@property (nonatomic, readwrite) int NightFlightOffset;
 @property (nonatomic, readwrite) double solarAngle;
 
-- (SunriseSunset *) initWithDate:(NSDate *) dt Latitude:(double) latitude Longitude:(double) longitude NS_DESIGNATED_INITIALIZER;
+- (SunriseSunset *) initWithDate:(NSDate *) dt Latitude:(double) latitude Longitude:(double) longitude nightOffset:(int) nightOffset NS_DESIGNATED_INITIALIZER;
 - (void) ComputeTimesAtLocation:(NSDate *) dt;
 
 @end

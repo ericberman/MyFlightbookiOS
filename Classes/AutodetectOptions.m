@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -38,6 +38,8 @@
 #define keyMapMode @"keyMappingMode"
 #define keyShowImages @"keyShowImages"
 #define keyShowFlightTimes @"keyShowFlightTimes"
+#define keyNightFlightPref @"keyNightFlightPref"
+#define keyNightLandingPref @"keyNightLandingPref"
 
 @implementation AutodetectOptions
 
@@ -45,8 +47,8 @@
 @synthesize cellAutoHobbs, cellAutoOptions, cellAutoTotal, cellHHMM, cellLocalTime, cellHeliports, cellWarnings, cellTOSpeed, cellMapOptions, cellImages;
 @synthesize txtWarnings;
 
-enum prefSections {sectAutoFill, sectTimes, sectGPSWarnings, sectAutoOptions, sectAirports, sectMaps, sectImages, sectOnlineSettings, sectLast};
-enum prefRows {rowWarnings, rowAutoDetect, rowTOSpeed, rowAutoHobbs, rowAutoTotal, rowLocal, rowHHMM, rowHeliports, rowMaps, rowShowFlightImages, rowOnlineSettings};
+enum prefSections {sectAutoFill, sectTimes, sectGPSWarnings, sectAutoOptions, sectNightOptions, sectNightLandingOptions, sectAirports, sectMaps, sectImages, sectOnlineSettings, sectLast};
+enum prefRows {rowWarnings, rowAutoDetect, rowTOSpeed, rowAutoHobbs, rowAutoTotal, rowLocal, rowHHMM, rowHeliports, rowMaps, rowShowFlightImages, rowOnlineSettings, rowNightFlightOptions, rowNightLandingOptions};
 
 static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
 
@@ -77,8 +79,6 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
     self.txtWarnings = nil;
     [super viewDidUnload];
 }
-
-
 
 - (void) viewWillAppear:(BOOL)animated
 {
@@ -131,6 +131,10 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
             return rowOnlineSettings;
         case sectImages:
             return rowShowFlightImages;
+        case sectNightOptions:
+            return rowNightFlightOptions;
+        case sectNightLandingOptions:
+            return rowNightLandingOptions;
         default:
             return 0;
     }
@@ -155,6 +159,10 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
             return 1;
         case sectImages:
             return 1;
+        case sectNightOptions:
+            return nfoLast;
+        case sectNightLandingOptions:
+            return nflLast;
         default:
             return 0;
     }
@@ -181,6 +189,10 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
             return NSLocalizedString(@"OnlineSettingsExplanation", @"Explanation about additional functionality on MyFlightbook");
         case sectImages:
             return NSLocalizedString(@"ImageOptions", @"Image Options");
+        case sectNightOptions:
+            return NSLocalizedString(@"NightFlightStarts", @"Night flight options");
+        case sectNightLandingOptions:
+            return NSLocalizedString(@"NightLandingsStart", @"Night Landing options");
         case sectAutoOptions:
         case sectGPSWarnings:
         default:
@@ -262,6 +274,24 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             return cell;
         }
+        case rowNightLandingOptions: {
+            static NSString *CellIdentifier = @"CellCheckmark";
+            UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            if (cell == nil)
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            cell.textLabel.text = [MFBLocation nightLandingOptionName:indexPath.row];
+            cell.accessoryType = [AutodetectOptions nightLandingPref] == indexPath.row ? UITableViewCellAccessoryCheckmark :UITableViewCellAccessoryNone;
+            return cell;
+        }
+        case rowNightFlightOptions:{
+            static NSString *CellIdentifier = @"CellCheckmark";
+            UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            if (cell == nil)
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            cell.textLabel.text = [MFBLocation nightFlightOptionName:indexPath.row];
+            cell.accessoryType = [AutodetectOptions nightFlightPref] == indexPath.row ? UITableViewCellAccessoryCheckmark :UITableViewCellAccessoryNone;
+            return cell;
+        }
     }
     @throw [NSException exceptionWithName:@"Invalid indexpath" reason:@"Request for cell in AutodetectOptions with invalid indexpath" userInfo:@{@"indexPath:" : indexPath}];
 }
@@ -271,6 +301,14 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
     NSInteger row = [self cellIDFromIndexPath:indexPath];
     switch (row)
     {
+        case rowNightLandingOptions:
+            [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:keyNightLandingPref];
+            [self.tableView reloadData];
+            break;
+        case rowNightFlightOptions:
+            [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:keyNightFlightPref];
+            [self.tableView reloadData];
+            break;
         case rowOnlineSettings:
         {
             NSString * szURLTemplate = @"%@://%@/logbook/public/authredir.aspx?u=%@&p=%@&d=profile";
@@ -427,5 +465,13 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
 + (BOOL) showFlightTimes
 {
     return ![[NSUserDefaults standardUserDefaults] boolForKey:keyShowFlightTimes];
+}
+
++ (NightFlightOptions) nightFlightPref {
+    return [[NSUserDefaults standardUserDefaults] integerForKey:keyNightFlightPref];
+}
+
++ (NightLandingOptions) nightLandingPref {
+    return [[NSUserDefaults standardUserDefaults] integerForKey:keyNightLandingPref];
 }
 @end
