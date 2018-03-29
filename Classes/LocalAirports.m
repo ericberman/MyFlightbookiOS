@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 6/2/10.
-//  Copyright 2010-2017, MyFlightbook LLC. All rights reserved.
+//  Copyright 2010-2018, MyFlightbook LLC. All rights reserved.
 //
 
 #import "LocalAirports.h"
@@ -74,7 +74,7 @@
 		maxLong = lon + (loc.span.longitudeDelta / 2.0);
 		// we don't bother correcting lon's below -180 or above +180 for reason above
 
-		MFBAppDelegate * app = mfbApp();
+		MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
 		CLLocationCoordinate2D curLoc = (app.mfbloc.lastSeenLoc == nil) ? loc.center : app.mfbloc.lastSeenLoc.coordinate;
         
 		BOOL fHeliports = [AutodetectOptions includeHeliports];

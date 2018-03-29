@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 12/2/09.
-//  Copyright 2009-2017, MyFlightbook LLC. All rights reserved.
+//  Copyright 2009-2018, MyFlightbook LLC. All rights reserved.
 //
 
 #import "LogbookEntry.h"
@@ -306,7 +306,7 @@ NSString * const _szkeyPOTwitter = @"_poPostTwitter";
 	
 	if ([self.entryData isNewOrPending])
     {
-        [self getPathFromInProgressTelemetry:(self.entryData.isNewFlight) ? mfbApp().mfbloc.flightDataAsString : self.entryData.FlightData];
+        [self getPathFromInProgressTelemetry:(self.entryData.isNewFlight) ? MFBAppDelegate.threadSafeAppDelegate.mfbloc.flightDataAsString : self.entryData.FlightData];
         [self operationCompleted:nil];
         return;
     }
@@ -315,7 +315,7 @@ NSString * const _szkeyPOTwitter = @"_poPostTwitter";
 	sc.delegate = self;
 	
 	MFBWebServiceSvc_FlightPathForFlight * fp = [[MFBWebServiceSvc_FlightPathForFlight alloc] init];
-	MFBAppDelegate * app = mfbApp();
+	MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
 	fp.szAuthUserToken = app.userProfile.AuthToken;
 	fp.idFlight = entryData.FlightID;
 	
@@ -331,7 +331,7 @@ NSString * const _szkeyPOTwitter = @"_poPostTwitter";
     
     MFBWebServiceSvc_FlightPathForFlightGPX * fp = [MFBWebServiceSvc_FlightPathForFlightGPX new];
 
-	MFBAppDelegate * app = mfbApp();
+	MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
 	fp.szAuthUserToken = app.userProfile.AuthToken;
 	fp.idFlight = entryData.FlightID;
 	
@@ -449,7 +449,7 @@ NSString * const _szkeyPOTwitter = @"_poPostTwitter";
 
             le.errorString = [le.entryData fromJSONDictionary:d dateFormatter:dfDate dateTimeFormatter:dfDateTime];
             
-            [mfbApp() queueFlightForLater:le];
+            [MFBAppDelegate.threadSafeAppDelegate queueFlightForLater:le];
         }
     }
 }
@@ -464,7 +464,7 @@ NSString * const _szkeyPOTwitter = @"_poPostTwitter";
 - (NSString *) takeoffDetected;
 {
     if (!self.isKnownFlightStart)
-        self.FlightStart = mfbApp().mfbloc.lastSeenLoc.timestamp;
+        self.FlightStart = MFBAppDelegate.threadSafeAppDelegate.mfbloc.lastSeenLoc.timestamp;
     [self autofillClosest];
     return @"";
 }
@@ -497,7 +497,7 @@ NSString * const _szkeyPOTwitter = @"_poPostTwitter";
     
     if (![NSDate isUnknownDate:self.FlightStart])
     {
-        self.FlightEnd = mfbApp().mfbloc.lastSeenLoc.timestamp;
+        self.FlightEnd = MFBAppDelegate.threadSafeAppDelegate.mfbloc.lastSeenLoc.timestamp;
         self.Landings = @(self.Landings.integerValue + 1);
         [self autofillClosest];
     }
@@ -542,6 +542,30 @@ NSString * const _szkeyPOTwitter = @"_poPostTwitter";
     le.CustomProperties = [[MFBWebServiceSvc_ArrayOfCustomFlightProperty alloc] init];
     le.Comment = @"";
     le.Route = @"";
+    le.Nighttime = @0;
+    le.PIC = @0;
+    le.Landings = @0;
+    le.NightLandings = @0;
+    
+    le.Approaches = @0;
+    le.CFI =  @0;
+    le.CrossCountry = @0;
+    le.Dual = @0;
+    le.FullStopLandings = @0;
+    le.HobbsEnd = @0;
+    le.HobbsStart = @0;
+    le.IMC = @0;
+    le.Nighttime = @0;
+    le.SIC = @0;
+    le.SimulatedIFR = @0;
+    le.GroundSim = @0;
+    le.TotalFlightTime = @0;
+    
+    le.fHoldingProcedures = [[USBoolean alloc] initWithBool:NO];
+    le.fIsPublic = [[USBoolean alloc] initWithBool:NO];
+    
+    le.CatClassOverride = @0;
+    
     return le;
 }
 

@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 7/29/11.
-//  Copyright 2011-2017 MyFlightbook LLC. All rights reserved.
+//  Copyright 2011-2018 MyFlightbook LLC. All rights reserved.
 //
 
 #import "GPSSim.h"
@@ -45,7 +45,7 @@
 {
     if (self = [super init])
     {
-        self.mfbloc = mfbApp().mfbloc;
+        self.mfbloc = [MFBAppDelegate threadSafeAppDelegate].mfbloc;
         self.leDelegate = nil;
         self.noDelayOnBackground = NO;
     }
@@ -78,9 +78,10 @@
             return;
         
         // Push the current MFBLocation "onto the stack" as it were - replace the global one for the duration.
-        MFBLocation * globalLoc = mfbApp().mfbloc;
+        MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
+        MFBLocation * globalLoc = app.mfbloc;
         if (self.mfbloc != nil)
-            mfbApp().mfbloc = self.mfbloc;
+            app.mfbloc = self.mfbloc;
         
         // make sure we don't get spurious location updates from the real GPS
         [self.mfbloc.locManager stopUpdatingLocation];
@@ -137,7 +138,7 @@
 
         // restore the global Location manager.
         self.mfbloc = nil;
-        mfbApp().mfbloc = globalLoc;    // restore the prior loc manager (which could be what we've been using!)
+        MFBAppDelegate.threadSafeAppDelegate.mfbloc = globalLoc;    // restore the prior loc manager (which could be what we've been using!)
         [globalLoc.locManager startUpdatingLocation]; // and resume updates
     }
 }
@@ -172,6 +173,7 @@
 + (LogbookEntry *) ImportTelemetry:(NSURL *) url
 {
     LogbookEntry * le = [LogbookEntry new];
+    le.entryData = [MFBWebServiceSvc_LogbookEntry getNewLogbookEntry];
     le.entryData.FlightID = PENDING_FLIGHT_ID;
     Telemetry * t = [Telemetry telemetryWithURL:url];
     GPSSim * sim = [[GPSSim alloc] initWithLoc:[MFBLocation new] delegate:le.entryData];

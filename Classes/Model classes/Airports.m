@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 12/25/09.
-//  Copyright 2009-2017, MyFlightbook LLC. All rights reserved.
+//  Copyright 2009-2018, MyFlightbook LLC. All rights reserved.
 //
 
 #import "Airports.h"
@@ -88,7 +88,7 @@ static NSRegularExpression * _reAirports = nil;
 		self.rgAirports = [[NSMutableArray alloc] init];
 	[self.rgAirports removeAllObjects];
 		
-	MFBAppDelegate * app = mfbApp();
+    MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
 	
     LocalAirports * la = [[LocalAirports alloc] initWithLocation:loc withDB:app.db withLimit:max];
     if (la.rgAirports != nil)
@@ -126,7 +126,7 @@ static NSRegularExpression * _reAirports = nil;
 {
 	Airports * ap = [[Airports alloc] init];
 	
-	MFBAppDelegate * app = mfbApp();
+	MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
 	
 	if (app.mfbloc.lastSeenLoc == nil)
 	{
@@ -156,7 +156,7 @@ static NSRegularExpression * _reAirports = nil;
 		self.rgAirports = [[NSMutableArray alloc] init];
 	[self.rgAirports removeAllObjects];
 
-	MFBAppDelegate * app = mfbApp();
+	MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
 	
     LocalAirports * la = [[LocalAirports alloc] initWithAirportList:szRoute withDB:app.db fromLoc:app.mfbloc.lastSeenLoc.coordinate];
     if (la.rgAirports == nil)
@@ -361,7 +361,7 @@ static NSRegularExpression * _reAirports = nil;
 
 - (NSString *) subtitle
 { 
-	MFBAppDelegate * app = (MFBAppDelegate *) [[UIApplication sharedApplication] delegate];
+	MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
 	double dist = [self.DistanceFromPosition doubleValue];
 	
 	if (dist == 0.0 && app.mfbloc.lastSeenLoc != nil)
@@ -383,11 +383,12 @@ static NSRegularExpression * _reAirports = nil;
     MFBWebServiceSvc_LatLong * ll = [MFBWebServiceSvc_LatLong fromString:szLatLon];
     if (ll == nil)
         return nil;
+    MFBLocation * loc = MFBAppDelegate.threadSafeAppDelegate.mfbloc;
     ap.LatLong = ll;
     ap.Latitude = ll.Latitude.stringValue;
     ap.Longitude = ll.Longitude.stringValue;
     ap.FacilityType = ap.FacilityTypeCode = @"FX";
-    ap.DistanceFromPosition = @(NM_IN_A_METER * (mfbApp().mfbloc.lastSeenLoc == nil ? 0 : [mfbApp().mfbloc.lastSeenLoc distanceFromLocation:[[CLLocation alloc] initWithLatitude:ll.Latitude.doubleValue longitude:ll.Longitude.doubleValue]]));
+    ap.DistanceFromPosition = @(NM_IN_A_METER * (loc.lastSeenLoc == nil ? 0 : [loc.lastSeenLoc distanceFromLocation:[[CLLocation alloc] initWithLatitude:ll.Latitude.doubleValue longitude:ll.Longitude.doubleValue]]));
     ap.Name = [ll description];
     ap.Code = szLatLon;
     ap.UserName = @"";
