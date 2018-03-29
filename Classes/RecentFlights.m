@@ -620,7 +620,9 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectPendingFlights, sectExi
 - (void) importFlightWorker:(UIAlertView *) av
 {
     LogbookEntry * le = [GPSSim ImportTelemetry:self.urlTelemetry];
-    [av dismissWithClickedButtonIndex:0 animated:NO];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [av dismissWithClickedButtonIndex:0 animated:NO];
+    });
     [self performSelectorOnMainThread:@selector(importFlightFinished:) withObject:le waitUntilDone:NO];
 }
 
