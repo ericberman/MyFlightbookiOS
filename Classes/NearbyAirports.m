@@ -311,11 +311,6 @@ CGFloat defaultSearchHeight;
     return UIInterfaceOrientationMaskAll;
 }
 
-- (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-	[self resizeForFrame];
-}
-
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
