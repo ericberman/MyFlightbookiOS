@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2009-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,6 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 12/22/09.
-//  Copyright 2009-2017 MyFlightbook LLC. All rights reserved.
 //
 
 #import "Totals.h"
@@ -95,15 +94,6 @@
 	// Release any cached data, images, etc that aren't in use.
 	self.rgTotals = nil;
 	[mfbApp() invalidateCachedTotals];
-}
-
-- (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
-	self.rgTotals = nil;
-	self.errorString = nil;
-    self.fq = nil;
-    [super viewDidUnload];
 }
 
 #pragma mark DateRangeDelegate

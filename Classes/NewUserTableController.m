@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2013-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -71,14 +71,6 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
     self.vwAccessory = [AccessoryBar getAccessoryBar:self];
     self.nuo = [[NewUserObject alloc] init];
 	self.navigationItem.title = NSLocalizedString(@"Create Account", @"Title for create account screen");
-}
-
-- (void) viewDidUnload
-{
-    self.vwAccessory = nil;
-    self.vwWait = nil;
-    self.nuo = nil;
-    [super viewDidUnload];
 }
 
 - (void) viewWillAppear:(BOOL)animated

@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -68,14 +68,6 @@ EditCell * cellToActivateAfterReload = nil;
     self.cellSegmentEnd =  [self getEditCell:NSLocalizedString(@"tcAddTimeEndPrompt", @"Total Time Calculator - Segment End")];
     self.errorString = @"";
     [self clearTime];
-}
-
-- (void) viewDidUnload {
-    [super viewDidUnload];
-    self.vwAccessory = nil;
-    self.values = nil;
-    self.errorString = nil;
-    self.cellSegmentStart = self.cellSegmentEnd = nil;
 }
 
 - (EditCell *) getEditCell:(NSString *) label {

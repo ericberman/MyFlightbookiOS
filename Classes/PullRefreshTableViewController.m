@@ -113,11 +113,11 @@
         [UIView animateWithDuration:0.3 animations:^{
             if (scrollView.contentOffset.y < -REFRESH_HEADER_HEIGHT) {
                 // User is scrolling above the header
-                refreshLabel.text = self.textRelease;
-                [refreshArrow layer].transform = CATransform3DMakeRotation(M_PI, 0, 0, 1);
+                self.refreshLabel.text = self.textRelease;
+                [self.refreshArrow layer].transform = CATransform3DMakeRotation(M_PI, 0, 0, 1);
             } else { // User is scrolling somewhere within the header
-                refreshLabel.text = self.textPull;
-                [refreshArrow layer].transform = CATransform3DMakeRotation(M_PI * 2, 0, 0, 1);
+                self.refreshLabel.text = self.textPull;
+                [self.refreshArrow layer].transform = CATransform3DMakeRotation(M_PI * 2, 0, 0, 1);
             }
         }];
     }
@@ -138,9 +138,9 @@
     // Show the header
     [UIView animateWithDuration:0.3 animations:^{
         self.tableView.contentInset = UIEdgeInsetsMake(REFRESH_HEADER_HEIGHT, 0, 0, 0);
-        refreshLabel.text = self.textLoading;
-        refreshArrow.hidden = YES;
-        [refreshSpinner startAnimating];
+        self.refreshLabel.text = self.textLoading;
+        self.refreshArrow.hidden = YES;
+        [self.refreshSpinner startAnimating];
     }];
 
     // Refresh action!
@@ -156,7 +156,7 @@
         UIEdgeInsets tableContentInset = self.tableView.contentInset;
         tableContentInset.top = 0.0;
         self.tableView.contentInset = tableContentInset;
-        [refreshArrow layer].transform = CATransform3DMakeRotation(M_PI * 2, 0, 0, 1);
+        [self.refreshArrow layer].transform = CATransform3DMakeRotation(M_PI * 2, 0, 0, 1);
         }
          completion:^(BOOL finished) {
              [self stopLoadingComplete:nil finished:nil context:nil];

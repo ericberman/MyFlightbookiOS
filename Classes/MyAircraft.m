@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2010-2017 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,6 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 2/21/10.
-//  Copyright 2010-2017 MyFlightbook LLC. All rights reserved.
 //
 
 #import "MyAircraft.h"
@@ -131,12 +130,6 @@ enum aircraftSections {sectFavorites = 0, sectArchived};
 	// Release any cached data, images, etc that aren't in use.
     [self.dictImagesForAircraft removeAllObjects];
 }
-
-- (void)viewDidUnload {
-    self.dictImagesForAircraft = nil;
-    [super viewDidUnload];
-}
-
 
 #pragma mark Table view methods
 - (BOOL) hasFavoriteAircraft

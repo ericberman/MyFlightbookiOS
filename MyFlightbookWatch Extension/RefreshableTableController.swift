@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2015-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -101,7 +101,7 @@ class RefreshableTableController : WKInterfaceController {
                 self.lblError.setHidden(true)
                 let requestData = refreshRequest()
                 session.sendMessage(requestData, replyHandler: { (dictResult:[String : Any]) -> Void in
-                    self.bindRefreshResult(dictResult as NSDictionary!)
+                    self.bindRefreshResult(dictResult as NSDictionary?)
                     },
                 errorHandler: {  (error ) -> Void in
                     print("We got an error from our watch device : " + error.localizedDescription)

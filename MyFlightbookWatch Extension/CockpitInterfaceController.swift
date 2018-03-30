@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2015-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -123,7 +123,7 @@ class CockpitInterfaceController: WKInterfaceController, WCSessionDelegate, Sess
     
     func updateElapsedDisplay(_ seconds : Double) {
         let elapsedSeconds = Int(seconds)
-        lblTimer.setText(NSString(format: "%02d:%02d:%02d", elapsedSeconds / 3600, (elapsedSeconds % 3600) / 60, elapsedSeconds % 60) as String!)
+        lblTimer.setText(NSString(format: "%02d:%02d:%02d", elapsedSeconds / 3600, (elapsedSeconds % 3600) / 60, elapsedSeconds % 60) as String?)
     }
     
     @objc func updateMainMenus(_ watchData : SharedWatch)

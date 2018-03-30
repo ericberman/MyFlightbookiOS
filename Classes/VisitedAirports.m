@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2011-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,6 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 8/2/11.
-//  Copyright 2011-2017 MyFlightbook LLC. All rights reserved.
 //
 
 #import "Airports.h"
@@ -88,18 +87,6 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-    self.errorString = nil;
-    self.rgVA = self.rgVAFiltered = nil;
-    self.content = nil;
-    self.indices = nil;
-    self.vaDetails = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated

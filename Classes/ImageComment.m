@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2010-2017 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,6 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 2/5/10.
-//  Copyright 2010-2017 MyFlightbook LLC. All rights reserved.
 //
 
 #import "ImageComment.h"
@@ -65,15 +64,6 @@
     [super didReceiveMemoryWarning];
 	
 	// Release any cached data, images, etc that aren't in use.
-}
-
-- (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
-	self.ci = nil;
-	self.txtComment = nil;
-    self.vwWebImage = nil;
-    [super viewDidUnload];
 }
 
 - (void) viewWillAppear:(BOOL)animated

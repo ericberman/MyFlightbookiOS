@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2018 MyFlightbook, LLC
+ Copyright (C) 2010-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,6 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 1/14/10.
-//  Copyright 2010-2018 MyFlightbook LLC. All rights reserved.
 //
 
 #import "RecentFlights.h"
@@ -198,20 +197,6 @@ BOOL fCouldBeMoreFlights;
 	self.rgFlights = nil;
     [self.dictImages removeAllObjects];
 	[((MFBAppDelegate *) [[UIApplication sharedApplication] delegate]) invalidateCachedTotals];
-}
-
-- (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
-    self.cellProgress = nil;
-    self.rgFlights = nil;
-    self.dictImages = nil;
-    self.errorString = nil;
-    self.fq = nil;
-    self.ipSelectedCell = nil;
-    self.JSONObjToImport = nil;
-    self.urlTelemetry = nil;
-    [super viewDidUnload];
 }
 
 #pragma View a flight

@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2013-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -66,14 +66,6 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
     self.szUser = app.userProfile.UserName;
     self.szPass = app.userProfile.Password;
     self.defSectionFooterHeight = self.defSectionHeaderHeight = 5.0;
-}
-
-- (void) viewDidUnload
-{
-    self.vwAccessory = nil;
-    self.szUser = self.szPass = nil;
-    self.vwWait = nil;
-    [super viewDidUnload];
 }
 
 - (void) viewWillAppear:(BOOL)animated

@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2018 MyFlightbook, LLC
+ Copyright (C) 2010-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,6 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 2/7/10.
-//  Copyright 2010-2018 MyFlightbook LLC. All rights reserved.
 //
 
 #import "AutodetectOptions.h"
@@ -67,17 +66,6 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
     [super didReceiveMemoryWarning];
 	
 	// Release any cached data, images, etc that aren't in use.
-}
-
-- (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
-	self.idswAutoDetect = self.idswRecordFlight = self.idswRecordHighRes = self.idswUseHHMM = self.idswUseLocal = self.idswUseHeliports = self.idswRoundNearestTenth = nil;
-	self.idswSegmentedHobbs = self.idswSegmentedTotal = self.idswTakeoffSpeed = self.idswMapOptions = nil;
-    self.cellLocalTime = self.cellHHMM = self.cellAutoTotal = self.cellAutoOptions = self.cellTOSpeed = self.cellAutoHobbs = self.cellHeliports = self.cellWarnings = self.cellImages = nil;
-    self.cellTOSpeed = self.cellMapOptions = nil;
-    self.txtWarnings = nil;
-    [super viewDidUnload];
 }
 
 - (void) viewWillAppear:(BOOL)animated

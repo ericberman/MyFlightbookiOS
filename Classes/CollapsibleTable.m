@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2013-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -90,13 +90,6 @@ BOOL fSelectFirst = NO;
     // Fix an iOS 11 issue with going under the UITabBar?
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
         self.edgesForExtendedLayout = UIRectEdgeNone;
-}
-- (void) viewDidUnload
-{
-    self.expandedSections = nil;
-    self.popoverController = nil;
-    self.ipActive = nil;
-    [super viewDidUnload];
 }
 
 #pragma mark - Misc ViewController

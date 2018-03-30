@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2018 MyFlightbook, LLC
+ Copyright (C) 2009-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,6 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 11/28/09.
-//  Copyright-2017 MyFlightbook LLC 2009. All rights reserved.
 //
 
 #import "LEEditController.h"
@@ -472,57 +471,12 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 			[ci flushCachedImage];
 }
 
-- (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
-	[self saveState];
-    [self.timerElapsed invalidate];
-    self.timerElapsed = nil;
-	
-	// Release our IBOutlet properties
-	self.idApproaches = self.idCFI = self.idComments = self.idDate = self.idDayLandings = self.idDual = self.idIMC = self.idLandings = self.idNight = nil;
-	self.idNightLandings = self.idPIC = self.idPopAircraft = self.idRoute = self.idSIC = self.idSimIMC = self.idGrndSim = self.idTotalTime = self.idXC = nil;
-    self.idHold = nil;
-	
-	// and cockpit view properties.
-	self.idimgRecording = nil;
-	self.idLblSpeed = self.idLblAltitude = self.idLblStatus = self.idLblQuality = self.lblLon = self.lblLat = self.lblSunrise = self.lblSunset = nil;
-	
-	self.delegate = nil;
-	
-	self.idPublic = nil;
-	self.idTweet = nil;
-	self.idFacebook = nil;
-	self.datePicker = nil;
-    self.pickerView = nil;
-    
-    self.popoverControl = nil;
-    
-    self.idbtnPausePlay = nil;
-    self.idbtnAppendNearest = nil;
-    self.idlblElapsedTime = nil;
-    self.le = nil;
-    self.vwAccessory = nil;
-    self.cellComments = nil;
-    self.cellDateAndTail = nil;
-    self.cellGPS = nil;
-    self.cellLandings = nil;
-    self.cellRoute = nil;
-    self.cellSharing = nil;
-    self.cellTimeBlock = nil;
-    self.activeTextField = nil;
-    self.flightProps = nil;
-    self.dictPropCells = nil;
-    self.idSharingPrompt = nil;
-    self.digitizedSig = nil;
-    [super viewDidUnload];
-}
-
 - (void) viewWillDisappear:(BOOL)animated
 {
 	[self initLEFromForm];
     self.navigationController.toolbarHidden = YES;
     [self.dictPropCells removeAllObjects];
+    [self saveState];
 	[super viewWillDisappear:animated];
 }
 

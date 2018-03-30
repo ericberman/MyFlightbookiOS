@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2018 MyFlightbook, LLC
+ Copyright (C) 2012-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,6 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 5/24/12.
-//  Copyright (c) 2012-2018 MyFlightbook LLC. All rights reserved.
 //
 
 #import "FlightQueryForm.h"
@@ -340,18 +339,6 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
     
     if (FlightQueryForm.rgCannedQueries == nil)
         [self refreshCannedQueries];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-    self.delegate = nil;
-    self.fq = nil;
-    self.ecText = nil;
-    self.ecAirports = nil;
-    self.rgUsedProps = nil;
 }
 
 - (void) viewWillDisappear:(BOOL)animated

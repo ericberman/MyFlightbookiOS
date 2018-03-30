@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2010-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,6 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 7/8/10.
-//  Copyright 2010-2017 MyFlightbook LLC. All rights reserved.
 //
 
 #import "FlightProperties.h"
@@ -286,25 +285,6 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
     
     // Relinquish ownership any cached data, images, etc that aren't in use.
 }
-
-- (void)viewDidUnload {
-    // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
-    // For example: self.myOutlet = nil;
-	self.le = nil;
-	self.flightProps = nil;
-    self.content = nil;
-    self.indices = nil;
-    self.rgFilteredProps = nil;
-    self.rgAllProps = nil;
-    self.vwAccessory = nil;
-    self.datePicker = nil;
-    self.searchBar = nil;
-    self.dictPropCells = nil;
-    self.activeTextField = nil;
-
-    [super viewDidUnload];
-}
-
 
 #pragma mark - UISearchBarDelegate
 - (void) refreshFilteredProps:(NSString *) szFilter

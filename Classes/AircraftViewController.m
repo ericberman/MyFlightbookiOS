@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2013-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -134,22 +134,6 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
                                                action:[self.ac isNew] ? @selector(addAircraft) : @selector(UpdateAircraft)];
     
     self.navigationItem.rightBarButtonItem = bbSubmit;
-}
-
-- (void) viewDidUnload
-{
-    // Public properties
-    self.datePicker = nil;
-    self.picker = nil;
-    self.delegate = nil;
-
-    // Remaining properties
-    self.idVwWait = nil;
-    self.rgImages = nil;
-    self.ac = nil;
-    self.vwAccessory = nil;
-    self.szTailnumberLast = nil;
-    [super viewDidUnload];
 }
 
 - (void) viewWillAppear:(BOOL)animated

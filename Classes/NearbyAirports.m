@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2009-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,6 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 12/25/09.
-//  Copyright 2009-2017 MyFlightbook LLC. All rights reserved.
 //
 
 #import "NearbyAirports.h"
@@ -322,32 +321,6 @@ CGFloat defaultSearchHeight;
     [super didReceiveMemoryWarning];
 	
 	// Release any cached data, images, etc that aren't in use.
-}
-
-- (void)viewDidUnload {
-    NSLog(@"Nearby Airports did unload");
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
-    [self.mapView removeAnnotations:self.mapView.annotations];
-    [self.mapView removeOverlays:self.mapView.overlays];
-    self.mapView.delegate = nil; // in case there is a pending operation, this prevents the map view notifying of finish.
-	self.mapView = nil;
-	self.segMapSelector = nil;
-	self.searchBar = nil;
-    self.toolbar = nil;
-    
-	self.nearbyAirports = nil;
-	self.pathAirports = nil;
-	self.routeText = nil;
-	self.rgFlightPath = nil;
-    self.rgImages = nil;
-    self.delegateNearest = nil;
-    self.docController = nil;
-    self.associatedFlight = nil;
-    self.bbAction = nil;
-    self.constraintSearchHeight = nil;
-
-    [super viewDidUnload];
 }
 
 #pragma mark GPX
