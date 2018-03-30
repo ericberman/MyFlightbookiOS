@@ -222,18 +222,18 @@
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
-			<string>Night flight starts:</string>
+			<string>NightFlightStarts</string>
 			<key>Key</key>
 			<string>keyNightFlightPref</string>
 			<key>DefaultValue</key>
 			<integer>0</integer>
 			<key>Titles</key>
 			<array>
-				<string>End of civil twilight</string>
-				<string>Sunset</string>
-				<string>15 minutes after sunset</string>
-				<string>30 minutes after sunset</string>
-				<string>60 minutes after sunset</string>
+				<string>NFCivilTwighlight</string>
+				<string>NFSunset</string>
+				<string>NFSunsetPlus15</string>
+				<string>NFSunsetPlus30</string>
+				<string>NFSunsetPlus60</string>
 			</array>
 			<key>Values</key>
 			<array>
@@ -248,15 +248,15 @@
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
-			<string>Night landings occur:</string>
+			<string>NightLandingsStart</string>
 			<key>Key</key>
 			<string>keyNightLandingPref</string>
 			<key>DefaultValue</key>
 			<integer>0</integer>
 			<key>Titles</key>
 			<array>
-				<string>1 hour after sunset</string>
-				<string>During night flight</string>
+				<string>NFLSunsetPlus1Hour</string>
+				<string>NFLNight</string>
 			</array>
 			<key>Values</key>
 			<array>
