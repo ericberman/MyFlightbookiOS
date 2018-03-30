@@ -989,7 +989,7 @@ Vous pouvez choisir un dans la liste fournie, le modifier, ou faire un de vos pr
 "NFLSunsetPlus1Hour" = "1 heure après le coucher du soleil";
 
 /* Night Section */
-"NightOptions" = "Nuit";
+"NightOptions" = "Voler la nuit";
 
 /* Aircraft Preferences Header */
 "AircraftPrefsHeader" = "Remplir automatiquement de nouveaux vols dans cet avion";

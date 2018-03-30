@@ -25,20 +25,9 @@
 //
 
 #import "AutodetectOptions.h"
+#import "OptionKeys.h"
 #import "TextCell.h"
-
-#define szPrefAutoHobbs @"prefKeyAutoHobbs"
-#define szPrefAutoTotal @"prefKeyAutoTotal"
-#define szPrefKeyHHMM @"keyUseHHMM"
-#define szPrefKeyRoundNearestTenth  @"keyRoundNearestTenth"
-#define keyPrefSuppressUTC @"keySuppressUTC"
-#define _szKeyPrefTakeOffSpeed @"keyPrefTakeOffSpeed"
-#define keyIncludeHeliports @"keyIncludeHeliports"
-#define keyMapMode @"keyMappingMode"
-#define keyShowImages @"keyShowImages"
-#define keyShowFlightTimes @"keyShowFlightTimes"
-#define keyNightFlightPref @"keyNightFlightPref"
-#define keyNightLandingPref @"keyNightLandingPref"
+#import "NightFlight.h"
 
 @implementation AutodetectOptions
 
@@ -46,8 +35,8 @@
 @synthesize cellAutoHobbs, cellAutoOptions, cellAutoTotal, cellHHMM, cellLocalTime, cellHeliports, cellWarnings, cellTOSpeed, cellMapOptions, cellImages;
 @synthesize txtWarnings;
 
-enum prefSections {sectAutoFill, sectTimes, sectGPSWarnings, sectAutoOptions, sectNightOptions, sectNightLandingOptions, sectAirports, sectMaps, sectImages, sectOnlineSettings, sectLast};
-enum prefRows {rowWarnings, rowAutoDetect, rowTOSpeed, rowAutoHobbs, rowAutoTotal, rowLocal, rowHHMM, rowHeliports, rowMaps, rowShowFlightImages, rowOnlineSettings, rowNightFlightOptions, rowNightLandingOptions};
+enum prefSections {sectAutoFill, sectTimes, sectGPSWarnings, sectAutoOptions, sectAirports, sectMaps, sectImages, sectOnlineSettings, sectLast};
+enum prefRows {rowWarnings, rowAutoDetect, rowTOSpeed, rowNightFlightOptions, rowAutoHobbs, rowAutoTotal, rowLocal, rowHHMM, rowHeliports, rowMaps, rowShowFlightImages, rowOnlineSettings};
 
 static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
 
@@ -119,10 +108,6 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
             return rowOnlineSettings;
         case sectImages:
             return rowShowFlightImages;
-        case sectNightOptions:
-            return rowNightFlightOptions;
-        case sectNightLandingOptions:
-            return rowNightLandingOptions;
         default:
             return 0;
     }
@@ -134,7 +119,7 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
         case sectGPSWarnings:
             return 1;
         case sectAutoOptions:
-            return 2;
+            return 3;
         case sectAutoFill:
             return 2;
         case sectTimes:
@@ -147,10 +132,6 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
             return 1;
         case sectImages:
             return 1;
-        case sectNightOptions:
-            return nfoLast;
-        case sectNightLandingOptions:
-            return nflLast;
         default:
             return 0;
     }
@@ -177,10 +158,6 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
             return NSLocalizedString(@"OnlineSettingsExplanation", @"Explanation about additional functionality on MyFlightbook");
         case sectImages:
             return NSLocalizedString(@"ImageOptions", @"Image Options");
-        case sectNightOptions:
-            return NSLocalizedString(@"NightFlightStarts", @"Night flight options");
-        case sectNightLandingOptions:
-            return NSLocalizedString(@"NightLandingsStart", @"Night Landing options");
         case sectAutoOptions:
         case sectGPSWarnings:
         default:
@@ -253,31 +230,13 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
         case rowShowFlightImages:
             return self.cellImages;
         case rowOnlineSettings:
-        {
+        case rowNightFlightOptions: {
             static NSString *CellIdentifier = @"CellNormal";
             UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             if (cell == nil)
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-            cell.textLabel.text = NSLocalizedString(@"AdditionalOptions", @"Link to additional preferences");
+            cell.textLabel.text = (row == rowOnlineSettings) ? NSLocalizedString(@"AdditionalOptions", @"Link to additional preferences") : NSLocalizedString(@"NightOptions", @"Night Section");
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            return cell;
-        }
-        case rowNightLandingOptions: {
-            static NSString *CellIdentifier = @"CellCheckmark";
-            UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-            if (cell == nil)
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-            cell.textLabel.text = [MFBLocation nightLandingOptionName:indexPath.row];
-            cell.accessoryType = [AutodetectOptions nightLandingPref] == indexPath.row ? UITableViewCellAccessoryCheckmark :UITableViewCellAccessoryNone;
-            return cell;
-        }
-        case rowNightFlightOptions:{
-            static NSString *CellIdentifier = @"CellCheckmark";
-            UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-            if (cell == nil)
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-            cell.textLabel.text = [MFBLocation nightFlightOptionName:indexPath.row];
-            cell.accessoryType = [AutodetectOptions nightFlightPref] == indexPath.row ? UITableViewCellAccessoryCheckmark :UITableViewCellAccessoryNone;
             return cell;
         }
     }
@@ -289,13 +248,8 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
     NSInteger row = [self cellIDFromIndexPath:indexPath];
     switch (row)
     {
-        case rowNightLandingOptions:
-            [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:keyNightLandingPref];
-            [self.tableView reloadData];
-            break;
         case rowNightFlightOptions:
-            [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:keyNightFlightPref];
-            [self.tableView reloadData];
+            [self.navigationController pushViewController:[[NightFlight alloc] init] animated:YES];
             break;
         case rowOnlineSettings:
         {
