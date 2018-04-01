@@ -452,8 +452,6 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     
     self.dictPropCells = [[NSMutableDictionary alloc] init];
     
-    self.idSharingPrompt.text = NSLocalizedString(@"SharingPrompt", @"Sharing prompt");
-    
     if (self.le.entryData.isSigned && self.le.entryData.HasDigitizedSig)
         [NSThread detachNewThreadSelector:@selector(asyncLoadDigitizedSig) toTarget:self withObject:nil];
     
@@ -480,11 +478,32 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 	[super viewWillDisappear:animated];
 }
 
+- (void) fixSharingPrompt {
+    NSString * sharingPrompt = NSLocalizedString(@"SharingPrompt", @"Sharing prompt");
+    NSRange r = [sharingPrompt rangeOfString:@"https:"];
+    MFBProfile * pf = MFBAppDelegate.threadSafeAppDelegate.userProfile;
+    if (pf.UserName.length > 0 && r.length > 0) {
+        NSString * szFixed = [sharingPrompt stringByReplacingOccurrencesOfString:@"https://" withString:@""];
+        r = [szFixed rangeOfString:@"MyFlightbook.com"];
+        NSMutableAttributedString * attr = [[NSMutableAttributedString alloc] initWithString:szFixed];
+        
+        NSString * szURL = [NSString stringWithFormat:@"https://%@/logbook/public/authredir.aspx?u=%@&p=%@&d=profile&pane=social",
+                            MFBHOSTNAME, [pf.UserName stringByURLEncodingString], [pf.Password stringByURLEncodingString]];
+        
+        [attr addAttribute:NSLinkAttributeName value:szURL range:r];
+        self.idSharingPrompt.attributedText = attr;
+    }
+    else
+        self.idSharingPrompt.text = sharingPrompt;
+}
+
 - (void) viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
     
     MFBAppDelegate * app = mfbApp();
+    
+    [self fixSharingPrompt];    // do this here rather than in viewDidLoad because viewDidLoad can be called before profile is set up.
     
     // pick up any changes in the HHMM setting
     self.idXC.IsHHMM = self.idSIC.IsHHMM = self.idSimIMC.IsHHMM = self.idCFI.IsHHMM = self.idDual.IsHHMM =

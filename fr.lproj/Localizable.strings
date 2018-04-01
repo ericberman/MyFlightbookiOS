@@ -808,10 +808,10 @@ Vous pouvez choisir un dans la liste fournie, le modifier, ou faire un de vos pr
 "Update Aircraft" = "Mise à jour de avion";
 
 /* Prompt to create a new model on MyFlightbook.com */
-"Add Model Prompt" = "Votre avion n'est pas visible dans la liste? Vous pouvez l'ajouter sur http://myflightbook.com.";
+"Add Model Prompt" = "Votre avion n'est pas visible dans la liste? Vous pouvez l'ajouter sur https://MyFlightbook.com.";
 
 /* Prompt to edit model on MyFlightbook.com */
-"WrongModelPrompt" = "Vous pouvez modifier le modèle de cet avion à http://myflightbook.com.";
+"WrongModelPrompt" = "Vous pouvez modifier le modèle de cet avion à https://MyFlightbook.com.";
 
 /* View aircraft schedule */
 "ACSchedule" = "Programme";
@@ -1031,7 +1031,7 @@ Vous pouvez choisir un dans la liste fournie, le modifier, ou faire un de vos pr
 "AutodetectWarning" = "MyFlightbook essaiera de détecter automatiquement les décollages et atterrissages et peut enregister les données du vol pour affichage ultérieur. Ces données ne sont pas aussi fiables que celles obtenues à partir d'un GPS-Avion.\n\nL'utilisation de cette fonctionnalité GPS en arrière-plan peut réduire considérablement la vie de la batterie.\n\nL’UTILISATION EN VOL PEUT ETRE ILLEGAL ET PROVOQUER UNE DISTRACTION. VOUS ETES RESPONSABLE DES CONSEQUENCES DE SON UTILISATION! VERIFIER 14 CFR 91.21 ET CFR 22.295 EN PARTICULIER , OU TOUTE REGLEMENTATION APPLICABLE A LA SITUATION.";
 
 /* Sharing prompt */
-"SharingPrompt" = "Activer Facebook et Twitter à http://myflightbook.com";
+"SharingPrompt" = "Activer Facebook et Twitter à https://MyFlightbook.com";
 
 /* Watch Glance - last flight */
 "LastFlight" = "Votre dernier vol était il ya %d jour(s)";
