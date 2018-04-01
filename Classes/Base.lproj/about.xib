@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="Helvetica.ttc">
-            <string>Helvetica</string>
-        </array>
-    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="about">
             <connections>
@@ -36,7 +31,7 @@
                     <dataDetectorType key="dataDetectorTypes" link="YES"/>
                 </textView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" textAlignment="center" lineBreakMode="wordWrap" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="11">
-                    <rect key="frame" x="20" y="72" width="280" height="46"/>
+                    <rect key="frame" x="28" y="72" width="264.5" height="46"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="46" id="I8c-Y5-GFJ"/>
                     </constraints>
@@ -80,7 +75,7 @@ All Rights Reserved</string>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="11" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="BEH-sA-ShN"/>
+                <constraint firstItem="11" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1" secondAttribute="leading" id="BEH-sA-ShN"/>
                 <constraint firstItem="11" firstAttribute="top" secondItem="5" secondAttribute="bottom" constant="5" id="Gtz-YO-5r0"/>
                 <constraint firstItem="14" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="46" id="S8j-5A-D82"/>
                 <constraint firstAttribute="bottom" secondItem="14" secondAttribute="bottom" constant="12" id="VqG-vr-7MB"/>
@@ -93,7 +88,7 @@ All Rights Reserved</string>
                 <constraint firstItem="11" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="t1j-Ln-9nE"/>
                 <constraint firstItem="5" firstAttribute="top" secondItem="1" secondAttribute="top" constant="23" id="tJ0-eA-qHi"/>
                 <constraint firstItem="10" firstAttribute="top" secondItem="11" secondAttribute="bottom" constant="5" id="uFh-Zl-9lo"/>
-                <constraint firstAttribute="trailing" secondItem="11" secondAttribute="trailing" constant="20" id="zcH-wH-pkL"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="11" secondAttribute="trailing" id="zcH-wH-pkL"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="520" y="358"/>
