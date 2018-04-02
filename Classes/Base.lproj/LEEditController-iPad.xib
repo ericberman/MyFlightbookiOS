@@ -251,7 +251,10 @@
                                         <rect key="frame" x="614" y="4" width="100" height="36"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(Sunrise)" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="614">
-                                                <rect key="frame" x="24" y="6" width="44" height="12"/>
+                                                <rect key="frame" x="24" y="6" width="76" height="12"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="76" id="Pxl-aF-iuC"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
@@ -263,7 +266,10 @@
                                                 <rect key="frame" x="0.0" y="19" width="20" height="20"/>
                                             </imageView>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(Sunset)" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="615">
-                                                <rect key="frame" x="24" y="18" width="41" height="12"/>
+                                                <rect key="frame" x="24" y="18" width="76" height="12"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="76" id="19F-iy-PoT"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
@@ -279,6 +285,8 @@
                                             <constraint firstAttribute="height" constant="36" id="fdK-xK-dh9"/>
                                             <constraint firstItem="615" firstAttribute="leading" secondItem="614" secondAttribute="leading" id="g2Z-K6-o6L"/>
                                             <constraint firstItem="614" firstAttribute="leading" secondItem="617" secondAttribute="trailing" constant="4" id="oVz-dq-TOw"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="614" secondAttribute="trailing" id="pfZ-Vo-inI"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="615" secondAttribute="trailing" id="qmw-Rb-gQA"/>
                                             <constraint firstItem="616" firstAttribute="top" secondItem="U7e-wG-cW9" secondAttribute="centerY" constant="1" id="r61-JI-CAw"/>
                                             <constraint firstItem="614" firstAttribute="centerY" secondItem="U7e-wG-cW9" secondAttribute="centerY" multiplier="2:3" id="zRI-p9-1FC"/>
                                         </constraints>
@@ -1016,6 +1024,7 @@
                     <constraint firstItem="567" firstAttribute="centerY" secondItem="89m-4V-NRP" secondAttribute="centerY" multiplier="4:4" id="AdE-sG-MLx"/>
                     <constraint firstItem="574" firstAttribute="centerY" secondItem="89m-4V-NRP" secondAttribute="centerY" multiplier="4:4" id="DLt-G5-vek"/>
                     <constraint firstItem="571" firstAttribute="leading" secondItem="574" secondAttribute="trailing" constant="4" id="FNI-Cl-jV7"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="567" secondAttribute="trailing" constant="20" symbolic="YES" id="PNh-bC-xcl"/>
                     <constraint firstItem="569" firstAttribute="leading" secondItem="89m-4V-NRP" secondAttribute="leadingMargin" id="QEb-hY-pSI"/>
                     <constraint firstItem="571" firstAttribute="centerY" secondItem="574" secondAttribute="centerY" id="TzW-Ps-uc7"/>
                     <constraint firstItem="568" firstAttribute="centerY" secondItem="569" secondAttribute="centerY" id="VaE-J4-yun"/>
