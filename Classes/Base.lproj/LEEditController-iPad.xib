@@ -701,16 +701,11 @@
                 <rect key="frame" x="0.0" y="0.0" width="768" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="(Date goes here)" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="582" userLabel="txtDate">
-                        <rect key="frame" x="46" y="7" width="122" height="30"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                        <textInputTraits key="textInputTraits"/>
-                        <connections>
-                            <outlet property="delegate" destination="-1" id="710"/>
-                        </connections>
-                    </textField>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="584" userLabel="btnAddAircraft">
-                        <rect key="frame" x="699" y="11" width="22" height="22"/>
+                        <rect key="frame" x="734" y="10" width="22" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="22" id="rjm-ZI-ixl"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                         <state key="normal">
                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -724,28 +719,44 @@
                         </connections>
                     </button>
                     <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="(Aircraft)" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="583" userLabel="txtAircraft">
-                        <rect key="frame" x="603" y="7" width="78" height="30"/>
+                        <rect key="frame" x="607" y="7" width="122" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="122" id="hh5-yI-KNO"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                         <textInputTraits key="textInputTraits"/>
                         <connections>
                             <outlet property="delegate" destination="-1" id="711"/>
                         </connections>
                     </textField>
+                    <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="(Date goes here)" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="582" userLabel="txtDate">
+                        <rect key="frame" x="48" y="7" width="122" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="122" id="ABG-nj-VAM"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                        <textInputTraits key="textInputTraits"/>
+                        <connections>
+                            <outlet property="delegate" destination="-1" id="710"/>
+                        </connections>
+                    </textField>
                 </subviews>
                 <constraints>
                     <constraint firstItem="583" firstAttribute="centerY" secondItem="u6r-IL-F1C" secondAttribute="centerY" id="57e-qA-AaG"/>
+                    <constraint firstItem="583" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="u6r-IL-F1C" secondAttribute="leading" constant="20" symbolic="YES" id="8PZ-oe-NEp"/>
+                    <constraint firstAttribute="trailing" secondItem="584" secondAttribute="trailingMargin" constant="20" id="9kp-JG-AfP"/>
+                    <constraint firstItem="582" firstAttribute="leading" secondItem="u6r-IL-F1C" secondAttribute="leadingMargin" id="RIc-OF-zuE"/>
                     <constraint firstItem="582" firstAttribute="centerY" secondItem="u6r-IL-F1C" secondAttribute="centerY" id="TJ1-Pw-ipi"/>
-                    <constraint firstItem="582" firstAttribute="leading" secondItem="u6r-IL-F1C" secondAttribute="leadingMargin" constant="-2" id="W1a-JP-bbi"/>
-                    <constraint firstItem="584" firstAttribute="leading" secondItem="583" secondAttribute="trailing" constant="18" id="X9N-w8-opT"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="584" secondAttribute="trailing" constant="-1" id="Xao-MZ-q6O"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="582" secondAttribute="trailingMargin" id="bRw-Ht-qTO"/>
                     <constraint firstItem="584" firstAttribute="centerY" secondItem="u6r-IL-F1C" secondAttribute="centerY" id="c9j-j1-upX"/>
+                    <constraint firstItem="583" firstAttribute="trailing" secondItem="584" secondAttribute="leading" constant="-5" id="oAu-8T-RmE"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="firstResponderControl" destination="582" id="633"/>
                 <outlet property="lastResponderControl" destination="583" id="632"/>
             </connections>
-            <point key="canvasLocation" x="462" y="216"/>
+            <point key="canvasLocation" x="462" y="-206"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="cellRoute" id="561" customClass="EditCell">
             <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
@@ -755,10 +766,9 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Route:" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="581">
-                        <rect key="frame" x="46" y="25" width="100" height="15"/>
+                        <rect key="frame" x="48" y="2" width="658" height="15.5"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="D3X-8Y-rDu"/>
                             <constraint firstAttribute="height" constant="15" id="tdp-0C-p6V"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
@@ -766,7 +776,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Route" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="579" userLabel="txtRoute">
-                        <rect key="frame" x="46" y="40" width="580" height="19"/>
+                        <rect key="frame" x="48" y="19.5" width="658" height="19"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no"/>
                         <connections>
@@ -774,7 +784,10 @@
                         </connections>
                     </textField>
                     <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="580" userLabel="btnViewRoute">
-                        <rect key="frame" x="699" y="11" width="22" height="22"/>
+                        <rect key="frame" x="734" y="10" width="22" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="22" id="EGG-KY-LTC"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <state key="normal">
                             <color key="titleColor" red="0.19607843" green="0.30980393000000001" blue="0.52156866000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -788,7 +801,10 @@
                         </connections>
                     </button>
                     <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="578" userLabel="btnNearest">
-                        <rect key="frame" x="649" y="11" width="22" height="22"/>
+                        <rect key="frame" x="706" y="10" width="22" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="22" id="h8E-C0-gOE"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
                         <state key="normal">
                             <color key="titleColor" red="0.19607843" green="0.30980393000000001" blue="0.52156866000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -803,16 +819,17 @@
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="578" firstAttribute="centerY" secondItem="LE9-jI-pmj" secondAttribute="centerY" id="081-OA-lll"/>
-                    <constraint firstItem="579" firstAttribute="leading" secondItem="LE9-jI-pmj" secondAttribute="leadingMargin" constant="-2" id="1gb-FI-Xrc"/>
-                    <constraint firstItem="578" firstAttribute="leading" secondItem="579" secondAttribute="trailing" constant="23" id="45p-yV-KZm"/>
-                    <constraint firstItem="581" firstAttribute="top" secondItem="LE9-jI-pmj" secondAttribute="topMargin" constant="-6" id="6Of-ba-vd2"/>
-                    <constraint firstItem="581" firstAttribute="leading" secondItem="579" secondAttribute="leading" id="AYV-hB-8VU"/>
-                    <constraint firstItem="580" firstAttribute="centerY" secondItem="LE9-jI-pmj" secondAttribute="centerY" id="OWG-TM-TCW"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="580" secondAttribute="trailing" constant="-1" id="Wf6-DX-u9W"/>
-                    <constraint firstItem="579" firstAttribute="leading" secondItem="LE9-jI-pmj" secondAttribute="leadingMargin" constant="-2" id="cgv-mU-cW6"/>
-                    <constraint firstItem="579" firstAttribute="top" secondItem="581" secondAttribute="bottom" id="lFc-Ho-PBM"/>
-                    <constraint firstItem="580" firstAttribute="leading" secondItem="578" secondAttribute="trailing" constant="28" id="su1-8W-aY9"/>
+                    <constraint firstItem="578" firstAttribute="centerY" secondItem="LE9-jI-pmj" secondAttribute="centerY" id="3Sa-92-iTQ"/>
+                    <constraint firstItem="581" firstAttribute="top" secondItem="LE9-jI-pmj" secondAttribute="top" constant="2" id="3yH-4U-pAg"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="579" secondAttribute="trailing" constant="20" symbolic="YES" id="4vw-fn-z6H"/>
+                    <constraint firstItem="580" firstAttribute="leading" secondItem="578" secondAttribute="trailing" constant="6" id="DeI-9y-UMn"/>
+                    <constraint firstItem="580" firstAttribute="centerY" secondItem="LE9-jI-pmj" secondAttribute="centerY" id="Hec-3N-za9"/>
+                    <constraint firstItem="581" firstAttribute="trailing" secondItem="578" secondAttribute="leading" id="JCt-pm-0Rf"/>
+                    <constraint firstItem="579" firstAttribute="top" secondItem="581" secondAttribute="bottom" constant="2" id="Y51-Sp-iZW"/>
+                    <constraint firstAttribute="trailing" secondItem="580" secondAttribute="trailingMargin" constant="20" id="hSA-7k-2eR"/>
+                    <constraint firstItem="579" firstAttribute="leading" secondItem="581" secondAttribute="leading" id="mh2-x6-Luy"/>
+                    <constraint firstItem="581" firstAttribute="leading" secondItem="LE9-jI-pmj" secondAttribute="leadingMargin" id="u5j-iy-NrL"/>
+                    <constraint firstItem="579" firstAttribute="width" secondItem="581" secondAttribute="width" id="ytD-L3-nii"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -821,7 +838,7 @@
                 <outlet property="lbl" destination="581" id="688"/>
                 <outlet property="txt" destination="579" id="689"/>
             </connections>
-            <point key="canvasLocation" x="462" y="124"/>
+            <point key="canvasLocation" x="462" y="-122"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="cellComments" id="563" customClass="EditCell">
             <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
@@ -831,14 +848,17 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Comments:" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="576">
-                        <rect key="frame" x="46" y="25" width="69.5" height="14.5"/>
+                        <rect key="frame" x="48" y="2" width="686" height="15"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="nY4-PX-6fi"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Comments" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="577" userLabel="txtComments">
-                        <rect key="frame" x="46" y="39.5" width="630" height="19"/>
+                        <rect key="frame" x="48" y="19" width="686" height="19"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes"/>
                         <connections>
@@ -846,7 +866,10 @@
                         </connections>
                     </textField>
                     <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O1X-0d-pEp" userLabel="btnAddApproach">
-                        <rect key="frame" x="694" y="11" width="27" height="22"/>
+                        <rect key="frame" x="734" y="10" width="22" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="22" id="1Bm-KM-kvT"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
                         <state key="normal">
                             <color key="titleColor" red="0.19607843" green="0.30980393000000001" blue="0.52156866000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -861,14 +884,15 @@
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="577" firstAttribute="trailing" secondItem="O1X-0d-pEp" secondAttribute="trailing" constant="-45" id="2u1-Hc-29B"/>
-                    <constraint firstItem="O1X-0d-pEp" firstAttribute="centerY" secondItem="Szo-0z-44I" secondAttribute="centerY" id="C0O-XV-grK"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="O1X-0d-pEp" secondAttribute="trailing" constant="-1" id="Duw-oh-RrI"/>
-                    <constraint firstItem="577" firstAttribute="top" secondItem="576" secondAttribute="bottom" id="MfQ-tZ-jip"/>
-                    <constraint firstItem="577" firstAttribute="leading" secondItem="Szo-0z-44I" secondAttribute="leadingMargin" constant="-2" id="UeX-kP-gvv"/>
-                    <constraint firstItem="576" firstAttribute="leading" secondItem="Szo-0z-44I" secondAttribute="leadingMargin" constant="-2" id="Xjs-Bi-AdW"/>
-                    <constraint firstItem="576" firstAttribute="top" secondItem="Szo-0z-44I" secondAttribute="topMargin" constant="-6" id="Xoh-sg-HE7"/>
-                    <constraint firstItem="O1X-0d-pEp" firstAttribute="leading" secondItem="577" secondAttribute="trailing" constant="18" id="fmA-bK-3Vk"/>
+                    <constraint firstItem="577" firstAttribute="width" secondItem="576" secondAttribute="width" id="FoH-07-kAF"/>
+                    <constraint firstItem="576" firstAttribute="top" secondItem="Szo-0z-44I" secondAttribute="top" constant="2" id="Iwb-Kc-oTj"/>
+                    <constraint firstItem="576" firstAttribute="trailing" secondItem="O1X-0d-pEp" secondAttribute="leading" id="Jej-vh-7Ig"/>
+                    <constraint firstItem="577" firstAttribute="leading" secondItem="576" secondAttribute="leading" id="T3B-Ug-qVM"/>
+                    <constraint firstItem="O1X-0d-pEp" firstAttribute="centerY" secondItem="Szo-0z-44I" secondAttribute="centerY" id="gTs-cm-xpy"/>
+                    <constraint firstAttribute="trailing" secondItem="O1X-0d-pEp" secondAttribute="trailingMargin" constant="20" id="oMX-3i-sHC"/>
+                    <constraint firstItem="576" firstAttribute="leading" secondItem="Szo-0z-44I" secondAttribute="leadingMargin" id="oYf-y1-PXG"/>
+                    <constraint firstItem="577" firstAttribute="top" secondItem="576" secondAttribute="bottom" constant="2" id="vBn-HA-e8c"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="577" secondAttribute="trailing" constant="20" symbolic="YES" id="x9V-Fw-zrI"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -877,7 +901,7 @@
                 <outlet property="lbl" destination="576" id="691"/>
                 <outlet property="txt" destination="577" id="690"/>
             </connections>
-            <point key="canvasLocation" x="462" y="40"/>
+            <point key="canvasLocation" x="462" y="-34"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="cellLandings" rowHeight="88" id="565" customClass="NavigableCell">
             <rect key="frame" x="0.0" y="0.0" width="768" height="88"/>
@@ -1009,7 +1033,7 @@
                 <outlet property="firstResponderControl" destination="568" id="713"/>
                 <outlet property="lastResponderControl" destination="570" id="714"/>
             </connections>
-            <point key="canvasLocation" x="462" y="194"/>
+            <point key="canvasLocation" x="529" y="152"/>
         </tableViewCell>
         <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" id="560" userLabel="datePicker">
             <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
