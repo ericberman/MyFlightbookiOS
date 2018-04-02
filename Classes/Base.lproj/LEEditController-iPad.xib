@@ -93,7 +93,7 @@
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="toggleFlightPause" destination="-1" eventType="touchUpInside" id="683"/>
+                                                    <action selector="toggleFlightPause" destination="-1" eventType="touchDown" id="dIM-zZ-71S"/>
                                                 </connections>
                                             </button>
                                             <imageView hidden="YES" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="Recording.png" translatesAutoresizingMaskIntoConstraints="NO" id="619">
