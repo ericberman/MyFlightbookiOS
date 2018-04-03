@@ -190,7 +190,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 	
 	self.le	= [[LogbookEntry alloc] init];
 	self.le.entryData.Date = [NSDate date];	
-	self.le.entryData.FlightID = @-1;
+	self.le.entryData.FlightID = NEW_FLIGHT_ID;
     // Add in any locked properties - but don't hit the web.
     FlightProps * fp = [FlightProps getFlightPropsNoNet];
     [self.le.entryData.CustomProperties setProperties:[fp defaultPropList]];
@@ -207,7 +207,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 	// ...and start the starting hobbs to be the previous flight's ending hobbs.  If it was nil, we're fine.
 	self.le.entryData.HobbsStart = endingHobbs;
 	[self saveState]; // clean up any old state
-    [mfbApp() updateWatchContext];
+    [MFBAppDelegate.threadSafeAppDelegate updateWatchContext];
 }
 
 - (void) resetFlight
@@ -605,7 +605,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 
 - (void) updatePausePlay
 {
-    MFBAppDelegate * app = mfbApp();
+    MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
 
     [self.idbtnPausePlay setImage:[UIImage imageNamed:self.le.fIsPaused ? @"Play.png" : @"Pause.png"] forState:0];
     BOOL fCouldBeFlying = ([self.le.entryData isKnownEngineStart] || [self.le.entryData isKnownFlightStart]) && ![self.le.entryData isKnownEngineEnd];
@@ -647,7 +647,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     }
 
     [self updatePausePlay];
-    [mfbApp() updateWatchContext];
+    [MFBAppDelegate.threadSafeAppDelegate updateWatchContext];
 }
 
 #pragma mark - Save State
@@ -825,7 +825,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
         return;
     }
     
-	MFBAppDelegate * app = mfbApp();
+	MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
 	if (![app.userProfile isValid]) // should never happen - app delegate should have prevented this page from showing.
 		return;
     
@@ -1657,15 +1657,18 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
 	self.idimgRecording.hidden = YES;
 	[self initFormFromLE];
     [self.le unPauseFlight];
-    [mfbApp() updateWatchContext];
+    [MFBAppDelegate.threadSafeAppDelegate updateWatchContext];
 }
 
-- (void) stopEngineExternal
-{
-    if (!self.le.entryData.isKnownEngineEnd)
-    {
+- (void) stopEngineExternal {
+    if (!self.le.entryData.isKnownEngineEnd) {
         self.le.entryData.EngineEnd = [NSDate date];
         [self stopEngine];
+        self.le.entryData.FlightID = QUEUED_FLIGHT_UNSUBMITTED;   // don't auto-submit this flight!
+        [MFBAppDelegate.threadSafeAppDelegate queueFlightForLater:self.le];
+        [self resetFlight];
+        [self updatePausePlay];
+        [MFBAppDelegate.threadSafeAppDelegate updateWatchContext];
     }
 }
 

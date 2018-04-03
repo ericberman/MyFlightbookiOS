@@ -1048,6 +1048,9 @@ Vous pouvez choisir un dans la liste fournie, le modifier, ou faire un de vos pr
 /* Watch - Unreachable */
 "WatchNoReach" = "Impossible de se connecter à l'application sur iPhone";
 
+/* Watch - flight submitted */
+"WatchFlightSubmitted" = "Votre vol est prêt à être soumis. Vous pouvez le faire sur votre iPhone.";
+
 /* Security Questions */
 "SecurityQuestions" = "Quel était le nom de votre premier animal de compagnie?
 Où avez-vous sur votre lune de miel?

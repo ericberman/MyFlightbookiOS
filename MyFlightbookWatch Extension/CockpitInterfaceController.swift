@@ -104,6 +104,8 @@ class CockpitInterfaceController: WKInterfaceController, WCSessionDelegate, Sess
     
     @IBAction func endFlight() {
         refresh([WATCH_MESSAGE_ACTION: WATCH_ACTION_END])
+        let okAction = WKAlertAction(title: NSLocalizedString("OK", comment: "OK"), style: WKAlertActionStyle.default) {}
+        self.presentAlert(withTitle: "", message: NSLocalizedString("WatchFlightSubmitted", comment: "Watch - flight submitted"), preferredStyle: WKAlertControllerStyle.alert, actions: [okAction])
     }
     
     @IBAction func pausePlay() {
