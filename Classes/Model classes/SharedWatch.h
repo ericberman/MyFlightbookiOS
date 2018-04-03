@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -94,6 +94,7 @@ typedef enum : NSUInteger {
 @property (strong) NSString * Route;
 @property (strong) NSDate * Date;
 @property (strong) NSString * TotalTimeDisplay;
+@property (strong) NSString * TailNumDisplay;
 
 @end
 

@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -166,10 +166,11 @@
 #define keyLERoute @"LERoute"
 #define keyLEDate @"LEDate"
 #define keyLETotal @"LETotal"
+#define keyLETailDisplay @"LETail"
 
 @implementation SimpleLogbookEntry
 
-@synthesize Comment, Route, Date, TotalTimeDisplay;
+@synthesize Comment, Route, Date, TotalTimeDisplay, TailNumDisplay;
 
 - (instancetype) init {
     if (self = [super init]) {
@@ -184,6 +185,7 @@
     [aCoder encodeObject:self.Route forKey:keyLERoute];
     [aCoder encodeObject:self.Date forKey:keyLEDate];
     [aCoder encodeObject:self.TotalTimeDisplay forKey:keyLETotal];
+    [aCoder encodeObject:self.TailNumDisplay forKey:keyLETailDisplay];
 }
 
 - (instancetype) initWithCoder:(NSCoder *)aDecoder {
@@ -191,6 +193,7 @@
     self.Route = [aDecoder decodeObjectForKey:keyLERoute];
     self.Date = [aDecoder decodeObjectForKey:keyLEDate];
     self.TotalTimeDisplay = [aDecoder decodeObjectForKey:keyLETotal];
+    self.TailNumDisplay = [aDecoder decodeObjectForKey:keyLETailDisplay];
     return self;
 }
 @end

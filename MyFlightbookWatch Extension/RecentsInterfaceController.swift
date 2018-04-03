@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -68,6 +68,10 @@ class RecentsInterfaceController: RefreshableTableController {
             for (index, item) in items.enumerated() {
                 let row = self.table.rowController(at: index) as! RecentsTableRowController
                 row.lblComment.setText(item.comment)
+                
+                let attribString = NSMutableAttributedString(string: item.tailNumDisplay, attributes: [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 16)])
+                attribString.append(NSAttributedString(string: " " + item.comment))
+                row.lblComment.setAttributedText(attribString)
                 row.lblRoute.setText(item.route)
                 row.lblDate.setText(df.string(from: item.date))
                 row.lblTotal.setText(item.totalTimeDisplay)
