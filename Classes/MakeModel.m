@@ -255,12 +255,19 @@
     NSArray * rgMakes = [Aircraft sharedAircraft].rgMakeModels;
     if (szFilter == nil || [szFilter length] == 0)
         self.rgFilteredMakes = [NSArray arrayWithArray:rgMakes];
-    else
+    else {
+        NSCharacterSet * nonAlphaNumeric = [[NSCharacterSet alphanumericCharacterSet] invertedSet];
+        NSArray<NSString *> * searchStrings = [szFilter componentsSeparatedByCharactersInSet:nonAlphaNumeric];
         self.rgFilteredMakes = [rgMakes filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^ BOOL(id evaluatedObject, NSDictionary *bindings)
                {
                    MFBWebServiceSvc_SimpleMakeModel * m = (MFBWebServiceSvc_SimpleMakeModel *) evaluatedObject;
-                   return [m.Description rangeOfString:szFilter options:NSCaseInsensitiveSearch].location != NSNotFound;
+                   for (NSString * sz in searchStrings)
+                       if (sz.length > 0 && [m.Description rangeOfString:sz options:NSCaseInsensitiveSearch].location == NSNotFound)
+                           return NO;
+                   
+                   return YES;
                }]];
+    }
     [self refreshData];
 }
 
