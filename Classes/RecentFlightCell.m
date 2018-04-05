@@ -112,7 +112,11 @@
 
     [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[df stringFromDate:le.Date]  attributes:@{NSFontAttributeName : largeBoldFont}]];
 
-    [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" (%@) ", le.TailNumDisplay] attributes:@{NSFontAttributeName : boldFont}]];
+    [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@", le.TailNumDisplay] attributes:@{NSFontAttributeName : largeBoldFont}]];
+    
+    MFBWebServiceSvc_Aircraft * ac = [[Aircraft sharedAircraft] AircraftByID:le.AircraftID.intValue];
+    if (ac != nil && ac.ModelDescription.length > 0)
+        [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" (%@)", ac.ModelDescription] attributes:@{}]];
     
     NSString * trimmedRoute = [le.Route stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (trimmedRoute.length == 0) {
