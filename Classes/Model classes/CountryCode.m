@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -61,7 +61,7 @@ static NSMutableArray<CountryCode *> * rgAllCountryCodes = nil;
     rgAllCountryCodes = [[NSMutableArray<CountryCode *> alloc] init];
     sqlite3 * db = mfbApp().getdb;
     sqlite3_stmt * sqlCountryCodes = nil;
-    if (sqlite3_prepare(db, [@"SELECT * FROM countrycodes " cStringUsingEncoding:NSASCIIStringEncoding], -1, &sqlCountryCodes, NULL) != SQLITE_OK)
+    if (sqlite3_prepare(db, [@"SELECT * FROM countrycodes ORDER BY Prefix ASC" cStringUsingEncoding:NSASCIIStringEncoding], -1, &sqlCountryCodes, NULL) != SQLITE_OK)
         NSLog(@"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(db));
     
     while (sqlite3_step(sqlCountryCodes) == SQLITE_ROW)
@@ -71,18 +71,26 @@ static NSMutableArray<CountryCode *> * rgAllCountryCodes = nil;
     return rgAllCountryCodes;
 }
 
-+ (CountryCode *) BestGuessForLocale:(NSString *) locale
-{
-    NSArray * rg = [CountryCode AllCountryCodes];
-
-    if (locale != nil && locale.length > 1)
-    {
-        for (CountryCode * cc in rg)
-            if ([cc.LocaleCode compare:locale options:NSCaseInsensitiveSearch] == NSOrderedSame)
-                return cc;
-    }
++ (CountryCode *) BestGuessForLocale:(NSString *) locale {
+    NSArray * rg = CountryCode.AllCountryCodes;
     
-    return rg[0];
+    NSArray<CountryCode *> * rgMatches = [rg filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(CountryCode * cc, NSDictionary * bindings) {
+        return [cc.LocaleCode compare:locale options:NSCaseInsensitiveSearch] == NSOrderedSame;
+    }]];
+   
+    if (rgMatches.count == 0)
+        return rg[0];
+    
+    rgMatches = [rgMatches sortedArrayUsingComparator:^NSComparisonResult(CountryCode * obj1, CountryCode * obj2) {
+        if (obj1.Prefix.length < obj2.Prefix.length)
+            return -1;
+        else if (obj1.Prefix.length == obj2.Prefix.length)
+            return 0;
+        else
+            return 1;
+    }];
+    
+    return rgMatches[0];
 }
 
 + (CountryCode *) BestGuessForCurrentLocale
