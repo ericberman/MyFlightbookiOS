@@ -85,7 +85,7 @@
 			<array>
 				<string>Off</string>
 				<string>Flight Time</string>
-				<string>Engine time</string>
+				<string>Engine Time</string>
 			</array>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
@@ -107,8 +107,10 @@
 			<array>
 				<string>Off</string>
 				<string>Flight Time</string>
-				<string>Engine time</string>
+				<string>Engine Time</string>
 				<string>Hobbs Time</string>
+				<string>Block Time</string>
+				<string>FlightEngine Time</string>
 			</array>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
@@ -118,6 +120,8 @@
 				<integer>1</integer>
 				<integer>2</integer>
 				<integer>3</integer>
+				<integer>4</integer>
+				<integer>5</integer>
 			</array>
 		</dict>
 		<dict>

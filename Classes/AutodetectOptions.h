@@ -37,10 +37,12 @@
 	UISegmentedControl * idswSegmentedTotal;
 }
 
-enum autoHobbs {
-	autoHobbsNone = 0, autoHobbsFlight, autoHobbsEngine
+typedef NS_ENUM(NSInteger, autoHobbs) {
+	autoHobbsNone = 0, autoHobbsFlight, autoHobbsEngine, autoHobbsLast = autoHobbsEngine
 };
-enum autoTotal {autoTotalNone = 0, autoTotalFlight, autoTotalEngine, autoTotalHobbs};
+typedef NS_ENUM(NSInteger, autoTotal) {
+    autoTotalNone = 0, autoTotalFlight, autoTotalEngine, autoTotalHobbs, autoTotalBlock, autoTotalFlightStartToEngineEnd, autoTotalLast = autoTotalFlightStartToEngineEnd
+};
 
 @property (nonatomic, strong) IBOutlet UISwitch * idswAutoDetect;
 @property (nonatomic, strong) IBOutlet UISwitch * idswRecordFlight;
@@ -52,13 +54,9 @@ enum autoTotal {autoTotalNone = 0, autoTotalFlight, autoTotalEngine, autoTotalHo
 @property (nonatomic, strong) IBOutlet UISwitch * idswShowImages;
 @property (nonatomic, strong) IBOutlet UISwitch * idswShowFlightTimes;
 @property (nonatomic, strong) IBOutlet UISegmentedControl * idswTakeoffSpeed;
-@property (nonatomic, strong) IBOutlet UISegmentedControl * idswSegmentedHobbs;
-@property (nonatomic, strong) IBOutlet UISegmentedControl * idswSegmentedTotal;
 @property (nonatomic, strong) IBOutlet UISegmentedControl * idswMapOptions;
 
 @property (nonatomic, strong) IBOutlet UITableViewCell * cellAutoOptions;
-@property (nonatomic, strong) IBOutlet UITableViewCell * cellAutoHobbs;
-@property (nonatomic, strong) IBOutlet UITableViewCell * cellAutoTotal;
 @property (nonatomic, strong) IBOutlet UITableViewCell * cellHHMM;
 @property (nonatomic, strong) IBOutlet UITableViewCell * cellLocalTime;
 @property (nonatomic, strong) IBOutlet UITableViewCell * cellHeliports;
@@ -75,8 +73,6 @@ enum autoTotal {autoTotalNone = 0, autoTotalFlight, autoTotalEngine, autoTotalHo
 - (IBAction) useHHMMClicked:(UISwitch *)sender;
 - (IBAction) useLocalClicked:(UISwitch *)sender;
 - (IBAction) useHeliportsChanged:(UISwitch *)sender;
-- (IBAction) autoHobbsChanged:(UISegmentedControl *)sender;
-- (IBAction) autoTotalChanged:(UISegmentedControl *)sender;
 - (IBAction) takeOffSpeedCanged:(UISegmentedControl *)sender;
 - (IBAction) mapTypeChanged:(UISegmentedControl *)sender;
 - (IBAction) showImagesClicked:(UISwitch *) sender;

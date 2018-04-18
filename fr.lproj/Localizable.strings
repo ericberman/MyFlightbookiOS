@@ -943,6 +943,30 @@ Vous pouvez choisir un dans la liste fournie, le modifier, ou faire un de vos pr
 /* Auto-Fill */
 "Auto-Fill" = "Saisie automatique";
 
+/* Option for auto-fill of ending Hobbs */
+"Ending Hobbs" = "Hobbs d'arrivée";
+
+/* Option for auto-fill total time */
+"Total Time" = "Temps Total";
+
+/* No auto-fill */
+"Off" = "Désactivée";
+
+/* Auto-fill based on time in the air */
+"Flight Time" = "Vol";
+
+/* Auto-fill based on engine time */
+"Engine Time" = "Moteur";
+
+/* Auto-fill total based on hobbs time */
+"Hobbs Time" = "Hobbs";
+
+/* Auto-fill total based on block time */
+"Block Time" = "Bloc";
+
+/* Auto-fill total based on flight start to engine shutdown */
+"FlightEngine Time" = "Démarrage du vol jusqu'à l'arrêt du moteur";
+
 /* Nearest Airports */
 "Nearest Airports" = "Aéroports les plus proches";
 

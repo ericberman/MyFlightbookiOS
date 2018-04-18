@@ -31,8 +31,8 @@
 
 @implementation AutodetectOptions
 
-@synthesize idswAutoDetect, idswRecordFlight, idswRecordHighRes, idswSegmentedHobbs, idswSegmentedTotal, idswTakeoffSpeed, idswUseHHMM, idswUseLocal, idswUseHeliports, idswMapOptions, idswRoundNearestTenth;
-@synthesize cellAutoHobbs, cellAutoOptions, cellAutoTotal, cellHHMM, cellLocalTime, cellHeliports, cellWarnings, cellTOSpeed, cellMapOptions, cellImages;
+@synthesize idswAutoDetect, idswRecordFlight, idswRecordHighRes, idswTakeoffSpeed, idswUseHHMM, idswUseLocal, idswUseHeliports, idswMapOptions, idswRoundNearestTenth;
+@synthesize cellAutoOptions, cellHHMM, cellLocalTime, cellHeliports, cellWarnings, cellTOSpeed, cellMapOptions, cellImages;
 @synthesize txtWarnings;
 
 enum prefSections {sectAutoFill, sectTimes, sectGPSWarnings, sectAutoOptions, sectAirports, sectMaps, sectImages, sectOnlineSettings, sectLast};
@@ -45,8 +45,6 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.cellWarnings makeTransparent];
-    [self.cellAutoHobbs makeTransparent];
-    [self.cellAutoTotal makeTransparent];
     self.txtWarnings.text = NSLocalizedString(@"AutodetectWarning", @"Autodetect Warning");
 }
 
@@ -75,16 +73,44 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
     for (int i = 0; i < (sizeof(toSpeeds)/sizeof(int)); i++)
         if (toSpeeds[i] == toCurrent)
             self.idswTakeoffSpeed.selectedSegmentIndex = i;
-	self.idswSegmentedHobbs.selectedSegmentIndex = [AutodetectOptions autoHobbsMode];
-	self.idswSegmentedTotal.selectedSegmentIndex = [AutodetectOptions autoTotalMode];
     self.idswMapOptions.selectedSegmentIndex = (int) [AutodetectOptions mapType];
     [super viewWillAppear:animated];
+    [self.tableView reloadData];
 }
 
 - (void) viewWillDisappear:(BOOL)animated
 {
     [[NSUserDefaults standardUserDefaults] synchronize];
     [super viewWillDisappear:animated];
+}
+
+#pragma mark - Names for autofill
+- (NSString *) autoFillHobbsName:(autoHobbs) i {
+    switch (i) {
+        case autoHobbsNone:
+            return NSLocalizedString(@"Off", @"No auto-fill");
+        case autoHobbsFlight:
+            return NSLocalizedString(@"Flight Time", @"Auto-fill based on time in the air");
+        case autoHobbsEngine:
+            return NSLocalizedString(@"Engine Time", @"Auto-fill based on engine time");
+    }
+}
+
+- (NSString *) autoFillTotalName:(autoTotal) i {
+    switch (i) {
+        case autoTotalNone:
+            return NSLocalizedString(@"Off", @"No auto-fill");
+        case autoTotalFlight:
+            return NSLocalizedString(@"Flight Time", @"Auto-fill based on time in the air");
+        case autoTotalEngine:
+            return NSLocalizedString(@"Engine Time", @"Auto-fill based on engine time");
+        case autoTotalHobbs:
+            return NSLocalizedString(@"Hobbs Time", @"Auto-fill total based on hobbs time");
+        case autoTotalBlock:
+            return NSLocalizedString(@"Block Time", @"Auto-fill total based on block time");
+        case autoTotalFlightStartToEngineEnd:
+            return NSLocalizedString(@"FlightEngine Time", @"Auto-fill total based on flight start to engine shutdown");
+    }
 }
 
 #pragma mark - tableViewDataSource
@@ -174,10 +200,6 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
             return self.cellAutoOptions.frame.size.height;
         case rowTOSpeed:
             return self.cellTOSpeed.frame.size.height;
-        case rowAutoHobbs:
-            return self.cellAutoHobbs.frame.size.height;
-        case rowAutoTotal:
-            return self.cellAutoTotal.frame.size.height;
         case rowLocal:
             return self.cellLocalTime.frame.size.height;
         case rowHHMM:
@@ -213,10 +235,17 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
             return self.cellAutoOptions;
         case rowTOSpeed:
             return self.cellTOSpeed;
-        case rowAutoHobbs:
-            return self.cellAutoHobbs;
         case rowAutoTotal:
-            return self.cellAutoTotal;
+        case rowAutoHobbs: {
+            static NSString * CellIdentifier = @"CellNormal";
+            UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            if (cell == nil)
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+            cell.textLabel.text = (row == rowAutoHobbs) ? NSLocalizedString(@"Ending Hobbs", @"Option for auto-fill of ending Hobbs") : NSLocalizedString(@"Total Time", @"Option for auto-fill total time");
+            cell.detailTextLabel.text = (row == rowAutoHobbs) ? [self autoFillHobbsName:AutodetectOptions.autoHobbsMode] : [self autoFillTotalName:AutodetectOptions.autoTotalMode];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            return cell;
+        }
         case rowLocal:
             return self.cellLocalTime;
         case rowHHMM:
@@ -265,6 +294,26 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
                                   [[OptionSelection alloc] initWithTitle:NSLocalizedString(@"NightLandingsStart", @"Night Landing options") forOptionKey:keyNightLandingPref options:landingOptionNames]
                                   ];
             
+            [self.navigationController pushViewController:mvos animated:YES];
+        }
+            break;
+        case rowAutoHobbs: {
+            MultiValOptionSelector * mvos = [[MultiValOptionSelector alloc] init];
+            mvos.title = NSLocalizedString(@"Ending Hobbs", @"Option for auto-fill of ending Hobbs");
+            NSMutableArray<NSString *> * optionNames = [[NSMutableArray alloc] init];
+            for (int i = 0; i <= autoHobbsLast; i++)
+                [optionNames addObject:[self autoFillHobbsName:i]];
+            mvos.optionGroups = @[[[OptionSelection alloc] initWithTitle:@"" forOptionKey:szPrefAutoHobbs options:optionNames]];
+            [self.navigationController pushViewController:mvos animated:YES];
+        }
+            break;
+        case rowAutoTotal: {
+            MultiValOptionSelector * mvos = [[MultiValOptionSelector alloc] init];
+            mvos.title = NSLocalizedString(@"Total Time", @"Option for auto-fill total time");
+            NSMutableArray<NSString *> * optionNames = [[NSMutableArray alloc] init];
+            for (int i = 0; i <= autoTotalLast; i++)
+                [optionNames addObject:[self autoFillTotalName:i]];
+            mvos.optionGroups = @[[[OptionSelection alloc] initWithTitle:@"" forOptionKey:szPrefAutoTotal options:optionNames]];
             [self.navigationController pushViewController:mvos animated:YES];
         }
             break;
@@ -326,15 +375,6 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
     [[NSUserDefaults standardUserDefaults] setBool:sender.on forKey:keyIncludeHeliports];
 }
 
-- (IBAction) autoHobbsChanged:(UISegmentedControl *)sender;
-{
-    [[NSUserDefaults standardUserDefaults] setInteger:sender.selectedSegmentIndex forKey:szPrefAutoHobbs];
-}
-
-- (IBAction) autoTotalChanged:(UISegmentedControl *)sender
-{
-	[[NSUserDefaults standardUserDefaults] setInteger:sender.selectedSegmentIndex forKey:szPrefAutoTotal];
-}
 - (IBAction) takeOffSpeedCanged:(UISegmentedControl *)sender
 {
     [[NSUserDefaults standardUserDefaults] setInteger:toSpeeds[sender.selectedSegmentIndex] forKey:_szKeyPrefTakeOffSpeed];
@@ -377,6 +417,11 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
     return (int) [[NSUserDefaults standardUserDefaults] integerForKey:szPrefAutoTotal];
 }
 
++ (int) autoHobbsMode
+{
+    return (int) [[NSUserDefaults standardUserDefaults] integerForKey:szPrefAutoHobbs];
+}
+
 + (BOOL) roundTotalToNearestTenth
 {
     return [[NSUserDefaults standardUserDefaults] boolForKey:szPrefKeyRoundNearestTenth];
@@ -395,11 +440,6 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
 + (BOOL) recordHighRes
 {
     return [[NSUserDefaults standardUserDefaults] boolForKey:_szKeyPrefRecordHighRes];
-}
-
-+ (int) autoHobbsMode
-{
-    return (int) [[NSUserDefaults standardUserDefaults] integerForKey:szPrefAutoHobbs];
 }
 
 + (BOOL) includeHeliports

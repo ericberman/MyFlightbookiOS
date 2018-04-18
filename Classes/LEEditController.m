@@ -503,6 +503,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     
     MFBAppDelegate * app = mfbApp();
     
+    [self autoBlock];
     [self fixSharingPrompt];    // do this here rather than in viewDidLoad because viewDidLoad can be called before profile is set up.
     
     // pick up any changes in the HHMM setting
@@ -1368,6 +1369,8 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
         default:
             if (self.ipActive.section == sectProperties && row >= rowPropertyFirst)
                 fShouldEdit = [((PropertyCell *) tc) prepForEditing];
+            [self autoBlock];
+            break;
     }
     
     if (textField == self.idDate)
@@ -1402,6 +1405,7 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
 - (void) textFieldDidEndEditing:(UITextField *)textField
 {
     // catch any changes from retained fields
+    [self autoBlock];
     [self initLEFromForm];
 
     UITableViewCell * tc = [self owningCellGeneric:textField];
@@ -1522,6 +1526,7 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
     if (ac != nil)
         fIsRealAircraft = ![ac isSim];
     
+    // TODO: this autototal stuff should move into logbookentry.
     switch ([AutodetectOptions autoTotalMode]) {
         case autoTotalEngine:
         {
@@ -1556,6 +1561,26 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
                 dtTotal = hobbsEnd - hobbsStart;
         }
             break;
+        case autoTotalBlock: {
+            NSDate * blockOut = nil;
+            NSDate * blockIn = nil;
+            
+            for (MFBWebServiceSvc_CustomFlightProperty * cfp in self.le.entryData.CustomProperties.CustomFlightProperty) {
+                if (cfp.PropTypeID.integerValue == PropTypeID_BlockOut)
+                    blockOut = cfp.DateValue;
+                if (cfp.PropTypeID.integerValue == PropTypeID_BlockIn)
+                    blockIn = cfp.DateValue;
+            }
+            
+            if (![NSDate isUnknownDate:blockOut] && ![NSDate isUnknownDate:blockIn])
+                dtTotal = ([blockIn timeIntervalSinceDate:blockOut] / 3600.0) - dtPauseTime;
+        }
+            break;
+        case autoTotalFlightStartToEngineEnd: {
+            if (![NSDate isUnknownDate:self.le.entryData.FlightStart] && ![NSDate isUnknownDate:self.le.entryData.EngineEnd])
+                dtTotal = ([self.le.entryData.EngineEnd timeIntervalSinceDate:self.le.entryData.FlightStart] / 3600.0) - dtPauseTime;
+        }
+            break;
         case autoTotalNone:
         default:
             return NO;
@@ -1579,6 +1604,12 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
     }
     
     return NO;
+}
+
+// autototal based on block is a bit trickier because block is a property, so this checks if we are in block mode and lets us do some extra auto-totals.
+- (void) autoBlock {
+    if (AutodetectOptions.autoTotalMode == autoTotalBlock)
+        [self autoTotal];
 }
 
 

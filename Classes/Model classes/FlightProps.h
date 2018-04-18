@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 7/7/10.
-//  Copyright 2010-2017 MyFlightbook LLC. All rights reserved.
+//  Copyright 2010-2018 MyFlightbook LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -42,6 +42,8 @@
 #define PropTypeID_TachStart    95
 #define PropTypeID_TachEnd      96
 #define PropTypeID_ApproachName 267
+#define PropTypeID_BlockOut 187
+#define PropTypeID_BlockIn  186
 
 #define NEW_PROP_ID @-1
 
