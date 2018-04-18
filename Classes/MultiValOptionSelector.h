@@ -17,14 +17,16 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 //
-//  NightFlight.h
+//  MultiValOptionSelector.h
 //  MyFlightbook
 //
-//  Created by Eric Berman on 3/30/18.
+//  Created by Eric Berman on 4/18/18.
 //
 
 #import <UIKit/UIKit.h>
+#import "OptionSelection.h"
 
-@interface NightFlight : UITableViewController
+@interface MultiValOptionSelector : UITableViewController
 
+@property (nonatomic, strong) NSArray<OptionSelection *> * optionGroups;
 @end

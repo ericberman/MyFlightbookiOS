@@ -36,6 +36,8 @@
 		9A1860131BE7FB6200E88A26 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9A7A7D98147F4DD0003A6912 /* Localizable.strings */; };
 		9A196C30112312EB007A7DD1 /* Recording.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A196C2F112312EB007A7DD1 /* Recording.png */; };
 		9A1A8B951EAA560F008F938B /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 9A1A8B941EAA560F008F938B /* .gitignore */; };
+		9A1CCB2320879A3400C2D1E4 /* OptionSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A1CCB2220879A3400C2D1E4 /* OptionSelection.m */; };
+		9A1CCB2720879C5900C2D1E4 /* MultiValOptionSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A1CCB2620879C5900C2D1E4 /* MultiValOptionSelector.m */; };
 		9A20B152192D34D300A8F64F /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A20B151192D34D300A8F64F /* iRate.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		9A20B155192D34E600A8F64F /* LICENCE.md in Resources */ = {isa = PBXBuildFile; fileRef = 9A20B153192D34E600A8F64F /* LICENCE.md */; };
 		9A20B156192D34E600A8F64F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9A20B154192D34E600A8F64F /* README.md */; };
@@ -162,7 +164,6 @@
 		9A8BF94210E1846E002F01ED /* MFBSoapCall.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A8BF93F10E1846E002F01ED /* MFBSoapCall.m */; };
 		9A8D628015851392001105F2 /* DateRangeSelector.xib.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9A8D627E15851392001105F2 /* DateRangeSelector.xib.txt */; };
 		9A8D6283158513AB001105F2 /* DateRangeSelector.xib.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9A8D6281158513AB001105F2 /* DateRangeSelector.xib.txt */; };
-		9A902819206EB2E5009A29B6 /* NightFlight.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A902818206EB2E5009A29B6 /* NightFlight.m */; };
 		9A902D5B1A2102E800698017 /* aircraft@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A902D591A2102E800698017 /* aircraft@3x.png */; };
 		9A902D5C1A2102E800698017 /* twitter@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A902D5A1A2102E800698017 /* twitter@3x.png */; };
 		9A902D5E1A21046600698017 /* profile@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A902D5D1A21046600698017 /* profile@3x.png */; };
@@ -474,6 +475,10 @@
 		9A196C2F112312EB007A7DD1 /* Recording.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Recording.png; sourceTree = "<group>"; };
 		9A1A8B941EAA560F008F938B /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		9A1A8B971EAA5E5D008F938B /* ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = "<group>"; };
+		9A1CCB2220879A3400C2D1E4 /* OptionSelection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OptionSelection.m; sourceTree = "<group>"; };
+		9A1CCB2420879A4D00C2D1E4 /* OptionSelection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OptionSelection.h; sourceTree = "<group>"; };
+		9A1CCB2520879C5900C2D1E4 /* MultiValOptionSelector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiValOptionSelector.h; sourceTree = "<group>"; };
+		9A1CCB2620879C5900C2D1E4 /* MultiValOptionSelector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MultiValOptionSelector.m; sourceTree = "<group>"; };
 		9A20B150192D34D300A8F64F /* iRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iRate.h; sourceTree = "<group>"; };
 		9A20B151192D34D300A8F64F /* iRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iRate.m; sourceTree = "<group>"; };
 		9A20B153192D34E600A8F64F /* LICENCE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE.md; sourceTree = "<group>"; };
@@ -642,8 +647,6 @@
 		9A8FF5A71BD97C1800C78A49 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = "fr.lproj/MainWindow-iPad.strings"; sourceTree = "<group>"; };
 		9A8FF5A81BD97C3300C78A49 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MainWindow.strings; sourceTree = "<group>"; };
 		9A8FF5A91BD97C5500C78A49 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/NearbyAirports.strings; sourceTree = "<group>"; };
-		9A902817206EB2E5009A29B6 /* NightFlight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NightFlight.h; sourceTree = "<group>"; };
-		9A902818206EB2E5009A29B6 /* NightFlight.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NightFlight.m; sourceTree = "<group>"; };
 		9A90281A206EB341009A29B6 /* OptionKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OptionKeys.h; sourceTree = "<group>"; };
 		9A902D591A2102E800698017 /* aircraft@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aircraft@3x.png"; sourceTree = "<group>"; };
 		9A902D5A1A2102E800698017 /* twitter@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter@3x.png"; sourceTree = "<group>"; };
@@ -1095,9 +1098,9 @@
 				9ADB297716F666BD008D9582 /* NewUserTableController.xib */,
 				9A6137411CF95F840002873E /* SecurityQuestionPicker.h */,
 				9A6137421CF95F840002873E /* SecurityQuestionPicker.m */,
-				9A902817206EB2E5009A29B6 /* NightFlight.h */,
-				9A902818206EB2E5009A29B6 /* NightFlight.m */,
 				9A90281A206EB341009A29B6 /* OptionKeys.h */,
+				9A1CCB2520879C5900C2D1E4 /* MultiValOptionSelector.h */,
+				9A1CCB2620879C5900C2D1E4 /* MultiValOptionSelector.m */,
 			);
 			name = "Profile and options";
 			sourceTree = "<group>";
@@ -1474,6 +1477,8 @@
 				9AA5E44119DDB9030065810A /* Telemetry.m */,
 				9A517E461E2ED5E900EC3545 /* ApproachDescription.h */,
 				9A517E471E2ED68800EC3545 /* ApproachDescription.m */,
+				9A1CCB2220879A3400C2D1E4 /* OptionSelection.m */,
+				9A1CCB2420879A4D00C2D1E4 /* OptionSelection.h */,
 			);
 			path = "Model classes";
 			sourceTree = "<group>";
@@ -2064,13 +2069,14 @@
 				9A17C5F513E895CB00C47C82 /* VisitedAirports.m in Sources */,
 				9AD2FFEC1BE2B7B500A9B21B /* SharedWatch.m in Sources */,
 				9A17C5FA13E89B1B00C47C82 /* VisitedAirportRow.m in Sources */,
-				9A902819206EB2E5009A29B6 /* NightFlight.m in Sources */,
 				9A78376E13E8AB99007CD501 /* VADetails.m in Sources */,
 				9A6A602213E91145000CB7A6 /* MakeModel.m in Sources */,
+				9A1CCB2320879A3400C2D1E4 /* OptionSelection.m in Sources */,
 				9AF8B37813FA1445006D1CE9 /* SunriseSunset.m in Sources */,
 				9A4587BD14C205500045AF51 /* RecentFlightCell.m in Sources */,
 				9AC7B8BF14D0ADAB009139BF /* PullRefreshTableViewController.m in Sources */,
 				9AE2E2861565F0D600CD26AC /* MFBLocation.m in Sources */,
+				9A1CCB2720879C5900C2D1E4 /* MultiValOptionSelector.m in Sources */,
 				9A55E544156DB1D20031A215 /* MFBAsyncOperation.m in Sources */,
 				9A79E30A156E9B7100EBEF48 /* FlightQueryForm.m in Sources */,
 				9A6BDE0C1570921D00F715E1 /* EditCell.m in Sources */,

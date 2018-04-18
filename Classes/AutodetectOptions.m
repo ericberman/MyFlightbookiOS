@@ -27,7 +27,7 @@
 #import "AutodetectOptions.h"
 #import "OptionKeys.h"
 #import "TextCell.h"
-#import "NightFlight.h"
+#import "MultiValOptionSelector.h"
 
 @implementation AutodetectOptions
 
@@ -248,8 +248,25 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
     NSInteger row = [self cellIDFromIndexPath:indexPath];
     switch (row)
     {
-        case rowNightFlightOptions:
-            [self.navigationController pushViewController:[[NightFlight alloc] init] animated:YES];
+        case rowNightFlightOptions: {
+            MultiValOptionSelector * mvos = [[MultiValOptionSelector alloc] init];
+            mvos.title = NSLocalizedString(@"NightOptions", @"Night Section");
+            
+            NSMutableArray<NSString *> * flightOptionNames = [[NSMutableArray alloc] init];
+            for (int i = nfoCivilTwilight; i < nfoLast; i++)
+                [flightOptionNames addObject:[MFBLocation nightFlightOptionName:i]];
+            
+            NSMutableArray<NSString *> * landingOptionNames = [[NSMutableArray alloc] init];
+            for (int i = nflSunsetPlus60; i < nfoLast; i++)
+                [landingOptionNames addObject:[MFBLocation nightLandingOptionName:i]];
+
+            mvos.optionGroups = @[
+                                  [[OptionSelection alloc] initWithTitle:NSLocalizedString(@"NightFlightStarts", @"Night flight options") forOptionKey:keyNightFlightPref options:flightOptionNames],
+                                  [[OptionSelection alloc] initWithTitle:NSLocalizedString(@"NightLandingsStart", @"Night Landing options") forOptionKey:keyNightLandingPref options:landingOptionNames]
+                                  ];
+            
+            [self.navigationController pushViewController:mvos animated:YES];
+        }
             break;
         case rowOnlineSettings:
         {
