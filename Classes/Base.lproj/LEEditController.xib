@@ -127,7 +127,7 @@
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="326" secondAttribute="trailing" constant="16" id="23m-9H-6J6"/>
                     <constraint firstItem="329" firstAttribute="centerY" secondItem="UXh-1T-tcS" secondAttribute="centerY" id="43l-SB-Lut"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="326" secondAttribute="trailing" id="Gvg-OI-clr"/>
+                    <constraint firstAttribute="trailing" secondItem="326" secondAttribute="trailing" constant="16" id="Gvg-OI-clr"/>
                     <constraint firstItem="324" firstAttribute="centerY" secondItem="UXh-1T-tcS" secondAttribute="centerY" id="enK-oK-q8D"/>
                     <constraint firstItem="326" firstAttribute="leading" secondItem="329" secondAttribute="trailing" constant="10" id="qBi-S5-zk7"/>
                     <constraint firstItem="324" firstAttribute="leading" secondItem="UXh-1T-tcS" secondAttribute="leadingMargin" id="sAV-2z-T2E"/>
@@ -243,7 +243,7 @@
                 <constraints>
                     <constraint firstItem="339" firstAttribute="centerY" secondItem="Y1E-St-QCB" secondAttribute="centerY" id="DJp-9b-aSV"/>
                     <constraint firstAttribute="trailing" secondItem="338" secondAttribute="trailing" constant="16" id="S4e-Ru-gHG"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="338" secondAttribute="trailing" id="VCn-Ei-DbP"/>
+                    <constraint firstAttribute="trailing" secondItem="338" secondAttribute="trailing" constant="16" id="VCn-Ei-DbP"/>
                     <constraint firstItem="337" firstAttribute="leading" secondItem="336" secondAttribute="leading" id="bu6-Wf-aNS"/>
                     <constraint firstItem="337" firstAttribute="trailing" secondItem="339" secondAttribute="leading" constant="-10" id="n6P-I8-Jpn"/>
                     <constraint firstItem="338" firstAttribute="centerY" secondItem="Y1E-St-QCB" secondAttribute="centerY" id="qyL-LT-mVD"/>
