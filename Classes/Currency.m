@@ -26,14 +26,21 @@
 
 #import "Currency.h"
 #import "HostedWebViewViewController.h"
+#import "AircraftViewController.h"
+#import "RecentFlights.h"
+
+@interface Currency()
+@property (readwrite, strong) NSMutableArray<MFBWebServiceSvc_CurrencyStatusItem *> * rgCurrency;
+@property (readwrite, strong) NSString * errorString;
+@end
 
 @implementation Currency
 
 @synthesize rgCurrency;
 @synthesize errorString;
 
-#define sectCurrency 0
-#define sectDisclaimer 1
+#define sectCurrency 1
+#define sectDisclaimer 0
 
 #pragma mark View Management
 /*
@@ -81,17 +88,6 @@
 	if (self.rgCurrency == nil || !self.fIsValid)
 		[self refresh];
 }
-
-/*
-- (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
-}
-*/
-/*
-- (void)viewDidDisappear:(BOOL)animated {
-	[super viewDidDisappear:animated];
-}
-*/
 
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.
@@ -207,6 +203,7 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:szId];
 		cell.selectionStyle = UITableViewCellSelectionStyleGray;
         cell.textLabel.text = NSLocalizedString(@"Currency Disclaimer", @"Currency Disclaimer");
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:cell.textLabel.font.pointSize];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;        
     }
@@ -214,7 +211,7 @@
     if (self.callInProgress)
         return [self waitCellWithText:NSLocalizedString(@"Getting Currency...", @"Progress indicator for currency")];
     
-	MFBWebServiceSvc_CurrencyStatusItem * ci = (MFBWebServiceSvc_CurrencyStatusItem *) (self.rgCurrency)[indexPath.row];	
+	MFBWebServiceSvc_CurrencyStatusItem * ci = (self.rgCurrency)[indexPath.row];
     
 	// NOTE: we're not reusin cells because the addition of a new flight might cause currency to change, which
 	// can cause the layout of the cell to change.  We want to use new cells every time.
@@ -247,7 +244,10 @@
 		case MFBWebServiceSvc_CurrencyState_NotCurrent:
 			cell.lblValue.textColor = [UIColor redColor];
 			break;
+        case MFBWebServiceSvc_CurrencyState_NoDate:
+        case MFBWebServiceSvc_CurrencyState_none:
 		default:
+            cell.lblValue.textColor = [UIColor blackColor];
 			break;
 	}
 	
@@ -258,61 +258,75 @@
     return cell;
 }
 
+- (void) pushWebURL:(NSString *) szPath {
+    NSString * szProtocol = @"https";
+#ifdef DEBUG
+    if ([MFBHOSTNAME hasPrefix:@"192."] || [MFBHOSTNAME hasPrefix:@"10."])
+        szProtocol = @"http";
+#endif
+    HostedWebViewViewController * vwWeb = [[HostedWebViewViewController alloc] initWithURL:[NSString stringWithFormat:@"%@://%@%@", szProtocol, MFBHOSTNAME, szPath]];
+    [self.navigationController pushViewController:vwWeb animated:YES];
+}
+
+- (void) pushAuthURL:(NSString *) target {
+
+    NSString * szURL = [NSString stringWithFormat:@"/logbook/public/authredir.aspx?u=%@&p=%@&d=%@&naked=1",
+                        [mfbApp().userProfile.UserName stringByURLEncodingString],
+                        [mfbApp().userProfile.Password stringByURLEncodingString],
+                        target];
+    [self pushWebURL:szURL];
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == sectDisclaimer)
-    {	
-        HostedWebViewViewController * vwWeb = [[HostedWebViewViewController alloc] initWithURL:@"https://myflightbook.com/logbook/Public/CurrencyDisclaimer.aspx?naked=1"];
-        [self.navigationController pushViewController:vwWeb animated:YES];
+        [self pushWebURL:@"/logbook/Public/CurrencyDisclaimer.aspx?naked=1"];
+    else if (indexPath.section == sectCurrency) {
+        MFBWebServiceSvc_CurrencyStatusItem * ci = (self.rgCurrency)[indexPath.row];
+        
+        switch (ci.CurrencyGroup) {
+            case MFBWebServiceSvc_CurrencyGroups_Medical:
+                [self pushAuthURL:@"MEDICAL"];
+                break;
+            case MFBWebServiceSvc_CurrencyGroups_Deadline:
+                [self pushAuthURL:@"DEADLINE"];
+                break;
+            case MFBWebServiceSvc_CurrencyGroups_Certificates:
+                [self pushAuthURL:@"CERTIFICATES"];
+                break;
+            case MFBWebServiceSvc_CurrencyGroups_FlightReview:
+                [self pushAuthURL:@"FLIGHTREVIEW"];
+                break;
+            case MFBWebServiceSvc_CurrencyGroups_CustomCurrency:
+                if (ci.Query != nil)  {
+                    RecentFlights * rf = [[RecentFlights alloc] initWithNibName:@"RecentFlights" bundle:nil];
+                    rf.fq = ci.Query;
+                    [rf refresh];
+                    [self.navigationController pushViewController:rf animated:YES];
+                }
+                else
+                    [self pushAuthURL:@"CUSTOMCURRENCY"];
+                break;
+            case MFBWebServiceSvc_CurrencyGroups_Aircraft: {
+                MFBWebServiceSvc_Aircraft * ac = [Aircraft.sharedAircraft AircraftByID:ci.AssociatedResourceID.intValue];
+                if (ac != nil) {
+                    AircraftViewController * acView;
+                    acView = [[AircraftViewController alloc] initWithNibName:@"AircraftViewController" bundle:nil];
+                    [acView setAircraft:ac];
+                    
+                    [self.navigationController pushViewController:acView animated:YES];
+                }
+            }
+                break;
+            case MFBWebServiceSvc_CurrencyGroups_none:
+            case MFBWebServiceSvc_CurrencyGroups_None:
+            case MFBWebServiceSvc_CurrencyGroups_FlightExperience:
+                break;
+        }
     }
     // Navigation logic may go here. Create and push another view controller.
 	// AnotherViewController *anotherViewController = [[AnotherViewController alloc] initWithNibName:@"AnotherView" bundle:nil];
 	// [self.navigationController pushViewController:anotherViewController];
 	// [anotherViewController release];
 }
-
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-
-
-
 @end
 

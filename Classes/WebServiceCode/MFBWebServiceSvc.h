@@ -26,10 +26,6 @@
 @class MFBWebServiceSvc_GetCurrencyForUserResponse;
 @class MFBWebServiceSvc_ArrayOfCurrencyStatusItem;
 @class MFBWebServiceSvc_CurrencyStatusItem;
-@class MFBWebServiceSvc_TotalsForUser;
-@class MFBWebServiceSvc_TotalsForUserResponse;
-@class MFBWebServiceSvc_ArrayOfTotalsItem;
-@class MFBWebServiceSvc_TotalsItem;
 @class MFBWebServiceSvc_FlightQuery;
 @class MFBWebServiceSvc_ArrayOfCategoryClass;
 @class MFBWebServiceSvc_ArrayOfCustomPropertyType;
@@ -38,6 +34,10 @@
 @class MFBWebServiceSvc_CategoryClass;
 @class MFBWebServiceSvc_CustomPropertyType;
 @class MFBWebServiceSvc_MakeModel;
+@class MFBWebServiceSvc_TotalsForUser;
+@class MFBWebServiceSvc_TotalsForUserResponse;
+@class MFBWebServiceSvc_ArrayOfTotalsItem;
+@class MFBWebServiceSvc_TotalsItem;
 @class MFBWebServiceSvc_TotalsForUserWithQuery;
 @class MFBWebServiceSvc_TotalsForUserWithQueryResponse;
 @class MFBWebServiceSvc_VisitedAirports;
@@ -605,103 +605,23 @@ typedef enum {
 	MFBWebServiceSvc_CurrencyState_NotCurrent,
 	MFBWebServiceSvc_CurrencyState_GettingClose,
 	MFBWebServiceSvc_CurrencyState_OK,
+	MFBWebServiceSvc_CurrencyState_NoDate,
 } MFBWebServiceSvc_CurrencyState;
 MFBWebServiceSvc_CurrencyState MFBWebServiceSvc_CurrencyState_enumFromString(NSString *string);
 NSString * MFBWebServiceSvc_CurrencyState_stringFromEnum(MFBWebServiceSvc_CurrencyState enumValue);
-@interface MFBWebServiceSvc_CurrencyStatusItem : NSObject <NSCoding> {
-SOAPSigner *soapSigner;
-/* elements */
-	NSString * Attribute;
-	NSString * Value;
-	MFBWebServiceSvc_CurrencyState Status;
-	NSString * Discrepancy;
-/* attributes */
-}
-- (NSString *)nsPrefix;
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
-- (void)addAttributesToNode:(xmlNodePtr)node;
-- (void)addElementsToNode:(xmlNodePtr)node;
-+ (MFBWebServiceSvc_CurrencyStatusItem *)deserializeNode:(xmlNodePtr)cur;
-- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
-- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
-@property (retain) SOAPSigner *soapSigner;
-/* elements */
-@property (nonatomic, retain) NSString * Attribute;
-@property (nonatomic, retain) NSString * Value;
-@property (nonatomic, assign) MFBWebServiceSvc_CurrencyState Status;
-@property (nonatomic, retain) NSString * Discrepancy;
-/* attributes */
-- (NSDictionary *)attributes;
-@end
-@interface MFBWebServiceSvc_ArrayOfCurrencyStatusItem : NSObject <NSCoding> {
-SOAPSigner *soapSigner;
-/* elements */
-	NSMutableArray *CurrencyStatusItem;
-/* attributes */
-}
-- (NSString *)nsPrefix;
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
-- (void)addAttributesToNode:(xmlNodePtr)node;
-- (void)addElementsToNode:(xmlNodePtr)node;
-+ (MFBWebServiceSvc_ArrayOfCurrencyStatusItem *)deserializeNode:(xmlNodePtr)cur;
-- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
-- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
-@property (retain) SOAPSigner *soapSigner;
-/* elements */
-- (void)addCurrencyStatusItem:(MFBWebServiceSvc_CurrencyStatusItem *)toAdd;
-@property (nonatomic, readonly) NSMutableArray * CurrencyStatusItem;
-/* attributes */
-- (NSDictionary *)attributes;
-@end
-@interface MFBWebServiceSvc_GetCurrencyForUserResponse : NSObject <NSCoding> {
-SOAPSigner *soapSigner;
-/* elements */
-	MFBWebServiceSvc_ArrayOfCurrencyStatusItem * GetCurrencyForUserResult;
-/* attributes */
-}
-- (NSString *)nsPrefix;
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
-- (void)addAttributesToNode:(xmlNodePtr)node;
-- (void)addElementsToNode:(xmlNodePtr)node;
-+ (MFBWebServiceSvc_GetCurrencyForUserResponse *)deserializeNode:(xmlNodePtr)cur;
-- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
-- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
-@property (retain) SOAPSigner *soapSigner;
-/* elements */
-@property (nonatomic, retain) MFBWebServiceSvc_ArrayOfCurrencyStatusItem * GetCurrencyForUserResult;
-/* attributes */
-- (NSDictionary *)attributes;
-@end
-@interface MFBWebServiceSvc_TotalsForUser : NSObject <NSCoding> {
-SOAPSigner *soapSigner;
-/* elements */
-	NSString * szAuthToken;
-	NSDate * dtMin;
-/* attributes */
-}
-- (NSString *)nsPrefix;
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
-- (void)addAttributesToNode:(xmlNodePtr)node;
-- (void)addElementsToNode:(xmlNodePtr)node;
-+ (MFBWebServiceSvc_TotalsForUser *)deserializeNode:(xmlNodePtr)cur;
-- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
-- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
-@property (retain) SOAPSigner *soapSigner;
-/* elements */
-@property (nonatomic, retain) NSString * szAuthToken;
-@property (nonatomic, retain) NSDate * dtMin;
-/* attributes */
-- (NSDictionary *)attributes;
-@end
 typedef enum {
-	MFBWebServiceSvc_NumType_none = 0,
-	MFBWebServiceSvc_NumType_Integer,
-	MFBWebServiceSvc_NumType_Decimal,
-	MFBWebServiceSvc_NumType_Time,
-	MFBWebServiceSvc_NumType_Currency,
-} MFBWebServiceSvc_NumType;
-MFBWebServiceSvc_NumType MFBWebServiceSvc_NumType_enumFromString(NSString *string);
-NSString * MFBWebServiceSvc_NumType_stringFromEnum(MFBWebServiceSvc_NumType enumValue);
+	MFBWebServiceSvc_CurrencyGroups_none = 0,
+	MFBWebServiceSvc_CurrencyGroups_None,
+	MFBWebServiceSvc_CurrencyGroups_FlightExperience,
+	MFBWebServiceSvc_CurrencyGroups_FlightReview,
+	MFBWebServiceSvc_CurrencyGroups_Aircraft,
+	MFBWebServiceSvc_CurrencyGroups_Certificates,
+	MFBWebServiceSvc_CurrencyGroups_Medical,
+	MFBWebServiceSvc_CurrencyGroups_Deadline,
+	MFBWebServiceSvc_CurrencyGroups_CustomCurrency,
+} MFBWebServiceSvc_CurrencyGroups;
+MFBWebServiceSvc_CurrencyGroups MFBWebServiceSvc_CurrencyGroups_enumFromString(NSString *string);
+NSString * MFBWebServiceSvc_CurrencyGroups_stringFromEnum(MFBWebServiceSvc_CurrencyGroups enumValue);
 typedef enum {
 	MFBWebServiceSvc_DateRanges_none = 0,
 	MFBWebServiceSvc_DateRanges_AllTime,
@@ -1122,6 +1042,106 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
+@interface MFBWebServiceSvc_CurrencyStatusItem : NSObject <NSCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	NSString * Attribute;
+	NSString * Value;
+	MFBWebServiceSvc_CurrencyState Status;
+	NSString * Discrepancy;
+	NSNumber * AssociatedResourceID;
+	MFBWebServiceSvc_CurrencyGroups CurrencyGroup;
+	MFBWebServiceSvc_FlightQuery * Query;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_CurrencyStatusItem *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, retain) NSString * Attribute;
+@property (nonatomic, retain) NSString * Value;
+@property (nonatomic, assign) MFBWebServiceSvc_CurrencyState Status;
+@property (nonatomic, retain) NSString * Discrepancy;
+@property (nonatomic, retain) NSNumber * AssociatedResourceID;
+@property (nonatomic, assign) MFBWebServiceSvc_CurrencyGroups CurrencyGroup;
+@property (nonatomic, retain) MFBWebServiceSvc_FlightQuery * Query;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_ArrayOfCurrencyStatusItem : NSObject <NSCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	NSMutableArray *CurrencyStatusItem;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_ArrayOfCurrencyStatusItem *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+- (void)addCurrencyStatusItem:(MFBWebServiceSvc_CurrencyStatusItem *)toAdd;
+@property (nonatomic, readonly) NSMutableArray * CurrencyStatusItem;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_GetCurrencyForUserResponse : NSObject <NSCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	MFBWebServiceSvc_ArrayOfCurrencyStatusItem * GetCurrencyForUserResult;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_GetCurrencyForUserResponse *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, retain) MFBWebServiceSvc_ArrayOfCurrencyStatusItem * GetCurrencyForUserResult;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_TotalsForUser : NSObject <NSCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	NSString * szAuthToken;
+	NSDate * dtMin;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_TotalsForUser *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, retain) NSString * szAuthToken;
+@property (nonatomic, retain) NSDate * dtMin;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+typedef enum {
+	MFBWebServiceSvc_NumType_none = 0,
+	MFBWebServiceSvc_NumType_Integer,
+	MFBWebServiceSvc_NumType_Decimal,
+	MFBWebServiceSvc_NumType_Time,
+	MFBWebServiceSvc_NumType_Currency,
+} MFBWebServiceSvc_NumType;
+MFBWebServiceSvc_NumType MFBWebServiceSvc_NumType_enumFromString(NSString *string);
+NSString * MFBWebServiceSvc_NumType_stringFromEnum(MFBWebServiceSvc_NumType enumValue);
 @interface MFBWebServiceSvc_TotalsItem : NSObject <NSCoding> {
 SOAPSigner *soapSigner;
 /* elements */

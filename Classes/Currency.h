@@ -33,11 +33,5 @@
 #import "PullRefreshTableViewController.h"
 
 @interface Currency : PullRefreshTableViewController <MFBSoapCallDelegate> {
-	NSMutableArray * rgCurrency;
-	NSString * errorString;
 }
-
-@property (readwrite, strong) NSMutableArray * rgCurrency;
-@property (readwrite, strong) NSString * errorString;
-
 @end
