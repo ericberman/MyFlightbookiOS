@@ -69,7 +69,7 @@ typedef enum _afRows {afTailwheel = 1, afHighPerf, afGlass, afComplex, afRetract
     afInstanceAny, afInstanceReal, afInstanceTraining, afMax = afInstanceTraining} afRows;
 
 typedef enum _ffRows {ffFSLanding = 1, ffFSNightLanding, ffApproaches, ffHold, ffTelemetry, ffImages, ffXC, ffSimIMC, ffActualIMC, ffNight,
-ffIsPublic, ffDual, ffCFI, ffSIC, ffPIC, ffSigned, ffMax = ffSigned} ffRows;
+ffIsPublic, ffDual, ffCFI, ffSIC, ffPIC, ffTotalTime, ffSigned, ffMax = ffSigned} ffRows;
 
 static NSArray * makesInUse = nil;
 
@@ -723,6 +723,10 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
                     cell.textLabel.text = NSLocalizedString(@"ffSIC", @"Flight has SIC time logged");
                     cell.accessoryType = self.fq.HasSIC.boolValue ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
                     break;
+                case ffTotalTime:
+                    cell.textLabel.text = NSLocalizedString(@"ffTotal", @"Flight has Total Time logged");
+                    cell.accessoryType = self.fq.HasTotalTime.boolValue ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+                    break;
                 case ffSimIMC:
                     cell.textLabel.text = NSLocalizedString(@"ffSimIMC", @"Flight has simulated IMC");
                     cell.accessoryType = self.fq.HasSimIMCTime.boolValue ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
@@ -1055,6 +1059,9 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
                     break;
                 case ffSIC:
                     self.fq.HasSIC.boolValue = !self.fq.HasSIC.boolValue;
+                    break;
+                case ffTotalTime:
+                    self.fq.HasTotalTime.boolValue = !self.fq.HasTotalTime.boolValue;
                     break;
                 case ffSimIMC:
                     self.fq.HasSimIMCTime.boolValue = !self.fq.HasSimIMCTime.boolValue;

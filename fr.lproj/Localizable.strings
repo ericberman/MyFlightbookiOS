@@ -670,6 +670,9 @@
 /* Flight has PIC time logged */
 "ffPIC" = "Commandant de Bord";
 
+/* Flight has Total Time logged */
+"ffTotal" = "Total";
+
 /* Flight is signed */
 "ffSigned" = "Vol est signé";
 
