@@ -237,7 +237,7 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
             return self.cellTOSpeed;
         case rowAutoTotal:
         case rowAutoHobbs: {
-            static NSString * CellIdentifier = @"CellNormal";
+            static NSString * CellIdentifier = @"CellNormal2";
             UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             if (cell == nil)
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
