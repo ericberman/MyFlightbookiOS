@@ -437,7 +437,7 @@ static int vLanding = LANDING_SPEED_DEFAULT;
                            fValidTime ? @"" : @"---"];
         }
 	}
-    else
+    else if (app.fDebugMode)
         [szEvent appendFormat:@"DEBUG - BOGUS SAMPLE: speed %.1f acc=%.1f samples: %ld", s, acc, (long)self.cSamplesSinceWaking];
     
     BOOL fRecordable = [self.delegate flightCouldBeInProgress] && self.fRecordFlightData;
