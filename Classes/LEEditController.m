@@ -48,6 +48,7 @@
 @property (strong) FlightProps * flightProps;
 @property (nonatomic, strong) NSMutableDictionary * dictPropCells;
 @property (nonatomic, strong) UIImage * digitizedSig;
+@property (nonatomic, strong) NSArray<MFBWebServiceSvc_Aircraft *> * selectibleAircraft;
 
 
 - (void) updatePausePlay;
@@ -79,7 +80,7 @@
 @synthesize cellComments, cellDateAndTail, cellGPS, cellLandings, cellRoute, cellSharing, cellTimeBlock;
 @synthesize vwAccessory, activeTextField, flightProps;
 @synthesize dictPropCells, digitizedSig;
-@synthesize idSharingPrompt;
+@synthesize idSharingPrompt, selectibleAircraft;
 
 NSString * const _szKeyCachedImageArray = @"cachedImageArrayKey";
 NSString * const _szKeyFacebookState = @"keyFacebookState";
@@ -467,6 +468,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 	if ([self.le.rgPicsForFlight count] > 0)
 		for (CommentedImage * ci in self.le.rgPicsForFlight)
 			[ci flushCachedImage];
+    self.selectibleAircraft = nil;
 }
 
 - (void) viewWillDisappear:(BOOL)animated
@@ -538,6 +540,10 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
         [self newLocation:app.mfbloc.lastSeenLoc];
         [self updatePositionReport];
     }
+    
+    // Initialize the list of selectibleAircraft and hold on to it
+    // We do this on each view-will-appear so that we can pick up any aircraft that have been shown/hidden.
+    self.selectibleAircraft = [Aircraft.sharedAircraft AircraftForSelection:self.le.entryData.AircraftID];
 	
     [self.tableView reloadData];
 	[app ensureWarningShownForUser];
@@ -2064,32 +2070,23 @@ static NSDateFormatter * dfSunriseSunset = nil;
 }
 
 #pragma mark - Data Source - picker
-- (NSArray *) selectibleAircraft
-{
-    return [[Aircraft sharedAircraft] AircraftForSelection:self.le.entryData.AircraftID];
-}
-
-- (NSInteger) numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
+- (NSInteger) numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1;
 }
 
-- (NSInteger) pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-    return [[self selectibleAircraft] count];
+- (NSInteger) pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return self.selectibleAircraft.count;
 }
 
-- (NSString *) pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
-    MFBWebServiceSvc_Aircraft * ac = (MFBWebServiceSvc_Aircraft *) [self selectibleAircraft][row];
+- (NSString *) pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    MFBWebServiceSvc_Aircraft * ac = self.selectibleAircraft[row];
     if (ac.isAnonymous)
         return ac.displayTailNumber;
     return [NSString stringWithFormat:@"%@ (%@)", ac.TailNumber, ac.ModelDescription];
 }
 
-- (void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
-    MFBWebServiceSvc_Aircraft * ac = [self selectibleAircraft][row];
+- (void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    MFBWebServiceSvc_Aircraft * ac = self.selectibleAircraft[row];
     self.le.entryData.AircraftID = ac.AircraftID;
     self.idPopAircraft.text = ac.displayTailNumber;
 }
