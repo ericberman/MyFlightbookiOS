@@ -174,7 +174,6 @@
 {
     LogbookEntry * le = [LogbookEntry new];
     le.entryData = [MFBWebServiceSvc_LogbookEntry getNewLogbookEntry];
-    le.entryData.FlightID = PENDING_FLIGHT_ID;
     le.entryData.AircraftID = [NSNumber numberWithInteger:Aircraft.sharedAircraft.DefaultAircraftID];
     Telemetry * t = [Telemetry telemetryWithURL:url];
     GPSSim * sim = [[GPSSim alloc] initWithLoc:[MFBLocation new] delegate:le.entryData];
@@ -182,6 +181,10 @@
     [sim FeedEventsFromTelemetry:t];
     if (t.lastError.length > 0)
         le.errorString = t.lastError;
+    
+    le.entryData.FlightID = QUEUED_FLIGHT_UNSUBMITTED;   // don't auto-submit this flight!
+    [MFBAppDelegate.threadSafeAppDelegate queueFlightForLater:le];
+
     return le;
 }
 @end
