@@ -106,9 +106,11 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
--(int) getDefaultAircraftID
+-(int) DefaultAircraftID
 {
-	return (self.aircraftIDPreferred = (int) [[NSUserDefaults standardUserDefaults] integerForKey:_szKeyPreferredAircraftId]);
+	self.aircraftIDPreferred = (int) [[NSUserDefaults standardUserDefaults] integerForKey:_szKeyPreferredAircraftId];
+    [self checkAircraftID];
+    return self.aircraftIDPreferred;
 }
 
 - (void) checkAircraftID

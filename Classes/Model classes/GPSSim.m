@@ -175,6 +175,7 @@
     LogbookEntry * le = [LogbookEntry new];
     le.entryData = [MFBWebServiceSvc_LogbookEntry getNewLogbookEntry];
     le.entryData.FlightID = PENDING_FLIGHT_ID;
+    le.entryData.AircraftID = [NSNumber numberWithInteger:Aircraft.sharedAircraft.DefaultAircraftID];
     Telemetry * t = [Telemetry telemetryWithURL:url];
     GPSSim * sim = [[GPSSim alloc] initWithLoc:[MFBLocation new] delegate:le.entryData];
     sim.noDelayOnBackground = YES;
