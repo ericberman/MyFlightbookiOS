@@ -1387,10 +1387,12 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
     else if (textField == self.idPopAircraft)
     {
         if (self.le.entryData.AircraftID.intValue > 0){
-            MFBWebServiceSvc_Aircraft * ac = (MFBWebServiceSvc_Aircraft *) [[Aircraft sharedAircraft] AircraftByID:self.le.entryData.AircraftID.intValue];
-            NSInteger i = [[self selectibleAircraft] indexOfObject:ac];
-            if (i >= 0)
-                [self.pickerView selectRow:i inComponent:0 animated:YES];
+            for (int i = 0; i < self.selectibleAircraft.count; i++) {
+                if (self.selectibleAircraft[i].AircraftID.integerValue == self.le.entryData.AircraftID.integerValue) {
+                    [self.pickerView selectRow:i inComponent:0 animated:YES];
+                    break;
+                }
+            }
         }
     }
     self.activeTextField = textField;
