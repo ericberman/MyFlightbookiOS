@@ -97,7 +97,7 @@
 - (void) setFlight:(MFBWebServiceSvc_LogbookEntry *)le withImage:(id)ci withError:(NSString *) szErr
 {
     NSMutableAttributedString * attrString = [[NSMutableAttributedString alloc] init];
-    UIFont * baseFont = self.lblComments.font;
+    UIFont * baseFont = [UIFont systemFontOfSize:12];
     BOOL fUseHHMM = [AutodetectOptions HHMMPref];
     UIFont * boldFont = [UIFont fontWithDescriptor:[[baseFont fontDescriptor] fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold] size:baseFont.pointSize];
     UIFont * largeBoldFont = [UIFont fontWithDescriptor:[[baseFont fontDescriptor] fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold] size:baseFont.pointSize * 1.2];
