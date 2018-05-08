@@ -1685,13 +1685,14 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
 
 - (void) stopEngine
 {
+    [self autofillClosest];
+
     [self autoHobbs];
     [self autoTotal];
 
     if (!self.le.entryData.isNewFlight)
         return;
 
-    [self autofillClosest];
 	[mfbApp().mfbloc stopRecordingFlightData];
 	self.idimgRecording.hidden = YES;
 	[self initFormFromLE];
