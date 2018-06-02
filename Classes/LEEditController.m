@@ -1487,7 +1487,8 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
     {
         if (!self.le.entryData.isKnownEngineStart)
             [self resetDateOfFlight];
-        [self autofillClosest];
+        if ([AutodetectOptions autodetectTakeoffs])
+            [self autofillClosest];
     }
 	
 	[self initFormFromLE];
@@ -1685,7 +1686,8 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
 
 - (void) stopEngine
 {
-    [self autofillClosest];
+    if ([AutodetectOptions autodetectTakeoffs])
+        [self autofillClosest];
 
     [self autoHobbs];
     [self autoTotal];
@@ -1719,7 +1721,8 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
         if (![self.le.entryData isKnownEngineStart] && ![self.le.entryData isKnownFlightStart])
             [self resetDateOfFlight];
         
-        [self autofillClosest];
+        if ([AutodetectOptions autodetectTakeoffs])
+            [self autofillClosest];
         
         [mfbApp().mfbloc startRecordingFlightData]; // will ignore recording if not set to do so.
         [mfbApp() updateWatchContext];
