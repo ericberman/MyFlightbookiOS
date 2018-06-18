@@ -603,8 +603,7 @@ static NSDateFormatter * m_df;
 #ifdef DEBUG
             NSLog(@"NextSunrise = %@", [m_df stringFromDate:dtNextSunrise]);
 #endif
-
-            self.isNight = [dtNextSunrise compare:dt] == NSOrderedAscending;  // we've already determined that we're after sunset, we just need to be before sunrise
+            self.isNight = [dtNextSunrise compare:dt] == NSOrderedDescending;  // we've already determined that we're after sunset, we just need to be before sunrise
             self.isFAANight = ([(NSDate *)[dtNextSunrise dateByAddingTimeInterval:-self.NightLandingOffset * 60] compare:dt] == NSOrderedDescending &&
                                [(NSDate *)[self.Sunset dateByAddingTimeInterval:self.NightLandingOffset * 60] compare:dt] == NSOrderedAscending);
             self.isWithinNightOffset = ([(NSDate *)[dtNextSunrise dateByAddingTimeInterval:-self.NightFlightOffset * 60] compare:dt] == NSOrderedDescending &&
