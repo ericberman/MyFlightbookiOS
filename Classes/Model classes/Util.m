@@ -271,10 +271,10 @@
         }
             break;
         case MFBWebServiceSvc_NumType_Decimal:
-            return [UITextField stringFromNumber:self.Value forType:ntDecimal inHHMM:NO];
+            return [UITextField stringFromNumber:self.Value forType:ntDecimal inHHMM:NO useGrouping:YES];
             break;
         case MFBWebServiceSvc_NumType_Time:
-            return [UITextField stringFromNumber:self.Value forType:ntTime inHHMM:[AutodetectOptions HHMMPref]];
+            return [UITextField stringFromNumber:self.Value forType:ntTime inHHMM:[AutodetectOptions HHMMPref] useGrouping:YES];
             break;
     }
 }
