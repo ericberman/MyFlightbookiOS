@@ -879,6 +879,25 @@ NSString * const _szkeyPOTwitter = @"_poPostTwitter";
     return dt;
 }
 
+- (void) addApproachDescription:(NSString *) description {
+    if (self.CustomProperties == nil)
+        self.CustomProperties = [[MFBWebServiceSvc_ArrayOfCustomFlightProperty alloc] init];
+    
+    // See if the flight has an approach description attached.  If not, add it.
+    MFBWebServiceSvc_CustomFlightProperty * fpDescription = nil;
+    for (MFBWebServiceSvc_CustomFlightProperty * cfp in self.CustomProperties.CustomFlightProperty)
+        if ([cfp.PropTypeID intValue] == PropTypeID_ApproachName)
+        {
+            fpDescription = cfp;
+            break;
+        }
+    
+    if (fpDescription == nil)
+        [self addProperty:@PropTypeID_ApproachName withString:description];
+    else
+        fpDescription.TextValue = [[NSString stringWithFormat:@"%@ %@", fpDescription.TextValue, description] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
+
 // Utility macros for parsing JSON-derived dictionary
 #define AddNumber(f, v, nt) f = [self parseNum:v numType:nt]
 #define AddString(f, v) f = (v == nil) ? @"" : (NSString *) v

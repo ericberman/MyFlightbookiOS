@@ -62,9 +62,10 @@ enum appchRows {rowCount, rowApproachType, rowRunway, rowAirport, rowAddToTotals
 
 - (void) setAirports:(NSArray<NSString *> *) lst
 {
-    self.airportList = lst;
-    if (lst != nil && lst.count == 1)
-        self.approachDescription.airportName = lst[0];
+    if (lst == nil)
+        lst = [NSMutableArray new];
+    self.airportList = [[lst reverseObjectEnumerator] allObjects];
+    self.approachDescription.airportName = (lst != nil && lst.count > 0) ? self.airportList[0] : @"";
 }
 
 - (void)viewDidLoad {

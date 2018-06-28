@@ -2252,11 +2252,11 @@ static NSDateFormatter * dfSunriseSunset = nil;
 
 - (void) addApproachDescription:(ApproachDescription *) approachDescription
 {
-    NSString * newComment = [NSString stringWithFormat:@"%@ %@", [self.le.entryData.Comment  stringByTrimmingCharactersInSet:
-                                                                  [NSCharacterSet whitespaceCharacterSet]], approachDescription.description];
-    self.idComments.text = self.le.entryData.Comment = newComment;
+    [self.le.entryData addApproachDescription:approachDescription.description];
+
     if (approachDescription.addToTotals)
-        self.idApproaches.value = self.le.entryData.Approaches = @(self.le.entryData.Approaches.integerValue + approachDescription.approachCount);    
+        self.idApproaches.value = self.le.entryData.Approaches = @(self.le.entryData.Approaches.integerValue + approachDescription.approachCount);
+    [self.tableView reloadData];
 }
 
 #pragma mark - Time Calculator
