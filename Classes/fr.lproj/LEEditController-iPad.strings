@@ -60,7 +60,7 @@
 "604.text" = "Temps Total:";
 
 /* Class = "UIButton"; normalTitle = "MyFlightbook"; ObjectID = "605"; */
-"605.normalTitle" = "MyFlightbook";
+"605.normalTitle" = "Partager un vol sur MyFlightbook";
 
 /* Class = "UIButton"; normalTitle = "Facebook"; ObjectID = "606"; */
 "606.normalTitle" = "Facebook";

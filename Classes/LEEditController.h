@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 11/28/09.
-//  Copyright-2017 MyFlightbook LLC 2009. All rights reserved.
+//  Copyright-2018 MyFlightbook LLC 2009. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -62,8 +62,6 @@
 @property (nonatomic, strong) IBOutlet UITextField * idSIC;
 @property (nonatomic, strong) IBOutlet UITextField * idPIC;
 @property (nonatomic, strong) IBOutlet UIButton * idPublic;
-@property (nonatomic, strong) IBOutlet UIButton * idTweet;
-@property (nonatomic, strong) IBOutlet UIButton * idFacebook;
 
 @property (nonatomic, strong) IBOutlet UILabel * idLblStatus;
 @property (nonatomic, strong) IBOutlet UILabel * idLblSpeed;

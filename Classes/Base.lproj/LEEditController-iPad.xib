@@ -28,7 +28,6 @@
                 <outlet property="idDate" destination="582" id="657"/>
                 <outlet property="idDayLandings" destination="571" id="659"/>
                 <outlet property="idDual" destination="593" id="660"/>
-                <outlet property="idFacebook" destination="606" id="661"/>
                 <outlet property="idGrndSim" destination="588" id="662"/>
                 <outlet property="idHold" destination="567" id="663"/>
                 <outlet property="idIMC" destination="594" id="664"/>
@@ -44,10 +43,8 @@
                 <outlet property="idPublic" destination="605" id="675"/>
                 <outlet property="idRoute" destination="579" id="676"/>
                 <outlet property="idSIC" destination="587" id="677"/>
-                <outlet property="idSharingPrompt" destination="611" id="4s6-7w-sj0"/>
                 <outlet property="idSimIMC" destination="590" id="678"/>
                 <outlet property="idTotalTime" destination="586" id="679"/>
-                <outlet property="idTweet" destination="607" id="680"/>
                 <outlet property="idXC" destination="589" id="682"/>
                 <outlet property="idbtnAppendNearest" destination="578" id="Dlm-dZ-0x4"/>
                 <outlet property="idbtnPausePlay" destination="618" id="654"/>
@@ -340,100 +337,28 @@
                 <rect key="frame" x="0.0" y="0.0" width="766" height="58.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGo-jQ-G6u">
-                        <rect key="frame" x="0.0" y="0.0" width="766" height="58.5"/>
-                        <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="MFBLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="608">
-                                <rect key="frame" x="344" y="12" width="32" height="32"/>
-                            </imageView>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="f_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="610">
-                                <rect key="frame" x="176" y="12" width="32" height="32"/>
-                            </imageView>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="twitter.png" translatesAutoresizingMaskIntoConstraints="NO" id="609">
-                                <rect key="frame" x="8" y="12" width="32" height="32"/>
-                            </imageView>
-                            <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="605">
-                                <rect key="frame" x="384" y="14.5" width="120" height="27"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="gpT-9S-C9K"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" title="MyFlightbook">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="607">
-                                <rect key="frame" x="48" y="14.5" width="120" height="27"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="taT-VN-LOY"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" title="Twitter">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="606">
-                                <rect key="frame" x="216" y="14.5" width="120" height="27"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="9YG-d9-KwG"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" title="Facebook">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                            </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="Enable Twitter and Facebook at http://myflightbook.com" translatesAutoresizingMaskIntoConstraints="NO" id="611">
-                                <rect key="frame" x="512" y="0.0" width="246" height="58.5"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="246" id="we6-Zj-UaO"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
-                            </textView>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="609" firstAttribute="top" secondItem="mGo-jQ-G6u" secondAttribute="top" constant="12" id="E83-8m-sty"/>
-                            <constraint firstAttribute="bottom" secondItem="609" secondAttribute="bottom" constant="12" id="H0b-7M-fwX"/>
-                            <constraint firstItem="608" firstAttribute="centerY" secondItem="605" secondAttribute="centerY" id="IBt-VZ-6Gz"/>
-                            <constraint firstItem="611" firstAttribute="height" secondItem="mGo-jQ-G6u" secondAttribute="height" id="LRl-EK-eAF"/>
-                            <constraint firstItem="611" firstAttribute="top" secondItem="mGo-jQ-G6u" secondAttribute="top" id="OMQ-zY-lSs"/>
-                            <constraint firstItem="607" firstAttribute="centerY" secondItem="605" secondAttribute="centerY" id="TUt-zc-rDs"/>
-                            <constraint firstAttribute="trailing" secondItem="611" secondAttribute="trailing" constant="8" id="X6g-hc-kKT"/>
-                            <constraint firstItem="610" firstAttribute="leading" secondItem="607" secondAttribute="trailing" constant="8" id="XfN-Rw-55F"/>
-                            <constraint firstItem="611" firstAttribute="leading" secondItem="605" secondAttribute="trailing" constant="8" id="YPO-0b-5cd"/>
-                            <constraint firstItem="606" firstAttribute="centerY" secondItem="605" secondAttribute="centerY" id="Zvs-4n-Nha"/>
-                            <constraint firstItem="610" firstAttribute="centerY" secondItem="605" secondAttribute="centerY" id="aOs-br-ikK"/>
-                            <constraint firstItem="606" firstAttribute="leading" secondItem="610" secondAttribute="trailing" constant="8" id="eoE-wR-yCn"/>
-                            <constraint firstItem="607" firstAttribute="leading" secondItem="609" secondAttribute="trailing" constant="8" id="ghD-J7-0JS"/>
-                            <constraint firstItem="608" firstAttribute="leading" secondItem="606" secondAttribute="trailing" constant="8" id="hr1-ho-s4Z"/>
-                            <constraint firstItem="609" firstAttribute="centerY" secondItem="605" secondAttribute="centerY" id="p1l-Kk-0wd"/>
-                            <constraint firstItem="605" firstAttribute="leading" secondItem="608" secondAttribute="trailing" constant="8" id="t8K-aZ-I9h"/>
-                            <constraint firstItem="609" firstAttribute="leading" secondItem="mGo-jQ-G6u" secondAttribute="leading" constant="8" id="ylu-85-iBI"/>
-                        </constraints>
-                    </scrollView>
+                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="MFBLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="608">
+                        <rect key="frame" x="11" y="13" width="32" height="32"/>
+                    </imageView>
+                    <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="605">
+                        <rect key="frame" x="63" y="16" width="163" height="27"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <state key="normal" title="Share flight on MyFlightbook">
+                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <state key="highlighted">
+                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                    </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="mGo-jQ-G6u" firstAttribute="top" secondItem="F0U-Tq-E8I" secondAttribute="top" id="Qnz-8P-83n"/>
-                    <constraint firstItem="mGo-jQ-G6u" firstAttribute="height" secondItem="F0U-Tq-E8I" secondAttribute="height" id="hc6-hL-NlA"/>
-                    <constraint firstItem="mGo-jQ-G6u" firstAttribute="width" secondItem="F0U-Tq-E8I" secondAttribute="width" id="mBL-uE-cty"/>
-                    <constraint firstItem="mGo-jQ-G6u" firstAttribute="leading" secondItem="F0U-Tq-E8I" secondAttribute="leading" id="sgk-cH-Zkt"/>
+                    <constraint firstItem="605" firstAttribute="leading" secondItem="608" secondAttribute="trailing" constant="20" id="4HD-RD-aYa"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="605" secondAttribute="trailing" constant="20" symbolic="YES" id="GGt-6Q-cmD"/>
+                    <constraint firstItem="608" firstAttribute="centerY" secondItem="F0U-Tq-E8I" secondAttribute="centerY" id="Nyk-jc-yoT"/>
+                    <constraint firstItem="605" firstAttribute="centerY" secondItem="F0U-Tq-E8I" secondAttribute="centerY" id="Syi-tS-Z1N"/>
+                    <constraint firstItem="608" firstAttribute="leading" secondItem="F0U-Tq-E8I" secondAttribute="leading" constant="11" id="yiD-Sk-t4b"/>
                 </constraints>
             </tableViewCellContentView>
             <point key="canvasLocation" x="455" y="409.5"/>
@@ -1074,9 +999,7 @@
         <image name="MFBLogo.png" width="32" height="32"/>
         <image name="Pause.png" width="16" height="16"/>
         <image name="Recording.png" width="10" height="10"/>
-        <image name="f_logo.png" width="32" height="32"/>
         <image name="sunrise.png" width="20" height="20"/>
         <image name="sunset.png" width="20" height="20"/>
-        <image name="twitter.png" width="32" height="32"/>
     </resources>
 </document>

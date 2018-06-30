@@ -73,8 +73,8 @@
 @implementation LEEditController
 
 @synthesize idDate, popoverControl, idRoute, idComments, idTotalTime, idPopAircraft, idApproaches, idHold, idLandings, idDayLandings, idNightLandings;
-@synthesize idNight, idIMC, idSimIMC, idGrndSim, idXC, idDual, idCFI, idSIC, idPIC, idPublic, idTweet, le, delegate;
-@synthesize idFacebook, datePicker, pickerView;
+@synthesize idNight, idIMC, idSimIMC, idGrndSim, idXC, idDual, idCFI, idSIC, idPIC, idPublic, le, delegate;
+@synthesize datePicker, pickerView;
 @synthesize idLblStatus, idLblSpeed, idLblAltitude, idLblQuality, idimgRecording, idbtnPausePlay, idbtnAppendNearest, idlblElapsedTime, timerElapsed;
 @synthesize lblLat, lblLon, lblSunset, lblSunrise;
 @synthesize cellComments, cellDateAndTail, cellGPS, cellLandings, cellRoute, cellSharing, cellTimeBlock;
@@ -446,10 +446,8 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 
     // Make the checkboxes checkboxes
     [self.idHold setIsCheckbox];
-    [self.idFacebook setIsCheckbox];
-    [self.idTweet setIsCheckbox];
     [self.idPublic setIsCheckbox];
-    self.idHold.contentHorizontalAlignment = self.idFacebook.contentHorizontalAlignment = self.idTweet.contentHorizontalAlignment = self.idPublic.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    self.idHold.contentHorizontalAlignment = self.idPublic.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     
     self.dictPropCells = [[NSMutableDictionary alloc] init];
     
@@ -705,8 +703,8 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 
     entryData.fIsPublic = [[USBoolean alloc] initWithBool:self.idPublic.selected];
 
-    self.le.postingOptions.PostToTwitter = [[USBoolean alloc] initWithBool:self.idTweet.selected];
-    self.le.postingOptions.PostToFacebook = [[USBoolean alloc] initWithBool:self.idFacebook.selected];
+    self.le.postingOptions.PostToTwitter = [[USBoolean alloc] initWithBool:NO];
+    self.le.postingOptions.PostToFacebook = [[USBoolean alloc] initWithBool:NO];
 }
 
 - (void) setCurrentAircraft: (MFBWebServiceSvc_Aircraft *) ac
@@ -757,8 +755,6 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     
     // sharing options
     [self.idPublic setCheckboxValue:entryData.fIsPublic.boolValue];
-    [self.idTweet setCheckboxValue:self.le.postingOptions.PostToTwitter.boolValue];
-    [self.idFacebook setCheckboxValue:self.le.postingOptions.PostToFacebook.boolValue];
 	
 	[CommentedImage initCommentedImagesFromMFBII:entryData.FlightImages.MFBImageInfo toArray:self.le.rgPicsForFlight];
 		    
@@ -2290,6 +2286,38 @@ static NSDateFormatter * dfSunriseSunset = nil;
     [uiv show];
 }
 
+- (void) sendFlightToPilot {
+    if (self.le.entryData.SendFlightLink.length == 0)
+        return;
+    
+    NSString * szEncodedSubject = [NSLocalizedString(@"flightActionSendSubject", @"Flight Action - Send Subject") stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString * szEncodedBody = [[NSString stringWithFormat:NSLocalizedString(@"flightActionSendBody", @"Flight Action - Send Body"), self.le.entryData.SendFlightLink] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString * szURL = [NSString stringWithFormat:@"mailto:?subject=%@&body=%@",
+                        szEncodedSubject,
+                        szEncodedBody];
+    
+    [[UIApplication sharedApplication]  openURL: [NSURL URLWithString: szURL]];
+}
+
+- (void) shareFlight:(id) sender {
+    if (self.le.entryData.SocialMediaLink.length == 0)
+        return;
+    
+    NSString * szComment = [[NSString stringWithFormat:@"%@ %@", self.le.entryData.Comment, self.le.entryData.Route] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSURL * url = [NSURL URLWithString:self.le.entryData.SocialMediaLink];
+    UIActivityViewController * avc = [[UIActivityViewController alloc] initWithActivityItems:@[szComment, url] applicationActivities:nil];
+    
+    avc.excludedActivityTypes = @[UIActivityTypeAirDrop,
+                                   UIActivityTypePrint,
+                                   UIActivityTypeAssignToContact,
+                                   UIActivityTypeSaveToCameraRoll,
+                                   UIActivityTypeAddToReadingList,
+                                   UIActivityTypePostToFlickr,
+                                   UIActivityTypePostToVimeo];
+    
+    [self presentViewController:avc animated:YES completion:nil];
+}
+
 - (void) sendFlight:(id) sender {
     UIAlertController * uac = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"flightActionMenuPrompt", @"Actions for this flight") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
@@ -2300,6 +2328,18 @@ static NSDateFormatter * dfSunriseSunset = nil;
     [uac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"flightActionReverseFlight", @"Flight Action - repeat and reverse flight") style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         [self repeatFlight:YES];
     }]];
+    
+    if (self.le.entryData.SendFlightLink.length > 0) {
+        [uac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"flightActionSend", @"Flight Action - Send") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self sendFlightToPilot];
+        }]];
+    }
+    
+    if (self.le.entryData.SocialMediaLink.length > 0) {
+        [uac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"flightActionShare", @"Flight Action - Share") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self shareFlight:sender];
+        }]];
+    }
     
     [uac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel (button)") style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
         [uac dismissViewControllerAnimated:YES completion:nil];

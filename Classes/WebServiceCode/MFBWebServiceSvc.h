@@ -93,8 +93,6 @@
 @class MFBWebServiceSvc_AddNamedQueryForUserResponse;
 @class MFBWebServiceSvc_DeleteNamedQueryForUser;
 @class MFBWebServiceSvc_DeleteNamedQueryForUserResponse;
-@class MFBWebServiceSvc_SuggestAircraft;
-@class MFBWebServiceSvc_SuggestAircraftResponse;
 @class MFBWebServiceSvc_SuggestModels;
 @class MFBWebServiceSvc_SuggestModelsResponse;
 @class MFBWebServiceSvc_PreviouslyUsedTextProperties;
@@ -253,6 +251,7 @@ SOAPSigner *soapSigner;
 	NSString * ModelCommonName;
 	NSString * TailNumber;
 	NSNumber * ModelID;
+	NSString * ICAO;
 	NSString * ModelDescription;
 	NSString * ErrorString;
 	USBoolean * HideFromSelection;
@@ -292,6 +291,7 @@ SOAPSigner *soapSigner;
 @property (nonatomic, retain) NSString * ModelCommonName;
 @property (nonatomic, retain) NSString * TailNumber;
 @property (nonatomic, retain) NSNumber * ModelID;
+@property (nonatomic, retain) NSString * ICAO;
 @property (nonatomic, retain) NSString * ModelDescription;
 @property (nonatomic, retain) NSString * ErrorString;
 @property (nonatomic, retain) USBoolean * HideFromSelection;
@@ -1571,6 +1571,8 @@ SOAPSigner *soapSigner;
 	MFBWebServiceSvc_SignatureState CFISignatureState;
 	NSData * DigitizedSignature;
 	USBoolean * HasDigitizedSig;
+	NSString * SendFlightLink;
+	NSString * SocialMediaLink;
 /* attributes */
 }
 - (NSString *)nsPrefix;
@@ -1629,6 +1631,8 @@ SOAPSigner *soapSigner;
 @property (nonatomic, assign) MFBWebServiceSvc_SignatureState CFISignatureState;
 @property (nonatomic, retain) NSData * DigitizedSignature;
 @property (nonatomic, retain) USBoolean * HasDigitizedSig;
+@property (nonatomic, retain) NSString * SendFlightLink;
+@property (nonatomic, retain) NSString * SocialMediaLink;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
@@ -2495,46 +2499,6 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_SuggestAircraft : NSObject <NSCoding> {
-SOAPSigner *soapSigner;
-/* elements */
-	NSString * prefixText;
-	NSNumber * count;
-/* attributes */
-}
-- (NSString *)nsPrefix;
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
-- (void)addAttributesToNode:(xmlNodePtr)node;
-- (void)addElementsToNode:(xmlNodePtr)node;
-+ (MFBWebServiceSvc_SuggestAircraft *)deserializeNode:(xmlNodePtr)cur;
-- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
-- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
-@property (retain) SOAPSigner *soapSigner;
-/* elements */
-@property (nonatomic, retain) NSString * prefixText;
-@property (nonatomic, retain) NSNumber * count;
-/* attributes */
-- (NSDictionary *)attributes;
-@end
-@interface MFBWebServiceSvc_SuggestAircraftResponse : NSObject <NSCoding> {
-SOAPSigner *soapSigner;
-/* elements */
-	MFBWebServiceSvc_ArrayOfString * SuggestAircraftResult;
-/* attributes */
-}
-- (NSString *)nsPrefix;
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
-- (void)addAttributesToNode:(xmlNodePtr)node;
-- (void)addElementsToNode:(xmlNodePtr)node;
-+ (MFBWebServiceSvc_SuggestAircraftResponse *)deserializeNode:(xmlNodePtr)cur;
-- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
-- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
-@property (retain) SOAPSigner *soapSigner;
-/* elements */
-@property (nonatomic, retain) MFBWebServiceSvc_ArrayOfString * SuggestAircraftResult;
-/* attributes */
-- (NSDictionary *)attributes;
-@end
 @interface MFBWebServiceSvc_SuggestModels : NSObject <NSCoding> {
 SOAPSigner *soapSigner;
 /* elements */
@@ -2786,8 +2750,6 @@ SOAPSigner *soapSigner;
 - (void)AddNamedQueryForUserAsyncUsingParameters:(MFBWebServiceSvc_AddNamedQueryForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoapBindingResponse *)DeleteNamedQueryForUserUsingParameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters ;
 - (void)DeleteNamedQueryForUserAsyncUsingParameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
-- (MFBWebServiceSoapBindingResponse *)SuggestAircraftUsingParameters:(MFBWebServiceSvc_SuggestAircraft *)aParameters ;
-- (void)SuggestAircraftAsyncUsingParameters:(MFBWebServiceSvc_SuggestAircraft *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoapBindingResponse *)SuggestModelsUsingParameters:(MFBWebServiceSvc_SuggestModels *)aParameters ;
 - (void)SuggestModelsAsyncUsingParameters:(MFBWebServiceSvc_SuggestModels *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoapBindingResponse *)PreviouslyUsedTextPropertiesUsingParameters:(MFBWebServiceSvc_PreviouslyUsedTextProperties *)aParameters ;
@@ -3034,14 +2996,6 @@ SOAPSigner *soapSigner;
 	parameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters
 ;
 @end
-@interface MFBWebServiceSoapBinding_SuggestAircraft : MFBWebServiceSoapBindingOperation {
-	MFBWebServiceSvc_SuggestAircraft * parameters;
-}
-@property (nonatomic, retain) MFBWebServiceSvc_SuggestAircraft * parameters;
-- (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)aDelegate
-	parameters:(MFBWebServiceSvc_SuggestAircraft *)aParameters
-;
-@end
 @interface MFBWebServiceSoapBinding_SuggestModels : MFBWebServiceSoapBindingOperation {
 	MFBWebServiceSvc_SuggestModels * parameters;
 }
@@ -3173,8 +3127,6 @@ SOAPSigner *soapSigner;
 - (void)AddNamedQueryForUserAsyncUsingParameters:(MFBWebServiceSvc_AddNamedQueryForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoap12BindingResponse *)DeleteNamedQueryForUserUsingParameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters ;
 - (void)DeleteNamedQueryForUserAsyncUsingParameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
-- (MFBWebServiceSoap12BindingResponse *)SuggestAircraftUsingParameters:(MFBWebServiceSvc_SuggestAircraft *)aParameters ;
-- (void)SuggestAircraftAsyncUsingParameters:(MFBWebServiceSvc_SuggestAircraft *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoap12BindingResponse *)SuggestModelsUsingParameters:(MFBWebServiceSvc_SuggestModels *)aParameters ;
 - (void)SuggestModelsAsyncUsingParameters:(MFBWebServiceSvc_SuggestModels *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoap12BindingResponse *)PreviouslyUsedTextPropertiesUsingParameters:(MFBWebServiceSvc_PreviouslyUsedTextProperties *)aParameters ;
@@ -3419,14 +3371,6 @@ SOAPSigner *soapSigner;
 @property (nonatomic, retain) MFBWebServiceSvc_DeleteNamedQueryForUser * parameters;
 - (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)aDelegate
 	parameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters
-;
-@end
-@interface MFBWebServiceSoap12Binding_SuggestAircraft : MFBWebServiceSoap12BindingOperation {
-	MFBWebServiceSvc_SuggestAircraft * parameters;
-}
-@property (nonatomic, retain) MFBWebServiceSvc_SuggestAircraft * parameters;
-- (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)aDelegate
-	parameters:(MFBWebServiceSvc_SuggestAircraft *)aParameters
 ;
 @end
 @interface MFBWebServiceSoap12Binding_SuggestModels : MFBWebServiceSoap12BindingOperation {

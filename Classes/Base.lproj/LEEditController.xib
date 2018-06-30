@@ -28,7 +28,6 @@
                 <outlet property="idDate" destination="324" id="488"/>
                 <outlet property="idDayLandings" destination="384" id="489"/>
                 <outlet property="idDual" destination="454" id="490"/>
-                <outlet property="idFacebook" destination="468" id="491"/>
                 <outlet property="idGrndSim" destination="459" id="492"/>
                 <outlet property="idHold" destination="365" id="493"/>
                 <outlet property="idIMC" destination="453" id="494"/>
@@ -44,10 +43,8 @@
                 <outlet property="idPublic" destination="466" id="531"/>
                 <outlet property="idRoute" destination="337" id="500"/>
                 <outlet property="idSIC" destination="460" id="527"/>
-                <outlet property="idSharingPrompt" destination="462" id="u8S-Oy-qYd"/>
                 <outlet property="idSimIMC" destination="457" id="523"/>
                 <outlet property="idTotalTime" destination="461" id="529"/>
-                <outlet property="idTweet" destination="467" id="532"/>
                 <outlet property="idXC" destination="458" id="511"/>
                 <outlet property="idbtnAppendNearest" destination="339" id="qNn-vC-ugH"/>
                 <outlet property="idbtnPausePlay" destination="358" id="485"/>
@@ -898,37 +895,24 @@
             </connections>
             <point key="canvasLocation" x="852" y="636.5"/>
         </tableViewCell>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="cellSharing" rowHeight="125" id="322">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="125"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="cellSharing" rowHeight="55" id="322">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="322" id="lN6-qM-XsN">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="124.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="54.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="Twitter and Facebook support can be enabled in your profile at http://myflightbook.com" translatesAutoresizingMaskIntoConstraints="NO" id="462">
-                        <rect key="frame" x="16" y="11" width="320" height="44"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="44" id="gai-M9-Rm7"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
-                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                        <dataDetectorType key="dataDetectorTypes" link="YES"/>
-                    </textView>
-                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="f_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="464">
-                        <rect key="frame" x="144" y="55" width="32" height="32"/>
-                    </imageView>
-                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="twitter.png" translatesAutoresizingMaskIntoConstraints="NO" id="465">
-                        <rect key="frame" x="52.5" y="55" width="32" height="32"/>
+                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="MFBLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="463">
+                        <rect key="frame" x="16" y="11" width="32" height="32"/>
                     </imageView>
                     <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="466">
-                        <rect key="frame" x="199" y="87" width="105" height="27"/>
+                        <rect key="frame" x="56" y="14" width="163" height="27"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="105" id="Ol2-8K-JgV"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <state key="normal" title="MyFlightbook">
+                        <state key="normal" title="Share flight on MyFlightbook">
                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
@@ -936,58 +920,16 @@
                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                     </button>
-                    <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="467">
-                        <rect key="frame" x="16" y="87" width="105" height="27"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="105" id="V7Q-FO-PO0"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <state key="normal" title="Twitter">
-                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </state>
-                        <state key="highlighted">
-                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </state>
-                    </button>
-                    <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="468">
-                        <rect key="frame" x="107.5" y="87" width="105" height="27"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="105" id="l8u-Bf-vP9"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <state key="normal" title="Facebook">
-                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </state>
-                        <state key="highlighted">
-                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </state>
-                    </button>
-                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="MFBLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="463">
-                        <rect key="frame" x="235.5" y="55" width="32" height="32"/>
-                    </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="465" firstAttribute="centerX" secondItem="467" secondAttribute="centerX" id="64X-vL-iUa"/>
-                    <constraint firstItem="468" firstAttribute="bottom" secondItem="lN6-qM-XsN" secondAttribute="bottomMargin" id="AnV-VD-3kd"/>
-                    <constraint firstItem="462" firstAttribute="leading" secondItem="lN6-qM-XsN" secondAttribute="leadingMargin" id="LO9-iX-jPd"/>
-                    <constraint firstItem="464" firstAttribute="bottom" secondItem="468" secondAttribute="top" id="Niv-oi-vXi"/>
-                    <constraint firstItem="465" firstAttribute="bottom" secondItem="467" secondAttribute="top" id="R99-CS-Mxx"/>
-                    <constraint firstItem="462" firstAttribute="top" secondItem="lN6-qM-XsN" secondAttribute="topMargin" id="TUm-t8-BTc"/>
-                    <constraint firstItem="462" firstAttribute="width" secondItem="lN6-qM-XsN" secondAttribute="width" id="ZJa-lm-PFq"/>
-                    <constraint firstItem="468" firstAttribute="centerX" secondItem="lN6-qM-XsN" secondAttribute="centerX" id="dUY-S7-cbc"/>
-                    <constraint firstItem="463" firstAttribute="centerX" secondItem="466" secondAttribute="centerX" id="e4p-Lp-UME"/>
-                    <constraint firstItem="466" firstAttribute="bottom" secondItem="lN6-qM-XsN" secondAttribute="bottomMargin" id="h0x-mY-PFj"/>
-                    <constraint firstItem="463" firstAttribute="bottom" secondItem="466" secondAttribute="top" id="hU3-K8-5FG"/>
-                    <constraint firstItem="467" firstAttribute="leading" secondItem="lN6-qM-XsN" secondAttribute="leadingMargin" id="lpk-JL-Gze"/>
-                    <constraint firstItem="467" firstAttribute="bottom" secondItem="lN6-qM-XsN" secondAttribute="bottomMargin" id="pNu-CR-VgW"/>
-                    <constraint firstItem="466" firstAttribute="trailing" secondItem="lN6-qM-XsN" secondAttribute="trailingMargin" id="ufA-fZ-9bH"/>
-                    <constraint firstItem="464" firstAttribute="centerX" secondItem="468" secondAttribute="centerX" id="zVK-RT-dZw"/>
+                    <constraint firstItem="463" firstAttribute="centerY" secondItem="lN6-qM-XsN" secondAttribute="centerY" id="7O8-mY-BwX"/>
+                    <constraint firstItem="466" firstAttribute="centerY" secondItem="lN6-qM-XsN" secondAttribute="centerY" id="VDc-d9-wv2"/>
+                    <constraint firstItem="463" firstAttribute="leading" secondItem="lN6-qM-XsN" secondAttribute="leading" constant="16" id="X6n-jA-EEi"/>
+                    <constraint firstItem="466" firstAttribute="leading" secondItem="463" secondAttribute="trailing" constant="8" id="lpd-u0-kG1"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="466" secondAttribute="trailing" constant="20" symbolic="YES" id="xMQ-Wm-qxq"/>
                 </constraints>
             </tableViewCellContentView>
+            <point key="canvasLocation" x="-46" y="625.5"/>
         </tableViewCell>
         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="505">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -1000,9 +942,7 @@
         <image name="MFBLogo.png" width="32" height="32"/>
         <image name="Pause.png" width="16" height="16"/>
         <image name="Recording.png" width="10" height="10"/>
-        <image name="f_logo.png" width="32" height="32"/>
         <image name="sunrise.png" width="20" height="20"/>
         <image name="sunset.png" width="20" height="20"/>
-        <image name="twitter.png" width="32" height="32"/>
     </resources>
 </document>

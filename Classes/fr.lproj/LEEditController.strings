@@ -93,7 +93,7 @@
 "462.text" = "Twitter et Facebook peuvent être activés sur http://MyFlightbook.com";
 
 /* Class = "UIButton"; normalTitle = "MyFlightbook"; ObjectID = "466"; */
-"466.normalTitle" = "MyFlightbook";
+"466.normalTitle" = "Partager un vol sur MyFlightbook";
 
 /* Class = "UIButton"; normalTitle = "Twitter"; ObjectID = "467"; */
 "467.normalTitle" = "Twitter";
