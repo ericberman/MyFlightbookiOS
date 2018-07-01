@@ -381,7 +381,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" tag="8" contentMode="scaleToFill" text="X-Country:" textAlignment="center" lineBreakMode="clip" minimumFontSize="5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="603">
-                        <rect key="frame" x="478.5" y="17.5" width="67" height="14.5"/>
+                        <rect key="frame" x="478.5" y="18.5" width="67" height="14.5"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="64" id="yIQ-kj-9C3"/>
@@ -391,7 +391,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" tag="8" contentMode="scaleToFill" text="Night:" textAlignment="center" lineBreakMode="clip" minimumFontSize="5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="602">
-                        <rect key="frame" x="96" y="17.5" width="64" height="14.5"/>
+                        <rect key="frame" x="96" y="18.5" width="64" height="14.5"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="64" id="0mh-Fb-uk5"/>
@@ -401,7 +401,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" tag="8" contentMode="scaleToFill" text="IMC:" textAlignment="center" lineBreakMode="clip" minimumFontSize="5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="601">
-                        <rect key="frame" x="352" y="17.5" width="64" height="14.5"/>
+                        <rect key="frame" x="352" y="18.5" width="64" height="14.5"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="64" id="Fyk-r8-Dn3"/>
@@ -411,7 +411,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" tag="8" contentMode="scaleToFill" text="Sim. IMC:" textAlignment="center" lineBreakMode="clip" minimumFontSize="5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="600">
-                        <rect key="frame" x="224" y="17.5" width="64" height="14.5"/>
+                        <rect key="frame" x="224" y="18.5" width="64" height="14.5"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="64" id="s9W-6U-agQ"/>
@@ -421,7 +421,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" tag="8" contentMode="scaleToFill" text="Dual:" textAlignment="center" lineBreakMode="clip" minimumFontSize="5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="599">
-                        <rect key="frame" x="608" y="17.5" width="64" height="14.5"/>
+                        <rect key="frame" x="608" y="18.5" width="64" height="14.5"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="64" id="tc4-ce-sAS"/>
@@ -479,7 +479,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="588" userLabel="txtGrndSim">
-                        <rect key="frame" x="108" y="91" width="40" height="17"/>
+                        <rect key="frame" x="108" y="92" width="40" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="C6Q-0n-k4p"/>
                         </constraints>
@@ -512,7 +512,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="592" userLabel="txtCFI">
-                        <rect key="frame" x="236" y="91" width="40" height="17"/>
+                        <rect key="frame" x="236" y="92" width="40" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="vaq-br-5bq"/>
                         </constraints>
@@ -523,7 +523,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="591" userLabel="txtPIC">
-                        <rect key="frame" x="492" y="91" width="40" height="17"/>
+                        <rect key="frame" x="492" y="92" width="40" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="J4J-Ek-ZBS"/>
                         </constraints>
@@ -556,7 +556,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="587" userLabel="txtSIC">
-                        <rect key="frame" x="364" y="91" width="40" height="17"/>
+                        <rect key="frame" x="364" y="92" width="40" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="h84-lu-msd"/>
                         </constraints>
@@ -567,7 +567,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="586" userLabel="txtTotal">
-                        <rect key="frame" x="620" y="91" width="40" height="17"/>
+                        <rect key="frame" x="620" y="92" width="40" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="1xW-J4-L5d"/>
                         </constraints>
@@ -579,46 +579,46 @@
                     </textField>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="596" firstAttribute="centerY" secondItem="595" secondAttribute="centerY" id="1zf-RA-e9E"/>
-                    <constraint firstItem="588" firstAttribute="centerX" secondItem="595" secondAttribute="centerX" id="5lT-St-LTg"/>
-                    <constraint firstItem="589" firstAttribute="centerX" secondItem="603" secondAttribute="centerX" id="6Xk-Yr-yid"/>
+                    <constraint firstItem="596" firstAttribute="centerY" secondItem="oN5-eB-ldI" secondAttribute="centerY" multiplier="1.2" id="3nb-gg-aBK"/>
+                    <constraint firstItem="590" firstAttribute="centerX" secondItem="oN5-eB-ldI" secondAttribute="centerX" multiplier="2:3" id="55f-Lj-hPA"/>
                     <constraint firstItem="592" firstAttribute="centerX" secondItem="598" secondAttribute="centerX" id="73g-9R-zIn"/>
-                    <constraint firstItem="586" firstAttribute="centerY" secondItem="588" secondAttribute="centerY" id="Afa-Y5-Cb6"/>
+                    <constraint firstItem="585" firstAttribute="centerX" secondItem="oN5-eB-ldI" secondAttribute="centerX" multiplier="1:3" id="9cs-eY-gOE"/>
+                    <constraint firstItem="589" firstAttribute="centerX" secondItem="oN5-eB-ldI" secondAttribute="centerX" multiplier="4:3" id="HO2-fb-fne"/>
                     <constraint firstItem="598" firstAttribute="centerX" secondItem="oN5-eB-ldI" secondAttribute="centerX" multiplier="4:6" id="InL-nc-oeL"/>
+                    <constraint firstItem="592" firstAttribute="centerY" secondItem="oN5-eB-ldI" secondAttribute="centerY" multiplier="1.6" id="J8g-Tq-j4Z"/>
                     <constraint firstItem="604" firstAttribute="centerX" secondItem="oN5-eB-ldI" secondAttribute="centerX" multiplier="10:6" id="KPe-SC-A5z"/>
-                    <constraint firstItem="587" firstAttribute="centerY" secondItem="588" secondAttribute="centerY" id="L7z-Z6-aKT"/>
-                    <constraint firstItem="592" firstAttribute="centerY" secondItem="588" secondAttribute="centerY" id="LWV-PC-CM5"/>
-                    <constraint firstItem="594" firstAttribute="centerY" secondItem="585" secondAttribute="centerY" id="Md3-Ba-36h"/>
-                    <constraint firstItem="593" firstAttribute="centerX" secondItem="599" secondAttribute="centerX" id="Nk6-IV-9XQ"/>
-                    <constraint firstItem="589" firstAttribute="centerY" secondItem="585" secondAttribute="centerY" id="No9-aH-1Ky"/>
-                    <constraint firstItem="590" firstAttribute="centerY" secondItem="585" secondAttribute="centerY" id="PxN-wa-YZ9"/>
-                    <constraint firstItem="590" firstAttribute="centerX" secondItem="600" secondAttribute="centerX" id="Q3M-RJ-CYv"/>
+                    <constraint firstItem="590" firstAttribute="centerY" secondItem="oN5-eB-ldI" secondAttribute="centerY" multiplier="4:5" id="M8M-ys-YuZ"/>
+                    <constraint firstItem="587" firstAttribute="centerY" secondItem="oN5-eB-ldI" secondAttribute="centerY" multiplier="1.6" id="MLF-Pj-gWx"/>
                     <constraint firstItem="585" firstAttribute="centerY" secondItem="oN5-eB-ldI" secondAttribute="centerY" multiplier="4:5" id="RFA-1t-Eui"/>
                     <constraint firstItem="601" firstAttribute="centerX" secondItem="oN5-eB-ldI" secondAttribute="centerX" multiplier="6:6" id="SgA-EX-Fjr"/>
-                    <constraint firstItem="603" firstAttribute="centerY" secondItem="602" secondAttribute="centerY" id="W3d-TP-xUy"/>
-                    <constraint firstItem="604" firstAttribute="centerY" secondItem="595" secondAttribute="centerY" id="Xss-oo-IjD"/>
-                    <constraint firstItem="598" firstAttribute="centerY" secondItem="595" secondAttribute="centerY" id="ayY-72-tgo"/>
+                    <constraint firstItem="589" firstAttribute="centerY" secondItem="oN5-eB-ldI" secondAttribute="centerY" multiplier="4:5" id="Su4-Ik-23e"/>
+                    <constraint firstItem="591" firstAttribute="centerY" secondItem="oN5-eB-ldI" secondAttribute="centerY" multiplier="1.6" id="Twi-yN-xVI"/>
+                    <constraint firstItem="601" firstAttribute="centerY" secondItem="oN5-eB-ldI" secondAttribute="centerY" multiplier="4:10" id="VlM-ib-TJ0"/>
+                    <constraint firstItem="587" firstAttribute="centerX" secondItem="oN5-eB-ldI" secondAttribute="centerX" id="a0n-Pu-lkA"/>
+                    <constraint firstItem="603" firstAttribute="centerY" secondItem="oN5-eB-ldI" secondAttribute="centerY" multiplier="4:10" id="bbF-xJ-wfS"/>
                     <constraint firstItem="595" firstAttribute="centerX" secondItem="oN5-eB-ldI" secondAttribute="centerX" multiplier="2:6" id="dZU-i9-6bo"/>
                     <constraint firstItem="599" firstAttribute="centerX" secondItem="oN5-eB-ldI" secondAttribute="centerX" multiplier="10:6" id="ftB-1X-NnZ"/>
+                    <constraint firstItem="586" firstAttribute="centerX" secondItem="oN5-eB-ldI" secondAttribute="centerX" multiplier="5:3" id="gNQ-gL-zhk"/>
                     <constraint firstItem="591" firstAttribute="centerX" secondItem="596" secondAttribute="centerX" id="grv-Zo-Or0"/>
-                    <constraint firstItem="593" firstAttribute="centerY" secondItem="585" secondAttribute="centerY" id="hOB-nM-naM"/>
-                    <constraint firstItem="599" firstAttribute="centerY" secondItem="602" secondAttribute="centerY" id="j2a-c3-VFV"/>
+                    <constraint firstItem="600" firstAttribute="centerY" secondItem="oN5-eB-ldI" secondAttribute="centerY" multiplier="4:10" id="hYU-MP-KHE"/>
+                    <constraint firstItem="594" firstAttribute="centerX" secondItem="oN5-eB-ldI" secondAttribute="centerX" id="lrS-KW-PjY"/>
                     <constraint firstItem="602" firstAttribute="centerY" secondItem="oN5-eB-ldI" secondAttribute="centerY" multiplier="2:5" id="m4Y-pa-yqF"/>
                     <constraint firstItem="602" firstAttribute="centerX" secondItem="oN5-eB-ldI" secondAttribute="centerX" multiplier="2:6" id="n7a-jf-Suq"/>
+                    <constraint firstItem="594" firstAttribute="centerY" secondItem="oN5-eB-ldI" secondAttribute="centerY" multiplier="4:5" id="nFy-gH-sBH"/>
                     <constraint firstItem="597" firstAttribute="centerX" secondItem="oN5-eB-ldI" secondAttribute="centerX" multiplier="6:6" id="oQE-ib-NyJ"/>
                     <constraint firstItem="595" firstAttribute="centerY" secondItem="oN5-eB-ldI" secondAttribute="centerY" multiplier="6:5" id="pMu-Ua-Uzq"/>
-                    <constraint firstItem="588" firstAttribute="centerY" secondItem="oN5-eB-ldI" secondAttribute="centerY" multiplier="8:5" id="plk-bc-16M"/>
+                    <constraint firstItem="588" firstAttribute="centerY" secondItem="oN5-eB-ldI" secondAttribute="centerY" multiplier="1.6" id="pys-0z-Zo8"/>
+                    <constraint firstItem="599" firstAttribute="centerY" secondItem="oN5-eB-ldI" secondAttribute="centerY" multiplier="4:10" id="qAb-vP-I5x"/>
                     <constraint firstItem="600" firstAttribute="centerX" secondItem="oN5-eB-ldI" secondAttribute="centerX" multiplier="4:6" id="qEl-cI-6R1"/>
-                    <constraint firstItem="591" firstAttribute="centerY" secondItem="588" secondAttribute="centerY" id="qOC-cN-2mf"/>
-                    <constraint firstItem="594" firstAttribute="centerX" secondItem="601" secondAttribute="centerX" id="qpb-V1-aI7"/>
-                    <constraint firstItem="601" firstAttribute="centerY" secondItem="602" secondAttribute="centerY" id="sn9-Q9-6s7"/>
+                    <constraint firstItem="593" firstAttribute="centerY" secondItem="oN5-eB-ldI" secondAttribute="centerY" multiplier="8:10" id="qmX-wk-Vqa"/>
+                    <constraint firstItem="588" firstAttribute="centerX" secondItem="oN5-eB-ldI" secondAttribute="centerX" multiplier="1:3" id="r44-aI-WlC"/>
+                    <constraint firstItem="598" firstAttribute="centerY" secondItem="oN5-eB-ldI" secondAttribute="centerY" multiplier="1.2" id="rRf-DQ-dJg"/>
+                    <constraint firstItem="597" firstAttribute="centerY" secondItem="oN5-eB-ldI" secondAttribute="centerY" multiplier="1.2" id="rx8-Vw-eQH"/>
+                    <constraint firstItem="586" firstAttribute="centerY" secondItem="oN5-eB-ldI" secondAttribute="centerY" multiplier="1.6" id="tXa-ox-lKb"/>
                     <constraint firstItem="596" firstAttribute="centerX" secondItem="oN5-eB-ldI" secondAttribute="centerX" multiplier="8:6" id="tYn-n1-vLN"/>
-                    <constraint firstItem="597" firstAttribute="centerY" secondItem="595" secondAttribute="centerY" id="tdJ-Y7-x8L"/>
-                    <constraint firstItem="587" firstAttribute="centerX" secondItem="597" secondAttribute="centerX" id="tg8-Q9-zOb"/>
+                    <constraint firstItem="593" firstAttribute="centerX" secondItem="oN5-eB-ldI" secondAttribute="centerX" multiplier="5:3" id="uVO-50-1Oo"/>
+                    <constraint firstItem="604" firstAttribute="centerY" secondItem="oN5-eB-ldI" secondAttribute="centerY" multiplier="1.2" id="wYV-LF-M8S"/>
                     <constraint firstItem="603" firstAttribute="centerX" secondItem="oN5-eB-ldI" secondAttribute="centerX" multiplier="8:6" id="wb4-Mc-n5F"/>
-                    <constraint firstItem="586" firstAttribute="centerX" secondItem="604" secondAttribute="centerX" id="wqp-73-XsU"/>
-                    <constraint firstItem="585" firstAttribute="centerX" secondItem="602" secondAttribute="centerX" id="xyq-VH-Jzm"/>
-                    <constraint firstItem="600" firstAttribute="centerY" secondItem="602" secondAttribute="centerY" id="zD2-WM-K1e"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

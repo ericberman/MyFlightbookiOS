@@ -121,7 +121,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     tfTemp.textColor = src.textColor;
     [src.superview addSubview:tfTemp];
     
-    src.translatesAutoresizingMaskIntoConstraints = YES;
+    src.translatesAutoresizingMaskIntoConstraints = NO;
     [UIView animateWithDuration:0.5f animations:^{
         tfTemp.frame = rDst;
     }

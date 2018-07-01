@@ -618,21 +618,19 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" tag="10" contentMode="scaleToFill" text="Total:" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="419">
-                        <rect key="frame" x="160" y="151" width="80" height="20"/>
+                        <rect key="frame" x="160" y="129.5" width="80" height="14.5"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="3PY-D6-Nlr"/>
-                            <constraint firstAttribute="height" constant="20" id="DLx-jb-ehe"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" text="X-Country:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="420">
-                        <rect key="frame" x="160" y="46" width="80" height="20"/>
+                        <rect key="frame" x="160" y="41" width="80" height="14.5"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="20" id="Tri-g7-lcK"/>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="ZXZ-Sq-rW6"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
@@ -640,65 +638,59 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" text="Night:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="421">
-                        <rect key="frame" x="16" y="11" width="80" height="20"/>
+                        <rect key="frame" x="16" y="11" width="80" height="14.5"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="JCA-j4-o9d"/>
-                            <constraint firstAttribute="height" constant="20" id="UQs-kB-xsu"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" text="IMC:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="422">
-                        <rect key="frame" x="16" y="46" width="80" height="20"/>
+                        <rect key="frame" x="16" y="40.5" width="80" height="14.5"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="2tb-zM-5MH"/>
-                            <constraint firstAttribute="height" constant="20" id="NHW-Pj-aTL"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" text="Sim. IMC:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="423">
-                        <rect key="frame" x="160" y="11" width="80" height="20"/>
+                        <rect key="frame" x="160" y="11.5" width="80" height="14.5"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="7dj-f7-LDH"/>
-                            <constraint firstAttribute="height" constant="20" id="9Zj-e0-Hsx"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" text="Dual:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="424">
-                        <rect key="frame" x="16" y="81" width="80" height="20"/>
+                        <rect key="frame" x="16" y="70" width="80" height="14.5"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="1A1-84-ws9"/>
-                            <constraint firstAttribute="height" constant="20" id="Son-Mw-Ywy"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" tag="7" contentMode="scaleToFill" text="CFI:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="425">
-                        <rect key="frame" x="16" y="116" width="80" height="20"/>
+                        <rect key="frame" x="16" y="99.5" width="80" height="14.5"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="Ew7-7D-Ryt"/>
-                            <constraint firstAttribute="height" constant="20" id="IOZ-Ns-jk1"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" tag="8" contentMode="scaleToFill" text="SIC:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="426">
-                        <rect key="frame" x="160" y="116" width="80" height="20"/>
+                        <rect key="frame" x="160" y="100" width="80" height="14.5"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="20" id="Vjb-x9-7vz"/>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="kqR-4s-NOw"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
@@ -706,10 +698,9 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" tag="9" contentMode="scaleToFill" text="PIC:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="427">
-                        <rect key="frame" x="16" y="151" width="80" height="20"/>
+                        <rect key="frame" x="16" y="129" width="80" height="14.5"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="20" id="ZJF-qJ-hfR"/>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="z60-1A-F55"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
@@ -717,18 +708,17 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" tag="6" contentMode="scaleToFill" text="Ground Sim:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="439">
-                        <rect key="frame" x="160" y="81" width="80" height="20"/>
+                        <rect key="frame" x="160" y="70.5" width="80" height="14.5"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="9hq-Wk-Ghn"/>
-                            <constraint firstAttribute="height" constant="20" id="whf-Ai-oi0"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="452" userLabel="txtNight">
-                        <rect key="frame" x="96" y="12.5" width="40" height="17"/>
+                        <rect key="frame" x="96" y="10" width="40" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="rEn-Wd-HWy"/>
                         </constraints>
@@ -739,7 +729,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="453" userLabel="txtIMC">
-                        <rect key="frame" x="96" y="47.5" width="40" height="17"/>
+                        <rect key="frame" x="96" y="39.5" width="40" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="P3b-ys-B0g"/>
                         </constraints>
@@ -750,7 +740,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="454" userLabel="txtDual">
-                        <rect key="frame" x="96" y="82.5" width="40" height="17"/>
+                        <rect key="frame" x="96" y="69" width="40" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="BDo-9L-q2s"/>
                         </constraints>
@@ -761,7 +751,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="455" userLabel="txtCFI">
-                        <rect key="frame" x="96" y="117.5" width="40" height="17"/>
+                        <rect key="frame" x="96" y="98.5" width="40" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="RlV-mu-zNT"/>
                         </constraints>
@@ -772,7 +762,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="456" userLabel="txtPIC">
-                        <rect key="frame" x="96" y="152.5" width="40" height="17"/>
+                        <rect key="frame" x="96" y="128" width="40" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="eRd-8e-KAz"/>
                         </constraints>
@@ -783,7 +773,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="457" userLabel="txtSIMIMC">
-                        <rect key="frame" x="240" y="12.5" width="40" height="17"/>
+                        <rect key="frame" x="240" y="10" width="40" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="4my-0g-mRG"/>
                         </constraints>
@@ -794,7 +784,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="458" userLabel="txtXC">
-                        <rect key="frame" x="240" y="47.5" width="40" height="17"/>
+                        <rect key="frame" x="240" y="39.5" width="40" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="J7M-UY-qk5"/>
                         </constraints>
@@ -805,7 +795,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="459" userLabel="txtGrndSim">
-                        <rect key="frame" x="240" y="82.5" width="40" height="17"/>
+                        <rect key="frame" x="240" y="69" width="40" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="Ksz-fX-B3Y"/>
                         </constraints>
@@ -816,7 +806,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="460" userLabel="txtSIC">
-                        <rect key="frame" x="240" y="117.5" width="40" height="17"/>
+                        <rect key="frame" x="240" y="98.5" width="40" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="Zd0-UP-1cj"/>
                         </constraints>
@@ -827,7 +817,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="461" userLabel="txtTotal">
-                        <rect key="frame" x="240" y="152.5" width="40" height="17"/>
+                        <rect key="frame" x="240" y="128" width="40" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="z8C-sA-Haa"/>
                         </constraints>
