@@ -110,7 +110,7 @@ CGFloat defaultSearchHeight;
 
 - (void) viewWillDisappear:(BOOL)animated
 {
-    if (self.delegateNearest != nil)
+    if (self.delegateNearest != nil && self.segMapSelector.selectedSegmentIndex == 1)
         [self.delegateNearest routeUpdated:self.searchBar.text];
 	[super viewWillDisappear:animated];
 }

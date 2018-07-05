@@ -1735,6 +1735,7 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
     [mfbApp() updateWatchContext];
 }
 
+#pragma mark NearbyAirportsDelegate
 - (void) airportClicked:(MFBWebServiceSvc_airport *) ap
 {
 	if (ap != nil)
@@ -1751,6 +1752,7 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
     self.idRoute.text = self.le.entryData.Route = newRoute;
 }
 
+#pragma mark autofill
 - (IBAction) autofillClosest
 {
 	NSString * szRoute = [Airports appendNearestAirport:self.le.entryData.Route];
