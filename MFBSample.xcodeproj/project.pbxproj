@@ -11,6 +11,9 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		28216C970DB411BC00E5133A /* LEEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28216C960DB411BC00E5133A /* LEEditController.m */; };
 		9A020B3310FFEF3F00801349 /* RecentFlights.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A020B3110FFEF3F00801349 /* RecentFlights.m */; };
+		9A085CAE20F3EF5500DDA442 /* tower@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A085CAB20F3EF5500DDA442 /* tower@2x.png */; };
+		9A085CAF20F3EF5500DDA442 /* tower.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A085CAC20F3EF5500DDA442 /* tower.png */; };
+		9A085CB020F3EF5500DDA442 /* tower@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A085CAD20F3EF5500DDA442 /* tower@3x.png */; };
 		9A0C938511E63A850062AF27 /* FlightProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C938311E63A850062AF27 /* FlightProperties.m */; };
 		9A0DD9F8158579BE00FB6DF2 /* FixedImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0DD9F7158579BE00FB6DF2 /* FixedImageCell.m */; };
 		9A0EDBC31288FD9C00153C6E /* Default-Landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A0EDBC01288FD9C00153C6E /* Default-Landscape.png */; };
@@ -67,7 +70,6 @@
 		9A4085A0170B48B60079A2C6 /* Favorite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A40859E170B48B60079A2C6 /* Favorite@2x.png */; };
 		9A40A30716E7C9FA0001B6FD /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A30616E7C9FA0001B6FD /* Util.m */; };
 		9A42300C157B953F00FF99D4 /* ProgressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A42300B157B953F00FF99D4 /* ProgressCell.m */; };
-		9A4587B514BF63700045AF51 /* tower.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4587B414BF63700045AF51 /* tower.png */; };
 		9A4587BD14C205500045AF51 /* RecentFlightCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A4587BC14C205500045AF51 /* RecentFlightCell.m */; };
 		9A4F3B5918177BA1009E575C /* Icon-iPad76x76.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4F3B5618177BA1009E575C /* Icon-iPad76x76.png */; };
 		9A4F3B5A18177BA1009E575C /* Icon-iPadRetina152x152.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4F3B5718177BA1009E575C /* Icon-iPadRetina152x152.png */; };
@@ -269,6 +271,7 @@
 		9AA09D7414684EBA00192184 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ACED2961337C66F00E3DC8F /* AssetsLibrary.framework */; };
 		9AA09D7514684EBA00192184 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AA09D6814684DC800192184 /* AudioToolbox.framework */; };
 		9AA09D7614684EBA00192184 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A7E42B611810DBF002000A4 /* SystemConfiguration.framework */; };
+		9AA0B7F520F3DE3300587028 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		9AA1C9C21E56066700E38D50 /* noimage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA1C9C11E56066700E38D50 /* noimage@2x.png */; };
 		9AA4EC3410F1A85200322BE0 /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA4EC3310F1A85200322BE0 /* checkmark.png */; };
 		9AA5E44219DDB9030065810A /* Telemetry.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA5E44119DDB9030065810A /* Telemetry.m */; };
@@ -442,6 +445,9 @@
 		8D1107310486CEB800E47090 /* MFBSample-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MFBSample-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		9A020B3010FFEF3F00801349 /* RecentFlights.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentFlights.h; sourceTree = "<group>"; };
 		9A020B3110FFEF3F00801349 /* RecentFlights.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentFlights.m; sourceTree = "<group>"; };
+		9A085CAB20F3EF5500DDA442 /* tower@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tower@2x.png"; sourceTree = "<group>"; };
+		9A085CAC20F3EF5500DDA442 /* tower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tower.png; sourceTree = "<group>"; };
+		9A085CAD20F3EF5500DDA442 /* tower@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tower@3x.png"; sourceTree = "<group>"; };
 		9A0C938211E63A850062AF27 /* FlightProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlightProperties.h; sourceTree = "<group>"; };
 		9A0C938311E63A850062AF27 /* FlightProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlightProperties.m; sourceTree = "<group>"; };
 		9A0DD9F6158579BE00FB6DF2 /* FixedImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixedImageCell.h; sourceTree = "<group>"; };
@@ -524,7 +530,6 @@
 		9A40A30616E7C9FA0001B6FD /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
 		9A42300A157B953F00FF99D4 /* ProgressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressCell.h; sourceTree = "<group>"; };
 		9A42300B157B953F00FF99D4 /* ProgressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressCell.m; sourceTree = "<group>"; };
-		9A4587B414BF63700045AF51 /* tower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tower.png; sourceTree = "<group>"; };
 		9A4587BC14C205500045AF51 /* RecentFlightCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentFlightCell.m; sourceTree = "<group>"; };
 		9A49D7172065AD9E0095D8B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AutodetectOptions.strings; sourceTree = "<group>"; };
 		9A4EC3101BE816FA008E2DF6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Interface.strings; sourceTree = "<group>"; };
@@ -1192,6 +1197,9 @@
 		9A8BF94F10E1B9C7002F01ED /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				9A085CAC20F3EF5500DDA442 /* tower.png */,
+				9A085CAB20F3EF5500DDA442 /* tower@2x.png */,
+				9A085CAD20F3EF5500DDA442 /* tower@3x.png */,
 				9A58E0531131AC4C005988FA /* aircraft.png */,
 				9ADFA4F1193921BA00FF30B7 /* aircraft@2x.png */,
 				9A902D591A2102E800698017 /* aircraft@3x.png */,
@@ -1296,7 +1304,6 @@
 				9A2BD09910E04619001D4043 /* totals.png */,
 				9ADFA4FB193921ED00FF30B7 /* totals@2x.png */,
 				9A902D611A21078300698017 /* totals@3x.png */,
-				9A4587B414BF63700045AF51 /* tower.png */,
 				9ADFA4FD193921F400FF30B7 /* training.png */,
 				9ADFA4FF1939220200FF30B7 /* training@2x.png */,
 				9A902D5F1A2104F500698017 /* training@3x.png */,
@@ -1683,19 +1690,19 @@
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
 						DevelopmentTeam = 99X7N8Z9WP;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					9ACDC8CB1BDFEA1300B0A077 = {
 						CreatedOnToolsVersion = 7.1;
 						DevelopmentTeam = 99X7N8Z9WP;
 						LastSwiftMigration = 0900;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					9ACDC8D71BDFEA1400B0A077 = {
 						CreatedOnToolsVersion = 7.1;
 						DevelopmentTeam = 99X7N8Z9WP;
 						LastSwiftMigration = 0900;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -1797,7 +1804,6 @@
 				9A20B156192D34E600A8F64F /* README.md in Resources */,
 				9A5A0886147ED35300C05C50 /* WaitView.xib in Resources */,
 				9A7A7D96147F4DD0003A6912 /* Localizable.strings in Resources */,
-				9A4587B514BF63700045AF51 /* tower.png in Resources */,
 				9A2D594214C3485800FD8F05 /* RecentFlightCell.xib in Resources */,
 				9A902D771A210C9900698017 /* airporttab@3x.png in Resources */,
 				9A4F3B6518177E61009E575C /* Default-Landscape-2048x1536.png in Resources */,
@@ -1818,6 +1824,7 @@
 				9A954D371531FBD6000E00ED /* EditAircraft.xib.txt in Resources */,
 				9A902D6C1A210A9D00698017 /* Favorite@3x.png in Resources */,
 				9A954D381531FBD6000E00ED /* EditProperty.xib.txt in Resources */,
+				9A085CAF20F3EF5500DDA442 /* tower.png in Resources */,
 				9A954D391531FBD6000E00ED /* FlightProperties.xib.txt in Resources */,
 				9A954D3A1531FBD6000E00ED /* ImageComment.xib.txt in Resources */,
 				9A954D3B1531FBD6000E00ED /* imageSelector.xib.txt in Resources */,
@@ -1875,14 +1882,17 @@
 				9A954DA61531FBFC000E00ED /* MakeModel.xib.txt in Resources */,
 				9A954DA71531FBFC000E00ED /* MyAircraft.xib.txt in Resources */,
 				9A52ECB31B6574D000DE8A83 /* schedule@2x.png in Resources */,
+				9A085CAE20F3EF5500DDA442 /* tower@2x.png in Resources */,
 				9A954DA81531FBFC000E00ED /* NearbyAirports.xib.txt in Resources */,
 				9ABC6B3A1EBCD96C00EE9C97 /* cameramarker@2x.png in Resources */,
 				9A954DA91531FBFC000E00ED /* NewAircraft-iPad.xib.txt in Resources */,
+				9A085CB020F3EF5500DDA442 /* tower@3x.png in Resources */,
 				9A954DAA1531FBFC000E00ED /* NewAircraft.xib.txt in Resources */,
 				9A954DAB1531FBFC000E00ED /* newuser.xib.txt in Resources */,
 				9A954DAC1531FBFC000E00ED /* popupEntry-iPad.xib.txt in Resources */,
 				9A954DAD1531FBFC000E00ED /* popupEntry.xib.txt in Resources */,
 				9A954DAE1531FBFC000E00ED /* PrepFlight.xib.txt in Resources */,
+				9AA0B7F520F3DE3300587028 /* (null) in Resources */,
 				9A954DAF1531FBFC000E00ED /* ProfileEditController-iPad.xib.txt in Resources */,
 				9A954DB01531FBFC000E00ED /* ProfileEditController.xib.txt in Resources */,
 				9A954DB11531FBFC000E00ED /* RecentFlightCell.xib.txt in Resources */,
@@ -2915,8 +2925,9 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = 99X7N8Z9WP;
+				DEVELOPMENT_TEAM = "";
 				EXCLUDED_SOURCE_FILE_NAMES = "";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -2932,8 +2943,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone;
 				PRODUCT_NAME = MyFlightbook;
-				PROVISIONING_PROFILE = "e48e3b8e-b543-4007-8c93-04a95751c9e3";
-				PROVISIONING_PROFILE_SPECIFIER = "Eric Dev Profile MM28 Nov 2017";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Classes/MyFlightbook-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -2952,8 +2963,9 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				DEVELOPMENT_TEAM = 99X7N8Z9WP;
+				DEVELOPMENT_TEAM = "";
 				EXCLUDED_SOURCE_FILE_NAMES = (
 					tracklog.gpx,
 					tracklog.kml,
@@ -2971,8 +2983,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone;
 				PRODUCT_NAME = MyFlightbook;
-				PROVISIONING_PROFILE = "e48e3b8e-b543-4007-8c93-04a95751c9e3";
-				PROVISIONING_PROFILE_SPECIFIER = "Eric Dev Profile MM28 Nov 2017";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Classes/MyFlightbook-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3031,10 +3043,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				DEVELOPMENT_TEAM = 99X7N8Z9WP;
+				DEVELOPMENT_TEAM = "";
 				EXCLUDED_SOURCE_FILE_NAMES = (
 					tracklog.gpx,
 					tracklog.kml,
@@ -3052,8 +3065,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone;
 				PRODUCT_NAME = MyFlightbook;
-				PROVISIONING_PROFILE = "bc9a5943-5cd2-4aee-9943-0c34f6f57c5e";
-				PROVISIONING_PROFILE_SPECIFIER = "MyFlightbook Distribution MM28 Aug 2017";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Classes/MyFlightbook-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3082,9 +3095,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 99X7N8Z9WP;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -3104,8 +3118,8 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e48e3b8e-b543-4007-8c93-04a95751c9e3";
-				PROVISIONING_PROFILE_SPECIFIER = "Eric Dev Profile MM28 Nov 2017";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3138,9 +3152,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 99X7N8Z9WP;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -3155,8 +3170,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e48e3b8e-b543-4007-8c93-04a95751c9e3";
-				PROVISIONING_PROFILE_SPECIFIER = "Eric Dev Profile MM28 Nov 2017";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
@@ -3186,12 +3201,13 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 99X7N8Z9WP;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -3206,8 +3222,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bc9a5943-5cd2-4aee-9943-0c34f6f57c5e";
-				PROVISIONING_PROFILE_SPECIFIER = "MyFlightbook Distribution MM28 Aug 2017";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
@@ -3237,9 +3253,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 99X7N8Z9WP;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -3260,8 +3277,8 @@
 				OTHER_CFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "e48e3b8e-b543-4007-8c93-04a95751c9e3";
-				PROVISIONING_PROFILE_SPECIFIER = "Eric Dev Profile MM28 Nov 2017";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Model classes/MyFlightbookWatch Extension-Bridging-Header.h";
@@ -3292,9 +3309,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 99X7N8Z9WP;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -3310,8 +3328,8 @@
 				OTHER_CFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "e48e3b8e-b543-4007-8c93-04a95751c9e3";
-				PROVISIONING_PROFILE_SPECIFIER = "Eric Dev Profile MM28 Nov 2017";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Model classes/MyFlightbookWatch Extension-Bridging-Header.h";
@@ -3340,11 +3358,12 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 99X7N8Z9WP;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -3360,8 +3379,8 @@
 				OTHER_CFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "bc9a5943-5cd2-4aee-9943-0c34f6f57c5e";
-				PROVISIONING_PROFILE_SPECIFIER = "MyFlightbook Distribution MM28 Aug 2017";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Model classes/MyFlightbookWatch Extension-Bridging-Header.h";
