@@ -78,7 +78,7 @@ BOOL fCouldBeMoreFlights;
             }
             
             [ci GetThumbnail];
-            self.dictImages[le.FlightID] = ci;
+            self.dictImages[le.FlightID] = ci;  // TODO: this line is crashing sometimes.  EXC_BAD_ACCESS.  Why?
         }
         [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }
@@ -483,7 +483,7 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectPendingFlights, sectExi
             le = (MFBWebServiceSvc_LogbookEntry *) (self.rgFlights)[indexPath.row];
             ci = (le == nil || le.FlightID == nil) ? nil : (CommentedImage *) (self.dictImages)[le.FlightID];
             
-            NSAssert(le != nil, @"NULL le in existing flights - we are going to crash!!!");
+            NSAssert(le != nil, @"NULL le in existing flights - we are going to crash!!!"); // TODO: still crash here sometimes.  Why?
             break;
         }
     }
