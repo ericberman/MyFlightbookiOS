@@ -71,6 +71,12 @@
 		9A40A30716E7C9FA0001B6FD /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A30616E7C9FA0001B6FD /* Util.m */; };
 		9A42300C157B953F00FF99D4 /* ProgressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A42300B157B953F00FF99D4 /* ProgressCell.m */; };
 		9A4587BD14C205500045AF51 /* RecentFlightCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A4587BC14C205500045AF51 /* RecentFlightCell.m */; };
+		9A46938020F53BE900614481 /* Icon80x80.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A46937E20F53BE800614481 /* Icon80x80.png */; };
+		9A46938120F53BE900614481 /* Icon40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A46937F20F53BE900614481 /* Icon40x40.png */; };
+		9A46938320F53C5200614481 /* Icon60x60.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A46938220F53C5200614481 /* Icon60x60.png */; };
+		9A46938520F53D1600614481 /* Icon-small@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A46938420F53D1600614481 /* Icon-small@3x.png */; };
+		9A46938720F53DE200614481 /* Icon180x180.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A46938620F53DE200614481 /* Icon180x180.png */; };
+		9A46938920F53E7A00614481 /* Icon20x20.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A46938820F53E7A00614481 /* Icon20x20.png */; };
 		9A4F3B5918177BA1009E575C /* Icon-iPad76x76.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4F3B5618177BA1009E575C /* Icon-iPad76x76.png */; };
 		9A4F3B5A18177BA1009E575C /* Icon-iPadRetina152x152.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4F3B5718177BA1009E575C /* Icon-iPadRetina152x152.png */; };
 		9A4F3B5B18177BA1009E575C /* Icon-iPhoneRetina120x120.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4F3B5818177BA1009E575C /* Icon-iPhoneRetina120x120.png */; };
@@ -531,6 +537,12 @@
 		9A42300A157B953F00FF99D4 /* ProgressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressCell.h; sourceTree = "<group>"; };
 		9A42300B157B953F00FF99D4 /* ProgressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressCell.m; sourceTree = "<group>"; };
 		9A4587BC14C205500045AF51 /* RecentFlightCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentFlightCell.m; sourceTree = "<group>"; };
+		9A46937E20F53BE800614481 /* Icon80x80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon80x80.png; sourceTree = "<group>"; };
+		9A46937F20F53BE900614481 /* Icon40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon40x40.png; sourceTree = "<group>"; };
+		9A46938220F53C5200614481 /* Icon60x60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon60x60.png; sourceTree = "<group>"; };
+		9A46938420F53D1600614481 /* Icon-small@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-small@3x.png"; sourceTree = "<group>"; };
+		9A46938620F53DE200614481 /* Icon180x180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon180x180.png; sourceTree = "<group>"; };
+		9A46938820F53E7A00614481 /* Icon20x20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon20x20.png; sourceTree = "<group>"; };
 		9A49D7172065AD9E0095D8B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AutodetectOptions.strings; sourceTree = "<group>"; };
 		9A4EC3101BE816FA008E2DF6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Interface.strings; sourceTree = "<group>"; };
 		9A4F3B5618177BA1009E575C /* Icon-iPad76x76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad76x76.png"; sourceTree = "<group>"; };
@@ -1248,6 +1260,11 @@
 				9A40859D170B48B60079A2C6 /* Favorite.png */,
 				9A40859E170B48B60079A2C6 /* Favorite@2x.png */,
 				9A902D691A210A9D00698017 /* Favorite@3x.png */,
+				9A46938820F53E7A00614481 /* Icon20x20.png */,
+				9A46937F20F53BE900614481 /* Icon40x40.png */,
+				9A46938220F53C5200614481 /* Icon60x60.png */,
+				9A46937E20F53BE800614481 /* Icon80x80.png */,
+				9A46938620F53DE200614481 /* Icon180x180.png */,
 				9AAA7CD91715E4CA00429F78 /* Icon-iPad-small.png */,
 				9ADFA50A193FB92D00FF30B7 /* Icon-iPad-small@2x.png */,
 				9A84718911EBE3EE00395608 /* Icon-iPad.png */,
@@ -1258,6 +1275,7 @@
 				9A4F3B5818177BA1009E575C /* Icon-iPhoneRetina120x120.png */,
 				9A1014C010DD56A500FA37D4 /* icon-small.png */,
 				9AAA7CDB1715E4CA00429F78 /* Icon-small@2x.png */,
+				9A46938420F53D1600614481 /* Icon-small@3x.png */,
 				9A4F3B5C18177BEE009E575C /* Icon-small29x29.png */,
 				9A1014BC10DD551800FA37D4 /* Icon.png */,
 				9AAA7CDC1715E4CA00429F78 /* Icon@2x.png */,
@@ -1756,6 +1774,7 @@
 				9ACD18BD11023CEE00B294F7 /* btnForward.png in Resources */,
 				9A30B1C01103D61C002A5029 /* MoreInfo.png in Resources */,
 				9A77CF97110569D0006E7531 /* airport.png in Resources */,
+				9A46938720F53DE200614481 /* Icon180x180.png in Resources */,
 				9A4F3B5A18177BA1009E575C /* Icon-iPadRetina152x152.png in Resources */,
 				9A1A8B951EAA560F008F938B /* .gitignore in Resources */,
 				9A196C30112312EB007A7DD1 /* Recording.png in Resources */,
@@ -1774,6 +1793,7 @@
 				9ADFA4F6193921CA00FF30B7 /* currency@2x.png in Resources */,
 				9A20B155192D34E600A8F64F /* LICENCE.md in Resources */,
 				9AEC4CA413AD4B7C0044897B /* Play.png in Resources */,
+				9A46938920F53E7A00614481 /* Icon20x20.png in Resources */,
 				9A17C5F113E8952C00C47C82 /* airporttab.png in Resources */,
 				9A5A082C147ED30600C05C50 /* LEEditController-iPad.xib in Resources */,
 				9A5A082D147ED30600C05C50 /* LEEditController.xib in Resources */,
@@ -1832,6 +1852,7 @@
 				9A954D3D1531FBD6000E00ED /* LEEditController.xib.txt in Resources */,
 				9A954D3E1531FBD6000E00ED /* MainWindow-iPad.xib.txt in Resources */,
 				9A954D3F1531FBD6000E00ED /* MainWindow.xib.txt in Resources */,
+				9A46938020F53BE900614481 /* Icon80x80.png in Resources */,
 				9A954D401531FBD6000E00ED /* MakeModel.xib.txt in Resources */,
 				9A954D411531FBD6000E00ED /* MyAircraft.xib.txt in Resources */,
 				9A954D421531FBD6000E00ED /* NearbyAirports.xib.txt in Resources */,
@@ -1852,6 +1873,7 @@
 				9A954D491531FBD6000E00ED /* ProfileEditController-iPad.xib.txt in Resources */,
 				9A954D4A1531FBD6000E00ED /* ProfileEditController.xib.txt in Resources */,
 				9A954D4B1531FBD6000E00ED /* RecentFlights.xib.txt in Resources */,
+				9A46938520F53D1600614481 /* Icon-small@3x.png in Resources */,
 				9A954D4C1531FBD6000E00ED /* Totals.xib.txt in Resources */,
 				9A954D4D1531FBD6000E00ED /* TotalsRow.xib.txt in Resources */,
 				9A954D4E1531FBD6000E00ED /* VADetails.xib.txt in Resources */,
@@ -1881,6 +1903,7 @@
 				9A954DA51531FBFC000E00ED /* MainWindow.xib.txt in Resources */,
 				9A954DA61531FBFC000E00ED /* MakeModel.xib.txt in Resources */,
 				9A954DA71531FBFC000E00ED /* MyAircraft.xib.txt in Resources */,
+				9A46938320F53C5200614481 /* Icon60x60.png in Resources */,
 				9A52ECB31B6574D000DE8A83 /* schedule@2x.png in Resources */,
 				9A085CAE20F3EF5500DDA442 /* tower@2x.png in Resources */,
 				9A954DA81531FBFC000E00ED /* NearbyAirports.xib.txt in Resources */,
@@ -1952,6 +1975,7 @@
 				9A820A991D970359001EDEDF /* MakeModel.xib in Resources */,
 				9A902D5B1A2102E800698017 /* aircraft@3x.png in Resources */,
 				9A4F3B6618177E61009E575C /* Default-Portrait768x1024.png in Resources */,
+				9A46938120F53BE900614481 /* Icon40x40.png in Resources */,
 				9A6187601711DD38007C7754 /* f_logo.png in Resources */,
 				9AC83AD119E440260092C7BB /* tracklog.gpx in Resources */,
 				9A6187611711DD38007C7754 /* f_logo@2x.png in Resources */,
