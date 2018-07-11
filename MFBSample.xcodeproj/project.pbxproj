@@ -11,6 +11,7 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		28216C970DB411BC00E5133A /* LEEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28216C960DB411BC00E5133A /* LEEditController.m */; };
 		9A020B3310FFEF3F00801349 /* RecentFlights.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A020B3110FFEF3F00801349 /* RecentFlights.m */; };
+		9A073B4820F65AD6007A4470 /* MFBLogo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A073B4720F65AD5007A4470 /* MFBLogo@3x.png */; };
 		9A085CAE20F3EF5500DDA442 /* tower@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A085CAB20F3EF5500DDA442 /* tower@2x.png */; };
 		9A085CAF20F3EF5500DDA442 /* tower.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A085CAC20F3EF5500DDA442 /* tower.png */; };
 		9A085CB020F3EF5500DDA442 /* tower@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A085CAD20F3EF5500DDA442 /* tower@3x.png */; };
@@ -451,6 +452,7 @@
 		8D1107310486CEB800E47090 /* MFBSample-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MFBSample-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		9A020B3010FFEF3F00801349 /* RecentFlights.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentFlights.h; sourceTree = "<group>"; };
 		9A020B3110FFEF3F00801349 /* RecentFlights.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentFlights.m; sourceTree = "<group>"; };
+		9A073B4720F65AD5007A4470 /* MFBLogo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MFBLogo@3x.png"; sourceTree = "<group>"; };
 		9A085CAB20F3EF5500DDA442 /* tower@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tower@2x.png"; sourceTree = "<group>"; };
 		9A085CAC20F3EF5500DDA442 /* tower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tower.png; sourceTree = "<group>"; };
 		9A085CAD20F3EF5500DDA442 /* tower@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tower@3x.png"; sourceTree = "<group>"; };
@@ -1283,6 +1285,7 @@
 				9A6DDB9111A8547D0053C8AA /* MFBIcon.gif */,
 				9A6187621711DD9C007C7754 /* MFBLogo.png */,
 				9A6187631711DD9C007C7754 /* MFBLogo@2x.png */,
+				9A073B4720F65AD5007A4470 /* MFBLogo@3x.png */,
 				9A30B1BF1103D61C002A5029 /* MoreInfo.png */,
 				9A1014C810DD5EB200FA37D4 /* newflight.png */,
 				9ADFA4EF1939003300FF30B7 /* newflight@2x.png */,
@@ -1923,6 +1926,7 @@
 				9A954DB31531FBFC000E00ED /* Totals.xib.txt in Resources */,
 				9A954DB41531FBFC000E00ED /* TotalsRow.xib.txt in Resources */,
 				9A954DB51531FBFC000E00ED /* VADetails.xib.txt in Resources */,
+				9A073B4820F65AD6007A4470 /* MFBLogo@3x.png in Resources */,
 				9AD541BD1A17CB2400BD3850 /* Images.xcassets in Resources */,
 				9A954DB61531FBFC000E00ED /* ViewFlightWebPage.xib.txt in Resources */,
 				9AA1C9C21E56066700E38D50 /* noimage@2x.png in Resources */,
