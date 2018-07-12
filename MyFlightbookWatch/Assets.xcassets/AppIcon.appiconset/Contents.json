@@ -80,7 +80,7 @@
     {
       "size" : "29x29",
       "idiom" : "watch",
-      "filename" : "Icon-88.png",
+      "filename" : "Icon-89.png",
       "role" : "companionSettings",
       "scale" : "3x"
     },
@@ -95,7 +95,7 @@
     {
       "size" : "44x44",
       "idiom" : "watch",
-      "filename" : "Icon-89.png",
+      "filename" : "Icon-88.png",
       "scale" : "2x",
       "role" : "longLook",
       "subtype" : "42mm"
