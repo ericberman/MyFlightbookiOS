@@ -498,6 +498,10 @@ enum KMLArrayContext currentContext;
                 [self.locInProgress addSpeed:[self.numberFormatter numberFromString:self.elementInProgress].doubleValue];
                 self.hasSpeed = YES;
             }
+            else if ([elementName compare:@"badelf:speed" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+                [self.locInProgress addSpeed:[self.numberFormatter numberFromString:self.elementInProgress].doubleValue];
+                self.hasSpeed = YES;
+            }
             else if ([elementName compare:@"acc_horiz"] == NSOrderedSame)
                 self.locInProgress.horizontalAccuracy = [self.numberFormatter numberFromString:self.elementInProgress].doubleValue;
         }
