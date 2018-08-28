@@ -33,9 +33,6 @@
 @import Photos;
 
 @interface CollapsibleTable ()
-
-@property (nonatomic, strong) UIPopoverController * popoverController;
-
 @end
 
 @implementation CollapsibleTable
@@ -43,7 +40,7 @@
 BOOL fSelectActiveSelOnScrollCompletion = NO;
 BOOL fSelectFirst = NO;
 
-@synthesize expandedSections, popoverController, ipActive, fIsValid, defSectionFooterHeight, defSectionHeaderHeight;
+@synthesize expandedSections, ipActive, fIsValid, defSectionFooterHeight, defSectionHeaderHeight;
 
 #pragma mark - View Creation/Destruction
 - (void) setUpCollapsibleTable
@@ -317,12 +314,10 @@ BOOL fSelectFirst = NO;
 
 #pragma mark - Camera support
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 30200
-- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
-{
-	self.popoverController = nil;
+- (void)popoverPresentationControllerDidDismissPopover:(UIPopoverPresentationController *)popoverController {
 }
 
-- (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController
+- (BOOL)popoverPresentationControllerShouldDismissPopover:(UIPopoverPresentationController *)popoverController
 {
 	return true;
 }
@@ -340,12 +335,6 @@ BOOL fSelectFirst = NO;
 
 - (void) addImages:(BOOL)usingCamera fromButton:(id)btn
 {
-    if (self.popoverController != nil)
-    {
-        [self.popoverController dismissPopoverAnimated:YES];
-        self.popoverController = nil;
-    }
-
 	UIImagePickerController * imgView = [[UIImagePickerController alloc] init];
     
 	imgView.delegate = self;
@@ -357,15 +346,13 @@ BOOL fSelectFirst = NO;
     
     imgView.sourceType = (usingCamera && fIsCameraAvailable) ? UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary;
     imgView.mediaTypes =  [UIImagePickerController availableMediaTypesForSourceType:imgView.sourceType];
-	
-	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && imgView.sourceType != UIImagePickerControllerSourceTypeCamera)
-	{
-        self.popoverController = [[UIPopoverController alloc] initWithContentViewController:imgView];
-        self.popoverController.delegate = self;
-        [self.popoverController presentPopoverFromBarButtonItem:btn permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-	}
-	else
-		[self presentViewController:imgView animated:YES completion:^{}];
+    
+    imgView.modalPresentationStyle = UIModalPresentationPopover;
+    UIPopoverPresentationController * ppc = imgView.popoverPresentationController;
+    ppc.barButtonItem = btn;
+    ppc.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    ppc.delegate = self;
+    [self presentViewController:imgView animated:YES completion:^{}];
 }
 
 - (IBAction) pickImages:(id) sender

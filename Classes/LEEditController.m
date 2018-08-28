@@ -27,9 +27,9 @@
 #import "LEEditController.h"
 #import <QuartzCore/QuartzCore.h>
 #import <MobileCoreServices/UTCoreTypes.h>
-#import "imageSelector.h"
 #import "HostedWebViewViewController.h"
 #import "NearbyAirports.h"
+#import "ImageComment.h"
 #import "FlightProps.h"
 #import "FlightProperties.h"
 #import "PropertyCell.h"
@@ -42,7 +42,6 @@
 
 @interface LEEditController()
 @property (nonatomic, strong) AccessoryBar * vwAccessory;
-@property (nonatomic, strong) UIPopoverController * popoverControl;
 @property (nonatomic, strong) NSTimer * timerElapsed;
 @property (nonatomic, strong) UITextField * activeTextField;
 @property (strong) FlightProps * flightProps;
@@ -72,7 +71,7 @@
 
 @implementation LEEditController
 
-@synthesize idDate, popoverControl, idRoute, idComments, idTotalTime, idPopAircraft, idApproaches, idHold, idLandings, idDayLandings, idNightLandings;
+@synthesize idDate, idRoute, idComments, idTotalTime, idPopAircraft, idApproaches, idHold, idLandings, idDayLandings, idNightLandings;
 @synthesize idNight, idIMC, idSimIMC, idGrndSim, idXC, idDual, idCFI, idSIC, idPIC, idPublic, le, delegate;
 @synthesize datePicker, pickerView;
 @synthesize idLblStatus, idLblSpeed, idLblAltitude, idLblQuality, idimgRecording, idbtnPausePlay, idbtnAppendNearest, idlblElapsedTime, timerElapsed;
@@ -1988,15 +1987,17 @@ static NSDateFormatter * dfSunriseSunset = nil;
      vwProps.le = self.le;
     
     NSLog(@"Width: %f", self.tableView.frame.size.width);
-	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && self.tableView.frame.size.width >= 600)
-	{
-        self.popoverControl = [[UIPopoverController alloc] initWithContentViewController:vwProps];
-        self.popoverControl.delegate = self;
-        CGRect r = sender.frame;
-        r = CGRectMake(r.origin.x + (r.size.width / 4) - 10, r.origin.y + (r.size.height / 2) - 10, 20, 20);
-        [self.popoverControl presentPopoverFromRect:r inView:self.tableView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-	}
-	else
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && self.tableView.frame.size.width >= 600) {
+        vwProps.modalPresentationStyle = UIModalPresentationPopover;
+        vwProps.navigationController.navigationBarHidden = NO;
+        UIPopoverPresentationController * ppc = vwProps.popoverPresentationController;
+        ppc.sourceView = self.view;
+        ppc.sourceRect = sender.frame;
+        ppc.permittedArrowDirections = UIPopoverArrowDirectionAny;
+        ppc.delegate = self;
+        [self presentViewController:vwProps animated:YES completion:^{}];
+    } else
         [self.navigationController pushViewController:vwProps animated:YES];
 }
 
@@ -2005,6 +2006,20 @@ static NSDateFormatter * dfSunriseSunset = nil;
                                                  message:msg delegate:nil
                                        cancelButtonTitle:NSLocalizedString(@"Close", @"Close button on error message") otherButtonTitles:nil];
     [a show];
+}
+
+#pragma mark - UIPopoverPresentationController functions
+// UIPopoverPresentationController functions
+- (void)popoverPresentationControllerDidDismissPopover:(UIPopoverPresentationController *)popoverController
+{
+    [self.tableView reloadData];
+}
+
+- (BOOL)popoverPresentationControllerShouldDismissPopover:(UIPopoverPresentationController *)popoverController
+{
+    // let the property display know it is going to go away.
+    [popoverController.presentedViewController viewWillDisappear:NO];
+    return true;
 }
 
 - (void) refreshPropertiesWorker
@@ -2056,21 +2071,6 @@ static NSDateFormatter * dfSunriseSunset = nil;
 
     if (fHitWeb)
         [NSThread detachNewThreadSelector:@selector(refreshPropertiesWorker) toTarget:self withObject:nil];
-}
-
-#pragma mark - UIPopoverControllerDelegate functions
-// UIPopoverControllerDelegate functions
-- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
-{	
-	self.popoverControl = nil;
-    [self.tableView reloadData];
-}
-
-- (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController
-{
-    // let the property display know it is going to go away.
-    [popoverController.contentViewController viewWillDisappear:NO];
-	return true;
 }
 
 #pragma mark - Data Source - picker
