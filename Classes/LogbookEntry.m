@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2018 MyFlightbook, LLC
+ Copyright (C) 2009-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -445,7 +445,7 @@ NSString * const _szkeyPOTwitter = @"_poPostTwitter";
         for (NSDictionary * d in rgFlights)
         {
             LogbookEntry * le = [[LogbookEntry alloc] init];
-            le.entryData.FlightID = PENDING_FLIGHT_ID;
+            le.entryData.FlightID = QUEUED_FLIGHT_UNSUBMITTED;
 
             le.errorString = [le.entryData fromJSONDictionary:d dateFormatter:dfDate dateTimeFormatter:dfDateTime];
             
