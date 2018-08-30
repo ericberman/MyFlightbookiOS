@@ -43,7 +43,7 @@
 {
 	// figure out the right start and target frame in window coordinates and transform for the current orientation
 	double pi = acos(-1);
-	CGRect screenRect = [[UIScreen mainScreen] applicationFrame ];
+	CGRect screenRect = [[UIScreen mainScreen] bounds];
 	
 	switch (o) {
 		default:
