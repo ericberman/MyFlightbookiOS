@@ -11,6 +11,7 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		28216C970DB411BC00E5133A /* LEEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28216C960DB411BC00E5133A /* LEEditController.m */; };
 		9A020B3310FFEF3F00801349 /* RecentFlights.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A020B3110FFEF3F00801349 /* RecentFlights.m */; };
+		9A050D292138790100B3F794 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A050D282138790000B3F794 /* Photos.framework */; };
 		9A073B4820F65AD6007A4470 /* MFBLogo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A073B4720F65AD5007A4470 /* MFBLogo@3x.png */; };
 		9A085CAE20F3EF5500DDA442 /* tower@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A085CAB20F3EF5500DDA442 /* tower@2x.png */; };
 		9A085CAF20F3EF5500DDA442 /* tower.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A085CAC20F3EF5500DDA442 /* tower.png */; };
@@ -452,6 +453,7 @@
 		8D1107310486CEB800E47090 /* MFBSample-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MFBSample-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		9A020B3010FFEF3F00801349 /* RecentFlights.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentFlights.h; sourceTree = "<group>"; };
 		9A020B3110FFEF3F00801349 /* RecentFlights.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentFlights.m; sourceTree = "<group>"; };
+		9A050D282138790000B3F794 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		9A073B4720F65AD5007A4470 /* MFBLogo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MFBLogo@3x.png"; sourceTree = "<group>"; };
 		9A085CAB20F3EF5500DDA442 /* tower@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tower@2x.png"; sourceTree = "<group>"; };
 		9A085CAC20F3EF5500DDA442 /* tower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tower.png; sourceTree = "<group>"; };
@@ -912,6 +914,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A050D292138790100B3F794 /* Photos.framework in Frameworks */,
 				9ACDC9011BE01BC600B0A077 /* WatchConnectivity.framework in Frameworks */,
 				9ACDC9021BE01BC600B0A077 /* WatchKit.framework in Frameworks */,
 				9AFEFF9F1BD02E1E0083043A /* CoreMedia.framework in Frameworks */,
@@ -1015,6 +1018,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9A050D282138790000B3F794 /* Photos.framework */,
 				9ACDC8FF1BE01BC600B0A077 /* WatchConnectivity.framework */,
 				9ACDC9001BE01BC600B0A077 /* WatchKit.framework */,
 				9AFEFF9E1BD02E1E0083043A /* CoreMedia.framework */,

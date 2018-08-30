@@ -31,8 +31,8 @@
 #import "EXF.h"
 #import "EXFUtils.h"
 #import "Reachability.h"
-#import "AssetsLibrary/ALAssetsLibrary.h"
 #import "Airports.h"
+#import <Photos/Photos.h>
 #import "WPSAlertController.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import <AVFoundation/AVFoundation.h>
@@ -211,6 +211,34 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
 	}
 }
 
+- (void) saveImageDataToLibrary: (NSData *) taggedJPG {
+    
+    NSString *fileName = [NSString stringWithFormat:@"%@_%@", [[NSProcessInfo processInfo] globallyUniqueString], @"img.jpg"];
+    NSURL *fileURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:fileName]];
+    NSError * error = nil;
+    [taggedJPG writeToURL:fileURL options:NSDataWritingAtomic error:&error];
+
+    [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+        // UIImage * image = [UIImage imageWithData:taggedJPG];
+        // [PHAssetChangeRequest creationRequestForAssetFromImage:image];
+        [PHAssetChangeRequest creationRequestForAssetFromImageAtFileURL:fileURL];
+    } completionHandler:^(BOOL success, NSError * _Nullable error) {
+        NSLog(@"Saved image: %@, error: %@", success ? @"success" : @"failed", error == nil ? @"(no error)" : error.localizedDescription);
+        error = nil;
+        [[NSFileManager defaultManager] removeItemAtURL:fileURL error:&error];
+        if (error != nil)
+            NSLog(@"Error cleaning up temp file: %@", error.localizedDescription);
+    }];
+}
+
+- (void) saveVideoDataToLibrary:(NSURL *) url {
+    [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+        [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL:url];
+    } completionHandler:^(BOOL success, NSError * _Nullable error) {
+        NSLog(@"Saved video: %@, error: %@", success ? @"success" : @"failed", error == nil ? @"(no error)" : error.localizedDescription);
+    }];
+}
+
 - (void) saveImageFromCameraWorker:(NSDictionary *) dictMetaData
 {
     @autoreleasepool {
@@ -238,18 +266,29 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
         NSData * taggedJPG = [self GeoTagWithLocation:app.mfbloc.lastSeenLoc andAdditionalData:dictAdditionalData];
         self.imgPendingToSave = nil;
         
-        if ([ALAssetsLibrary class] == nil) // not running 4.1 or later
+        if ([PHPhotoLibrary class] == nil)
         {
             // save a copy of the image to the photos album.  This currently loses metadata
             UIImageWriteToSavedPhotosAlbum([self GetImage], self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
         }
         else
         {
-            // write tagged data to library
-            ALAssetsLibrary * al = [[ALAssetsLibrary alloc] init];
-            [al writeImageDataToSavedPhotosAlbum:taggedJPG metadata:nil completionBlock:nil];
+            PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+            switch (status) {
+                case PHAuthorizationStatusNotDetermined: {
+                    [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+                        [self saveImageDataToLibrary:taggedJPG];
+                    }];
+                }
+                    break;
+                case PHAuthorizationStatusDenied:
+                case PHAuthorizationStatusRestricted:
+                    break;
+                case PHAuthorizationStatusAuthorized:
+                    [self saveImageDataToLibrary:taggedJPG];
+                    break;
+            }
         }
-             
     }
 }
 
@@ -257,7 +296,22 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
 - (void) saveVideoFromCameraWorker
 {
     @autoreleasepool {
-        [[[ALAssetsLibrary alloc] init] writeVideoAtPathToSavedPhotosAlbum:[NSURL URLWithString:self.imgInfo.URLFullImage] completionBlock:nil];
+        PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+        switch (status) {
+            case PHAuthorizationStatusNotDetermined: {
+                [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+                    [self saveVideoDataToLibrary:[NSURL URLWithString:self.imgInfo.URLFullImage]];
+                }];
+            }
+                break;
+            case PHAuthorizationStatusDenied:
+            case PHAuthorizationStatusRestricted:
+                break;
+            case PHAuthorizationStatusAuthorized:
+                [self saveVideoDataToLibrary:[NSURL URLWithString:self.imgInfo.URLFullImage]];
+                break;
+        }
+
     }
 }
 
