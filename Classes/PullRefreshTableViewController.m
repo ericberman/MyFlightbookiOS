@@ -210,13 +210,7 @@
 #pragma mark Error handling
 - (void) showError:(NSString *) szMsg withTitle:(NSString *) szTitle
 {
-    UIAlertView * av = [[UIAlertView alloc] 
-                         initWithTitle:szTitle 
-                         message:szMsg 
-                         delegate:nil 
-                         cancelButtonTitle:NSLocalizedString(@"Close", @"Close button on error message") 
-                         otherButtonTitles:nil];
-    [av show];
+    [self showAlertWithTitle:szTitle message:szMsg];
     if (isLoading)
         [self stopLoading];
     self.callInProgress = NO;

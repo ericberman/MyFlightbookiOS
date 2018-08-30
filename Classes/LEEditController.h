@@ -91,8 +91,6 @@
 @property (nonatomic, strong) IBOutlet UIDatePicker * datePicker;
 @property (nonatomic, strong) IBOutlet UIPickerView * pickerView;
 
-@property (nonatomic, strong) IBOutlet UITextView * idSharingPrompt;
-
 // Cockpit view IBActions
 - (IBAction) viewClosest;
 - (IBAction) autofillClosest;

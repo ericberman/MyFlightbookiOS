@@ -88,8 +88,7 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
 #pragma mark Signing In
 - (void) showError:(NSString *) msg
 {
-	UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Authentication Issue", @"Error message title") message:msg delegate:nil cancelButtonTitle:NSLocalizedString(@"Close", @"Close button on error message") otherButtonTitles:nil];
-	[alert show];
+    [self showErrorAlertWithMessage:msg];
     [self.tableView reloadData];
 }
 

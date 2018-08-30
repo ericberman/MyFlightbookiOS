@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2014-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -117,8 +117,7 @@ enum _trainingLinks {cidFirst, cidInstructors = cidFirst, cidStudents, cidReqSig
 {
     if (![self canViewTraining])
     {
-        UIAlertView * ua = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Title for generic error message") message:NSLocalizedString(@"TrainingNotAvailable", @"Error message for training if offline or not signed in") delegate:nil cancelButtonTitle:NSLocalizedString(@"Close", @"Close button on error message") otherButtonTitles:nil, nil];
-        [ua show];
+        [self showErrorAlertWithMessage:NSLocalizedString(@"TrainingNotAvailable", @"Error message for training if offline or not signed in")];
         return;
     }
     NSString * szProtocol = @"https";

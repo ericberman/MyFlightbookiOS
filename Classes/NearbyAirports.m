@@ -323,11 +323,7 @@ CGFloat defaultSearchHeight;
 {
     if (self.associatedFlight == nil || self.associatedFlight.gpxPath == nil || self.associatedFlight.gpxPath.length == 0)
     {
-        UIAlertView * av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Title for generic error message")
-                                                       message:NSLocalizedString(@"errNoTelemetry", @"No telemetry to share") delegate:nil
-                                             cancelButtonTitle:NSLocalizedString(@"Close", @"Close button on error message") otherButtonTitles:nil];
-        
-        [av show];
+        [self showErrorAlertWithMessage:NSLocalizedString(@"errNoTelemetry", @"No telemetry to share")];
         return;
     }
 		
@@ -336,13 +332,7 @@ CGFloat defaultSearchHeight;
     self.docController.delegate = nil;
     bool fResult = [self.docController presentOptionsMenuFromBarButtonItem:self.bbAction animated:YES];
     if (!fResult)
-    {
-        UIAlertView * av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Title for generic error message")
-                                                       message:NSLocalizedString(@"errCantShareTelemetry", @"Unable to share telemetry") delegate:nil
-                                             cancelButtonTitle:NSLocalizedString(@"Close", @"Close button on error message") otherButtonTitles:nil];
-        
-        [av show];
-    }
+        [self showErrorAlertWithMessage:NSLocalizedString(@"errCantShareTelemetry", @"Unable to share telemetry")];
 }
 
 - (void) sendTelemetry:(id)sender

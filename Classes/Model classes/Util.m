@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2018 MyFlightbook, LLC
+ Copyright (C) 2013-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -29,6 +29,18 @@
 #import "MFBAppDelegate.h"
 #import "DecimalEdit.h"
 #import <QuartzCore/QuartzCore.h>
+
+@implementation UIViewController(MFBAdditions)
+- (void) showAlertWithTitle:(NSString *) title message:(NSString *) msg {
+    UIAlertController * alert = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Close", @"Close button on error message") style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void) showErrorAlertWithMessage:(NSString *) msg {
+    [self showAlertWithTitle:NSLocalizedString(@"Error", @"Title for generic error message") message:msg];
+}
+@end
 
 @implementation NSDate(MFBAdditions)
 
@@ -185,8 +197,7 @@
 @implementation NSString (MFBAdditions)
 - (NSString *) stringByURLEncodingString
 {
-    NSString * sz = (NSString *) CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(NULL,(CFStringRef) self, NULL, (CFStringRef) @"!*'();:@%=+$,/?%#[]&", kCFStringEncodingUTF8));
-    return sz;
+    return [self stringByAddingPercentEncodingWithAllowedCharacters:[[NSCharacterSet characterSetWithCharactersInString:@"!*'() ;:@%=+$,/?%#[]&"] invertedSet]];
 }
 
 + (NSString *) stringFromCharsThatCouldBeNull:(char *) pch

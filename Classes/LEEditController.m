@@ -79,7 +79,7 @@
 @synthesize cellComments, cellDateAndTail, cellGPS, cellLandings, cellRoute, cellSharing, cellTimeBlock;
 @synthesize vwAccessory, activeTextField, flightProps;
 @synthesize dictPropCells, digitizedSig;
-@synthesize idSharingPrompt, selectibleAircraft;
+@synthesize selectibleAircraft;
 
 NSString * const _szKeyCachedImageArray = @"cachedImageArrayKey";
 NSString * const _szKeyFacebookState = @"keyFacebookState";
@@ -99,8 +99,6 @@ enum rows {
     rowImageFirst = 1000,
     rowPropertyFirst = 10000
 };
-
-enum alertViewTags {avtagConfirmReset = 1, avtagNoAircraft, avtagError};
 
 CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, heightTimes, heightSharing;
 
@@ -218,29 +216,14 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 
 - (void) resetFlightWithConfirmation
 {
-    UIAlertView * avConfirm = [[UIAlertView alloc] initWithTitle:@""
-                                                          message:NSLocalizedString(@"Are you sure you want to reset this flight?  This CANNOT be undone", @"Reset Flight confirmation")
-                                                         delegate:self
-                                                cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel (button)") otherButtonTitles:NSLocalizedString(@"OK", @"OK"), nil];
-    avConfirm.tag = avtagConfirmReset;
-    [avConfirm show];
-}
-
-- (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    switch (alertView.tag)
-    {
-        case avtagConfirmReset:
-            if (buttonIndex == 1)
-                [self resetFlight];
-                mfbApp().watchData.flightStage = flightStageUnstarted;
-                [mfbApp() updateWatchContext];
-            break;
-        case avtagNoAircraft:
-            if (buttonIndex == 1)
-                [self newAircraft];
-            break;
-    }
+    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"" message:NSLocalizedString(@"Are you sure you want to reset this flight?  This CANNOT be undone", @"Reset Flight confirmation") preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel (button)") style:UIAlertActionStyleCancel handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"OK") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [self resetFlight];
+        mfbApp().watchData.flightStage = flightStageUnstarted;
+        [mfbApp() updateWatchContext];
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void) invalidateViewController
@@ -477,25 +460,6 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 	[super viewWillDisappear:animated];
 }
 
-- (void) fixSharingPrompt {
-    NSString * sharingPrompt = NSLocalizedString(@"SharingPrompt", @"Sharing prompt");
-    NSRange r = [sharingPrompt rangeOfString:@"https:"];
-    MFBProfile * pf = MFBAppDelegate.threadSafeAppDelegate.userProfile;
-    if (pf.UserName.length > 0 && r.length > 0) {
-        NSString * szFixed = [sharingPrompt stringByReplacingOccurrencesOfString:@"https://" withString:@""];
-        r = [szFixed rangeOfString:@"MyFlightbook.com"];
-        NSMutableAttributedString * attr = [[NSMutableAttributedString alloc] initWithString:szFixed];
-        
-        NSString * szURL = [NSString stringWithFormat:@"https://%@/logbook/public/authredir.aspx?u=%@&p=%@&d=profile&pane=social",
-                            MFBHOSTNAME, [pf.UserName stringByURLEncodingString], [pf.Password stringByURLEncodingString]];
-        
-        [attr addAttribute:NSLinkAttributeName value:szURL range:r];
-        self.idSharingPrompt.attributedText = attr;
-    }
-    else
-        self.idSharingPrompt.text = sharingPrompt;
-}
-
 - (void) viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
@@ -503,7 +467,6 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     MFBAppDelegate * app = mfbApp();
     
     [self autoBlock];
-    [self fixSharingPrompt];    // do this here rather than in viewDidLoad because viewDidLoad can be called before profile is set up.
     
     // pick up any changes in the HHMM setting
     self.idXC.IsHHMM = self.idSIC.IsHHMM = self.idSimIMC.IsHHMM = self.idCFI.IsHHMM = self.idDual.IsHHMM =
@@ -821,9 +784,14 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 	
     if ([self.le.entryData.AircraftID intValue] <= 0)
     {
-        UIAlertView * av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"No Aircraft", @"Title for No Aircraft error") message:NSLocalizedString(@"Each flight must specify an aircraft.  Create one now?", @"Error - must have aircraft") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel (button)") otherButtonTitles:NSLocalizedString(@"Create", @"Button title to create an aircraft"), nil];
-        av.tag = avtagNoAircraft;
-        [av show];
+        UIAlertController * alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"No Aircraft", @"Title for No Aircraft error")
+            message:NSLocalizedString(@"Each flight must specify an aircraft.  Create one now?", @"Error - must have aircraft")
+                                                                 preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel (button)") style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Create", @"Button title to create an aircraft") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self newAircraft];
+        }]];
+        [self presentViewController:alert animated:YES completion:nil];
         return;
     }
     
@@ -2001,13 +1969,6 @@ static NSDateFormatter * dfSunriseSunset = nil;
         [self.navigationController pushViewController:vwProps animated:YES];
 }
 
-- (void) showError:(NSString *) msg {
-    UIAlertView * a = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Title for generic error message")
-                                                 message:msg delegate:nil
-                                       cancelButtonTitle:NSLocalizedString(@"Close", @"Close button on error message") otherButtonTitles:nil];
-    [a show];
-}
-
 #pragma mark - UIPopoverPresentationController functions
 // UIPopoverPresentationController functions
 - (void)popoverPresentationControllerDidDismissPopover:(UIPopoverPresentationController *)popoverController
@@ -2049,7 +2010,9 @@ static NSDateFormatter * dfSunriseSunset = nil;
                 self.le.entryData.CustomProperties = fp.rgFlightProps;
             else
             {
-                [self performSelectorOnMainThread:@selector(showError:) withObject:fp.errorString waitUntilDone:NO];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self showErrorAlertWithMessage:fp.errorString];
+                });
                 fError = YES;
             }
         }
@@ -2282,18 +2245,21 @@ static NSDateFormatter * dfSunriseSunset = nil;
     leNew.entryData.FlightID = QUEUED_FLIGHT_UNSUBMITTED;   // don't auto-submit this flight!
     MFBAppDelegate * app = [MFBAppDelegate threadSafeAppDelegate];
     [app queueFlightForLater:leNew];
-    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(flightUpdated:)])
-        [self.delegate flightUpdated:self];
-    UIAlertView * uiv = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"flightActionComplete", @"Flight Action Complete Title") message:NSLocalizedString(@"flightActionRepeatComplete", @"Flight Action - repeated flight created") delegate:nil cancelButtonTitle:NSLocalizedString(@"Close", @"Close button on error message") otherButtonTitles:nil];
-    [uiv show];
+    
+    UIAlertController * alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"flightActionComplete", @"Flight Action Complete Title") message:NSLocalizedString(@"flightActionRepeatComplete", @"Flight Action - repeated flight created") preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"OK") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        if (self.delegate != nil && [self.delegate respondsToSelector:@selector(flightUpdated:)])
+            [self.delegate flightUpdated:self];
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void) sendFlightToPilot {
     if (self.le.entryData.SendFlightLink.length == 0)
         return;
     
-    NSString * szEncodedSubject = [NSLocalizedString(@"flightActionSendSubject", @"Flight Action - Send Subject") stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSString * szEncodedBody = [[NSString stringWithFormat:NSLocalizedString(@"flightActionSendBody", @"Flight Action - Send Body"), self.le.entryData.SendFlightLink] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString * szEncodedSubject = [NSLocalizedString(@"flightActionSendSubject", @"Flight Action - Send Subject") stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    NSString * szEncodedBody = [[NSString stringWithFormat:NSLocalizedString(@"flightActionSendBody", @"Flight Action - Send Body"), self.le.entryData.SendFlightLink] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     NSString * szURL = [NSString stringWithFormat:@"mailto:?subject=%@&body=%@",
                         szEncodedSubject,
                         szEncodedBody];

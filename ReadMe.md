@@ -14,7 +14,7 @@ NSString * const _szKeyAppToken = @"[api key for web service goes here]";
 ~~~~
 The actual value for the web service key is the token that you use to identify this app as being authorized to make web service calls.
 
-You'll also need to create a file called "HostName.h", which specifies the domain name (see below for more information) of the server against which you will run.
+You'll also need to create a file called "HostName.h", which specifies the domain name (see below for more information) of the server against which you will run.  It also defines the appID used in the iTunes store.
 
 The structure of this file is this:
 ~~~~
@@ -26,6 +26,8 @@ The structure of this file is this:
 #else
 #define MFBHOSTNAME @"[the production server name - typically myflightbook.com]"
 #endif
+
+#define _appStoreID @"xyz"
 
 #endif /* HostName_h */
 ~~~~

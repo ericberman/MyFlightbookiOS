@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2010-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -33,6 +33,7 @@
 #import "Reachability.h"
 #import "AssetsLibrary/ALAssetsLibrary.h"
 #import "Airports.h"
+#import "WPSAlertController.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import <AVFoundation/AVFoundation.h>
 #import <CoreMedia/CoreMedia.h>
@@ -197,10 +198,7 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
 - (void) image: (UIImage *) image didFinishSavingWithError:(NSError *) error contextInfo:(void *) contextInfo
 {
 	if (error != nil)
-	{
-		UIAlertView * av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error saving image", @"Error message for errors when saving an image") message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"Close", @"Close button on error message") otherButtonTitles:nil];
-		[av show];
-	}
+        [WPSAlertController presentOkayAlertWithError:error];
 }
 
 - (void) enumerateDictionary:(NSDictionary *) d
@@ -612,8 +610,9 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
 	if (cErrors > 0)
 	{
 		NSString * szText = [NSString stringWithFormat:NSLocalizedString(@"%d of %d images uploaded.  Error: %@", @"Status after uploading images; %d and %@ get replaced by numbers and the error message, respectively; keep them"), (cImages - cErrors), cImages, szLastErr];
-		UIAlertView * av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error uploading Pictures", @"Error message if there were errors uploading an image") message:szText delegate:nil cancelButtonTitle:NSLocalizedString(@"Close", @"Close button on error message") otherButtonTitles:nil];
-        [av performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:NO];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [WPSAlertController presentOkayAlertWithTitle:NSLocalizedString(@"Error uploading Pictures", @"Error message if there were errors uploading an image") message:szText];
+        });
 	}
 
 }

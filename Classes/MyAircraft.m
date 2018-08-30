@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2010-2017 MyFlightbook, LLC
+ Copyright (C) 2010-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -164,14 +164,7 @@ enum aircraftSections {sectFavorites = 0, sectArchived};
 - (void) refreshCompleted:(MFBSoapCall *) sc
 {
 	if ([[Aircraft sharedAircraft].errorString length] > 0)
-	{
-		UIAlertView * av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Title for generic error message") 
-                                             message:[Aircraft sharedAircraft].errorString 
-                                             delegate:nil 
-                                             cancelButtonTitle:NSLocalizedString(@"Close", @"Close button on error message") 
-                                             otherButtonTitles:nil];
-        [av show];
-	}
+        [self showErrorAlertWithMessage:[Aircraft sharedAircraft].errorString];
     
     [self endCall];
     if (isLoading)
@@ -209,7 +202,10 @@ enum aircraftSections {sectFavorites = 0, sectArchived};
 {
     [[Aircraft sharedAircraft] clearAircraft];
     [self initAircraftLists];
-    [self.tableView reloadData];
+    if ([NSThread isMainThread])
+        [self.tableView reloadData];
+    else
+        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 }
 
 #pragma mark TableView Delegates
@@ -274,10 +270,7 @@ enum aircraftSections {sectFavorites = 0, sectArchived};
     
     if (![app.userProfile isValid])
     {
-        UIAlertView * av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Title for generic error message") 
-                                               message:NSLocalizedString(@"You must be signed in to create an aircraft", @"Must be signed in to create an aircraft")
-                                              delegate:nil cancelButtonTitle:NSLocalizedString(@"Close", @"Close button on error message") otherButtonTitles:nil];
-        [av show];
+        [nav showErrorAlertWithMessage:NSLocalizedString(@"You must be signed in to create an aircraft", @"Must be signed in to create an aircraft")];
         return;
     }
 

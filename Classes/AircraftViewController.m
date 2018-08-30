@@ -1099,11 +1099,7 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
     
     // display any error that happened at any point
 	if ([sc.errorString length] > 0)
-	{
-		UIAlertView * av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Title for generic error message")
-                                                       message:sc.errorString delegate:nil cancelButtonTitle:NSLocalizedString(@"Close", @"Close button on error message") otherButtonTitles:nil];
-		[av show];
-	}
+        [self showErrorAlertWithMessage:sc.errorString];
 	else
     {
         // Notify of a change so that the whole list gets refreshed
@@ -1120,9 +1116,7 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
 
     // add/update was successful - though we may get an error from reloading aircraft below.
     BOOL fNew = [self.ac.AircraftID intValue] < 0;
-    UIAlertView * av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Success", @"Title for success message box")
-                                                   message:(fNew ? NSLocalizedString(@"Aircraft added successfully", @"Aircraft added successfully") : NSLocalizedString(@"Aircraft updated successfully", @"Aircraft updated successfully")) delegate:nil cancelButtonTitle:NSLocalizedString(@"Close", @"Close button on error message") otherButtonTitles:nil];
-    [av show];
+    [self showAlertWithTitle:NSLocalizedString(@"Success", @"Title for success message box") message:(fNew ? NSLocalizedString(@"Aircraft added successfully", @"Aircraft added successfully") : NSLocalizedString(@"Aircraft updated successfully", @"Aircraft updated successfully"))];
     
     // Invalidate totals, since this could affect currency (e.g., vor checks)
     [mfbApp() invalidateCachedTotals];
@@ -1219,9 +1213,7 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
 	
 	if ([szError length] > 0)
 	{
-		UIAlertView * av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Title for generic error message")
-                                                      message:szError delegate:nil cancelButtonTitle:NSLocalizedString(@"Close", @"Close button on error message") otherButtonTitles:nil];
-		[av show];
+        [self showErrorAlertWithMessage:szError];
 		return;
 	}
 	

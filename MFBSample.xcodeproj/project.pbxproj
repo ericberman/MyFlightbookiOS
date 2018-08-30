@@ -153,6 +153,7 @@
 		9A79504211E56C7F0070A386 /* FlightProps.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A79504111E56C7F0070A386 /* FlightProps.m */; };
 		9A79E30A156E9B7100EBEF48 /* FlightQueryForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A79E309156E9B7100EBEF48 /* FlightQueryForm.m */; };
 		9A7A7D96147F4DD0003A6912 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9A7A7D98147F4DD0003A6912 /* Localizable.strings */; };
+		9A7B3B952135A8AA00CD3BEA /* WPSAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7B3B942135A8AA00CD3BEA /* WPSAlertController.m */; };
 		9A7C143C1533D660007EB69A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9A7C143B1533D660007EB69A /* Settings.bundle */; };
 		9A7FE95D12494F87001A8722 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7FE95C12494F87001A8722 /* Reachability.m */; };
 		9A804AF616EE445F002F77CA /* DateRangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A804AF416EE445F002F77CA /* DateRangeViewController.m */; };
@@ -627,6 +628,8 @@
 		9A79E308156E9B7100EBEF48 /* FlightQueryForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlightQueryForm.h; sourceTree = "<group>"; };
 		9A79E309156E9B7100EBEF48 /* FlightQueryForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlightQueryForm.m; sourceTree = "<group>"; };
 		9A7A7D97147F4DD0003A6912 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9A7B3B932135A8AA00CD3BEA /* WPSAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WPSAlertController.h; sourceTree = "<group>"; };
+		9A7B3B942135A8AA00CD3BEA /* WPSAlertController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WPSAlertController.m; sourceTree = "<group>"; };
 		9A7C143115336317007EB69A /* RecentFlightCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentFlightCell.h; sourceTree = "<group>"; };
 		9A7C143B1533D660007EB69A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		9A7E42B611810DBF002000A4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -1156,6 +1159,8 @@
 				9A60D6CA16F90BDE00F9DFFF /* CollapsibleTable.m */,
 				9A79E308156E9B7100EBEF48 /* FlightQueryForm.h */,
 				9A79E309156E9B7100EBEF48 /* FlightQueryForm.m */,
+				9A8901FC1F9A71160023CE34 /* HostedWebViewViewController.h */,
+				9A8901FD1F9A71160023CE34 /* HostedWebViewViewController.m */,
 				9A121392111D3073001CDDB6 /* ImageComment.h */,
 				9A121393111D3073001CDDB6 /* ImageComment.m */,
 				9AFAC07810E5968800225E90 /* NearbyAirports.h */,
@@ -1164,8 +1169,8 @@
 				9AC7B8BE14D0ADAB009139BF /* PullRefreshTableViewController.m */,
 				9A12131F111D1FDD001CDDB6 /* WaitView.h */,
 				9A121320111D1FDD001CDDB6 /* WaitView.m */,
-				9A8901FC1F9A71160023CE34 /* HostedWebViewViewController.h */,
-				9A8901FD1F9A71160023CE34 /* HostedWebViewViewController.m */,
+				9A7B3B932135A8AA00CD3BEA /* WPSAlertController.h */,
+				9A7B3B942135A8AA00CD3BEA /* WPSAlertController.m */,
 			);
 			name = "UI Utility Classes";
 			sourceTree = "<group>";
@@ -2059,6 +2064,7 @@
 				9A69202C10CCBD8B00DF1CA6 /* NSDate+ISO8601Unparsing.m in Sources */,
 				9A69202D10CCBD8B00DF1CA6 /* USAdditions.m in Sources */,
 				9A69202E10CCBD8B00DF1CA6 /* USGlobals.m in Sources */,
+				9A7B3B952135A8AA00CD3BEA /* WPSAlertController.m in Sources */,
 				9A69202F10CCBD8B00DF1CA6 /* xsd.m in Sources */,
 				9ADFA5081939271B00FF30B7 /* Training.m in Sources */,
 				9AA5E44219DDB9030065810A /* Telemetry.m in Sources */,

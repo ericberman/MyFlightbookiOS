@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2009-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -28,6 +28,7 @@
 
 #import "Aircraft.h"
 #import "MFBAppDelegate.h"
+#import "WPSAlertController.h"
 #import "Util.h"
 #import "CountryCode.h"
 
@@ -161,11 +162,7 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
         if ([sc.errorString length] == 0)
             [[Aircraft sharedAircraft] checkAircraftID];    // refresh the default aircraftID
         else
-            [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Title for generic error message")
-                                        message:sc.errorString
-                                       delegate:nil
-                              cancelButtonTitle:NSLocalizedString(@"Close", @"Close button on error message")
-                              otherButtonTitles:nil] show];
+            [WPSAlertController presentAlertWithErrorMessage:sc.errorString];
     }];
     [self loadAircraftForUser:NO];
 }

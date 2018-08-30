@@ -325,11 +325,8 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
 }
 
 #pragma mark - Create User
-- (void) createUserFinishedFailure
-{
-	MFBAppDelegate * app = mfbApp();
-    UIAlertView * av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Title for generic error message") message:app.userProfile.ErrorString delegate:nil cancelButtonTitle:NSLocalizedString(@"Close", @"Close button on error message") otherButtonTitles:nil];
-    [av show];
+- (void) createUserFinishedFailure {
+    [self showErrorAlertWithMessage:mfbApp().userProfile.ErrorString];
 }
 
 - (void) refreshPropsWorker {
@@ -342,19 +339,17 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
 {
 	MFBAppDelegate * app = mfbApp();
     
-    [self.navigationController popViewControllerAnimated:YES];
     // cache the relevant credentials, load any aircraft, and go to the default page for the user!
     [app.userProfile SavePrefs];
     [[Aircraft sharedAircraft] refreshIfNeeded];
     
     [NSThread detachNewThreadSelector:@selector(refreshPropsWorker) toTarget:self withObject:nil];
     
-    UIAlertView * av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Welcome to MyFlightbook!", @"New user welcome message title")
-                                                   message:NSLocalizedString(@"\r\nBefore you can enter flights, you must set up at least one aircraft that you fly.", @"New user 'Next steps' message")
-                                                  delegate:nil
-                                         cancelButtonTitle:NSLocalizedString(@"Close", @"Close button on error message")
-                                         otherButtonTitles:nil];
-    [av show];
+    UIAlertController * alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Welcome to MyFlightbook!", @"New user welcome message title") message:NSLocalizedString(@"\r\nBefore you can enter flights, you must set up at least one aircraft that you fly.", @"New user 'Next steps' message") preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Close", @"Close button on error message") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void) createUserWorker
@@ -373,8 +368,7 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
 {
     if (![self.nuo isValid])
 	{
-		UIAlertView * av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Title for generic error message") message:self.nuo.szLastError delegate:nil cancelButtonTitle:NSLocalizedString(@"Close", @"Close button on error message") otherButtonTitles:nil];
-		[av show];
+        [self showErrorAlertWithMessage:self.nuo.szLastError];
 		return;
 	}
 	

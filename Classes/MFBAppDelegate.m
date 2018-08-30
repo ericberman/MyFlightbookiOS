@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2018 MyFlightbook, LLC
+ Copyright (C) 2009-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -36,6 +36,7 @@
 #import "SunriseSunset.h"
 #import "iRate.h"
 #import "Telemetry.h"
+#import "WPSAlertController.h"
 #import "SynchronousCalls.h"
 
 #ifdef DEBUG
@@ -314,11 +315,10 @@ static void distanceFunc(sqlite3_context * context, int argc, sqlite3_value **ar
 	NSString * szUserWarning = [defs stringForKey:_szKeyHasSeenDisclaimer];
 	if (szUserWarning == nil || [szUser compare:szUserWarning] != NSOrderedSame)
 	{
-		UIAlertView * alert;
+        [WPSAlertController presentOkayAlertWithTitle:NSLocalizedString(@"Important", @"Disclaimer warning message title")
+                                              message:NSLocalizedString(@"Use of this during flight could be a distraction and could violate regulations, including 14 CFR 91.21 and 47 CFR 22.925.\r\nYou are responsible for the consequences of any use of this software.", @"Use in flight disclaimer")
+                                            button:NSLocalizedString(@"Accept", @"Disclaimer acceptance button title")];
 		
-		alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Important", @"Disclaimer warning message title") message:NSLocalizedString(@"Use of this during flight could be a distraction and could violate regulations, including 14 CFR 91.21 and 47 CFR 22.925.\r\nYou are responsible for the consequences of any use of this software.", @"Use in flight disclaimer") delegate:nil cancelButtonTitle:NSLocalizedString(@"Accept", @"Disclaimer acceptance button title") otherButtonTitles:nil];
-		
-		[alert show];
 		[defs setValue:szUser forKey:_szKeyHasSeenDisclaimer];
 		[defs synchronize];
 	}
@@ -505,6 +505,7 @@ static BOOL fAppLaunchFinished = NO;
     [iRate sharedInstance].usesUntilPrompt = MIN_IRATE_USES;
     [iRate sharedInstance].daysUntilPrompt = MIN_IRATE_DAYS;
     [iRate sharedInstance].verboseLogging = YES;
+    [iRate sharedInstance].ratingsURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/us/app/myflightbook/id%@?mt=8&action=write-review", _appStoreID]];
 }
 
 static MFBAppDelegate * _mainApp = nil;
@@ -701,10 +702,7 @@ static MFBAppDelegate * _mainApp = nil;
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
 {
 	if (viewController == self.tabNewFlight && [self checkNoAircraft])
-	{
-		UIAlertView * av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"No Aircraft", @"Title for No Aircraft error") message:NSLocalizedString(@"You must set up at least one aircraft before you can enter flights", @"No aircraft error message") delegate:nil cancelButtonTitle:NSLocalizedString(@"Close", @"Close button on error message") otherButtonTitles:nil];	
-		[av show];
-	}
+        [WPSAlertController presentOkayAlertWithTitle:NSLocalizedString(@"No Aircraft", @"Title for No Aircraft error") message:NSLocalizedString(@"You must set up at least one aircraft before you can enter flights", @"No aircraft error message")];
 	
 	return YES;
 }

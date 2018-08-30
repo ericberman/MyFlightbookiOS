@@ -48,8 +48,6 @@
 
 static const int cFlightsPageSize=15;   // number of flights to download at a time by default.
 
-enum _tagRecentFlightsAlerts {alertConfirmDelete, alertConfirmImport, alertConfirmImportTelemetry};
-
 NSInteger iFlightInProgress, cFlightsToSubmit;
 BOOL fCouldBeMoreFlights;
 
@@ -555,11 +553,40 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectPendingFlights, sectExi
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
         self.ipSelectedCell = indexPath;
-		UIAlertView * avConfirm = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Confirm Deletion", @"Title of confirm message to delete a flight")
-                                                             message:NSLocalizedString(@"Are you sure you want to delete this flight?  This CANNOT be undone!", @"Delete Flight confirmation") delegate:self 
-                                                   cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel (button)") otherButtonTitles:NSLocalizedString(@"OK", @"OK"), nil];
-		avConfirm.tag = alertConfirmDelete;
-		[avConfirm show];
+        UIAlertController * alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Confirm Deletion", @"Title of confirm message to delete a flight")
+                                                                        message:NSLocalizedString(@"Are you sure you want to delete this flight?  This CANNOT be undone!", @"Delete Flight confirmation") preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel (button)") style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"OK") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
+            LogbookEntry * le = [[LogbookEntry alloc] init];
+            
+            NSIndexPath * ip = self.ipSelectedCell;
+            
+            RecentSection rs = [self sectionFromIndexPathSection:ip.section];
+            
+            if (rs == sectExistingFlights) {
+                // deleting an existing flight
+                le.szAuthToken = app.userProfile.AuthToken;
+                MFBWebServiceSvc_LogbookEntry * leToDelete = (MFBWebServiceSvc_LogbookEntry *) (self.rgFlights)[ip.row];
+                int idFlightToDelete = [leToDelete.FlightID intValue];
+                [self.dictImages removeObjectForKey:leToDelete.FlightID];
+                [self.rgFlights removeObjectAtIndex:ip.row];
+                [le setDelegate:self completionBlock:^(MFBSoapCall * sc, MFBAsyncOperation * ao) {
+                    if ([sc.errorString length] == 0)
+                        [self refresh]; // will call invalidatecached totals
+                    else {
+                        NSString * szError = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Unable to delete the flight.", @"Error deleting flight"), sc.errorString];
+                        [self showAlertWithTitle:NSLocalizedString(@"Error deleting flight", @"Title for error message when flight delete fails") message:szError];
+                    }
+                }];
+                [le deleteFlight:idFlightToDelete];
+            }
+            else if (rs == sectPendingFlights)
+                [app dequeuePendingFlight:(LogbookEntry *) (app.rgPendingFlights)[ip.row]];
+            self.ipSelectedCell = nil;
+            [self.tableView reloadData];
+        }]];
+        [self presentViewController:alert animated:YES completion:nil];
 	}
 }
 
@@ -600,77 +627,16 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectPendingFlights, sectExi
         mfbApp().leMain.le.entryData.HobbsStart = lev.le.entryData.HobbsEnd;
     
     self.urlTelemetry = nil;
+    [self.tableView reloadData];
 }
 
-- (void) importFlightWorker:(UIAlertView *) av
+- (void) importFlightWorker
 {
     LogbookEntry * le = [GPSSim ImportTelemetry:self.urlTelemetry];
     dispatch_async(dispatch_get_main_queue(), ^{
-        [av dismissWithClickedButtonIndex:0 animated:NO];
+        [self dismissViewControllerAnimated:YES completion:nil];
     });
     [self performSelectorOnMainThread:@selector(importFlightFinished:) withObject:le waitUntilDone:NO];
-}
-
-#pragma mark Handle alerts
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    switch (alertView.tag) {
-        case alertConfirmDelete:
-            if (buttonIndex == 1) {
-                MFBAppDelegate * app = mfbApp();
-                LogbookEntry * le = [[LogbookEntry alloc] init];
-                
-                NSIndexPath * ip = self.ipSelectedCell;
-                
-                RecentSection rs = [self sectionFromIndexPathSection:ip.section];
-                
-                if (rs == sectExistingFlights) {
-                    // deleting an existing flight
-                    le.szAuthToken = app.userProfile.AuthToken;
-                    MFBWebServiceSvc_LogbookEntry * leToDelete = (MFBWebServiceSvc_LogbookEntry *) (self.rgFlights)[ip.row];
-                    int idFlightToDelete = [leToDelete.FlightID intValue];
-                    [self.dictImages removeObjectForKey:leToDelete.FlightID];
-                    [self.rgFlights removeObjectAtIndex:ip.row];
-                    [le setDelegate:self completionBlock:^(MFBSoapCall * sc, MFBAsyncOperation * ao) {
-                        if ([sc.errorString length] == 0)
-                            [self refresh]; // will call invalidatecached totals
-                        else {
-                            NSString * szError = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Unable to delete the flight.", @"Error deleting flight"), sc.errorString];
-                            UIAlertView * av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error deleting flight", @"Title for error message when flight delete fails") message:szError delegate:nil cancelButtonTitle:NSLocalizedString(@"Close", @"Close button on error message") otherButtonTitles:nil];
-                            [av show];
-                        }
-                    }];
-                    [le deleteFlight:idFlightToDelete];
-                }
-                else if (rs == sectPendingFlights)
-                    [app dequeuePendingFlight:(LogbookEntry *) (app.rgPendingFlights)[ip.row]];
-                self.ipSelectedCell = nil;
-            }
-            break;
-        case alertConfirmImport:
-        {
-            if (buttonIndex == 1) {
-                [LogbookEntry addPendingJSONFlights:self.JSONObjToImport];
-                self.JSONObjToImport = nil;
-            }
-        }
-            break;
-        case alertConfirmImportTelemetry:
-        {
-            if (buttonIndex == 1) {
-                UIAlertView *av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"ActivityInProgress", @"Activity In Progress") message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles: nil];
-                UIActivityIndicatorView *aiv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-                aiv.center = CGPointMake(av.bounds.size.width / 2, av.bounds.size.height - 60);
-                [av setValue:aiv forKey:@"accessoryView"];
-                [aiv startAnimating];
-                [av show];
-                [NSThread detachNewThreadSelector:@selector(importFlightWorker:) toTarget:self withObject:av];
-            }
-        }
-            break;
-    }
-    
-    // No matter what other path happens above, reload the data
-    [self.tableView reloadData];
 }
 
 #pragma mark Add flight via URL
@@ -682,9 +648,7 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectPendingFlights, sectExi
     
     if (error != nil)
     {
-		UIAlertView * av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Title for generic error message")
-                                                       message:error.localizedDescription delegate:nil cancelButtonTitle:NSLocalizedString(@"Close", @"Close button on error message") otherButtonTitles:nil];
-		[av show];
+        [self showErrorAlertWithMessage:error.localizedDescription];
         self.JSONObjToImport = nil;
         return;
     }
@@ -693,25 +657,61 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectPendingFlights, sectExi
     NSDictionary * dictRoot = (NSDictionary *) self.JSONObjToImport;
     NSDictionary * dictMeta = (NSDictionary *) dictRoot[@"metadata"];
     NSString * szApplication = (NSString *) dictMeta[@"application"];
-    	
-    UIAlertView * av = [[UIAlertView alloc] initWithTitle:@""
-                                       message:[NSString stringWithFormat:NSLocalizedString(@"AddFlightPrompt", @"Import Flight"), szApplication]
-                                       delegate:self
-                                       cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel (button)") otherButtonTitles:NSLocalizedString(@"OK", @"OK"), nil];
-    av.tag = alertConfirmImport;
-    [av show];
+    
+    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"" message:[NSString stringWithFormat:NSLocalizedString(@"AddFlightPrompt", @"Import Flight"), szApplication] preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel (button)") style:UIAlertActionStyleCancel handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [LogbookEntry addPendingJSONFlights:self.JSONObjToImport];
+        self.JSONObjToImport = nil;
+        [self.tableView reloadData];
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark Add flight via Telemetry
 - (void) addTelemetryFlight:(NSURL *) url
 {
     self.urlTelemetry = url;
-    UIAlertView * av = [[UIAlertView alloc] initWithTitle:@""
-                                                  message:NSLocalizedString(@"InitFromTelemetry", @"Import Flight Telemetry")
-                                                 delegate:self
-                                        cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel (button)") otherButtonTitles:NSLocalizedString(@"OK", @"OK"), nil];
-    av.tag = alertConfirmImportTelemetry;
-    [av show];
+    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"" message:NSLocalizedString(@"InitFromTelemetry", @"Import Flight Telemetry") preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel (button)") style:UIAlertActionStyleCancel handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertController * alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ActivityInProgress", @"Activity In Progress") message:nil preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [spinner startAnimating];
+        
+        UIViewController *customVC     = [[UIViewController alloc] init];
+
+        [customVC.view addSubview:spinner];
+        
+        
+        [customVC.view addConstraint:[NSLayoutConstraint
+                                      constraintWithItem: spinner
+                                      attribute:NSLayoutAttributeCenterX
+                                      relatedBy:NSLayoutRelationEqual
+                                      toItem:customVC.view
+                                      attribute:NSLayoutAttributeCenterX
+                                      multiplier:1.0f
+                                      constant:0.0f]];
+        
+        
+        
+        [customVC.view addConstraint:[NSLayoutConstraint
+                                      constraintWithItem: spinner
+                                      attribute:NSLayoutAttributeCenterY
+                                      relatedBy:NSLayoutRelationEqual
+                                      toItem:customVC.view
+                                      attribute:NSLayoutAttributeCenterY
+                                      multiplier:1.0f
+                                      constant:0.0f]];
+        
+        
+        [alert setValue:customVC forKey:@"contentViewController"];
+        [self presentViewController:alert animated:YES completion:nil];
+        [NSThread detachNewThreadSelector:@selector(importFlightWorker) toTarget:self withObject:nil];
+
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 @end
 

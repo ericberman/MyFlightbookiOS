@@ -32,6 +32,7 @@
 
 
 #import "iRate.h"
+#import "WPSAlertController.h"
 
 
 #import <Availability.h>
@@ -808,19 +809,26 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
         NSString *message = self.ratedAnyVersion? self.updateMessage: self.message;
     
 #if TARGET_OS_IPHONE
-    
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:self.messageTitle
-                                                        message:message
-                                                       delegate:(id<UIAlertViewDelegate>)self
-                                              cancelButtonTitle:[self.cancelButtonLabel length] ? self.cancelButtonLabel: nil
-                                              otherButtonTitles:self.rateButtonLabel, nil];
-        if ([self.remindButtonLabel length])
-        {
-            [alert addButtonWithTitle:self.remindButtonLabel];
-        }
+        
+        WPSAlertController * alert = [WPSAlertController alertControllerWithTitle:self.messageTitle message:message preferredStyle:UIAlertControllerStyleAlert];
+        if (self.cancelButtonLabel.length)
+            [alert addAction:[UIAlertAction actionWithTitle:self.cancelButtonLabel style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                [self declineThisVersion];
+                self.visibleAlert = nil;
+            }]];
+        [alert addAction:[UIAlertAction actionWithTitle:self.rateButtonLabel style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self rate];
+            self.visibleAlert = nil;
+        }]];
+        if (self.remindButtonLabel.length)
+            [alert addAction:[UIAlertAction actionWithTitle:self.remindButtonLabel style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self remindLater];
+                self.visibleAlert = nil;
+            }]];
         
         self.visibleAlert = alert;
-        [self.visibleAlert show];
+        [alert show];
+        
 #else
 
         //only show when main window is available
@@ -944,61 +952,6 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
     }
 }
 
-- (void)resizeAlertView:(UIAlertView *)alertView
-{
-    if ([[UIDevice currentDevice].systemVersion floatValue] < 7.0f)
-    {
-        NSInteger imageCount = 0;
-        CGFloat offset = 0.0f;
-        CGFloat messageOffset = 0.0f;
-        for (UIView *view in alertView.subviews)
-        {
-            CGRect frame = view.frame;
-            if ([view isKindOfClass:[UILabel class]])
-            {
-                UILabel *label = (UILabel *)view;
-                if ([label.text isEqualToString:alertView.title])
-                {
-                    CGFloat height = label.frame.size.height;
-                    [label sizeToFit];
-                    offset = messageOffset = label.frame.size.height - height;
-                    frame.size.height = label.frame.size.height;
-                }
-                else if ([label.text isEqualToString:alertView.message])
-                {
-                    label.lineBreakMode = NSLineBreakByWordWrapping;
-                    label.numberOfLines = 0;
-                    label.alpha = 1.0f;
-                    [label sizeToFit];
-                    offset += label.frame.size.height - frame.size.height;
-                    frame.origin.y += messageOffset;
-                    frame.size.height = label.frame.size.height;
-                }
-            }
-            else if ([view isKindOfClass:[UITextView class]])
-            {
-                view.alpha = 0.0f;
-            }
-            else if ([view isKindOfClass:[UIImageView class]])
-            {
-                if (imageCount++ > 0)
-                {
-                    view.alpha = 0.0f;
-                }
-            }
-            else if ([view isKindOfClass:[UIControl class]])
-            {
-                frame.origin.y += offset;
-            }
-            view.frame = frame;
-        }
-        CGRect frame = alertView.frame;
-        frame.origin.y -= roundf(offset/2.0f);
-        frame.size.height += offset;
-        alertView.frame = frame;
-    }
-}
-
 - (void)willRotate
 {
     [self performSelectorOnMainThread:@selector(didRotate) withObject:nil waitUntilDone:NO];
@@ -1009,35 +962,8 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
     if (self.previousOrientation != [UIApplication sharedApplication].statusBarOrientation)
     {
         self.previousOrientation = [UIApplication sharedApplication].statusBarOrientation;
-        [self resizeAlertView:self.visibleAlert];
     }
 }
-
-- (void)willPresentAlertView:(UIAlertView *)alertView
-{
-    [self resizeAlertView:alertView];
-}
-
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == alertView.cancelButtonIndex)
-    {
-        [self declineThisVersion];
-    }
-    else if (([self.cancelButtonLabel length] && buttonIndex == 2) ||
-             ([self.cancelButtonLabel length] == 0 && buttonIndex == 1))
-    {
-        [self remindLater];
-    }
-    else
-    {
-        [self rate];
-    }
-    
-    //release alert
-    self.visibleAlert = nil;
-}
-
 #else
 
 - (void)openAppPageWhenAppStoreLaunched
