@@ -680,10 +680,19 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
         }
         
         NSError *error = nil;
-        NSURLResponse *response = nil;
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:iTunesServiceURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:REQUEST_TIMEOUT];
-        NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-        NSInteger statusCode = ((NSHTTPURLResponse *)response).statusCode;
+        __block NSData *data = nil;
+        __block NSInteger statusCode = 0;
+        
+        NSURLSession *session = [NSURLSession sharedSession];
+        dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+        [[session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable resultData, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            data = resultData;
+            statusCode = ((NSHTTPURLResponse *) response).statusCode;
+            dispatch_semaphore_signal(semaphore);
+        }] resume];
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        
         if (data && statusCode == 200)
         {
             //in case error is garbage...

@@ -558,8 +558,8 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
 + (void) uploadImages:(NSArray *) rgImages withStatusLabel:(UILabel *) lblPrompt toPage:(NSString *) pageName authString:(NSString *) szAuth keyName:(NSString *) keyName keyValue:(NSString *) keyValue
 {	
 	int cImages = 0;
-	int cErrors = 0;
-	NSString * szLastErr = nil;
+	__block int cErrors = 0;
+	__block NSString * szLastErr = nil;
 
 	if (pageName == nil || [pageName length] == 0)
 		return;
@@ -636,24 +636,27 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
             
             [req setHTTPBody:postBody];
             
-            NSURLResponse * urlResponse;
             NSError * callError;
-            NSString * szResponse = nil;
+            __block NSString * szResponse = nil;
             
-            NSData * postResponse = [NSURLConnection sendSynchronousRequest:req returningResponse:&urlResponse error:&callError];
-            
-            if (postResponse != nil)
-                szResponse = [[NSString alloc] initWithData:postResponse encoding:NSUTF8StringEncoding];
-            
-            if (szResponse == nil || [szResponse rangeOfString:@"OK"].location != 0)
-            {
-                cErrors++;
+            NSURLSession *session = [NSURLSession sharedSession];
+            dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+            [[session dataTaskWithRequest:req completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                if (data != nil)
+                    szResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                 
-                if (szResponse != nil)
-                    szLastErr = [[NSString alloc] initWithString:szResponse];
-                else
-                    szLastErr = [callError localizedDescription];
-            }
+                if (szResponse == nil || [szResponse rangeOfString:@"OK"].location != 0)
+                {
+                    cErrors++;
+                    
+                    if (szResponse != nil)
+                        szLastErr = [[NSString alloc] initWithString:szResponse];
+                    else
+                        szLastErr = [callError localizedDescription];
+                }
+                dispatch_semaphore_signal(semaphore);
+            }] resume];
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         }
 	}
     
