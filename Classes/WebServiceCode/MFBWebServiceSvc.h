@@ -2762,15 +2762,16 @@ SOAPSigner *soapSigner;
 	MFBWebServiceSoapBindingResponse *response;
 	id<MFBWebServiceSoapBindingResponseDelegate> delegate;
 	NSMutableData *responseData;
-	NSURLConnection *urlConnection;
 }
 @property (nonatomic, retain) MFBWebServiceSoapBinding *binding;
 @property (nonatomic, readonly) MFBWebServiceSoapBindingResponse *response;
 @property (nonatomic, assign) id<MFBWebServiceSoapBindingResponseDelegate> delegate;
 @property (nonatomic, retain) NSMutableData *responseData;
-@property (nonatomic, retain) NSURLConnection *urlConnection;
 - (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)aDelegate;
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error;
+- (void)didFailWithError:(NSError *)error;
+- (void)didReceiveResponse:(NSURLResponse *)urlResponse;
+- (void)didReceiveData:(NSData *)data;
+- (void)connectionDidFinishLoading;
 @end
 @interface MFBWebServiceSoapBinding_AircraftForUser : MFBWebServiceSoapBindingOperation {
 	MFBWebServiceSvc_AircraftForUser * parameters;
@@ -3139,15 +3140,16 @@ SOAPSigner *soapSigner;
 	MFBWebServiceSoap12BindingResponse *response;
 	id<MFBWebServiceSoap12BindingResponseDelegate> delegate;
 	NSMutableData *responseData;
-	NSURLConnection *urlConnection;
 }
 @property (nonatomic, retain) MFBWebServiceSoap12Binding *binding;
 @property (nonatomic, readonly) MFBWebServiceSoap12BindingResponse *response;
 @property (nonatomic, assign) id<MFBWebServiceSoap12BindingResponseDelegate> delegate;
 @property (nonatomic, retain) NSMutableData *responseData;
-@property (nonatomic, retain) NSURLConnection *urlConnection;
 - (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)aDelegate;
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error;
+- (void)didFailWithError:(NSError *)error;
+- (void)didReceiveResponse:(NSURLResponse *)urlResponse;
+- (void)didReceiveData:(NSData *)data;
+- (void)connectionDidFinishLoading;
 @end
 @interface MFBWebServiceSoap12Binding_AircraftForUser : MFBWebServiceSoap12BindingOperation {
 	MFBWebServiceSvc_AircraftForUser * parameters;

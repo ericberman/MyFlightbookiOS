@@ -26245,7 +26245,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
                                             code:0
                                         userInfo:nil];
         
-        [operation connection:nil didFailWithError:err];
+        [operation didFailWithError:err];
         return;
     }
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.address 
@@ -26273,11 +26273,19 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 		NSLog(@"OutputHeaders:\n%@", [request allHTTPHeaderFields]);
 		NSLog(@"OutputBody:\n%@", outputBody);
 	}
-	
-	NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:operation];
-	
-	operation.urlConnection = connection;
-	[connection release];
+	NSURLSession *session = [NSURLSession sharedSession];
+	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+	[[session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+		if (error != nil)
+			[operation didFailWithError:error];
+		if (response != nil)
+			[operation didReceiveResponse:response];
+		if (data != nil)
+			[operation didReceiveData:data];
+		dispatch_semaphore_signal(semaphore);
+	}] resume];
+	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+	[operation connectionDidFinishLoading];
 }
 - (void) dealloc
 {
@@ -26296,7 +26304,6 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 @synthesize response;
 @synthesize delegate;
 @synthesize responseData;
-@synthesize urlConnection;
 - (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)aDelegate
 {
 	if ((self = [super init])) {
@@ -26304,10 +26311,12 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 		response = nil;
 		self.delegate = aDelegate;
 		self.responseData = nil;
-		self.urlConnection = nil;
 	}
 	
 	return self;
+}
+- (void) connectionDidFinishLoading {
+// subclassed
 }
 - (BOOL)connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace {
     return [binding.sslManager canAuthenticateForAuthenticationMethod:protectionSpace.authenticationMethod];
@@ -26318,7 +26327,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 		[[challenge sender] cancelAuthenticationChallenge:challenge];
 	}
 }
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)urlResponse
+- (void)didReceiveResponse:(NSURLResponse *)urlResponse
 {
 	NSHTTPURLResponse *httpResponse;
 	if ([urlResponse isKindOfClass:[NSHTTPURLResponse class]]) {
@@ -26336,7 +26345,6 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	if ([urlResponse.MIMEType rangeOfString:[self.binding MIMEType]].length == 0) {
 		if ((self.binding.ignoreEmptyResponse == NO) || (contentLength != 0)) {
 			NSError *error = nil;
-			[connection cancel];
 			if ([httpResponse statusCode] >= 400) {
 				NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSHTTPURLResponse localizedStringForStatusCode:[httpResponse statusCode]],NSLocalizedDescriptionKey,
 																			  httpResponse.URL, NSURLErrorKey,nil];
@@ -26348,13 +26356,13 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 				error = [NSError errorWithDomain:@"MFBWebServiceSoapBindingResponseHTTP" code:1 userInfo:userInfo];
 			}
 				
-			[self connection:connection didFailWithError:error];
+			[self didFailWithError:error];
 		} else {
             [delegate operation:self completedWithResponse:response];
 		}
 	}
 }
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+- (void)didReceiveData:(NSData *)data
 {
 	if (responseData == nil) {
 		responseData = [data mutableCopy];
@@ -26362,7 +26370,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 		[responseData appendData:data];
 	}
 }
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+- (void)didFailWithError:(NSError *)error
 {
 	if (binding.logXMLInOut) {
 		NSLog(@"ResponseError:\n%@", error);
@@ -26376,8 +26384,6 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	[response release];
 	delegate = nil;
 	[responseData release];
-	[urlConnection release];
-	
 	[super dealloc];
 }
 @end
@@ -26424,7 +26430,7 @@ parameters:(MFBWebServiceSvc_AircraftForUser *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/AircraftForUser" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -26531,7 +26537,7 @@ parameters:(MFBWebServiceSvc_AddAircraftForUser *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/AddAircraftForUser" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -26638,7 +26644,7 @@ parameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraft *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/UpdateMaintenanceForAircraft" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -26745,7 +26751,7 @@ parameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes *)aPa
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/UpdateMaintenanceForAircraftWithFlagsAndNotes" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -26852,7 +26858,7 @@ parameters:(MFBWebServiceSvc_DeleteAircraftForUser *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/DeleteAircraftForUser" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -26959,7 +26965,7 @@ parameters:(MFBWebServiceSvc_MakesAndModels *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/MakesAndModels" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -27066,7 +27072,7 @@ parameters:(MFBWebServiceSvc_GetCurrencyForUser *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/GetCurrencyForUser" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -27173,7 +27179,7 @@ parameters:(MFBWebServiceSvc_TotalsForUser *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/TotalsForUser" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -27280,7 +27286,7 @@ parameters:(MFBWebServiceSvc_TotalsForUserWithQuery *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/TotalsForUserWithQuery" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -27387,7 +27393,7 @@ parameters:(MFBWebServiceSvc_VisitedAirports *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/VisitedAirports" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -27494,7 +27500,7 @@ parameters:(MFBWebServiceSvc_FlightsWithQueryAndOffset *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/FlightsWithQueryAndOffset" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -27601,7 +27607,7 @@ parameters:(MFBWebServiceSvc_FlightsWithQuery *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/FlightsWithQuery" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -27708,7 +27714,7 @@ parameters:(MFBWebServiceSvc_DeleteLogbookEntry *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/DeleteLogbookEntry" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -27815,7 +27821,7 @@ parameters:(MFBWebServiceSvc_CommitFlightWithOptions *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/CommitFlightWithOptions" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -27922,7 +27928,7 @@ parameters:(MFBWebServiceSvc_FlightPathForFlight *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/FlightPathForFlight" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -28029,7 +28035,7 @@ parameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/FlightPathForFlightGPX" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -28136,7 +28142,7 @@ parameters:(MFBWebServiceSvc_AvailablePropertyTypes *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/AvailablePropertyTypes" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -28243,7 +28249,7 @@ parameters:(MFBWebServiceSvc_AvailablePropertyTypesForUser *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/AvailablePropertyTypesForUser" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -28350,7 +28356,7 @@ parameters:(MFBWebServiceSvc_PropertiesForFlight *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/PropertiesForFlight" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -28457,7 +28463,7 @@ parameters:(MFBWebServiceSvc_DeletePropertiesForFlight *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/DeletePropertiesForFlight" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -28564,7 +28570,7 @@ parameters:(MFBWebServiceSvc_DeletePropertyForFlight *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/DeletePropertyForFlight" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -28671,7 +28677,7 @@ parameters:(MFBWebServiceSvc_DeleteImage *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/DeleteImage" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -28778,7 +28784,7 @@ parameters:(MFBWebServiceSvc_UpdateImageAnnotation *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/UpdateImageAnnotation" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -28885,7 +28891,7 @@ parameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/AuthTokenForUser" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -28992,7 +28998,7 @@ parameters:(MFBWebServiceSvc_CreateUser *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/CreateUser" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -29099,7 +29105,7 @@ parameters:(MFBWebServiceSvc_GetNamedQueriesForUser *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/GetNamedQueriesForUser" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -29206,7 +29212,7 @@ parameters:(MFBWebServiceSvc_AddNamedQueryForUser *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/AddNamedQueryForUser" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -29313,7 +29319,7 @@ parameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/DeleteNamedQueryForUser" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -29420,7 +29426,7 @@ parameters:(MFBWebServiceSvc_SuggestModels *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/SuggestModels" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -29527,7 +29533,7 @@ parameters:(MFBWebServiceSvc_PreviouslyUsedTextProperties *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/PreviouslyUsedTextProperties" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -29634,7 +29640,7 @@ parameters:(MFBWebServiceSvc_AirportsInBoundingBox *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/AirportsInBoundingBox" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -30227,7 +30233,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
                                             code:0
                                         userInfo:nil];
         
-        [operation connection:nil didFailWithError:err];
+        [operation didFailWithError:err];
         return;
     }
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.address 
@@ -30255,11 +30261,19 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 		NSLog(@"OutputHeaders:\n%@", [request allHTTPHeaderFields]);
 		NSLog(@"OutputBody:\n%@", outputBody);
 	}
-	
-	NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:operation];
-	
-	operation.urlConnection = connection;
-	[connection release];
+	NSURLSession *session = [NSURLSession sharedSession];
+	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+	[[session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+		if (error != nil)
+			[operation didFailWithError:error];
+		if (response != nil)
+			[operation didReceiveResponse:response];
+		if (data != nil)
+			[operation didReceiveData:data];
+		dispatch_semaphore_signal(semaphore);
+	}] resume];
+	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+	[operation connectionDidFinishLoading];
 }
 - (void) dealloc
 {
@@ -30278,7 +30292,6 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 @synthesize response;
 @synthesize delegate;
 @synthesize responseData;
-@synthesize urlConnection;
 - (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)aDelegate
 {
 	if ((self = [super init])) {
@@ -30286,10 +30299,12 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 		response = nil;
 		self.delegate = aDelegate;
 		self.responseData = nil;
-		self.urlConnection = nil;
 	}
 	
 	return self;
+}
+- (void) connectionDidFinishLoading {
+// subclassed
 }
 - (BOOL)connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace {
     return [binding.sslManager canAuthenticateForAuthenticationMethod:protectionSpace.authenticationMethod];
@@ -30300,7 +30315,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 		[[challenge sender] cancelAuthenticationChallenge:challenge];
 	}
 }
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)urlResponse
+- (void)didReceiveResponse:(NSURLResponse *)urlResponse
 {
 	NSHTTPURLResponse *httpResponse;
 	if ([urlResponse isKindOfClass:[NSHTTPURLResponse class]]) {
@@ -30318,7 +30333,6 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 	if ([urlResponse.MIMEType rangeOfString:[self.binding MIMEType]].length == 0) {
 		if ((self.binding.ignoreEmptyResponse == NO) || (contentLength != 0)) {
 			NSError *error = nil;
-			[connection cancel];
 			if ([httpResponse statusCode] >= 400) {
 				NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSHTTPURLResponse localizedStringForStatusCode:[httpResponse statusCode]],NSLocalizedDescriptionKey,
 																			  httpResponse.URL, NSURLErrorKey,nil];
@@ -30330,13 +30344,13 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 				error = [NSError errorWithDomain:@"MFBWebServiceSoap12BindingResponseHTTP" code:1 userInfo:userInfo];
 			}
 				
-			[self connection:connection didFailWithError:error];
+			[self didFailWithError:error];
 		} else {
             [delegate operation:self completedWithResponse:response];
 		}
 	}
 }
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+- (void)didReceiveData:(NSData *)data
 {
 	if (responseData == nil) {
 		responseData = [data mutableCopy];
@@ -30344,7 +30358,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 		[responseData appendData:data];
 	}
 }
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+- (void)didFailWithError:(NSError *)error
 {
 	if (binding.logXMLInOut) {
 		NSLog(@"ResponseError:\n%@", error);
@@ -30358,8 +30372,6 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 	[response release];
 	delegate = nil;
 	[responseData release];
-	[urlConnection release];
-	
 	[super dealloc];
 }
 @end
@@ -30406,7 +30418,7 @@ parameters:(MFBWebServiceSvc_AircraftForUser *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/AircraftForUser" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -30513,7 +30525,7 @@ parameters:(MFBWebServiceSvc_AddAircraftForUser *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/AddAircraftForUser" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -30620,7 +30632,7 @@ parameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraft *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/UpdateMaintenanceForAircraft" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -30727,7 +30739,7 @@ parameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes *)aPa
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/UpdateMaintenanceForAircraftWithFlagsAndNotes" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -30834,7 +30846,7 @@ parameters:(MFBWebServiceSvc_DeleteAircraftForUser *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/DeleteAircraftForUser" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -30941,7 +30953,7 @@ parameters:(MFBWebServiceSvc_MakesAndModels *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/MakesAndModels" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -31048,7 +31060,7 @@ parameters:(MFBWebServiceSvc_GetCurrencyForUser *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/GetCurrencyForUser" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -31155,7 +31167,7 @@ parameters:(MFBWebServiceSvc_TotalsForUser *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/TotalsForUser" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -31262,7 +31274,7 @@ parameters:(MFBWebServiceSvc_TotalsForUserWithQuery *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/TotalsForUserWithQuery" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -31369,7 +31381,7 @@ parameters:(MFBWebServiceSvc_VisitedAirports *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/VisitedAirports" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -31476,7 +31488,7 @@ parameters:(MFBWebServiceSvc_FlightsWithQueryAndOffset *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/FlightsWithQueryAndOffset" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -31583,7 +31595,7 @@ parameters:(MFBWebServiceSvc_FlightsWithQuery *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/FlightsWithQuery" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -31690,7 +31702,7 @@ parameters:(MFBWebServiceSvc_DeleteLogbookEntry *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/DeleteLogbookEntry" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -31797,7 +31809,7 @@ parameters:(MFBWebServiceSvc_CommitFlightWithOptions *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/CommitFlightWithOptions" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -31904,7 +31916,7 @@ parameters:(MFBWebServiceSvc_FlightPathForFlight *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/FlightPathForFlight" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -32011,7 +32023,7 @@ parameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/FlightPathForFlightGPX" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -32118,7 +32130,7 @@ parameters:(MFBWebServiceSvc_AvailablePropertyTypes *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/AvailablePropertyTypes" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -32225,7 +32237,7 @@ parameters:(MFBWebServiceSvc_AvailablePropertyTypesForUser *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/AvailablePropertyTypesForUser" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -32332,7 +32344,7 @@ parameters:(MFBWebServiceSvc_PropertiesForFlight *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/PropertiesForFlight" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -32439,7 +32451,7 @@ parameters:(MFBWebServiceSvc_DeletePropertiesForFlight *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/DeletePropertiesForFlight" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -32546,7 +32558,7 @@ parameters:(MFBWebServiceSvc_DeletePropertyForFlight *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/DeletePropertyForFlight" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -32653,7 +32665,7 @@ parameters:(MFBWebServiceSvc_DeleteImage *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/DeleteImage" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -32760,7 +32772,7 @@ parameters:(MFBWebServiceSvc_UpdateImageAnnotation *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/UpdateImageAnnotation" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -32867,7 +32879,7 @@ parameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/AuthTokenForUser" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -32974,7 +32986,7 @@ parameters:(MFBWebServiceSvc_CreateUser *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/CreateUser" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -33081,7 +33093,7 @@ parameters:(MFBWebServiceSvc_GetNamedQueriesForUser *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/GetNamedQueriesForUser" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -33188,7 +33200,7 @@ parameters:(MFBWebServiceSvc_AddNamedQueryForUser *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/AddNamedQueryForUser" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -33295,7 +33307,7 @@ parameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/DeleteNamedQueryForUser" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -33402,7 +33414,7 @@ parameters:(MFBWebServiceSvc_SuggestModels *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/SuggestModels" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -33509,7 +33521,7 @@ parameters:(MFBWebServiceSvc_PreviouslyUsedTextProperties *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/PreviouslyUsedTextProperties" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
@@ -33616,7 +33628,7 @@ parameters:(MFBWebServiceSvc_AirportsInBoundingBox *)aParameters
 	
 	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/AirportsInBoundingBox" forOperation:self];
 }
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading
 {
 	if (responseData != nil && delegate != nil)
 	{
