@@ -116,7 +116,6 @@
 		9A5A0882147ED35300C05C50 /* VADetails.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A5A0860147ED35300C05C50 /* VADetails.xib */; };
 		9A5A0884147ED35300C05C50 /* VisitedAirportRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A5A0864147ED35300C05C50 /* VisitedAirportRow.xib */; };
 		9A5A0885147ED35300C05C50 /* VisitedAirports.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A5A0866147ED35300C05C50 /* VisitedAirports.xib */; };
-		9A5A0886147ED35300C05C50 /* WaitView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A5A0868147ED35300C05C50 /* WaitView.xib */; };
 		9A5DA32119E847E50016100C /* EditCellML.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A5DA32019E847E50016100C /* EditCellML.xib */; };
 		9A5E746E1710E8F7004C58CC /* Pause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A5E746B1710E8F7004C58CC /* Pause@2x.png */; };
 		9A5E746F1710E8F7004C58CC /* Play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A5E746C1710E8F7004C58CC /* Play@2x.png */; };
@@ -813,7 +812,6 @@
 		9AC6AF231BD0158E004AB2E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/VADetails.xib; sourceTree = "<group>"; };
 		9AC6AF251BD01590004AB2E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/VisitedAirportRow.xib; sourceTree = "<group>"; };
 		9AC6AF261BD01591004AB2E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/VisitedAirports.xib; sourceTree = "<group>"; };
-		9AC6AF271BD01592004AB2E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/WaitView.xib; sourceTree = "<group>"; };
 		9AC7B8BD14D0ADAB009139BF /* PullRefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullRefreshTableViewController.h; sourceTree = "<group>"; };
 		9AC7B8BE14D0ADAB009139BF /* PullRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullRefreshTableViewController.m; sourceTree = "<group>"; };
 		9AC7B8C014D0ADBB009139BF /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
@@ -1361,7 +1359,6 @@
 				9A5A0860147ED35300C05C50 /* VADetails.xib */,
 				9A5A0864147ED35300C05C50 /* VisitedAirportRow.xib */,
 				9A5A0866147ED35300C05C50 /* VisitedAirports.xib */,
-				9A5A0868147ED35300C05C50 /* WaitView.xib */,
 			);
 			name = Views;
 			path = Classes;
@@ -1824,7 +1821,6 @@
 				9A5A0885147ED35300C05C50 /* VisitedAirports.xib in Resources */,
 				9A902D701A210B0B00698017 /* currency@3x.png in Resources */,
 				9A20B156192D34E600A8F64F /* README.md in Resources */,
-				9A5A0886147ED35300C05C50 /* WaitView.xib in Resources */,
 				9A7A7D96147F4DD0003A6912 /* Localizable.strings in Resources */,
 				9A2D594214C3485800FD8F05 /* RecentFlightCell.xib in Resources */,
 				9A902D771A210C9900698017 /* airporttab@3x.png in Resources */,
@@ -2330,14 +2326,6 @@
 				9AC6AF261BD01591004AB2E3 /* Base */,
 			);
 			name = VisitedAirports.xib;
-			sourceTree = "<group>";
-		};
-		9A5A0868147ED35300C05C50 /* WaitView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9AC6AF271BD01592004AB2E3 /* Base */,
-			);
-			name = WaitView.xib;
 			sourceTree = "<group>";
 		};
 		9A7A7D98147F4DD0003A6912 /* Localizable.strings */ = {
