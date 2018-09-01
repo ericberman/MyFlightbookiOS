@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2013-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -26,11 +26,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WaitView.h"
 #import "AccessoryBar.h"
 #import "CollapsibleTable.h"
 
 @interface NewUserTableController : CollapsibleTable<UITextFieldDelegate, AccessoryBarDelegate>
-@property (nonatomic, strong) IBOutlet WaitView * vwWait;
 
 @end

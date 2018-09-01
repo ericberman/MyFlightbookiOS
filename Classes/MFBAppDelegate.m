@@ -47,12 +47,12 @@
 
 @interface MFBAppDelegate ()
 @property (nonatomic, strong) NSTimer * timerSyncState;
-@property (strong) WaitView * vwWait;
 @property (strong) IBOutlet UITabBarItem * tbiRecent;
 @property (atomic, strong) Reachability * reachability;
 
 @property (nonatomic, strong) NSMutableArray * notifyDataChanged;
 @property (nonatomic, strong) NSMutableArray * notifyResetAll;
+@property (nonatomic, strong) UIAlertController * progressAlert;
 
 // Watch properties
 @property (nonatomic, strong) WCSession * watchSession;
@@ -65,7 +65,7 @@ sqlite3 * _db;
 BOOL fNetworkStateKnown;
 
 @synthesize window, tabBarController, userProfile;
-@synthesize leMain, timerSyncState, vwWait, rgPendingFlights, tbiRecent, mfbloc, fDebugMode;
+@synthesize leMain, timerSyncState, rgPendingFlights, tbiRecent, mfbloc, fDebugMode;
 @synthesize reachability, lastKnownNetworkStatus, reachabilityDelegate;
 @synthesize tabProfile, tabRecents, tabNewFlight;
 @synthesize notifyDataChanged, notifyResetAll;
@@ -404,9 +404,6 @@ static BOOL fAppLaunchFinished = NO;
 		[rgImages addObjectsFromArray:lbe.rgPicsForFlight];
 	[CommentedImage cleanupObsoleteFiles:rgImages];	
 	
-    // Add the tab bar controller's current view as a subview of the window
-    [self.vwWait tearDown];
-	
     // set a timer to save state every 5 minutes or so
 	self.timerSyncState = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:300]
 													interval:300
@@ -423,6 +420,11 @@ static BOOL fAppLaunchFinished = NO;
         NSLog(@"Opening URL from AppLaunchWorkerUITasks");
         [self openURL:urlLaunchURL];
         urlLaunchURL = nil;
+    }
+    
+    if (self.progressAlert != nil) {
+        [self.tabBarController dismissViewControllerAnimated:YES completion:nil];
+        self.progressAlert = nil;
     }
     
     fAppLaunchFinished = YES;
@@ -469,10 +471,7 @@ static BOOL fAppLaunchFinished = NO;
     {
         // Initialize the aircraft list; only update the progress indicator if the cache is invalid.
         if ([[Aircraft sharedAircraft] cacheStatus:self.userProfile.AuthToken] != cacheValid && [self isOnLine])
-        {
-            [self.vwWait.lblPrompt performSelectorOnMainThread:@selector(setText:) withObject:NSLocalizedString(@"Retrieving aircraft list...", @"status message while retrieving user aircraft") waitUntilDone:NO];
             [[Aircraft sharedAircraft] performSelectorOnMainThread:@selector(refreshIfNeeded) withObject:nil waitUntilDone:YES];
-        }
     }
     else
         [self performSelectorOnMainThread:@selector(ForceProfilePage) withObject:nil waitUntilDone:YES];
@@ -521,15 +520,12 @@ static MFBAppDelegate * _mainApp = nil;
     self.notifyDataChanged = [[NSMutableArray alloc] init];
     self.notifyResetAll = [[NSMutableArray alloc] init];
     
-	self.vwWait = [[WaitView alloc] init];
 	if (self.window)
 	{
         [self.window makeKeyAndVisible];
         self.window.frame = [[UIScreen mainScreen] bounds];
         self.window.rootViewController = self.tabBarController;
-        [self.vwWait setUpForView:self.window withLabel:NSLocalizedString(@"Loading; please wait...", @"Status message at app startup") inOrientation:[UIApplication sharedApplication].statusBarOrientation];
-        // window is special and rotation isn't yet done, so force the screen size
-        self.vwWait.view.frame = [UIScreen mainScreen].bounds;
+        self.progressAlert = [WPSAlertController presentProgressAlertWithTitle:NSLocalizedString(@"Loading; please wait...", @"Status message at app startup") onViewController:self.tabBarController];
 	}
     
     [self createLocManager];

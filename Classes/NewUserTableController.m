@@ -36,6 +36,7 @@
 #import "SecurityQuestionPicker.h"
 #import "FlightProps.h"
 #import "HostedWebViewViewController.h"
+#import "WPSAlertController.h"
 
 @interface NewUserTableController ()
 
@@ -54,7 +55,7 @@ enum sectNewUser {sectCredentials, sectName, sectQAExplanation, sectQA, sectLega
 enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastName, rowQAExplanation1, rowQuestion, rowAnswer,
     rowPrivacy, rowTandC, rowAgree, rowCreate};
 
-@synthesize vwWait, vwAccessory, nuo;
+@synthesize vwAccessory, nuo;
 
 - (instancetype)initWithStyle:(UITableViewStyle)style
 {
@@ -358,7 +359,9 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
         MFBAppDelegate * app = [MFBAppDelegate threadSafeAppDelegate];
         BOOL fSuccess = [app.userProfile createUser:self.nuo] && [app.userProfile isValid];
         
-        [self.vwWait tearDown];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        });
         
         [self performSelectorOnMainThread:(fSuccess ? @selector(createUserFinishedSuccess) : @selector(createUserFinishedFailure)) withObject:nil waitUntilDone:NO];
     }
@@ -372,8 +375,8 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
 		return;
 	}
 	
-    [self.vwWait setUpForView:self.view.window withLabel:NSLocalizedString(@"Creating Account...", @"Progress indicator") inOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
-	
+    [WPSAlertController presentProgressAlertWithTitle:NSLocalizedString(@"Creating Account...", @"Progress indicator") onViewController:self];
+    
 	[NSThread detachNewThreadSelector:@selector(createUserWorker) toTarget:self withObject:nil];
 }
 

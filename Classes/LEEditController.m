@@ -2025,8 +2025,6 @@ static NSDateFormatter * dfSunriseSunset = nil;
 
 - (void) refreshProperties
 {
-    // First, see if either of these tasks will hit the web.  We will show the waitview only if we need
-    // to hit the web, in order to minimize flashing
     // We will hit the web if the cache is not fully valid OR if the flight is not local
     int cs = [self.flightProps cacheStatus];
     BOOL fIsLocal = [self.le.entryData isNewOrPending];

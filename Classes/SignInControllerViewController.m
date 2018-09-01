@@ -36,6 +36,7 @@
 #import "NewUserTableController.h"
 #import "FlightProps.h"
 #import "HostedWebViewViewController.h"
+#import "WPSAlertController.h"
 
 @interface SignInControllerViewController ()
 @property (nonatomic, strong) NSString * szUser;
@@ -47,7 +48,7 @@ enum signinSections {sectWhySignIn, sectCredentials, sectSignIn, sectCreateAccou
 enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cidCreateAcct, cidLinksFirst, cidFAQ = cidLinksFirst, cidContact, cidSupport, cidFollowFB, cidLinksLast=cidFollowFB, cidOptions, cidAbout};
 
 @implementation SignInControllerViewController
-@synthesize vwAccessory, szUser, szPass, vwWait;
+@synthesize vwAccessory, szUser, szPass;
 
 - (instancetype)initWithStyle:(UITableViewStyle)style
 {
@@ -117,7 +118,9 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
         else
             [self performSelectorOnMainThread:@selector(showError:) withObject:app.userProfile.ErrorString waitUntilDone:NO];
         
-        [self.vwWait tearDown];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        });
     }
 }
 
@@ -132,7 +135,7 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
 	
 	[app.userProfile clearCache];
 	
-    [self.vwWait setUpForView:self.view.window withLabel:NSLocalizedString(@"Signing in...", @"Progress: Signing In") inOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+    [WPSAlertController presentProgressAlertWithTitle:NSLocalizedString(@"Signing in...", @"Progress: Signing In") onViewController:self];
 	
 	[NSThread detachNewThreadSelector:@selector(UpdateProfileWorker) toTarget:self withObject:nil];
 }

@@ -28,7 +28,6 @@
 		9A1014C510DD5ACC00FA37D4 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A1014C410DD5ACC00FA37D4 /* Default.png */; };
 		9A1014C910DD5EB200FA37D4 /* newflight.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A1014C810DD5EB200FA37D4 /* newflight.png */; };
 		9A1014CD10DD5FCA00FA37D4 /* backspace.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A1014CC10DD5FCA00FA37D4 /* backspace.png */; };
-		9A121322111D1FDD001CDDB6 /* WaitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A121320111D1FDD001CDDB6 /* WaitView.m */; };
 		9A121395111D3073001CDDB6 /* ImageComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A121393111D3073001CDDB6 /* ImageComment.m */; };
 		9A1213B3111D3113001CDDB6 /* CommentedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A1213B2111D3113001CDDB6 /* CommentedImage.m */; };
 		9A16571F14DC59B9004FDC35 /* sunrise.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A16571D14DC59B8004FDC35 /* sunrise.png */; };
@@ -473,8 +472,6 @@
 		9A1014C410DD5ACC00FA37D4 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		9A1014C810DD5EB200FA37D4 /* newflight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newflight.png; sourceTree = "<group>"; };
 		9A1014CC10DD5FCA00FA37D4 /* backspace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backspace.png; sourceTree = "<group>"; };
-		9A12131F111D1FDD001CDDB6 /* WaitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaitView.h; sourceTree = "<group>"; };
-		9A121320111D1FDD001CDDB6 /* WaitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaitView.m; sourceTree = "<group>"; };
 		9A121392111D3073001CDDB6 /* ImageComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageComment.h; sourceTree = "<group>"; };
 		9A121393111D3073001CDDB6 /* ImageComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageComment.m; sourceTree = "<group>"; };
 		9A1213B1111D3113001CDDB6 /* CommentedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentedImage.h; sourceTree = "<group>"; };
@@ -1171,8 +1168,6 @@
 				9AFAC07910E5968800225E90 /* NearbyAirports.m */,
 				9AC7B8BD14D0ADAB009139BF /* PullRefreshTableViewController.h */,
 				9AC7B8BE14D0ADAB009139BF /* PullRefreshTableViewController.m */,
-				9A12131F111D1FDD001CDDB6 /* WaitView.h */,
-				9A121320111D1FDD001CDDB6 /* WaitView.m */,
 				9A7B3B932135A8AA00CD3BEA /* WPSAlertController.h */,
 				9A7B3B942135A8AA00CD3BEA /* WPSAlertController.m */,
 			);
@@ -2083,7 +2078,6 @@
 				9A87ECCC10FB94A2009D1BEE /* about.m in Sources */,
 				9A020B3310FFEF3F00801349 /* RecentFlights.m in Sources */,
 				9A77CDA011050421006E7531 /* RouteAnnotation.m in Sources */,
-				9A121322111D1FDD001CDDB6 /* WaitView.m in Sources */,
 				9A121395111D3073001CDDB6 /* ImageComment.m in Sources */,
 				9A1213B3111D3113001CDDB6 /* CommentedImage.m in Sources */,
 				9A517E451E2ED4CC00EC3545 /* ApproachEditor.m in Sources */,
