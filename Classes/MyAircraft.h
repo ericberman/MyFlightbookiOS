@@ -31,7 +31,6 @@
 #import "MFBSoapCall.h"
 #import "MFBWebServiceSvc.h"
 #import "PullRefreshTableViewController.h"
-#import "WaitView.h"
 #import "AircraftViewController.h"
 
 @interface MyAircraft : PullRefreshTableViewController<AircraftViewControllerDelegate>

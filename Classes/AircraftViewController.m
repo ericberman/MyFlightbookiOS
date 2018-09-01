@@ -38,16 +38,17 @@
 #import "CheckboxCell.h"
 #import "CountryCode.h"
 #import "HostedWebViewViewController.h"
+#import "WPSAlertController.h"
 
 @interface AircraftViewController ()
 - (void) findFlights:(id)sender;
 - (void) updateMakes;
 
 @property (nonatomic, strong) AccessoryBar * vwAccessory;
-@property (strong) IBOutlet WaitView * idVwWait;
 @property (readwrite, strong) NSMutableArray * rgImages;
 @property (readwrite, strong) MFBWebServiceSvc_Aircraft * ac;
 @property (nonatomic, strong) NSString * szTailnumberLast;
+@property (nonatomic, strong) UIAlertController * progress;
 
 @end
 
@@ -64,7 +65,7 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
     rowMaintFirst = rowMaintHeader, rowVOR, rowXPnder, rowPitot, rowAltimeter, rowELT, rowAnnual, row100hr, rowOil, rowEngine, rowRegistration, rowMaintLast = rowRegistration,
     rowImageHeader};
 
-@synthesize datePicker, picker, idVwWait, rgImages, ac, vwAccessory, delegate, szTailnumberLast;
+@synthesize progress, datePicker, picker, rgImages, ac, vwAccessory, delegate, szTailnumberLast;
 #pragma mark - ViewController
 - (instancetype)initWithStyle:(UITableViewStyle)style
 {
@@ -146,6 +147,7 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
 
 - (void) viewWillDisappear:(BOOL)animated
 {
+    self.progress = nil;
     [self.navigationController setToolbarHidden:YES];
     [super viewWillDisappear:animated];
 }
@@ -156,6 +158,7 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
     // Dispose of any resources that can be recreated.
 	for (CommentedImage * ci in self.rgImages)
 		[ci flushCachedImage];
+    self.progress = nil;
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -1095,7 +1098,9 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
 #pragma mark Commit aircraft
 - (void) aircraftRefreshComplete:(MFBSoapCall *) sc withCaller:(Aircraft *) a
 {
-    [self.idVwWait tearDown];
+    // dismiss the view controller
+    [self dismissViewControllerAnimated:YES completion:nil];
+    self.progress = nil;
     
     // display any error that happened at any point
 	if ([sc.errorString length] > 0)
@@ -1144,7 +1149,8 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
         BOOL fIsNew = self.ac.AircraftID.intValue < 0;
         NSString * targetURL = fIsNew ? MFBAIRCRAFTIMAGEUPLOADPAGENEW : MFBAIRCRAFTIMAGEUPLOADPAGE;
         NSString * key = fIsNew ? ac.TailNumber : ac.AircraftID.stringValue;
-        [CommentedImage uploadImages:self.rgImages withStatusLabel:self.idVwWait.lblPrompt toPage:targetURL authString:[MFBAppDelegate threadSafeAppDelegate].userProfile.AuthToken keyName:MFB_KEYAIRCRAFTIMAGE keyValue:key];
+        [CommentedImage uploadImages:self.rgImages progressUpdate:^(NSString * sz) { self.progress.title = sz; }
+                              toPage:targetURL authString:[MFBAppDelegate threadSafeAppDelegate].userProfile.AuthToken keyName:MFB_KEYAIRCRAFTIMAGE keyValue:key];
         [self performSelectorOnMainThread:@selector(imagesComplete:) withObject:ar waitUntilDone:NO];
     }
 }
@@ -1217,14 +1223,15 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
 		return;
 	}
 	
-    [self.idVwWait setUpForView:self.view.window withLabel:NSLocalizedString(@"Uploading aircraft data...", @"Progress: uploading aircraft data") inOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+    self.progress = [WPSAlertController presentProgressAlertWithTitle:NSLocalizedString(@"Uploading aircraft data...", @"Progress: uploading aircraft data") onViewController:self];
+    
     [self aircraftWorker];
 }
 
 - (IBAction) UpdateAircraft
 {
     [self.tableView endEditing:YES]; // capture any changes.
-    [self.idVwWait setUpForView:self.view.window withLabel:NSLocalizedString(@"Updating aircraft...", @"Progress: updating aircraft") inOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+    self.progress = [WPSAlertController presentProgressAlertWithTitle:NSLocalizedString(@"Updating aircraft...", @"Progress: updating aircraft") onViewController:self];
 	[self aircraftWorker];
 }
 @end

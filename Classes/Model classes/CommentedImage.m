@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 2/5/10.
-//  Copyright 2010-2017 MyFlightbook LLC. All rights reserved.
+//  Copyright 2010-2018 MyFlightbook LLC. All rights reserved.
 //
 
 #import "CommentedImage.h"
@@ -555,7 +555,7 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
     return true;
 }
 
-+ (void) uploadImages:(NSArray *) rgImages withStatusLabel:(UILabel *) lblPrompt toPage:(NSString *) pageName authString:(NSString *) szAuth keyName:(NSString *) keyName keyValue:(NSString *) keyValue
++ (void) uploadImages:(NSArray *) rgImages progressUpdate:(void (^)(NSString *))progress toPage:(NSString *) pageName authString:(NSString *) szAuth keyName:(NSString *) keyName keyValue:(NSString *) keyValue
 {	
 	int cImages = 0;
 	__block int cErrors = 0;
@@ -576,10 +576,11 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
 				
 		cImages++;
 		
-		if (lblPrompt != nil)
-			[lblPrompt performSelectorOnMainThread:@selector(setText:)
-				withObject:[NSString stringWithFormat:NSLocalizedString(@"Uploading Image %d of %d", @"Progress message when uploading an image; the %d is replaced by numbers (e.g. '2 of 4')"), cImages, [rgImages count]]
-				waitUntilDone:NO];
+        if (progress != nil) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                progress([NSString stringWithFormat:NSLocalizedString(@"Uploading Image %d of %d", @"Progress message when uploading an image; the %d is replaced by numbers (e.g. '2 of 4')"), cImages, [rgImages count]]);
+            });
+        }
 
 		// skip if this isn't a new file
 		if (ci.imgInfo.livesOnServer)

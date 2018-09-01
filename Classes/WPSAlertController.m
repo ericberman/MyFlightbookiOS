@@ -65,6 +65,49 @@
     [blankViewController presentViewController:self animated:animated completion:nil];
 }
 
++ (UIAlertController *) presentProgressAlertWithTitle:(nullable NSString *)message onViewController:(nullable UIViewController *) parent {
+    UIAlertController * alert = (parent == nil) ?
+        [WPSAlertController alertControllerWithTitle:message message:message preferredStyle:UIAlertControllerStyleAlert] :
+        [UIAlertController alertControllerWithTitle:message message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [spinner startAnimating];
+    
+    UIViewController *customVC = [[UIViewController alloc] init];
+    
+    [customVC.view addSubview:spinner];
+    
+    
+    [customVC.view addConstraint:[NSLayoutConstraint
+                                  constraintWithItem: spinner
+                                  attribute:NSLayoutAttributeCenterX
+                                  relatedBy:NSLayoutRelationEqual
+                                  toItem:customVC.view
+                                  attribute:NSLayoutAttributeCenterX
+                                  multiplier:1.0f
+                                  constant:0.0f]];
+    
+    
+    
+    [customVC.view addConstraint:[NSLayoutConstraint
+                                  constraintWithItem: spinner
+                                  attribute:NSLayoutAttributeCenterY
+                                  relatedBy:NSLayoutRelationEqual
+                                  toItem:customVC.view
+                                  attribute:NSLayoutAttributeCenterY
+                                  multiplier:1.0f
+                                  constant:0.0f]];
+    
+    
+    [alert setValue:customVC forKey:@"contentViewController"];
+    if (parent == nil)
+        [((WPSAlertController *) alert) show];
+    else
+        [parent presentViewController:alert animated:YES completion:nil];
+
+    return alert;
+}
+
 + (void)presentOkayAlertWithTitle:(nullable NSString *)title message:(nullable NSString *)message button:(NSString *) buttonTitle {
     WPSAlertController *alertController = [WPSAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *okayAction = [UIAlertAction actionWithTitle:buttonTitle style:UIAlertActionStyleDefault handler:nil];

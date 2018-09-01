@@ -31,6 +31,7 @@
 #import "DecimalEdit.h"
 #import "FlightProps.h"
 #import "iRate.h"
+#import "WPSAlertController.h"
 
 @interface RecentFlights()
 @property (atomic, strong) NSMutableDictionary * dictImages;
@@ -610,6 +611,9 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectPendingFlights, sectExi
 
 #pragma mark Import
 - (void) importFlightFinished:(LogbookEntry *) le {
+    // dismiss the progress indicator
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
     LEEditController * lev = [self pushViewControllerForFlight:le];
     
     // Check for an existing new flight in-progress.
@@ -633,9 +637,6 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectPendingFlights, sectExi
 - (void) importFlightWorker
 {
     LogbookEntry * le = [GPSSim ImportTelemetry:self.urlTelemetry];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self dismissViewControllerAnimated:YES completion:nil];
-    });
     [self performSelectorOnMainThread:@selector(importFlightFinished:) withObject:le waitUntilDone:NO];
 }
 
@@ -675,41 +676,8 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectPendingFlights, sectExi
     UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"" message:NSLocalizedString(@"InitFromTelemetry", @"Import Flight Telemetry") preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel (button)") style:UIAlertActionStyleCancel handler:nil]];
     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        UIAlertController * alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ActivityInProgress", @"Activity In Progress") message:nil preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        [spinner startAnimating];
-        
-        UIViewController *customVC     = [[UIViewController alloc] init];
-
-        [customVC.view addSubview:spinner];
-        
-        
-        [customVC.view addConstraint:[NSLayoutConstraint
-                                      constraintWithItem: spinner
-                                      attribute:NSLayoutAttributeCenterX
-                                      relatedBy:NSLayoutRelationEqual
-                                      toItem:customVC.view
-                                      attribute:NSLayoutAttributeCenterX
-                                      multiplier:1.0f
-                                      constant:0.0f]];
-        
-        
-        
-        [customVC.view addConstraint:[NSLayoutConstraint
-                                      constraintWithItem: spinner
-                                      attribute:NSLayoutAttributeCenterY
-                                      relatedBy:NSLayoutRelationEqual
-                                      toItem:customVC.view
-                                      attribute:NSLayoutAttributeCenterY
-                                      multiplier:1.0f
-                                      constant:0.0f]];
-        
-        
-        [alert setValue:customVC forKey:@"contentViewController"];
-        [self presentViewController:alert animated:YES completion:nil];
+        [WPSAlertController presentProgressAlertWithTitle:NSLocalizedString(@"ActivityInProgress", @"Activity In Progress") onViewController:self];
         [NSThread detachNewThreadSelector:@selector(importFlightWorker) toTarget:self withObject:nil];
-
     }]];
     [self presentViewController:alert animated:YES completion:nil];
 }

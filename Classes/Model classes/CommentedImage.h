@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2010-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 2/5/10.
-//  Copyright 2010-2017 MyFlightbook LLC. All rights reserved.
+//  Copyright 2010-2018 MyFlightbook LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -47,7 +47,7 @@
 @property (nonatomic, strong) NSString * errorString;
 @property (nonatomic, strong) NSString * szCacheFileName;
 
-+ (void) uploadImages:(NSArray *) rgImages withStatusLabel:(UILabel *) lblPrompt toPage:(NSString *) pageName authString:(NSString *) szAuth keyName:(NSString *) keyName keyValue:(NSString *) keyValue;
++ (void) uploadImages:(NSArray *) rgImages progressUpdate:(void (^)(NSString *))progress toPage:(NSString *) pageName authString:(NSString *) szAuth keyName:(NSString *) keyName keyValue:(NSString *) keyValue;
 + (void) initCommentedImagesFromMFBII:(NSArray *) rgmfbii toArray:(NSMutableArray *)rgImages;
 + (void) addCommentedImages:(NSArray *) rgImages toImageView:(UIImageView *) imgView;
 + (UIImage*)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize;

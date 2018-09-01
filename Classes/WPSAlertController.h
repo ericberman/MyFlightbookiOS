@@ -46,6 +46,15 @@
 - (void)showAnimated:(BOOL)animated;
 
 /**
+ Displays an alert with a spinner and a title, no button.
+ @param message The title to show
+ @param parent Optional parent view controller
+ 
+ Returns the alert so that the caller can change the message as needed (e.g., for progress.)
+ */
++ (UIAlertController * _Nonnull) presentProgressAlertWithTitle:(nullable NSString *)message onViewController:(nullable UIViewController *) parent;
+
+/**
  Displays an alert with an OK button.
  
  @param title The title of the alert. Use this string to get the user’s attention and communicate the reason for the alert.
