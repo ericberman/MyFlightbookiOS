@@ -318,7 +318,8 @@ enum aircraftSections {sectFavorites = 0, sectArchived};
         [ac setDelegate:self completionBlock:^(MFBSoapCall * sc, MFBAsyncOperation * ao) {
             [self refreshCompleted:sc];
         }];
-        [ac deleteAircraft:((MFBWebServiceSvc_Aircraft *)([Aircraft sharedAircraft].rgAircraftForUser)[indexPath.row]).AircraftID forUser:mfbApp().userProfile.AuthToken];
+        
+        [ac deleteAircraft:[self aircraftAtIndexPath:indexPath].AircraftID forUser:mfbApp().userProfile.AuthToken];
     }
 }
 
