@@ -32,6 +32,7 @@
 @interface UIViewController(MFBAdditions)
 - (void) showAlertWithTitle:(NSString *) title message:(NSString *) msg;
 - (void) showErrorAlertWithMessage:(NSString *) msg;
+- (void) pushOrPopView:(UIViewController *) target fromView:(id) sender withDelegate:(id<UIPopoverPresentationControllerDelegate>) delegate;
 @end
 
 @interface UITableViewController(MFBAdditions)

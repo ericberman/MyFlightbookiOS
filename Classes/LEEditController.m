@@ -1951,22 +1951,10 @@ static NSDateFormatter * dfSunriseSunset = nil;
 #pragma mark View Properties
 - (void) viewProperties:(UIView *) sender
 {
-     FlightProperties * vwProps = [[FlightProperties alloc] initWithNibName:@"FlightProperties" bundle:nil];
-     vwProps.le = self.le;
-    
-    NSLog(@"Width: %f", self.tableView.frame.size.width);
-    
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && self.tableView.frame.size.width >= 600) {
-        vwProps.modalPresentationStyle = UIModalPresentationPopover;
-        vwProps.navigationController.navigationBarHidden = NO;
-        UIPopoverPresentationController * ppc = vwProps.popoverPresentationController;
-        ppc.sourceView = self.view;
-        ppc.sourceRect = sender.frame;
-        ppc.permittedArrowDirections = UIPopoverArrowDirectionAny;
-        ppc.delegate = self;
-        [self presentViewController:vwProps animated:YES completion:^{}];
-    } else
-        [self.navigationController pushViewController:vwProps animated:YES];
+    FlightProperties * vwProps = [[FlightProperties alloc] initWithNibName:@"FlightProperties" bundle:nil];
+    vwProps.le = self.le;
+
+    [self pushOrPopView:vwProps fromView:sender withDelegate:self];
 }
 
 #pragma mark - UIPopoverPresentationController functions
@@ -2206,7 +2194,7 @@ static NSDateFormatter * dfSunriseSunset = nil;
     ApproachEditor * editor = [ApproachEditor new];
     editor.delegate = self;
     [editor setAirports:[Airports CodesFromString:self.idRoute.text]];
-    [self.navigationController pushViewController:editor animated:YES];
+    [self pushOrPopView:editor fromView:sender withDelegate:self];
 }
 
 - (void) addApproachDescription:(ApproachDescription *) approachDescription
@@ -2226,7 +2214,7 @@ static NSDateFormatter * dfSunriseSunset = nil;
         TotalsCalculator * tc = [TotalsCalculator new];
         tc.delegate = self;
         [tc setInitialTotal:self.le.entryData.TotalFlightTime];
-        [self.navigationController pushViewController:tc animated:YES];
+        [self pushOrPopView:tc fromView:self.idTotalTime withDelegate:self];
     }
 }
 

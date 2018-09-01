@@ -40,6 +40,27 @@
 - (void) showErrorAlertWithMessage:(NSString *) msg {
     [self showAlertWithTitle:NSLocalizedString(@"Error", @"Title for generic error message") message:msg];
 }
+
+- (void) pushOrPopView:(UIViewController *) target fromView:(id) sender withDelegate:(id<UIPopoverPresentationControllerDelegate>) delegate
+{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        target.modalPresentationStyle = UIModalPresentationPopover;
+        target.navigationController.navigationBarHidden = NO;
+        UIPopoverPresentationController * ppc = target.popoverPresentationController;
+        ppc.sourceView = self.view;
+        if ([sender isKindOfClass:[UIView class]]) {
+            ppc.sourceRect = ((UIView *) sender).bounds;
+            ppc.sourceView = sender;
+        }
+        else if ([sender isKindOfClass:[UIBarButtonItem class]])
+            ppc.barButtonItem = sender;
+        ppc.permittedArrowDirections = UIPopoverArrowDirectionAny;
+        ppc.delegate = delegate;
+        [self presentViewController:target animated:YES completion:^{}];
+    } else
+        [self.navigationController pushViewController:target animated:YES];
+}
+
 @end
 
 @implementation NSDate(MFBAdditions)
