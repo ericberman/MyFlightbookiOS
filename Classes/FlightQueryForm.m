@@ -64,7 +64,7 @@ fqsMax = fqsNamedQueries
 } fqSections;
 
 // aircraft features
-typedef enum _afRows {afTailwheel = 1, afHighPerf, afGlass, afComplex, afRetract, afCSProp, afFlaps, afMotorGlider,
+typedef enum _afRows {afTailwheel = 1, afHighPerf, afGlass, afTAA, afComplex, afRetract, afCSProp, afFlaps, afMotorGlider,
     afEngineAny, afEnginePiston, afEngineTurboProp, afEngineJet, afEngineTurbine, afEngineElectric,
     afInstanceAny, afInstanceReal, afInstanceTraining, afMax = afInstanceTraining} afRows;
 
@@ -780,6 +780,10 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
                     cell.textLabel.text = NSLocalizedString(@"afGlass", @"Aircraft Feature = Glass Cockpit");
                     cell.accessoryType = self.fq.IsGlass.boolValue ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
                     break;
+                case afTAA:
+                    cell.textLabel.text = NSLocalizedString(@"afTAA", @"Aircraft Features = TAA");
+                    cell.accessoryType = self.fq.IsTechnicallyAdvanced.boolValue ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+                    break;
                 case afComplex:
                     cell.textLabel.text = NSLocalizedString(@"afComplex", @"Aircraft Feature = Complex");
                     cell.accessoryType = self.fq.IsComplex.boolValue ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
@@ -971,6 +975,9 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
                     break;
                 case afGlass:
                     self.fq.IsGlass.boolValue = !self.fq.IsGlass.boolValue;
+                    break;
+                case afTAA:
+                    self.fq.IsTechnicallyAdvanced.boolValue = !self.fq.IsTechnicallyAdvanced.boolValue;
                     break;
                 case afComplex:
                     self.fq.IsComplex.boolValue = !self.fq.IsComplex.boolValue;

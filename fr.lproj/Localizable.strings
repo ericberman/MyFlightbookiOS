@@ -578,7 +578,10 @@
 "afHighPerf" = "Haute performance";
 
 /* Aircraft Feature = Glass Cockpit */
-"afGlass" = "Glass Cockpit";
+"afGlass" = "Cockpit en verre";
+
+/* Aircraft Features = TAA */
+"afTAA" = "Avion techniquement avancé";
 
 /* Aircraft Feature = Complex */
 "afComplex" = "Complexe";
