@@ -444,7 +444,7 @@ static int vLanding = LANDING_SPEED_DEFAULT;
     
     // record this if appropriate - we do the valid time check here to avoid too tightly clustered
     // samples, but any event (landing/takeoff) will set it to be true.
-    if (app.fDebugMode || self.fRecordHighRes || (fRecordable && (fForceRecord || (fValidTime && fValidSample))))
+    if (app.fDebugMode || (self.fRecordHighRes && fValidSpeed) || (fRecordable && (fForceRecord || (fValidTime && fValidSample))))
         [self recordLocation:newLocation withEvent:szEvent];
     
     if (fRecordable)
