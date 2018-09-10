@@ -60,7 +60,42 @@
     } else
         [self.navigationController pushViewController:target animated:YES];
 }
+@end
 
+@implementation NSAttributedString(MFBAdditions)
++ (NSAttributedString *) attributedStringFromMarkDown:(NSString *) sz {
+    NSError * error = nil;
+    NSRegularExpression * reg = [[NSRegularExpression alloc] initWithPattern:@"(\\*[^*_\r\n]*\\*)|(_[^*_\r\n]*_)" options:NSRegularExpressionCaseInsensitive error:&error];
+    UIFont * baseFont = [UIFont systemFontOfSize:12];
+    UIFont * boldFont = [UIFont fontWithDescriptor:[[baseFont fontDescriptor] fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold] size:baseFont.pointSize];
+    UIFont * italicFont = [UIFont fontWithDescriptor:[[baseFont fontDescriptor] fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitItalic] size:baseFont.pointSize];
+
+    __block NSUInteger lastPos = 0;
+    NSMutableAttributedString * attr = [[NSMutableAttributedString alloc] initWithString:@""];
+    [reg enumerateMatchesInString:sz options:0 range:NSMakeRange(0, sz.length) usingBlock:^(NSTextCheckingResult * _Nullable match, NSMatchingFlags flags, BOOL * _Nonnull stop) {
+        NSRange matchRange = match.range;
+        if (matchRange.location > lastPos)
+            [attr appendAttributedString:[[NSAttributedString alloc] initWithString:[sz substringWithRange:NSMakeRange(lastPos, matchRange.location - lastPos)]]];
+        
+        if (matchRange.length >= 2 && sz.length >= matchRange.location + matchRange.length) {  // should always be!!!
+            NSString * matchText = [sz substringWithRange:matchRange];
+            NSString * matchType = [matchText substringToIndex:1];
+            NSString * matchContent = [matchText substringWithRange:NSMakeRange(1, matchText.length - 2)];
+            if ([matchType compare:@"*"] == NSOrderedSame)
+                [attr appendAttributedString:[[NSAttributedString alloc] initWithString:matchContent
+                                                                                   attributes:@{NSFontAttributeName : boldFont}]];
+            else if ([matchType compare:@"_"] == NSOrderedSame)
+                [attr appendAttributedString:[[NSAttributedString alloc] initWithString:matchContent
+                                                                             attributes:@{NSFontAttributeName : italicFont}]];
+            lastPos = matchRange.location + matchRange.length;
+        }
+    }];
+    
+    if (lastPos < sz.length)
+        [attr appendAttributedString:[[NSAttributedString alloc] initWithString:[sz substringWithRange:NSMakeRange(lastPos, sz.length - lastPos)]]];
+
+     return attr;
+}
 @end
 
 @implementation NSDate(MFBAdditions)

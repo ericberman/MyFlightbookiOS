@@ -35,6 +35,10 @@
 - (void) pushOrPopView:(UIViewController *) target fromView:(id) sender withDelegate:(id<UIPopoverPresentationControllerDelegate>) delegate;
 @end
 
+@interface NSAttributedString(MFBAdditions)
++ (NSAttributedString *) attributedStringFromMarkDown:(NSString *) sz;
+@end
+
 @interface UITableViewController(MFBAdditions)
 - (NSIndexPath *) nextCell:(NSIndexPath *) ipCurrent;
 - (NSIndexPath *) prevCell:(NSIndexPath *) ipCurrent;

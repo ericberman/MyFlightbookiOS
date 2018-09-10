@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -28,6 +28,7 @@
 #import "RecentFlightCell.h"
 #import "DecimalEdit.h"
 #import "AutodetectOptions.h"
+#import "Util.h"
 
 @implementation RecentFlightCell
 
@@ -134,7 +135,7 @@
                                                                            attributes:@{NSForegroundColorAttributeName : [UIColor grayColor] }]];
     }
     else
-        [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:trimmedComments]];
+        [attrString appendAttributedString:[NSAttributedString attributedStringFromMarkDown:trimmedComments]];
     
     if ([AutodetectOptions showFlightTimes]) {
         [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
