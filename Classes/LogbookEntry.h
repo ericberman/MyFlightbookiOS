@@ -44,8 +44,7 @@
 	NSString * szAuthToken;
 	NSString * errorString;
 	MFBWebServiceSvc_ArrayOfLatLong * rgPathLatLong;
-    MFBWebServiceSvc_PostingOptions * postingOptions;
-	BOOL retVal;
+    BOOL retVal;
 }
 
 // items to persist
@@ -56,7 +55,6 @@
 @property (assign) NSTimeInterval dtTotalPauseTime;
 @property (assign) NSTimeInterval dtTimeOfLastPause;
 @property (readwrite) double accumulatedNightTime;
-@property (readwrite, strong) MFBWebServiceSvc_PostingOptions * postingOptions;
 
 @property (readwrite, strong) MFBWebServiceSvc_ArrayOfLatLong * rgPathLatLong;
 @property (readwrite, strong) NSString * szAuthToken;

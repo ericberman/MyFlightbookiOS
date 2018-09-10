@@ -664,9 +664,6 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     entryData.TotalFlightTime = self.idTotalTime.value;
 
     entryData.fIsPublic = [[USBoolean alloc] initWithBool:self.idPublic.selected];
-
-    self.le.postingOptions.PostToTwitter = [[USBoolean alloc] initWithBool:NO];
-    self.le.postingOptions.PostToFacebook = [[USBoolean alloc] initWithBool:NO];
 }
 
 - (void) setCurrentAircraft: (MFBWebServiceSvc_Aircraft *) ac

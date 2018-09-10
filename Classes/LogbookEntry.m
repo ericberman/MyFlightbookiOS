@@ -45,7 +45,6 @@
 @synthesize rgPathLatLong;
 @synthesize dtTotalPauseTime, dtTimeOfLastPause, accumulatedNightTime;
 @synthesize fIsPaused;
-@synthesize postingOptions;
 @synthesize progressLabel;
 @synthesize propsHaveBeenDownloaded;
 @synthesize gpxPath;
@@ -97,11 +96,6 @@ NSString * const _szkeyPausedTime = @"_pausedTime";
 NSString * const _szkeyLastPauseTime = @"_lastPauseTime";
 NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
 
-// Posting options
-NSString * const _szkeyPostingOptions = @"_poPostingOptions";
-NSString * const _szkeyPOFacebook = @"_poPostFacebook";
-NSString * const _szkeyPOTwitter = @"_poPostTwitter";
-
 #define CONTEXT_FLAG_COMMIT 40382
 
 #pragma mark Object Lifecycle
@@ -111,9 +105,6 @@ NSString * const _szkeyPOTwitter = @"_poPostTwitter";
 	if (self != nil)
 	{
 		self.entryData = [MFBWebServiceSvc_LogbookEntry getNewLogbookEntry];
-        self.postingOptions = [MFBWebServiceSvc_PostingOptions new];
-        self.postingOptions.PostToFacebook = [[USBoolean alloc] initWithBool:NO];
-        self.postingOptions.PostToTwitter = [[USBoolean alloc] initWithBool:NO];
 		self.rgPathLatLong = nil;
 		self.rgPicsForFlight = [[NSMutableArray alloc] init]; // No need to release earlier one, accessor method will release it and retain this one
 		self.errorString = @"";
@@ -173,7 +164,7 @@ NSString * const _szkeyPOTwitter = @"_poPostTwitter";
 	MFBWebServiceSvc_CommitFlightWithOptions * commitFlight = [[MFBWebServiceSvc_CommitFlightWithOptions alloc] init];
 
 	commitFlight.le = self.entryData;
-	commitFlight.po = self.postingOptions;
+    commitFlight.po = nil;
 	commitFlight.szAuthUserToken = self.szAuthToken;
     
 	// Date in the entry data was done in local time; will be converted here to UTC, which could be different from
@@ -347,8 +338,6 @@ NSString * const _szkeyPOTwitter = @"_poPostTwitter";
 - (void)encodeWithCoder:(NSCoder *)encoder
 {
 	[encoder encodeObject:self.entryData forKey:_szkeyEntryData];
-	[encoder encodeBool:self.postingOptions.PostToTwitter.boolValue forKey:_szkeyTweet];
-	[encoder encodeBool:self.postingOptions.PostToFacebook.boolValue forKey:_szkeyFaceBook];
 	[encoder encodeObject:self.rgPicsForFlight forKey:_szkeyImages];
     [encoder encodeBool:self.fIsPaused forKey:_szkeyIsPaused];
     [encoder encodeDouble:self.dtTotalPauseTime forKey:_szkeyPausedTime];
@@ -360,10 +349,6 @@ NSString * const _szkeyPOTwitter = @"_poPostTwitter";
 {
 	self = [self init];
 	self.entryData = [decoder decodeObjectForKey:_szkeyEntryData];
-    if (self.postingOptions == nil)
-        self.postingOptions = [MFBWebServiceSvc_PostingOptions new];
-	self.postingOptions.PostToTwitter = [[USBoolean alloc] initWithBool:[decoder decodeBoolForKey:_szkeyTweet]];
-	self.postingOptions.PostToFacebook = [[USBoolean alloc] initWithBool:[decoder decodeBoolForKey:_szkeyFaceBook]];
 	self.rgPicsForFlight = [NSMutableArray arrayWithArray:[decoder decodeObjectForKey:_szkeyImages]];
     self.fIsPaused = [decoder decodeBoolForKey:_szkeyIsPaused];
     self.dtTotalPauseTime = [decoder decodeDoubleForKey:_szkeyPausedTime];

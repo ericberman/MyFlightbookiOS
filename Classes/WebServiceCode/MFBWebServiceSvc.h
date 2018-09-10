@@ -230,6 +230,14 @@ typedef enum {
 } MFBWebServiceSvc_PilotRole;
 MFBWebServiceSvc_PilotRole MFBWebServiceSvc_PilotRole_enumFromString(NSString *string);
 NSString * MFBWebServiceSvc_PilotRole_stringFromEnum(MFBWebServiceSvc_PilotRole enumValue);
+typedef enum {
+	MFBWebServiceSvc_AvionicsTechnologyType_none = 0,
+	MFBWebServiceSvc_AvionicsTechnologyType_None,
+	MFBWebServiceSvc_AvionicsTechnologyType_Glass,
+	MFBWebServiceSvc_AvionicsTechnologyType_TAA,
+} MFBWebServiceSvc_AvionicsTechnologyType;
+MFBWebServiceSvc_AvionicsTechnologyType MFBWebServiceSvc_AvionicsTechnologyType_enumFromString(NSString *string);
+NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceSvc_AvionicsTechnologyType enumValue);
 @interface MFBWebServiceSvc_Aircraft : NSObject <NSCoding> {
 SOAPSigner *soapSigner;
 /* elements */
@@ -251,7 +259,6 @@ SOAPSigner *soapSigner;
 	NSString * ModelCommonName;
 	NSString * TailNumber;
 	NSNumber * ModelID;
-	NSString * ICAO;
 	NSString * ModelDescription;
 	NSString * ErrorString;
 	USBoolean * HideFromSelection;
@@ -261,7 +268,9 @@ SOAPSigner *soapSigner;
 	NSDate * RegistrationDue;
 	NSString * PublicNotes;
 	NSString * PrivateNotes;
+	NSString * ICAO;
 	NSDate * GlassUpgradeDate;
+	MFBWebServiceSvc_AvionicsTechnologyType AvionicsTechnologyUpgrade;
 /* attributes */
 }
 - (NSString *)nsPrefix;
@@ -291,7 +300,6 @@ SOAPSigner *soapSigner;
 @property (nonatomic, retain) NSString * ModelCommonName;
 @property (nonatomic, retain) NSString * TailNumber;
 @property (nonatomic, retain) NSNumber * ModelID;
-@property (nonatomic, retain) NSString * ICAO;
 @property (nonatomic, retain) NSString * ModelDescription;
 @property (nonatomic, retain) NSString * ErrorString;
 @property (nonatomic, retain) USBoolean * HideFromSelection;
@@ -301,7 +309,9 @@ SOAPSigner *soapSigner;
 @property (nonatomic, retain) NSDate * RegistrationDue;
 @property (nonatomic, retain) NSString * PublicNotes;
 @property (nonatomic, retain) NSString * PrivateNotes;
+@property (nonatomic, retain) NSString * ICAO;
 @property (nonatomic, retain) NSDate * GlassUpgradeDate;
+@property (nonatomic, assign) MFBWebServiceSvc_AvionicsTechnologyType AvionicsTechnologyUpgrade;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
@@ -833,7 +843,7 @@ SOAPSigner *soapSigner;
 	MFBWebServiceSvc_AllowedAircraftTypes AllowedTypes;
 	NSString * CategoryClassDisplay;
 	NSString * ManufacturerDisplay;
-	USBoolean * IsAllGlass;
+	MFBWebServiceSvc_AvionicsTechnologyType AvionicsTechnology;
 	NSString * ArmyMDS;
 	NSString * ErrorString;
 	NSNumber * MakeModelID;
@@ -869,7 +879,7 @@ SOAPSigner *soapSigner;
 @property (nonatomic, assign) MFBWebServiceSvc_AllowedAircraftTypes AllowedTypes;
 @property (nonatomic, retain) NSString * CategoryClassDisplay;
 @property (nonatomic, retain) NSString * ManufacturerDisplay;
-@property (nonatomic, retain) USBoolean * IsAllGlass;
+@property (nonatomic, assign) MFBWebServiceSvc_AvionicsTechnologyType AvionicsTechnology;
 @property (nonatomic, retain) NSString * ArmyMDS;
 @property (nonatomic, retain) NSString * ErrorString;
 @property (nonatomic, retain) NSNumber * MakeModelID;
@@ -1567,6 +1577,7 @@ SOAPSigner *soapSigner;
 	NSDate * CFISignatureDate;
 	NSString * CFICertificate;
 	NSDate * CFIExpiration;
+	NSString * CFIEmail;
 	NSString * CFIName;
 	MFBWebServiceSvc_SignatureState CFISignatureState;
 	NSData * DigitizedSignature;
@@ -1627,6 +1638,7 @@ SOAPSigner *soapSigner;
 @property (nonatomic, retain) NSDate * CFISignatureDate;
 @property (nonatomic, retain) NSString * CFICertificate;
 @property (nonatomic, retain) NSDate * CFIExpiration;
+@property (nonatomic, retain) NSString * CFIEmail;
 @property (nonatomic, retain) NSString * CFIName;
 @property (nonatomic, assign) MFBWebServiceSvc_SignatureState CFISignatureState;
 @property (nonatomic, retain) NSData * DigitizedSignature;
@@ -1760,8 +1772,6 @@ SOAPSigner *soapSigner;
 @interface MFBWebServiceSvc_PostingOptions : NSObject <NSCoding> {
 SOAPSigner *soapSigner;
 /* elements */
-	USBoolean * PostToFacebook;
-	USBoolean * PostToTwitter;
 /* attributes */
 }
 - (NSString *)nsPrefix;
@@ -1773,8 +1783,6 @@ SOAPSigner *soapSigner;
 - (void)deserializeElementsFromNode:(xmlNodePtr)cur;
 @property (retain) SOAPSigner *soapSigner;
 /* elements */
-@property (nonatomic, retain) USBoolean * PostToFacebook;
-@property (nonatomic, retain) USBoolean * PostToTwitter;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
