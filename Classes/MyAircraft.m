@@ -40,6 +40,8 @@ enum aircraftSections {sectFavorites = 0, sectArchived};
 @implementation MyAircraft
 @synthesize dictImagesForAircraft, rgArchivedAircraft, rgFavoriteAircraft;
 
+BOOL fNeedsRefresh = NO;
+
 - (void) asyncLoadThumbnails
 {
     @autoreleasepool {
@@ -121,6 +123,9 @@ enum aircraftSections {sectFavorites = 0, sectArchived};
     
     if (self.dictImagesForAircraft.count == 0)
         [NSThread detachNewThreadSelector:@selector(asyncLoadThumbnails) toTarget:self withObject:nil];
+    
+    if (fNeedsRefresh && mfbApp().userProfile.AuthToken.length > 0)
+        [self refresh];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -186,6 +191,7 @@ enum aircraftSections {sectFavorites = 0, sectArchived};
         return;
     }
     
+    fNeedsRefresh = NO;
     if (self.callInProgress)
         return;
     
@@ -202,6 +208,7 @@ enum aircraftSections {sectFavorites = 0, sectArchived};
 {
     [[Aircraft sharedAircraft] clearAircraft];
     [self initAircraftLists];
+    fNeedsRefresh = YES;
     if ([NSThread isMainThread])
         [self.tableView reloadData];
     else
