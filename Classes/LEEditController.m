@@ -466,6 +466,10 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     
     MFBAppDelegate * app = mfbApp();
     
+    // Issue #109 - stupid apple bug; button initially shows up as gray despite being enabled.
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+    self.navigationItem.rightBarButtonItem.enabled = YES;
+    
     [self autoBlock];
     
     // pick up any changes in the HHMM setting
