@@ -253,7 +253,7 @@
 @implementation NSString (MFBAdditions)
 - (NSString *) stringByURLEncodingString
 {
-    return [self stringByAddingPercentEncodingWithAllowedCharacters:[[NSCharacterSet characterSetWithCharactersInString:@"!*'() ;:@%=+$,/?%#[]&"] invertedSet]];
+    return [self stringByAddingPercentEncodingWithAllowedCharacters:[[NSCharacterSet characterSetWithCharactersInString:@"!*'() ;:@%=+$,/?%#[]&^"] invertedSet]];
 }
 
 + (NSString *) stringFromCharsThatCouldBeNull:(char *) pch
