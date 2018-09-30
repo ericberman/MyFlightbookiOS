@@ -1047,7 +1047,7 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
 - (void) updateMakesCompleted:(MFBSoapCall *) sc fromCaller:(Aircraft *) a
 {
     if (![self.ac isNew])
-        [self.tableView reloadData]; // in case the static description needs to be updated.
+        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];  // in case the static description needs to be updated.
 }
 
 - (void) updateMakes
