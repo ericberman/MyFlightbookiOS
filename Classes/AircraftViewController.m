@@ -1099,19 +1099,19 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
 - (void) aircraftRefreshComplete:(MFBSoapCall *) sc withCaller:(Aircraft *) a
 {
     // dismiss the view controller
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        // display any error that happened at any point
+        if ([sc.errorString length] > 0)
+            [self showErrorAlertWithMessage:sc.errorString];
+        else
+        {
+            // Notify of a change so that the whole list gets refreshed
+            [self.delegate aircraftListChanged];
+            // the add/update was successful, so we can pop the view.  Don't pop the view if the add/update failed.
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }];
     self.progress = nil;
-    
-    // display any error that happened at any point
-	if ([sc.errorString length] > 0)
-        [self showErrorAlertWithMessage:sc.errorString];
-	else
-    {
-        // Notify of a change so that the whole list gets refreshed
-        [self.delegate aircraftListChanged];
-        // the add/update was successful, so we can pop the view.  Don't pop the view if the add/update failed.
-        [self.navigationController popViewControllerAnimated:YES];
-    }
 }
 
 - (void) imagesComplete:(NSArray *) ar
