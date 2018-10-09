@@ -110,16 +110,18 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
 {
     @autoreleasepool {
         MFBAppDelegate * app = [MFBAppDelegate threadSafeAppDelegate];
-        if ([app.userProfile GetAuthToken])
-        {
-            [self performSelectorOnMainThread:@selector(UpdateProfileFinished) withObject:nil waitUntilDone:NO];
-            [[[FlightProps alloc] init] loadCustomPropertyTypes];
-        }
-        else
-            [self performSelectorOnMainThread:@selector(showError:) withObject:app.userProfile.ErrorString waitUntilDone:NO];
-        
+        BOOL fresult = [app.userProfile GetAuthToken];
+
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self dismissViewControllerAnimated:YES completion:nil];
+            [self dismissViewControllerAnimated:YES completion:^{
+                if (fresult)
+                {
+                    [self performSelectorOnMainThread:@selector(UpdateProfileFinished) withObject:nil waitUntilDone:NO];
+                    [[[FlightProps alloc] init] loadCustomPropertyTypes];
+                }
+                else
+                    [self performSelectorOnMainThread:@selector(showError:) withObject:app.userProfile.ErrorString waitUntilDone:NO];
+            }];
         });
     }
 }
