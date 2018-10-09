@@ -360,15 +360,21 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
         BOOL fSuccess = [app.userProfile createUser:self.nuo] && [app.userProfile isValid];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self dismissViewControllerAnimated:YES completion:nil];
+            [self dismissViewControllerAnimated:YES completion:^{
+                if (fSuccess)
+                    [self createUserFinishedSuccess];
+                else
+                    [self createUserFinishedFailure];
+            }];
         });
-        
-        [self performSelectorOnMainThread:(fSuccess ? @selector(createUserFinishedSuccess) : @selector(createUserFinishedFailure)) withObject:nil waitUntilDone:NO];
     }
 }
 
 - (void) createUser
 {
+    // Pick up any pending changes
+    [self.view endEditing:YES];
+    
     if (![self.nuo isValid])
 	{
         [self showErrorAlertWithMessage:self.nuo.szLastError];
