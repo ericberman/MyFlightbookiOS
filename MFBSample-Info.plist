@@ -73,11 +73,13 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>3.4.2018.10.09</string>
+	<string>3.4.2018.10.09.1</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<false/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
@@ -159,8 +161,6 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportsDocumentBrowser</key>
-	<false/>
-	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<false/>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
