@@ -415,15 +415,15 @@ static BOOL fAppLaunchFinished = NO;
 
 	[self ensureWarningShownForUser];
     
-    if (urlLaunchURL != nil)
-    {
-        NSLog(@"Opening URL from AppLaunchWorkerUITasks");
-        [self openURL:urlLaunchURL];
-        urlLaunchURL = nil;
-    }
-    
     if (self.progressAlert != nil) {
-        [self.tabBarController dismissViewControllerAnimated:YES completion:nil];
+        [self.tabBarController dismissViewControllerAnimated:YES completion:^{
+            if (urlLaunchURL != nil)
+            {
+                NSLog(@"Opening URL from AppLaunchWorkerUITasks");
+                [self openURL:urlLaunchURL];
+                urlLaunchURL = nil;
+            }
+        }];
         self.progressAlert = nil;
     }
     
