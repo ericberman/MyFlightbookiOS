@@ -871,7 +871,7 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
 
 #pragma mark - Table view delegate
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return  ([mfbApp() isOnLine] && indexPath.section == fqsNamedQueries && indexPath.row > 2);
+    return  ([mfbApp() isOnLine] && indexPath.section == fqsNamedQueries && indexPath.row >= 2);
 }
 
 
@@ -909,8 +909,8 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
             {
                 DateRangeViewController * drs = [[DateRangeViewController alloc] initWithNibName:@"DateRangeViewController" bundle:nil];
                 drs.delegate = self;
-                drs.dtStart = self.fq.DateMin;
-                drs.dtEnd = self.fq.DateMax;
+                drs.dtStart = [MFBSoapCall LocalDateFromUTCDate:self.fq.DateMin];
+                drs.dtEnd = [MFBSoapCall LocalDateFromUTCDate:self.fq.DateMax];
                 self.fSuppressRefresh = YES;
                 [self.navigationController pushViewController:drs animated:YES];
             }
@@ -1103,8 +1103,8 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
 - (void) setStartDate:(NSDate *) s andEndDate:(NSDate *) e
 {
     fq.DateRange = MFBWebServiceSvc_DateRanges_Custom;
-    fq.DateMin = s;
-    fq.DateMax = e;
+    fq.DateMin = [MFBSoapCall UTCDateFromLocalDate:s];
+    fq.DateMax = [MFBSoapCall UTCDateFromLocalDate:e];
     [self.tableView reloadData];
 }
 
