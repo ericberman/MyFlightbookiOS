@@ -75,6 +75,8 @@
 @end
 
 @interface MFBWebServiceSvc_MFBImageInfo (NSCodingSupport)
+- (void) setCachedThumb:(UIImage *) img;
+- (UIImage *) cachedThumb;
 - (void)encodeWithCoderMFB:(NSCoder *)encoder;
 - (instancetype)initWithCoderMFB:(NSCoder *)decoder;
 - (NSURL *) urlForImage;

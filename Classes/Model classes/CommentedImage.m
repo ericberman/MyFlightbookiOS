@@ -40,14 +40,13 @@
 
 @interface CommentedImage ()
 @property (strong) UIImage * imgCached;
-@property (strong) UIImage * imgThmbCached;
 @property (strong) UIImage * imgPendingToSave;
 - (NSData *) GeoTagWithLocation:(CLLocation *) imageLocation andAdditionalData:(NSDictionary *) dictExif;
 @end
 
 
 @implementation CommentedImage
-@synthesize imgInfo, errorString, szCacheFileName, imgCached, imgThmbCached, imgPendingToSave;
+@synthesize imgInfo, errorString, szCacheFileName, imgCached, imgPendingToSave;
 
 NSString * const szTmpExtension = @"tmp-img.jpg";
 NSString * const szTmpVidExtension = @"tmp-vid.mov";
@@ -119,7 +118,7 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
 		self.imgInfo = [[MFBWebServiceSvc_MFBImageInfo alloc] init];
 		self.szCacheFileName = @"";
 		self.errorString = @"";
-		self.imgCached = self.imgThmbCached = nil;
+		self.imgCached = nil;
 	}
 	return self;
 }
@@ -177,21 +176,21 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
         return self.szCacheFileName.length == 0 ? nil : (self.imgCached = [UIImage imageWithContentsOfFile:[self FullFilePathName]]);
 }
 
-- (BOOL) hasThumbnailCache
-{
-    return (self.imgThmbCached != nil);
+- (BOOL) hasThumbnailCache {
+    return self.imgInfo.cachedThumb != nil;
 }
 
 // gets lightweight thumbnail, which is always cached.  But this also always flushes the big image out of the cache
 - (UIImage *) GetThumbnail
 {
-	if (self.imgThmbCached != nil)
-		return self.imgThmbCached;
+    if (self.imgInfo.cachedThumb != nil)
+        return self.imgInfo.cachedThumb;
 	else
 	{
-		self.imgThmbCached = [CommentedImage imageWithImage:[self GetImage] scaledToSize:CGSizeMake(THUMB_WIDTH, THUMB_HEIGHT)];
+        UIImage * img = [CommentedImage imageWithImage:[self GetImage] scaledToSize:CGSizeMake(THUMB_WIDTH, THUMB_HEIGHT)];
+        self.imgInfo.cachedThumb = img;
 		[self flushCachedImage];
-		return self.imgThmbCached;
+		return img;
 	}
 }
 
@@ -199,16 +198,6 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
 {
 	if (error != nil)
         [WPSAlertController presentOkayAlertWithError:error];
-}
-
-- (void) enumerateDictionary:(NSDictionary *) d
-{
-	for (NSString * key in d)
-	{
-		NSObject * o = [d valueForKey:key];
-		NSString * sType = [[o class] description];
-		NSLog(@".    %@:%@ (type: %@)", key, [o description], sType);
-	}
 }
 
 - (void) saveImageDataToLibrary: (NSData *) taggedJPG {
@@ -767,6 +756,15 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
 @end
 
 @implementation  MFBWebServiceSvc_MFBImageInfo (NSCodingSupport)
+static char UIB_CACHEDTHUMB_KEY;
+- (void) setCachedThumb:(UIImage *) img {
+    objc_setAssociatedObject(self, &UIB_CACHEDTHUMB_KEY, img, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (UIImage *) cachedThumb {
+    return (UIImage *) objc_getAssociatedObject(self, &UIB_CACHEDTHUMB_KEY);
+}
+
 - (void)encodeWithCoderMFB:(NSCoder *)encoder;
 {
 	[encoder encodeObject:self.Comment forKey:@"MFBIIComment"];
@@ -774,6 +772,7 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
 	[encoder encodeObject:self.VirtualPath forKey:@"MFBIIVirtPath"];
 	[encoder encodeObject:self.URLFullImage forKey:@"MFBIIFullImageURL"];
     [encoder encodeInteger:self.ImageType forKey:@"MFBIIImageType"];
+    [encoder encodeObject:self.cachedThumb forKey:@"MFBIICachedThumb"];
 }
 
 - (instancetype)initWithCoderMFB:(NSCoder *)decoder
@@ -785,9 +784,11 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
 	self.URLFullImage = [decoder decodeObjectForKey:@"MFBIIFullImageURL"];
     @try {
         self.ImageType = (MFBWebServiceSvc_ImageFileType) [decoder decodeIntegerForKey:@"MFBIIImageType"];
+        self.cachedThumb = (UIImage *) [decoder decodeObjectForKey:@"MFBIICachedThumb"];
     }
     @catch (NSException *exception) {
         self.ImageType = MFBWebServiceSvc_ImageFileType_JPEG;
+        self.cachedThumb = nil;
     }
     @finally {
     }

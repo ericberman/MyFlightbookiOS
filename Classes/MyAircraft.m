@@ -46,7 +46,8 @@ BOOL fNeedsRefresh = NO;
 {
     @autoreleasepool {
         NSMutableDictionary * dictImages = self.dictImagesForAircraft;
-        NSArray * rgAc = [Aircraft sharedAircraft].rgAircraftForUser;
+        Aircraft * a = [Aircraft sharedAircraft];
+        NSArray * rgAc = a.rgAircraftForUser;
         for (MFBWebServiceSvc_Aircraft * ac in rgAc)
         {
             CommentedImage * ci = [CommentedImage new];
@@ -81,6 +82,8 @@ BOOL fNeedsRefresh = NO;
                 [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
         }
         
+        // Cache the images
+        [a cacheAircraft:rgAc forUser:MFBAppDelegate.threadSafeAppDelegate.userProfile.AuthToken];
     }
 }
 
