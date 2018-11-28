@@ -5080,6 +5080,9 @@ MFBWebServiceSvc_CurrencyGroups MFBWebServiceSvc_CurrencyGroups_enumFromString(N
 	if([string isEqualToString:@"Aircraft"]) {
 		return MFBWebServiceSvc_CurrencyGroups_Aircraft;
 	}
+	if([string isEqualToString:@"AircraftDeadline"]) {
+		return MFBWebServiceSvc_CurrencyGroups_AircraftDeadline;
+	}
 	if([string isEqualToString:@"Certificates"]) {
 		return MFBWebServiceSvc_CurrencyGroups_Certificates;
 	}
@@ -5109,6 +5112,9 @@ NSString * MFBWebServiceSvc_CurrencyGroups_stringFromEnum(MFBWebServiceSvc_Curre
 			break;
 		case MFBWebServiceSvc_CurrencyGroups_Aircraft:
 			return @"Aircraft";
+			break;
+		case MFBWebServiceSvc_CurrencyGroups_AircraftDeadline:
+			return @"AircraftDeadline";
 			break;
 		case MFBWebServiceSvc_CurrencyGroups_Certificates:
 			return @"Certificates";

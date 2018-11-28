@@ -290,6 +290,9 @@
             case MFBWebServiceSvc_CurrencyGroups_Deadline:
                 [self pushAuthURL:@"DEADLINE"];
                 break;
+            case MFBWebServiceSvc_CurrencyGroups_AircraftDeadline:
+                [self pushAuthURL:[NSString stringWithFormat:@"AIRCRAFTEDIT&id=%d", ci.AssociatedResourceID.intValue]];
+                break;
             case MFBWebServiceSvc_CurrencyGroups_Certificates:
                 [self pushAuthURL:@"CERTIFICATES"];
                 break;

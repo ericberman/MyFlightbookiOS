@@ -625,6 +625,7 @@ typedef enum {
 	MFBWebServiceSvc_CurrencyGroups_FlightExperience,
 	MFBWebServiceSvc_CurrencyGroups_FlightReview,
 	MFBWebServiceSvc_CurrencyGroups_Aircraft,
+	MFBWebServiceSvc_CurrencyGroups_AircraftDeadline,
 	MFBWebServiceSvc_CurrencyGroups_Certificates,
 	MFBWebServiceSvc_CurrencyGroups_Medical,
 	MFBWebServiceSvc_CurrencyGroups_Deadline,
