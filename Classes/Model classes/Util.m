@@ -28,6 +28,7 @@
 #import "Util.h"
 #import "MFBAppDelegate.h"
 #import "DecimalEdit.h"
+#import "TotalsCategories.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation UIViewController(MFBAdditions)

@@ -28,7 +28,6 @@
 #import <Foundation/Foundation.h>
 #import "MFBWebServiceSvc.h"
 #import "SharedWatch.h"
-#import "TotalsCategories.h"
 
 @interface UIViewController(MFBAdditions)
 - (void) showAlertWithTitle:(NSString *) title message:(NSString *) msg;

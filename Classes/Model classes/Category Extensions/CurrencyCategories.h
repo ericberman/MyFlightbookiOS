@@ -1,7 +1,7 @@
 /*
-	MyFlightbook for iOS - provides native access to MyFlightbook
-	pilot's logbook
- Copyright (C) 2011-2018 MyFlightbook, LLC
+ MyFlightbook for iOS - provides native access to MyFlightbook
+ pilot's logbook
+ Copyright (C) 2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -18,27 +18,19 @@
  */
 
 //
-//  CurrencyRow.h
+//  CurrencyCategories.h
 //  MFBSample
 //
-//  Created by Eric Berman on 6/17/11.
-//  Copyright 2011-2017 MyFlightbook LLC. All rights reserved.
+//  Created by Eric Berman on 11/29/18.
 //
 
-#import <UIKit/UIKit.h>
 #import "MFBWebServiceSvc.h"
 
+#ifndef CurrencyCategories_h
+#define CurrencyCategories_h
 
-@interface CurrencyRow : UITableViewCell {
-    UILabel * lblDescription;
-    UILabel * lblValue;
-    UILabel * lblDiscrepancy;
-}
-
-@property (nonatomic, strong) IBOutlet UILabel * lblDescription;
-@property (nonatomic, strong) IBOutlet UILabel * lblValue;
-@property (nonatomic, strong) IBOutlet UILabel * lblDiscrepancy;
-
-+ (CurrencyRow *) rowForCurrency:(MFBWebServiceSvc_CurrencyStatusItem *) ci forTableView:tableView;
-
+@interface MFBWebServiceSvc_CurrencyStatusItem (MFBToday)
+- (NSString *) formattedTitle;
 @end
+
+#endif /* CurrencyCategories_h */

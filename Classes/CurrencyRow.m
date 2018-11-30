@@ -26,6 +26,7 @@
 //
 
 #import "CurrencyRow.h"
+#import "CurrencyCategories.h"
 
 @implementation CurrencyRow
 
@@ -102,16 +103,3 @@
 
 @end
 
-@implementation MFBWebServiceSvc_CurrencyStatusItem (MFBToday)
-- (NSString *) formattedTitle {
-    // some attributes are hyperlinks.  Strip out the hyperlink part.
-    NSRange range = [self.Attribute rangeOfString:@"<a href" options:NSCaseInsensitiveSearch];
-    if (range.location != NSNotFound)
-    {
-        NSCharacterSet * csHtmlTag = [NSCharacterSet characterSetWithCharactersInString:@"<>"];
-        NSArray * a = [self.Attribute componentsSeparatedByCharactersInSet:csHtmlTag];
-        return [NSString stringWithFormat:@"%@%@", (NSString *) a[2], (NSString *) a[4]];
-    }
-    return self.Attribute;
-}
-@end
