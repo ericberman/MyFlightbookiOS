@@ -176,7 +176,7 @@ static BOOL is_leap_year(NSUInteger year) {
   NSDateComponents *dateComps = [gregorian components: NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate: now];
   NSUInteger
   //Date
-  year,
+  year = dateComps.year,
   month_or_week = 1U,
   day = 1U,
   //Time
