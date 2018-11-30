@@ -358,6 +358,7 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
 - (IBAction) useHHMMClicked:(UISwitch *)sender
 {
     [[NSUserDefaults standardUserDefaults] setBool:sender.on forKey:szPrefKeyHHMM];
+    [[[NSUserDefaults alloc] initWithSuiteName:@"group.com.myflightbook.mfbapps"] setBool:sender.on forKey:szPrefKeyHHMM];
 }
 
 - (IBAction) roundNearestTenthClicked:(UISwitch *) sender

@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2011-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -26,6 +26,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MFBWebServiceSvc.h"
 
 
 @interface CurrencyRow : UITableViewCell {
@@ -38,6 +39,10 @@
 @property (nonatomic, strong) IBOutlet UILabel * lblValue;
 @property (nonatomic, strong) IBOutlet UILabel * lblDiscrepancy;
 
-- (void) AdjustLayoutForValues;
++ (CurrencyRow *) rowForCurrency:(MFBWebServiceSvc_CurrencyStatusItem *) ci forTableView:tableView;
 
+@end
+
+@interface MFBWebServiceSvc_CurrencyStatusItem (MFBToday)
+- (NSString *) formattedTitle;
 @end

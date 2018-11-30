@@ -1,7 +1,7 @@
 /*
-	MyFlightbook for iOS - provides native access to MyFlightbook
-	pilot's logbook
- Copyright (C) 2011-2018 MyFlightbook, LLC
+ MyFlightbook for iOS - provides native access to MyFlightbook
+ pilot's logbook
+ Copyright (C) 2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -18,26 +18,24 @@
  */
 
 //
-//  TotalsRow.h
-//  MFBSample
+//  TodayWidgetBase.h
+//  MyFlightbook
 //
-//  Created by Eric Berman on 6/17/11.
-//  Copyright 2011-2017 MyFlightbook LLC. All rights reserved.
+//  Created by Eric Berman on 11/29/18.
 //
 
 #import <UIKit/UIKit.h>
+#import "HostName.h"
 #import "MFBWebServiceSvc.h"
 
-@interface TotalsRow : UITableViewCell {
-    IBOutlet UILabel * txtLabel;
-    IBOutlet UILabel * txtValue;
-    IBOutlet UILabel * txtSubDesc;
-}
+@interface TodayWidgetBase : UITableViewController<MFBWebServiceSoapBindingResponseDelegate>
+@property (strong, nonatomic) NSMutableArray * rgData;
+@property (readwrite, nonatomic) BOOL fUseHHMM;
+@property (nonatomic, strong) NSString * szAuthToken;
 
-@property (nonatomic, strong) IBOutlet UILabel * txtLabel;
-@property (nonatomic, strong) IBOutlet UILabel * txtValue;
-@property (nonatomic, strong) IBOutlet UILabel * txtSubDesc;
-
-+ (TotalsRow *) rowForTotal:(MFBWebServiceSvc_TotalsItem *) ti forTableView:tableView usngHHMM:(BOOL) fHHMM;
+// Subclasses MUST implement the following:
+- (void) callOnBinding:(MFBWebServiceSoapBinding *) binding;
+- (void) dataReceived:(NSObject *) body;
+// Subclasses also must handle click on table rows.
 
 @end

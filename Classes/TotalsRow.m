@@ -26,7 +26,8 @@
 //
 
 #import "TotalsRow.h"
-
+#import "NSNumberCategories.h"
+#import "TotalsCategories.h"
 
 @implementation TotalsRow
 
@@ -63,4 +64,28 @@
     }
 }
 
++ (TotalsRow *) rowForTotal:(MFBWebServiceSvc_TotalsItem *) ti forTableView:tableView usngHHMM: (BOOL) fHHMM {
+    static NSString *CellIdentifier = @"TotalsRow";
+    TotalsRow *cell = (TotalsRow *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"TotalsRow" owner:self options:nil];
+        id firstObject = topLevelObjects[0];
+        if ( [firstObject isKindOfClass:[UITableViewCell class]] )
+            cell = firstObject;
+        else cell = topLevelObjects[1];
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    
+    
+    cell.txtLabel.text = ti.Description;
+    cell.txtSubDesc.text = ti.SubDescription;
+    cell.txtValue.text = [ti formattedValue: fHHMM];
+    cell.accessoryType = (ti.Query == nil) ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
+    
+    [cell AdjustLayoutForValues];
+    return cell;
+}
+
 @end
+

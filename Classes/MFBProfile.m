@@ -85,21 +85,30 @@ NSString * const _szKeyCachedTokenRetrievalDate = @"keyCacheTokenDate";
 - (void) cacheAuthCreds
 {
 	// cache the results
-	[[NSUserDefaults standardUserDefaults] setValue:self.AuthToken forKey:_szKeyCachedToken];
-	[[NSUserDefaults standardUserDefaults] setValue:self.UserName forKey:_szKeyCachedUser];
-	[[NSUserDefaults standardUserDefaults] setDouble:[[NSDate date] timeIntervalSince1970] forKey:_szKeyCachedTokenRetrievalDate];
+    NSUserDefaults * defs = [NSUserDefaults standardUserDefaults];
+	[defs setValue:self.AuthToken forKey:_szKeyCachedToken];
+	[defs setValue:self.UserName forKey:_szKeyCachedUser];
+	[defs setDouble:[[NSDate date] timeIntervalSince1970] forKey:_szKeyCachedTokenRetrievalDate];
 	
 	// And save the ultimately used creds
 	[self SavePrefs];
-	[[NSUserDefaults standardUserDefaults] synchronize];
+	[defs synchronize];
+    
+    defs = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.myflightbook.mfbapps"];
+    [defs setValue:self.AuthToken forKey:_szKeyCachedToken];
 }
 
 
 - (void) clearCache
 {
-	[[NSUserDefaults standardUserDefaults] setValue:nil forKey:_szKeyCachedUser];
-	[[NSUserDefaults standardUserDefaults] setValue:nil forKey:_szKeyCachedToken];
-	MFBAppDelegate * app = mfbApp();
+    NSUserDefaults * defs = [NSUserDefaults standardUserDefaults];
+	[defs setValue:nil forKey:_szKeyCachedUser];
+	[defs setValue:nil forKey:_szKeyCachedToken];
+
+    defs = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.myflightbook.mfbapps"];
+    [defs setValue:nil forKey:_szKeyCachedToken];
+
+    MFBAppDelegate * app = [MFBAppDelegate threadSafeAppDelegate];
     [app invalidateCachedTotals];
 }
 

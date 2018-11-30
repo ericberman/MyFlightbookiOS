@@ -22,11 +22,10 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 6/17/11.
-//  Copyright 2011-2017 MyFlightbook LLC. All rights reserved.
+//  Copyright 2011-2018 MyFlightbook LLC. All rights reserved.
 //
 
 #import "CurrencyRow.h"
-
 
 @implementation CurrencyRow
 
@@ -60,4 +59,59 @@
     }
 }
 
++ (CurrencyRow *) rowForCurrency:(MFBWebServiceSvc_CurrencyStatusItem *) ci forTableView:tableView {
+    static NSString *CellIdentifier = @"CurrencyCell";
+    CurrencyRow * cell = (CurrencyRow *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"CurrencyRow" owner:self options:nil];
+        id firstObject = topLevelObjects[0];
+        if ( [firstObject isKindOfClass:[UITableViewCell class]] )
+            cell = firstObject;
+        else cell = topLevelObjects[1];
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    
+    // Set up the cell...
+    cell.lblDescription.text = ci.formattedTitle;
+    
+    // Color the value red/blue/green depending on severity:
+    cell.lblValue.text = ci.Value;
+    switch (ci.Status) {
+        case MFBWebServiceSvc_CurrencyState_OK:
+            cell.lblValue.textColor = [UIColor colorWithRed:0 green:0.5 blue:0 alpha:1];
+            break;
+        case MFBWebServiceSvc_CurrencyState_GettingClose:
+            cell.lblValue.textColor = [UIColor blueColor];
+            break;
+        case MFBWebServiceSvc_CurrencyState_NotCurrent:
+            cell.lblValue.textColor = [UIColor redColor];
+            break;
+        case MFBWebServiceSvc_CurrencyState_NoDate:
+        case MFBWebServiceSvc_CurrencyState_none:
+        default:
+            cell.lblValue.textColor = [UIColor blackColor];
+            break;
+    }
+    
+    cell.lblDiscrepancy.text = ci.Discrepancy;     // add any relevant discrepancy string
+    
+    [cell AdjustLayoutForValues];
+    return cell;
+}
+
+@end
+
+@implementation MFBWebServiceSvc_CurrencyStatusItem (MFBToday)
+- (NSString *) formattedTitle {
+    // some attributes are hyperlinks.  Strip out the hyperlink part.
+    NSRange range = [self.Attribute rangeOfString:@"<a href" options:NSCaseInsensitiveSearch];
+    if (range.location != NSNotFound)
+    {
+        NSCharacterSet * csHtmlTag = [NSCharacterSet characterSetWithCharactersInString:@"<>"];
+        NSArray * a = [self.Attribute componentsSeparatedByCharactersInSet:csHtmlTag];
+        return [NSString stringWithFormat:@"%@%@", (NSString *) a[2], (NSString *) a[4]];
+    }
+    return self.Attribute;
+}
 @end

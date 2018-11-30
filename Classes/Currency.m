@@ -213,49 +213,7 @@
     
 	MFBWebServiceSvc_CurrencyStatusItem * ci = (self.rgCurrency)[indexPath.row];
     
-	// NOTE: we're not reusin cells because the addition of a new flight might cause currency to change, which
-	// can cause the layout of the cell to change.  We want to use new cells every time.
-	// The efficiency angle here is that we are caching the results, and only reloading if the cache is invalidated.
-    static NSString *CellIdentifier = @"CurrencyCell";
-    CurrencyRow * cell = (CurrencyRow *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"CurrencyRow" owner:self options:nil];
-        id firstObject = topLevelObjects[0];
-        if ( [firstObject isKindOfClass:[UITableViewCell class]] )
-            cell = firstObject;     
-        else cell = topLevelObjects[1];
-        
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;
-	}
-	
-    // Set up the cell...
-
-    cell.lblDescription.text = ci.formattedTitle;
-	
-	// Color the value red/blue/green depending on severity:
-    cell.lblValue.text = ci.Value;
-	switch (ci.Status) {
-		case MFBWebServiceSvc_CurrencyState_OK:
-			cell.lblValue.textColor = [UIColor colorWithRed:0 green:0.5 blue:0 alpha:1];
-			break;
-		case MFBWebServiceSvc_CurrencyState_GettingClose:
-			cell.lblValue.textColor = [UIColor blueColor];
-			break;
-		case MFBWebServiceSvc_CurrencyState_NotCurrent:
-			cell.lblValue.textColor = [UIColor redColor];
-			break;
-        case MFBWebServiceSvc_CurrencyState_NoDate:
-        case MFBWebServiceSvc_CurrencyState_none:
-		default:
-            cell.lblValue.textColor = [UIColor blackColor];
-			break;
-	}
-	
-    cell.lblDiscrepancy.text = ci.Discrepancy; 	// add any relevant discrepancy string
-    
-    [cell AdjustLayoutForValues];
-	
-    return cell;
+    return [CurrencyRow rowForCurrency:ci forTableView:tableView];
 }
 
 - (void) pushWebURL:(NSString *) szPath {

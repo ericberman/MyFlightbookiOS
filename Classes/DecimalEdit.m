@@ -62,7 +62,6 @@
 
 static char UIB_NUMBER_TYPE_KEY;
 static char UIB_ISHHMM_KEY;
-static NSNumberFormatter * _nf = nil;
 static NSNumberFormatter * _nfDecimal = nil;
 
 #pragma mark Dynamic Property IsHHMM
@@ -155,32 +154,8 @@ static NSNumberFormatter * _nfDecimal = nil;
     }
 }
 
-+ (NSString *) stringFromNumber:(NSNumber *) num forType:(int) nt inHHMM:(BOOL) fHHMM useGrouping:(BOOL) fGroup
-{
-    if (nt == ntTime && fHHMM)
-    {
-        double val = [num doubleValue];
-        val = round(val * 60.0) / 60.0; // fix any rounding by getting precise minute
-        int hours = (int) trunc(val);
-        int minutes = (int) round((val - hours) * 60);
-        return [NSString stringWithFormat:@"%d:%02d", hours, minutes];
-    }
-    else if (nt == ntInteger)
-        return [num stringValue];
-    else
-    {
-        if (_nf == nil)
-        {
-            _nf = [[NSNumberFormatter alloc] init];
-            _nf.numberStyle = NSNumberFormatterDecimalStyle;
-            _nf.maximumFractionDigits = 2;
-            _nf.minimumFractionDigits = 1;
-        }
-
-        _nf.usesGroupingSeparator = fGroup; // necessary for round-trip.
-
-        return [_nf stringFromNumber:num];
-    }
++ (NSString *) stringFromNumber:(NSNumber *) num forType:(int) nt inHHMM:(BOOL) fHHMM useGrouping:(BOOL) fGroup {
+    return [num formatAsType:nt inHHMM:fHHMM useGrouping:fGroup];
 }
 
 + (NSString *) stringFromNumber:(NSNumber *) num forType:(int) nt inHHMM:(BOOL) fHHMM {

@@ -323,34 +323,11 @@
 @end
 
 @implementation MFBWebServiceSvc_TotalsItem (MFBAdditions)
-- (NSString *) formattedValue {
-    switch (self.NumericType)
-    {
-        default:
-        case MFBWebServiceSvc_NumType_Integer:
-            return [NSString stringWithFormat:@"%d", [self.Value intValue]];
-            break;
-        case MFBWebServiceSvc_NumType_Currency:
-        {
-            NSNumberFormatter * nsf = [[NSNumberFormatter alloc] init];
-            [nsf setNumberStyle:NSNumberFormatterCurrencyStyle];
-            return [nsf stringFromNumber:self.Value];
-        }
-            break;
-        case MFBWebServiceSvc_NumType_Decimal:
-            return [UITextField stringFromNumber:self.Value forType:ntDecimal inHHMM:NO useGrouping:YES];
-            break;
-        case MFBWebServiceSvc_NumType_Time:
-            return [UITextField stringFromNumber:self.Value forType:ntTime inHHMM:[AutodetectOptions HHMMPref] useGrouping:YES];
-            break;
-    }
-}
-
 - (SimpleTotalItem *) toSimpleItem {
     SimpleTotalItem * sti = [SimpleTotalItem new];
     sti.title = self.Description;
     sti.subDesc = self.SubDescription;
-    sti.valueDisplay = [self formattedValue];
+    sti.valueDisplay = [self formattedValue:[AutodetectOptions HHMMPref]];
     return sti;
 }
 
@@ -364,19 +341,6 @@
 @end
 
 @implementation MFBWebServiceSvc_CurrencyStatusItem (MFBAdditions)
-
-- (NSString *) formattedTitle {
-    // some attributes are hyperlinks.  Strip out the hyperlink part.
-    NSRange range = [self.Attribute rangeOfString:@"<a href" options:NSCaseInsensitiveSearch];
-    if (range.location != NSNotFound)
-    {
-        NSCharacterSet * csHtmlTag = [NSCharacterSet characterSetWithCharactersInString:@"<>"];
-        NSArray * a = [self.Attribute componentsSeparatedByCharactersInSet:csHtmlTag];
-        return [NSString stringWithFormat:@"%@%@", (NSString *) a[2], (NSString *) a[4]];
-    }
-    return self.Attribute;
-}
-
 - (SimpleCurrencyItem *) toSimpleItem {
     SimpleCurrencyItem * sci = [SimpleCurrencyItem new];
     sci.attribute = self.Attribute;
@@ -412,7 +376,6 @@
         [rgNew addObject:le.toSimpleItem];
     return rgNew;
 }
-
 @end
 
 

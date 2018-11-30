@@ -335,16 +335,21 @@ static BOOL fAppLaunchFinished = NO;
         self.tabBarController.selectedViewController = self.tabRecents;
         [self.recentsView addTelemetryFlight:url];
     }
-    else if (url.host != nil && [url.host compare:@"addFlights"] == NSOrderedSame)
-    {
-        NSString * szJSON = url.path;
-        if (szJSON.length > 0)
-            szJSON = [szJSON substringFromIndex:1];
+    else if (url.host != nil) {
+        if ([url.host compare:@"addFlights"] == NSOrderedSame) {
+            NSString * szJSON = url.path;
+            if (szJSON.length > 0)
+                szJSON = [szJSON substringFromIndex:1];
         
-        if (szJSON.length > 0 && [szJSON hasPrefix:@"{"])
-        {
-            self.tabBarController.selectedViewController = self.tabRecents;
-            [[self recentsView] addJSONFlight:szJSON];
+            if (szJSON.length > 0 && [szJSON hasPrefix:@"{"])
+            {
+                self.tabBarController.selectedViewController = self.tabRecents;
+                [[self recentsView] addJSONFlight:szJSON];
+            }
+        } else if ([url.host compare:@"totals"] == NSOrderedSame) {
+            self.tabBarController.selectedViewController = self.tabTotals;
+        } else if ([url.host compare:@"currency"] == NSOrderedSame) {
+            self.tabBarController.selectedViewController = self.tabCurrency;
         }
     }
 }

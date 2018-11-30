@@ -189,7 +189,6 @@
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *CellIdentifier = @"TotalsRow";
     static NSString *CellIdentifierSelector = @"CellSelector";
     if (indexPath.section == 0) // Filter
     {
@@ -209,27 +208,8 @@
     if (self.callInProgress)
         return [self waitCellWithText:NSLocalizedString(@"Getting Totals...", @"progress indicator")];
 
-    TotalsRow *cell = (TotalsRow *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"TotalsRow" owner:self options:nil];
-        id firstObject = topLevelObjects[0];
-        if ( [firstObject isKindOfClass:[UITableViewCell class]] )
-            cell = firstObject;     
-        else cell = topLevelObjects[1];
-
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;
-	}
-	    
-	MFBWebServiceSvc_TotalsItem * ti = (MFBWebServiceSvc_TotalsItem *) (self.rgTotals)[indexPath.row];
-    
-    cell.txtLabel.text = ti.Description;
-    cell.txtSubDesc.text = ti.SubDescription;
-    cell.txtValue.text = [ti formattedValue];
-    cell.accessoryType = (ti.Query == nil) ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
-    
-    [cell AdjustLayoutForValues];
-	
-    return cell;
+    MFBWebServiceSvc_TotalsItem * ti = (MFBWebServiceSvc_TotalsItem *) (self.rgTotals)[indexPath.row];
+    return [TotalsRow rowForTotal:ti forTableView:tableView usngHHMM:[AutodetectOptions HHMMPref]];
 }
 
 /*

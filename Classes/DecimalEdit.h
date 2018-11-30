@@ -26,6 +26,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NSNumberCategories.h"
 
 @interface UIButton(DecimalEdit) 
 - (IBAction) toggleCheck:(id) sender;
@@ -34,7 +35,6 @@
 @end
 
 @interface UITextField(DecimalEdit)
-enum NumericType {ntInteger, ntDecimal, ntTime};
 @property (nonatomic, readwrite) BOOL IsHHMM;
 @property (nonatomic, assign) NSNumber * value;
 @property (nonatomic, assign) int NumberType;

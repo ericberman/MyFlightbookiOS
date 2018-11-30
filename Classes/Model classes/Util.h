@@ -28,6 +28,7 @@
 #import <Foundation/Foundation.h>
 #import "MFBWebServiceSvc.h"
 #import "SharedWatch.h"
+#import "TotalsCategories.h"
 
 @interface UIViewController(MFBAdditions)
 - (void) showAlertWithTitle:(NSString *) title message:(NSString *) msg;
@@ -70,13 +71,11 @@
 @end
 
 @interface MFBWebServiceSvc_TotalsItem (MFBAdditions)
-- (NSString *) formattedValue;
 - (SimpleTotalItem *) toSimpleItem;
 + (NSMutableArray *) toSimpleItems:(NSArray *) ar;
 @end
 
 @interface MFBWebServiceSvc_CurrencyStatusItem (MFBAdditions)
-- (NSString *) formattedTitle;
 - (SimpleCurrencyItem *) toSimpleItem;
 + (NSMutableArray *) toSimpleItems:(NSArray *) ar;
 @end

@@ -114,6 +114,8 @@ typedef enum _cacheStatus {cacheInvalid, cacheValid, cacheValidButRefresh} Cache
 @property (nonatomic, strong) IBOutlet UINavigationController * tabNewFlight;
 @property (nonatomic, strong) IBOutlet UINavigationController * tabRecents;
 @property (nonatomic, strong) IBOutlet UINavigationController * tabProfile;
+@property (nonatomic, strong) IBOutlet UINavigationController * tabTotals;
+@property (nonatomic, strong) IBOutlet UINavigationController * tabCurrency;
 @property (nonatomic, strong) id<ReachabilityDelegate> reachabilityDelegate;
 @property (assign, atomic) NetworkStatus lastKnownNetworkStatus;
 @property (strong) SharedWatch * watchData;
