@@ -77,7 +77,9 @@ BOOL fCouldBeMoreFlights;
             }
             
             [ci GetThumbnail];
-            self.dictImages[le.FlightID] = ci;  // TODO: this line is crashing sometimes.  EXC_BAD_ACCESS.  Why?
+            @synchronized (self.dictImages) {
+                self.dictImages[le.FlightID] = ci;  // TODO: this line is crashing sometimes.  EXC_BAD_ACCESS.  Why?
+            }
         }
         [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }
