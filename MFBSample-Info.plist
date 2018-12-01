@@ -195,5 +195,26 @@
 			</dict>
 		</dict>
 	</array>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>currency</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>CURRENCY_SHORTCUT_TITLE</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>app.currency</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>totals</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>TOTALS_SHORTCUT_TITLE</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>app.totals</string>
+		</dict>
+	</array>
+	<key>UIApplicationShortcutWidget</key>
+	<string>com.myflightbook.myflightbookiphone.MyFlightbook---Currency</string>
 </dict>
 </plist>

@@ -927,6 +927,12 @@ Vous pouvez choisir un dans la liste fournie, le modifier, ou faire un de vos pr
 /* Engine Stop prompt */
 "Engine Stop:" = "Arrêt Moteur:";
 
+/* Shortcut - Start Engine */
+"StartEngine" = "Mise en route moteur";
+
+/* Shortcut - Stop Engine */
+"StopEngine" = "Arrêt Moteur";
+
 /* First Takeoff prompt */
 "First Takeoff:" = "Début du Vol:";
 

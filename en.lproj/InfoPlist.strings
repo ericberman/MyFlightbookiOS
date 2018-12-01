@@ -12,4 +12,6 @@
 "NSPhotoLibraryUsageDescription" = "MyFlightbook allows you to attach pictures to your flights or to aircraft that you fly.";
 "NSPhotoLibraryAddUsageDescription" = "MyFlightbook saves pictures that you take into your library so that you have your own copy of it";
 "NSMicrophoneUsageDescription" = "MyFlightbook uses the microphone when you attach a video to a flight.";
+"CURRENCY_SHORTCUT_TITLE" = "Currency";
+"TOTALS_SHORTCUT_TITLE" = "Totals";
 

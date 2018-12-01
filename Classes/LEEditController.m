@@ -1678,6 +1678,13 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
     }
 }
 
+- (void) stopEngineExternalNoSubmit {
+    if (!self.le.entryData.isKnownEngineEnd) {
+        self.le.entryData.EngineEnd = [NSDate date];
+        [self stopEngine];
+    }
+}
+
 - (void) startFlight
 {
     if (self.le.entryData.isNewFlight)

@@ -354,6 +354,19 @@ static BOOL fAppLaunchFinished = NO;
     }
 }
 
+- (void) application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
+    if ([shortcutItem.type compare:@"app.currency"] == NSOrderedSame)
+        self.tabBarController.selectedViewController = self.tabCurrency;
+    else if ([shortcutItem.type compare:@"app.totals"] == NSOrderedSame)
+        self.tabBarController.selectedViewController = self.tabTotals;
+    else if ([shortcutItem.type compare:@"app.startEngine"] == NSOrderedSame)
+        [self.leMain startEngineExternal];
+    else if ([shortcutItem.type compare:@"app.stopEngine"] == NSOrderedSame)
+        [self.leMain stopEngineExternalNoSubmit];
+    else if ([shortcutItem.type compare:@"app.resume"] == NSOrderedSame  || [shortcutItem.type compare:@"app.play"] == NSOrderedSame)
+        [self.leMain toggleFlightPause];
+}
+
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:options
 {
     @synchronized(self)
@@ -567,6 +580,27 @@ static MFBAppDelegate * _mainApp = nil;
     _mainApp = nil;
 }
 
+- (void) updateShortCutItems {
+    // Update 3D touch actions
+    
+    NSMutableArray<UIApplicationShortcutItem *> * rgShortcuts = [[NSMutableArray alloc] init];
+    
+    // If a flight is in progress, add stop engine and pause/play as appropriate
+    if ([self.leMain flightCouldBeInProgress]) {
+        [rgShortcuts addObject:[[UIApplicationShortcutItem alloc] initWithType:@"app.stopEngine" localizedTitle:NSLocalizedString(@"StopEngine", @"Shortcut - Stop Engine")]];
+        if (self.leMain.le.fIsPaused)
+            [rgShortcuts addObject:[[UIApplicationShortcutItem alloc] initWithType:@"app.resume" localizedTitle:NSLocalizedString(@"WatchPlay", @"Watch - Resume")]];
+        else
+            [rgShortcuts addObject:[[UIApplicationShortcutItem alloc] initWithType:@"app.play" localizedTitle:NSLocalizedString(@"WatchPause", @"Watch - Pause")]];
+    }
+    else {
+        // flight not in progress - just add start flight
+        [rgShortcuts addObject:[[UIApplicationShortcutItem alloc] initWithType:@"app.startEngine" localizedTitle:NSLocalizedString(@"StartEngine", @"Shortcut - Start Engine")]];
+    }
+
+    [[UIApplication sharedApplication] setShortcutItems:rgShortcuts];
+}
+
 - (void) applicationDidEnterBackground:(UIApplication *)application
 {
     NSLog(@"Entered Background");
@@ -582,6 +616,8 @@ static MFBAppDelegate * _mainApp = nil;
         if ([self.mfbloc.locManager respondsToSelector:@selector(setAllowsBackgroundLocationUpdates:)])
             self.mfbloc.locManager.allowsBackgroundLocationUpdates = NO;
     }
+    
+    [self updateShortCutItems];
 }
 
 - (void) applicationWillEnterForeground:(UIApplication *)application

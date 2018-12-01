@@ -104,6 +104,7 @@
 
 - (void) startEngineExternal;
 - (void) stopEngineExternal;
+- (void) stopEngineExternalNoSubmit;
 
 - (BOOL) autoTotal;
 - (BOOL) autoHobbs;
