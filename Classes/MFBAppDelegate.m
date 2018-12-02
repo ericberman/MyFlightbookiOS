@@ -363,7 +363,7 @@ static BOOL fAppLaunchFinished = NO;
         [self.leMain startEngineExternal];
     else if ([shortcutItem.type compare:@"app.stopEngine"] == NSOrderedSame)
         [self.leMain stopEngineExternalNoSubmit];
-    else if ([shortcutItem.type compare:@"app.resume"] == NSOrderedSame  || [shortcutItem.type compare:@"app.play"] == NSOrderedSame)
+    else if ([shortcutItem.type compare:@"app.resume"] == NSOrderedSame  || [shortcutItem.type compare:@"app.pause"] == NSOrderedSame)
         [self.leMain toggleFlightPause];
 }
 
@@ -587,15 +587,15 @@ static MFBAppDelegate * _mainApp = nil;
     
     // If a flight is in progress, add stop engine and pause/play as appropriate
     if ([self.leMain flightCouldBeInProgress]) {
-        [rgShortcuts addObject:[[UIApplicationShortcutItem alloc] initWithType:@"app.stopEngine" localizedTitle:NSLocalizedString(@"StopEngine", @"Shortcut - Stop Engine")]];
+        [rgShortcuts addObject:[[UIApplicationShortcutItem alloc] initWithType:@"app.stopEngine" localizedTitle:NSLocalizedString(@"StopEngine", @"Shortcut - Stop Engine") localizedSubtitle:@"" icon:[UIApplicationShortcutIcon iconWithType:UIApplicationShortcutIconTypeTaskCompleted] userInfo:nil]];
         if (self.leMain.le.fIsPaused)
-            [rgShortcuts addObject:[[UIApplicationShortcutItem alloc] initWithType:@"app.resume" localizedTitle:NSLocalizedString(@"WatchPlay", @"Watch - Resume")]];
+            [rgShortcuts addObject:[[UIApplicationShortcutItem alloc] initWithType:@"app.resume" localizedTitle:NSLocalizedString(@"WatchPlay", @"Watch - Resume") localizedSubtitle:@"" icon:[UIApplicationShortcutIcon iconWithType:UIApplicationShortcutIconTypePlay] userInfo:nil]];
         else
-            [rgShortcuts addObject:[[UIApplicationShortcutItem alloc] initWithType:@"app.play" localizedTitle:NSLocalizedString(@"WatchPause", @"Watch - Pause")]];
+            [rgShortcuts addObject:[[UIApplicationShortcutItem alloc] initWithType:@"app.pause" localizedTitle:NSLocalizedString(@"WatchPause", @"Watch - Pause") localizedSubtitle:@"" icon:[UIApplicationShortcutIcon iconWithType:UIApplicationShortcutIconTypePause] userInfo:nil]];
     }
     else {
         // flight not in progress - just add start flight
-        [rgShortcuts addObject:[[UIApplicationShortcutItem alloc] initWithType:@"app.startEngine" localizedTitle:NSLocalizedString(@"StartEngine", @"Shortcut - Start Engine")]];
+        [rgShortcuts addObject:[[UIApplicationShortcutItem alloc] initWithType:@"app.startEngine" localizedTitle:NSLocalizedString(@"StartEngine", @"Shortcut - Start Engine") localizedSubtitle:@"" icon:[UIApplicationShortcutIcon iconWithType:UIApplicationShortcutIconTypePlay] userInfo:nil]];
     }
 
     [[UIApplication sharedApplication] setShortcutItems:rgShortcuts];
