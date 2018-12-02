@@ -955,13 +955,10 @@ handleWatchKitExtensionRequest:(NSDictionary *)userInfo
         NSLog(@"Action request complete");
         dictResponse[WATCH_RESPONSE_STATUS] = [NSKeyedArchiver archivedDataWithRootObject:self.watchData];
         self.fSuppressWatchNotification = NO;
+        
+        [self updateShortCutItems];
     }
     
-    /*
-    NSLog(@"replyForMessage with dictionary:");
-    for (id key in dictResponse)
-        NSLog(@" key=%@", key);
-    */
     return dictResponse;
 }
 

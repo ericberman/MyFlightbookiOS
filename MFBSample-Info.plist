@@ -54,7 +54,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.42</string>
+	<string>3.43</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -73,7 +73,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>3.4.2018.11.15.2</string>
+	<string>3.4.2018.12.01.01</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
@@ -133,6 +133,27 @@
 	<string>MyFlightbook saves pictures that you take into your library so that you have your own copy of it.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>MyFlightbook allows you to attach pictures or videos to your flights or to aircraft that you fly.</string>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>currency</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>CURRENCY_SHORTCUT_TITLE</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>app.currency</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>totals</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>TOTALS_SHORTCUT_TITLE</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>app.totals</string>
+		</dict>
+	</array>
+	<key>UIApplicationShortcutWidget</key>
+	<string>com.myflightbook.myflightbookiphone.MyFlightbook---Currency</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
@@ -195,26 +216,5 @@
 			</dict>
 		</dict>
 	</array>
-	<key>UIApplicationShortcutItems</key>
-	<array>
-		<dict>
-			<key>UIApplicationShortcutItemIconFile</key>
-			<string>currency</string>
-			<key>UIApplicationShortcutItemTitle</key>
-			<string>CURRENCY_SHORTCUT_TITLE</string>
-			<key>UIApplicationShortcutItemType</key>
-			<string>app.currency</string>
-		</dict>
-		<dict>
-			<key>UIApplicationShortcutItemIconFile</key>
-			<string>totals</string>
-			<key>UIApplicationShortcutItemTitle</key>
-			<string>TOTALS_SHORTCUT_TITLE</string>
-			<key>UIApplicationShortcutItemType</key>
-			<string>app.totals</string>
-		</dict>
-	</array>
-	<key>UIApplicationShortcutWidget</key>
-	<string>com.myflightbook.myflightbookiphone.MyFlightbook---Currency</string>
 </dict>
 </plist>
