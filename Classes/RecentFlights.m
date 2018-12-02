@@ -77,7 +77,7 @@ BOOL fCouldBeMoreFlights;
             }
             
             [ci GetThumbnail];
-            @synchronized (self.dictImages) {
+            @synchronized (self) {
                 self.dictImages[le.FlightID] = ci;  // TODO: this line is crashing sometimes.  EXC_BAD_ACCESS.  Why?
             }
         }
@@ -146,8 +146,12 @@ BOOL fCouldBeMoreFlights;
         return;
     }
     
-    [self.dictImages removeAllObjects];
-    self.dictImages = [NSMutableDictionary new];
+    @synchronized (self) {
+        if (self.dictImages == nil)
+            self.dictImages = [NSMutableDictionary new];
+        else
+            [self.dictImages removeAllObjects];
+    }
     self.rgFlights = [[NSMutableArray alloc] init];
     fCouldBeMoreFlights = YES;
 	MFBAppDelegate * app = mfbApp();
@@ -175,7 +179,12 @@ BOOL fCouldBeMoreFlights;
 - (void) invalidateViewController
 {
     self.rgFlights = [NSMutableArray new];
-    self.dictImages = [NSMutableDictionary new];
+    @synchronized (self) {
+        if (self.dictImages == nil)
+            self.dictImages = [NSMutableDictionary new];
+        else
+            [self.dictImages removeAllObjects];
+    }
     fCouldBeMoreFlights = YES;
     self.fIsValid = NO;
 }
@@ -196,7 +205,9 @@ BOOL fCouldBeMoreFlights;
 	
 	// Release any cached data, images, etc that aren't in use.
 	self.rgFlights = nil;
-    [self.dictImages removeAllObjects];
+    @synchronized (self) {
+        [self.dictImages removeAllObjects];
+    }
 	[((MFBAppDelegate *) [[UIApplication sharedApplication] delegate]) invalidateCachedTotals];
 }
 
@@ -482,7 +493,9 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectPendingFlights, sectExi
             }
             
             le = (MFBWebServiceSvc_LogbookEntry *) (self.rgFlights)[indexPath.row];
-            ci = (le == nil || le.FlightID == nil) ? nil : (CommentedImage *) (self.dictImages)[le.FlightID];
+            @synchronized (self) {
+                ci = (le == nil || le.FlightID == nil) ? nil : (CommentedImage *) (self.dictImages)[le.FlightID];
+            }
             
             NSAssert(le != nil, @"NULL le in existing flights - we are going to crash!!!"); // TODO: still crash here sometimes.  Why?
             break;
@@ -572,7 +585,9 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectPendingFlights, sectExi
                 le.szAuthToken = app.userProfile.AuthToken;
                 MFBWebServiceSvc_LogbookEntry * leToDelete = (MFBWebServiceSvc_LogbookEntry *) (self.rgFlights)[ip.row];
                 int idFlightToDelete = [leToDelete.FlightID intValue];
-                [self.dictImages removeObjectForKey:leToDelete.FlightID];
+                @synchronized (self) {
+                    [self.dictImages removeObjectForKey:leToDelete.FlightID];
+                }
                 [self.rgFlights removeObjectAtIndex:ip.row];
                 [le setDelegate:self completionBlock:^(MFBSoapCall * sc, MFBAsyncOperation * ao) {
                     if ([sc.errorString length] == 0)
