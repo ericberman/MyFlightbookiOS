@@ -56,7 +56,7 @@
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.szAuthUserToken != 0) {
+	if(((void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -318,10 +318,10 @@ NSString * MFBWebServiceSvc_ImageFileType_stringFromEnum(MFBWebServiceSvc_ImageF
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.Latitude != 0) {
+	if(((void *)self.Latitude) != 0) {
 		xmlAddChild(node, [self.Latitude xmlNodeForDoc:node->doc elementName:@"Latitude" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Longitude != 0) {
+	if(((void *)self.Longitude) != 0) {
 		xmlAddChild(node, [self.Longitude xmlNodeForDoc:node->doc elementName:@"Longitude" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -538,37 +538,37 @@ NSString * MFBWebServiceSvc_ImageFileType_stringFromEnum(MFBWebServiceSvc_ImageF
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.Width != 0) {
+	if(((void *)self.Width) != 0) {
 		xmlAddChild(node, [self.Width xmlNodeForDoc:node->doc elementName:@"Width" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Height != 0) {
+	if(((void *)self.Height) != 0) {
 		xmlAddChild(node, [self.Height xmlNodeForDoc:node->doc elementName:@"Height" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.WidthThumbnail != 0) {
+	if(((void *)self.WidthThumbnail) != 0) {
 		xmlAddChild(node, [self.WidthThumbnail xmlNodeForDoc:node->doc elementName:@"WidthThumbnail" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.HeightThumbnail != 0) {
+	if(((void *)self.HeightThumbnail) != 0) {
 		xmlAddChild(node, [self.HeightThumbnail xmlNodeForDoc:node->doc elementName:@"HeightThumbnail" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.ImageType != 0) {
+	if(((void *)self.ImageType) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:ImageType", [MFBWebServiceSvc_ImageFileType_stringFromEnum(self.ImageType) xmlString]);
 	}
-	if(self.Comment != 0) {
+	if(((void *)self.Comment) != 0) {
 		xmlAddChild(node, [self.Comment xmlNodeForDoc:node->doc elementName:@"Comment" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.VirtualPath != 0) {
+	if(((void *)self.VirtualPath) != 0) {
 		xmlAddChild(node, [self.VirtualPath xmlNodeForDoc:node->doc elementName:@"VirtualPath" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.ThumbnailFile != 0) {
+	if(((void *)self.ThumbnailFile) != 0) {
 		xmlAddChild(node, [self.ThumbnailFile xmlNodeForDoc:node->doc elementName:@"ThumbnailFile" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Location != 0) {
+	if(((void *)self.Location) != 0) {
 		xmlAddChild(node, [self.Location xmlNodeForDoc:node->doc elementName:@"Location" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.URLFullImage != 0) {
+	if(((void *)self.URLFullImage) != 0) {
 		xmlAddChild(node, [self.URLFullImage xmlNodeForDoc:node->doc elementName:@"URLFullImage" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.URLThumbnail != 0) {
+	if(((void *)self.URLThumbnail) != 0) {
 		xmlAddChild(node, [self.URLThumbnail xmlNodeForDoc:node->doc elementName:@"URLThumbnail" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -1044,7 +1044,7 @@ NSString * MFBWebServiceSvc_ImageFileType_stringFromEnum(MFBWebServiceSvc_ImageF
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.MFBImageInfo != 0) {
+	if(((void *)self.MFBImageInfo) != 0) {
 		for(MFBWebServiceSvc_MFBImageInfo * child in self.MFBImageInfo) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"MFBImageInfo" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -1335,94 +1335,94 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.InstanceTypeID != 0) {
+	if(((void *)self.InstanceTypeID) != 0) {
 		xmlAddChild(node, [self.InstanceTypeID xmlNodeForDoc:node->doc elementName:@"InstanceTypeID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.InstanceType != 0) {
+	if(((void *)self.InstanceType) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:InstanceType", [MFBWebServiceSvc_AircraftInstanceTypes_stringFromEnum(self.InstanceType) xmlString]);
 	}
-	if(self.InstanceTypeDescription != 0) {
+	if(((void *)self.InstanceTypeDescription) != 0) {
 		xmlAddChild(node, [self.InstanceTypeDescription xmlNodeForDoc:node->doc elementName:@"InstanceTypeDescription" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.LastVOR != 0) {
+	if(((void *)self.LastVOR) != 0) {
 		xmlAddChild(node, [self.LastVOR xmlNodeForDoc:node->doc elementName:@"LastVOR" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.LastAltimeter != 0) {
+	if(((void *)self.LastAltimeter) != 0) {
 		xmlAddChild(node, [self.LastAltimeter xmlNodeForDoc:node->doc elementName:@"LastAltimeter" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.LastTransponder != 0) {
+	if(((void *)self.LastTransponder) != 0) {
 		xmlAddChild(node, [self.LastTransponder xmlNodeForDoc:node->doc elementName:@"LastTransponder" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.LastELT != 0) {
+	if(((void *)self.LastELT) != 0) {
 		xmlAddChild(node, [self.LastELT xmlNodeForDoc:node->doc elementName:@"LastELT" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.LastStatic != 0) {
+	if(((void *)self.LastStatic) != 0) {
 		xmlAddChild(node, [self.LastStatic xmlNodeForDoc:node->doc elementName:@"LastStatic" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Last100 != 0) {
+	if(((void *)self.Last100) != 0) {
 		xmlAddChild(node, [self.Last100 xmlNodeForDoc:node->doc elementName:@"Last100" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.LastOilChange != 0) {
+	if(((void *)self.LastOilChange) != 0) {
 		xmlAddChild(node, [self.LastOilChange xmlNodeForDoc:node->doc elementName:@"LastOilChange" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.LastNewEngine != 0) {
+	if(((void *)self.LastNewEngine) != 0) {
 		xmlAddChild(node, [self.LastNewEngine xmlNodeForDoc:node->doc elementName:@"LastNewEngine" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.LastAnnual != 0) {
+	if(((void *)self.LastAnnual) != 0) {
 		xmlAddChild(node, [self.LastAnnual xmlNodeForDoc:node->doc elementName:@"LastAnnual" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.IsGlass != 0) {
+	if(((void *)self.IsGlass) != 0) {
 		xmlAddChild(node, [self.IsGlass xmlNodeForDoc:node->doc elementName:@"IsGlass" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.AircraftImages != 0) {
+	if(((void *)self.AircraftImages) != 0) {
 		xmlAddChild(node, [self.AircraftImages xmlNodeForDoc:node->doc elementName:@"AircraftImages" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.AircraftID != 0) {
+	if(((void *)self.AircraftID) != 0) {
 		xmlAddChild(node, [self.AircraftID xmlNodeForDoc:node->doc elementName:@"AircraftID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.ModelCommonName != 0) {
+	if(((void *)self.ModelCommonName) != 0) {
 		xmlAddChild(node, [self.ModelCommonName xmlNodeForDoc:node->doc elementName:@"ModelCommonName" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.TailNumber != 0) {
+	if(((void *)self.TailNumber) != 0) {
 		xmlAddChild(node, [self.TailNumber xmlNodeForDoc:node->doc elementName:@"TailNumber" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.ModelID != 0) {
+	if(((void *)self.ModelID) != 0) {
 		xmlAddChild(node, [self.ModelID xmlNodeForDoc:node->doc elementName:@"ModelID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.ModelDescription != 0) {
+	if(((void *)self.ModelDescription) != 0) {
 		xmlAddChild(node, [self.ModelDescription xmlNodeForDoc:node->doc elementName:@"ModelDescription" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.ErrorString != 0) {
+	if(((void *)self.ErrorString) != 0) {
 		xmlAddChild(node, [self.ErrorString xmlNodeForDoc:node->doc elementName:@"ErrorString" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.HideFromSelection != 0) {
+	if(((void *)self.HideFromSelection) != 0) {
 		xmlAddChild(node, [self.HideFromSelection xmlNodeForDoc:node->doc elementName:@"HideFromSelection" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Version != 0) {
+	if(((void *)self.Version) != 0) {
 		xmlAddChild(node, [self.Version xmlNodeForDoc:node->doc elementName:@"Version" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.DefaultImage != 0) {
+	if(((void *)self.DefaultImage) != 0) {
 		xmlAddChild(node, [self.DefaultImage xmlNodeForDoc:node->doc elementName:@"DefaultImage" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.RoleForPilot != 0) {
+	if(((void *)self.RoleForPilot) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:RoleForPilot", [MFBWebServiceSvc_PilotRole_stringFromEnum(self.RoleForPilot) xmlString]);
 	}
-	if(self.RegistrationDue != 0) {
+	if(((void *)self.RegistrationDue) != 0) {
 		xmlAddChild(node, [self.RegistrationDue xmlNodeForDoc:node->doc elementName:@"RegistrationDue" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.PublicNotes != 0) {
+	if(((void *)self.PublicNotes) != 0) {
 		xmlAddChild(node, [self.PublicNotes xmlNodeForDoc:node->doc elementName:@"PublicNotes" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.PrivateNotes != 0) {
+	if(((void *)self.PrivateNotes) != 0) {
 		xmlAddChild(node, [self.PrivateNotes xmlNodeForDoc:node->doc elementName:@"PrivateNotes" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.ICAO != 0) {
+	if(((void *)self.ICAO) != 0) {
 		xmlAddChild(node, [self.ICAO xmlNodeForDoc:node->doc elementName:@"ICAO" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.GlassUpgradeDate != 0) {
+	if(((void *)self.GlassUpgradeDate) != 0) {
 		xmlAddChild(node, [self.GlassUpgradeDate xmlNodeForDoc:node->doc elementName:@"GlassUpgradeDate" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.AvionicsTechnologyUpgrade != 0) {
+	if(((void *)self.AvionicsTechnologyUpgrade) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:AvionicsTechnologyUpgrade", [MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(self.AvionicsTechnologyUpgrade) xmlString]);
 	}
 }
@@ -2488,7 +2488,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.Aircraft != 0) {
+	if(((void *)self.Aircraft) != 0) {
 		for(MFBWebServiceSvc_Aircraft * child in self.Aircraft) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"Aircraft" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -2658,7 +2658,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.AircraftForUserResult != 0) {
+	if(((void *)self.AircraftForUserResult) != 0) {
 		xmlAddChild(node, [self.AircraftForUserResult xmlNodeForDoc:node->doc elementName:@"AircraftForUserResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -2828,16 +2828,16 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.szAuthUserToken != 0) {
+	if(((void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.szTail != 0) {
+	if(((void *)self.szTail) != 0) {
 		xmlAddChild(node, [self.szTail xmlNodeForDoc:node->doc elementName:@"szTail" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.idModel != 0) {
+	if(((void *)self.idModel) != 0) {
 		xmlAddChild(node, [self.idModel xmlNodeForDoc:node->doc elementName:@"idModel" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.idInstanceType != 0) {
+	if(((void *)self.idInstanceType) != 0) {
 		xmlAddChild(node, [self.idInstanceType xmlNodeForDoc:node->doc elementName:@"idInstanceType" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -3103,7 +3103,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.AddAircraftForUserResult != 0) {
+	if(((void *)self.AddAircraftForUserResult) != 0) {
 		xmlAddChild(node, [self.AddAircraftForUserResult xmlNodeForDoc:node->doc elementName:@"AddAircraftForUserResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -3269,10 +3269,10 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.szAuthUserToken != 0) {
+	if(((void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.ac != 0) {
+	if(((void *)self.ac) != 0) {
 		xmlAddChild(node, [self.ac xmlNodeForDoc:node->doc elementName:@"ac" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -3584,10 +3584,10 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.szAuthUserToken != 0) {
+	if(((void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.ac != 0) {
+	if(((void *)self.ac) != 0) {
 		xmlAddChild(node, [self.ac xmlNodeForDoc:node->doc elementName:@"ac" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -3899,10 +3899,10 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.szAuthUserToken != 0) {
+	if(((void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.idAircraft != 0) {
+	if(((void *)self.idAircraft) != 0) {
 		xmlAddChild(node, [self.idAircraft xmlNodeForDoc:node->doc elementName:@"idAircraft" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -4100,7 +4100,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.DeleteAircraftForUserResult != 0) {
+	if(((void *)self.DeleteAircraftForUserResult) != 0) {
 		xmlAddChild(node, [self.DeleteAircraftForUserResult xmlNodeForDoc:node->doc elementName:@"DeleteAircraftForUserResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -4378,10 +4378,10 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.ModelID != 0) {
+	if(((void *)self.ModelID) != 0) {
 		xmlAddChild(node, [self.ModelID xmlNodeForDoc:node->doc elementName:@"ModelID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Description != 0) {
+	if(((void *)self.Description) != 0) {
 		xmlAddChild(node, [self.Description xmlNodeForDoc:node->doc elementName:@"Description" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -4579,7 +4579,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.SimpleMakeModel != 0) {
+	if(((void *)self.SimpleMakeModel) != 0) {
 		for(MFBWebServiceSvc_SimpleMakeModel * child in self.SimpleMakeModel) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"SimpleMakeModel" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -4749,7 +4749,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.MakesAndModelsResult != 0) {
+	if(((void *)self.MakesAndModelsResult) != 0) {
 		xmlAddChild(node, [self.MakesAndModelsResult xmlNodeForDoc:node->doc elementName:@"MakesAndModelsResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -4913,7 +4913,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.szAuthToken != 0) {
+	if(((void *)self.szAuthToken) != 0) {
 		xmlAddChild(node, [self.szAuthToken xmlNodeForDoc:node->doc elementName:@"szAuthToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -5402,19 +5402,19 @@ NSString * MFBWebServiceSvc_CatClassID_stringFromEnum(MFBWebServiceSvc_CatClassI
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.CatClass != 0) {
+	if(((void *)self.CatClass) != 0) {
 		xmlAddChild(node, [self.CatClass xmlNodeForDoc:node->doc elementName:@"CatClass" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Category_ != 0) {
+	if(((void *)self.Category_) != 0) {
 		xmlAddChild(node, [self.Category_ xmlNodeForDoc:node->doc elementName:@"Category" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Class_ != 0) {
+	if(((void *)self.Class_) != 0) {
 		xmlAddChild(node, [self.Class_ xmlNodeForDoc:node->doc elementName:@"Class" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.AltCatClass != 0) {
+	if(((void *)self.AltCatClass) != 0) {
 		xmlAddChild(node, [self.AltCatClass xmlNodeForDoc:node->doc elementName:@"AltCatClass" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.IdCatClass != 0) {
+	if(((void *)self.IdCatClass) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:IdCatClass", [MFBWebServiceSvc_CatClassID_stringFromEnum(self.IdCatClass) xmlString]);
 	}
 }
@@ -5686,7 +5686,7 @@ NSString * MFBWebServiceSvc_CatClassID_stringFromEnum(MFBWebServiceSvc_CatClassI
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.CategoryClass != 0) {
+	if(((void *)self.CategoryClass) != 0) {
 		for(MFBWebServiceSvc_CategoryClass * child in self.CategoryClass) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"CategoryClass" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -5910,7 +5910,7 @@ NSString * MFBWebServiceSvc_CFPPropertyType_stringFromEnum(MFBWebServiceSvc_CFPP
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.string != 0) {
+	if(((void *)self.string) != 0) {
 		for(NSString * child in self.string) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"string" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -6095,31 +6095,31 @@ NSString * MFBWebServiceSvc_CFPPropertyType_stringFromEnum(MFBWebServiceSvc_CFPP
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.PropTypeID != 0) {
+	if(((void *)self.PropTypeID) != 0) {
 		xmlAddChild(node, [self.PropTypeID xmlNodeForDoc:node->doc elementName:@"PropTypeID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Title != 0) {
+	if(((void *)self.Title) != 0) {
 		xmlAddChild(node, [self.Title xmlNodeForDoc:node->doc elementName:@"Title" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.SortKey != 0) {
+	if(((void *)self.SortKey) != 0) {
 		xmlAddChild(node, [self.SortKey xmlNodeForDoc:node->doc elementName:@"SortKey" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.IsFavorite != 0) {
+	if(((void *)self.IsFavorite) != 0) {
 		xmlAddChild(node, [self.IsFavorite xmlNodeForDoc:node->doc elementName:@"IsFavorite" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.FormatString != 0) {
+	if(((void *)self.FormatString) != 0) {
 		xmlAddChild(node, [self.FormatString xmlNodeForDoc:node->doc elementName:@"FormatString" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Type != 0) {
+	if(((void *)self.Type) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:Type", [MFBWebServiceSvc_CFPPropertyType_stringFromEnum(self.Type) xmlString]);
 	}
-	if(self.Description != 0) {
+	if(((void *)self.Description) != 0) {
 		xmlAddChild(node, [self.Description xmlNodeForDoc:node->doc elementName:@"Description" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Flags != 0) {
+	if(((void *)self.Flags) != 0) {
 		xmlAddChild(node, [self.Flags xmlNodeForDoc:node->doc elementName:@"Flags" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.PreviousValues != 0) {
+	if(((void *)self.PreviousValues) != 0) {
 		xmlAddChild(node, [self.PreviousValues xmlNodeForDoc:node->doc elementName:@"PreviousValues" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -6527,7 +6527,7 @@ NSString * MFBWebServiceSvc_CFPPropertyType_stringFromEnum(MFBWebServiceSvc_CFPP
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.CustomPropertyType != 0) {
+	if(((void *)self.CustomPropertyType) != 0) {
 		for(MFBWebServiceSvc_CustomPropertyType * child in self.CustomPropertyType) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"CustomPropertyType" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -6842,79 +6842,79 @@ NSString * MFBWebServiceSvc_TurbineLevel_stringFromEnum(MFBWebServiceSvc_Turbine
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.AllowedTypes != 0) {
+	if(((void *)self.AllowedTypes) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:AllowedTypes", [MFBWebServiceSvc_AllowedAircraftTypes_stringFromEnum(self.AllowedTypes) xmlString]);
 	}
-	if(self.CategoryClassDisplay != 0) {
+	if(((void *)self.CategoryClassDisplay) != 0) {
 		xmlAddChild(node, [self.CategoryClassDisplay xmlNodeForDoc:node->doc elementName:@"CategoryClassDisplay" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.ManufacturerDisplay != 0) {
+	if(((void *)self.ManufacturerDisplay) != 0) {
 		xmlAddChild(node, [self.ManufacturerDisplay xmlNodeForDoc:node->doc elementName:@"ManufacturerDisplay" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.AvionicsTechnology != 0) {
+	if(((void *)self.AvionicsTechnology) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:AvionicsTechnology", [MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(self.AvionicsTechnology) xmlString]);
 	}
-	if(self.ArmyMDS != 0) {
+	if(((void *)self.ArmyMDS) != 0) {
 		xmlAddChild(node, [self.ArmyMDS xmlNodeForDoc:node->doc elementName:@"ArmyMDS" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.ErrorString != 0) {
+	if(((void *)self.ErrorString) != 0) {
 		xmlAddChild(node, [self.ErrorString xmlNodeForDoc:node->doc elementName:@"ErrorString" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.MakeModelID != 0) {
+	if(((void *)self.MakeModelID) != 0) {
 		xmlAddChild(node, [self.MakeModelID xmlNodeForDoc:node->doc elementName:@"MakeModelID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Model != 0) {
+	if(((void *)self.Model) != 0) {
 		xmlAddChild(node, [self.Model xmlNodeForDoc:node->doc elementName:@"Model" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.ModelName != 0) {
+	if(((void *)self.ModelName) != 0) {
 		xmlAddChild(node, [self.ModelName xmlNodeForDoc:node->doc elementName:@"ModelName" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.TypeName != 0) {
+	if(((void *)self.TypeName) != 0) {
 		xmlAddChild(node, [self.TypeName xmlNodeForDoc:node->doc elementName:@"TypeName" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.FamilyName != 0) {
+	if(((void *)self.FamilyName) != 0) {
 		xmlAddChild(node, [self.FamilyName xmlNodeForDoc:node->doc elementName:@"FamilyName" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.CategoryClassID != 0) {
+	if(((void *)self.CategoryClassID) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:CategoryClassID", [MFBWebServiceSvc_CatClassID_stringFromEnum(self.CategoryClassID) xmlString]);
 	}
-	if(self.ManufacturerID != 0) {
+	if(((void *)self.ManufacturerID) != 0) {
 		xmlAddChild(node, [self.ManufacturerID xmlNodeForDoc:node->doc elementName:@"ManufacturerID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.IsComplex != 0) {
+	if(((void *)self.IsComplex) != 0) {
 		xmlAddChild(node, [self.IsComplex xmlNodeForDoc:node->doc elementName:@"IsComplex" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.IsHighPerf != 0) {
+	if(((void *)self.IsHighPerf) != 0) {
 		xmlAddChild(node, [self.IsHighPerf xmlNodeForDoc:node->doc elementName:@"IsHighPerf" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Is200HP != 0) {
+	if(((void *)self.Is200HP) != 0) {
 		xmlAddChild(node, [self.Is200HP xmlNodeForDoc:node->doc elementName:@"Is200HP" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.PerformanceType != 0) {
+	if(((void *)self.PerformanceType) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:PerformanceType", [MFBWebServiceSvc_HighPerfType_stringFromEnum(self.PerformanceType) xmlString]);
 	}
-	if(self.IsTailWheel != 0) {
+	if(((void *)self.IsTailWheel) != 0) {
 		xmlAddChild(node, [self.IsTailWheel xmlNodeForDoc:node->doc elementName:@"IsTailWheel" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.IsConstantProp != 0) {
+	if(((void *)self.IsConstantProp) != 0) {
 		xmlAddChild(node, [self.IsConstantProp xmlNodeForDoc:node->doc elementName:@"IsConstantProp" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.HasFlaps != 0) {
+	if(((void *)self.HasFlaps) != 0) {
 		xmlAddChild(node, [self.HasFlaps xmlNodeForDoc:node->doc elementName:@"HasFlaps" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.IsRetract != 0) {
+	if(((void *)self.IsRetract) != 0) {
 		xmlAddChild(node, [self.IsRetract xmlNodeForDoc:node->doc elementName:@"IsRetract" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.EngineType != 0) {
+	if(((void *)self.EngineType) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:EngineType", [MFBWebServiceSvc_TurbineLevel_stringFromEnum(self.EngineType) xmlString]);
 	}
-	if(self.IsCertifiedSinglePilot != 0) {
+	if(((void *)self.IsCertifiedSinglePilot) != 0) {
 		xmlAddChild(node, [self.IsCertifiedSinglePilot xmlNodeForDoc:node->doc elementName:@"IsCertifiedSinglePilot" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.IsMotorGlider != 0) {
+	if(((void *)self.IsMotorGlider) != 0) {
 		xmlAddChild(node, [self.IsMotorGlider xmlNodeForDoc:node->doc elementName:@"IsMotorGlider" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.IsMultiEngineHelicopter != 0) {
+	if(((void *)self.IsMultiEngineHelicopter) != 0) {
 		xmlAddChild(node, [self.IsMultiEngineHelicopter xmlNodeForDoc:node->doc elementName:@"IsMultiEngineHelicopter" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -7754,7 +7754,7 @@ NSString * MFBWebServiceSvc_TurbineLevel_stringFromEnum(MFBWebServiceSvc_Turbine
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.MakeModel != 0) {
+	if(((void *)self.MakeModel) != 0) {
 		for(MFBWebServiceSvc_MakeModel * child in self.MakeModel) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"MakeModel" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -8088,142 +8088,142 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.DateRange != 0) {
+	if(((void *)self.DateRange) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:DateRange", [MFBWebServiceSvc_DateRanges_stringFromEnum(self.DateRange) xmlString]);
 	}
-	if(self.Distance != 0) {
+	if(((void *)self.Distance) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:Distance", [MFBWebServiceSvc_FlightDistance_stringFromEnum(self.Distance) xmlString]);
 	}
-	if(self.CatClasses != 0) {
+	if(((void *)self.CatClasses) != 0) {
 		xmlAddChild(node, [self.CatClasses xmlNodeForDoc:node->doc elementName:@"CatClasses" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.PropertyTypes != 0) {
+	if(((void *)self.PropertyTypes) != 0) {
 		xmlAddChild(node, [self.PropertyTypes xmlNodeForDoc:node->doc elementName:@"PropertyTypes" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.UserName != 0) {
+	if(((void *)self.UserName) != 0) {
 		xmlAddChild(node, [self.UserName xmlNodeForDoc:node->doc elementName:@"UserName" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.IsPublic != 0) {
+	if(((void *)self.IsPublic) != 0) {
 		xmlAddChild(node, [self.IsPublic xmlNodeForDoc:node->doc elementName:@"IsPublic" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.HasNightLandings != 0) {
+	if(((void *)self.HasNightLandings) != 0) {
 		xmlAddChild(node, [self.HasNightLandings xmlNodeForDoc:node->doc elementName:@"HasNightLandings" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.HasFullStopLandings != 0) {
+	if(((void *)self.HasFullStopLandings) != 0) {
 		xmlAddChild(node, [self.HasFullStopLandings xmlNodeForDoc:node->doc elementName:@"HasFullStopLandings" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.HasLandings != 0) {
+	if(((void *)self.HasLandings) != 0) {
 		xmlAddChild(node, [self.HasLandings xmlNodeForDoc:node->doc elementName:@"HasLandings" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.HasApproaches != 0) {
+	if(((void *)self.HasApproaches) != 0) {
 		xmlAddChild(node, [self.HasApproaches xmlNodeForDoc:node->doc elementName:@"HasApproaches" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.HasHolds != 0) {
+	if(((void *)self.HasHolds) != 0) {
 		xmlAddChild(node, [self.HasHolds xmlNodeForDoc:node->doc elementName:@"HasHolds" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.HasXC != 0) {
+	if(((void *)self.HasXC) != 0) {
 		xmlAddChild(node, [self.HasXC xmlNodeForDoc:node->doc elementName:@"HasXC" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.HasSimIMCTime != 0) {
+	if(((void *)self.HasSimIMCTime) != 0) {
 		xmlAddChild(node, [self.HasSimIMCTime xmlNodeForDoc:node->doc elementName:@"HasSimIMCTime" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.HasGroundSim != 0) {
+	if(((void *)self.HasGroundSim) != 0) {
 		xmlAddChild(node, [self.HasGroundSim xmlNodeForDoc:node->doc elementName:@"HasGroundSim" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.HasIMC != 0) {
+	if(((void *)self.HasIMC) != 0) {
 		xmlAddChild(node, [self.HasIMC xmlNodeForDoc:node->doc elementName:@"HasIMC" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.HasAnyInstrument != 0) {
+	if(((void *)self.HasAnyInstrument) != 0) {
 		xmlAddChild(node, [self.HasAnyInstrument xmlNodeForDoc:node->doc elementName:@"HasAnyInstrument" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.HasNight != 0) {
+	if(((void *)self.HasNight) != 0) {
 		xmlAddChild(node, [self.HasNight xmlNodeForDoc:node->doc elementName:@"HasNight" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.HasDual != 0) {
+	if(((void *)self.HasDual) != 0) {
 		xmlAddChild(node, [self.HasDual xmlNodeForDoc:node->doc elementName:@"HasDual" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.HasCFI != 0) {
+	if(((void *)self.HasCFI) != 0) {
 		xmlAddChild(node, [self.HasCFI xmlNodeForDoc:node->doc elementName:@"HasCFI" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.HasSIC != 0) {
+	if(((void *)self.HasSIC) != 0) {
 		xmlAddChild(node, [self.HasSIC xmlNodeForDoc:node->doc elementName:@"HasSIC" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.HasPIC != 0) {
+	if(((void *)self.HasPIC) != 0) {
 		xmlAddChild(node, [self.HasPIC xmlNodeForDoc:node->doc elementName:@"HasPIC" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.HasTotalTime != 0) {
+	if(((void *)self.HasTotalTime) != 0) {
 		xmlAddChild(node, [self.HasTotalTime xmlNodeForDoc:node->doc elementName:@"HasTotalTime" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.IsSigned != 0) {
+	if(((void *)self.IsSigned) != 0) {
 		xmlAddChild(node, [self.IsSigned xmlNodeForDoc:node->doc elementName:@"IsSigned" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.DateMin != 0) {
+	if(((void *)self.DateMin) != 0) {
 		xmlAddChild(node, [self.DateMin xmlNodeForDoc:node->doc elementName:@"DateMin" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.DateMax != 0) {
+	if(((void *)self.DateMax) != 0) {
 		xmlAddChild(node, [self.DateMax xmlNodeForDoc:node->doc elementName:@"DateMax" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.GeneralText != 0) {
+	if(((void *)self.GeneralText) != 0) {
 		xmlAddChild(node, [self.GeneralText xmlNodeForDoc:node->doc elementName:@"GeneralText" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.AircraftList != 0) {
+	if(((void *)self.AircraftList) != 0) {
 		xmlAddChild(node, [self.AircraftList xmlNodeForDoc:node->doc elementName:@"AircraftList" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.AirportList != 0) {
+	if(((void *)self.AirportList) != 0) {
 		xmlAddChild(node, [self.AirportList xmlNodeForDoc:node->doc elementName:@"AirportList" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.MakeList != 0) {
+	if(((void *)self.MakeList) != 0) {
 		xmlAddChild(node, [self.MakeList xmlNodeForDoc:node->doc elementName:@"MakeList" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.ModelName != 0) {
+	if(((void *)self.ModelName) != 0) {
 		xmlAddChild(node, [self.ModelName xmlNodeForDoc:node->doc elementName:@"ModelName" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.TypeNames != 0) {
+	if(((void *)self.TypeNames) != 0) {
 		xmlAddChild(node, [self.TypeNames xmlNodeForDoc:node->doc elementName:@"TypeNames" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.IsComplex != 0) {
+	if(((void *)self.IsComplex) != 0) {
 		xmlAddChild(node, [self.IsComplex xmlNodeForDoc:node->doc elementName:@"IsComplex" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.HasFlaps != 0) {
+	if(((void *)self.HasFlaps) != 0) {
 		xmlAddChild(node, [self.HasFlaps xmlNodeForDoc:node->doc elementName:@"HasFlaps" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.IsHighPerformance != 0) {
+	if(((void *)self.IsHighPerformance) != 0) {
 		xmlAddChild(node, [self.IsHighPerformance xmlNodeForDoc:node->doc elementName:@"IsHighPerformance" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.IsConstantSpeedProp != 0) {
+	if(((void *)self.IsConstantSpeedProp) != 0) {
 		xmlAddChild(node, [self.IsConstantSpeedProp xmlNodeForDoc:node->doc elementName:@"IsConstantSpeedProp" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.IsRetract != 0) {
+	if(((void *)self.IsRetract) != 0) {
 		xmlAddChild(node, [self.IsRetract xmlNodeForDoc:node->doc elementName:@"IsRetract" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.IsTechnicallyAdvanced != 0) {
+	if(((void *)self.IsTechnicallyAdvanced) != 0) {
 		xmlAddChild(node, [self.IsTechnicallyAdvanced xmlNodeForDoc:node->doc elementName:@"IsTechnicallyAdvanced" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.IsGlass != 0) {
+	if(((void *)self.IsGlass) != 0) {
 		xmlAddChild(node, [self.IsGlass xmlNodeForDoc:node->doc elementName:@"IsGlass" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.IsTailwheel != 0) {
+	if(((void *)self.IsTailwheel) != 0) {
 		xmlAddChild(node, [self.IsTailwheel xmlNodeForDoc:node->doc elementName:@"IsTailwheel" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.EngineType != 0) {
+	if(((void *)self.EngineType) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:EngineType", [MFBWebServiceSvc_EngineTypeRestriction_stringFromEnum(self.EngineType) xmlString]);
 	}
-	if(self.IsMultiEngineHeli != 0) {
+	if(((void *)self.IsMultiEngineHeli) != 0) {
 		xmlAddChild(node, [self.IsMultiEngineHeli xmlNodeForDoc:node->doc elementName:@"IsMultiEngineHeli" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.IsTurbine != 0) {
+	if(((void *)self.IsTurbine) != 0) {
 		xmlAddChild(node, [self.IsTurbine xmlNodeForDoc:node->doc elementName:@"IsTurbine" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.HasTelemetry != 0) {
+	if(((void *)self.HasTelemetry) != 0) {
 		xmlAddChild(node, [self.HasTelemetry xmlNodeForDoc:node->doc elementName:@"HasTelemetry" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.HasImages != 0) {
+	if(((void *)self.HasImages) != 0) {
 		xmlAddChild(node, [self.HasImages xmlNodeForDoc:node->doc elementName:@"HasImages" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.IsMotorglider != 0) {
+	if(((void *)self.IsMotorglider) != 0) {
 		xmlAddChild(node, [self.IsMotorglider xmlNodeForDoc:node->doc elementName:@"IsMotorglider" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.AircraftInstanceTypes != 0) {
+	if(((void *)self.AircraftInstanceTypes) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:AircraftInstanceTypes", [MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(self.AircraftInstanceTypes) xmlString]);
 	}
 }
@@ -9815,25 +9815,25 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.Attribute != 0) {
+	if(((void *)self.Attribute) != 0) {
 		xmlAddChild(node, [self.Attribute xmlNodeForDoc:node->doc elementName:@"Attribute" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Value != 0) {
+	if(((void *)self.Value) != 0) {
 		xmlAddChild(node, [self.Value xmlNodeForDoc:node->doc elementName:@"Value" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Status != 0) {
+	if(((void *)self.Status) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:Status", [MFBWebServiceSvc_CurrencyState_stringFromEnum(self.Status) xmlString]);
 	}
-	if(self.Discrepancy != 0) {
+	if(((void *)self.Discrepancy) != 0) {
 		xmlAddChild(node, [self.Discrepancy xmlNodeForDoc:node->doc elementName:@"Discrepancy" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.AssociatedResourceID != 0) {
+	if(((void *)self.AssociatedResourceID) != 0) {
 		xmlAddChild(node, [self.AssociatedResourceID xmlNodeForDoc:node->doc elementName:@"AssociatedResourceID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.CurrencyGroup != 0) {
+	if(((void *)self.CurrencyGroup) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:CurrencyGroup", [MFBWebServiceSvc_CurrencyGroups_stringFromEnum(self.CurrencyGroup) xmlString]);
 	}
-	if(self.Query != 0) {
+	if(((void *)self.Query) != 0) {
 		xmlAddChild(node, [self.Query xmlNodeForDoc:node->doc elementName:@"Query" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -10145,7 +10145,7 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.CurrencyStatusItem != 0) {
+	if(((void *)self.CurrencyStatusItem) != 0) {
 		for(MFBWebServiceSvc_CurrencyStatusItem * child in self.CurrencyStatusItem) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"CurrencyStatusItem" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -10315,7 +10315,7 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.GetCurrencyForUserResult != 0) {
+	if(((void *)self.GetCurrencyForUserResult) != 0) {
 		xmlAddChild(node, [self.GetCurrencyForUserResult xmlNodeForDoc:node->doc elementName:@"GetCurrencyForUserResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -10481,10 +10481,10 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.szAuthToken != 0) {
+	if(((void *)self.szAuthToken) != 0) {
 		xmlAddChild(node, [self.szAuthToken xmlNodeForDoc:node->doc elementName:@"szAuthToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.dtMin != 0) {
+	if(((void *)self.dtMin) != 0) {
 		xmlAddChild(node, [self.dtMin xmlNodeForDoc:node->doc elementName:@"dtMin" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -10731,28 +10731,28 @@ NSString * MFBWebServiceSvc_NumType_stringFromEnum(MFBWebServiceSvc_NumType enum
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.Value != 0) {
+	if(((void *)self.Value) != 0) {
 		xmlAddChild(node, [self.Value xmlNodeForDoc:node->doc elementName:@"Value" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Description != 0) {
+	if(((void *)self.Description) != 0) {
 		xmlAddChild(node, [self.Description xmlNodeForDoc:node->doc elementName:@"Description" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.SubDescription != 0) {
+	if(((void *)self.SubDescription) != 0) {
 		xmlAddChild(node, [self.SubDescription xmlNodeForDoc:node->doc elementName:@"SubDescription" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.NumericType != 0) {
+	if(((void *)self.NumericType) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:NumericType", [MFBWebServiceSvc_NumType_stringFromEnum(self.NumericType) xmlString]);
 	}
-	if(self.IsInt != 0) {
+	if(((void *)self.IsInt) != 0) {
 		xmlAddChild(node, [self.IsInt xmlNodeForDoc:node->doc elementName:@"IsInt" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.IsTime != 0) {
+	if(((void *)self.IsTime) != 0) {
 		xmlAddChild(node, [self.IsTime xmlNodeForDoc:node->doc elementName:@"IsTime" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.IsCurrency != 0) {
+	if(((void *)self.IsCurrency) != 0) {
 		xmlAddChild(node, [self.IsCurrency xmlNodeForDoc:node->doc elementName:@"IsCurrency" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Query != 0) {
+	if(((void *)self.Query) != 0) {
 		xmlAddChild(node, [self.Query xmlNodeForDoc:node->doc elementName:@"Query" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -11126,7 +11126,7 @@ NSString * MFBWebServiceSvc_NumType_stringFromEnum(MFBWebServiceSvc_NumType enum
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.TotalsItem != 0) {
+	if(((void *)self.TotalsItem) != 0) {
 		for(MFBWebServiceSvc_TotalsItem * child in self.TotalsItem) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"TotalsItem" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -11296,7 +11296,7 @@ NSString * MFBWebServiceSvc_NumType_stringFromEnum(MFBWebServiceSvc_NumType enum
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.TotalsForUserResult != 0) {
+	if(((void *)self.TotalsForUserResult) != 0) {
 		xmlAddChild(node, [self.TotalsForUserResult xmlNodeForDoc:node->doc elementName:@"TotalsForUserResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -11462,10 +11462,10 @@ NSString * MFBWebServiceSvc_NumType_stringFromEnum(MFBWebServiceSvc_NumType enum
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.szAuthToken != 0) {
+	if(((void *)self.szAuthToken) != 0) {
 		xmlAddChild(node, [self.szAuthToken xmlNodeForDoc:node->doc elementName:@"szAuthToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.fq != 0) {
+	if(((void *)self.fq) != 0) {
 		xmlAddChild(node, [self.fq xmlNodeForDoc:node->doc elementName:@"fq" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -11663,7 +11663,7 @@ NSString * MFBWebServiceSvc_NumType_stringFromEnum(MFBWebServiceSvc_NumType enum
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.TotalsForUserWithQueryResult != 0) {
+	if(((void *)self.TotalsForUserWithQueryResult) != 0) {
 		xmlAddChild(node, [self.TotalsForUserWithQueryResult xmlNodeForDoc:node->doc elementName:@"TotalsForUserWithQueryResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -11827,7 +11827,7 @@ NSString * MFBWebServiceSvc_NumType_stringFromEnum(MFBWebServiceSvc_NumType enum
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.szAuthToken != 0) {
+	if(((void *)self.szAuthToken) != 0) {
 		xmlAddChild(node, [self.szAuthToken xmlNodeForDoc:node->doc elementName:@"szAuthToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -12009,34 +12009,34 @@ NSString * MFBWebServiceSvc_NumType_stringFromEnum(MFBWebServiceSvc_NumType enum
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.DistanceFromPosition != 0) {
+	if(((void *)self.DistanceFromPosition) != 0) {
 		xmlAddChild(node, [self.DistanceFromPosition xmlNodeForDoc:node->doc elementName:@"DistanceFromPosition" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.UserName != 0) {
+	if(((void *)self.UserName) != 0) {
 		xmlAddChild(node, [self.UserName xmlNodeForDoc:node->doc elementName:@"UserName" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.FacilityTypeCode != 0) {
+	if(((void *)self.FacilityTypeCode) != 0) {
 		xmlAddChild(node, [self.FacilityTypeCode xmlNodeForDoc:node->doc elementName:@"FacilityTypeCode" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.FacilityType != 0) {
+	if(((void *)self.FacilityType) != 0) {
 		xmlAddChild(node, [self.FacilityType xmlNodeForDoc:node->doc elementName:@"FacilityType" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Code != 0) {
+	if(((void *)self.Code) != 0) {
 		xmlAddChild(node, [self.Code xmlNodeForDoc:node->doc elementName:@"Code" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Name != 0) {
+	if(((void *)self.Name) != 0) {
 		xmlAddChild(node, [self.Name xmlNodeForDoc:node->doc elementName:@"Name" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.LatLong != 0) {
+	if(((void *)self.LatLong) != 0) {
 		xmlAddChild(node, [self.LatLong xmlNodeForDoc:node->doc elementName:@"LatLong" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Latitude != 0) {
+	if(((void *)self.Latitude) != 0) {
 		xmlAddChild(node, [self.Latitude xmlNodeForDoc:node->doc elementName:@"Latitude" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Longitude != 0) {
+	if(((void *)self.Longitude) != 0) {
 		xmlAddChild(node, [self.Longitude xmlNodeForDoc:node->doc elementName:@"Longitude" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.ErrorText != 0) {
+	if(((void *)self.ErrorText) != 0) {
 		xmlAddChild(node, [self.ErrorText xmlNodeForDoc:node->doc elementName:@"ErrorText" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -12516,22 +12516,22 @@ NSString * MFBWebServiceSvc_NumType_stringFromEnum(MFBWebServiceSvc_NumType enum
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.Code != 0) {
+	if(((void *)self.Code) != 0) {
 		xmlAddChild(node, [self.Code xmlNodeForDoc:node->doc elementName:@"Code" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Aliases != 0) {
+	if(((void *)self.Aliases) != 0) {
 		xmlAddChild(node, [self.Aliases xmlNodeForDoc:node->doc elementName:@"Aliases" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Airport != 0) {
+	if(((void *)self.Airport) != 0) {
 		xmlAddChild(node, [self.Airport xmlNodeForDoc:node->doc elementName:@"Airport" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.EarliestVisitDate != 0) {
+	if(((void *)self.EarliestVisitDate) != 0) {
 		xmlAddChild(node, [self.EarliestVisitDate xmlNodeForDoc:node->doc elementName:@"EarliestVisitDate" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.LatestVisitDate != 0) {
+	if(((void *)self.LatestVisitDate) != 0) {
 		xmlAddChild(node, [self.LatestVisitDate xmlNodeForDoc:node->doc elementName:@"LatestVisitDate" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.NumberOfVisits != 0) {
+	if(((void *)self.NumberOfVisits) != 0) {
 		xmlAddChild(node, [self.NumberOfVisits xmlNodeForDoc:node->doc elementName:@"NumberOfVisits" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -12865,7 +12865,7 @@ NSString * MFBWebServiceSvc_NumType_stringFromEnum(MFBWebServiceSvc_NumType enum
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.VisitedAirport != 0) {
+	if(((void *)self.VisitedAirport) != 0) {
 		for(MFBWebServiceSvc_VisitedAirport * child in self.VisitedAirport) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"VisitedAirport" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -13035,7 +13035,7 @@ NSString * MFBWebServiceSvc_NumType_stringFromEnum(MFBWebServiceSvc_NumType enum
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.VisitedAirportsResult != 0) {
+	if(((void *)self.VisitedAirportsResult) != 0) {
 		xmlAddChild(node, [self.VisitedAirportsResult xmlNodeForDoc:node->doc elementName:@"VisitedAirportsResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -13205,16 +13205,16 @@ NSString * MFBWebServiceSvc_NumType_stringFromEnum(MFBWebServiceSvc_NumType enum
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.szAuthUserToken != 0) {
+	if(((void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.fq != 0) {
+	if(((void *)self.fq) != 0) {
 		xmlAddChild(node, [self.fq xmlNodeForDoc:node->doc elementName:@"fq" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.offset != 0) {
+	if(((void *)self.offset) != 0) {
 		xmlAddChild(node, [self.offset xmlNodeForDoc:node->doc elementName:@"offset" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.maxCount != 0) {
+	if(((void *)self.maxCount) != 0) {
 		xmlAddChild(node, [self.maxCount xmlNodeForDoc:node->doc elementName:@"maxCount" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -13494,28 +13494,28 @@ NSString * MFBWebServiceSvc_NumType_stringFromEnum(MFBWebServiceSvc_NumType enum
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.PropID != 0) {
+	if(((void *)self.PropID) != 0) {
 		xmlAddChild(node, [self.PropID xmlNodeForDoc:node->doc elementName:@"PropID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.FlightID != 0) {
+	if(((void *)self.FlightID) != 0) {
 		xmlAddChild(node, [self.FlightID xmlNodeForDoc:node->doc elementName:@"FlightID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.PropTypeID != 0) {
+	if(((void *)self.PropTypeID) != 0) {
 		xmlAddChild(node, [self.PropTypeID xmlNodeForDoc:node->doc elementName:@"PropTypeID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.IntValue != 0) {
+	if(((void *)self.IntValue) != 0) {
 		xmlAddChild(node, [self.IntValue xmlNodeForDoc:node->doc elementName:@"IntValue" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.BoolValue != 0) {
+	if(((void *)self.BoolValue) != 0) {
 		xmlAddChild(node, [self.BoolValue xmlNodeForDoc:node->doc elementName:@"BoolValue" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.DecValue != 0) {
+	if(((void *)self.DecValue) != 0) {
 		xmlAddChild(node, [self.DecValue xmlNodeForDoc:node->doc elementName:@"DecValue" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.DateValue != 0) {
+	if(((void *)self.DateValue) != 0) {
 		xmlAddChild(node, [self.DateValue xmlNodeForDoc:node->doc elementName:@"DateValue" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.TextValue != 0) {
+	if(((void *)self.TextValue) != 0) {
 		xmlAddChild(node, [self.TextValue xmlNodeForDoc:node->doc elementName:@"TextValue" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -13917,7 +13917,7 @@ NSString * MFBWebServiceSvc_NumType_stringFromEnum(MFBWebServiceSvc_NumType enum
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.CustomFlightProperty != 0) {
+	if(((void *)self.CustomFlightProperty) != 0) {
 		for(MFBWebServiceSvc_CustomFlightProperty * child in self.CustomFlightProperty) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"CustomFlightProperty" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -14126,22 +14126,22 @@ NSString * MFBWebServiceSvc_VideoSource_stringFromEnum(MFBWebServiceSvc_VideoSou
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.ID_ != 0) {
+	if(((void *)self.ID_) != 0) {
 		xmlAddChild(node, [self.ID_ xmlNodeForDoc:node->doc elementName:@"ID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.FlightID != 0) {
+	if(((void *)self.FlightID) != 0) {
 		xmlAddChild(node, [self.FlightID xmlNodeForDoc:node->doc elementName:@"FlightID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.VideoReference != 0) {
+	if(((void *)self.VideoReference) != 0) {
 		xmlAddChild(node, [self.VideoReference xmlNodeForDoc:node->doc elementName:@"VideoReference" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Source != 0) {
+	if(((void *)self.Source) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:Source", [MFBWebServiceSvc_VideoSource_stringFromEnum(self.Source) xmlString]);
 	}
-	if(self.Comment != 0) {
+	if(((void *)self.Comment) != 0) {
 		xmlAddChild(node, [self.Comment xmlNodeForDoc:node->doc elementName:@"Comment" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.ErrorString != 0) {
+	if(((void *)self.ErrorString) != 0) {
 		xmlAddChild(node, [self.ErrorString xmlNodeForDoc:node->doc elementName:@"ErrorString" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -14447,7 +14447,7 @@ NSString * MFBWebServiceSvc_VideoSource_stringFromEnum(MFBWebServiceSvc_VideoSou
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.VideoRef != 0) {
+	if(((void *)self.VideoRef) != 0) {
 		for(MFBWebServiceSvc_VideoRef * child in self.VideoRef) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"VideoRef" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -14744,154 +14744,154 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.User != 0) {
+	if(((void *)self.User) != 0) {
 		xmlAddChild(node, [self.User xmlNodeForDoc:node->doc elementName:@"User" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.AircraftID != 0) {
+	if(((void *)self.AircraftID) != 0) {
 		xmlAddChild(node, [self.AircraftID xmlNodeForDoc:node->doc elementName:@"AircraftID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.CatClassOverride != 0) {
+	if(((void *)self.CatClassOverride) != 0) {
 		xmlAddChild(node, [self.CatClassOverride xmlNodeForDoc:node->doc elementName:@"CatClassOverride" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.NightLandings != 0) {
+	if(((void *)self.NightLandings) != 0) {
 		xmlAddChild(node, [self.NightLandings xmlNodeForDoc:node->doc elementName:@"NightLandings" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.FullStopLandings != 0) {
+	if(((void *)self.FullStopLandings) != 0) {
 		xmlAddChild(node, [self.FullStopLandings xmlNodeForDoc:node->doc elementName:@"FullStopLandings" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Approaches != 0) {
+	if(((void *)self.Approaches) != 0) {
 		xmlAddChild(node, [self.Approaches xmlNodeForDoc:node->doc elementName:@"Approaches" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.PrecisionApproaches != 0) {
+	if(((void *)self.PrecisionApproaches) != 0) {
 		xmlAddChild(node, [self.PrecisionApproaches xmlNodeForDoc:node->doc elementName:@"PrecisionApproaches" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.NonPrecisionApproaches != 0) {
+	if(((void *)self.NonPrecisionApproaches) != 0) {
 		xmlAddChild(node, [self.NonPrecisionApproaches xmlNodeForDoc:node->doc elementName:@"NonPrecisionApproaches" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Landings != 0) {
+	if(((void *)self.Landings) != 0) {
 		xmlAddChild(node, [self.Landings xmlNodeForDoc:node->doc elementName:@"Landings" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.CrossCountry != 0) {
+	if(((void *)self.CrossCountry) != 0) {
 		xmlAddChild(node, [self.CrossCountry xmlNodeForDoc:node->doc elementName:@"CrossCountry" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Nighttime != 0) {
+	if(((void *)self.Nighttime) != 0) {
 		xmlAddChild(node, [self.Nighttime xmlNodeForDoc:node->doc elementName:@"Nighttime" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.IMC != 0) {
+	if(((void *)self.IMC) != 0) {
 		xmlAddChild(node, [self.IMC xmlNodeForDoc:node->doc elementName:@"IMC" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.SimulatedIFR != 0) {
+	if(((void *)self.SimulatedIFR) != 0) {
 		xmlAddChild(node, [self.SimulatedIFR xmlNodeForDoc:node->doc elementName:@"SimulatedIFR" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.GroundSim != 0) {
+	if(((void *)self.GroundSim) != 0) {
 		xmlAddChild(node, [self.GroundSim xmlNodeForDoc:node->doc elementName:@"GroundSim" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Dual != 0) {
+	if(((void *)self.Dual) != 0) {
 		xmlAddChild(node, [self.Dual xmlNodeForDoc:node->doc elementName:@"Dual" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.CFI != 0) {
+	if(((void *)self.CFI) != 0) {
 		xmlAddChild(node, [self.CFI xmlNodeForDoc:node->doc elementName:@"CFI" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.PIC != 0) {
+	if(((void *)self.PIC) != 0) {
 		xmlAddChild(node, [self.PIC xmlNodeForDoc:node->doc elementName:@"PIC" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.SIC != 0) {
+	if(((void *)self.SIC) != 0) {
 		xmlAddChild(node, [self.SIC xmlNodeForDoc:node->doc elementName:@"SIC" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.TotalFlightTime != 0) {
+	if(((void *)self.TotalFlightTime) != 0) {
 		xmlAddChild(node, [self.TotalFlightTime xmlNodeForDoc:node->doc elementName:@"TotalFlightTime" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.fHoldingProcedures != 0) {
+	if(((void *)self.fHoldingProcedures) != 0) {
 		xmlAddChild(node, [self.fHoldingProcedures xmlNodeForDoc:node->doc elementName:@"fHoldingProcedures" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Route != 0) {
+	if(((void *)self.Route) != 0) {
 		xmlAddChild(node, [self.Route xmlNodeForDoc:node->doc elementName:@"Route" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Comment != 0) {
+	if(((void *)self.Comment) != 0) {
 		xmlAddChild(node, [self.Comment xmlNodeForDoc:node->doc elementName:@"Comment" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.fIsPublic != 0) {
+	if(((void *)self.fIsPublic) != 0) {
 		xmlAddChild(node, [self.fIsPublic xmlNodeForDoc:node->doc elementName:@"fIsPublic" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Date != 0) {
+	if(((void *)self.Date) != 0) {
 		xmlAddChild(node, [self.Date xmlNodeForDoc:node->doc elementName:@"Date" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.ErrorString != 0) {
+	if(((void *)self.ErrorString) != 0) {
 		xmlAddChild(node, [self.ErrorString xmlNodeForDoc:node->doc elementName:@"ErrorString" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.FlightID != 0) {
+	if(((void *)self.FlightID) != 0) {
 		xmlAddChild(node, [self.FlightID xmlNodeForDoc:node->doc elementName:@"FlightID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.FlightStart != 0) {
+	if(((void *)self.FlightStart) != 0) {
 		xmlAddChild(node, [self.FlightStart xmlNodeForDoc:node->doc elementName:@"FlightStart" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.FlightEnd != 0) {
+	if(((void *)self.FlightEnd) != 0) {
 		xmlAddChild(node, [self.FlightEnd xmlNodeForDoc:node->doc elementName:@"FlightEnd" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.EngineStart != 0) {
+	if(((void *)self.EngineStart) != 0) {
 		xmlAddChild(node, [self.EngineStart xmlNodeForDoc:node->doc elementName:@"EngineStart" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.EngineEnd != 0) {
+	if(((void *)self.EngineEnd) != 0) {
 		xmlAddChild(node, [self.EngineEnd xmlNodeForDoc:node->doc elementName:@"EngineEnd" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.HobbsStart != 0) {
+	if(((void *)self.HobbsStart) != 0) {
 		xmlAddChild(node, [self.HobbsStart xmlNodeForDoc:node->doc elementName:@"HobbsStart" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.HobbsEnd != 0) {
+	if(((void *)self.HobbsEnd) != 0) {
 		xmlAddChild(node, [self.HobbsEnd xmlNodeForDoc:node->doc elementName:@"HobbsEnd" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.ModelDisplay != 0) {
+	if(((void *)self.ModelDisplay) != 0) {
 		xmlAddChild(node, [self.ModelDisplay xmlNodeForDoc:node->doc elementName:@"ModelDisplay" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.TailNumDisplay != 0) {
+	if(((void *)self.TailNumDisplay) != 0) {
 		xmlAddChild(node, [self.TailNumDisplay xmlNodeForDoc:node->doc elementName:@"TailNumDisplay" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.CatClassDisplay != 0) {
+	if(((void *)self.CatClassDisplay) != 0) {
 		xmlAddChild(node, [self.CatClassDisplay xmlNodeForDoc:node->doc elementName:@"CatClassDisplay" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.FlightData != 0) {
+	if(((void *)self.FlightData) != 0) {
 		xmlAddChild(node, [self.FlightData xmlNodeForDoc:node->doc elementName:@"FlightData" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.CustomProperties != 0) {
+	if(((void *)self.CustomProperties) != 0) {
 		xmlAddChild(node, [self.CustomProperties xmlNodeForDoc:node->doc elementName:@"CustomProperties" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.FlightImages != 0) {
+	if(((void *)self.FlightImages) != 0) {
 		xmlAddChild(node, [self.FlightImages xmlNodeForDoc:node->doc elementName:@"FlightImages" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.Videos != 0) {
+	if(((void *)self.Videos) != 0) {
 		xmlAddChild(node, [self.Videos xmlNodeForDoc:node->doc elementName:@"Videos" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.CFIComments != 0) {
+	if(((void *)self.CFIComments) != 0) {
 		xmlAddChild(node, [self.CFIComments xmlNodeForDoc:node->doc elementName:@"CFIComments" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.CFISignatureDate != 0) {
+	if(((void *)self.CFISignatureDate) != 0) {
 		xmlAddChild(node, [self.CFISignatureDate xmlNodeForDoc:node->doc elementName:@"CFISignatureDate" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.CFICertificate != 0) {
+	if(((void *)self.CFICertificate) != 0) {
 		xmlAddChild(node, [self.CFICertificate xmlNodeForDoc:node->doc elementName:@"CFICertificate" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.CFIExpiration != 0) {
+	if(((void *)self.CFIExpiration) != 0) {
 		xmlAddChild(node, [self.CFIExpiration xmlNodeForDoc:node->doc elementName:@"CFIExpiration" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.CFIEmail != 0) {
+	if(((void *)self.CFIEmail) != 0) {
 		xmlAddChild(node, [self.CFIEmail xmlNodeForDoc:node->doc elementName:@"CFIEmail" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.CFIName != 0) {
+	if(((void *)self.CFIName) != 0) {
 		xmlAddChild(node, [self.CFIName xmlNodeForDoc:node->doc elementName:@"CFIName" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.CFISignatureState != 0) {
+	if(((void *)self.CFISignatureState) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:CFISignatureState", [MFBWebServiceSvc_SignatureState_stringFromEnum(self.CFISignatureState) xmlString]);
 	}
-	if(self.DigitizedSignature != 0) {
+	if(((void *)self.DigitizedSignature) != 0) {
 		xmlAddChild(node, [self.DigitizedSignature xmlNodeForDoc:node->doc elementName:@"DigitizedSignature" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.HasDigitizedSig != 0) {
+	if(((void *)self.HasDigitizedSig) != 0) {
 		xmlAddChild(node, [self.HasDigitizedSig xmlNodeForDoc:node->doc elementName:@"HasDigitizedSig" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.SendFlightLink != 0) {
+	if(((void *)self.SendFlightLink) != 0) {
 		xmlAddChild(node, [self.SendFlightLink xmlNodeForDoc:node->doc elementName:@"SendFlightLink" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.SocialMediaLink != 0) {
+	if(((void *)self.SocialMediaLink) != 0) {
 		xmlAddChild(node, [self.SocialMediaLink xmlNodeForDoc:node->doc elementName:@"SocialMediaLink" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -16693,7 +16693,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.LogbookEntry != 0) {
+	if(((void *)self.LogbookEntry) != 0) {
 		for(MFBWebServiceSvc_LogbookEntry * child in self.LogbookEntry) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"LogbookEntry" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -16863,7 +16863,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.FlightsWithQueryAndOffsetResult != 0) {
+	if(((void *)self.FlightsWithQueryAndOffsetResult) != 0) {
 		xmlAddChild(node, [self.FlightsWithQueryAndOffsetResult xmlNodeForDoc:node->doc elementName:@"FlightsWithQueryAndOffsetResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -17031,13 +17031,13 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.szAuthUserToken != 0) {
+	if(((void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.fq != 0) {
+	if(((void *)self.fq) != 0) {
 		xmlAddChild(node, [self.fq xmlNodeForDoc:node->doc elementName:@"fq" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.maxCount != 0) {
+	if(((void *)self.maxCount) != 0) {
 		xmlAddChild(node, [self.maxCount xmlNodeForDoc:node->doc elementName:@"maxCount" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -17269,7 +17269,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.FlightsWithQueryResult != 0) {
+	if(((void *)self.FlightsWithQueryResult) != 0) {
 		xmlAddChild(node, [self.FlightsWithQueryResult xmlNodeForDoc:node->doc elementName:@"FlightsWithQueryResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -17435,10 +17435,10 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.szAuthUserToken != 0) {
+	if(((void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.idFlight != 0) {
+	if(((void *)self.idFlight) != 0) {
 		xmlAddChild(node, [self.idFlight xmlNodeForDoc:node->doc elementName:@"idFlight" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -17636,7 +17636,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.DeleteLogbookEntryResult != 0) {
+	if(((void *)self.DeleteLogbookEntryResult) != 0) {
 		xmlAddChild(node, [self.DeleteLogbookEntryResult xmlNodeForDoc:node->doc elementName:@"DeleteLogbookEntryResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -17916,13 +17916,13 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.szAuthUserToken != 0) {
+	if(((void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.le != 0) {
+	if(((void *)self.le) != 0) {
 		xmlAddChild(node, [self.le xmlNodeForDoc:node->doc elementName:@"le" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.po != 0) {
+	if(((void *)self.po) != 0) {
 		xmlAddChild(node, [self.po xmlNodeForDoc:node->doc elementName:@"po" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -18154,7 +18154,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.CommitFlightWithOptionsResult != 0) {
+	if(((void *)self.CommitFlightWithOptionsResult) != 0) {
 		xmlAddChild(node, [self.CommitFlightWithOptionsResult xmlNodeForDoc:node->doc elementName:@"CommitFlightWithOptionsResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -18320,10 +18320,10 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.szAuthUserToken != 0) {
+	if(((void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.idFlight != 0) {
+	if(((void *)self.idFlight) != 0) {
 		xmlAddChild(node, [self.idFlight xmlNodeForDoc:node->doc elementName:@"idFlight" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -18521,7 +18521,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.LatLong != 0) {
+	if(((void *)self.LatLong) != 0) {
 		for(MFBWebServiceSvc_LatLong * child in self.LatLong) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"LatLong" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -18691,7 +18691,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.FlightPathForFlightResult != 0) {
+	if(((void *)self.FlightPathForFlightResult) != 0) {
 		xmlAddChild(node, [self.FlightPathForFlightResult xmlNodeForDoc:node->doc elementName:@"FlightPathForFlightResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -18857,10 +18857,10 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.szAuthUserToken != 0) {
+	if(((void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.idFlight != 0) {
+	if(((void *)self.idFlight) != 0) {
 		xmlAddChild(node, [self.idFlight xmlNodeForDoc:node->doc elementName:@"idFlight" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -19058,7 +19058,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.FlightPathForFlightGPXResult != 0) {
+	if(((void *)self.FlightPathForFlightGPXResult) != 0) {
 		xmlAddChild(node, [self.FlightPathForFlightGPXResult xmlNodeForDoc:node->doc elementName:@"FlightPathForFlightGPXResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -19334,7 +19334,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.AvailablePropertyTypesResult != 0) {
+	if(((void *)self.AvailablePropertyTypesResult) != 0) {
 		xmlAddChild(node, [self.AvailablePropertyTypesResult xmlNodeForDoc:node->doc elementName:@"AvailablePropertyTypesResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -19498,7 +19498,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.szAuthUserToken != 0) {
+	if(((void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -19662,7 +19662,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.AvailablePropertyTypesForUserResult != 0) {
+	if(((void *)self.AvailablePropertyTypesForUserResult) != 0) {
 		xmlAddChild(node, [self.AvailablePropertyTypesForUserResult xmlNodeForDoc:node->doc elementName:@"AvailablePropertyTypesForUserResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -19828,10 +19828,10 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.szAuthUserToken != 0) {
+	if(((void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.idFlight != 0) {
+	if(((void *)self.idFlight) != 0) {
 		xmlAddChild(node, [self.idFlight xmlNodeForDoc:node->doc elementName:@"idFlight" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -20029,7 +20029,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.PropertiesForFlightResult != 0) {
+	if(((void *)self.PropertiesForFlightResult) != 0) {
 		xmlAddChild(node, [self.PropertiesForFlightResult xmlNodeForDoc:node->doc elementName:@"PropertiesForFlightResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -20193,7 +20193,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.int_ != 0) {
+	if(((void *)self.int_) != 0) {
 		for(NSNumber * child in self.int_) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"int" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -20367,13 +20367,13 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.szAuthUserToken != 0) {
+	if(((void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.idFlight != 0) {
+	if(((void *)self.idFlight) != 0) {
 		xmlAddChild(node, [self.idFlight xmlNodeForDoc:node->doc elementName:@"idFlight" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.rgPropIds != 0) {
+	if(((void *)self.rgPropIds) != 0) {
 		xmlAddChild(node, [self.rgPropIds xmlNodeForDoc:node->doc elementName:@"rgPropIds" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -20721,13 +20721,13 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.szAuthUserToken != 0) {
+	if(((void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.idFlight != 0) {
+	if(((void *)self.idFlight) != 0) {
 		xmlAddChild(node, [self.idFlight xmlNodeForDoc:node->doc elementName:@"idFlight" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.propId != 0) {
+	if(((void *)self.propId) != 0) {
 		xmlAddChild(node, [self.propId xmlNodeForDoc:node->doc elementName:@"propId" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -21073,10 +21073,10 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.szAuthUserToken != 0) {
+	if(((void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.mfbii != 0) {
+	if(((void *)self.mfbii) != 0) {
 		xmlAddChild(node, [self.mfbii xmlNodeForDoc:node->doc elementName:@"mfbii" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -21388,10 +21388,10 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.szAuthUserToken != 0) {
+	if(((void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.mfbii != 0) {
+	if(((void *)self.mfbii) != 0) {
 		xmlAddChild(node, [self.mfbii xmlNodeForDoc:node->doc elementName:@"mfbii" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -21705,13 +21705,13 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.szAppToken != 0) {
+	if(((void *)self.szAppToken) != 0) {
 		xmlAddChild(node, [self.szAppToken xmlNodeForDoc:node->doc elementName:@"szAppToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.szUser != 0) {
+	if(((void *)self.szUser) != 0) {
 		xmlAddChild(node, [self.szUser xmlNodeForDoc:node->doc elementName:@"szUser" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.szPass != 0) {
+	if(((void *)self.szPass) != 0) {
 		xmlAddChild(node, [self.szPass xmlNodeForDoc:node->doc elementName:@"szPass" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -21943,7 +21943,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.AuthTokenForUserResult != 0) {
+	if(((void *)self.AuthTokenForUserResult) != 0) {
 		xmlAddChild(node, [self.AuthTokenForUserResult xmlNodeForDoc:node->doc elementName:@"AuthTokenForUserResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -22119,25 +22119,25 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.szAppToken != 0) {
+	if(((void *)self.szAppToken) != 0) {
 		xmlAddChild(node, [self.szAppToken xmlNodeForDoc:node->doc elementName:@"szAppToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.szEmail != 0) {
+	if(((void *)self.szEmail) != 0) {
 		xmlAddChild(node, [self.szEmail xmlNodeForDoc:node->doc elementName:@"szEmail" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.szPass != 0) {
+	if(((void *)self.szPass) != 0) {
 		xmlAddChild(node, [self.szPass xmlNodeForDoc:node->doc elementName:@"szPass" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.szFirst != 0) {
+	if(((void *)self.szFirst) != 0) {
 		xmlAddChild(node, [self.szFirst xmlNodeForDoc:node->doc elementName:@"szFirst" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.szLast != 0) {
+	if(((void *)self.szLast) != 0) {
 		xmlAddChild(node, [self.szLast xmlNodeForDoc:node->doc elementName:@"szLast" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.szQuestion != 0) {
+	if(((void *)self.szQuestion) != 0) {
 		xmlAddChild(node, [self.szQuestion xmlNodeForDoc:node->doc elementName:@"szQuestion" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.szAnswer != 0) {
+	if(((void *)self.szAnswer) != 0) {
 		xmlAddChild(node, [self.szAnswer xmlNodeForDoc:node->doc elementName:@"szAnswer" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -22592,13 +22592,13 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.szAuthToken != 0) {
+	if(((void *)self.szAuthToken) != 0) {
 		xmlAddChild(node, [self.szAuthToken xmlNodeForDoc:node->doc elementName:@"szAuthToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.szUsername != 0) {
+	if(((void *)self.szUsername) != 0) {
 		xmlAddChild(node, [self.szUsername xmlNodeForDoc:node->doc elementName:@"szUsername" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.mcs != 0) {
+	if(((void *)self.mcs) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:mcs", [MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(self.mcs) xmlString]);
 	}
 }
@@ -22802,7 +22802,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.CreateUserResult != 0) {
+	if(((void *)self.CreateUserResult) != 0) {
 		xmlAddChild(node, [self.CreateUserResult xmlNodeForDoc:node->doc elementName:@"CreateUserResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -22966,7 +22966,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.szAuthToken != 0) {
+	if(((void *)self.szAuthToken) != 0) {
 		xmlAddChild(node, [self.szAuthToken xmlNodeForDoc:node->doc elementName:@"szAuthToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -23138,7 +23138,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 {
 	[super addElementsToNode:node];
 	
-	if(self.QueryName != 0) {
+	if(((void *)self.QueryName) != 0) {
 		xmlAddChild(node, [self.QueryName xmlNodeForDoc:node->doc elementName:@"QueryName" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -23304,7 +23304,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.CannedQuery != 0) {
+	if(((void *)self.CannedQuery) != 0) {
 		for(MFBWebServiceSvc_CannedQuery * child in self.CannedQuery) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"CannedQuery" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -23474,7 +23474,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.GetNamedQueriesForUserResult != 0) {
+	if(((void *)self.GetNamedQueriesForUserResult) != 0) {
 		xmlAddChild(node, [self.GetNamedQueriesForUserResult xmlNodeForDoc:node->doc elementName:@"GetNamedQueriesForUserResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -23642,13 +23642,13 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.szAuthToken != 0) {
+	if(((void *)self.szAuthToken) != 0) {
 		xmlAddChild(node, [self.szAuthToken xmlNodeForDoc:node->doc elementName:@"szAuthToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.fq != 0) {
+	if(((void *)self.fq) != 0) {
 		xmlAddChild(node, [self.fq xmlNodeForDoc:node->doc elementName:@"fq" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.szName != 0) {
+	if(((void *)self.szName) != 0) {
 		xmlAddChild(node, [self.szName xmlNodeForDoc:node->doc elementName:@"szName" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -23880,7 +23880,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.AddNamedQueryForUserResult != 0) {
+	if(((void *)self.AddNamedQueryForUserResult) != 0) {
 		xmlAddChild(node, [self.AddNamedQueryForUserResult xmlNodeForDoc:node->doc elementName:@"AddNamedQueryForUserResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -24046,10 +24046,10 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.szAuthToken != 0) {
+	if(((void *)self.szAuthToken) != 0) {
 		xmlAddChild(node, [self.szAuthToken xmlNodeForDoc:node->doc elementName:@"szAuthToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.cq != 0) {
+	if(((void *)self.cq) != 0) {
 		xmlAddChild(node, [self.cq xmlNodeForDoc:node->doc elementName:@"cq" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -24247,7 +24247,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.DeleteNamedQueryForUserResult != 0) {
+	if(((void *)self.DeleteNamedQueryForUserResult) != 0) {
 		xmlAddChild(node, [self.DeleteNamedQueryForUserResult xmlNodeForDoc:node->doc elementName:@"DeleteNamedQueryForUserResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -24413,10 +24413,10 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.prefixText != 0) {
+	if(((void *)self.prefixText) != 0) {
 		xmlAddChild(node, [self.prefixText xmlNodeForDoc:node->doc elementName:@"prefixText" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.count != 0) {
+	if(((void *)self.count) != 0) {
 		xmlAddChild(node, [self.count xmlNodeForDoc:node->doc elementName:@"count" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -24614,7 +24614,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.SuggestModelsResult != 0) {
+	if(((void *)self.SuggestModelsResult) != 0) {
 		xmlAddChild(node, [self.SuggestModelsResult xmlNodeForDoc:node->doc elementName:@"SuggestModelsResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -24782,13 +24782,13 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.prefixText != 0) {
+	if(((void *)self.prefixText) != 0) {
 		xmlAddChild(node, [self.prefixText xmlNodeForDoc:node->doc elementName:@"prefixText" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.count != 0) {
+	if(((void *)self.count) != 0) {
 		xmlAddChild(node, [self.count xmlNodeForDoc:node->doc elementName:@"count" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.contextKey != 0) {
+	if(((void *)self.contextKey) != 0) {
 		xmlAddChild(node, [self.contextKey xmlNodeForDoc:node->doc elementName:@"contextKey" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -25020,7 +25020,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.PreviouslyUsedTextPropertiesResult != 0) {
+	if(((void *)self.PreviouslyUsedTextPropertiesResult) != 0) {
 		xmlAddChild(node, [self.PreviouslyUsedTextPropertiesResult xmlNodeForDoc:node->doc elementName:@"PreviouslyUsedTextPropertiesResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -25190,16 +25190,16 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.latSouth != 0) {
+	if(((void *)self.latSouth) != 0) {
 		xmlAddChild(node, [self.latSouth xmlNodeForDoc:node->doc elementName:@"latSouth" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.lonWest != 0) {
+	if(((void *)self.lonWest) != 0) {
 		xmlAddChild(node, [self.lonWest xmlNodeForDoc:node->doc elementName:@"lonWest" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.latNorth != 0) {
+	if(((void *)self.latNorth) != 0) {
 		xmlAddChild(node, [self.latNorth xmlNodeForDoc:node->doc elementName:@"latNorth" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(self.lonEast != 0) {
+	if(((void *)self.lonEast) != 0) {
 		xmlAddChild(node, [self.lonEast xmlNodeForDoc:node->doc elementName:@"lonEast" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -25465,7 +25465,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.airport != 0) {
+	if(((void *)self.airport) != 0) {
 		for(MFBWebServiceSvc_airport * child in self.airport) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"airport" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -25635,7 +25635,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(self.AirportsInBoundingBoxResult != 0) {
+	if(((void *)self.AirportsInBoundingBoxResult) != 0) {
 		xmlAddChild(node, [self.AirportsInBoundingBoxResult xmlNodeForDoc:node->doc elementName:@"AirportsInBoundingBoxResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }

@@ -68,7 +68,7 @@
     }
 
     // should never be here!
-    return nil;
+    return [tableView dequeueReusableCellWithIdentifier:cellText];
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

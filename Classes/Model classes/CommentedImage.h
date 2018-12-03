@@ -36,7 +36,6 @@
 	
 @private
 	UIImage * imgCached;
-	UIImage * imgThmbCached;
 	UIImage * imgPendingToSave;
 }
 
