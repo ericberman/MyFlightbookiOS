@@ -593,10 +593,9 @@ static MFBAppDelegate * _mainApp = nil;
         else
             [rgShortcuts addObject:[[UIApplicationShortcutItem alloc] initWithType:@"app.pause" localizedTitle:NSLocalizedString(@"WatchPause", @"Watch - Pause") localizedSubtitle:@"" icon:[UIApplicationShortcutIcon iconWithType:UIApplicationShortcutIconTypePause] userInfo:nil]];
     }
-    else {
+    else if (!self.leMain.le.entryData.isKnownEngineEnd)
         // flight not in progress - just add start flight
         [rgShortcuts addObject:[[UIApplicationShortcutItem alloc] initWithType:@"app.startEngine" localizedTitle:NSLocalizedString(@"StartEngine", @"Shortcut - Start Engine") localizedSubtitle:@"" icon:[UIApplicationShortcutIcon iconWithType:UIApplicationShortcutIconTypePlay] userInfo:nil]];
-    }
 
     [[UIApplication sharedApplication] setShortcutItems:rgShortcuts];
 }
