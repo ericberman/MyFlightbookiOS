@@ -355,10 +355,18 @@ static BOOL fAppLaunchFinished = NO;
 }
 
 - (void) application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
-    if ([shortcutItem.type compare:@"app.currency"] == NSOrderedSame)
-        self.tabBarController.selectedViewController = self.tabCurrency;
-    else if ([shortcutItem.type compare:@"app.totals"] == NSOrderedSame)
-        self.tabBarController.selectedViewController = self.tabTotals;
+    if ([shortcutItem.type compare:@"app.currency"] == NSOrderedSame) {
+        if (fAppLaunchFinished)
+            self.tabBarController.selectedViewController = self.tabCurrency;
+        else
+            urlLaunchURL = [[NSURL alloc] initWithString:@"myflightbook://currency"];
+    }
+    else if ([shortcutItem.type compare:@"app.totals"] == NSOrderedSame) {
+        if (fAppLaunchFinished)
+            self.tabBarController.selectedViewController = self.tabTotals;
+        else
+            urlLaunchURL = [[NSURL alloc] initWithString:@"myflightbook://totals"];
+    }
     else if ([shortcutItem.type compare:@"app.startEngine"] == NSOrderedSame)
         [self.leMain startEngineExternal];
     else if ([shortcutItem.type compare:@"app.stopEngine"] == NSOrderedSame)
