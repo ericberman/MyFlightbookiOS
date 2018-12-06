@@ -1031,7 +1031,7 @@ Vous pouvez choisir un dans la liste fournie, le modifier, ou faire un de vos pr
 "AircraftPrefsHeader" = "Remplir automatiquement de nouveaux vols dans cet avion";
 
 /* Aircraft - Show Aircraft	 */
-"ShowAircraft" = "Montrer cet avion pour de couveaux vols";
+"ShowAircraft" = "Montrer cet avion pour de nouveaux vols";
 
 /* Aircraft Role = None */
 "RoleNone" = "Ne pas remplir automatiquement";
