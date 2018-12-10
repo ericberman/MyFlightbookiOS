@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -73,7 +73,6 @@ All Rights Reserved</string>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="11" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1" secondAttribute="leading" id="BEH-sA-ShN"/>
                 <constraint firstItem="11" firstAttribute="top" secondItem="5" secondAttribute="bottom" constant="5" id="Gtz-YO-5r0"/>
@@ -91,7 +90,7 @@ All Rights Reserved</string>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="11" secondAttribute="trailing" id="zcH-wH-pkL"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="520" y="358"/>
+            <point key="canvasLocation" x="832" y="322.03898050974516"/>
         </view>
     </objects>
 </document>
