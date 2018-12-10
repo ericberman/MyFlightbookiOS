@@ -286,7 +286,7 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
                 [flightOptionNames addObject:[MFBLocation nightFlightOptionName:i]];
             
             NSMutableArray<NSString *> * landingOptionNames = [[NSMutableArray alloc] init];
-            for (int i = nflSunsetPlus60; i < nfoLast; i++)
+            for (int i = nflSunsetPlus60; i < nflLast; i++)
                 [landingOptionNames addObject:[MFBLocation nightLandingOptionName:i]];
 
             mvos.optionGroups = @[
