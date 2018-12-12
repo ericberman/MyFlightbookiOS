@@ -29,6 +29,7 @@
 #import "DecimalEdit.h"
 #import "AutodetectOptions.h"
 #import "Util.h"
+#import "MFBTheme.h"
 
 @implementation RecentFlightCell
 
@@ -90,14 +91,17 @@
     if (num.doubleValue == 0)
         return [[NSAttributedString alloc] init];
     
-    NSMutableAttributedString * attrString = [[NSMutableAttributedString alloc] initWithString:label attributes:@{NSFontAttributeName : font}];
-    [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@": %@ ", [UITextField stringFromNumber:num forType:nt inHHMM:useHHMM]]]];
+    UIColor * textColor = MFBTheme.currentTheme.labelForeColor;
+    
+    NSMutableAttributedString * attrString = [[NSMutableAttributedString alloc] initWithString:label attributes:@{NSFontAttributeName : font, NSForegroundColorAttributeName : textColor}];
+    [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@": %@ ", [UITextField stringFromNumber:num forType:nt inHHMM:useHHMM]] attributes:@{NSForegroundColorAttributeName : textColor}]];
     return attrString;
 }
 
 - (void) setFlight:(MFBWebServiceSvc_LogbookEntry *)le withImage:(id)ci withError:(NSString *) szErr
 {
-    NSMutableAttributedString * attrString = [[NSMutableAttributedString alloc] init];
+    UIColor * textColor = [MFBTheme currentTheme].labelForeColor;
+    NSMutableAttributedString * attrString = [[NSMutableAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName : textColor}];
     UIFont * baseFont = [UIFont systemFontOfSize:12];
     BOOL fUseHHMM = [AutodetectOptions HHMMPref];
     UIFont * boldFont = [UIFont fontWithDescriptor:[[baseFont fontDescriptor] fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold] size:baseFont.pointSize];
@@ -111,34 +115,35 @@
     if (szErr.length != 0)
         [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", szErr] attributes:@{NSForegroundColorAttributeName : [UIColor redColor]}]];
 
-    [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[df stringFromDate:le.Date]  attributes:@{NSFontAttributeName : largeBoldFont}]];
+    [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[df stringFromDate:le.Date]  attributes:@{NSFontAttributeName : largeBoldFont, NSForegroundColorAttributeName : textColor}]];
 
-    [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@", le.TailNumDisplay] attributes:@{NSFontAttributeName : largeBoldFont}]];
+    [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@", le.TailNumDisplay] attributes:@{NSFontAttributeName : largeBoldFont, NSForegroundColorAttributeName : textColor}]];
     
     MFBWebServiceSvc_Aircraft * ac = [[Aircraft sharedAircraft] AircraftByID:le.AircraftID.intValue];
     if (ac != nil && ac.ModelDescription.length > 0)
-        [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" (%@)", ac.ModelDescription] attributes:@{}]];
+        [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" (%@)", ac.ModelDescription] attributes:@{NSForegroundColorAttributeName : textColor}]];
     
     NSString * trimmedRoute = [le.Route stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (trimmedRoute.length == 0) {
         [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@\n", NSLocalizedString(@"(No Route)", @"No Route")]
-                                                                           attributes:@{NSForegroundColorAttributeName : [UIColor grayColor] }]];
+                                                                           attributes:@{NSForegroundColorAttributeName : MFBTheme.currentTheme.dimmedColor }]];
     } else
         [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@\n", le.Route]
                                                                            attributes:@{NSFontAttributeName : italicFont,
-                                                                                        NSForegroundColorAttributeName : [UIColor darkGrayColor]
+                                                                                        NSForegroundColorAttributeName : MFBTheme.currentTheme.cellValue1DetailTextColor
                                                                                         }]];
     
     NSString * trimmedComments = [le.Comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (trimmedComments.length == 0) {
         [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"(No Comment)", @"No Comment")
-                                                                           attributes:@{NSForegroundColorAttributeName : [UIColor grayColor] }]];
+                                                                           attributes:@{NSForegroundColorAttributeName : MFBTheme.currentTheme.dimmedColor }]];
+        [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName : textColor}]];
     }
     else
         [attrString appendAttributedString:[NSAttributedString attributedStringFromMarkDown:trimmedComments]];
     
     if ([AutodetectOptions showFlightTimes]) {
-        [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
+        [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:@{NSForegroundColorAttributeName : textColor}]];
         
         // Add various values
         [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldLandings", @"Entry Field: Landings") forValue:le.Landings withFont:boldFont inHHMM:fUseHHMM numType:ntInteger]];

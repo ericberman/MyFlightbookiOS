@@ -30,6 +30,7 @@
 #import "DecimalEdit.h"
 #import "TotalsCategories.h"
 #import <QuartzCore/QuartzCore.h>
+#import "MFBTheme.h"
 
 @implementation UIViewController(MFBAdditions)
 - (void) showAlertWithTitle:(NSString *) title message:(NSString *) msg {
@@ -72,11 +73,12 @@
     UIFont * italicFont = [UIFont fontWithDescriptor:[[baseFont fontDescriptor] fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitItalic] size:baseFont.pointSize];
 
     __block NSUInteger lastPos = 0;
-    NSMutableAttributedString * attr = [[NSMutableAttributedString alloc] initWithString:@""];
+    UIColor * textColor = MFBTheme.currentTheme.labelForeColor;
+    NSMutableAttributedString * attr = [[NSMutableAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName : textColor}];
     [reg enumerateMatchesInString:sz options:0 range:NSMakeRange(0, sz.length) usingBlock:^(NSTextCheckingResult * _Nullable match, NSMatchingFlags flags, BOOL * _Nonnull stop) {
         NSRange matchRange = match.range;
         if (matchRange.location > lastPos)
-            [attr appendAttributedString:[[NSAttributedString alloc] initWithString:[sz substringWithRange:NSMakeRange(lastPos, matchRange.location - lastPos)]]];
+            [attr appendAttributedString:[[NSAttributedString alloc] initWithString:[sz substringWithRange:NSMakeRange(lastPos, matchRange.location - lastPos)] attributes:@{NSForegroundColorAttributeName : textColor}]];
         
         if (matchRange.length >= 2 && sz.length >= matchRange.location + matchRange.length) {  // should always be!!!
             NSString * matchText = [sz substringWithRange:matchRange];
@@ -84,16 +86,16 @@
             NSString * matchContent = [matchText substringWithRange:NSMakeRange(1, matchText.length - 2)];
             if ([matchType compare:@"*"] == NSOrderedSame)
                 [attr appendAttributedString:[[NSAttributedString alloc] initWithString:matchContent
-                                                                                   attributes:@{NSFontAttributeName : boldFont}]];
+                                                                                   attributes:@{NSFontAttributeName : boldFont, NSForegroundColorAttributeName : textColor}]];
             else if ([matchType compare:@"_"] == NSOrderedSame)
                 [attr appendAttributedString:[[NSAttributedString alloc] initWithString:matchContent
-                                                                             attributes:@{NSFontAttributeName : italicFont}]];
+                                                                             attributes:@{NSFontAttributeName : italicFont, NSForegroundColorAttributeName : textColor}]];
             lastPos = matchRange.location + matchRange.length;
         }
     }];
     
     if (lastPos < sz.length)
-        [attr appendAttributedString:[[NSAttributedString alloc] initWithString:[sz substringWithRange:NSMakeRange(lastPos, sz.length - lastPos)]]];
+        [attr appendAttributedString:[[NSAttributedString alloc] initWithString:[sz substringWithRange:NSMakeRange(lastPos, sz.length - lastPos)] attributes:@{NSForegroundColorAttributeName : textColor}]];
 
      return attr;
 }

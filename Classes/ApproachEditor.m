@@ -28,6 +28,7 @@
 #import "ApproachEditor.h"
 #import "EditCell.h"
 #import "DecimalEdit.h"
+#import "MFBTheme.h"
 
 @interface ApproachEditor ()
 @property (strong) NSArray<NSString *> * airportList;
@@ -118,7 +119,7 @@ enum appchRows {rowCount, rowApproachType, rowRunway, rowAirport, rowAddToTotals
             ec.txt.keyboardType = UIKeyboardTypeNumberPad;
             ec.txt.text = self.approachDescription.approachCount == 0 ? @"" : [NSString stringWithFormat:@"%ld", (long) self.approachDescription.approachCount];
             ec.txt.NumberType = ntInteger;
-            ec.txt.placeholder = ec.lbl.text = NSLocalizedString(@"NumApproaches", @"Approach Helper - Quantity");
+            ec.txt.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:ec.lbl.text = NSLocalizedString(@"NumApproaches", @"Approach Helper - Quantity")];
             ec.txt.returnKeyType = UIReturnKeyNext;
             break;
         case rowAddToTotals:
@@ -131,21 +132,21 @@ enum appchRows {rowCount, rowApproachType, rowRunway, rowAirport, rowAddToTotals
         case rowApproachType:
             ec.txt.keyboardType = UIKeyboardTypeDefault;
             ec.txt.text = self.approachDescription.approachName;
-            ec.txt.placeholder = ec.lbl.text = NSLocalizedString(@"ApproachType", @"Approach Helper - Approach Name");
+            ec.txt.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:ec.lbl.text = NSLocalizedString(@"ApproachType", @"Approach Helper - Approach Name")];
             ec.txt.returnKeyType = UIReturnKeyNext;
             ec.txt.inputView = self.vwPickerApproach;
             break;
         case rowRunway:
             ec.txt.keyboardType = UIKeyboardTypeDefault;
             ec.txt.text = self.approachDescription.runwayName;
-            ec.txt.placeholder = ec.lbl.text = NSLocalizedString(@"ApproachRunway", @"Approach Helper - Runway");
+            ec.txt.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:ec.lbl.text = NSLocalizedString(@"ApproachRunway", @"Approach Helper - Runway")];
             ec.txt.returnKeyType = UIReturnKeyNext;
             ec.txt.inputView = self.vwPickerRunway;
             break;
         case rowAirport:
             ec.txt.keyboardType = UIKeyboardTypeDefault;
             ec.txt.text = self.approachDescription.airportName;
-            ec.txt.placeholder = ec.lbl.text = NSLocalizedString(@"ApproachAirport", @"Approach Helper - Airport");
+            ec.txt.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:ec.lbl.text = NSLocalizedString(@"ApproachAirport", @"Approach Helper - Airport")];
             ec.txt.returnKeyType = UIReturnKeyGo;
             if (self.airportList != nil && self.airportList.count > 0)
                 ec.txt.inputView = self.vwPickerAirports;

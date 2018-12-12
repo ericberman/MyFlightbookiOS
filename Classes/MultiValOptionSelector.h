@@ -25,8 +25,9 @@
 
 #import <UIKit/UIKit.h>
 #import "OptionSelection.h"
+#import "CollapsibleTable.h"
 
-@interface MultiValOptionSelector : UITableViewController
+@interface MultiValOptionSelector : CollapsibleTable
 
 @property (nonatomic, strong) NSArray<OptionSelection *> * optionGroups;
 @end

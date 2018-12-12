@@ -37,6 +37,7 @@
 #import "FlightProps.h"
 #import "HostedWebViewViewController.h"
 #import "WPSAlertController.h"
+#import "MFBTheme.h"
 
 @interface SignInControllerViewController ()
 @property (nonatomic, strong) NSString * szUser;
@@ -206,7 +207,11 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
         else
             return NSLocalizedString(@"You are not signed in.  Please sign in or create an account.", @"Prompt if you are not signed in.");
     }
-    return @"";
+    return nil;
+}
+
+- (void) tableView:(UITableView *) tableView willDisplayFooterView:(nonnull UIView *)view forSection:(NSInteger)section {
+    [MFBTheme.currentTheme applyThemeToTableHeader:view];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -286,7 +291,7 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
             ec.txt.autocorrectionType = UITextAutocorrectionTypeNo;
             ec.txt.text = (cid == cidEmail) ? self.szUser : self.szPass;
             ec.lbl.text = (cid == cidEmail) ? NSLocalizedString(@"E-mail", @"E-mail prompt") : NSLocalizedString(@"Password", @"PasswordPrmopt");
-            ec.txt.placeholder = (cid == cidEmail) ? NSLocalizedString(@"E-Mail Placeholder", @"E-Mail Placeholder") : NSLocalizedString(@"Password Placeholder", @"Password Placeholder");
+            ec.txt.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:(cid == cidEmail) ? NSLocalizedString(@"E-Mail Placeholder", @"E-Mail Placeholder") : NSLocalizedString(@"Password Placeholder", @"Password Placeholder")];
             ec.txt.returnKeyType = (cid == cidEmail) ? UIReturnKeyNext : UIReturnKeyGo;
             return ec;
         }
@@ -317,7 +322,7 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
             cell.textLabel.text = NSLocalizedString(@"SupportPrompt", @"Support");
             cell.imageView.image = [UIImage imageNamed:@"MFBLogo"];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.textLabel.textColor = ([mfbApp().userProfile isValid]) ? [UIColor blackColor] : [UIColor grayColor];
+            cell.textLabel.textColor = ([mfbApp().userProfile isValid]) ? [UILabel appearance].textColor : [UIColor grayColor];
             return cell;
         }
         case cidContact:

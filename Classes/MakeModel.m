@@ -26,6 +26,7 @@
 
 #import "MakeModel.h"
 #import "ExpandHeaderCell.h"
+#import "MFBTheme.h"
 
 // Local object: ManufacturerCollection includes all of the models for a given manufacturer
 @interface ManufacturerCollection : NSObject {}
@@ -179,6 +180,11 @@
     [super viewDidLoad];
     
     [self refreshData];
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    [MFBTheme.currentTheme setSearchBar:self.searchBar Placholeder:NSLocalizedString(@"ModelSearchPrompt", @"Search Prompt Models")];
+    [super viewWillAppear:animated];
 }
 
 #pragma mark - Table view data source

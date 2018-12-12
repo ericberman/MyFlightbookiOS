@@ -18,16 +18,16 @@
 "576.text" = "Commentaires:";
 
 /* Class = "UITextField"; placeholder = "Commentaires"; ObjectID = "577"; */
-"577.placeholder" = "Commentaires";
+"577.placeholder" = "";
 
 /* Class = "UITextField"; placeholder = "Trajet"; ObjectID = "579"; */
-"579.placeholder" = "Trajet";
+"579.placeholder" = "";
 
 /* Class = "UILabel"; text = "Trajet:"; ObjectID = "581"; */
 "581.text" = "Trajet:";
 
 /* Class = "UITextField"; placeholder = "(Aéronef)"; ObjectID = "583"; */
-"583.placeholder" = "(Aéronef)";
+"583.placeholder" = "";
 
 /* Class = "UILabel"; text = "Simulateur:"; ObjectID = "595"; */
 "595.text" = "Simulateur:";

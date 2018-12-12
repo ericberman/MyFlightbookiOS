@@ -103,6 +103,7 @@ typedef NS_ENUM(NSInteger, NightLandingOptions) {
 @property (strong) CLLocationManager * locManager;
 @property (strong) NSMutableArray * rgAllSamples;
 @property (readwrite, nonatomic) FlightState currentFlightState;
+@property (readwrite, nonatomic) BOOL fUpdatesTheme;
 
 - (instancetype) init NS_DESIGNATED_INITIALIZER;    // initializes the object but does NOT start receiving GPS events
 - (instancetype) initWithGPS;                       // initializes and DOES start receiving GPS

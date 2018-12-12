@@ -1,18 +1,18 @@
 
 /* Class = "UITextField"; placeholder = "(Aéronef)"; ObjectID = "329"; */
-"329.placeholder" = "(Aéronef)";
+"329.placeholder" = "";
 
 /* Class = "UILabel"; text = "Commentaires:"; ObjectID = "330"; */
 "330.text" = "Commentaires:";
 
 /* Class = "UITextField"; placeholder = "Commentaires"; ObjectID = "333"; */
-"333.placeholder" = "Commentaires";
+"333.placeholder" = "";
 
 /* Class = "UILabel"; text = "Trajet:"; ObjectID = "336"; */
 "336.text" = "Trajet:";
 
 /* Class = "UITextField"; placeholder = "Trajet"; ObjectID = "337"; */
-"337.placeholder" = "Trajet";
+"337.placeholder" = "";
 
 /* Class = "UILabel"; text = "(inconnu)"; ObjectID = "345"; */
 "345.text" = "(inconnu)";

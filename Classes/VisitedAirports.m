@@ -28,6 +28,7 @@
 #import "VisitedAirports.h"
 #import "VisitedAirportRow.h"
 #import "VADetails.h"
+#import "MFBTheme.h"
 
 @interface VisitedAirports()
 @property (strong) NSMutableArray<MFBWebServiceSvc_VisitedAirport *> * rgVAFiltered;
@@ -92,6 +93,7 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [MFBTheme.currentTheme setSearchBar:self.searchBar Placholeder:NSLocalizedString(@"AirportsSearchPrompt", @"Search for airports")];
 }
 
 - (void)viewDidAppear:(BOOL)animated

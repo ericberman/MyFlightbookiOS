@@ -232,6 +232,7 @@
 		9A902D7E1A210E7700698017 /* Recording@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A902D7D1A210E7700698017 /* Recording@3x.png */; };
 		9A902D811A210F2700698017 /* siginvalid@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A902D7F1A210F2700698017 /* siginvalid@3x.png */; };
 		9A902D821A210F2700698017 /* sigok@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A902D801A210F2700698017 /* sigok@3x.png */; };
+		9A91DD0D21BB680700E08FEC /* MFBTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A91DD0C21BB680700E08FEC /* MFBTheme.m */; };
 		9A954D321531FBD6000E00ED /* about.xib.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9A954CF01531FBD6000E00ED /* about.xib.txt */; };
 		9A954D331531FBD6000E00ED /* AutodetectOptions.xib.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9A954CF21531FBD6000E00ED /* AutodetectOptions.xib.txt */; };
 		9A954D341531FBD6000E00ED /* Currency.xib.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9A954CF41531FBD6000E00ED /* Currency.xib.txt */; };
@@ -776,6 +777,8 @@
 		9A902D7D1A210E7700698017 /* Recording@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Recording@3x.png"; sourceTree = "<group>"; };
 		9A902D7F1A210F2700698017 /* siginvalid@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "siginvalid@3x.png"; sourceTree = "<group>"; };
 		9A902D801A210F2700698017 /* sigok@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sigok@3x.png"; sourceTree = "<group>"; };
+		9A91DD0B21BB680700E08FEC /* MFBTheme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MFBTheme.h; sourceTree = "<group>"; };
+		9A91DD0C21BB680700E08FEC /* MFBTheme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MFBTheme.m; sourceTree = "<group>"; };
 		9A954CF11531FBD6000E00ED /* en */ = {isa = PBXFileReference; lastKnownFileType = text; name = en; path = Classes/en.lproj/about.xib.txt; sourceTree = "<group>"; };
 		9A954CF31531FBD6000E00ED /* en */ = {isa = PBXFileReference; lastKnownFileType = text; name = en; path = Classes/en.lproj/AutodetectOptions.xib.txt; sourceTree = "<group>"; };
 		9A954CF51531FBD6000E00ED /* en */ = {isa = PBXFileReference; lastKnownFileType = text; name = en; path = Classes/en.lproj/Currency.xib.txt; sourceTree = "<group>"; };
@@ -1661,6 +1664,8 @@
 				9A517E471E2ED68800EC3545 /* ApproachDescription.m */,
 				9A1CCB2220879A3400C2D1E4 /* OptionSelection.m */,
 				9A1CCB2420879A4D00C2D1E4 /* OptionSelection.h */,
+				9A91DD0B21BB680700E08FEC /* MFBTheme.h */,
+				9A91DD0C21BB680700E08FEC /* MFBTheme.m */,
 			);
 			path = "Model classes";
 			sourceTree = "<group>";
@@ -2339,6 +2344,7 @@
 				9A897FE011B72A4800E98C93 /* LocalAirports.m in Sources */,
 				9A79504211E56C7F0070A386 /* FlightProps.m in Sources */,
 				9A0C938511E63A850062AF27 /* FlightProperties.m in Sources */,
+				9A91DD0D21BB680700E08FEC /* MFBTheme.m in Sources */,
 				9A7FE95D12494F87001A8722 /* Reachability.m in Sources */,
 				9A3E1375127DE704008D672E /* EXFGPS.m in Sources */,
 				9A3E1376127DE704008D672E /* EXFHandlers.m in Sources */,

@@ -39,6 +39,7 @@
 #import "ApproachEditor.h"
 #import "DecimalEdit.h"
 #import "TextCell.h"
+#import "MFBTheme.h"
 
 @interface LEEditController()
 @property (nonatomic, strong) AccessoryBar * vwAccessory;
@@ -470,6 +471,11 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     self.navigationItem.rightBarButtonItem.enabled = NO;
     self.navigationItem.rightBarButtonItem.enabled = YES;
     
+    // fix placeholder theming
+    self.idComments.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"Comments", @"Entry field: Comments")];
+    self.idRoute.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"Route", @"Entry field: Route")];
+    self.idPopAircraft.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"Aircraft", @"Entry field: Aircraft")];
+
     [self autoBlock];
     
     // pick up any changes in the HHMM setting
@@ -926,7 +932,7 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
 {
     EditCell * ec = [EditCell getEditCell:tableView withAccessory:self.vwAccessory];
     ec.txt.inputView = self.datePicker;
-    ec.txt.placeholder = NSLocalizedString(@"(Tap for Now)", @"Prompt UTC Date/Time that is currently un-set (tapping sets it to NOW in UTC)");
+    ec.txt.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"(Tap for Now)", @"Prompt UTC Date/Time that is currently un-set (tapping sets it to NOW in UTC)")];
     ec.txt.delegate = self;
     ec.lbl.text = szPrompt;
     ec.txt.clearButtonMode = UITextFieldViewModeNever;

@@ -39,6 +39,7 @@
 #import "CountryCode.h"
 #import "HostedWebViewViewController.h"
 #import "WPSAlertController.h"
+#import "MFBTheme.h"
 
 @interface AircraftViewController ()
 - (void) findFlights:(id)sender;
@@ -255,7 +256,7 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
     {
         BOOL fIsExpired = [dtExpiration compare:[NSDate date]] == NSOrderedAscending;
         ec.lblDetail.text = [NSString stringWithFormat:(fIsExpired ? NSLocalizedString(@"CurrencyExpired", @"Currency Expired format string") : NSLocalizedString(@"CurrencyValid", @"Currency Valid format string")), [dtExpiration dateString]];
-        ec.lblDetail.textColor = (fIsExpired) ? [UIColor redColor] : [UIColor darkGrayColor];
+        ec.lblDetail.textColor = (fIsExpired) ? [UIColor redColor] : MFBTheme.currentTheme.cellValue1DetailTextColor;
     }
 }
 
@@ -271,7 +272,7 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
 {
     EditCell * ec = [EditCell getEditCellDetail:tableView withAccessory:self.vwAccessory];
     ec.txt.inputView = self.datePicker;
-    ec.txt.placeholder = NSLocalizedString(@"(Tap for Today)", @"Prompt for date that is currently un-set (tapping sets it to TODAY)");
+    ec.txt.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"(Tap for Today)", @"Prompt for date that is currently un-set (tapping sets it to TODAY)")];
     ec.txt.delegate = self;
     ec.lbl.text = szPrompt;
     ec.txt.clearButtonMode = UITextFieldViewModeNever;
@@ -297,7 +298,7 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
     EditCell * ec = [EditCell getEditCell:tableView withAccessory:self.vwAccessory];
     ec.lbl.text = szPrompt;
     ec.txt.text = szText;
-    ec.txt.placeholder = szPlaceholder;
+    ec.txt.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:szPlaceholder];
     ec.txt.delegate = self;
     ec.txt.clearButtonMode = UITextFieldViewModeWhileEditing;
     return ec;
@@ -354,7 +355,7 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
             else
                 ec.txt.text = (NSString *) (aircraft.rgAircraftInstanceTypes)[[self.ac.InstanceTypeID intValue] - 1];
             
-            ec.txt.placeholder = (row == rowTailnum) ? NSLocalizedString(@"(Tail)", @"Tail Hint") : NSLocalizedString(@"(Model)", @"Model Hint");
+            ec.txt.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:(row == rowTailnum) ? NSLocalizedString(@"(Tail)", @"Tail Hint") : NSLocalizedString(@"(Model)", @"Model Hint")];
             ec.txt.delegate = self;
             ec.txt.clearButtonMode = UITextFieldViewModeNever;
             ec.txt.adjustsFontSizeToFitWidth = YES;

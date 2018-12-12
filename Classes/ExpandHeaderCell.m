@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -26,6 +26,7 @@
 //
 
 #import "ExpandHeaderCell.h"
+#import "MFBTheme.h"
 
 @implementation ExpandHeaderCell
 
@@ -73,6 +74,9 @@
             cell = topLevelObjects[1];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    cell.backgroundColor = [MFBTheme currentTheme].expandHeaderBackColor;
+    cell.HeaderLabel.textColor = [MFBTheme currentTheme].expandHeaderTextColor;
+    [MFBTheme.currentTheme applyThemedImageNamed:@"Collapsed.png" toImageView:cell.ExpandCollapseLabel];
     cell.HeaderLabel.text = szTitle;
     [cell setExpanded:initExpanded];
     return cell;

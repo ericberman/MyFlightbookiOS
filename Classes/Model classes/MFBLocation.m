@@ -30,6 +30,7 @@
 #import "SunriseSunset.h"
 #import "Airports.h"
 #import "Telemetry.h"
+#import "MFBTheme.h"
 
 @interface MFBLocation()
 @property (readwrite, strong) NSMutableString * flightTrackData;
@@ -51,6 +52,7 @@
 @synthesize cSamplesSinceWaking, delegate;
 @synthesize fIsBlessed;
 @synthesize lastSeenLoc, currentLoc, locManager, rgAllSamples;
+@synthesize fUpdatesTheme;
 
 static int vTakeOff = TAKEOFF_SPEED_DEFAULT;
 static int vLanding = LANDING_SPEED_DEFAULT;
@@ -71,6 +73,7 @@ static int vLanding = LANDING_SPEED_DEFAULT;
         self.flightTrackData = [NSMutableString new];
         self.rgAllSamples = [NSMutableArray new];
         self.fIsBlessed = NO;
+        self.fUpdatesTheme = YES;
         [MFBLocation refreshTakeoffSpeed];
     }
     return self;
@@ -384,6 +387,19 @@ static int vLanding = LANDING_SPEED_DEFAULT;
         
         BOOL fIsNightForFlight = [self IsNightForFlight:sst];
         BOOL fIsNightForLandings = ([AutodetectOptions nightLandingPref] == nflNight) ? fIsNightForFlight : sst.isFAANight;
+
+        if (self.fUpdatesTheme && MFBTheme.themeMode == ThemeModeAuto) {
+            switch (MFBTheme.currentTheme.Type) {
+                case themeDay:
+                    if (fIsNightForFlight)
+                        [MFBTheme setTheme:themeNight];
+                        break;
+                case themeNight:
+                    if (!fIsNightForFlight)
+                        [MFBTheme setTheme:themeDay];
+                    break;
+            }
+        }
 
         if (PreviousLoc != nil && fPreviousLocWasNight && fIsNightForFlight && fAutodetect)
         {

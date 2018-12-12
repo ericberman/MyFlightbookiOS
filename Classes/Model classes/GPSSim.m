@@ -176,7 +176,9 @@
     le.entryData = [MFBWebServiceSvc_LogbookEntry getNewLogbookEntry];
     le.entryData.AircraftID = [NSNumber numberWithInteger:Aircraft.sharedAircraft.DefaultAircraftID];
     Telemetry * t = [Telemetry telemetryWithURL:url];
-    GPSSim * sim = [[GPSSim alloc] initWithLoc:[MFBLocation new] delegate:le.entryData];
+    MFBLocation * loc = [MFBLocation new];
+    loc.fUpdatesTheme = NO;
+    GPSSim * sim = [[GPSSim alloc] initWithLoc:loc delegate:le.entryData];
     sim.noDelayOnBackground = YES;
     [sim FeedEventsFromTelemetry:t];
     if (t.lastError.length > 0)

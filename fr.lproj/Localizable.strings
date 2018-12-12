@@ -1217,8 +1217,41 @@ Quel est le nom de la réception de votre mariage lieu a eu lieu?";
 /* Entry field: Landings */
 "fieldLandings" = "Atterrissages";
 
+/* Entry field: Route */
+"Route" = "Trajet";
+
+/* Entry field: Comments */
+"Comments" = "Commentaires";
+
+/* Entry field: Aircraft */
+"Aircraft" = "(Aéronef)";
+
+/* Search Prompt Models */
+"ModelSearchPrompt" = "Rechercher des modèles";
+
+/* Search Prompt Properties */
+"PropertySearchPrompt" = "Rechercher des propriétés";
+
+/* Search Prompt Route */
+"RouteSearchPrompt" = "Codes d'aéroport à mapper";
+
+/* Search Prompt Airports */
+"AirportsSearchPrompt" = "Rechercher des aéroports";
+
 /* TODAY Widget: no auth */
 "TodayWidgetNoAuth" = "Veuillez vous connecter en utilisant l'application MyFlightbook";
 
 /* TODAY Widget: updating */
 "TodayWidgetUpdating" = "Mise à jour ...";
+
+/* Night Mode Prompt */
+"NightModePrompt" = "Mode Nuit";
+
+/* Night Mode On */
+"NightModeOn" = "Désactivé";
+
+/* Night Mode Off */
+"NightModeOff" = "Activé";
+
+/* Night Mode Automatic */
+"NightModeAuto" = "Automatique";

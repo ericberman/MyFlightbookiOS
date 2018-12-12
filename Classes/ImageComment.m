@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2010-2017 MyFlightbook, LLC
+ Copyright (C) 2010-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -27,6 +27,7 @@
 #import "ImageComment.h"
 #import "MFBAppDelegate.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import "MFBTheme.h"
 
 @implementation ImageComment
 
@@ -45,7 +46,7 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.txtComment.placeholder = NSLocalizedString(@"Add a comment for this image", @"Add a comment for this image");
+    self.txtComment.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"Add a comment for this image", @"Add a comment for this image")];
 }
 
 

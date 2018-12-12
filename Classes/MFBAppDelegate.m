@@ -38,6 +38,7 @@
 #import "Telemetry.h"
 #import "WPSAlertController.h"
 #import "SynchronousCalls.h"
+#import "MFBTheme.h"
 
 #ifdef DEBUG
 #warning DEBUG BUILD!!.
@@ -545,6 +546,8 @@ static MFBAppDelegate * _mainApp = nil;
     _mainApp = self;
     self.notifyDataChanged = [[NSMutableArray alloc] init];
     self.notifyResetAll = [[NSMutableArray alloc] init];
+    
+    [MFBTheme restoreTheme];
     
 	if (self.window)
 	{

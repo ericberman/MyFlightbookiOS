@@ -6,4 +6,4 @@
 "18.segmentTitles[1]" = "Trajet2";
 
 /* Class = "UISearchBar"; placeholder = "Saisir l'identifiant de l'aéroport"; ObjectID = "41"; */
-"41.placeholder" = "Saisir l'identifiant de l'aéroport";
+"41.placeholder" = "";

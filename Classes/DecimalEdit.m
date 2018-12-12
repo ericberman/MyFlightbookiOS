@@ -29,6 +29,7 @@
 #import <objc/runtime.h>
 #import <QuartzCore/QuartzCore.h>
 #import "AutodetectOptions.h"
+#import "MFBTheme.h"
 
 @implementation UIButton(DecimalEdit)
 
@@ -40,6 +41,14 @@
     self.backgroundColor = [UIColor clearColor];
     self.layer.backgroundColor = [[UIColor clearColor] CGColor];
     self.layer.borderColor = [[UIColor clearColor] CGColor];
+    
+    UIColor * checkColor = MFBTheme.currentTheme.labelForeColor;
+    if (checkColor != nil) {
+        [self setTitleColor:checkColor forState:UIControlStateNormal];
+        [self setTitleColor:checkColor forState:UIControlStateFocused];
+        [self setTitleColor:checkColor forState:UIControlStateSelected];
+        [self setTitleColor:checkColor forState:UIControlStateHighlighted];
+    }
 }
 
 - (IBAction) toggleCheck:(id) sender
@@ -69,7 +78,7 @@ static NSNumberFormatter * _nfDecimal = nil;
 {
     NSString * szVal = (IsHHMM ? @"Y" : @"N");
     objc_setAssociatedObject(self, &UIB_ISHHMM_KEY, szVal, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    self.placeholder = [UITextField stringFromNumber:@0.0 forType:self.NumberType inHHMM:IsHHMM];
+    self.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:[UITextField stringFromNumber:@0.0 forType:self.NumberType inHHMM:IsHHMM]];
 }
 
 - (BOOL) IsHHMM

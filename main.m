@@ -32,6 +32,7 @@
 #import "CommentedImage.h"
 #import "FlightProps.h"
 #import "LogbookEntry.h"
+#import "MFBTheme.h"
 
 void Swizzle(Class c, SEL orig, SEL new)
 {
@@ -59,24 +60,33 @@ void SwizzleArchivedClasses()
      The correct way, it seems, to do this is to "swizzle" the functions, effectively swapping their function
      with mine.  This eliminates the linker warning (since there is no longer a name conflict) and calls my functionality
      where I want it.
+     
+     Swizzling code & description described at https://nshipster.com/method-swizzling/
     */
-    Swizzle([MFBWebServiceSvc_Aircraft class], @selector(initWithCoder:), @selector(initWithCoderMFB:));
-    Swizzle([MFBWebServiceSvc_Aircraft class], @selector(encodeWithCoder:), @selector(encodeWithCoderMFB:));
-    
-    Swizzle([MFBWebServiceSvc_MFBImageInfo class], @selector(initWithCoder:), @selector(initWithCoderMFB:));
-    Swizzle([MFBWebServiceSvc_MFBImageInfo class], @selector(encodeWithCoder:), @selector(encodeWithCoderMFB:));
-    Swizzle([MFBWebServiceSvc_ArrayOfMFBImageInfo class], @selector(initWithCoder:), @selector(initWithCoderMFB:));
-    Swizzle([MFBWebServiceSvc_ArrayOfMFBImageInfo class], @selector(encodeWithCoder:), @selector(encodeWithCoderMFB:));
-    
-    Swizzle([MFBWebServiceSvc_ArrayOfCustomFlightProperty class], @selector(initWithCoder:), @selector(initWithCoderMFB:));
-    Swizzle([MFBWebServiceSvc_ArrayOfCustomFlightProperty class], @selector(encodeWithCoder:), @selector(encodeWithCoderMFB:));
-    Swizzle([MFBWebServiceSvc_CustomPropertyType class], @selector(initWithCoder:), @selector(initWithCoderMFB:));
-    Swizzle([MFBWebServiceSvc_CustomPropertyType class], @selector(encodeWithCoder:), @selector(encodeWithCoderMFB:));
-    Swizzle([MFBWebServiceSvc_CustomFlightProperty class], @selector(initWithCoder:), @selector(initWithCoderMFB:));
-    Swizzle([MFBWebServiceSvc_CustomFlightProperty class], @selector(encodeWithCoder:), @selector(encodeWithCoderMFB:));
-    
-    Swizzle([MFBWebServiceSvc_LogbookEntry class], @selector(initWithCoder:), @selector(initWithCoderMFB:));
-    Swizzle([MFBWebServiceSvc_LogbookEntry class], @selector(encodeWithCoder:), @selector(encodeWithCoderMFB:));
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        Swizzle([MFBWebServiceSvc_Aircraft class], @selector(initWithCoder:), @selector(initWithCoderMFB:));
+        Swizzle([MFBWebServiceSvc_Aircraft class], @selector(encodeWithCoder:), @selector(encodeWithCoderMFB:));
+        
+        Swizzle([MFBWebServiceSvc_MFBImageInfo class], @selector(initWithCoder:), @selector(initWithCoderMFB:));
+        Swizzle([MFBWebServiceSvc_MFBImageInfo class], @selector(encodeWithCoder:), @selector(encodeWithCoderMFB:));
+        Swizzle([MFBWebServiceSvc_ArrayOfMFBImageInfo class], @selector(initWithCoder:), @selector(initWithCoderMFB:));
+        Swizzle([MFBWebServiceSvc_ArrayOfMFBImageInfo class], @selector(encodeWithCoder:), @selector(encodeWithCoderMFB:));
+        
+        Swizzle([MFBWebServiceSvc_ArrayOfCustomFlightProperty class], @selector(initWithCoder:), @selector(initWithCoderMFB:));
+        Swizzle([MFBWebServiceSvc_ArrayOfCustomFlightProperty class], @selector(encodeWithCoder:), @selector(encodeWithCoderMFB:));
+        Swizzle([MFBWebServiceSvc_CustomPropertyType class], @selector(initWithCoder:), @selector(initWithCoderMFB:));
+        Swizzle([MFBWebServiceSvc_CustomPropertyType class], @selector(encodeWithCoder:), @selector(encodeWithCoderMFB:));
+        Swizzle([MFBWebServiceSvc_CustomFlightProperty class], @selector(initWithCoder:), @selector(initWithCoderMFB:));
+        Swizzle([MFBWebServiceSvc_CustomFlightProperty class], @selector(encodeWithCoder:), @selector(encodeWithCoderMFB:));
+        
+        Swizzle([MFBWebServiceSvc_LogbookEntry class], @selector(initWithCoder:), @selector(initWithCoderMFB:));
+        Swizzle([MFBWebServiceSvc_LogbookEntry class], @selector(encodeWithCoder:), @selector(encodeWithCoderMFB:));
+        
+        // Theme support - tables suck because UIAppearance can't set primary/detail text colors.
+        Swizzle([UITableViewCell class], @selector(initWithStyle:reuseIdentifier:), @selector(initWithMFBThemedStyle:reuseIdentifier:));
+        Swizzle([UITableView class], @selector(dequeueReusableCellWithIdentifier:), @selector(dequeueThemedReusableCellWithIdentifier:));
+    });
 }
 
 int main(int argc, char *argv[]) {

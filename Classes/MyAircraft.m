@@ -229,8 +229,6 @@ BOOL fNeedsRefresh = NO;
     FixedImageCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[FixedImageCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-
-		cell.selectionStyle = UITableViewCellSelectionStyleGray;
 	}
     
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

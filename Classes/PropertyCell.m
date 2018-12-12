@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2013-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -30,6 +30,7 @@
 #import "Util.h"
 #import "DecimalEdit.h"
 #import <QuartzCore/QuartzCore.h>
+#import "MFBTheme.h"
 
 @interface PropertyCell()
 @property (strong) NSNumber * autofillValue;
@@ -140,7 +141,7 @@
 
 - (void) styleLabelAsDefault:(BOOL)fIsDefault
 {
-    self.lbl.textColor = (fIsDefault) ? [UIColor darkGrayColor] : [UIColor blackColor];
+    self.lbl.textColor = (fIsDefault) ? MFBTheme.currentTheme.cellValue1DetailTextColor : MFBTheme.currentTheme.labelForeColor;
     self.lbl.font = (fIsDefault) ? [UIFont systemFontOfSize:12.0] : [UIFont boldSystemFontOfSize:12.0];
 }
 
@@ -271,9 +272,9 @@
             break;
         case MFBWebServiceSvc_CFPPropertyType_cfpDate:
         case MFBWebServiceSvc_CFPPropertyType_cfpDateTime:
-            self.txt.placeholder = (self.cpt.Type == MFBWebServiceSvc_CFPPropertyType_cfpDate) ?
+            self.txt.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:(self.cpt.Type == MFBWebServiceSvc_CFPPropertyType_cfpDate) ?
             NSLocalizedString(@"Tap for Today", @"Prompt on button to specify a date that is not yet specified") :
-            NSLocalizedString(@"Tap for Now", @"Prompt on button to specify a date/time that is not yet specified");
+            NSLocalizedString(@"Tap for Now", @"Prompt on button to specify a date/time that is not yet specified")];
             self.txt.inputView = dp;
             break;
         case MFBWebServiceSvc_CFPPropertyType_cfpCurrency:

@@ -30,6 +30,8 @@
 #import "PropertyCell.h"
 #import "NavigableCell.h"
 #import "Airports.h"
+#import "MFBTheme.h"
+
 @import Photos;
 
 @interface CollapsibleTable ()
@@ -87,6 +89,18 @@ BOOL fSelectFirst = NO;
     // Fix an iOS 11 issue with going under the UITabBar?
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
         self.edgesForExtendedLayout = UIRectEdgeNone;
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [NSNotificationCenter.defaultCenter addObserverForName:NOTIFY_THEME_CHANGED object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+        [self.tableView reloadData];
+    }];
+}
+
+- (void) viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [NSNotificationCenter.defaultCenter removeObserver:self];
 }
 
 #pragma mark - Misc ViewController
@@ -469,6 +483,11 @@ BOOL fSelectFirst = NO;
     }
     
     return height;
+}
+
+#pragma mark - Theming support
+- (void) tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    [MFBTheme.currentTheme applyThemeToTableHeader:view];
 }
 
 #pragma mark - invalidate (for sign-out)

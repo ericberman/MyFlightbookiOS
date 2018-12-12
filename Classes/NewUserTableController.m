@@ -37,6 +37,7 @@
 #import "FlightProps.h"
 #import "HostedWebViewViewController.h"
 #import "WPSAlertController.h"
+#import "MFBTheme.h"
 
 @interface NewUserTableController ()
 
@@ -183,7 +184,7 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
             break;
         case rowQuestion:
             cell = ec = [EditCell getEditCell:tableView withAccessory:self.vwAccessory];
-            ec.txt.placeholder = NSLocalizedString(@"Question Placeholder", @"Question Placeholder");
+            ec.txt.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"Question Placeholder", @"Question Placeholder")];
             [ec setLabelToFit:NSLocalizedString(@"Secret Question", @"Secret Question Prompt")];
             ec.txt.text = self.nuo.szQuestion;
             ec.txt.keyboardType = UIKeyboardTypeDefault;
@@ -193,7 +194,7 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
             break;
         case rowAnswer:
             cell = ec = [EditCell getEditCell:tableView withAccessory:self.vwAccessory];
-            ec.txt.placeholder = NSLocalizedString(@"Answer Placeholder", @"Answer Placeholder");
+            ec.txt.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"Answer Placeholder", @"Answer Placeholder")];
             [ec setLabelToFit:NSLocalizedString(@"Secret Answer", @"Secret Answer Prompt")];
             ec.lbl.adjustsFontSizeToFitWidth = YES;
             ec.txt.text = self.nuo.szAnswer;
@@ -204,7 +205,7 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
         case rowEmail:
             cell = ec = [EditCell getEditCell:tableView withAccessory:self.vwAccessory];
             [ec setLabelToFit:NSLocalizedString(@"E-mail", @"E-mail Prompt")];
-            ec.txt.placeholder = NSLocalizedString(@"E-Mail Placeholder", @"E-Mail Placeholder");
+            ec.txt.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"E-Mail Placeholder", @"E-Mail Placeholder")];
             ec.txt.text = self.nuo.szEmail;
             ec.txt.keyboardType = UIKeyboardTypeEmailAddress;
             ec.txt.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -213,7 +214,7 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
         case rowEmail2:
             cell = ec = [EditCell getEditCell:tableView withAccessory:self.vwAccessory];
             [ec setLabelToFit:NSLocalizedString(@"Confirm E-mail", @"Confirm E-mail")];
-            ec.txt.placeholder = NSLocalizedString(@"E-Mail Placeholder", @"E-Mail Placeholder");
+            ec.txt.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"E-Mail Placeholder", @"E-Mail Placeholder")];
             ec.txt.text = self.nuo.szEmail2;
             ec.txt.keyboardType = UIKeyboardTypeEmailAddress;
             ec.txt.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -222,7 +223,7 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
         case rowPass:
             cell = ec = [EditCell getEditCell:tableView withAccessory:self.vwAccessory];
             [ec setLabelToFit:NSLocalizedString(@"Password", @"Password prompt")];
-            ec.txt.placeholder = NSLocalizedString(@"Password Placeholder", @"Password Placeholder");
+            ec.txt.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"Password Placeholder", @"Password Placeholder")];
             ec.txt.text = self.nuo.szPass;
             ec.txt.secureTextEntry = YES;
             ec.txt.keyboardType = UIKeyboardTypeDefault;
@@ -230,7 +231,7 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
             break;
         case rowPass2:
             cell = ec = [EditCell getEditCell:tableView withAccessory:self.vwAccessory];
-            ec.txt.placeholder = NSLocalizedString(@"Password Placeholder", @"Password Placeholder");
+            ec.txt.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"Password Placeholder", @"Password Placeholder")];
             [ec setLabelToFit:NSLocalizedString(@"Confirm Password", @"Confirm Password prompt")];
             ec.txt.text = self.nuo.szPass2;
             ec.txt.secureTextEntry = YES;
@@ -240,7 +241,7 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
         case rowFirstName:
             cell = ec = [EditCell getEditCell:tableView withAccessory:self.vwAccessory];
             ec.lbl.text = NSLocalizedString(@"First Name", @"First Name prompt");
-            ec.txt.placeholder = NSLocalizedString(@"(Optional)", @"Optional");
+            ec.txt.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"(Optional)", @"Optional")];
             ec.txt.text = self.nuo.szFirst;
             ec.txt.keyboardType = UIKeyboardTypeDefault;
             ec.txt.delegate = self;
@@ -249,7 +250,7 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
             cell = ec = [EditCell getEditCell:tableView withAccessory:self.vwAccessory];
             ec.lbl.text = NSLocalizedString(@"Last Name", @"Last Name prompt");
             ec.txt.text = self.nuo.szLast;
-            ec.txt.placeholder = NSLocalizedString(@"(Optional)", @"Optional");
+            ec.txt.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"(Optional)", @"Optional")];
             ec.txt.keyboardType = UIKeyboardTypeDefault;
             ec.txt.delegate = self;
             break;

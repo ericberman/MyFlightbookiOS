@@ -27,6 +27,7 @@
 
 #import "Training.h"
 #import "HostedWebViewViewController.h"
+#import "MFBTheme.h"
 
 @interface Training ()
 
@@ -106,8 +107,9 @@ enum _trainingLinks {cidFirst, cidInstructors = cidFirst, cidStudents, cidReqSig
             break;
     }
     
-    cell.textLabel.textColor = [self canViewTraining] ? [UIColor blackColor] : [UIColor grayColor];
-    cell.imageView.image = [UIImage imageNamed:@"training.png"];
+    if (!self.canViewTraining)
+        cell.textLabel.textColor = MFBTheme.currentTheme.dimmedColor;
+    [MFBTheme.currentTheme applyThemedImageNamed:@"training.png" toImageView:cell.imageView];
     return cell;
 }
 

@@ -28,6 +28,7 @@
 #import "OptionKeys.h"
 #import "TextCell.h"
 #import "MultiValOptionSelector.h"
+#import "MFBTheme.h"
 
 @implementation AutodetectOptions
 
@@ -226,6 +227,13 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
     }
 }
 
+- (void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSInteger row = [self cellIDFromIndexPath:indexPath];
+    if (row == rowWarnings) {
+        self.txtWarnings.backgroundColor = [UIColor clearColor];
+    }
+}
+
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSInteger row = [self cellIDFromIndexPath:indexPath];
@@ -288,10 +296,14 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
             NSMutableArray<NSString *> * landingOptionNames = [[NSMutableArray alloc] init];
             for (int i = nflSunsetPlus60; i < nflLast; i++)
                 [landingOptionNames addObject:[MFBLocation nightLandingOptionName:i]];
-
+            
+            NSArray<NSString *> * nightModeOptions = [NSArray arrayWithObjects:[MFBTheme modeName:ThemeModeOff], [MFBTheme modeName:ThemeModeOn], [MFBTheme modeName:ThemeModeAuto], nil];
+            ThemeOptionSelection * tos = [[ThemeOptionSelection alloc] initWithTitle:NSLocalizedString(@"NightModePrompt", @"Night Mode Prompt") forOptionKey:keyThemePref options:nightModeOptions];
+            
             mvos.optionGroups = @[
                                   [[OptionSelection alloc] initWithTitle:NSLocalizedString(@"NightFlightStarts", @"Night flight options") forOptionKey:keyNightFlightPref options:flightOptionNames],
                                   [[OptionSelection alloc] initWithTitle:NSLocalizedString(@"NightLandingsStart", @"Night Landing options") forOptionKey:keyNightLandingPref options:landingOptionNames]
+                                  ,tos
                                   ];
             
             [self.navigationController pushViewController:mvos animated:YES];
