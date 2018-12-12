@@ -548,7 +548,8 @@ static MFBAppDelegate * _mainApp = nil;
     self.notifyResetAll = [[NSMutableArray alloc] init];
     
     [MFBTheme restoreTheme];
-    
+    self.tabBarController.moreNavigationController.navigationBar.tintColor = MFBTheme.MFBBrandColor;
+
 	if (self.window)
 	{
         [self.window makeKeyAndVisible];
