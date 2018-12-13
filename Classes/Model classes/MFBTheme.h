@@ -62,6 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readwrite) ThemeType Type;
 @property (nonatomic, strong) UIColor * labelForeColor;
+@property (nonatomic, strong) UIColor * labelBackColor;
 @property (nonatomic, strong) UIColor * dimmedColor;
 @property (nonatomic, strong) UIColor * expandHeaderBackColor;
 @property (nonatomic, strong) UIColor * expandHeaderTextColor;

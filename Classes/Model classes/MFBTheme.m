@@ -41,8 +41,6 @@
 @property (nonatomic, strong) UIColor * textFieldBackColor;
 @property (nonatomic, strong) UIColor * textFieldForeColor;
 
-@property (nonatomic, strong) UIColor * labelBackColor;
-
 @property (nonatomic, strong) UIColor * cellBackColor;
 @property (nonatomic, strong, nullable) UIView * cellbackgroundView;
 

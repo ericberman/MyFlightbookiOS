@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2010-2018 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@
 
 #import "about.h"
 #import "MFBAppDelegate.h"
-
+#import "MFBTheme.h"
 
 @implementation about
 
@@ -50,6 +50,8 @@
 #endif
     if (lblDetails != nil)
         lblDetails.text = [NSString stringWithFormat:@"%@, %d, %d, %@", MFBHOSTNAME, [MFBLocation TakeOffSpeed], [MFBLocation LandingSpeed], [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
+    
+    self.view.backgroundColor = MFBTheme.currentTheme.labelBackColor;
 
     lblDetailedText.text = NSLocalizedString(@"AboutMyFlightbook", @"About MyFlightbook");
 }

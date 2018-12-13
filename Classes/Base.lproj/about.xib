@@ -30,7 +30,7 @@
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     <dataDetectorType key="dataDetectorTypes" link="YES"/>
                 </textView>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" textAlignment="center" lineBreakMode="wordWrap" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="11">
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" minimumFontSize="10" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="11">
                     <rect key="frame" x="28" y="72" width="264.5" height="46"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="46" id="I8c-Y5-GFJ"/>
@@ -51,7 +51,6 @@ All Rights Reserved</string>
                             </connections>
                         </barButtonItem>
                     </items>
-                    <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <attributedString key="userComments">
                         <fragment>
                             <string key="content">Done button
