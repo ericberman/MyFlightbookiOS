@@ -388,8 +388,7 @@ static MFBTheme * currentTheme = nil;
 @implementation UITableView (MFBTheming)
 - (UITableViewCell *) dequeueThemedReusableCellWithIdentifier:(NSString *)identifier {
     UITableViewCell * cell = [self dequeueThemedReusableCellWithIdentifier:identifier];
-    if (cell != nil)
-        [MFBTheme.currentTheme applyThemeToCell:cell];
+    [MFBTheme.currentTheme applyThemeToCell:cell];
 
     return cell;
 }

@@ -475,6 +475,9 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     self.idComments.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"Comments", @"Entry field: Comments")];
     self.idRoute.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"Route", @"Entry field: Route")];
     self.idPopAircraft.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"Aircraft", @"Entry field: Aircraft")];
+    [self.idPublic setTitleColor:MFBTheme.currentTheme.labelForeColor forState:UIControlStateNormal];
+    [self.idPublic setTitleColor:MFBTheme.currentTheme.labelForeColor forState:UIControlStateSelected];
+    [self.idPublic setTitleColor:MFBTheme.currentTheme.labelForeColor forState:UIControlStateHighlighted];
 
     [self autoBlock];
     
