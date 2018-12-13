@@ -1089,8 +1089,7 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
 #pragma mark - View Schedule
 - (void) viewSchedule:(id) sender
 {
-    NSString * szURL = [NSString stringWithFormat:@"https://%@/logbook/public/authredir.aspx?u=%@&p=%@&d=aircraftschedule&naked=1&ac=%d",
-                        MFBHOSTNAME, [mfbApp().userProfile.UserName stringByURLEncodingString], [mfbApp().userProfile.Password stringByURLEncodingString], self.ac.AircraftID.intValue];
+    NSString * szURL = [mfbApp().userProfile authRedirForUser:[NSString stringWithFormat:@"d=aircraftschedule&naked=1&ac=%d", self.ac.AircraftID.intValue]];
     
     HostedWebViewViewController * vwWeb = [[HostedWebViewViewController alloc] initWithURL:szURL];
     [self.navigationController pushViewController:vwWeb animated:YES];

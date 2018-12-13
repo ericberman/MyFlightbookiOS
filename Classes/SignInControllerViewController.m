@@ -353,10 +353,11 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
 - (void) contactUs
 {
     MFBAppDelegate * app = mfbApp();
-	NSString * szURL = [NSString stringWithFormat:@"https://%@/logbook/public/ContactMe.aspx?email=%@&subj=%@&noCap=1&naked=1",
+	NSString * szURL = [NSString stringWithFormat:@"https://%@/logbook/public/ContactMe.aspx?email=%@&subj=%@&noCap=1&naked=1&night=%@",
 						MFBHOSTNAME,
                         app.userProfile.UserName,
-						[[NSString stringWithFormat:@"Comment from %@ user", (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? @"iPad" : @"iPhone"] stringByURLEncodingString]];
+						[[NSString stringWithFormat:@"Comment from %@ user", (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? @"iPad" : @"iPhone"] stringByURLEncodingString],
+                        MFBTheme.currentTheme.Type == themeNight ? @"yes" : @"no"];
     [self pushURL:szURL];
 }
 
@@ -403,34 +404,16 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
             [self showAbout];
             break;
         case cidFAQ:
-        {
             [self.tableView endEditing:YES];
-            NSString * szProtocol = @"https";
-#ifdef DEBUG
-            if ([MFBHOSTNAME hasPrefix:@"192."] || [MFBHOSTNAME hasPrefix:@"10."])
-                szProtocol = @"http";
-#endif
-            NSString * szURL = [NSString stringWithFormat:@"%@://%@/logbook/public/authredir.aspx?u=%@&p=%@&d=faq&naked=1",
-            szProtocol, MFBHOSTNAME, [self.szUser stringByURLEncodingString], [self.szPass stringByURLEncodingString]];
-            [self pushURL:szURL];
-        }
+            [self pushURL:[mfbApp().userProfile authRedirForUser:@"d=faq&naked=1"]];
             break;
         case cidSupport:
-        {
             [self.tableView endEditing:YES];
             
             if (!mfbApp().userProfile.isValid)
                 return;
             
-            NSString * szProtocol = @"https";
-#ifdef DEBUG
-            if ([MFBHOSTNAME hasPrefix:@"192."] || [MFBHOSTNAME hasPrefix:@"10."])
-                szProtocol = @"http";
-#endif
-            NSString * szURL = [NSString stringWithFormat:@"%@://%@/logbook/public/authredir.aspx?u=%@&p=%@&d=donate",
-                                szProtocol, MFBHOSTNAME, [self.szUser stringByURLEncodingString], [self.szPass stringByURLEncodingString]];
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:szURL]];
-        }
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[mfbApp().userProfile authRedirForUser:@"d=donate" themeNight:NO]]];
             break;
         case cidCreateAcct:
             [self.tableView endEditing:YES];

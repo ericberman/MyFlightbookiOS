@@ -122,13 +122,7 @@ enum _trainingLinks {cidFirst, cidInstructors = cidFirst, cidStudents, cidReqSig
         [self showErrorAlertWithMessage:NSLocalizedString(@"TrainingNotAvailable", @"Error message for training if offline or not signed in")];
         return;
     }
-    NSString * szProtocol = @"https";
-#ifdef DEBUG
-    if ([MFBHOSTNAME hasPrefix:@"192."] || [MFBHOSTNAME hasPrefix:@"10."])
-        szProtocol = @"http";
-#endif
-    NSString * szURL = [NSString stringWithFormat:@"%@://%@/logbook/public/authredir.aspx?u=%@&p=%@&d=%@&naked=1",
-                   szProtocol, MFBHOSTNAME, [mfbApp().userProfile.UserName stringByURLEncodingString], [mfbApp().userProfile.Password stringByURLEncodingString], szDest];
+    NSString * szURL = [mfbApp().userProfile authRedirForUser:[NSString stringWithFormat:@"@&d=%@&naked=1", szDest]];
 
 	HostedWebViewViewController * vwWeb = [[HostedWebViewViewController alloc] initWithURL:szURL];
 	[self.navigationController pushViewController:vwWeb animated:YES];

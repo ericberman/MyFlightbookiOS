@@ -1952,10 +1952,11 @@ static NSDateFormatter * dfSunriseSunset = nil;
 
 - (void) signFlight:(id)sender
 {
-	NSString * szURL = [NSString stringWithFormat:@"https://%@/logbook/public/SignEntry.aspx?idFlight=%d&auth=%@&naked=1",
+	NSString * szURL = [NSString stringWithFormat:@"https://%@/logbook/public/SignEntry.aspx?idFlight=%d&auth=%@&naked=1&night=%@",
 						MFBHOSTNAME,
 						[self.le.entryData.FlightID intValue],
-						[(mfbApp()).userProfile.AuthToken stringByURLEncodingString]];
+						[(mfbApp()).userProfile.AuthToken stringByURLEncodingString],
+                        MFBTheme.currentTheme.Type == themeNight ? @"yes" : @"no"];
 	
     HostedWebViewViewController * vwWeb = [[HostedWebViewViewController alloc] initWithURL:szURL];
     [mfbApp() invalidateCachedTotals];   // this flight could now be invalid

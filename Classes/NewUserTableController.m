@@ -389,13 +389,13 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
 
 - (void) viewPrivacy
 {
-	HostedWebViewViewController * vwWeb = [[HostedWebViewViewController alloc] initWithURL:@"https://MyFlightbook.com/logbook/public/privacy.aspx?naked=1"];
+    HostedWebViewViewController * vwWeb = [[HostedWebViewViewController alloc] initWithURL:[NSString stringWithFormat:@"https://%@/logbook/public/privacy.aspx?naked=1&night=%@", MFBHOSTNAME, MFBTheme.currentTheme.Type == themeNight ? @"yes" : @"no"]];
 	[self.navigationController pushViewController:vwWeb animated:YES];
 }
 
 - (void) viewTAndC
 {
-	HostedWebViewViewController * vwWeb = [[HostedWebViewViewController alloc] initWithURL:@"https://myflightbook.com/logbook/Public/TandC.aspx?naked=1"];
+    HostedWebViewViewController * vwWeb = [[HostedWebViewViewController alloc] initWithURL:[NSString stringWithFormat:@"https://%@/logbook/Public/TandC.aspx?naked=1&night=%@", MFBHOSTNAME, MFBTheme.currentTheme.Type == themeNight ? @"yes" : @"no"]];
 	[self.navigationController pushViewController:vwWeb animated:YES];
 }
 

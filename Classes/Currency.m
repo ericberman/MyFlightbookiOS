@@ -28,6 +28,7 @@
 #import "HostedWebViewViewController.h"
 #import "AircraftViewController.h"
 #import "RecentFlights.h"
+#import "MFBTheme.h"
 
 @interface Currency()
 @property (readwrite, strong) NSMutableArray<MFBWebServiceSvc_CurrencyStatusItem *> * rgCurrency;
@@ -217,27 +218,17 @@
 }
 
 - (void) pushWebURL:(NSString *) szPath {
-    NSString * szProtocol = @"https";
-#ifdef DEBUG
-    if ([MFBHOSTNAME hasPrefix:@"192."] || [MFBHOSTNAME hasPrefix:@"10."])
-        szProtocol = @"http";
-#endif
-    HostedWebViewViewController * vwWeb = [[HostedWebViewViewController alloc] initWithURL:[NSString stringWithFormat:@"%@://%@%@", szProtocol, MFBHOSTNAME, szPath]];
+    HostedWebViewViewController * vwWeb = [[HostedWebViewViewController alloc] initWithURL:szPath];
     [self.navigationController pushViewController:vwWeb animated:YES];
 }
 
 - (void) pushAuthURL:(NSString *) target {
-
-    NSString * szURL = [NSString stringWithFormat:@"/logbook/public/authredir.aspx?u=%@&p=%@&d=%@&naked=1",
-                        [mfbApp().userProfile.UserName stringByURLEncodingString],
-                        [mfbApp().userProfile.Password stringByURLEncodingString],
-                        target];
-    [self pushWebURL:szURL];
+    [self pushWebURL:[mfbApp().userProfile authRedirForUser:[NSString stringWithFormat:@"d=%@&naked=1", target]]];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == sectDisclaimer)
-        [self pushWebURL:@"/logbook/Public/CurrencyDisclaimer.aspx?naked=1"];
+        [self pushWebURL:[NSString stringWithFormat:@"https://%@/logbook/Public/CurrencyDisclaimer.aspx?naked=1&night=%@", MFBHOSTNAME, MFBTheme.currentTheme.Type == themeNight ? @"yes" : @"no"]];
     else if (indexPath.section == sectCurrency) {
         MFBWebServiceSvc_CurrencyStatusItem * ci = (self.rgCurrency)[indexPath.row];
         

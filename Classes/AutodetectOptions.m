@@ -330,19 +330,7 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
         }
             break;
         case rowOnlineSettings:
-        {
-            NSString * szURLTemplate = @"%@://%@/logbook/public/authredir.aspx?u=%@&p=%@&d=profile";
-            NSString * szProtocol = @"https";
-#ifdef DEBUG
-            if ([MFBHOSTNAME hasPrefix:@"192."] || [MFBHOSTNAME hasPrefix:@"10."])
-                szProtocol = @"http";
-#endif
-            MFBProfile * pf = mfbApp().userProfile;
-            
-            NSString * szURL = [NSString stringWithFormat:szURLTemplate,
-                                szProtocol, MFBHOSTNAME, [pf.UserName stringByURLEncodingString], [pf.Password stringByURLEncodingString]];
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:szURL]];
-        }
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[mfbApp().userProfile authRedirForUser:@"d=profile" themeNight:NO]]];
             break;
         default:
             break;
