@@ -30,7 +30,7 @@
                 <outlet property="idswUseHHMM" destination="40" id="53"/>
                 <outlet property="idswUseHeliports" destination="65" id="81"/>
                 <outlet property="idswUseLocal" destination="39" id="54"/>
-                <outlet property="txtWarnings" destination="70" id="74"/>
+                <outlet property="txtWarnings" destination="hdR-ja-wFT" id="JCM-Rb-1K5"/>
                 <outlet property="view" destination="43" id="46"/>
             </connections>
         </placeholder>
@@ -286,21 +286,26 @@
             <point key="canvasLocation" x="780.79999999999995" y="352.62368815592208"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" rowHeight="332" id="69" userLabel="cellDisclaimer">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="332"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="32"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="69" id="dpp-sA-yKn">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="331.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="31.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="70">
-                        <rect key="frame" x="8" y="8" width="304" height="316"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                    </textView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="17" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdR-ja-wFT">
+                        <rect key="frame" x="6" y="6" width="306" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </tableViewCellContentView>
+            <constraints>
+                <constraint firstItem="hdR-ja-wFT" firstAttribute="top" secondItem="69" secondAttribute="top" constant="6" id="O1p-eQ-pj1"/>
+                <constraint firstAttribute="bottom" secondItem="hdR-ja-wFT" secondAttribute="bottom" constant="11" id="k3V-LW-LYO"/>
+                <constraint firstAttribute="trailing" secondItem="hdR-ja-wFT" secondAttribute="trailing" constant="8" id="mzk-P4-pvN"/>
+                <constraint firstItem="hdR-ja-wFT" firstAttribute="leading" secondItem="69" secondAttribute="leading" constant="6" id="qi5-Qi-g4G"/>
+            </constraints>
             <point key="canvasLocation" x="-44.799999999999997" y="310.34482758620692"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="58" id="75" userLabel="TakeoffSpeed">

@@ -218,7 +218,7 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
                                                             context:nil].size;
             self.txtWarnings.frame = CGRectMake(self.txtWarnings.frame.origin.x, self.txtWarnings.frame.origin.y, self.tableView.frame.size.width - 20, ceil(size.height));
             self.txtWarnings.text = self.txtWarnings.text;  // force a relayout
-            return ceil(size.height + 40);  // account for margins on all sides + rounding.
+            return ceil(size.height + 20);  // account for margins on all sides + rounding.
         }
         case rowMaps:
             return self.cellMapOptions.frame.size.height;

@@ -64,7 +64,7 @@ typedef NS_ENUM(NSInteger, autoTotal) {
 @property (nonatomic, strong) IBOutlet UITableViewCell * cellTOSpeed;
 @property (nonatomic, strong) IBOutlet UITableViewCell * cellMapOptions;
 @property (nonatomic, strong) IBOutlet UITableViewCell * cellImages;
-@property (nonatomic, strong) IBOutlet UITextView * txtWarnings;
+@property (nonatomic, strong) IBOutlet UILabel * txtWarnings;
 
 - (IBAction) autoDetectClicked:(UISwitch *)sender;
 - (IBAction) recordFlightClicked:(UISwitch *)sender;
