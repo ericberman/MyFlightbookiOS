@@ -357,6 +357,9 @@ BOOL fCouldBeMoreFlights;
     MFBAppDelegate * app = mfbApp();
     NSInteger index = cFlightsToSubmit - iFlightInProgress - 1;
     NSLog(@"iFlight=%ld, cFlights=%ld, rgCount=%lu, index=%ld", (long) iFlightInProgress, (long) cFlightsToSubmit, (long) app.rgPendingFlights.count, (long) index);
+    if (app.rgPendingFlights == nil || index >= app.rgPendingFlights.count) // should never happen.
+        return;
+    
     LogbookEntry * le = (LogbookEntry *) (app.rgPendingFlights)[index];
     
     if (!le.entryData.isQueued && le.errorString.length == 0) { // no holdover error
@@ -544,6 +547,8 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectPendingFlights, sectExi
             return;
         case sectExistingFlights:
             le = [[LogbookEntry alloc] init];
+            if (self.rgFlights == nil || indexPath.row >= self.rgFlights.count) // should never happen.
+                return;
             le.entryData = (MFBWebServiceSvc_LogbookEntry *) (self.rgFlights)[indexPath.row];
             break;
         case sectPendingFlights:
