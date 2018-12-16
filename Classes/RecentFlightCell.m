@@ -88,7 +88,7 @@
 
 - (NSAttributedString *) attributedLabel:(NSString *) label forValue:(NSNumber *) num withFont:(UIFont *) font inHHMM:(BOOL) useHHMM numType:(int) nt
 {
-    if (num.doubleValue == 0)
+    if (num == nil || num.doubleValue == 0)
         return [[NSAttributedString alloc] init];
     
     UIColor * textColor = MFBTheme.currentTheme.labelForeColor;
@@ -115,7 +115,8 @@
     if (szErr.length != 0)
         [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", szErr] attributes:@{NSForegroundColorAttributeName : [UIColor redColor]}]];
 
-    [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[df stringFromDate:le.Date]  attributes:@{NSFontAttributeName : largeBoldFont, NSForegroundColorAttributeName : textColor}]];
+    if (le.Date != nil) // should never happen!
+        [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[df stringFromDate:le.Date]  attributes:@{NSFontAttributeName : largeBoldFont, NSForegroundColorAttributeName : textColor}]];
 
     [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@", le.TailNumDisplay] attributes:@{NSFontAttributeName : largeBoldFont, NSForegroundColorAttributeName : textColor}]];
     

@@ -478,6 +478,9 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     [self.idPublic setTitleColor:MFBTheme.currentTheme.labelForeColor forState:UIControlStateNormal];
     [self.idPublic setTitleColor:MFBTheme.currentTheme.labelForeColor forState:UIControlStateSelected];
     [self.idPublic setTitleColor:MFBTheme.currentTheme.labelForeColor forState:UIControlStateHighlighted];
+    [self.idHold setTitleColor:MFBTheme.currentTheme.labelForeColor forState:UIControlStateNormal];
+    [self.idHold setTitleColor:MFBTheme.currentTheme.labelForeColor forState:UIControlStateSelected];
+    [self.idHold setTitleColor:MFBTheme.currentTheme.labelForeColor forState:UIControlStateHighlighted];
 
     [self autoBlock];
     
