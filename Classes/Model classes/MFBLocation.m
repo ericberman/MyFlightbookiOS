@@ -35,6 +35,8 @@
 @interface MFBLocation()
 @property (readwrite, strong) NSMutableString * flightTrackData;
 @property (readwrite, nonatomic) BOOL fIsBlessed;   // Are we the "Blessed" global instance that gets to receive updates from the live GPS?
+@property (readwrite, strong) CLLocation * PreviousLoc;
+@property (readwrite) BOOL fPreviousLocWasNight;
 @end
 
 @implementation MFBLocation
@@ -53,6 +55,7 @@
 @synthesize fIsBlessed;
 @synthesize lastSeenLoc, currentLoc, locManager, rgAllSamples;
 @synthesize fUpdatesTheme;
+@synthesize PreviousLoc, fPreviousLocWasNight;
 
 static int vTakeOff = TAKEOFF_SPEED_DEFAULT;
 static int vLanding = LANDING_SPEED_DEFAULT;
@@ -345,8 +348,6 @@ static int vLanding = LANDING_SPEED_DEFAULT;
     NSTimeInterval dt = 0;
     BOOL fEnoughSamples = (++self.cSamplesSinceWaking >= BOGUS_SAMPLE_COUNT);
     BOOL fForceRecord = NO; // true to record even a sample that we would otherwise discard.
-    static CLLocation * PreviousLoc = nil;
-    static BOOL fPreviousLocWasNight = NO;
     MFBAppDelegate * app = [MFBAppDelegate threadSafeAppDelegate];
     
 	self.lastSeenLoc = newLocation; // keep this, even if it's noisy (still useful for nearby airports)
@@ -391,11 +392,11 @@ static int vLanding = LANDING_SPEED_DEFAULT;
         if (self.fUpdatesTheme && MFBTheme.themeMode == ThemeModeAuto) {
             switch (MFBTheme.currentTheme.Type) {
                 case themeDay:
-                    if (fIsNightForFlight)
+                    if (sst.solarAngle < 0)
                         [MFBTheme setTheme:themeNight];
                         break;
                 case themeNight:
-                    if (!fIsNightForFlight)
+                    if (sst.solarAngle > 0)
                         [MFBTheme setTheme:themeDay];
                     break;
             }
