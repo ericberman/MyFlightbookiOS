@@ -402,14 +402,14 @@ static int vLanding = LANDING_SPEED_DEFAULT;
             }
         }
 
-        if (PreviousLoc != nil && fPreviousLocWasNight && fIsNightForFlight && fAutodetect)
+        if (self.PreviousLoc != nil && self.fPreviousLocWasNight && fIsNightForFlight && fAutodetect)
         {
-            NSTimeInterval t = [newLocation.timestamp timeIntervalSinceDate:PreviousLoc.timestamp] / 3600.0;    // time is in seconds, convert it to hours
+            NSTimeInterval t = [newLocation.timestamp timeIntervalSinceDate:self.PreviousLoc.timestamp] / 3600.0;    // time is in seconds, convert it to hours
             if (t < .5 && self.delegate.flightCouldBeInProgress)	// limit of half an hour between samples for night time
                 [self.delegate addNightTime:t];
         }
-        fPreviousLocWasNight = fIsNightForFlight;
-        PreviousLoc = lastSeenLoc;
+        self.fPreviousLocWasNight = fIsNightForFlight;
+        self.PreviousLoc = lastSeenLoc;
 
         
         // Autodetection of takeoff/landing
@@ -454,7 +454,7 @@ static int vLanding = LANDING_SPEED_DEFAULT;
                            fValidTime ? @"" : @"---"];
         }
 	}
-    else if (app.fDebugMode)
+    else if ((app.fDebugMode))
         [szEvent appendFormat:@"DEBUG - BOGUS SAMPLE: speed %.1f acc=%.1f samples: %ld", s, acc, (long)self.cSamplesSinceWaking];
     
     BOOL fRecordable = [self.delegate flightCouldBeInProgress] && self.fRecordFlightData;
