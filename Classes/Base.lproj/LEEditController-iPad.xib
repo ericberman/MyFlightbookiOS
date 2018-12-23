@@ -67,7 +67,7 @@
                         <rect key="frame" x="19" y="4" width="730" height="40"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3D5-OH-ilr" userLabel="vwRecordStatus">
-                                <rect key="frame" x="4" y="4" width="50" height="36"/>
+                                <rect key="frame" x="653" y="4" width="50" height="36"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="618" userLabel="btnPausePlay">
                                         <rect key="frame" x="21" y="7" width="22" height="22"/>
@@ -105,7 +105,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MGn-gI-jLp" userLabel="vwFlightStatus">
-                                <rect key="frame" x="284" y="4" width="100" height="36"/>
+                                <rect key="frame" x="210.5" y="4" width="100" height="36"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Flight Status:" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="620">
                                         <rect key="frame" x="8" y="6" width="84" height="12"/>
@@ -132,7 +132,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gdQ-ST-OeW" userLabel="vwElapsed">
-                                <rect key="frame" x="64" y="4" width="100" height="36"/>
+                                <rect key="frame" x="2" y="4" width="100" height="36"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="621">
                                         <rect key="frame" x="16" y="17" width="68" height="14"/>
@@ -160,7 +160,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pcb-Gx-tRQ" userLabel="vwAltitudeSpeed">
-                                <rect key="frame" x="174" y="4" width="100" height="36"/>
+                                <rect key="frame" x="106.5" y="4" width="100" height="36"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="--" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="625">
                                         <rect key="frame" x="46" y="5" width="8" height="14"/>
@@ -186,7 +186,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aeA-uR-fUv" userLabel="vwGPSQuality">
-                                <rect key="frame" x="394" y="4" width="100" height="36"/>
+                                <rect key="frame" x="315" y="4" width="100" height="36"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="GPS quality:" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="624">
                                         <rect key="frame" x="20.5" y="6" width="59" height="12"/>
@@ -212,7 +212,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cIl-9p-hv5" userLabel="vwLatLon">
-                                <rect key="frame" x="504" y="4" width="100" height="36"/>
+                                <rect key="frame" x="419.5" y="4" width="100" height="36"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(Longitude)" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="612">
                                         <rect key="frame" x="7" y="18" width="86" height="12"/>
@@ -239,7 +239,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U7e-wG-cW9" userLabel="vwSunriseSunset">
-                                <rect key="frame" x="614" y="4" width="100" height="36"/>
+                                <rect key="frame" x="523.5" y="4" width="100" height="36"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(Sunrise)" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="614">
                                         <rect key="frame" x="24" y="6" width="76" height="12"/>
@@ -285,23 +285,22 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="MGn-gI-jLp" firstAttribute="leading" secondItem="pcb-Gx-tRQ" secondAttribute="trailing" constant="10" id="4fd-5J-8T0"/>
-                            <constraint firstItem="aeA-uR-fUv" firstAttribute="leading" secondItem="MGn-gI-jLp" secondAttribute="trailing" constant="10" id="EFD-lu-GIQ"/>
-                            <constraint firstItem="gdQ-ST-OeW" firstAttribute="leading" secondItem="3D5-OH-ilr" secondAttribute="trailing" constant="10" id="HDb-6E-MmC"/>
+                            <constraint firstItem="gdQ-ST-OeW" firstAttribute="centerX" secondItem="yR0-fy-6sc" secondAttribute="centerX" multiplier="1:7" id="DRg-XN-TSq"/>
                             <constraint firstItem="U7e-wG-cW9" firstAttribute="centerY" secondItem="3D5-OH-ilr" secondAttribute="centerY" id="ILd-Yw-PVx"/>
-                            <constraint firstItem="U7e-wG-cW9" firstAttribute="leading" secondItem="cIl-9p-hv5" secondAttribute="trailing" constant="10" id="NJ6-Js-2He"/>
                             <constraint firstItem="cIl-9p-hv5" firstAttribute="centerY" secondItem="3D5-OH-ilr" secondAttribute="centerY" id="Nz4-7W-Xqw"/>
+                            <constraint firstItem="aeA-uR-fUv" firstAttribute="centerX" secondItem="yR0-fy-6sc" secondAttribute="centerX" multiplier="7:7" id="SHv-WN-ZHs"/>
                             <constraint firstItem="3D5-OH-ilr" firstAttribute="top" secondItem="yR0-fy-6sc" secondAttribute="top" constant="4" id="SNf-Jl-iz4"/>
-                            <constraint firstAttribute="trailing" secondItem="U7e-wG-cW9" secondAttribute="trailing" constant="16" id="T25-sJ-nSB"/>
                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="1000" id="U7e-Uk-zgI"/>
                             <constraint firstItem="aeA-uR-fUv" firstAttribute="centerY" secondItem="3D5-OH-ilr" secondAttribute="centerY" id="VSe-yg-7VX"/>
                             <constraint firstAttribute="bottom" secondItem="3D5-OH-ilr" secondAttribute="bottom" id="VUL-uB-buE"/>
+                            <constraint firstItem="3D5-OH-ilr" firstAttribute="centerX" secondItem="yR0-fy-6sc" secondAttribute="centerX" multiplier="13:7" id="Wrm-pC-OMD"/>
                             <constraint firstItem="pcb-Gx-tRQ" firstAttribute="centerY" secondItem="3D5-OH-ilr" secondAttribute="centerY" id="ZC6-He-lAp"/>
                             <constraint firstItem="gdQ-ST-OeW" firstAttribute="centerY" secondItem="3D5-OH-ilr" secondAttribute="centerY" id="akA-6O-i1U"/>
-                            <constraint firstItem="cIl-9p-hv5" firstAttribute="leading" secondItem="aeA-uR-fUv" secondAttribute="trailing" constant="10" id="djb-DG-27X"/>
-                            <constraint firstItem="3D5-OH-ilr" firstAttribute="leading" secondItem="yR0-fy-6sc" secondAttribute="leading" constant="4" id="gb1-de-0a3"/>
+                            <constraint firstItem="MGn-gI-jLp" firstAttribute="centerX" secondItem="yR0-fy-6sc" secondAttribute="centerX" multiplier="5:7" id="cRh-d7-9Td"/>
+                            <constraint firstItem="pcb-Gx-tRQ" firstAttribute="centerX" secondItem="yR0-fy-6sc" secondAttribute="centerX" multiplier="3:7" id="ed5-va-lQP"/>
                             <constraint firstItem="MGn-gI-jLp" firstAttribute="centerY" secondItem="3D5-OH-ilr" secondAttribute="centerY" id="gqR-7b-tfY"/>
-                            <constraint firstItem="pcb-Gx-tRQ" firstAttribute="leading" secondItem="gdQ-ST-OeW" secondAttribute="trailing" constant="10" id="s7v-l7-lgk"/>
+                            <constraint firstItem="cIl-9p-hv5" firstAttribute="centerX" secondItem="yR0-fy-6sc" secondAttribute="centerX" multiplier="9:7" id="kNX-E0-z66"/>
+                            <constraint firstItem="U7e-wG-cW9" firstAttribute="centerX" secondItem="yR0-fy-6sc" secondAttribute="centerX" multiplier="11:7" id="lkW-n0-8Oj"/>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="600" id="sqN-pj-xS2"/>
                         </constraints>
                     </view>
@@ -313,7 +312,7 @@
                     <constraint firstAttribute="trailing" secondItem="yR0-fy-6sc" secondAttribute="trailing" constant="19" id="qsl-AG-PRV"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="360.9375" y="179.296875"/>
+            <point key="canvasLocation" x="390" y="335"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="cellSharing" rowHeight="59" id="557">
             <rect key="frame" x="0.0" y="0.0" width="766" height="59"/>
