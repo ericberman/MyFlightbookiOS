@@ -546,6 +546,7 @@ static MFBAppDelegate * _mainApp = nil;
     
     if (self.progressAlert != nil) {
         [self.tabBarController dismissViewControllerAnimated:YES completion:^{
+            fAppLaunchFinished = YES;
             if (urlLaunchURL != nil)
             {
                 NSLog(@"Opening URL from AppLaunchWorkerUITasks");
@@ -555,9 +556,7 @@ static MFBAppDelegate * _mainApp = nil;
         }];
         self.progressAlert = nil;
     }
-    
-    fAppLaunchFinished = YES;
-    
+
 	return YES;
 }
 
