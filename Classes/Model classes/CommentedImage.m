@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2010-2018 MyFlightbook, LLC
+ Copyright (C) 2010-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 2/5/10.
-//  Copyright 2010-2018 MyFlightbook LLC. All rights reserved.
+//  Copyright 2010-2019 MyFlightbook LLC. All rights reserved.
 //
 
 #import "CommentedImage.h"
@@ -139,7 +139,7 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
 	if (![[MFBAppDelegate threadSafeAppDelegate] isOnLine])
 		return nil;
 	
-	NSURL * url = [self.imgInfo urlForImage];	
+	NSURL * url = [self.imgInfo urlForImage];
 	if (url != nil)
 	{
 		NSData * d = [NSData dataWithContentsOfURL:url];
@@ -664,11 +664,11 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
 
 }
 
-+ (void) initCommentedImagesFromMFBII:(NSArray *) rgmfbii toArray:(NSMutableArray *)rgImages
++ (BOOL) initCommentedImagesFromMFBII:(NSArray *) rgmfbii toArray:(NSMutableArray *)rgImages
 {
+    BOOL fResult = NO;
 	// add existing images to the image array
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-	for (MFBWebServiceSvc_MFBImageInfo * mfbii in rgmfbii) 
+	for (MFBWebServiceSvc_MFBImageInfo * mfbii in rgmfbii)
 	{
 		// add it to the list IF not already in the list.
 		BOOL fAlreadyInList = NO;
@@ -684,12 +684,12 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
 			{
 				[ci SetImage:img fromCamera:NO withMetaData:nil];
 				[rgImages addObject:ci];
+                fResult = YES;
 			}
 		}
 	}
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    return fResult;
 }
-
 
 + (UIImage*)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize
 {

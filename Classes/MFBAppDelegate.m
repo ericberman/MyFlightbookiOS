@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2018 MyFlightbook, LLC
+ Copyright (C) 2009-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 11/28/09.
-//  Copyright 2009-2018 MyFlightbook LLC. All rights reserved.
+//  Copyright 2009-2019 MyFlightbook LLC. All rights reserved.
 //
 
 #import "MFBAppDelegate.h"
@@ -389,131 +389,6 @@ static BOOL fAppLaunchFinished = NO;
     return YES;
 }
 
-- (void) appLaunchWorkerUITasks
-{
-  	// reload persisted state of tabs, if needed.
-	NSArray * rgPresistedTabs = [[NSUserDefaults standardUserDefaults] objectForKey:_szKeyTabOrder];
-	if (rgPresistedTabs != nil)
-	{
-		NSArray * controllers = self.tabBarController.viewControllers;
-		
-		NSMutableArray * rg = [[NSMutableArray alloc] init];
-		
-		for (NSString * szTitle in rgPresistedTabs) {
-			// find the view with this title in the viewcontrollers array
-			for (UIViewController * vw in controllers) {
-				NSString * szVwTitle = vw.title;
-				if ([szVwTitle isEqualToString:szTitle]) {
-					[rg addObject:vw];
-					break;
-				}
-			}
-		}
-		
-		// if somehow things didn't mesh up, don't try to restore the tabs!!!
-		if ([rg count] == [controllers count])
-			self.tabBarController.viewControllers = rg;
-		[self setCustomizableViewControllers];
-	}  
-
-    if ([self.userProfile isValid])
-    {
-        NSInteger iTab = [[NSUserDefaults standardUserDefaults] integerForKey:_szKeySelectedTab];
-        if (iTab == 0 && [self checkNoAircraft])
-            [self DefaultPage];
-        else
-            self.tabBarController.selectedIndex = iTab;
-    }
-
-	NSMutableArray * rgImages = [NSMutableArray arrayWithArray:self.leMain.le.rgPicsForFlight];
-	// Now get any additional images
-	for (LogbookEntry * lbe in self.rgPendingFlights)
-		[rgImages addObjectsFromArray:lbe.rgPicsForFlight];
-	[CommentedImage cleanupObsoleteFiles:rgImages];	
-	
-    // set a timer to save state every 5 minutes or so
-	self.timerSyncState = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:300]
-													interval:300
-													  target:self
-													selector:@selector(saveState)
-													userInfo:nil
-													 repeats:YES];
-	[[NSRunLoop currentRunLoop] addTimer:self.timerSyncState forMode:NSDefaultRunLoopMode];	
-
-	[self ensureWarningShownForUser];
-    
-    if (self.progressAlert != nil) {
-        [self.tabBarController dismissViewControllerAnimated:YES completion:^{
-            if (urlLaunchURL != nil)
-            {
-                NSLog(@"Opening URL from AppLaunchWorkerUITasks");
-                [self openURL:urlLaunchURL];
-                urlLaunchURL = nil;
-            }
-        }];
-        self.progressAlert = nil;
-    }
-    
-    fAppLaunchFinished = YES;
-}
-
-- (void) appLaunchWorker
-{
-    @autoreleasepool
-    {
-    NSUserDefaults * defs = [NSUserDefaults standardUserDefaults];
-    
-    // Check for any upgrades that are needed.
-    NSNumberFormatter * nf = [NSNumberFormatter new];
-    [nf setDecimalSeparator:@"."]; // CFBundleVersion ALWAYS uses a decimal
-    NSString * szCurVer = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-    double curVer = [[nf numberFromString:[szCurVer substringToIndex:3]] doubleValue];
-    double lastVer = [defs doubleForKey:_szKeyPrefLastInstalledVersion];
-    self.mfbloc.fRecordingIsPaused = NO;
-    
-    [self invalidateCachedTotals];
-    
-    // recover pending flights (for count to add to recent-flights tab)
-    NSData * ar = (NSData *) [defs objectForKey:_szKeyPrefPendingFlights];
-    if (ar != nil)
-        self.rgPendingFlights = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:ar]];
-    else
-        self.rgPendingFlights = [[NSMutableArray alloc] init];
-    // set a badge for the # of pending flights.
-    [self performSelectorOnMainThread:@selector(addBadgeForPendingFlights) withObject:nil waitUntilDone:NO];
-    
-    // and select the correct tab
-    [self.userProfile LoadPrefs];
-    
-    // post-1.85, cached imageinfo has fullURL;
-    // ensure we reload aircraft, so images work
-    if (lastVer <= 1.85)
-    {
-        NSLog(@"Last ver (%f) < 1.85, curVer = %f, invalidating cached aircraft", lastVer, curVer);
-        [[Aircraft sharedAircraft] invalidateCachedAircraft];
-        [self invalidateCachedTotals];
-    }
-    
-    if ([self.userProfile isValid])
-    {
-        // Initialize the aircraft list; only update the progress indicator if the cache is invalid.
-        if ([[Aircraft sharedAircraft] cacheStatus:self.userProfile.AuthToken] != cacheValid && [self isOnLine])
-            [[Aircraft sharedAircraft] performSelectorOnMainThread:@selector(refreshIfNeeded) withObject:nil waitUntilDone:YES];
-    }
-    else
-        [self performSelectorOnMainThread:@selector(ForceProfilePage) withObject:nil waitUntilDone:YES];
-    
-    // don't do any upgrades next time.
-    if (lastVer < curVer)
-    {
-        [defs setDouble:curVer forKey:_szKeyPrefLastInstalledVersion];	
-        [defs synchronize];
-    }
-    
-    [self performSelectorOnMainThread:@selector(appLaunchWorkerUITasks) withObject:nil waitUntilDone:YES];
-    }
-}
-
 #pragma mark UIApplication delegate methods
 - (void) createLocManager
 {
@@ -539,7 +414,33 @@ static MFBAppDelegate * _mainApp = nil;
     return _mainApp;
 }
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions 
+- (void) upgradeOldVersion {
+    NSUserDefaults * defs = [NSUserDefaults standardUserDefaults];
+    
+    // Check for any upgrades that are needed.
+    NSNumberFormatter * nf = [NSNumberFormatter new];
+    [nf setDecimalSeparator:@"."]; // CFBundleVersion ALWAYS uses a decimal
+    NSString * szCurVer = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+    double curVer = [[nf numberFromString:[szCurVer substringToIndex:3]] doubleValue];
+    double lastVer = [defs doubleForKey:_szKeyPrefLastInstalledVersion];
+
+    // post-1.85, cached imageinfo has fullURL;
+    // ensure we reload aircraft, so images work
+    if (lastVer <= 1.85)
+    {
+        NSLog(@"Last ver (%f) < 1.85, curVer = %f, invalidating cached aircraft", lastVer, curVer);
+        [[Aircraft sharedAircraft] invalidateCachedAircraft];
+        [self invalidateCachedTotals];
+    }
+    // don't do any upgrades next time.
+    if (lastVer < curVer)
+    {
+        [defs setDouble:curVer forKey:_szKeyPrefLastInstalledVersion];
+        [defs synchronize];
+    }
+}
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 	NSLog(@"MyFlightbook: hello - launch, baseURL is %@", MFBHOSTNAME);
     
@@ -561,7 +462,8 @@ static MFBAppDelegate * _mainApp = nil;
     [self createLocManager];
     self.mfbloc.cSamplesSinceWaking = 0;
     [self.mfbloc setUpLocManager];
-    
+    self.mfbloc.fRecordingIsPaused = NO;
+
     // Start reachability notifier
     self.reachability = [Reachability reachabilityWithHostName:MFBHOSTNAME];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNetworkChange:) name:kReachabilityChangedNotification object:nil];
@@ -577,8 +479,84 @@ static MFBAppDelegate * _mainApp = nil;
     [self setUpWatchSession];
     self.leMain.view = self.leMain.view; // force view to load to ensure it is valid.  Also initializes for shared watch.
     
-    // use a background process to do most of the initialization.
-    [NSThread detachNewThreadSelector:@selector(appLaunchWorker) toTarget:self withObject:nil];
+    [self upgradeOldVersion];
+    
+    [self invalidateCachedTotals];
+    
+    // recover pending flights (for count to add to recent-flights tab)
+    NSData * ar = (NSData *) [NSUserDefaults.standardUserDefaults objectForKey:_szKeyPrefPendingFlights];
+    if (ar != nil)
+        self.rgPendingFlights = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:ar]];
+    else
+        self.rgPendingFlights = [[NSMutableArray alloc] init];
+    // set a badge for the # of pending flights.
+    [self addBadgeForPendingFlights];
+    
+    // reload persisted state of tabs, if needed.
+    NSArray * rgPresistedTabs = [[NSUserDefaults standardUserDefaults] objectForKey:_szKeyTabOrder];
+    if (rgPresistedTabs != nil)
+    {
+        NSArray * controllers = self.tabBarController.viewControllers;
+        
+        NSMutableArray * rg = [[NSMutableArray alloc] init];
+        
+        for (NSString * szTitle in rgPresistedTabs) {
+            // find the view with this title in the viewcontrollers array
+            for (UIViewController * vw in controllers) {
+                NSString * szVwTitle = vw.title;
+                if ([szVwTitle isEqualToString:szTitle]) {
+                    [rg addObject:vw];
+                    break;
+                }
+            }
+        }
+        
+        // if somehow things didn't mesh up, don't try to restore the tabs!!!
+        if ([rg count] == [controllers count])
+            self.tabBarController.viewControllers = rg;
+        [self setCustomizableViewControllers];
+    }
+    
+    if ([self.userProfile isValid])
+    {
+        NSInteger iTab = [[NSUserDefaults standardUserDefaults] integerForKey:_szKeySelectedTab];
+        if (iTab == 0 && [self checkNoAircraft])
+            [self DefaultPage];
+        else
+            self.tabBarController.selectedIndex = iTab;
+    } else
+        [self ForceProfilePage];
+    
+    NSMutableArray * rgImages = [NSMutableArray arrayWithArray:self.leMain.le.rgPicsForFlight];
+    // Now get any additional images
+    for (LogbookEntry * lbe in self.rgPendingFlights)
+        [rgImages addObjectsFromArray:lbe.rgPicsForFlight];
+    [CommentedImage cleanupObsoleteFiles:rgImages];
+    
+    // set a timer to save state every 5 minutes or so
+    self.timerSyncState = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:300]
+                                                   interval:300
+                                                     target:self
+                                                   selector:@selector(saveState)
+                                                   userInfo:nil
+                                                    repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:self.timerSyncState forMode:NSDefaultRunLoopMode];
+    
+    [self ensureWarningShownForUser];
+    
+    if (self.progressAlert != nil) {
+        [self.tabBarController dismissViewControllerAnimated:YES completion:^{
+            if (urlLaunchURL != nil)
+            {
+                NSLog(@"Opening URL from AppLaunchWorkerUITasks");
+                [self openURL:urlLaunchURL];
+                urlLaunchURL = nil;
+            }
+        }];
+        self.progressAlert = nil;
+    }
+    
+    fAppLaunchFinished = YES;
     
 	return YES;
 }
@@ -642,6 +620,11 @@ static MFBAppDelegate * _mainApp = nil;
         self.mfbloc.locManager.allowsBackgroundLocationUpdates = YES;
     
     [self setUpWatchSession];
+    
+    // Launch any refresh tasks, but don't wait for response
+    Aircraft * aircraft = Aircraft.sharedAircraft;
+    if ([aircraft cacheStatus:self.userProfile.AuthToken] != cacheValid && [self isOnLine])
+        [NSThread detachNewThreadSelector:@selector(refreshIfNeeded) toTarget:aircraft withObject:nil];
 }
 
 - (void) appReactivateBackground

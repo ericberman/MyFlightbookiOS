@@ -1,9 +1,28 @@
+/*
+ MyFlightbook for iOS - provides native access to MyFlightbook
+ pilot's logbook
+ Copyright (C) 2009-2019 MyFlightbook, LLC
+ 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 //
 //  MFBSoapCall.m
 //  MFBSample
 //
 //  Created by Eric Berman on 12/20/09.
-//  Copyright 2009-2017 MyFlightbook LLC. All rights reserved.
+//  Copyright 2009-2019 MyFlightbook LLC. All rights reserved.
 //
 
 #import "MFBSoapCall.h"
@@ -131,14 +150,18 @@ static NSMutableArray * _rgHackRetain = nil;
 {
     BOOL retVal = YES;
     
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [self networkIndicatorOn];
     
 	MFBWebServiceSoapBinding * binding = [self setUpBinding:fSecure];
     if (binding != nil)
     {
          // need to make sure that we're still around to be the delegate when the call completes
         [MFBSoapCall hackARCRetain:self];
-        callToMake(binding, self);
+        
+        // We do this on a background thread because even though the call is async, it can hit a semaphore.
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            callToMake(binding, self);
+        });
     }
     else
         retVal = NO;
@@ -158,12 +181,16 @@ static NSMutableArray * _rgHackRetain = nil;
 
 - (void) networkIndicatorOn
 {
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIApplication.sharedApplication.networkActivityIndicatorVisible = YES;
+    });
 }
 
 - (void) networkIndicatorOff
 {
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIApplication.sharedApplication.networkActivityIndicatorVisible = NO;
+    });
 }
 
 // TODO: We should never be calling this any more.  Call only on background threads.  networkActivityIndicator can't be set from background thread.
@@ -171,14 +198,15 @@ static NSMutableArray * _rgHackRetain = nil;
 {
     BOOL retVal = YES;
     
-    [self performSelectorOnMainThread:@selector(networkIndicatorOn) withObject:nil waitUntilDone:NO];
+    NSAssert(!NSThread.isMainThread, @"NEVER call makeCallSynchronous on the main thread!");
+    [self networkIndicatorOn];
     
     MFBWebServiceSoapBinding * binding = [self setUpBinding:fSecure];
     if (binding != nil)
     {
         MFBWebServiceSoapBindingResponse *response = callToMake(binding);
         retVal = [self parseResponse:response];
-        [self performSelectorOnMainThread:@selector(networkIndicatorOff) withObject:nil waitUntilDone:NO];
+        [self networkIndicatorOff];
     }
     else
         retVal = NO;
@@ -189,12 +217,15 @@ static NSMutableArray * _rgHackRetain = nil;
 
 - (void) operation:(MFBWebServiceSoapBindingOperation *)operation completedWithResponse:(MFBWebServiceSoapBindingResponse *)response;
 {
-    [self parseResponse:response];
-    if ([((NSObject *) self.delegate) respondsToSelector:@selector(ResultCompleted:)])
-        [self.delegate ResultCompleted:self];
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-     // since we retained ourselves above.
-    [MFBSoapCall hackARCRelease:self];
+    // always call this on the main thread
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self parseResponse:response];
+        if ([((NSObject *) self.delegate) respondsToSelector:@selector(ResultCompleted:)])
+            [self.delegate ResultCompleted:self];
+        [self networkIndicatorOff];
+        // since we retained ourselves above.
+        [MFBSoapCall hackARCRelease:self];
+    });
 }
 
 // Inside a soap call, dates get converted to XML using their UTC equivalent.

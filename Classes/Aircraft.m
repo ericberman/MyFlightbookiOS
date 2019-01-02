@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2018 MyFlightbook, LLC
+ Copyright (C) 2009-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 12/20/09.
-//  Copyright 2009-2017, MyFlightbook LLC. All rights reserved.
+//  Copyright 2009-2019, MyFlightbook LLC. All rights reserved.
 //
 
 #import "Aircraft.h"
@@ -205,7 +205,7 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
 {
 	NSLog(@"loadAircraftForUser");
 	self.errorString = @"";
-    NSString * szAuthToken = mfbApp().userProfile.AuthToken;
+    NSString * szAuthToken = MFBAppDelegate.threadSafeAppDelegate.userProfile.AuthToken;
 
     switch ([self cacheStatus:szAuthToken])
     {
@@ -326,7 +326,7 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
         {
             // see if this was a refresh attempt.  If so, and if we have a set of aircraft to fall back upon, then we can fall
             // back on the cache and treat it as a non-error
-            if ([self cacheStatus:mfbApp().userProfile.AuthToken] != cacheInvalid && self.rgAircraftForUser != nil)
+            if ([self cacheStatus:MFBAppDelegate.threadSafeAppDelegate.userProfile.AuthToken] != cacheInvalid && self.rgAircraftForUser != nil)
                 self.errorString = @"";
         }
     }

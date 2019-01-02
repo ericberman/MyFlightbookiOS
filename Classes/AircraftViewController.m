@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2013-2018 MyFlightbook, LLC
+ Copyright (C) 2013-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -81,7 +81,16 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
     self.ac = aircraft;
     if (self.rgImages == nil)
         self.rgImages = [[NSMutableArray alloc] init];
-    [CommentedImage initCommentedImagesFromMFBII:self.ac.AircraftImages.MFBImageInfo toArray:self.rgImages];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        if ([CommentedImage initCommentedImagesFromMFBII:self.ac.AircraftImages.MFBImageInfo toArray:self.rgImages]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+                if (self.rgImages.count > 0 && ![self isExpanded:sectImages])
+                    [self expandSection:sectImages];
+            });
+        }
+    });
     
     // Auto-expand image section if there are images
     [self.expandedSections removeAllIndexes];
@@ -508,7 +517,15 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
                     cell.indentationLevel = 1;
                     cell.textLabel.adjustsFontSizeToFitWidth = YES;
                     cell.textLabel.text = ci.imgInfo.Comment;
-                    cell.imageView.image = [ci GetThumbnail];
+                    if (ci.hasThumbnailCache)
+                        cell.imageView.image = [ci GetThumbnail];
+                    else
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                            [ci GetThumbnail];
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [self.tableView reloadData];
+                            });
+                        });
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     cell.indentationWidth = 10.0;
                 }

@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2018 MyFlightbook, LLC
+ Copyright (C) 2009-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 12/7/09.
-//  Copyright 2009-2018 MyFlightbook LLC. All rights reserved.
+//  Copyright 2009-2019 MyFlightbook LLC. All rights reserved.
 //
 
 #import "MFBProfile.h"
@@ -49,13 +49,6 @@ NSString * const _szKeyCachedToken = @"keyCacheAuthToken";
 NSString * const _szKeyCachedUser = @"keyCacheAuthUser";
 NSString * const _szKeyCachedTokenRetrievalDate = @"keyCacheTokenDate";
 
-- (void) initDefaults {
-    NSUserDefaults * defs = [NSUserDefaults standardUserDefaults];
-    self.UserName = [defs stringForKey:_szKeyPrefEmail];
-    self.Password = [defs stringForKey:_szKeyPrefPass];
-    self.AuthToken = [defs stringForKey:_szKeyCachedToken];
-}
-
 - (instancetype)init
 {
     self=[super init];
@@ -63,7 +56,10 @@ NSString * const _szKeyCachedTokenRetrievalDate = @"keyCacheTokenDate";
 		self.ErrorString = @"";
         
         // set up initial values
-        [self initDefaults];
+        NSUserDefaults * defs = [NSUserDefaults standardUserDefaults];
+        self.UserName = [defs stringForKey:_szKeyPrefEmail];
+        self.Password = [defs stringForKey:_szKeyPrefPass];
+        self.AuthToken = [defs stringForKey:_szKeyCachedToken];
     }
 
 	return self;
@@ -74,13 +70,6 @@ NSString * const _szKeyCachedTokenRetrievalDate = @"keyCacheTokenDate";
 	[[NSUserDefaults standardUserDefaults] setValue:self.UserName forKey:_szKeyPrefEmail];
 	[[NSUserDefaults standardUserDefaults] setValue:self.Password forKey:_szKeyPrefPass];
 	return YES;
-}
-
--(BOOL) LoadPrefs
-{
-    [self initDefaults];
-	
-	return [self GetAuthToken];
 }
 
 - (void) cacheAuthCreds

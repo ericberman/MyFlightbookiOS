@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2018 MyFlightbook, LLC
+ Copyright (C) 2009-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -731,8 +731,16 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     // sharing options
     [self.idPublic setCheckboxValue:entryData.fIsPublic.boolValue];
 	
-	[CommentedImage initCommentedImagesFromMFBII:entryData.FlightImages.MFBImageInfo toArray:self.le.rgPicsForFlight];
-		    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        if ([CommentedImage initCommentedImagesFromMFBII:entryData.FlightImages.MFBImageInfo toArray:self.le.rgPicsForFlight]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+                if (self.self.le.rgPicsForFlight.count > 0 && ![self isExpanded:sectImages])
+                    [self expandSection:sectImages];
+            });
+        }
+    });
+    
     [self updatePausePlay];
 	
     self.idimgRecording.hidden = !mfbApp().mfbloc.fRecordFlightData || ![self flightCouldBeInProgress];
@@ -1083,7 +1091,15 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
                     cell.indentationLevel = 1;
                     cell.textLabel.adjustsFontSizeToFitWidth = YES;
                     cell.textLabel.text = ci.imgInfo.Comment;
-                    cell.imageView.image = [ci GetThumbnail];
+                    if (ci.hasThumbnailCache)
+                        cell.imageView.image = [ci GetThumbnail];
+                    else
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                            [ci GetThumbnail];
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [self.tableView reloadData];
+                            });
+                        });
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     cell.indentationWidth = 10.0;
                 }
