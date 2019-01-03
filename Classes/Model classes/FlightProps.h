@@ -50,7 +50,7 @@
 @interface FlightProps : NSObject <MFBSoapCallDelegate> {
 }
 
-- (BOOL) loadCustomPropertyTypes;
+- (void) loadCustomPropertyTypes;
 - (void) deleteProperty:(MFBWebServiceSvc_CustomFlightProperty *) fp forUser:(NSString *) szAuthToken;
 - (int) cacheStatus;
 - (NSArray *) cachedProps;

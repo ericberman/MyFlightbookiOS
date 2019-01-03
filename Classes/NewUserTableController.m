@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2013-2018 MyFlightbook, LLC
+ Copyright (C) 2013-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -331,12 +331,6 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
     [self showErrorAlertWithMessage:mfbApp().userProfile.ErrorString];
 }
 
-- (void) refreshPropsWorker {
-    @autoreleasepool {
-        [[[FlightProps alloc] init] loadCustomPropertyTypes];
-    }
-}
-
 - (void) createUserFinishedSuccess
 {
 	MFBAppDelegate * app = mfbApp();
@@ -345,7 +339,10 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
     [app.userProfile SavePrefs];
     [[Aircraft sharedAircraft] refreshIfNeeded];
     
-    [NSThread detachNewThreadSelector:@selector(refreshPropsWorker) toTarget:self withObject:nil];
+    // Refresh properties on a background thread.
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [[FlightProps new] loadCustomPropertyTypes];
+    });
     
     UIAlertController * alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Welcome to MyFlightbook!", @"New user welcome message title") message:NSLocalizedString(@"\r\nBefore you can enter flights, you must set up at least one aircraft that you fly.", @"New user 'Next steps' message") preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Close", @"Close button on error message") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {

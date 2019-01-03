@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2013-2018 MyFlightbook, LLC
+ Copyright (C) 2013-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -94,39 +94,6 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
     [self.tableView reloadData];
 }
 
-- (void) UpdateProfileFinished
-{
-    MFBAppDelegate * app = mfbApp();
-    
-    [app ensureWarningShownForUser];
-    [app.userProfile SavePrefs];
-    [self.tableView reloadData];
-    
-    [[Aircraft sharedAircraft] refreshIfNeeded];
-    
-    [app DefaultPage];
-}
-
-- (void) UpdateProfileWorker
-{
-    @autoreleasepool {
-        MFBAppDelegate * app = [MFBAppDelegate threadSafeAppDelegate];
-        BOOL fresult = [app.userProfile GetAuthToken];
-
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self dismissViewControllerAnimated:YES completion:^{
-                if (fresult)
-                {
-                    [self performSelectorOnMainThread:@selector(UpdateProfileFinished) withObject:nil waitUntilDone:NO];
-                    [[[FlightProps alloc] init] loadCustomPropertyTypes];
-                }
-                else
-                    [self performSelectorOnMainThread:@selector(showError:) withObject:app.userProfile.ErrorString waitUntilDone:NO];
-            }];
-        });
-    }
-}
-
 - (IBAction) UpdateProfile
 {
 	MFBAppDelegate * app = mfbApp();
@@ -139,8 +106,30 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
 	[app.userProfile clearCache];
 	
     [WPSAlertController presentProgressAlertWithTitle:NSLocalizedString(@"Signing in...", @"Progress: Signing In") onViewController:self];
-	
-	[NSThread detachNewThreadSelector:@selector(UpdateProfileWorker) toTarget:self withObject:nil];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        BOOL fresult = [app.userProfile GetAuthToken];
+        if (fresult)
+            [[FlightProps new] loadCustomPropertyTypes];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self dismissViewControllerAnimated:YES completion:^{
+                if (fresult) {
+                    MFBAppDelegate * app = mfbApp();
+                    
+                    [app ensureWarningShownForUser];
+                    [app.userProfile SavePrefs];
+                    [self.tableView reloadData];
+                    
+                    [[Aircraft sharedAircraft] refreshIfNeeded];
+                    
+                    [app DefaultPage];
+                }
+                else
+                    [self showError:app.userProfile.ErrorString];
+            }];
+        });
+    });
 }
 
 - (IBAction) signOut:(id)sender

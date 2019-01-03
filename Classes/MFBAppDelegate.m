@@ -92,11 +92,6 @@ BOOL gLogging = EXF_LOGGING;
 	return ([[Aircraft sharedAircraft].rgAircraftForUser count] == 0);
 }
 
-- (void) ForceProfilePage
-{
-    self.tabBarController.selectedViewController = self.tabProfile;
-}
-
 // returns the index of the default tab to select
 // if the user has airplanes, it's
 - (UIViewController *) defaultTab
@@ -517,16 +512,6 @@ static MFBAppDelegate * _mainApp = nil;
         [self setCustomizableViewControllers];
     }
     
-    if ([self.userProfile isValid])
-    {
-        NSInteger iTab = [[NSUserDefaults standardUserDefaults] integerForKey:_szKeySelectedTab];
-        if (iTab == 0 && [self checkNoAircraft])
-            [self DefaultPage];
-        else
-            self.tabBarController.selectedIndex = iTab;
-    } else
-        [self ForceProfilePage];
-    
     NSMutableArray * rgImages = [NSMutableArray arrayWithArray:self.leMain.le.rgPicsForFlight];
     // Now get any additional images
     for (LogbookEntry * lbe in self.rgPendingFlights)
@@ -546,6 +531,16 @@ static MFBAppDelegate * _mainApp = nil;
     
     if (self.progressAlert != nil) {
         [self.tabBarController dismissViewControllerAnimated:YES completion:^{
+            if ([self.userProfile isValid])
+            {
+                NSInteger iTab = [[NSUserDefaults standardUserDefaults] integerForKey:_szKeySelectedTab];
+                if (iTab == 0 && [self checkNoAircraft])
+                    [self DefaultPage];
+                else
+                    self.tabBarController.selectedIndex = iTab;
+            } else
+                self.tabBarController.selectedViewController = self.tabProfile;
+
             fAppLaunchFinished = YES;
             if (urlLaunchURL != nil)
             {

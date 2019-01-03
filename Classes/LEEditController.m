@@ -2008,40 +2008,15 @@ static NSDateFormatter * dfSunriseSunset = nil;
     return true;
 }
 
-- (void) refreshPropertiesWorker
-{
-    @autoreleasepool {    
-    FlightProps * fp = [[FlightProps alloc] init];
-    BOOL fError = NO;
-    
-    // We have two tasks here:
-    // (a) refresh the property cache if necessary
-    // (b) download the properties for the flight, if necessary
-    
-    // loadCustomPropertyTypes will use the cache if necessary.
-    [fp loadCustomPropertyTypes];
-    
-    // if this flight lives on the web, need to pull down its properties.
-    if ([self.le.entryData isNewOrPending])
-    {
-        if (self.le.entryData.CustomProperties == nil)
-            self.le.entryData.CustomProperties = [[MFBWebServiceSvc_ArrayOfCustomFlightProperty alloc] init];
-    }
-    
-    if (!fError)
-        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-    }
-}
-
 - (void) refreshProperties
 {
-    // We will hit the web if the cache is not fully valid OR if the flight is not local
-    int cs = [self.flightProps cacheStatus];
-    BOOL fIsLocal = [self.le.entryData isNewOrPending];
-    BOOL fHitWeb = (cs != cacheValid || !fIsLocal);
+    if (self.le.entryData.isNewOrPending && self.le.entryData.CustomProperties == nil)
+        self.le.entryData.CustomProperties = [[MFBWebServiceSvc_ArrayOfCustomFlightProperty alloc] init];
 
-    if (fHitWeb)
-        [NSThread detachNewThreadSelector:@selector(refreshPropertiesWorker) toTarget:self withObject:nil];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        FlightProps * fp = [FlightProps new];
+        [fp loadCustomPropertyTypes];
+    });
 }
 
 #pragma mark - Data Source - picker

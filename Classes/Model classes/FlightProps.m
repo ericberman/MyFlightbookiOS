@@ -157,7 +157,7 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
     NSLog(@"Customproperty cache refreshed");    
 }
 
-- (BOOL) loadCustomPropertyTypes
+- (void) loadCustomPropertyTypes
 {
 	NSLog(@"loadCustomPropertyTypes");
 	self.errorString = @"";
@@ -167,24 +167,24 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
 	BOOL fNetworkAvail = [app isOnLine];
 	
     // checking cache above will initialize self.rgPropTypes
-    switch ([self cacheStatus])
+    CacheStatus cs = self.cacheStatus;
+    switch (cs)
     {
         case cacheValid:
             NSLog(@"loadCustomPropertyTypes - Using cached properties");
-            return YES;
+            return;
         case cacheValidButRefresh:
             if (!fNetworkAvail)
-                return YES;
+                return;
             NSLog(@"loadCustomPropertyTypes - cache is valid, but going to refresh");
             break;
         case cacheInvalid:
-            if (!fNetworkAvail)
-            {
+            // Use from DB by default - in case we are off-line, or there is some other failure
+            if (self.rgPropTypes == nil || self.rgPropTypes.count == 0) {
                 [self setPropTypeArray:[self propertiesFromDB]];
                 [self cacheProps];
-                return YES;
             }
-            // Fall through - we will fetch them below (since we are on-line)
+            // Fall through - we will fetch them below
             break;
     }
     
@@ -201,18 +201,10 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
 		sc.timeOut = 10;
 		sc.delegate = self;
 
-        BOOL fSuccess = [sc makeCallSynchronous:^MFBWebServiceSoapBindingResponse *(MFBWebServiceSoapBinding *b) {
-            return [b AvailablePropertyTypesForUserUsingParameters:cptSvc];
-        } asSecure:NO];
-		
-		// if there is a failure, we may be able to ignore it (if this was a refresh attempt), which is still success.
-		if (fSuccess)
-            [self cacheProps];
-		else if (self.rgPropTypes == nil || [self.rgPropTypes count] == 0)
-            [self setPropTypeArray:[self propertiesFromDB]]; // update from the DB since refresh didn't work.
-	}
-    
-	return [self.errorString length] == 0 && self.rgPropTypes != nil && ([self.rgPropTypes count] > 0);
+        [sc makeCallAsync:^(MFBWebServiceSoapBinding *b, MFBSoapCall *sc) {
+            [b AvailablePropertyTypesForUserAsyncUsingParameters:cptSvc delegate:sc];
+        }];
+    }
 }
 
 - (void) deleteProperty:(MFBWebServiceSvc_CustomFlightProperty *) fp forUser:(NSString *) szAuthToken
@@ -252,12 +244,12 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
 		MFBWebServiceSvc_AvailablePropertyTypesForUserResponse * resp = (MFBWebServiceSvc_AvailablePropertyTypesForUserResponse *) body;
 		MFBWebServiceSvc_ArrayOfCustomPropertyType * rgCpt = resp.AvailablePropertyTypesForUserResult;
 		
-        [self setPropTypeArray:rgCpt.CustomPropertyType];
-	}
-	if ([body isKindOfClass:[MFBWebServiceSvc_PropertiesForFlightResponse class]])
-	{
-		MFBWebServiceSvc_PropertiesForFlightResponse * resp = (MFBWebServiceSvc_PropertiesForFlightResponse *) body;
-		self.rgFlightProps = resp.PropertiesForFlightResult;
+        if (rgCpt != nil && rgCpt.CustomPropertyType != nil && rgCpt.CustomPropertyType.count > 0) {
+            [self setPropTypeArray:rgCpt.CustomPropertyType];
+            [self cacheProps];
+        }
+        else
+            [self setPropTypeArray:[self propertiesFromDB]]; // update from the DB since refresh didn't work.
 	}
 }
 
