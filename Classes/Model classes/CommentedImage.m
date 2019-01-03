@@ -667,27 +667,30 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
 + (BOOL) initCommentedImagesFromMFBII:(NSArray *) rgmfbii toArray:(NSMutableArray *)rgImages
 {
     BOOL fResult = NO;
-	// add existing images to the image array
-	for (MFBWebServiceSvc_MFBImageInfo * mfbii in rgmfbii)
-	{
-		// add it to the list IF not already in the list.
-		BOOL fAlreadyInList = NO;
-		for (CommentedImage * ciExisting in rgImages)
-			if ([ciExisting.imgInfo.ThumbnailFile compare:mfbii.ThumbnailFile] == NSOrderedSame)
-				fAlreadyInList = YES;
-		if (!fAlreadyInList)
-		{
-			CommentedImage * ci = [[CommentedImage alloc] init];
-			ci.imgInfo = mfbii;
-			UIImage * img = [ci loadImageFromMFBInfo];
-			if (img != nil && img.CGImage != nil)
-			{
-				[ci SetImage:img fromCamera:NO withMetaData:nil];
-				[rgImages addObject:ci];
-                fResult = YES;
-			}
-		}
-	}
+    
+    @synchronized (rgmfbii) {
+        // add existing images to the image array
+        for (MFBWebServiceSvc_MFBImageInfo * mfbii in rgmfbii)
+        {
+            // add it to the list IF not already in the list.
+            BOOL fAlreadyInList = NO;
+            for (CommentedImage * ciExisting in rgImages)
+                if ([ciExisting.imgInfo.ThumbnailFile compare:mfbii.ThumbnailFile] == NSOrderedSame)
+                    fAlreadyInList = YES;
+            if (!fAlreadyInList)
+            {
+                CommentedImage * ci = [[CommentedImage alloc] init];
+                ci.imgInfo = mfbii;
+                UIImage * img = [ci loadImageFromMFBInfo];
+                if (img != nil && img.CGImage != nil)
+                {
+                    [ci SetImage:img fromCamera:NO withMetaData:nil];
+                    [rgImages addObject:ci];
+                    fResult = YES;
+                }
+            }
+        }
+    }
     return fResult;
 }
 
