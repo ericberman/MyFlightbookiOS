@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2010-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 7/7/10.
-//  Copyright 2010-2018 MyFlightbook LLC. All rights reserved.
+//  Copyright 2010-2019 MyFlightbook LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -51,7 +51,6 @@
 }
 
 - (BOOL) loadCustomPropertyTypes;
-- (BOOL) loadPropertiesForFlight:(NSNumber *) idFlight forUser:(NSString *) szAuthToken;
 - (void) deleteProperty:(MFBWebServiceSvc_CustomFlightProperty *) fp forUser:(NSString *) szAuthToken;
 - (int) cacheStatus;
 - (NSArray *) cachedProps;

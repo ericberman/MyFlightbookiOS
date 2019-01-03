@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2010-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 7/7/10.
-//  Copyright 2010-2017 MyFlightbook LLC. All rights reserved.
+//  Copyright 2010-2019 MyFlightbook LLC. All rights reserved.
 //
 
 #import "FlightProps.h"
@@ -213,38 +213,6 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
 	}
     
 	return [self.errorString length] == 0 && self.rgPropTypes != nil && ([self.rgPropTypes count] > 0);
-}
-
-- (BOOL) loadPropertiesForFlight:(NSNumber *) idFlight forUser:(NSString *) szAuthToken
-{
-	NSLog(@"loadPropertiesForFlight");
-	
-	// new flight - nothing to return
-	if ([idFlight intValue] <=0)
-		return YES;
-	
-	BOOL fNetworkAvail = [[MFBAppDelegate threadSafeAppDelegate] isOnLine];
-	if (!fNetworkAvail)
-	{
-		self.errorString = NSLocalizedString(@"No connection to the Internet is available", @"Error: Offline");
-		return NO;
-	}
-	
-	self.rgFlightProps = nil;
-	MFBWebServiceSvc_PropertiesForFlight * pffSvc = [MFBWebServiceSvc_PropertiesForFlight new];
-	pffSvc.idFlight = idFlight;
-	pffSvc.szAuthUserToken = szAuthToken;
-
-	MFBSoapCall * sc = [MFBSoapCall new];
-	sc.logCallData = NO;
-	sc.timeOut = 10;
-	sc.delegate = self;
-	
-    BOOL fSuccess = [sc makeCallSynchronous:^MFBWebServiceSoapBindingResponse *(MFBWebServiceSoapBinding *b) {
-        return [b PropertiesForFlightUsingParameters:pffSvc];
-    } asSecure:NO];
-	
-	return (fSuccess && [self.errorString length] == 0 && self.rgFlightProps != nil);
 }
 
 - (void) deleteProperty:(MFBWebServiceSvc_CustomFlightProperty *) fp forUser:(NSString *) szAuthToken

@@ -2027,21 +2027,6 @@ static NSDateFormatter * dfSunriseSunset = nil;
         if (self.le.entryData.CustomProperties == nil)
             self.le.entryData.CustomProperties = [[MFBWebServiceSvc_ArrayOfCustomFlightProperty alloc] init];
     }
-    else
-    {
-        if (self.le.entryData.CustomProperties == nil || (self.le.entryData.CustomProperties.CustomFlightProperty.count == 0 && !self.le.propsHaveBeenDownloaded))
-        {
-            if ((self.le.propsHaveBeenDownloaded = [fp loadPropertiesForFlight:self.le.entryData.FlightID forUser:[MFBAppDelegate threadSafeAppDelegate].userProfile.AuthToken]))
-                self.le.entryData.CustomProperties = fp.rgFlightProps;
-            else
-            {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self showErrorAlertWithMessage:fp.errorString];
-                });
-                fError = YES;
-            }
-        }
-    }
     
     if (!fError)
         [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];

@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2018 MyFlightbook, LLC
+ Copyright (C) 2009-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 12/2/09.
-//  Copyright 2009-2018, MyFlightbook LLC. All rights reserved.
+//  Copyright 2009-2019, MyFlightbook LLC. All rights reserved.
 //
 
 #import "LogbookEntry.h"
@@ -46,7 +46,6 @@
 @synthesize dtTotalPauseTime, dtTimeOfLastPause, accumulatedNightTime;
 @synthesize fIsPaused;
 @synthesize progressLabel;
-@synthesize propsHaveBeenDownloaded;
 @synthesize gpxPath;
 
 // keys for preferences.
