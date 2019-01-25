@@ -732,8 +732,10 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     [self.idPublic setCheckboxValue:entryData.fIsPublic.boolValue];
 	
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        if ([CommentedImage initCommentedImagesFromMFBII:entryData.FlightImages.MFBImageInfo toArray:self.le.rgPicsForFlight]) {
+        NSMutableArray * rgPics = [NSMutableArray new];
+        if ([CommentedImage initCommentedImagesFromMFBII:entryData.FlightImages.MFBImageInfo toArray:rgPics]) {
             dispatch_async(dispatch_get_main_queue(), ^{
+                self.le.rgPicsForFlight = rgPics;
                 [self.tableView reloadData];
                 if (self.self.le.rgPicsForFlight.count > 0 && ![self isExpanded:sectImages])
                     [self expandSection:sectImages];
