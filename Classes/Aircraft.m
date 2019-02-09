@@ -353,6 +353,7 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
 		MFBWebServiceSvc_MakesAndModelsResponse * resp = (MFBWebServiceSvc_MakesAndModelsResponse *) body;
 		
 		self.rgMakeModels = resp.MakesAndModelsResult.SimpleMakeModel;
+        [NSNotificationCenter.defaultCenter postNotificationName:@"makesLoaded" object:self];
 	} 
 	else if ([body isKindOfClass:[MFBWebServiceSvc_AddAircraftForUserResponse class]])
 	{
