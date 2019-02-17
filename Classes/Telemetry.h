@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2014-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@
 #import <Foundation/Foundation.h>
 #import "MFBAppDelegate.h"
 
-typedef NS_ENUM(int, ImportedFileType) {GPX, KML, CSV, Unknown};
+typedef NS_ENUM(int, ImportedFileType) {GPX, KML, CSV, NMEA, Unknown};
 
 #define INFERRED_HERROR     5   // arbitrary value for HERROR
 #define MIN_TIME_FOR_SPEED  4   // 4 seconds to derive speed
@@ -64,6 +64,9 @@ typedef NS_ENUM(int, ImportedFileType) {GPX, KML, CSV, Unknown};
 
 @end
 
+@interface NMEATelemetry : Telemetry
+@end
+
 @interface CLMutableLocation : NSObject
 
 - (instancetype) init NS_DESIGNATED_INITIALIZER;
@@ -86,3 +89,15 @@ typedef NS_ENUM(int, ImportedFileType) {GPX, KML, CSV, Unknown};
 @property (nonatomic) BOOL hasTime;
 @end
 
+// Abstract class for an NMEA sentence
+@interface NMEAParser : NSObject
++ (NSObject *) parseSentence:(NSString *) sentence;
+@end
+
+@interface NMEASatelliteStatus : NSObject
+@property (readwrite, nonatomic) double HDOP;
+@property (readwrite, nonatomic) double VDOP;
+@property (readwrite, nonatomic) double PDOP;
+@property (strong) NSString * Mode;
+@property (strong) NSMutableSet<NSNumber *> * satellites;
+@end

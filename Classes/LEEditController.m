@@ -18,7 +18,7 @@
  */
 
 //
-//  FirstViewController.m
+//  LEEditController.m
 //  MFBSample
 //
 //  Created by Eric Berman on 11/28/09.
@@ -27,6 +27,10 @@
 #import "LEEditController.h"
 #import <QuartzCore/QuartzCore.h>
 #import <MobileCoreServices/UTCoreTypes.h>
+#import <ExternalAccessory/EAAccessory.h>
+#import <ExternalAccessory/EAAccessoryManager.h>
+#import <ExternalAccessory/ExternalAccessoryDefines.h>
+#import "GPSDeviceViewTableViewController.h"
 #import "HostedWebViewViewController.h"
 #import "NearbyAirports.h"
 #import "ImageComment.h"
@@ -49,6 +53,7 @@
 @property (nonatomic, strong) NSMutableDictionary * dictPropCells;
 @property (nonatomic, strong) UIImage * digitizedSig;
 @property (nonatomic, strong) NSArray<MFBWebServiceSvc_Aircraft *> * selectibleAircraft;
+@property (readwrite, strong) NSMutableArray<EAAccessory *> * externalAccessories;
 
 
 - (void) updatePausePlay;
@@ -81,6 +86,7 @@
 @synthesize vwAccessory, activeTextField, flightProps;
 @synthesize dictPropCells, digitizedSig;
 @synthesize selectibleAircraft;
+@synthesize externalAccessories;
 
 NSString * const _szKeyCachedImageArray = @"cachedImageArrayKey";
 NSString * const _szKeyFacebookState = @"keyFacebookState";
@@ -437,6 +443,8 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     if (self.le.entryData.isSigned && self.le.entryData.HasDigitizedSig)
         [NSThread detachNewThreadSelector:@selector(asyncLoadDigitizedSig) toTarget:self withObject:nil];
     
+    self.externalAccessories = [NSMutableArray<EAAccessory*> new];
+    
     [mfbApp() registerNotifyResetAll:self];
 }
 
@@ -459,6 +467,11 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     [self.dictPropCells removeAllObjects];
     [self saveState];
 	[super viewWillDisappear:animated];
+    
+    [EAAccessoryManager.sharedAccessoryManager unregisterForLocalNotifications];
+    NSNotificationCenter * notctr = NSNotificationCenter.defaultCenter;
+    [notctr removeObserver:self name:EAAccessoryDidConnectNotification object:nil];
+    [notctr removeObserver:self name:EAAccessoryDidDisconnectNotification object:nil];
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -523,6 +536,12 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 	
     [self.tableView reloadData];
 	[app ensureWarningShownForUser];
+    
+    [EAAccessoryManager.sharedAccessoryManager registerForLocalNotifications];
+    self.externalAccessories = [NSMutableArray arrayWithArray:EAAccessoryManager.sharedAccessoryManager.connectedAccessories];
+    NSNotificationCenter * notctr = NSNotificationCenter.defaultCenter;
+    [notctr addObserver:self selector:@selector(deviceDidConnect:) name:EAAccessoryDidConnectNotification object:nil];
+    [notctr addObserver:self selector:@selector(deviceDidDisconnect:) name:EAAccessoryDidDisconnectNotification object:nil];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size
@@ -1004,6 +1023,7 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
         case rowLandings:
             return self.cellLandings;
         case rowGPS:
+            self.cellGPS.accessoryType = self.externalAccessories.count == 0 ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
             return self.cellGPS;
         case rowHobbsStart: {
             EditCell * dcell = [self decimalCell:tableView withPrompt:NSLocalizedString(@"Hobbs Start:", @"Hobbs Start prompt") andValue:self.le.entryData.HobbsStart selector:@selector(hobbsChanged:) andInflation:(nt == timeHobbsStart)];
@@ -1250,6 +1270,13 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
             [((NavigableCell *) [self.tableView cellForRowAtIndexPath:indexPath]).firstResponderControl becomeFirstResponder];
             return;
         }
+        case rowGPS:
+            if (self.externalAccessories.count > 0) {
+                GPSDeviceViewTableViewController * gpsView = [GPSDeviceViewTableViewController new];
+                gpsView.eaaccessory = self.externalAccessories[0];
+                [self.navigationController pushViewController:gpsView animated:YES];
+                break;
+            }
         default:
         {
             // We've already excluded propheader and add properties above.
@@ -2304,5 +2331,18 @@ static NSDateFormatter * dfSunriseSunset = nil;
     uac.popoverPresentationController.sourceRect = bbiView.frame;
 
     [self presentViewController:uac animated:YES completion:nil];
+}
+
+#pragma mark - External devices
+- (void) deviceDidConnect:(NSNotification *) notification {
+    EAAccessory * accessory = notification.userInfo[EAAccessoryKey];
+    [self.externalAccessories addObject:accessory];
+
+    [self.tableView reloadData];
+}
+
+- (void) deviceDidDisconnect:(NSNotification *) notification {
+    self.externalAccessories = [NSMutableArray arrayWithArray:EAAccessoryManager.sharedAccessoryManager.connectedAccessories];
+    [self.tableView reloadData];
 }
 @end

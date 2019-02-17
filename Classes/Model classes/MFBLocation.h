@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2012-2018 MyFlightbook, LLC
+ Copyright (C) 2012-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 5/17/12.
-//  Copyright (c) 2012-2018 MyFlightbook LLC. All rights reserved.
+//  Copyright (c) 2012-2019 MyFlightbook LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -100,7 +100,6 @@ typedef NS_ENUM(NSInteger, NightLandingOptions) {
 @property (readwrite, strong) id<AutoDetectDelegate> delegate;
 @property (strong) CLLocation * lastSeenLoc; // most recently seen location, regardless of quality
 @property (strong) CLLocation * currentLoc; // most recently seen location with decent quality.
-@property (strong) CLLocationManager * locManager;
 @property (strong) NSMutableArray * rgAllSamples;
 @property (readwrite, nonatomic) FlightState currentFlightState;
 @property (readwrite, nonatomic) BOOL fUpdatesTheme;
@@ -133,4 +132,8 @@ typedef NS_ENUM(NSInteger, NightLandingOptions) {
 
 - (NSString *)gpxData;
 - (NSString *) writeToFile:(NSString *) szData;
+
+- (void) stopUpdatingLocation;
+- (void) startUpdatingLocation;
+- (void) feedEvent:(CLLocation *) loc;
 @end

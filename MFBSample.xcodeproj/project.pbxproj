@@ -28,6 +28,8 @@
 		9A1014C510DD5ACC00FA37D4 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A1014C410DD5ACC00FA37D4 /* Default.png */; };
 		9A1014C910DD5EB200FA37D4 /* newflight.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A1014C810DD5EB200FA37D4 /* newflight.png */; };
 		9A1014CD10DD5FCA00FA37D4 /* backspace.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A1014CC10DD5FCA00FA37D4 /* backspace.png */; };
+		9A117D8A221780D30095CE32 /* GPSDeviceViewTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A117D89221780D30095CE32 /* GPSDeviceViewTableViewController.m */; };
+		9A117D8C221782FC0095CE32 /* BadElfCircle-Vertical-Transparent.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A117D8B221782FB0095CE32 /* BadElfCircle-Vertical-Transparent.png */; };
 		9A121395111D3073001CDDB6 /* ImageComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A121393111D3073001CDDB6 /* ImageComment.m */; };
 		9A1213B3111D3113001CDDB6 /* CommentedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A1213B2111D3113001CDDB6 /* CommentedImage.m */; };
 		9A16571F14DC59B9004FDC35 /* sunrise.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A16571D14DC59B8004FDC35 /* sunrise.png */; };
@@ -46,6 +48,7 @@
 		9A20B155192D34E600A8F64F /* LICENCE.md in Resources */ = {isa = PBXBuildFile; fileRef = 9A20B153192D34E600A8F64F /* LICENCE.md */; };
 		9A20B156192D34E600A8F64F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9A20B154192D34E600A8F64F /* README.md */; };
 		9A20B158192D358000A8F64F /* iRate.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9A20B157192D358000A8F64F /* iRate.bundle */; };
+		9A21D5CB2214D1E300961605 /* BadElfSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21D5CA2214D1E300961605 /* BadElfSession.swift */; };
 		9A23CF9B16F4DE9A001C9098 /* Checkbox-Sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A23CF9716F4DE9A001C9098 /* Checkbox-Sel.png */; };
 		9A23CF9C16F4DE9A001C9098 /* Checkbox-Sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A23CF9816F4DE9A001C9098 /* Checkbox-Sel@2x.png */; };
 		9A23CF9D16F4DE9A001C9098 /* Checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A23CF9916F4DE9A001C9098 /* Checkbox.png */; };
@@ -326,6 +329,7 @@
 		9AA77D891618CAC000B36935 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA77D861618CAC000B36935 /* Default-568h@2x.png */; };
 		9AA77D8A1618CAC000B36935 /* Default-Landscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA77D871618CAC000B36935 /* Default-Landscape@2x.png */; };
 		9AA77D8B1618CAC000B36935 /* Default-Portrait@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA77D881618CAC000B36935 /* Default-Portrait@2x.png */; };
+		9AA94A66220F63880056AED3 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AA94A65220F63880056AED3 /* ExternalAccessory.framework */; };
 		9AAA71E810EEC97300D5D3B6 /* centermap.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AAA71E710EEC97300D5D3B6 /* centermap.png */; };
 		9AAA7CDD1715E4CA00429F78 /* backspace@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AAA7CD81715E4CA00429F78 /* backspace@2x.png */; };
 		9AAA7CDE1715E4CA00429F78 /* Icon-iPad-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AAA7CD91715E4CA00429F78 /* Icon-iPad-small.png */; };
@@ -536,6 +540,9 @@
 		9A1014C410DD5ACC00FA37D4 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		9A1014C810DD5EB200FA37D4 /* newflight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newflight.png; sourceTree = "<group>"; };
 		9A1014CC10DD5FCA00FA37D4 /* backspace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backspace.png; sourceTree = "<group>"; };
+		9A117D88221780D30095CE32 /* GPSDeviceViewTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPSDeviceViewTableViewController.h; sourceTree = "<group>"; };
+		9A117D89221780D30095CE32 /* GPSDeviceViewTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPSDeviceViewTableViewController.m; sourceTree = "<group>"; };
+		9A117D8B221782FB0095CE32 /* BadElfCircle-Vertical-Transparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BadElfCircle-Vertical-Transparent.png"; sourceTree = "<group>"; };
 		9A121392111D3073001CDDB6 /* ImageComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageComment.h; sourceTree = "<group>"; };
 		9A121393111D3073001CDDB6 /* ImageComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageComment.m; sourceTree = "<group>"; };
 		9A1213B1111D3113001CDDB6 /* CommentedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentedImage.h; sourceTree = "<group>"; };
@@ -561,6 +568,7 @@
 		9A20B153192D34E600A8F64F /* LICENCE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE.md; sourceTree = "<group>"; };
 		9A20B154192D34E600A8F64F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		9A20B157192D358000A8F64F /* iRate.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = iRate.bundle; sourceTree = "<group>"; };
+		9A21D5CA2214D1E300961605 /* BadElfSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadElfSession.swift; sourceTree = "<group>"; };
 		9A23CF9716F4DE9A001C9098 /* Checkbox-Sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Checkbox-Sel.png"; sourceTree = "<group>"; };
 		9A23CF9816F4DE9A001C9098 /* Checkbox-Sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Checkbox-Sel@2x.png"; sourceTree = "<group>"; };
 		9A23CF9916F4DE9A001C9098 /* Checkbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Checkbox.png; sourceTree = "<group>"; };
@@ -865,6 +873,7 @@
 		9AA77D861618CAC000B36935 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		9AA77D871618CAC000B36935 /* Default-Landscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x.png"; sourceTree = "<group>"; };
 		9AA77D881618CAC000B36935 /* Default-Portrait@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x.png"; sourceTree = "<group>"; };
+		9AA94A65220F63880056AED3 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		9AAA71E710EEC97300D5D3B6 /* centermap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = centermap.png; sourceTree = "<group>"; };
 		9AAA7CD81715E4CA00429F78 /* backspace@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backspace@2x.png"; sourceTree = "<group>"; };
 		9AAA7CD91715E4CA00429F78 /* Icon-iPad-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad-small.png"; sourceTree = "<group>"; };
@@ -1000,6 +1009,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AA94A66220F63880056AED3 /* ExternalAccessory.framework in Frameworks */,
 				9A050D292138790100B3F794 /* Photos.framework in Frameworks */,
 				9ACDC9011BE01BC600B0A077 /* WatchConnectivity.framework in Frameworks */,
 				9ACDC9021BE01BC600B0A077 /* WatchKit.framework in Frameworks */,
@@ -1125,6 +1135,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9AA94A65220F63880056AED3 /* ExternalAccessory.framework */,
 				9A050D282138790000B3F794 /* Photos.framework */,
 				9ACDC8FF1BE01BC600B0A077 /* WatchConnectivity.framework */,
 				9ACDC9001BE01BC600B0A077 /* WatchKit.framework */,
@@ -1210,6 +1221,8 @@
 				9A517E441E2ED4CC00EC3545 /* ApproachEditor.m */,
 				9A9CB2671E513B28002B2E11 /* TotalsCalculator.h */,
 				9A9CB2681E513B28002B2E11 /* TotalsCalculator.m */,
+				9A117D88221780D30095CE32 /* GPSDeviceViewTableViewController.h */,
+				9A117D89221780D30095CE32 /* GPSDeviceViewTableViewController.m */,
 			);
 			name = "Flight Entry";
 			sourceTree = "<group>";
@@ -1367,6 +1380,7 @@
 		9A8BF94F10E1B9C7002F01ED /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				9A117D8B221782FB0095CE32 /* BadElfCircle-Vertical-Transparent.png */,
 				9A085CAC20F3EF5500DDA442 /* tower.png */,
 				9A085CAB20F3EF5500DDA442 /* tower@2x.png */,
 				9A085CAD20F3EF5500DDA442 /* tower@3x.png */,
@@ -1628,6 +1642,7 @@
 				9A8BF93C10E1846E002F01ED /* Aircraft.m */,
 				9AFAC16C10E5DB9E00225E90 /* Airports.h */,
 				9AFAC16D10E5DB9E00225E90 /* Airports.m */,
+				9A21D5CA2214D1E300961605 /* BadElfSession.swift */,
 				9A1213B1111D3113001CDDB6 /* CommentedImage.h */,
 				9A1213B2111D3113001CDDB6 /* CommentedImage.m */,
 				9AEB4B441A0DE5C200629998 /* CountryCode.h */,
@@ -2111,6 +2126,7 @@
 				9A954D4A1531FBD6000E00ED /* ProfileEditController.xib.txt in Resources */,
 				9A954D4B1531FBD6000E00ED /* RecentFlights.xib.txt in Resources */,
 				9A46938520F53D1600614481 /* Icon-small@3x.png in Resources */,
+				9A117D8C221782FC0095CE32 /* BadElfCircle-Vertical-Transparent.png in Resources */,
 				9A954D4C1531FBD6000E00ED /* Totals.xib.txt in Resources */,
 				9A954D4D1531FBD6000E00ED /* TotalsRow.xib.txt in Resources */,
 				9A954D4E1531FBD6000E00ED /* VADetails.xib.txt in Resources */,
@@ -2360,6 +2376,7 @@
 				9AEB4B461A0DE5C200629998 /* CountryCode.m in Sources */,
 				9A73C8A821B07BE900AE1221 /* TotalsCategories.m in Sources */,
 				9A565B6A13E351C200BEFFA7 /* GPSSim.m in Sources */,
+				9A21D5CB2214D1E300961605 /* BadElfSession.swift in Sources */,
 				9A52F0F813E5DE5D00D75504 /* DecimalEdit.m in Sources */,
 				9A0F0E7413E88781007E54C1 /* MFBWebServiceSvc.m in Sources */,
 				9A17C5F513E895CB00C47C82 /* VisitedAirports.m in Sources */,
@@ -2384,6 +2401,7 @@
 				9A99506016E3C10200C61594 /* PropertyCell.m in Sources */,
 				9A99507416E694EA00C61594 /* AccessoryBar.m in Sources */,
 				9A40A30716E7C9FA0001B6FD /* Util.m in Sources */,
+				9A117D8A221780D30095CE32 /* GPSDeviceViewTableViewController.m in Sources */,
 				9A804AF616EE445F002F77CA /* DateRangeViewController.m in Sources */,
 				9A20B152192D34D300A8F64F /* iRate.m in Sources */,
 				9A23CFA416F50C57001C9098 /* SignInControllerViewController.m in Sources */,
@@ -3375,6 +3393,7 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "MyFlightbookWatch Extension/MyFlightbookWatch-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Distribution;
 		};
@@ -4032,6 +4051,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "MyFlightbookWatch Extension/MyFlightbookWatch-Bridging-Header.h";
 				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "MyFlightbookWatch Extension/MyFlightbookWatch-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -4076,6 +4096,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "MyFlightbookWatch Extension/MyFlightbookWatch-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

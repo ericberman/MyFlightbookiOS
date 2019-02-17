@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2014-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -92,11 +92,11 @@
 
 - (NSString *) description
 {
-    return [NSString stringWithFormat:@"%8f, %8f, %@, %@, %@",
+    return [NSString stringWithFormat:@"%.6f, %.6f, %@, %@, %@",
             self.latitude,
             self.longitude,
-            self.hasAlt ? [NSString stringWithFormat:@"%2f", self.altitude] : @"No altitude",
-            self.hasSpeed ? [NSString stringWithFormat:@"%2f", self.speed] : @"No Speed",
+            self.hasAlt ? [NSString stringWithFormat:@"%.2fm", self.altitude] : @"No altitude",
+            self.hasSpeed ? [NSString stringWithFormat:@"%.2fkts", self.speed] : @"No Speed",
             self.timeStamp ? [self.timeStamp ISO8601DateString] : @"No Timestamp"];
 }
 @end
@@ -169,6 +169,8 @@
             ft = KML;
         else if ([szExt compare:@"CSV"] == NSOrderedSame)
             ft = CSV;
+        else if ([szExt compare:@"NMEA"] == NSOrderedSame)
+            ft = NMEA;
     }
     return ft;
 }
@@ -184,6 +186,8 @@
             return [[KMLTelemetry alloc] initWithURL:url];
         case CSV:
             return [[CSVTelemetry alloc] initWithURL:url];
+        case NMEA:
+            return [[NMEATelemetry alloc] initWithURL:url];
         case Unknown:
         default:
             return nil;
@@ -595,4 +599,189 @@ enum KMLArrayContext currentContext;
     return sz;
 }
 
+@end
+
+@implementation NMEATelemetry
+- (NSArray *) samples {
+    NSMutableArray<CLLocation *> * results = [NSMutableArray new];
+    
+    NSCharacterSet *separator = [NSCharacterSet newlineCharacterSet];
+    NSArray<NSString *> * sentences = [self.szRawData componentsSeparatedByCharactersInSet:separator];
+
+    double lastAltitudeSeen = 0.0;
+    self.hasSpeed = NO;
+    for (NSString * sentence in sentences) {
+        NSObject * result = [NMEAParser parseSentence:sentence];
+        if (result != nil && [result isKindOfClass:[CLMutableLocation class]]) {
+            CLMutableLocation * loc = (CLMutableLocation *) result;
+            if (loc.hasAlt)
+                lastAltitudeSeen = loc.altitude;    // GPGGA has altitude, but not date or speed; just take altitude here and wait for the GPRMC.
+            else {
+                self.hasSpeed = self.hasSpeed || loc.hasSpeed;
+                [loc addAlt:lastAltitudeSeen];
+                [results addObject:loc.location];
+            }
+        }
+    }
+    
+    return results;
+}
+@end
+
+@implementation NMEASatelliteStatus
+@synthesize HDOP, VDOP, PDOP, satellites, Mode;
+
+- (instancetype) init {
+    if (self = [super init]) {
+        self.VDOP = self.HDOP = self.PDOP = 0;
+        self.satellites = [NSMutableSet new];
+        self.Mode = @"";
+    }
+    return self;
+}
+@end
+
+@implementation NMEAParser
++ (CLMutableLocation *) parseGPRMC:(NSArray<NSString *> *) words {
+    if (words.count < 12)
+        return nil;
+    
+    // UTC Time in hhmmss
+    if (words[1].length < 6)
+        return nil;
+    int hour = [words[1] substringWithRange:NSMakeRange(0, 2)].intValue;
+    int min = [words[1] substringWithRange:NSMakeRange(2, 2)].intValue;
+    int sec = [words[1] substringWithRange:NSMakeRange(4, 2)].intValue;
+    int day = [words[9] substringWithRange:NSMakeRange(0, 2)].intValue;
+    int month = [words[9] substringWithRange:NSMakeRange(2, 2)].intValue;
+    int year = [words[9] substringWithRange:NSMakeRange(4, 2)].intValue + 2000;
+    
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+    [dateComponents setYear:year];
+    [dateComponents setMonth:month];
+    [dateComponents setDay:day];
+    [dateComponents setHour:hour];
+    [dateComponents setMinute:min];
+    [dateComponents setSecond:sec];
+    [dateComponents setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    
+    NSCalendar *calendar = [[NSCalendar alloc]  initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDate *date = [calendar dateFromComponents:dateComponents];
+    
+    if ([words[2] compare:@"A" options:NSCaseInsensitiveSearch] != NSOrderedSame)
+        return nil;
+    
+    NSNumberFormatter * nf = [[NSNumberFormatter alloc] init];
+    nf.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+    double lat = [words[3] substringWithRange:NSMakeRange(0, 2)].intValue + [nf numberFromString:[words[3] substringFromIndex:2]].doubleValue / 60.0;
+    if ([words[4] compare:@"S" options:NSCaseInsensitiveSearch] == NSOrderedSame)
+        lat = -lat;
+    double lon = [words[5] substringWithRange:NSMakeRange(0,3)].intValue + [nf numberFromString:[words[5] substringFromIndex:3]].doubleValue / 60.0;
+    if ([words[6] compare:@"W" options:NSCaseInsensitiveSearch] == NSOrderedSame)
+        lon = -lon;
+    double speed = [nf numberFromString:words[7]].doubleValue;
+    
+    CLMutableLocation * loc = [[CLMutableLocation alloc] initWithLatitude:lat andLongitude:lon];
+    [loc addSpeed:speed];
+    [loc addTime:date];
+    
+    return loc;
+}
+
++ (CLMutableLocation *) parseGPGGA:(NSArray<NSString *> *) words {
+    if (words.count < 15)
+        return nil;
+    
+    // UTC Time in hhmmss
+    if (words[1].length < 6)
+        return nil;
+    int hour = [words[1] substringWithRange:NSMakeRange(0, 2)].intValue;
+    int min = [words[1] substringWithRange:NSMakeRange(2, 2)].intValue;
+    int sec = [words[1] substringWithRange:NSMakeRange(4, 2)].intValue;
+    
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+    NSDateComponents *compsNow = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate nowInUTC]];
+    [dateComponents setYear:compsNow.year];
+    [dateComponents setMonth:compsNow.month];
+    [dateComponents setDay:compsNow.day];
+    [dateComponents setHour:hour];
+    [dateComponents setMinute:min];
+    [dateComponents setSecond:sec];
+    [dateComponents setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+
+    NSCalendar *calendar = [[NSCalendar alloc]  initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDate *date = [calendar dateFromComponents:dateComponents];
+    
+    NSNumberFormatter * nf = [[NSNumberFormatter alloc] init];
+    nf.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+    double lat = [words[2] substringWithRange:NSMakeRange(0, 2)].intValue + [nf numberFromString:[words[2] substringFromIndex:2]].doubleValue / 60.0;
+    if ([words[3] compare:@"S" options:NSCaseInsensitiveSearch] == NSOrderedSame)
+        lat = -lat;
+    double lon = [words[4] substringWithRange:NSMakeRange(0,3)].intValue + [nf numberFromString:[words[4] substringFromIndex:3]].doubleValue / 60.0;
+    if ([words[5] compare:@"W" options:NSCaseInsensitiveSearch] == NSOrderedSame)
+        lon = -lon;
+    double alt = [nf numberFromString:words[9]].doubleValue;
+    
+    CLMutableLocation * loc = [[CLMutableLocation alloc] initWithLatitude:lat andLongitude:lon];
+    [loc addAlt:alt];
+    [loc addTime:date];
+    
+    return loc;
+}
+
++ (NMEASatelliteStatus * ) parseGPGSA:(NSArray<NSString *> *) words {
+    if (words.count < 18)
+        return nil;
+    
+    NMEASatelliteStatus * status = [NMEASatelliteStatus new];
+    switch (words[2].integerValue) {
+        case 1:
+            status.Mode = @"No fix";
+            break;
+        case 2:
+            status.Mode = @"2-D";
+            break;
+        case 3:
+            status.Mode = @"3-D";
+            break;
+        default:
+            status.Mode = @"";
+    }
+    
+    for (int i = 3; i <= 14; i++) {
+        if (words[i].length > 0)
+            [status.satellites addObject:[NSNumber numberWithInteger:i]];
+    }
+    
+    NSNumberFormatter * nf = [[NSNumberFormatter alloc] init];
+    nf.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+
+    status.PDOP = [nf numberFromString:words[15]].doubleValue;
+    status.HDOP = [nf numberFromString:words[16]].doubleValue;
+    
+    NSString * szVDOP = words[17];
+    NSRange r = [szVDOP rangeOfString:@"*"];
+    if (r.location != NSNotFound)
+        szVDOP = [szVDOP substringToIndex:r.location];
+    status.VDOP = [nf numberFromString:szVDOP].doubleValue;
+    
+    return status;
+}
+
++ (NSObject *) parseSentence:(NSString *) sentence {
+    if (sentence == nil || ![sentence hasPrefix:@"$GP"])
+        return nil;
+    
+    NSArray<NSString *> * words = [sentence componentsSeparatedByString:@","];
+    
+    if ([sentence hasPrefix:@"$GPRMC"]) {
+        return [NMEAParser parseGPRMC:words];
+    } else if ([sentence hasPrefix:@"$GPGGA"]) {
+        return [NMEAParser parseGPGGA:words];
+    } else if ([sentence hasPrefix:@"$GPGSA"]) {
+        return [NMEAParser parseGPGSA:words];
+    }
+    
+    return nil;
+}
 @end

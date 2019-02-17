@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2018 MyFlightbook, LLC
+ Copyright (C) 2017-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 7/29/11.
-//  Copyright 2011-2018 MyFlightbook LLC. All rights reserved.
+//  Copyright 2011-2019 MyFlightbook LLC. All rights reserved.
 //
 
 #import "GPSSim.h"
@@ -57,7 +57,7 @@
     if (self = [self init])
     {
         self.mfbloc = loc;
-        [self.mfbloc.locManager stopUpdatingLocation];
+        [self.mfbloc stopUpdatingLocation];
         self.leDelegate = delegate;
         self.mfbloc.delegate = self.leDelegate;
     }
@@ -66,7 +66,7 @@
 
 - (void) FeedEvent:(CLLocation *) loc
 {
-    [self.mfbloc locationManager:self.mfbloc.locManager didUpdateLocations:@[loc]];
+    [self.mfbloc feedEvent:loc];
 }
 
 - (void) FeedEventsFromTelemetry:(Telemetry *) t
@@ -84,7 +84,7 @@
             app.mfbloc = self.mfbloc;
         
         // make sure we don't get spurious location updates from the real GPS
-        [self.mfbloc.locManager stopUpdatingLocation];
+        [self.mfbloc stopUpdatingLocation];
         self.mfbloc.currentLoc = self.mfbloc.lastSeenLoc = nil;  // so that dates in the past work when using sim.
         
         if (self.leDelegate != nil)
@@ -139,7 +139,7 @@
         // restore the global Location manager.
         self.mfbloc = nil;
         MFBAppDelegate.threadSafeAppDelegate.mfbloc = globalLoc;    // restore the prior loc manager (which could be what we've been using!)
-        [globalLoc.locManager startUpdatingLocation]; // and resume updates
+        [globalLoc startUpdatingLocation]; // and resume updates
     }
 }
 

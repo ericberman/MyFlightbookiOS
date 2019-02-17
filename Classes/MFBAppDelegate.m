@@ -595,9 +595,7 @@ static MFBAppDelegate * _mainApp = nil;
     
     if ((!fAutoDetect && !fRecord) || ![self.leMain flightCouldBeInProgress])
     {
-        [self.mfbloc.locManager stopUpdatingLocation];
-        if ([self.mfbloc.locManager respondsToSelector:@selector(setAllowsBackgroundLocationUpdates:)])
-            self.mfbloc.locManager.allowsBackgroundLocationUpdates = NO;
+        [self.mfbloc stopUpdatingLocation];
     }
     
     [self updateShortCutItems];
@@ -609,9 +607,7 @@ static MFBAppDelegate * _mainApp = nil;
     
     _mainApp = self;
     // ALWAYS start updating location in foreground
-    [self.mfbloc.locManager startUpdatingLocation];
-    if ([self.mfbloc.locManager respondsToSelector:@selector(setAllowsBackgroundLocationUpdates:)])
-        self.mfbloc.locManager.allowsBackgroundLocationUpdates = YES;
+    [self.mfbloc startUpdatingLocation];
     
     [self setUpWatchSession];
     
@@ -673,10 +669,8 @@ static MFBAppDelegate * _mainApp = nil;
 		// to initialize with and work with nearest.
 		// self.mfbloc.currentLoc = nil;
 		// force an updated location to be sent.
-		[self.mfbloc.locManager stopUpdatingLocation];
-		[self.mfbloc.locManager startUpdatingLocation];
-        if ([self.mfbloc.locManager respondsToSelector:@selector(setAllowsBackgroundLocationUpdates:)])
-            self.mfbloc.locManager.allowsBackgroundLocationUpdates = YES;
+		[self.mfbloc stopUpdatingLocation];
+		[self.mfbloc startUpdatingLocation];
 	}
     
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] loadFromUserDefaults];   // sync any cookies.

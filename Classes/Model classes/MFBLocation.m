@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2018 MyFlightbook, LLC
+ Copyright (C) 2017-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 5/17/12.
-//  Copyright (c) 2012-2018 MyFlightbook LLC. All rights reserved.
+//  Copyright (c) 2012-2019 MyFlightbook LLC. All rights reserved.
 //
 
 #import "MFBAppDelegate.h"
@@ -33,6 +33,7 @@
 #import "MFBTheme.h"
 
 @interface MFBLocation()
+@property (strong) CLLocationManager * locManager;
 @property (readwrite, strong) NSMutableString * flightTrackData;
 @property (readwrite, nonatomic) BOOL fIsBlessed;   // Are we the "Blessed" global instance that gets to receive updates from the live GPS?
 @property (readwrite, strong) CLLocation * PreviousLoc;
@@ -627,5 +628,22 @@ static int vLanding = LANDING_SPEED_DEFAULT;
     else
         return NSLocalizedString(@"(unknown)", @"Not sure if we are in flight or on the ground");
     
+}
+
+#pragma mark Start/stop
+- (void) stopUpdatingLocation {
+    [self.locManager stopUpdatingLocation];
+    if ([self.locManager respondsToSelector:@selector(setAllowsBackgroundLocationUpdates:)])
+        self.locManager.allowsBackgroundLocationUpdates = NO;
+}
+
+- (void) startUpdatingLocation {
+    [self.locManager startUpdatingLocation];
+    if ([self.locManager respondsToSelector:@selector(setAllowsBackgroundLocationUpdates:)])
+        self.locManager.allowsBackgroundLocationUpdates = YES;
+}
+
+- (void) feedEvent:(CLLocation *) loc {
+    [self locationManager:self.locManager didUpdateLocations:@[loc]];
 }
 @end
