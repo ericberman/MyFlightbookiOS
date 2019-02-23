@@ -1002,6 +1002,7 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
     f.IsTurbine = [[USBoolean alloc] initWithBool:NO];
     f.IsSigned = [[USBoolean alloc] initWithBool:NO];
     f.IsMotorglider = [[USBoolean alloc] initWithBool:NO];
+    f.IsMultiEngineHeli = [[USBoolean alloc] initWithBool:NO];
     f.EngineType = MFBWebServiceSvc_EngineTypeRestriction_AllEngines;
     f.AircraftInstanceTypes = MFBWebServiceSvc_AircraftInstanceRestriction_AllAircraft;
     f.ModelName = [NSString new];
@@ -1028,7 +1029,7 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
 
 - (BOOL) hasAircraftCharacteristics
 {
-    return (self.IsComplex.boolValue || self.IsConstantSpeedProp.boolValue || self.IsGlass.boolValue || self.IsHighPerformance.boolValue || self.IsMotorglider.boolValue ||
+    return (self.IsComplex.boolValue || self.IsConstantSpeedProp.boolValue || self.IsGlass.boolValue || self.IsHighPerformance.boolValue || self.IsMotorglider.boolValue || self.IsMultiEngineHeli.boolValue ||
             self.IsTurbine.boolValue || self.IsRetract.boolValue || self.IsTailwheel.boolValue || self.IsTechnicallyAdvanced.boolValue || self.HasFlaps.boolValue ||
             self.AircraftInstanceTypes > MFBWebServiceSvc_AircraftInstanceRestriction_AllAircraft ||
             self.EngineType > MFBWebServiceSvc_EngineTypeRestriction_AllEngines);

@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2012-2018 MyFlightbook, LLC
+ Copyright (C) 2012-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -65,7 +65,7 @@ fqsMax = fqsNamedQueries
 } fqSections;
 
 // aircraft features
-typedef enum _afRows {afTailwheel = 1, afHighPerf, afGlass, afTAA, afComplex, afRetract, afCSProp, afFlaps, afMotorGlider,
+typedef enum _afRows {afTailwheel = 1, afHighPerf, afGlass, afTAA, afComplex, afRetract, afCSProp, afFlaps, afMotorGlider, afMultiEngineHeli,
     afEngineAny, afEnginePiston, afEngineTurboProp, afEngineJet, afEngineTurbine, afEngineElectric,
     afInstanceAny, afInstanceReal, afInstanceTraining, afMax = afInstanceTraining} afRows;
 
@@ -805,6 +805,10 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
                     cell.textLabel.text = NSLocalizedString(@"afMotorGlider", @"Aircraft Feature = Motorglider");
                     cell.accessoryType = self.fq.IsMotorglider.boolValue ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
                     break;
+                case afMultiEngineHeli:
+                    cell.textLabel.text = NSLocalizedString(@"afMultiHeli", @"Aircraft Feature = Multi-Engine Helicopter");
+                    cell.accessoryType = self.fq.IsMultiEngineHeli.boolValue ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+                    break;
                 case afEngineAny:
                     cell.textLabel.text = NSLocalizedString(@"afEngineAny", @"Aircraft Feature = Engine Type Any");
                     cell.accessoryType = (self.fq.EngineType == MFBWebServiceSvc_EngineTypeRestriction_AllEngines) ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
@@ -994,6 +998,9 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
                     break;
                 case afMotorGlider:
                     self.fq.IsMotorglider.boolValue = !self.fq.IsMotorglider.boolValue;
+                    break;
+                case afMultiEngineHeli:
+                    self.fq.IsMultiEngineHeli.boolValue = !self.fq.IsMultiEngineHeli.boolValue;
                     break;
                 case afEngineAny:
                     self.fq.EngineType = MFBWebServiceSvc_EngineTypeRestriction_AllEngines;

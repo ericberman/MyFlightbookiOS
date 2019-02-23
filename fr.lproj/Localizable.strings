@@ -598,6 +598,9 @@
 /* Aircraft Feature = Motorglider */
 "afMotorGlider" = "Planeur à moteur";
 
+/* Aircraft Feature = Multi-Engine Helicopter */
+"afMultiHeli" = "Hélicoptère multimoteur";
+
 /* Aircraft Feature = Engine Type Any */
 "afEngineAny" = "Tout Moteur";
 
