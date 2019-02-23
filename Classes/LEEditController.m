@@ -241,7 +241,6 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 - (void) setNumericField:(UITextField *) txt toType:(int) nt
 {
     txt.NumberType = nt;
-    txt.keyboardType = nt == ntInteger ? UIKeyboardTypeNumberPad : UIKeyboardTypeNumbersAndPunctuation;
     txt.autocorrectionType = UITextAutocorrectionTypeNo;
     txt.inputAccessoryView = self.vwAccessory;
     txt.delegate = self;

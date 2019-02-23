@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2013-2018 MyFlightbook, LLC
+ Copyright (C) 2013-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -285,7 +285,6 @@
         case MFBWebServiceSvc_CFPPropertyType_cfpDecimal:
             // assume it's a time unless the PlanDecimal flags (0x00200000) is set, in which case force decimal
             self.txt.NumberType = ((self.cpt.Flags.unsignedIntegerValue & 0x00200000) == 0) ? ntTime : ntDecimal;
-            self.txt.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
             self.txt.autocorrectionType = UITextAutocorrectionTypeNo;
             [self.txt setValue:self.cfp.DecValue withDefault:@0.0]; // Fix bug #37. re-assign it; this will respect the number type.
             if (defVal != nil)

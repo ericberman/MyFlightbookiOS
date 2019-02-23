@@ -292,7 +292,6 @@ enum aircraftRows {rowInfoStart, rowInstanceType = rowInfoStart, rowModel, rowIn
 - (EditCell *) decimalCell:(NSNumber *) num withPrompt:(NSString *) szPrompt forTableView:(UITableView *) tableView
 {
     EditCell * ec = [EditCell getEditCellDetail:tableView withAccessory:self.vwAccessory];
-    ec.txt.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     ec.txt.autocorrectionType = UITextAutocorrectionTypeNo;
     [ec.txt setValue:num withDefault:@0.0];
     ec.txt.NumberType = ntDecimal;

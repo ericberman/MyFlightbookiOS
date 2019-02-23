@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2018 MyFlightbook, LLC
+ Copyright (C) 2017-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -74,11 +74,26 @@ static char UIB_ISHHMM_KEY;
 static NSNumberFormatter * _nfDecimal = nil;
 
 #pragma mark Dynamic Property IsHHMM
+- (void) updateKeyboardType:(int) numType :(BOOL) fIsHHMM {
+    switch (numType) {
+        case ntInteger:
+            self.keyboardType = UIKeyboardTypeNumberPad;
+            break;
+        case ntDecimal:
+            self.keyboardType = UIKeyboardTypeDecimalPad;
+            break;
+        case ntTime:
+            self.keyboardType = fIsHHMM ? UIKeyboardTypeNumbersAndPunctuation : UIKeyboardTypeDecimalPad;
+            break;
+    }
+}
+
 - (void) setIsHHMM:(BOOL)IsHHMM
 {
     NSString * szVal = (IsHHMM ? @"Y" : @"N");
     objc_setAssociatedObject(self, &UIB_ISHHMM_KEY, szVal, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     self.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:[UITextField stringFromNumber:@0.0 forType:self.NumberType inHHMM:IsHHMM]];
+    [self updateKeyboardType:self.NumberType :self.IsHHMM];
 }
 
 - (BOOL) IsHHMM
@@ -92,7 +107,8 @@ static NSNumberFormatter * _nfDecimal = nil;
 {
     NSNumber * nt = @(NumberType);
     objc_setAssociatedObject(self, &UIB_NUMBER_TYPE_KEY, nt, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    self.IsHHMM = (NumberType == ntTime && [AutodetectOptions HHMMPref]);
+    BOOL fIsHHMM = self.IsHHMM = (NumberType == ntTime && [AutodetectOptions HHMMPref]);
+    [self updateKeyboardType:NumberType :fIsHHMM];
 }
 
 - (int) NumberType
