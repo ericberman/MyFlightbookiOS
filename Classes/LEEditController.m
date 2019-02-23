@@ -1499,7 +1499,13 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
 #pragma mark In the Cockpit
 - (void) resetDateOfFlight
 {
-    [self setDisplayDate:(le.entryData.Date = [NSDate date])];
+    NSDate * dt = [NSDate date];
+    
+    if (self.le.entryData.isKnownEngineStart && [self.le.entryData.EngineStart compare:dt] == NSOrderedAscending)
+        dt = self.le.entryData.EngineStart;
+    if (self.le.entryData.isKnownFlightStart && [self.le.entryData.FlightStart compare:dt] == NSOrderedAscending)
+        dt = self.le.entryData.FlightStart;
+    [self setDisplayDate:(le.entryData.Date = dt)];
 }
 
 - (void) startEngine
@@ -2091,12 +2097,14 @@ static NSDateFormatter * dfSunriseSunset = nil;
                 return;
             case rowEngineStart:
                 self.le.entryData.EngineStart = sender.date;
+                [self resetDateOfFlight];
                 break;
             case rowEngineEnd:
                 self.le.entryData.EngineEnd = sender.date;
                 break;
             case rowFlightStart:
                 self.le.entryData.FlightStart = sender.date;
+                [self resetDateOfFlight];
                 break;
             case rowFlightEnd:
                 self.le.entryData.FlightEnd = sender.date;
