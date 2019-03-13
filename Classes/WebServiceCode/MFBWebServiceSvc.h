@@ -12,6 +12,8 @@
 @class MFBWebServiceSvc_LatLong;
 @class MFBWebServiceSvc_AddAircraftForUser;
 @class MFBWebServiceSvc_AddAircraftForUserResponse;
+@class MFBWebServiceSvc_AircraftMatchingPrefix;
+@class MFBWebServiceSvc_AircraftMatchingPrefixResponse;
 @class MFBWebServiceSvc_UpdateMaintenanceForAircraft;
 @class MFBWebServiceSvc_UpdateMaintenanceForAircraftResponse;
 @class MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes;
@@ -49,6 +51,7 @@
 @class MFBWebServiceSvc_FlightsWithQueryAndOffsetResponse;
 @class MFBWebServiceSvc_ArrayOfLogbookEntry;
 @class MFBWebServiceSvc_LogbookEntry;
+@class MFBWebServiceSvc_LogbookEntryBase;
 @class MFBWebServiceSvc_ArrayOfCustomFlightProperty;
 @class MFBWebServiceSvc_ArrayOfVideoRef;
 @class MFBWebServiceSvc_CustomFlightProperty;
@@ -395,6 +398,46 @@ SOAPSigner *soapSigner;
 @property (retain) SOAPSigner *soapSigner;
 /* elements */
 @property (nonatomic, retain) MFBWebServiceSvc_ArrayOfAircraft * AddAircraftForUserResult;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_AircraftMatchingPrefix : NSObject <NSCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	NSString * szAuthToken;
+	NSString * szPrefix;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_AircraftMatchingPrefix *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, retain) NSString * szAuthToken;
+@property (nonatomic, retain) NSString * szPrefix;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_AircraftMatchingPrefixResponse : NSObject <NSCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	MFBWebServiceSvc_ArrayOfAircraft * AircraftMatchingPrefixResult;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_AircraftMatchingPrefixResponse *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, retain) MFBWebServiceSvc_ArrayOfAircraft * AircraftMatchingPrefixResult;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
@@ -1532,7 +1575,7 @@ typedef enum {
 } MFBWebServiceSvc_SignatureState;
 MFBWebServiceSvc_SignatureState MFBWebServiceSvc_SignatureState_enumFromString(NSString *string);
 NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_SignatureState enumValue);
-@interface MFBWebServiceSvc_LogbookEntry : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_LogbookEntryBase : NSObject <NSCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * User;
@@ -1591,7 +1634,7 @@ SOAPSigner *soapSigner;
 - (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
 - (void)addAttributesToNode:(xmlNodePtr)node;
 - (void)addElementsToNode:(xmlNodePtr)node;
-+ (MFBWebServiceSvc_LogbookEntry *)deserializeNode:(xmlNodePtr)cur;
++ (MFBWebServiceSvc_LogbookEntryBase *)deserializeNode:(xmlNodePtr)cur;
 - (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
 - (void)deserializeElementsFromNode:(xmlNodePtr)cur;
 @property (retain) SOAPSigner *soapSigner;
@@ -1646,6 +1689,21 @@ SOAPSigner *soapSigner;
 @property (nonatomic, retain) USBoolean * HasDigitizedSig;
 @property (nonatomic, retain) NSString * SendFlightLink;
 @property (nonatomic, retain) NSString * SocialMediaLink;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_LogbookEntry : MFBWebServiceSvc_LogbookEntryBase {
+/* elements */
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_LogbookEntry *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+/* elements */
 /* attributes */
 - (NSDictionary *)attributes;
 @end
@@ -2707,6 +2765,8 @@ SOAPSigner *soapSigner;
 - (void)AircraftForUserAsyncUsingParameters:(MFBWebServiceSvc_AircraftForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoapBindingResponse *)AddAircraftForUserUsingParameters:(MFBWebServiceSvc_AddAircraftForUser *)aParameters ;
 - (void)AddAircraftForUserAsyncUsingParameters:(MFBWebServiceSvc_AddAircraftForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
+- (MFBWebServiceSoapBindingResponse *)AircraftMatchingPrefixUsingParameters:(MFBWebServiceSvc_AircraftMatchingPrefix *)aParameters ;
+- (void)AircraftMatchingPrefixAsyncUsingParameters:(MFBWebServiceSvc_AircraftMatchingPrefix *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoapBindingResponse *)UpdateMaintenanceForAircraftUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraft *)aParameters ;
 - (void)UpdateMaintenanceForAircraftAsyncUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraft *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoapBindingResponse *)UpdateMaintenanceForAircraftWithFlagsAndNotesUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes *)aParameters ;
@@ -2796,6 +2856,14 @@ SOAPSigner *soapSigner;
 @property (nonatomic, retain) MFBWebServiceSvc_AddAircraftForUser * parameters;
 - (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)aDelegate
 	parameters:(MFBWebServiceSvc_AddAircraftForUser *)aParameters
+;
+@end
+@interface MFBWebServiceSoapBinding_AircraftMatchingPrefix : MFBWebServiceSoapBindingOperation {
+	MFBWebServiceSvc_AircraftMatchingPrefix * parameters;
+}
+@property (nonatomic, retain) MFBWebServiceSvc_AircraftMatchingPrefix * parameters;
+- (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_AircraftMatchingPrefix *)aParameters
 ;
 @end
 @interface MFBWebServiceSoapBinding_UpdateMaintenanceForAircraft : MFBWebServiceSoapBindingOperation {
@@ -3085,6 +3153,8 @@ SOAPSigner *soapSigner;
 - (void)AircraftForUserAsyncUsingParameters:(MFBWebServiceSvc_AircraftForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoap12BindingResponse *)AddAircraftForUserUsingParameters:(MFBWebServiceSvc_AddAircraftForUser *)aParameters ;
 - (void)AddAircraftForUserAsyncUsingParameters:(MFBWebServiceSvc_AddAircraftForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
+- (MFBWebServiceSoap12BindingResponse *)AircraftMatchingPrefixUsingParameters:(MFBWebServiceSvc_AircraftMatchingPrefix *)aParameters ;
+- (void)AircraftMatchingPrefixAsyncUsingParameters:(MFBWebServiceSvc_AircraftMatchingPrefix *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoap12BindingResponse *)UpdateMaintenanceForAircraftUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraft *)aParameters ;
 - (void)UpdateMaintenanceForAircraftAsyncUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraft *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoap12BindingResponse *)UpdateMaintenanceForAircraftWithFlagsAndNotesUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes *)aParameters ;
@@ -3174,6 +3244,14 @@ SOAPSigner *soapSigner;
 @property (nonatomic, retain) MFBWebServiceSvc_AddAircraftForUser * parameters;
 - (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)aDelegate
 	parameters:(MFBWebServiceSvc_AddAircraftForUser *)aParameters
+;
+@end
+@interface MFBWebServiceSoap12Binding_AircraftMatchingPrefix : MFBWebServiceSoap12BindingOperation {
+	MFBWebServiceSvc_AircraftMatchingPrefix * parameters;
+}
+@property (nonatomic, retain) MFBWebServiceSvc_AircraftMatchingPrefix * parameters;
+- (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_AircraftMatchingPrefix *)aParameters
 ;
 @end
 @interface MFBWebServiceSoap12Binding_UpdateMaintenanceForAircraft : MFBWebServiceSoap12BindingOperation {
