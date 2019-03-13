@@ -1609,6 +1609,13 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
             
             if (![NSDate isUnknownDate:blockOut] && ![NSDate isUnknownDate:blockIn])
                 dtTotal = ([blockIn timeIntervalSinceDate:blockOut] / 3600.0) - dtPauseTime;
+            
+            // We need to be aggressive about doing autoblock for a variety of reasons, but
+            // that means we needlessly recompute things like cross-country (below)
+            // so short circuit that if we've just recomputed the same time
+            if (round(dtTotal*100) == round(le.entryData.TotalFlightTime.doubleValue * 100))
+                return NO;
+
         }
             break;
         case autoTotalFlightStartToEngineEnd: {
@@ -1619,7 +1626,6 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
         case autoTotalNone:
         default:
             return NO;
-            break;
     }
 
     if (dtTotal > 0)
