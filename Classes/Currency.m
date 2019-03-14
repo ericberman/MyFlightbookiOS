@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2018 MyFlightbook, LLC
+ Copyright (C) 2009-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -261,10 +261,7 @@
             case MFBWebServiceSvc_CurrencyGroups_Aircraft: {
                 MFBWebServiceSvc_Aircraft * ac = [Aircraft.sharedAircraft AircraftByID:ci.AssociatedResourceID.intValue];
                 if (ac != nil) {
-                    AircraftViewController * acView;
-                    acView = [[AircraftViewController alloc] initWithNibName:@"AircraftViewController" bundle:nil];
-                    [acView setAircraft:ac];
-                    
+                    AircraftViewController * acView = [[AircraftViewController alloc] initWithAircraft:ac];                    
                     [self.navigationController pushViewController:acView animated:YES];
                 }
             }

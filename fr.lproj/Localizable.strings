@@ -817,10 +817,10 @@ Vous pouvez choisir un dans la liste fournie, le modifier, ou faire un de vos pr
 "Update Aircraft" = "Mise à jour de avion";
 
 /* Prompt to create a new model on MyFlightbook.com */
-"Add Model Prompt" = "Votre avion n'est pas visible dans la liste? Vous pouvez l'ajouter sur https://MyFlightbook.com.";
+"Add Model Prompt" = "Votre avion n'est pas visible dans la liste? Vous pouvez l'ajouter sur MyFlightbook.com.";
 
 /* Prompt to edit model on MyFlightbook.com */
-"WrongModelPrompt" = "Vous pouvez modifier le modèle de cet avion à https://MyFlightbook.com.";
+"WrongModelPrompt" = "Vous pouvez modifier le modèle de cet avion à MyFlightbook.com.";
 
 /* View aircraft schedule */
 "ACSchedule" = "Programme";

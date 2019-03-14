@@ -74,7 +74,11 @@
 
 - (instancetype)initWithStyle:(UITableViewStyle)style
 {
-    return (self = [super initWithStyle:style]);
+    if (self = [super initWithStyle:style]) {
+        self.tableView.rowHeight = 44.0;
+        self.tableView.sectionHeaderHeight = self.tableView.sectionFooterHeight = 10.0;
+    }
+    return self;
 }
 
 
@@ -200,6 +204,18 @@
     return [self.content count];
 }
 
+- (NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return section == 0 ? NSLocalizedString(@"Add Model Prompt", @"Prompt to create a new model on MyFlightbook.com") : nil;
+}
+
+- (void) tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    if (section == 0) {
+        UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+        
+        header.textLabel.font = [UIFont systemFontOfSize:9];
+        header.textLabel.textAlignment = NSTextAlignmentCenter;
+    }
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     ManufacturerCollection * mc = (ManufacturerCollection *) self.content[section];

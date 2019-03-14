@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2010-2018 MyFlightbook, LLC
+ Copyright (C) 2010-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -28,6 +28,7 @@
 #import "CommentedImage.h"
 #import "FixedImageCell.h"
 #import "AircraftViewController.h"
+#import "NewAircraftViewController.h"
 
 @interface MyAircraft ()
 @property (atomic, strong) NSMutableDictionary * dictImagesForAircraft;
@@ -282,11 +283,8 @@ BOOL fNeedsRefresh = NO;
         return;
     }
 
-	AircraftViewController * acView;
-    acView = [[AircraftViewController alloc] initWithNibName:@"AircraftViewController" bundle:nil];
-    [acView setAircraft:ac];
+    AircraftViewControllerBase * acView = [(ac.isNew ? [NewAircraftViewController alloc] : [AircraftViewController alloc]) initWithAircraft:ac];
     acView.delegate = delegate;
-
 	[nav pushViewController:acView animated:YES];
 }
 

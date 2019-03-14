@@ -1,7 +1,7 @@
 /*
-	MyFlightbook for iOS - provides native access to MyFlightbook
-	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ MyFlightbook for iOS - provides native access to MyFlightbook
+ pilot's logbook
+ Copyright (C) 2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -18,10 +18,10 @@
  */
 
 //
-//  AircraftViewController.h
+//  NewAircraftViewController.h
 //  MFBSample
 //
-//  Created by Eric Berman on 3/19/13.
+//  Created by Eric Berman on 3/13/19.
 //
 //
 
@@ -31,6 +31,7 @@
 #import "AccessoryBar.h"
 #import "CollapsibleTable.h"
 #import "AircraftViewControllerBase.h"
+#import "MFBSoapCall.h"
 
-@interface AircraftViewController : AircraftViewControllerBase<AccessoryBarDelegate, UITextFieldDelegate, UITextViewDelegate>
+@interface NewAircraftViewController : AircraftViewControllerBase<UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, AccessoryBarDelegate, MFBSoapCallDelegate>
 @end

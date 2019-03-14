@@ -124,8 +124,6 @@
 		9A5E746F1710E8F7004C58CC /* Play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A5E746C1710E8F7004C58CC /* Play@2x.png */; };
 		9A5E74701710E8F7004C58CC /* Recording@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A5E746D1710E8F7004C58CC /* Recording@2x.png */; };
 		9A60CAE2180DFCFF00BE813A /* EditCellNoLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A60CAE1180DFCFF00BE813A /* EditCellNoLabel.xib */; };
-		9A60D6C716F8D6A500F9DFFF /* AircraftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A60D6C516F8D6A500F9DFFF /* AircraftViewController.m */; };
-		9A60D6C816F8D6A500F9DFFF /* AircraftViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A60D6C616F8D6A500F9DFFF /* AircraftViewController.xib */; };
 		9A60D6CB16F90BDE00F9DFFF /* CollapsibleTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A60D6CA16F90BDE00F9DFFF /* CollapsibleTable.m */; };
 		9A6137431CF95F840002873E /* SecurityQuestionPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6137421CF95F840002873E /* SecurityQuestionPicker.m */; };
 		9A6187601711DD38007C7754 /* f_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A61875E1711DD37007C7754 /* f_logo.png */; };
@@ -144,6 +142,8 @@
 		9A69202F10CCBD8B00DF1CA6 /* xsd.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202910CCBD8B00DF1CA6 /* xsd.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9A69215B10CDC74A00DF1CA6 /* MFBProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69215A10CDC74A00DF1CA6 /* MFBProfile.m */; };
 		9A6A602213E91145000CB7A6 /* MakeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6A602013E91145000CB7A6 /* MakeModel.m */; };
+		9A6B78A122399C8C0014B0C2 /* NewAircraftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6B78A022399C8C0014B0C2 /* NewAircraftViewController.m */; };
+		9A6B78A422399DDC0014B0C2 /* AircraftViewControllerBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6B78A322399DDC0014B0C2 /* AircraftViewControllerBase.m */; };
 		9A6BDE0C1570921D00F715E1 /* EditCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6BDE0B1570921D00F715E1 /* EditCell.m */; };
 		9A6BDE10157092D600F715E1 /* EditCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A6BDE0F157092D600F715E1 /* EditCell.xib */; };
 		9A6C3B4115728E10004EB8FA /* ExpandHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6C3B4015728E10004EB8FA /* ExpandHeaderCell.m */; };
@@ -369,6 +369,7 @@
 		9ACDC8EC1BDFEA1400B0A077 /* MyFlightbookWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 9ACDC8CC1BDFEA1300B0A077 /* MyFlightbookWatch.app */; };
 		9ACDC9011BE01BC600B0A077 /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ACDC8FF1BE01BC600B0A077 /* WatchConnectivity.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		9ACDC9021BE01BC600B0A077 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ACDC9001BE01BC600B0A077 /* WatchKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		9ACEDB9922388BAB00221A17 /* AircraftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACEDB9722388BAB00221A17 /* AircraftViewController.m */; };
 		9AD2FFC11BE1AF3D00A9B21B /* Play.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AEC4CA213AD4B7C0044897B /* Play.png */; };
 		9AD2FFC21BE1AF3E00A9B21B /* Play.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AEC4CA213AD4B7C0044897B /* Play.png */; };
 		9AD2FFC31BE1AF4600A9B21B /* Pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AEC4CA113AD4B7C0044897B /* Pause.png */; };
@@ -651,8 +652,6 @@
 		9A5E746D1710E8F7004C58CC /* Recording@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Recording@2x.png"; sourceTree = "<group>"; };
 		9A60CAE1180DFCFF00BE813A /* EditCellNoLabel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditCellNoLabel.xib; sourceTree = "<group>"; };
 		9A60D6C416F8D6A500F9DFFF /* AircraftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AircraftViewController.h; sourceTree = "<group>"; };
-		9A60D6C516F8D6A500F9DFFF /* AircraftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AircraftViewController.m; sourceTree = "<group>"; };
-		9A60D6C616F8D6A500F9DFFF /* AircraftViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AircraftViewController.xib; sourceTree = "<group>"; };
 		9A60D6C916F90BDE00F9DFFF /* CollapsibleTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollapsibleTable.h; sourceTree = "<group>"; };
 		9A60D6CA16F90BDE00F9DFFF /* CollapsibleTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollapsibleTable.m; sourceTree = "<group>"; };
 		9A6137411CF95F840002873E /* SecurityQuestionPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecurityQuestionPicker.h; sourceTree = "<group>"; };
@@ -682,6 +681,10 @@
 		9A69215A10CDC74A00DF1CA6 /* MFBProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MFBProfile.m; path = ../MFBProfile.m; sourceTree = "<group>"; };
 		9A6A601F13E91145000CB7A6 /* MakeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakeModel.h; sourceTree = "<group>"; };
 		9A6A602013E91145000CB7A6 /* MakeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakeModel.m; sourceTree = "<group>"; };
+		9A6B789F22399C8C0014B0C2 /* NewAircraftViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewAircraftViewController.h; sourceTree = "<group>"; };
+		9A6B78A022399C8C0014B0C2 /* NewAircraftViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewAircraftViewController.m; sourceTree = "<group>"; };
+		9A6B78A222399DDC0014B0C2 /* AircraftViewControllerBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AircraftViewControllerBase.h; sourceTree = "<group>"; };
+		9A6B78A322399DDC0014B0C2 /* AircraftViewControllerBase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AircraftViewControllerBase.m; sourceTree = "<group>"; };
 		9A6BDE0A1570921D00F715E1 /* EditCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCell.h; sourceTree = "<group>"; };
 		9A6BDE0B1570921D00F715E1 /* EditCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCell.m; sourceTree = "<group>"; };
 		9A6BDE0F157092D600F715E1 /* EditCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditCell.xib; sourceTree = "<group>"; };
@@ -937,6 +940,7 @@
 		9ACDC9001BE01BC600B0A077 /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = System/Library/Frameworks/WatchKit.framework; sourceTree = SDKROOT; };
 		9ACE9E8B1D075299004274F9 /* MyFlightbook-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MyFlightbook-Bridging-Header.h"; sourceTree = "<group>"; };
 		9ACED2961337C66F00E3DC8F /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		9ACEDB9722388BAB00221A17 /* AircraftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AircraftViewController.m; sourceTree = "<group>"; };
 		9AD2FFC01BE1922A00A9B21B /* SharedWatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SharedWatch.h; path = "Model classes/SharedWatch.h"; sourceTree = "<group>"; };
 		9AD2FFE51BE2AB4C00A9B21B /* CurrencyTableRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyTableRowController.swift; sourceTree = "<group>"; };
 		9AD2FFE71BE2AB5B00A9B21B /* TotalsTableRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalsTableRowController.swift; sourceTree = "<group>"; };
@@ -1305,9 +1309,12 @@
 				9A6A602013E91145000CB7A6 /* MakeModel.m */,
 				9A58E0451131A77C005988FA /* MyAircraft.h */,
 				9A58E0461131A77C005988FA /* MyAircraft.m */,
+				9A6B78A222399DDC0014B0C2 /* AircraftViewControllerBase.h */,
+				9A6B78A322399DDC0014B0C2 /* AircraftViewControllerBase.m */,
+				9A6B789F22399C8C0014B0C2 /* NewAircraftViewController.h */,
+				9A6B78A022399C8C0014B0C2 /* NewAircraftViewController.m */,
 				9A60D6C416F8D6A500F9DFFF /* AircraftViewController.h */,
-				9A60D6C516F8D6A500F9DFFF /* AircraftViewController.m */,
-				9A60D6C616F8D6A500F9DFFF /* AircraftViewController.xib */,
+				9ACEDB9722388BAB00221A17 /* AircraftViewController.m */,
 			);
 			name = Aircraft;
 			sourceTree = "<group>";
@@ -2213,7 +2220,6 @@
 				9ADB297416F62356008D9582 /* TextCell.xib in Resources */,
 				9ADB297916F666BD008D9582 /* NewUserTableController.xib in Resources */,
 				9ADB297F16F6938A008D9582 /* CheckboxCell.xib in Resources */,
-				9A60D6C816F8D6A500F9DFFF /* AircraftViewController.xib in Resources */,
 				9A8407A316FBA9E300EA1211 /* Collapsed.png in Resources */,
 				9A8407A416FBA9E300EA1211 /* Collapsed@2x.png in Resources */,
 				9ADFA4F4193921C100FF30B7 /* airporttab@2x.png in Resources */,
@@ -2329,6 +2335,8 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* MFBAppDelegate.m in Sources */,
 				28216C970DB411BC00E5133A /* LEEditController.m in Sources */,
+				9A6B78A122399C8C0014B0C2 /* NewAircraftViewController.m in Sources */,
+				9ACEDB9922388BAB00221A17 /* AircraftViewController.m in Sources */,
 				9A691EBA10C73E4300DF1CA6 /* LogbookEntry.m in Sources */,
 				9A73C8B021B1A9A500AE1221 /* CurrencyCategories.m in Sources */,
 				9A73C86C21B0671900AE1221 /* TodayWidgetBase.m in Sources */,
@@ -2337,6 +2345,7 @@
 				9A69202D10CCBD8B00DF1CA6 /* USAdditions.m in Sources */,
 				9A69202E10CCBD8B00DF1CA6 /* USGlobals.m in Sources */,
 				9A7B3B952135A8AA00CD3BEA /* WPSAlertController.m in Sources */,
+				9A6B78A422399DDC0014B0C2 /* AircraftViewControllerBase.m in Sources */,
 				9A69202F10CCBD8B00DF1CA6 /* xsd.m in Sources */,
 				9ADFA5081939271B00FF30B7 /* Training.m in Sources */,
 				9AA5E44219DDB9030065810A /* Telemetry.m in Sources */,
@@ -2409,7 +2418,6 @@
 				9ADB297216F62344008D9582 /* TextCell.m in Sources */,
 				9ADB297816F666BD008D9582 /* NewUserTableController.m in Sources */,
 				9ADB297D16F69377008D9582 /* CheckboxCell.m in Sources */,
-				9A60D6C716F8D6A500F9DFFF /* AircraftViewController.m in Sources */,
 				9A517E481E2ED68800EC3545 /* ApproachDescription.m in Sources */,
 				9A60D6CB16F90BDE00F9DFFF /* CollapsibleTable.m in Sources */,
 				9AB8B349170347BA0012E3CE /* NavigableCell.m in Sources */,
