@@ -325,7 +325,6 @@
 		9AA4EC3410F1A85200322BE0 /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA4EC3310F1A85200322BE0 /* checkmark.png */; };
 		9AA5E44219DDB9030065810A /* Telemetry.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA5E44119DDB9030065810A /* Telemetry.m */; };
 		9AA5E44919DE2AE40065810A /* GPSSamples.csv in Resources */ = {isa = PBXBuildFile; fileRef = 9A565B6E13E3545800BEFFA7 /* GPSSamples.csv */; };
-		9AA72C7C1BCDB965009D6239 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AA72C7B1BCDB965009D6239 /* LaunchScreen.storyboard */; };
 		9AA77D891618CAC000B36935 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA77D861618CAC000B36935 /* Default-568h@2x.png */; };
 		9AA77D8A1618CAC000B36935 /* Default-Landscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA77D871618CAC000B36935 /* Default-Landscape@2x.png */; };
 		9AA77D8B1618CAC000B36935 /* Default-Portrait@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA77D881618CAC000B36935 /* Default-Portrait@2x.png */; };
@@ -336,7 +335,6 @@
 		9AAA7CDF1715E4CA00429F78 /* Icon-iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AAA7CDA1715E4CA00429F78 /* Icon-iPad@2x.png */; };
 		9AAA7CE01715E4CA00429F78 /* Icon-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AAA7CDB1715E4CA00429F78 /* Icon-small@2x.png */; };
 		9AAA7CE11715E4CA00429F78 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AAA7CDC1715E4CA00429F78 /* Icon@2x.png */; };
-		9AAE151519DA71D7000FC586 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AAE151319DA71D7000FC586 /* Launch Screen.xib */; };
 		9AB8B349170347BA0012E3CE /* NavigableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AB8B348170347BA0012E3CE /* NavigableCell.m */; };
 		9ABC6B391EBCD96C00EE9C97 /* cameramarker.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ABC6B371EBCD96C00EE9C97 /* cameramarker.png */; };
 		9ABC6B3A1EBCD96C00EE9C97 /* cameramarker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ABC6B381EBCD96C00EE9C97 /* cameramarker@2x.png */; };
@@ -872,7 +870,6 @@
 		9AA4EC3310F1A85200322BE0 /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
 		9AA5E44019DDB9030065810A /* Telemetry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Telemetry.h; path = Classes/Telemetry.h; sourceTree = SOURCE_ROOT; };
 		9AA5E44119DDB9030065810A /* Telemetry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Telemetry.m; path = Classes/Telemetry.m; sourceTree = SOURCE_ROOT; };
-		9AA72C7B1BCDB965009D6239 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ../LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9AA77D861618CAC000B36935 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		9AA77D871618CAC000B36935 /* Default-Landscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x.png"; sourceTree = "<group>"; };
 		9AA77D881618CAC000B36935 /* Default-Portrait@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x.png"; sourceTree = "<group>"; };
@@ -894,7 +891,6 @@
 		9ABC6B3D1EBCD9E100EE9C97 /* sigok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sigok.png; sourceTree = "<group>"; };
 		9ABC6B3E1EBCD9E100EE9C97 /* sigok@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sigok@2x.png"; sourceTree = "<group>"; };
 		9ABC6B431EBE2E4B00EE9C97 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		9AC6AF0A1BD01575004AB2E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Base.lproj/Launch Screen.xib"; sourceTree = "<group>"; };
 		9AC6AF0B1BD01576004AB2E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/about.xib; sourceTree = "<group>"; };
 		9AC6AF0C1BD01577004AB2E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AccessoryBar.xib; sourceTree = "<group>"; };
 		9AC6AF0D1BD01578004AB2E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AutodetectOptions.xib; sourceTree = "<group>"; };
@@ -1524,8 +1520,6 @@
 				9A5A083E147ED35300C05C50 /* FlightProperties.xib */,
 				9A5A0840147ED35300C05C50 /* ImageComment.xib */,
 				9A5A0842147ED35300C05C50 /* imageSelector.xib */,
-				9AAE151319DA71D7000FC586 /* Launch Screen.xib */,
-				9AA72C7B1BCDB965009D6239 /* LaunchScreen.storyboard */,
 				9A5A0824147ED30600C05C50 /* LEEditController-iPad.xib */,
 				9A5A0826147ED30600C05C50 /* LEEditController.xib */,
 				9A5A0828147ED30600C05C50 /* MainWindow-iPad.xib */,
@@ -2150,7 +2144,6 @@
 				9A954D9C1531FBFC000E00ED /* EditAircraft-iPad.xib.txt in Resources */,
 				9A954D9D1531FBFC000E00ED /* EditAircraft.xib.txt in Resources */,
 				9A954D9E1531FBFC000E00ED /* EditProperty.xib.txt in Resources */,
-				9AA72C7C1BCDB965009D6239 /* LaunchScreen.storyboard in Resources */,
 				9A954D9F1531FBFC000E00ED /* FlightProperties.xib.txt in Resources */,
 				9A4F3B5D18177BEE009E575C /* Icon-small29x29.png in Resources */,
 				9A954DA01531FBFC000E00ED /* ImageComment.xib.txt in Resources */,
@@ -2249,7 +2242,6 @@
 				9AAA7CDE1715E4CA00429F78 /* Icon-iPad-small.png in Resources */,
 				9AAA7CDF1715E4CA00429F78 /* Icon-iPad@2x.png in Resources */,
 				9AAA7CE01715E4CA00429F78 /* Icon-small@2x.png in Resources */,
-				9AAE151519DA71D7000FC586 /* Launch Screen.xib in Resources */,
 				9AD92AE71E4CD57600A2FC49 /* noimage.png in Resources */,
 				9A4F3B6718177E61009E575C /* Default-Portrait1536x2048.png in Resources */,
 				9AAA7CE11715E4CA00429F78 /* Icon@2x.png in Resources */,
@@ -3251,14 +3243,6 @@
 				9A87F5121BD172AB00F9479D /* fr */,
 			);
 			name = AccessoryBar.xib;
-			sourceTree = "<group>";
-		};
-		9AAE151319DA71D7000FC586 /* Launch Screen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9AC6AF0A1BD01575004AB2E3 /* Base */,
-			);
-			name = "Launch Screen.xib";
 			sourceTree = "<group>";
 		};
 		9ACC118F19E232FF00AA4E3C /* InfoPlist.strings */ = {
