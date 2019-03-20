@@ -149,6 +149,15 @@
 		9A6C3B4115728E10004EB8FA /* ExpandHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6C3B4015728E10004EB8FA /* ExpandHeaderCell.m */; };
 		9A6C3B4315728F27004EB8FA /* ExpandHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A6C3B4215728F27004EB8FA /* ExpandHeaderCell.xib */; };
 		9A6DDB9511A8547D0053C8AA /* MFBIcon.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DDB9111A8547D0053C8AA /* MFBIcon.gif */; };
+		9A6DFCEA2242FFC90061FE86 /* Default-Portrait1125x2436.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DFCE52242FFC80061FE86 /* Default-Portrait1125x2436.png */; };
+		9A6DFCEB2242FFC90061FE86 /* Default-Portrait1242x2208.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DFCE62242FFC80061FE86 /* Default-Portrait1242x2208.png */; };
+		9A6DFCEC2242FFC90061FE86 /* Default-Portrait750x1334.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DFCE72242FFC80061FE86 /* Default-Portrait750x1334.png */; };
+		9A6DFCED2242FFC90061FE86 /* Default-Portrait1242x2688.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DFCE82242FFC90061FE86 /* Default-Portrait1242x2688.png */; };
+		9A6DFCEE2242FFC90061FE86 /* Default-Portrait828x1792.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DFCE92242FFC90061FE86 /* Default-Portrait828x1792.png */; };
+		9A6DFCF3224302230061FE86 /* Default-Landscape-2208x1242.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DFCEF224302230061FE86 /* Default-Landscape-2208x1242.png */; };
+		9A6DFCF4224302230061FE86 /* Default-Landscape-1792x828.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DFCF0224302230061FE86 /* Default-Landscape-1792x828.png */; };
+		9A6DFCF5224302230061FE86 /* Default-Landscape-2688x1242.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DFCF1224302230061FE86 /* Default-Landscape-2688x1242.png */; };
+		9A6DFCF6224302230061FE86 /* Default-Landscape-2436x1125.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DFCF2224302230061FE86 /* Default-Landscape-2436x1125.png */; };
 		9A73C84821AF51F500AE1221 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A73C84721AF51F400AE1221 /* NotificationCenter.framework */; };
 		9A73C84C21AF51F500AE1221 /* TodayCurrencyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A73C84B21AF51F500AE1221 /* TodayCurrencyController.m */; };
 		9A73C84F21AF51F500AE1221 /* CurrencyTodayWidget.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A73C84D21AF51F500AE1221 /* CurrencyTodayWidget.storyboard */; };
@@ -690,6 +699,15 @@
 		9A6C3B4015728E10004EB8FA /* ExpandHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpandHeaderCell.m; sourceTree = "<group>"; };
 		9A6C3B4215728F27004EB8FA /* ExpandHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpandHeaderCell.xib; sourceTree = "<group>"; };
 		9A6DDB9111A8547D0053C8AA /* MFBIcon.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = MFBIcon.gif; sourceTree = "<group>"; };
+		9A6DFCE52242FFC80061FE86 /* Default-Portrait1125x2436.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait1125x2436.png"; sourceTree = "<group>"; };
+		9A6DFCE62242FFC80061FE86 /* Default-Portrait1242x2208.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait1242x2208.png"; sourceTree = "<group>"; };
+		9A6DFCE72242FFC80061FE86 /* Default-Portrait750x1334.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait750x1334.png"; sourceTree = "<group>"; };
+		9A6DFCE82242FFC90061FE86 /* Default-Portrait1242x2688.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait1242x2688.png"; sourceTree = "<group>"; };
+		9A6DFCE92242FFC90061FE86 /* Default-Portrait828x1792.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait828x1792.png"; sourceTree = "<group>"; };
+		9A6DFCEF224302230061FE86 /* Default-Landscape-2208x1242.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape-2208x1242.png"; sourceTree = "<group>"; };
+		9A6DFCF0224302230061FE86 /* Default-Landscape-1792x828.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape-1792x828.png"; sourceTree = "<group>"; };
+		9A6DFCF1224302230061FE86 /* Default-Landscape-2688x1242.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape-2688x1242.png"; sourceTree = "<group>"; };
+		9A6DFCF2224302230061FE86 /* Default-Landscape-2436x1125.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape-2436x1125.png"; sourceTree = "<group>"; };
 		9A73C83F21AF51C200AE1221 /* MyFlightbook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = MyFlightbook.entitlements; path = MyFlightbook/MyFlightbook.entitlements; sourceTree = "<group>"; };
 		9A73C84021AF51C900AE1221 /* MyFlightbookWatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyFlightbookWatch.entitlements; sourceTree = "<group>"; };
 		9A73C84121AF51CF00AE1221 /* MyFlightbookWatch Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MyFlightbookWatch Extension.entitlements"; sourceTree = "<group>"; };
@@ -1383,6 +1401,15 @@
 		9A8BF94F10E1B9C7002F01ED /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				9A6DFCF0224302230061FE86 /* Default-Landscape-1792x828.png */,
+				9A6DFCEF224302230061FE86 /* Default-Landscape-2208x1242.png */,
+				9A6DFCF2224302230061FE86 /* Default-Landscape-2436x1125.png */,
+				9A6DFCF1224302230061FE86 /* Default-Landscape-2688x1242.png */,
+				9A6DFCE72242FFC80061FE86 /* Default-Portrait750x1334.png */,
+				9A6DFCE92242FFC90061FE86 /* Default-Portrait828x1792.png */,
+				9A6DFCE52242FFC80061FE86 /* Default-Portrait1125x2436.png */,
+				9A6DFCE62242FFC80061FE86 /* Default-Portrait1242x2208.png */,
+				9A6DFCE82242FFC90061FE86 /* Default-Portrait1242x2688.png */,
 				9A117D8B221782FB0095CE32 /* BadElfCircle-Vertical-Transparent.png */,
 				9A085CAC20F3EF5500DDA442 /* tower.png */,
 				9A085CAB20F3EF5500DDA442 /* tower@2x.png */,
@@ -2032,6 +2059,7 @@
 				9A4F3B5A18177BA1009E575C /* Icon-iPadRetina152x152.png in Resources */,
 				9A1A8B951EAA560F008F938B /* .gitignore in Resources */,
 				9A196C30112312EB007A7DD1 /* Recording.png in Resources */,
+				9A6DFCEB2242FFC90061FE86 /* Default-Portrait1242x2208.png in Resources */,
 				9ABC6B401EBCD9E100EE9C97 /* siginvalid@2x.png in Resources */,
 				9A58E0541131AC4C005988FA /* aircraft.png in Resources */,
 				9A6DDB9511A8547D0053C8AA /* MFBIcon.gif in Resources */,
@@ -2066,6 +2094,7 @@
 				9A5A0871147ED35300C05C50 /* FlightProperties.xib in Resources */,
 				9A5A0872147ED35300C05C50 /* ImageComment.xib in Resources */,
 				9A5A0873147ED35300C05C50 /* imageSelector.xib in Resources */,
+				9A6DFCF6224302230061FE86 /* Default-Landscape-2436x1125.png in Resources */,
 				9A5A0875147ED35300C05C50 /* MyAircraft.xib in Resources */,
 				9A5A0876147ED35300C05C50 /* NearbyAirports.xib in Resources */,
 				9A5A087F147ED35300C05C50 /* RecentFlights.xib in Resources */,
@@ -2078,6 +2107,7 @@
 				9A20B156192D34E600A8F64F /* README.md in Resources */,
 				9A7A7D96147F4DD0003A6912 /* Localizable.strings in Resources */,
 				9A2D594214C3485800FD8F05 /* RecentFlightCell.xib in Resources */,
+				9A6DFCEA2242FFC90061FE86 /* Default-Portrait1125x2436.png in Resources */,
 				9A902D771A210C9900698017 /* airporttab@3x.png in Resources */,
 				9A4F3B6518177E61009E575C /* Default-Landscape-2048x1536.png in Resources */,
 				9A4F3B6418177E61009E575C /* Default-Landscape-1024x768.png in Resources */,
@@ -2106,6 +2136,7 @@
 				9A954D3E1531FBD6000E00ED /* MainWindow-iPad.xib.txt in Resources */,
 				9A954D3F1531FBD6000E00ED /* MainWindow.xib.txt in Resources */,
 				9A46938020F53BE900614481 /* Icon80x80.png in Resources */,
+				9A6DFCEC2242FFC90061FE86 /* Default-Portrait750x1334.png in Resources */,
 				9A954D401531FBD6000E00ED /* MakeModel.xib.txt in Resources */,
 				9A954D411531FBD6000E00ED /* MyAircraft.xib.txt in Resources */,
 				9A954D421531FBD6000E00ED /* NearbyAirports.xib.txt in Resources */,
@@ -2123,6 +2154,7 @@
 				9A902D821A210F2700698017 /* sigok@3x.png in Resources */,
 				9A60CAE2180DFCFF00BE813A /* EditCellNoLabel.xib in Resources */,
 				9ABC6B391EBCD96C00EE9C97 /* cameramarker.png in Resources */,
+				9A6DFCED2242FFC90061FE86 /* Default-Portrait1242x2688.png in Resources */,
 				9A954D491531FBD6000E00ED /* ProfileEditController-iPad.xib.txt in Resources */,
 				9A954D4A1531FBD6000E00ED /* ProfileEditController.xib.txt in Resources */,
 				9A954D4B1531FBD6000E00ED /* RecentFlights.xib.txt in Resources */,
@@ -2130,6 +2162,7 @@
 				9A117D8C221782FC0095CE32 /* BadElfCircle-Vertical-Transparent.png in Resources */,
 				9A954D4C1531FBD6000E00ED /* Totals.xib.txt in Resources */,
 				9A954D4D1531FBD6000E00ED /* TotalsRow.xib.txt in Resources */,
+				9A6DFCEE2242FFC90061FE86 /* Default-Portrait828x1792.png in Resources */,
 				9A954D4E1531FBD6000E00ED /* VADetails.xib.txt in Resources */,
 				9A954D4F1531FBD6000E00ED /* ViewFlightWebPage.xib.txt in Resources */,
 				9A954D501531FBD6000E00ED /* VisitedAirportRow.xib.txt in Resources */,
@@ -2218,6 +2251,7 @@
 				9ADFA4F4193921C100FF30B7 /* airporttab@2x.png in Resources */,
 				9A20B158192D358000A8F64F /* iRate.bundle in Resources */,
 				9AE4B7B216FE80EE0001BD2C /* EditCellDetail.xib in Resources */,
+				9A6DFCF3224302230061FE86 /* Default-Landscape-2208x1242.png in Resources */,
 				9A40859F170B48B60079A2C6 /* Favorite.png in Resources */,
 				9A4085A0170B48B60079A2C6 /* Favorite@2x.png in Resources */,
 				9A902D6D1A210A9D00698017 /* Pause@3x.png in Resources */,
@@ -2229,6 +2263,7 @@
 				9A902D5B1A2102E800698017 /* aircraft@3x.png in Resources */,
 				9A4F3B6618177E61009E575C /* Default-Portrait768x1024.png in Resources */,
 				9A46938120F53BE900614481 /* Icon40x40.png in Resources */,
+				9A6DFCF4224302230061FE86 /* Default-Landscape-1792x828.png in Resources */,
 				9A6187601711DD38007C7754 /* f_logo.png in Resources */,
 				9AC83AD119E440260092C7BB /* tracklog.gpx in Resources */,
 				9A6187611711DD38007C7754 /* f_logo@2x.png in Resources */,
@@ -2245,6 +2280,7 @@
 				9AD92AE71E4CD57600A2FC49 /* noimage.png in Resources */,
 				9A4F3B6718177E61009E575C /* Default-Portrait1536x2048.png in Resources */,
 				9AAA7CE11715E4CA00429F78 /* Icon@2x.png in Resources */,
+				9A6DFCF5224302230061FE86 /* Default-Landscape-2688x1242.png in Resources */,
 				9ACC119119E232FF00AA4E3C /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
