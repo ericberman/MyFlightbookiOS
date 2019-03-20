@@ -158,6 +158,7 @@
 		9A6DFCF4224302230061FE86 /* Default-Landscape-1792x828.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DFCF0224302230061FE86 /* Default-Landscape-1792x828.png */; };
 		9A6DFCF5224302230061FE86 /* Default-Landscape-2688x1242.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DFCF1224302230061FE86 /* Default-Landscape-2688x1242.png */; };
 		9A6DFCF6224302230061FE86 /* Default-Landscape-2436x1125.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DFCF2224302230061FE86 /* Default-Landscape-2436x1125.png */; };
+		9A6DFCF8224306B30061FE86 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DFCF7224306B30061FE86 /* Launch Screen.storyboard */; };
 		9A73C84821AF51F500AE1221 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A73C84721AF51F400AE1221 /* NotificationCenter.framework */; };
 		9A73C84C21AF51F500AE1221 /* TodayCurrencyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A73C84B21AF51F500AE1221 /* TodayCurrencyController.m */; };
 		9A73C84F21AF51F500AE1221 /* CurrencyTodayWidget.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A73C84D21AF51F500AE1221 /* CurrencyTodayWidget.storyboard */; };
@@ -708,6 +709,7 @@
 		9A6DFCF0224302230061FE86 /* Default-Landscape-1792x828.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape-1792x828.png"; sourceTree = "<group>"; };
 		9A6DFCF1224302230061FE86 /* Default-Landscape-2688x1242.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape-2688x1242.png"; sourceTree = "<group>"; };
 		9A6DFCF2224302230061FE86 /* Default-Landscape-2436x1125.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape-2436x1125.png"; sourceTree = "<group>"; };
+		9A6DFCF7224306B30061FE86 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		9A73C83F21AF51C200AE1221 /* MyFlightbook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = MyFlightbook.entitlements; path = MyFlightbook/MyFlightbook.entitlements; sourceTree = "<group>"; };
 		9A73C84021AF51C900AE1221 /* MyFlightbookWatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyFlightbookWatch.entitlements; sourceTree = "<group>"; };
 		9A73C84121AF51CF00AE1221 /* MyFlightbookWatch Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MyFlightbookWatch Extension.entitlements"; sourceTree = "<group>"; };
@@ -1560,6 +1562,7 @@
 				9A5A0860147ED35300C05C50 /* VADetails.xib */,
 				9A5A0864147ED35300C05C50 /* VisitedAirportRow.xib */,
 				9A5A0866147ED35300C05C50 /* VisitedAirports.xib */,
+				9A6DFCF7224306B30061FE86 /* Launch Screen.storyboard */,
 			);
 			name = Views;
 			path = Classes;
@@ -2097,6 +2100,7 @@
 				9A6DFCF6224302230061FE86 /* Default-Landscape-2436x1125.png in Resources */,
 				9A5A0875147ED35300C05C50 /* MyAircraft.xib in Resources */,
 				9A5A0876147ED35300C05C50 /* NearbyAirports.xib in Resources */,
+				9A6DFCF8224306B30061FE86 /* Launch Screen.storyboard in Resources */,
 				9A5A087F147ED35300C05C50 /* RecentFlights.xib in Resources */,
 				9A5A0880147ED35300C05C50 /* Totals.xib in Resources */,
 				9A5A0881147ED35300C05C50 /* TotalsRow.xib in Resources */,
@@ -3308,7 +3312,6 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = MyFlightbook/MyFlightbook.entitlements;
@@ -3347,7 +3350,6 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = MyFlightbook/MyFlightbook.entitlements;
@@ -3431,7 +3433,6 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = MyFlightbook/MyFlightbook.entitlements;

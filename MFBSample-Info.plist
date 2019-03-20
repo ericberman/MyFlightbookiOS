@@ -89,7 +89,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>3.4.2019.03.20.2</string>
+	<string>3.4.2019.03.20.3</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
@@ -174,6 +174,8 @@
 	<array>
 		<string>location</string>
 	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>Launch Screen</string>
 	<key>UISupportedExternalAccessoryProtocols</key>
 	<array>
 		<string>com.bad-elf.gps</string>
