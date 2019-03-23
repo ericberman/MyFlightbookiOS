@@ -642,7 +642,7 @@ static char UIB_ISLOCKED_KEY;
     {
         self.PropTypeID = @(sqlite3_column_int(row, 0));
         self.Title = @((char *)sqlite3_column_text(row, 1));
-        self.SortKey = @((char *) sqlite3_column_text(row, 2));
+        self.SortKey = sqlite3_column_text(row, 2) == NULL ? @"" : @((char *) sqlite3_column_text(row, 2));
         if (self.SortKey == nil || self.SortKey.length == 0)
             self.SortKey = self.Title;
         self.FormatString = @((char *) sqlite3_column_text(row, 3));
