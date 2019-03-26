@@ -69,7 +69,7 @@ class RecentsInterfaceController: RefreshableTableController {
                 let row = self.table.rowController(at: index) as! RecentsTableRowController
                 row.lblComment.setText(item.comment)
                 
-                let attribString = NSMutableAttributedString(string: item.tailNumDisplay, attributes: [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 16)])
+                let attribString = NSMutableAttributedString(string: item.tailNumDisplay, attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 16)])
                 attribString.append(NSAttributedString(string: " " + item.comment))
                 row.lblComment.setAttributedText(attribString)
                 row.lblRoute.setText(item.route)
