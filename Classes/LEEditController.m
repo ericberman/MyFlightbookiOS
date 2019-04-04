@@ -1438,6 +1438,11 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
 
     UITableViewCell * tc = [self owningCellGeneric:textField];
     NSIndexPath * ip = [self.tableView indexPathForCell:tc];
+    
+    // If the cell is off-screen (hidden), we need to get its index path by position.
+    if (ip == nil && tc != nil)
+        ip = [self.tableView indexPathForRowAtPoint:tc.center];
+    
     NSInteger row = [self cellIDFromIndexPath:ip];
     if (row >= rowPropertyFirst)
     {
