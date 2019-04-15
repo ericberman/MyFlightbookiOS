@@ -2305,6 +2305,11 @@ static NSDateFormatter * dfSunriseSunset = nil;
     NSURL * url = [NSURL URLWithString:self.le.entryData.SocialMediaLink];
     UIActivityViewController * avc = [[UIActivityViewController alloc] initWithActivityItems:@[szComment, url] applicationActivities:nil];
     
+    UIBarButtonItem * bbi = (UIBarButtonItem *) sender;
+    UIView * bbiView = [bbi valueForKey:@"view"];
+    avc.popoverPresentationController.sourceView = bbiView;
+    avc.popoverPresentationController.sourceRect = bbiView.frame;
+    
     avc.excludedActivityTypes = @[UIActivityTypeAirDrop,
                                    UIActivityTypePrint,
                                    UIActivityTypeAssignToContact,
