@@ -47,7 +47,7 @@
 enum aircraftSections {sectMain, sectSuggestions, sectModel, sectImages, sectLast};
 enum aircraftRows {rowMainFirst, rowInstanceType = rowMainFirst, rowIsAnonymous, rowTailnum, rowMainLast,
     rowModel,
-    rowImageHeader, rowSuggestion};
+    rowSuggestion, rowImageHeader};
 
 @synthesize picker, szTailnumberLast, suggestedAircraft;
 #pragma mark - ViewController
@@ -215,6 +215,48 @@ enum aircraftRows {rowMainFirst, rowInstanceType = rowMainFirst, rowIsAnonymous,
     NSInteger row = [self cellIDFromIndexPath:indexPath];
     Aircraft * aircraft = [Aircraft sharedAircraft];
     
+    // Handle the dynamic sections...
+    if (indexPath.section == sectSuggestions) {
+        static NSString * CellIdentifier = @"cellSuggestion";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil)
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        
+        MFBWebServiceSvc_Aircraft * acSuggestion = self.suggestedAircraft[indexPath.row];
+        cell.textLabel.text = acSuggestion.displayTailNumber;
+        NSString * modelDisplay = [Aircraft.sharedAircraft descriptionOfModelId:acSuggestion.ModelID.intValue];
+        cell.detailTextLabel.text = modelDisplay;
+        return cell;
+    } else if (indexPath.section == sectImages) {
+        if (indexPath.row > 0) {
+            static NSString *CellIdentifier = @"cellImage";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            if (cell == nil)
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            NSInteger imageIndex = (row - rowImageHeader) - 1;
+            if (imageIndex >= 0 && imageIndex < [self.rgImages count])
+            {
+                CommentedImage * ci = (CommentedImage *) (self.rgImages)[imageIndex];
+                cell.indentationLevel = 1;
+                cell.textLabel.adjustsFontSizeToFitWidth = YES;
+                cell.textLabel.text = ci.imgInfo.Comment;
+                if (ci.hasThumbnailCache)
+                    cell.imageView.image = [ci GetThumbnail];
+                else
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                        [ci GetThumbnail];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self.tableView reloadData];
+                        });
+                    });
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                cell.indentationWidth = 10.0;
+            }
+            return cell;
+        }
+    }
+    
+    // else it msut be a specific known row.
     switch (row) {
         case rowIsAnonymous: {
             CheckboxCell * cc = [CheckboxCell getButtonCell:tableView];
@@ -259,45 +301,7 @@ enum aircraftRows {rowMainFirst, rowInstanceType = rowMainFirst, rowIsAnonymous,
             ExpandHeaderCell * ec = [ExpandHeaderCell getHeaderCell:tableView withTitle:szHeader forSection:indexPath.section initialState:[self isExpanded:indexPath.section]];
             return ec;
         }
-        case rowSuggestion: {
-            static NSString * CellIdentifier = @"cellSuggestion";
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-            if (cell == nil)
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-            
-            MFBWebServiceSvc_Aircraft * acSuggestion = self.suggestedAircraft[indexPath.row];
-            cell.textLabel.text = acSuggestion.displayTailNumber;
-            NSString * modelDisplay = [Aircraft.sharedAircraft descriptionOfModelId:acSuggestion.ModelID.intValue];
-            cell.detailTextLabel.text = modelDisplay;
-            return cell;
-        }
         default: {
-            if (row > rowImageHeader) {
-                static NSString *CellIdentifier = @"cellImage";
-                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-                if (cell == nil)
-                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-                NSInteger imageIndex = (row - rowImageHeader) - 1;
-                if (imageIndex >= 0 && imageIndex < [self.rgImages count])
-                {
-                    CommentedImage * ci = (CommentedImage *) (self.rgImages)[imageIndex];
-                    cell.indentationLevel = 1;
-                    cell.textLabel.adjustsFontSizeToFitWidth = YES;
-                    cell.textLabel.text = ci.imgInfo.Comment;
-                    if (ci.hasThumbnailCache)
-                        cell.imageView.image = [ci GetThumbnail];
-                    else
-                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                            [ci GetThumbnail];
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                [self.tableView reloadData];
-                            });
-                        });
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    cell.indentationWidth = 10.0;
-                }
-                return cell;
-            }
             @throw [NSException exceptionWithName:@"Invalid indexpath" reason:@"Request for cell in AircraftViewController with invalid indexpath" userInfo:@{@"indexPath:" : indexPath}];
         }
     }
@@ -369,6 +373,10 @@ enum aircraftRows {rowMainFirst, rowInstanceType = rowMainFirst, rowIsAnonymous,
             [self.tableView reloadData];
             break;
         }
+        case rowImageHeader:
+            [self.tableView endEditing:YES];
+            [self toggleSection:indexPath.section];
+            break;
         default:
             [self.tableView endEditing:YES];
             if (row > rowImageHeader) {
