@@ -707,8 +707,8 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
     MFBWebServiceSvc_LogbookEntry * leNew = [NSKeyedUnarchiver unarchiveObjectWithData:thisArchived];
     leNew.FlightID = NEW_FLIGHT_ID;
     
-    if (self.CustomProperties != nil)
-        for (MFBWebServiceSvc_CustomFlightProperty * cfp in self.CustomProperties.CustomFlightProperty) {
+    if (leNew.CustomProperties != nil)
+        for (MFBWebServiceSvc_CustomFlightProperty * cfp in leNew.CustomProperties.CustomFlightProperty) {
             cfp.FlightID = NEW_FLIGHT_ID;
             cfp.PropID = NEW_PROP_ID;
         }
