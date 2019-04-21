@@ -276,8 +276,8 @@ static MFBTheme * currentTheme = nil;
         self.textViewForeColor = self.textFieldForeColor = self.labelForeColor = [UIColor colorWithRed:.9 green:.9 blue:.9 alpha:1.0];;
         
         self.buttonBackColor = self.textViewBackColor = self.textFieldBackColor = self.labelBackColor = self.cellBackColor =
-        self.navBarBackColor = self.searchBarBackColor = self.tabbarBarTintColor = self.toolbarBackColor =
-        self.pickerBackColor = self.datePickerBackColor = [UIColor colorWithRed:.1 green:.1 blue:.1 alpha:1];
+        self.navBarBackColor = self.searchBarBackColor = self.tabbarBarTintColor = self.toolbarBackColor = [UIColor colorWithRed:.1 green:.1 blue:.1 alpha:1];
+        self.pickerBackColor = self.datePickerBackColor = [UIColor colorWithRed:.6 green:.6 blue:.6 alpha:1];
         
         self.tableBackColor = [UIColor blackColor];
         
