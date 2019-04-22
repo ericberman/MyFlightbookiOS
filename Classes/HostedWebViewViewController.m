@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2017-2018 MyFlightbook, LLC
+ Copyright (C) 2017-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -121,6 +121,14 @@
         [webView loadRequest:navigationAction.request];
     }
     return nil;
+}
+
+- (void) webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
+    if ([navigationResponse.response.MIMEType compare:@"text/calendar"] == NSOrderedSame) {
+        decisionHandler(WKNavigationResponsePolicyCancel);
+        [[UIApplication sharedApplication] openURL:navigationResponse.response.URL];
+    } else
+        decisionHandler(WKNavigationResponsePolicyAllow);
 }
 
 - (void) webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
