@@ -750,10 +750,15 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     [self.idPublic setCheckboxValue:entryData.fIsPublic.boolValue];
 	
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSMutableArray<CommentedImage *> * rgCiLocal = [NSMutableArray new];
+        for (CommentedImage * ci in self.le.rgPicsForFlight)
+            if (!ci.imgInfo.livesOnServer)
+                [rgCiLocal addObject:ci];
         NSMutableArray * rgPics = [NSMutableArray new];
         if ([CommentedImage initCommentedImagesFromMFBII:entryData.FlightImages.MFBImageInfo toArray:rgPics]) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.le.rgPicsForFlight = rgPics;
+                [rgPics addObjectsFromArray:rgCiLocal];
                 [self.tableView reloadData];
                 if (self.self.le.rgPicsForFlight.count > 0 && ![self isExpanded:sectImages])
                     [self expandSection:sectImages];
