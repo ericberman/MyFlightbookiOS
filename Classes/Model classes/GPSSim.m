@@ -94,7 +94,8 @@
             
             // start the flight on the first sample
             if (t.hasSpeed)
-                self.leDelegate.Date = self.leDelegate.EngineStart = firstLoc.timestamp;
+                // Issue #151: drop seconds from engine start/end
+                self.leDelegate.Date = self.leDelegate.EngineStart = firstLoc.timestamp.dateByTruncatingSeconds;
             else
             {
                 self.leDelegate.Date = [NSDate date];
@@ -126,7 +127,8 @@
             CLLocation * lastLoc = (CLLocation *) rgCoords[rgCoords.count - 1];
             if (t.hasSpeed)
             {
-                self.leDelegate.EngineEnd = lastLoc.timestamp;
+                // Issue #151: drop seconds from engine start/end
+                self.leDelegate.EngineEnd = lastLoc.timestamp.dateByTruncatingSeconds;
                 self.leDelegate.FlightData = self.mfbloc.flightDataAsString;
             }
             else

@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2013-2018 MyFlightbook, LLC
+ Copyright (C) 2013-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -176,6 +176,11 @@
         [compsDelta setMonth:cMonths];
         return [cal dateByAddingComponents:compsDelta toDate:dt options:0];
     }
+}
+
+- (NSDate *) dateByTruncatingSeconds {
+    NSTimeInterval time = floor([self timeIntervalSinceReferenceDate] / 60.0) * 60.0;
+    return [NSDate dateWithTimeIntervalSinceReferenceDate:time];
 }
 @end
 
