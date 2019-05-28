@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2010-2018 MyFlightbook, LLC
+ Copyright (C) 2010-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -291,14 +291,19 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
 #pragma mark - UISearchBarDelegate
 - (void) refreshFilteredProps:(NSString *) szFilter
 {
-    if (szFilter == nil || [szFilter length] == 0)
+    if (szFilter == nil || [szFilter stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet].length == 0)
         self.rgFilteredProps = [NSArray arrayWithArray:self.flightProps.rgPropTypes];
-    else
+    else {
+        NSArray<NSString *> * rgWords = [szFilter componentsSeparatedByString:@" "];
         self.rgFilteredProps = [self.flightProps.rgPropTypes filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^ BOOL(id evaluatedObject, NSDictionary *bindings)
            {
                MFBWebServiceSvc_CustomPropertyType * cpt = (MFBWebServiceSvc_CustomPropertyType *) evaluatedObject;
-               return [cpt.Title rangeOfString:szFilter options:NSCaseInsensitiveSearch].location != NSNotFound;
+               for (NSString * sz in rgWords)
+                   if (sz.length > 0 && [cpt.Title rangeOfString:sz options:NSCaseInsensitiveSearch].location == NSNotFound)
+                       return NO;
+               return YES;
            }]];
+     }
 }
 
 #pragma mark -
