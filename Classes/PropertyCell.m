@@ -78,8 +78,10 @@
 
 - (void) autoFill:(UILongPressGestureRecognizer *)sender
 {
-    if (sender.state == UIGestureRecognizerStateBegan && self.autofillValue != nil)
+    if (sender.state == UIGestureRecognizerStateBegan && self.autofillValue != nil) {
+        [self.txt becomeFirstResponder];
         self.txt.value = self.autofillValue;
+    }
 }
 
 - (BOOL) gestureRecognizer:(UIGestureRecognizer *) gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
