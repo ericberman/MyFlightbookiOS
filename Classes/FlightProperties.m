@@ -48,7 +48,7 @@
 
 @implementation FlightProperties
 
-@synthesize le, flightProps, content, activeTextField, indices, rgAllProps, rgFilteredProps, vwAccessory, datePicker, dictPropCells;
+@synthesize le, flightProps, content, activeTextField, indices, rgAllProps, rgFilteredProps, vwAccessory, datePicker, dictPropCells, activeTemplates;
 
 static NSString * szKeyRowValues = @"rowValues";
 static NSString * szKeyHeaderTitle = @"headerTitle";
@@ -127,7 +127,7 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
 
 - (void) commitChanges
 {
-    [self.le.entryData.CustomProperties setProperties:[self.flightProps distillList:self.rgAllProps includeLockedProps:YES]];
+    [self.le.entryData.CustomProperties setProperties:[self.flightProps distillList:self.rgAllProps includeLockedProps:YES includeTemplates:self.activeTemplates]];
 }
 
 - (void) refresh

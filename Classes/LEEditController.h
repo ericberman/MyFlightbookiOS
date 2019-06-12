@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2018 MyFlightbook, LLC
+ Copyright (C) 2009-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 11/28/09.
-//  Copyright-2018 MyFlightbook LLC 2009. All rights reserved.
+//  Copyright-2019 MyFlightbook LLC 2009. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -37,8 +37,9 @@
 #import "CollapsibleTable.h"
 #import "ApproachEditor.h"
 #import "TotalsCalculator.h"
+#import "SelectTemplates.h"
 
-@interface LEEditController : CollapsibleTable <NearbyAirportsDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate, AutoDetectDelegate, UIAlertViewDelegate, UIPickerViewDataSource, UIContentContainer, ApproachEditorDelegate, TotalsCalculatorDelegate> {
+@interface LEEditController : CollapsibleTable <NearbyAirportsDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate, AutoDetectDelegate, SelectTemplatesDelegate, UIAlertViewDelegate, UIPickerViewDataSource, UIContentContainer, ApproachEditorDelegate, TotalsCalculatorDelegate> {
 }
 
 @property (nonatomic, strong) IBOutlet UITextField * idDate;

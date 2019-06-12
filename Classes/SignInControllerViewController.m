@@ -139,6 +139,8 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
     [app.userProfile clearCache];
     [app.userProfile clearOldUserContent];
     [app.userProfile SavePrefs];
+    [FlightProps.sharedTemplates removeAllObjects];
+    [FlightProps saveTemplates];
     [self.tableView reloadData];
 }
 

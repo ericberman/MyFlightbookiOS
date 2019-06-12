@@ -48,6 +48,7 @@ NSString * const _szKeyDecVal = @"keycfpDecVal";
 NSString * const _szKeyTextVal = @"keycfpTextVal";
 NSString * const _szKeyDateVal = @"keycfpDateVal";
 NSString * const _szKeyCachedPropTypes = @"keyCachePropTypes";
+NSString * const _szKeyCachedTemplates = @"keyCacheTemplates";
 NSString * const _szKeyPropArray = @"keycfpPropArray";
 NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
 
@@ -69,6 +70,30 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
     static NSMutableArray * shared = nil;
     dispatch_once(&pred, ^{ shared = [[NSMutableArray alloc] init];});
     return shared;
+}
+
++ (NSMutableArray<MFBWebServiceSvc_PropertyTemplate *> *) sharedTemplates {
+    static dispatch_once_t pred;
+    static NSMutableArray<MFBWebServiceSvc_PropertyTemplate *> * shared = nil;
+    dispatch_once(&pred, ^{
+        NSData * data = [NSUserDefaults.standardUserDefaults objectForKey:_szKeyCachedTemplates];
+        if (data != nil)
+            shared = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        else
+            shared = [NSMutableArray new];
+    });
+    return shared;
+}
+
++ (void) saveTemplates {
+    NSUserDefaults * defs = NSUserDefaults.standardUserDefaults;
+    [defs setObject:[NSKeyedArchiver archivedDataWithRootObject:FlightProps.sharedTemplates] forKey:_szKeyCachedTemplates];
+    [defs synchronize];
+}
+
++ (void) flushTemplates {
+    [FlightProps.sharedTemplates removeAllObjects];
+    [FlightProps saveTemplates];
 }
 
 - (void) setPropTypeArray:(NSArray *) ar
@@ -99,8 +124,7 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
 	return self;
 }
 
-
-- (NSArray *) cachedProps
+- (NSArray<MFBWebServiceSvc_CustomPropertyType *> *) cachedProps
 {
 	NSData * rgArrayLastData = [[NSUserDefaults standardUserDefaults] objectForKey:_szKeyCachedPropTypes];	
 	if (rgArrayLastData != nil)
@@ -193,7 +217,7 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
 	{
 		NSLog(@"Attempting to refresh cached property types");
 		
-		MFBWebServiceSvc_AvailablePropertyTypesForUser * cptSvc = [MFBWebServiceSvc_AvailablePropertyTypesForUser new];
+        MFBWebServiceSvc_PropertiesAndTemplatesForUser * cptSvc = [MFBWebServiceSvc_PropertiesAndTemplatesForUser new];
         cptSvc.szAuthUserToken = app.userProfile.AuthToken;
 
 		MFBSoapCall * sc = [MFBSoapCall new];
@@ -202,7 +226,7 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
 		sc.delegate = self;
 
         [sc makeCallAsync:^(MFBWebServiceSoapBinding *b, MFBSoapCall *sc) {
-            [b AvailablePropertyTypesForUserAsyncUsingParameters:cptSvc delegate:sc];
+            [b PropertiesAndTemplatesForUserAsyncUsingParameters:cptSvc delegate:sc];
         }];
     }
 }
@@ -239,10 +263,11 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
 
 - (void) BodyReturned:(id)body
 {
-	if ([body isKindOfClass:[MFBWebServiceSvc_AvailablePropertyTypesForUserResponse class]])
+	if ([body isKindOfClass:[MFBWebServiceSvc_PropertiesAndTemplatesForUserResponse class]])
 	{
-		MFBWebServiceSvc_AvailablePropertyTypesForUserResponse * resp = (MFBWebServiceSvc_AvailablePropertyTypesForUserResponse *) body;
-		MFBWebServiceSvc_ArrayOfCustomPropertyType * rgCpt = resp.AvailablePropertyTypesForUserResult;
+		MFBWebServiceSvc_PropertiesAndTemplatesForUserResponse * resp = (MFBWebServiceSvc_PropertiesAndTemplatesForUserResponse *) body;
+        MFBWebServiceSvc_TemplatePropTypeBundle * bundle = resp.PropertiesAndTemplatesForUserResult;
+		MFBWebServiceSvc_ArrayOfCustomPropertyType * rgCpt = bundle.UserProperties;
 		
         if (rgCpt != nil && rgCpt.CustomPropertyType != nil && rgCpt.CustomPropertyType.count > 0) {
             [self setPropTypeArray:rgCpt.CustomPropertyType];
@@ -250,6 +275,12 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
         }
         else
             [self setPropTypeArray:[self propertiesFromDB]]; // update from the DB since refresh didn't work.
+        
+        if (bundle.UserTemplates != nil && bundle.UserTemplates.PropertyTemplate != nil) {
+            [FlightProps.sharedTemplates removeAllObjects];
+            [FlightProps.sharedTemplates addObjectsFromArray:bundle.UserTemplates.PropertyTemplate];
+            [FlightProps saveTemplates];
+        }
 	}
 }
 
@@ -310,17 +341,19 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
 }
 
 /*
-  Returns a distillation of the provided list to only those items which are non-default AND not locked
+  Returns a distillation of the provided list to only those items which are non-default AND not locked AND not in the specified templates
 */
-- (NSMutableArray *) distillList:(NSMutableArray *) rgFp includeLockedProps:(BOOL) fIncludeLock
+- (NSMutableArray *) distillList:(NSMutableArray *) rgFp includeLockedProps:(BOOL) fIncludeLock includeTemplates:(NSSet<MFBWebServiceSvc_PropertyTemplate *> *) templates
 {
     NSMutableArray * rgResult = [[NSMutableArray alloc] init];
+    
+    NSSet<NSNumber *> * templatedProps = (templates == nil) ? [NSSet<NSNumber *> new] : [MFBWebServiceSvc_PropertyTemplate propListForSets:templates];
     
     if (rgFp != nil)
         for (MFBWebServiceSvc_CustomFlightProperty * cfp in rgFp)
         {
             MFBWebServiceSvc_CustomPropertyType * cpt = [self PropTypeFromID:cfp.PropTypeID];
-            if (cpt != nil && ((fIncludeLock && cpt.isLocked) || ![cfp isDefaultForType:cpt]))
+            if (cpt != nil && ((fIncludeLock && cpt.isLocked) || [templatedProps containsObject:cpt.PropTypeID] || ![cfp isDefaultForType:cpt]))
                 [rgResult addObject:cfp];
         }
     
@@ -657,3 +690,126 @@ static char UIB_ISLOCKED_KEY;
     return self;
 }
 @end
+
+@implementation MFBWebServiceSvc_PropertyTemplate(Utility)
+NSString * const _szKeyTemplateID = @"keyTemplID";
+NSString * const _szKeyTemplateName = @"keyTemplName";
+NSString * const _szKeyTemplateDesc = @"keyTemplDesc";
+NSString * const _szKeyTemplateGroup = @"keyTemplGroup";
+NSString * const _szKeyTemplateDefault = @"keyTemplDefault";
+NSString * const _szKeyTemplatePropTypes = @"keyTemplTypes";
+
+- (void)encodeWithCoderMFB:(NSCoder *)encoder {
+    [encoder encodeObject:self.ID_ forKey:_szKeyTemplateID];
+    [encoder encodeObject:self.Name forKey:_szKeyTemplateName];
+    [encoder encodeObject:self.Description forKey:_szKeyTemplateDesc];
+    [encoder encodeInteger:self.Group forKey:_szKeyTemplateGroup];
+    [encoder encodeObject:self.IsDefault forKey:_szKeyTemplateDefault];
+    [encoder encodeObject:self.PropertyTypes forKey:_szKeyTemplatePropTypes];
+}
+
+- (instancetype)initWithCoderMFB:(NSCoder *)decoder {
+    self = [self init];
+    self.ID_ = [decoder decodeObjectForKey:_szKeyTemplateID];
+    self.Name = [decoder decodeObjectForKey:_szKeyTemplateName];
+    self.Description = [decoder decodeObjectForKey:_szKeyTemplateDesc];
+    self.Group = [decoder decodeIntForKey:_szKeyTemplateGroup];
+    self.IsDefault = [decoder decodeObjectForKey:_szKeyTemplateDefault];
+    self.PropertyTypes = [decoder decodeObjectForKey:_szKeyTemplatePropTypes];
+    return self;
+}
+
++ (MFBWebServiceSvc_PropertyTemplate *) templateWithID:(NSUInteger) idProp {
+    for (MFBWebServiceSvc_PropertyTemplate * pt in FlightProps.sharedTemplates)
+        if (pt.ID_.intValue == idProp)
+            return pt;
+    return nil;
+}
+
++ (MFBWebServiceSvc_PropertyTemplate *) simTemplate {
+    return [MFBWebServiceSvc_PropertyTemplate templateWithID:ID_SIM];
+}
+
++ (MFBWebServiceSvc_PropertyTemplate *) anonTemplate {
+    return [MFBWebServiceSvc_PropertyTemplate templateWithID:ID_ANON];
+}
+
++ (NSArray<MFBWebServiceSvc_PropertyTemplate *> *) defaultTemplates {
+    return [FlightProps.sharedTemplates filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(MFBWebServiceSvc_PropertyTemplate * _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+        return evaluatedObject.IsDefault.boolValue;
+    }]];
+}
+
++ (NSArray<MFBWebServiceSvc_PropertyTemplate *> *) templatesWithIDs:(NSArray<NSNumber *> *) rgIds {
+    return [FlightProps.sharedTemplates filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(MFBWebServiceSvc_PropertyTemplate *  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+        for (NSNumber * ID in rgIds)
+            if (ID.intValue == evaluatedObject.ID_.intValue)
+                return YES;
+        return NO;
+    }]];
+}
+
+- (NSSet<NSNumber *> *) propTypesAsSet {
+    return [NSMutableSet<NSNumber *> setWithArray:self.PropertyTypes.int_];
+}
+
++ (NSSet<NSNumber *> *) propListForSets:(NSSet<MFBWebServiceSvc_PropertyTemplate *> *) rgTemplates {
+    NSMutableSet * set = [NSMutableSet<NSNumber *> new];
+    for (MFBWebServiceSvc_PropertyTemplate * pt in rgTemplates)
+        [set unionSet:pt.propTypesAsSet];
+    return set;
+}
+
+- (BOOL) isEqual:(id)object {
+    if (object == nil)
+        return self == nil;
+    if (![object isKindOfClass:self.class])
+        return false;
+    return self.ID_.integerValue == ((MFBWebServiceSvc_PropertyTemplate *) object).ID_.integerValue;
+}
+
+- (NSUInteger)hash {
+    return [self.ID_ hash];
+}
+
++ (NSArray<NSDictionary<NSString *, id> *> *) groupTemplates:(NSArray<MFBWebServiceSvc_PropertyTemplate *> *) rgTemplates {
+    NSMutableArray * result = [NSMutableArray new];
+    
+    // sort the array by group, then by name
+    NSArray * sorted = [rgTemplates sortedArrayUsingComparator:^NSComparisonResult(MFBWebServiceSvc_PropertyTemplate *  _Nonnull obj1, MFBWebServiceSvc_PropertyTemplate *  _Nonnull obj2) {
+        if (obj1.Group == obj2.Group) {
+            if (obj1.Group == MFBWebServiceSvc_PropertyTemplateGroup_Automatic)
+                return [obj2.ID_ compare:obj1.ID_];
+            else
+                return [obj1.Name compare:obj2.Name options:NSCaseInsensitiveSearch];
+        } else if (obj1.Group == MFBWebServiceSvc_PropertyTemplateGroup_Automatic)
+            return NSOrderedAscending;
+        else if (obj2.Group == MFBWebServiceSvc_PropertyTemplateGroup_Automatic)
+            return NSOrderedDescending;
+        else
+            return [obj1.GroupDisplayName compare:obj2.GroupDisplayName options:NSCaseInsensitiveSearch];
+    }];
+    
+    NSString * currentGroupName = @"";
+    NSMutableArray<MFBWebServiceSvc_PropertyTemplate *> * currentItems;
+    
+    for (MFBWebServiceSvc_PropertyTemplate * pt in sorted) {
+        if ([pt.GroupDisplayName compare:currentGroupName] != NSOrderedSame) {
+            currentGroupName = pt.GroupDisplayName;
+            currentItems = [NSMutableArray<MFBWebServiceSvc_PropertyTemplate *> new];
+            NSMutableDictionary<NSString *, id> * dict = [NSMutableDictionary<NSString *, id> new];
+            [dict setObject:currentGroupName forKey:KEY_GROUPNAME];
+            [dict setObject:currentItems forKey:KEY_PROPSFORGROUP];
+            [result addObject:dict];
+        }
+        [currentItems addObject:pt];
+    }
+    
+    return result;
+}
+
+- (NSString *) description {
+    return [NSString stringWithFormat:@"%d: %@ %@", self.ID_.intValue, self.Name, self.IsDefault.boolValue ? @"(Default)" : @""];
+}
+@end
+

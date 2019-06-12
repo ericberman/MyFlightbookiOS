@@ -8,6 +8,7 @@
 @class MFBWebServiceSvc_ArrayOfAircraft;
 @class MFBWebServiceSvc_Aircraft;
 @class MFBWebServiceSvc_ArrayOfMFBImageInfo;
+@class MFBWebServiceSvc_ArrayOfInt;
 @class MFBWebServiceSvc_MFBImageInfo;
 @class MFBWebServiceSvc_LatLong;
 @class MFBWebServiceSvc_AddAircraftForUser;
@@ -72,10 +73,14 @@
 @class MFBWebServiceSvc_AvailablePropertyTypesResponse;
 @class MFBWebServiceSvc_AvailablePropertyTypesForUser;
 @class MFBWebServiceSvc_AvailablePropertyTypesForUserResponse;
+@class MFBWebServiceSvc_PropertiesAndTemplatesForUser;
+@class MFBWebServiceSvc_PropertiesAndTemplatesForUserResponse;
+@class MFBWebServiceSvc_TemplatePropTypeBundle;
+@class MFBWebServiceSvc_ArrayOfPropertyTemplate;
+@class MFBWebServiceSvc_PropertyTemplate;
 @class MFBWebServiceSvc_PropertiesForFlight;
 @class MFBWebServiceSvc_PropertiesForFlightResponse;
 @class MFBWebServiceSvc_DeletePropertiesForFlight;
-@class MFBWebServiceSvc_ArrayOfInt;
 @class MFBWebServiceSvc_DeletePropertiesForFlightResponse;
 @class MFBWebServiceSvc_DeletePropertyForFlight;
 @class MFBWebServiceSvc_DeletePropertyForFlightResponse;
@@ -233,6 +238,26 @@ typedef enum {
 } MFBWebServiceSvc_PilotRole;
 MFBWebServiceSvc_PilotRole MFBWebServiceSvc_PilotRole_enumFromString(NSString *string);
 NSString * MFBWebServiceSvc_PilotRole_stringFromEnum(MFBWebServiceSvc_PilotRole enumValue);
+@interface MFBWebServiceSvc_ArrayOfInt : NSObject <NSCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	NSMutableArray *int_;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_ArrayOfInt *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+- (void)addInt_:(NSNumber *)toAdd;
+@property (nonatomic, readonly) NSMutableArray * int_;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
 typedef enum {
 	MFBWebServiceSvc_AvionicsTechnologyType_none = 0,
 	MFBWebServiceSvc_AvionicsTechnologyType_None,
@@ -268,9 +293,11 @@ SOAPSigner *soapSigner;
 	NSNumber * Version;
 	NSString * DefaultImage;
 	MFBWebServiceSvc_PilotRole RoleForPilot;
+	USBoolean * CopyPICNameWithCrossfill;
 	NSDate * RegistrationDue;
 	NSString * PublicNotes;
 	NSString * PrivateNotes;
+	MFBWebServiceSvc_ArrayOfInt * DefaultTemplates;
 	NSString * ICAO;
 	NSDate * GlassUpgradeDate;
 	MFBWebServiceSvc_AvionicsTechnologyType AvionicsTechnologyUpgrade;
@@ -309,9 +336,11 @@ SOAPSigner *soapSigner;
 @property (nonatomic, retain) NSNumber * Version;
 @property (nonatomic, retain) NSString * DefaultImage;
 @property (nonatomic, assign) MFBWebServiceSvc_PilotRole RoleForPilot;
+@property (nonatomic, retain) USBoolean * CopyPICNameWithCrossfill;
 @property (nonatomic, retain) NSDate * RegistrationDue;
 @property (nonatomic, retain) NSString * PublicNotes;
 @property (nonatomic, retain) NSString * PrivateNotes;
+@property (nonatomic, retain) MFBWebServiceSvc_ArrayOfInt * DefaultTemplates;
 @property (nonatomic, retain) NSString * ICAO;
 @property (nonatomic, retain) NSDate * GlassUpgradeDate;
 @property (nonatomic, assign) MFBWebServiceSvc_AvionicsTechnologyType AvionicsTechnologyUpgrade;
@@ -2061,6 +2090,127 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
+@interface MFBWebServiceSvc_PropertiesAndTemplatesForUser : NSObject <NSCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	NSString * szAuthUserToken;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_PropertiesAndTemplatesForUser *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, retain) NSString * szAuthUserToken;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+typedef enum {
+	MFBWebServiceSvc_PropertyTemplateGroup_none = 0,
+	MFBWebServiceSvc_PropertyTemplateGroup_Automatic,
+	MFBWebServiceSvc_PropertyTemplateGroup_Training,
+	MFBWebServiceSvc_PropertyTemplateGroup_Checkrides,
+	MFBWebServiceSvc_PropertyTemplateGroup_Missions,
+	MFBWebServiceSvc_PropertyTemplateGroup_Roles,
+	MFBWebServiceSvc_PropertyTemplateGroup_Lessons,
+} MFBWebServiceSvc_PropertyTemplateGroup;
+MFBWebServiceSvc_PropertyTemplateGroup MFBWebServiceSvc_PropertyTemplateGroup_enumFromString(NSString *string);
+NSString * MFBWebServiceSvc_PropertyTemplateGroup_stringFromEnum(MFBWebServiceSvc_PropertyTemplateGroup enumValue);
+@interface MFBWebServiceSvc_PropertyTemplate : NSObject <NSCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	NSNumber * ID_;
+	NSString * Name;
+	NSString * Description;
+	MFBWebServiceSvc_PropertyTemplateGroup Group;
+	NSString * GroupDisplayName;
+	MFBWebServiceSvc_ArrayOfInt * PropertyTypes;
+	USBoolean * IsDefault;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_PropertyTemplate *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, retain) NSNumber * ID_;
+@property (nonatomic, retain) NSString * Name;
+@property (nonatomic, retain) NSString * Description;
+@property (nonatomic, assign) MFBWebServiceSvc_PropertyTemplateGroup Group;
+@property (nonatomic, retain) NSString * GroupDisplayName;
+@property (nonatomic, retain) MFBWebServiceSvc_ArrayOfInt * PropertyTypes;
+@property (nonatomic, retain) USBoolean * IsDefault;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_ArrayOfPropertyTemplate : NSObject <NSCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	NSMutableArray *PropertyTemplate;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_ArrayOfPropertyTemplate *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+- (void)addPropertyTemplate:(MFBWebServiceSvc_PropertyTemplate *)toAdd;
+@property (nonatomic, readonly) NSMutableArray * PropertyTemplate;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_TemplatePropTypeBundle : NSObject <NSCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	MFBWebServiceSvc_ArrayOfCustomPropertyType * UserProperties;
+	MFBWebServiceSvc_ArrayOfPropertyTemplate * UserTemplates;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_TemplatePropTypeBundle *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, retain) MFBWebServiceSvc_ArrayOfCustomPropertyType * UserProperties;
+@property (nonatomic, retain) MFBWebServiceSvc_ArrayOfPropertyTemplate * UserTemplates;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_PropertiesAndTemplatesForUserResponse : NSObject <NSCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	MFBWebServiceSvc_TemplatePropTypeBundle * PropertiesAndTemplatesForUserResult;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_PropertiesAndTemplatesForUserResponse *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, retain) MFBWebServiceSvc_TemplatePropTypeBundle * PropertiesAndTemplatesForUserResult;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
 @interface MFBWebServiceSvc_PropertiesForFlight : NSObject <NSCoding> {
 SOAPSigner *soapSigner;
 /* elements */
@@ -2098,26 +2248,6 @@ SOAPSigner *soapSigner;
 @property (retain) SOAPSigner *soapSigner;
 /* elements */
 @property (nonatomic, retain) MFBWebServiceSvc_ArrayOfCustomFlightProperty * PropertiesForFlightResult;
-/* attributes */
-- (NSDictionary *)attributes;
-@end
-@interface MFBWebServiceSvc_ArrayOfInt : NSObject <NSCoding> {
-SOAPSigner *soapSigner;
-/* elements */
-	NSMutableArray *int_;
-/* attributes */
-}
-- (NSString *)nsPrefix;
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
-- (void)addAttributesToNode:(xmlNodePtr)node;
-- (void)addElementsToNode:(xmlNodePtr)node;
-+ (MFBWebServiceSvc_ArrayOfInt *)deserializeNode:(xmlNodePtr)cur;
-- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
-- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
-@property (retain) SOAPSigner *soapSigner;
-/* elements */
-- (void)addInt_:(NSNumber *)toAdd;
-@property (nonatomic, readonly) NSMutableArray * int_;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
@@ -2799,6 +2929,8 @@ SOAPSigner *soapSigner;
 - (void)AvailablePropertyTypesAsyncUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypes *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoapBindingResponse *)AvailablePropertyTypesForUserUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypesForUser *)aParameters ;
 - (void)AvailablePropertyTypesForUserAsyncUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypesForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
+- (MFBWebServiceSoapBindingResponse *)PropertiesAndTemplatesForUserUsingParameters:(MFBWebServiceSvc_PropertiesAndTemplatesForUser *)aParameters ;
+- (void)PropertiesAndTemplatesForUserAsyncUsingParameters:(MFBWebServiceSvc_PropertiesAndTemplatesForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoapBindingResponse *)PropertiesForFlightUsingParameters:(MFBWebServiceSvc_PropertiesForFlight *)aParameters ;
 - (void)PropertiesForFlightAsyncUsingParameters:(MFBWebServiceSvc_PropertiesForFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoapBindingResponse *)DeletePropertiesForFlightUsingParameters:(MFBWebServiceSvc_DeletePropertiesForFlight *)aParameters ;
@@ -2994,6 +3126,14 @@ SOAPSigner *soapSigner;
 	parameters:(MFBWebServiceSvc_AvailablePropertyTypesForUser *)aParameters
 ;
 @end
+@interface MFBWebServiceSoapBinding_PropertiesAndTemplatesForUser : MFBWebServiceSoapBindingOperation {
+	MFBWebServiceSvc_PropertiesAndTemplatesForUser * parameters;
+}
+@property (nonatomic, retain) MFBWebServiceSvc_PropertiesAndTemplatesForUser * parameters;
+- (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_PropertiesAndTemplatesForUser *)aParameters
+;
+@end
 @interface MFBWebServiceSoapBinding_PropertiesForFlight : MFBWebServiceSoapBindingOperation {
 	MFBWebServiceSvc_PropertiesForFlight * parameters;
 }
@@ -3187,6 +3327,8 @@ SOAPSigner *soapSigner;
 - (void)AvailablePropertyTypesAsyncUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypes *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoap12BindingResponse *)AvailablePropertyTypesForUserUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypesForUser *)aParameters ;
 - (void)AvailablePropertyTypesForUserAsyncUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypesForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
+- (MFBWebServiceSoap12BindingResponse *)PropertiesAndTemplatesForUserUsingParameters:(MFBWebServiceSvc_PropertiesAndTemplatesForUser *)aParameters ;
+- (void)PropertiesAndTemplatesForUserAsyncUsingParameters:(MFBWebServiceSvc_PropertiesAndTemplatesForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoap12BindingResponse *)PropertiesForFlightUsingParameters:(MFBWebServiceSvc_PropertiesForFlight *)aParameters ;
 - (void)PropertiesForFlightAsyncUsingParameters:(MFBWebServiceSvc_PropertiesForFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoap12BindingResponse *)DeletePropertiesForFlightUsingParameters:(MFBWebServiceSvc_DeletePropertiesForFlight *)aParameters ;
@@ -3380,6 +3522,14 @@ SOAPSigner *soapSigner;
 @property (nonatomic, retain) MFBWebServiceSvc_AvailablePropertyTypesForUser * parameters;
 - (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)aDelegate
 	parameters:(MFBWebServiceSvc_AvailablePropertyTypesForUser *)aParameters
+;
+@end
+@interface MFBWebServiceSoap12Binding_PropertiesAndTemplatesForUser : MFBWebServiceSoap12BindingOperation {
+	MFBWebServiceSvc_PropertiesAndTemplatesForUser * parameters;
+}
+@property (nonatomic, retain) MFBWebServiceSvc_PropertiesAndTemplatesForUser * parameters;
+- (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_PropertiesAndTemplatesForUser *)aParameters
 ;
 @end
 @interface MFBWebServiceSoap12Binding_PropertiesForFlight : MFBWebServiceSoap12BindingOperation {

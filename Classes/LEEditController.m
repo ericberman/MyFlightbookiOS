@@ -44,6 +44,7 @@
 #import "DecimalEdit.h"
 #import "TextCell.h"
 #import "MFBTheme.h"
+#import "SelectTemplates.h"
 
 @interface LEEditController()
 @property (nonatomic, strong) AccessoryBar * vwAccessory;
@@ -54,7 +55,7 @@
 @property (nonatomic, strong) UIImage * digitizedSig;
 @property (nonatomic, strong) NSArray<MFBWebServiceSvc_Aircraft *> * selectibleAircraft;
 @property (readwrite, strong) NSMutableArray<EAAccessory *> * externalAccessories;
-
+@property (readwrite, strong) NSMutableSet<MFBWebServiceSvc_PropertyTemplate *> * activeTemplates;
 
 - (void) updatePausePlay;
 - (void) updatePositionReport;
@@ -87,6 +88,7 @@
 @synthesize dictPropCells, digitizedSig;
 @synthesize selectibleAircraft;
 @synthesize externalAccessories;
+@synthesize activeTemplates;
 
 NSString * const _szKeyCachedImageArray = @"cachedImageArrayKey";
 NSString * const _szKeyFacebookState = @"keyFacebookState";
@@ -201,6 +203,11 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     [self.le.entryData.CustomProperties setProperties:[fp defaultPropList]];
 	
 	MFBWebServiceSvc_Aircraft * ac = [[Aircraft sharedAircraft] preferredAircraft];
+
+    // Initialize the active templates to the defaults, either for this aircraft or the ones you've indicated you want to use by default.
+    self.activeTemplates = [NSMutableSet<MFBWebServiceSvc_PropertyTemplate *> setWithArray: (ac.DefaultTemplates.int_.count > 0) ? [MFBWebServiceSvc_PropertyTemplate templatesWithIDs:ac.DefaultTemplates.int_] : MFBWebServiceSvc_PropertyTemplate.defaultTemplates];
+    [self templatesUpdated:activeTemplates];
+
 	[self setCurrentAircraft:ac];
 	
     MFBLocation * mfbloc = mfbApp().mfbloc;
@@ -345,6 +352,10 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     // If we have an unknown aircraft and just popped from creating one, then reset preferred aircraft
     if ([self.le.entryData.AircraftID intValue] <= 0)
         [self setCurrentAircraft:[[Aircraft sharedAircraft] preferredAircraft]];
+    
+    MFBWebServiceSvc_Aircraft * ac = [Aircraft.sharedAircraft AircraftByID:self.le.entryData.AircraftID.intValue];
+    self.activeTemplates = [NSMutableSet<MFBWebServiceSvc_PropertyTemplate *> setWithArray: (ac.DefaultTemplates.int_.count > 0) ? [MFBWebServiceSvc_PropertyTemplate templatesWithIDs:ac.DefaultTemplates.int_] : MFBWebServiceSvc_PropertyTemplate.defaultTemplates];
+    [self templatesUpdated:self.activeTemplates];
 	
 	[self initFormFromLE];
     
@@ -707,11 +718,16 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
         self.le.entryData.AircraftID = @0;
         self.idPopAircraft.text = @"";
     }
-    else if (self.idPopAircraft != nil)
-	{
-        self.idPopAircraft.text = ac.TailNumber;
-		self.le.entryData.AircraftID = ac.AircraftID;
-	}
+    else {
+        BOOL fChanged = ac.AircraftID.integerValue != self.le.entryData.AircraftID.integerValue;
+        if (self.idPopAircraft != nil) {
+            self.idPopAircraft.text = ac.TailNumber;
+            self.le.entryData.AircraftID = ac.AircraftID;
+        }
+        
+        if (fChanged)
+            [self updateTemplatesForAircraft:ac];
+    }
 }
 
 - (void) setDisplayDate: (NSDate *) dt
@@ -858,7 +874,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 		self.le.entryData.FlightData = nil;
     
     // remove any non-default properties from the list.
-    [self.le.entryData.CustomProperties setProperties:[self.flightProps distillList:self.le.entryData.CustomProperties.CustomFlightProperty includeLockedProps:NO]];
+    [self.le.entryData.CustomProperties setProperties:[self.flightProps distillList:self.le.entryData.CustomProperties.CustomFlightProperty includeLockedProps:NO includeTemplates:nil]];
     
     self.le.errorString = @""; // assume no error
 
@@ -1014,8 +1030,14 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
             return [ExpandHeaderCell getHeaderCell:tableView withTitle:NSLocalizedString(@"In the Cockpit", @"In the Cockpit") forSection:sectInCockpit initialState:[self isExpanded:sectInCockpit]];
         case rowImagesHeader:
             return [ExpandHeaderCell getHeaderCell:tableView withTitle:NSLocalizedString(@"Images", @"Images Header") forSection:sectImages initialState:[self isExpanded:sectImages]];
-        case rowPropertiesHeader:
-            return [ExpandHeaderCell getHeaderCell:tableView withTitle:NSLocalizedString(@"Properties", @"Properties Header") forSection:sectProperties initialState:[self isExpanded:sectProperties]];
+        case rowPropertiesHeader: {
+            ExpandHeaderCell * cell = [ExpandHeaderCell getHeaderCell:tableView withTitle:NSLocalizedString(@"Properties", @"Properties Header") forSection:sectProperties initialState:[self isExpanded:sectProperties]];
+            if (FlightProps.sharedTemplates.count > 0) {
+                cell.DisclosureButton.hidden = NO;
+                [cell.DisclosureButton addTarget:self action:@selector(pickTemplates) forControlEvents:UIControlEventTouchDown];
+            }
+            return cell;
+        }
         case rowSigHeader:
             return [ExpandHeaderCell getHeaderCell:tableView withTitle:NSLocalizedString(@"sigHeader", @"Signature Section Title") forSection:sectSignature initialState:YES];
         case rowDateTail:
@@ -2036,6 +2058,7 @@ static NSDateFormatter * dfSunriseSunset = nil;
 {
     FlightProperties * vwProps = [[FlightProperties alloc] initWithNibName:@"FlightProperties" bundle:nil];
     vwProps.le = self.le;
+    vwProps.activeTemplates = self.activeTemplates;
 
     [self pushOrPopView:vwProps fromView:sender withDelegate:self];
 }
@@ -2085,6 +2108,14 @@ static NSDateFormatter * dfSunriseSunset = nil;
     MFBWebServiceSvc_Aircraft * ac = self.selectibleAircraft[row];
     self.le.entryData.AircraftID = ac.AircraftID;
     self.idPopAircraft.text = ac.displayTailNumber;
+
+    // switching aircraft - update the templates, starting fresh.
+    if (ac.DefaultTemplates.int_.count > 0) {
+        [self.activeTemplates removeAllObjects];
+        [self updateTemplatesForAircraft:ac];
+        [self templatesUpdated:self.activeTemplates];
+        [self.tableView reloadData];
+    }
 }
 
 #pragma mark - DatePicker
@@ -2368,5 +2399,43 @@ static NSDateFormatter * dfSunriseSunset = nil;
 - (void) deviceDidDisconnect:(NSNotification *) notification {
     self.externalAccessories = [NSMutableArray arrayWithArray:EAAccessoryManager.sharedAccessoryManager.connectedAccessories];
     [self.tableView reloadData];
+}
+
+#pragma mark Templates
+- (void) updateTemplatesForAircraft:(MFBWebServiceSvc_Aircraft *) ac {
+    NSArray * defaultTemplates = MFBWebServiceSvc_PropertyTemplate.defaultTemplates;
+    MFBWebServiceSvc_PropertyTemplate * ptSim = MFBWebServiceSvc_PropertyTemplate.simTemplate;
+    MFBWebServiceSvc_PropertyTemplate * ptAnon = MFBWebServiceSvc_PropertyTemplate.anonTemplate;
+    [self.activeTemplates removeObject:ptSim];
+    [self.activeTemplates removeObject:ptAnon];
+
+    // If there is an aircraft specified and it has templates specified, use them .
+    if (ac != nil && ac.DefaultTemplates != nil && ac.DefaultTemplates.int_.count > 0) {
+        [self.activeTemplates addObjectsFromArray:[MFBWebServiceSvc_PropertyTemplate templatesWithIDs:ac.DefaultTemplates.int_]];
+    } else if (defaultTemplates != nil && defaultTemplates.count > 0) {
+        // check for default templates and use them exclusively
+        [self.activeTemplates addObjectsFromArray:defaultTemplates];
+    }
+    
+    // Always add in sim/anon as needed
+    if (ac.isSim && ptSim != nil)
+        [self.activeTemplates addObject:ptSim];
+    
+    if (ac.isAnonymous && ptAnon != nil)
+        [self.activeTemplates addObject:ptAnon];
+}
+
+- (void) templatesUpdated:(NSSet<MFBWebServiceSvc_PropertyTemplate *> *) templateSet {
+    self.activeTemplates = [NSMutableSet setWithSet:templateSet];
+    NSMutableArray * rgAllProps = [self.flightProps crossProduct:self.le.entryData.CustomProperties.CustomFlightProperty];
+    [self.le.entryData.CustomProperties setProperties:[flightProps distillList:rgAllProps includeLockedProps:YES includeTemplates:self.activeTemplates]];
+    [self.tableView reloadData];
+}
+
+- (void) pickTemplates {
+    SelectTemplates * st = [SelectTemplates new];
+    st.templateSet = self.activeTemplates;
+    st.delegate = self;
+    [self.navigationController pushViewController:st animated:YES];
 }
 @end

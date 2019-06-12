@@ -83,6 +83,9 @@ void SwizzleArchivedClasses()
         Swizzle([MFBWebServiceSvc_LogbookEntry class], @selector(initWithCoder:), @selector(initWithCoderMFB:));
         Swizzle([MFBWebServiceSvc_LogbookEntry class], @selector(encodeWithCoder:), @selector(encodeWithCoderMFB:));
         
+        Swizzle([MFBWebServiceSvc_PropertyTemplate class], @selector(initWithCoder:), @selector(initWithCoderMFB:));
+        Swizzle([MFBWebServiceSvc_PropertyTemplate class], @selector(encodeWithCoder:), @selector(encodeWithCoderMFB:));
+        
         // Theme support - tables suck because UIAppearance can't set primary/detail text colors.
         Swizzle([UITableViewCell class], @selector(initWithStyle:reuseIdentifier:), @selector(initWithMFBThemedStyle:reuseIdentifier:));
         Swizzle([UITableView class], @selector(dequeueReusableCellWithIdentifier:), @selector(dequeueThemedReusableCellWithIdentifier:));

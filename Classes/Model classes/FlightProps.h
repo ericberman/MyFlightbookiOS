@@ -54,6 +54,7 @@
 - (void) deleteProperty:(MFBWebServiceSvc_CustomFlightProperty *) fp forUser:(NSString *) szAuthToken;
 - (int) cacheStatus;
 - (NSArray *) cachedProps;
+- (void) cacheProps;
 - (void) setCacheRetry;
 - (NSMutableArray *) propertiesFromDB;
 
@@ -61,7 +62,7 @@
 - (NSString *) stringValueForProperty:(MFBWebServiceSvc_CustomFlightProperty *) fp;
 + (NSString *) stringValueForProperty:(MFBWebServiceSvc_CustomFlightProperty *) fp withType:(MFBWebServiceSvc_CustomPropertyType *) cpt;
 
-- (NSMutableArray *) distillList:(NSMutableArray *) rgFp includeLockedProps:(BOOL) fIncludeLock;
+- (NSMutableArray *) distillList:(NSMutableArray *) rgFp includeLockedProps:(BOOL) fIncludeLock includeTemplates:(NSSet<MFBWebServiceSvc_PropertyTemplate *> *) templates;
 - (NSMutableArray *) crossProduct:(NSMutableArray *) rgFp;
 - (NSMutableArray *) defaultPropList;
 
@@ -70,6 +71,8 @@
 - (void) setPropLock:(BOOL) fLock forPropTypeID:(NSInteger) propTypeID;
 
 + (FlightProps *) getFlightPropsNoNet;
++ (NSMutableArray<MFBWebServiceSvc_PropertyTemplate *> *) sharedTemplates;
++ (void) saveTemplates;
 
 @property (readwrite, strong) NSMutableArray<MFBWebServiceSvc_CustomPropertyType *> * rgPropTypes;
 @property (readwrite, strong) MFBWebServiceSvc_ArrayOfCustomFlightProperty * rgFlightProps;
@@ -98,5 +101,27 @@
 - (void)encodeWithCoderMFB:(NSCoder *)encoder;
 - (instancetype)initWithCoderMFB:(NSCoder *)decoder;
 + (MFBWebServiceSvc_CustomFlightProperty *) getNewFlightProperty;
+@end
+
+typedef enum : NSUInteger {
+    ID_NEW = -1,
+    ID_MRU = -2,
+    ID_SIM = -3,
+    ID_ANON = -4
+} KnownTemplateIDs;
+
+#define KEY_GROUPNAME @"GroupName"
+#define KEY_PROPSFORGROUP @"PropsForGroup"
+
+@interface MFBWebServiceSvc_PropertyTemplate(Utility)
+- (void)encodeWithCoderMFB:(NSCoder *)encoder;
+- (instancetype)initWithCoderMFB:(NSCoder *)decoder;
++ (MFBWebServiceSvc_PropertyTemplate *) simTemplate;
++ (MFBWebServiceSvc_PropertyTemplate *) anonTemplate;
++ (NSArray<MFBWebServiceSvc_PropertyTemplate *> *) defaultTemplates;
++ (NSArray<MFBWebServiceSvc_PropertyTemplate *> *) templatesWithIDs:(NSArray<NSNumber *> *) rgIds;
+- (NSSet<NSNumber *> *) propTypesAsSet;
++ (NSSet<NSNumber *> *) propListForSets:(NSSet<MFBWebServiceSvc_PropertyTemplate *> *) rgTemplates;
++ (NSArray<NSDictionary<NSString *, id> *> *) groupTemplates:(NSArray<MFBWebServiceSvc_PropertyTemplate *> *) rgTemplates;
 @end
 

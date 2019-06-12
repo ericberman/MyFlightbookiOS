@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2010-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 7/8/10.
-//  Copyright 2010-2017 MyFlightbook LLC. All rights reserved.
+//  Copyright 2010-2019 MyFlightbook LLC. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -39,4 +39,5 @@
 @property (strong, readwrite) LogbookEntry * le;
 @property (strong, readwrite) IBOutlet UIDatePicker * datePicker;
 @property (nonatomic, strong) IBOutlet UISearchBar * searchBar;
+@property (nonatomic, strong) NSSet<MFBWebServiceSvc_PropertyTemplate *> * activeTemplates;
 @end

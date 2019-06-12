@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2018 MyFlightbook, LLC
+ Copyright (C) 2017-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 5/27/12.
-//  Copyright (c) 2012-2017 MyFlightbook LLC. All rights reserved.
+//  Copyright (c) 2012-2019 MyFlightbook LLC. All rights reserved.
 //
 
 #import "ExpandHeaderCell.h"
@@ -30,12 +30,13 @@
 
 @implementation ExpandHeaderCell
 
-@synthesize HeaderLabel, ExpandCollapseLabel, isExpanded;
+@synthesize HeaderLabel, ExpandCollapseLabel, isExpanded, DisclosureButton;
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.DisclosureButton.hidden = YES;
     }
     return self;
 }
@@ -79,6 +80,7 @@
     [MFBTheme.currentTheme applyThemedImageNamed:@"Collapsed.png" toImageView:cell.ExpandCollapseLabel];
     cell.HeaderLabel.text = szTitle;
     [cell setExpanded:initExpanded];
+    cell.DisclosureButton.hidden = YES;
     return cell;
 }
 @end

@@ -579,6 +579,7 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
     [encoder encodeBool:self.HideFromSelection.boolValue forKey:@"HideFromSelectionBOOL"];
     [encoder encodeInt:(int) self.RoleForPilot forKey:@"RoleForPilot"];
     [encoder encodeObject:self.DefaultImage forKey:@"DefaultImage"];
+    [encoder encodeObject:self.DefaultTemplates forKey:@"DefaultTemplates"];
 }
 	 
 - (instancetype)initWithCoderMFB:(NSCoder *)decoder
@@ -607,6 +608,7 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
     if (self.RoleForPilot == MFBWebServiceSvc_PilotRole_none)
         self.RoleForPilot = MFBWebServiceSvc_PilotRole_None;
     self.DefaultImage = [decoder decodeObjectForKey:@"DefaultImage"];
+    self.DefaultTemplates = [decoder decodeObjectForKey:@"DefaultTemplates"];
 	
 	return self;
 }
@@ -703,6 +705,7 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
     ac.HideFromSelection = [[USBoolean alloc] initWithBool:NO];
     ac.RoleForPilot = MFBWebServiceSvc_PilotRole_None;
     ac.DefaultImage = @"";
+    ac.DefaultTemplates = [MFBWebServiceSvc_ArrayOfInt new];
     return ac;
 }
 @end

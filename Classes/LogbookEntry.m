@@ -599,7 +599,7 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
 
     // see if any properties are empty
     if ([self.CustomProperties.CustomFlightProperty count] > 0)
-        return [[[FlightProps getFlightPropsNoNet] distillList:self.CustomProperties.CustomFlightProperty includeLockedProps:NO] count] == 0;
+        return [[[FlightProps getFlightPropsNoNet] distillList:self.CustomProperties.CustomFlightProperty includeLockedProps:NO includeTemplates:nil] count] == 0;
     
     return NO;
 }
