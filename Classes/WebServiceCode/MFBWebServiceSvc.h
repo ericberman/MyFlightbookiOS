@@ -2109,24 +2109,13 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-typedef enum {
-	MFBWebServiceSvc_PropertyTemplateGroup_none = 0,
-	MFBWebServiceSvc_PropertyTemplateGroup_Automatic,
-	MFBWebServiceSvc_PropertyTemplateGroup_Training,
-	MFBWebServiceSvc_PropertyTemplateGroup_Checkrides,
-	MFBWebServiceSvc_PropertyTemplateGroup_Missions,
-	MFBWebServiceSvc_PropertyTemplateGroup_Roles,
-	MFBWebServiceSvc_PropertyTemplateGroup_Lessons,
-} MFBWebServiceSvc_PropertyTemplateGroup;
-MFBWebServiceSvc_PropertyTemplateGroup MFBWebServiceSvc_PropertyTemplateGroup_enumFromString(NSString *string);
-NSString * MFBWebServiceSvc_PropertyTemplateGroup_stringFromEnum(MFBWebServiceSvc_PropertyTemplateGroup enumValue);
 @interface MFBWebServiceSvc_PropertyTemplate : NSObject <NSCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSNumber * ID_;
 	NSString * Name;
 	NSString * Description;
-	MFBWebServiceSvc_PropertyTemplateGroup Group;
+	NSNumber * GroupAsInt;
 	NSString * GroupDisplayName;
 	MFBWebServiceSvc_ArrayOfInt * PropertyTypes;
 	USBoolean * IsDefault;
@@ -2144,7 +2133,7 @@ SOAPSigner *soapSigner;
 @property (nonatomic, retain) NSNumber * ID_;
 @property (nonatomic, retain) NSString * Name;
 @property (nonatomic, retain) NSString * Description;
-@property (nonatomic, assign) MFBWebServiceSvc_PropertyTemplateGroup Group;
+@property (nonatomic, retain) NSNumber * GroupAsInt;
 @property (nonatomic, retain) NSString * GroupDisplayName;
 @property (nonatomic, retain) MFBWebServiceSvc_ArrayOfInt * PropertyTypes;
 @property (nonatomic, retain) USBoolean * IsDefault;

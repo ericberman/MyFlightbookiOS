@@ -112,6 +112,7 @@ typedef enum : NSUInteger {
 
 #define KEY_GROUPNAME @"GroupName"
 #define KEY_PROPSFORGROUP @"PropsForGroup"
+#define GROUP_ID_AUTOMATIC 0
 
 @interface MFBWebServiceSvc_PropertyTemplate(Utility)
 - (void)encodeWithCoderMFB:(NSCoder *)encoder;

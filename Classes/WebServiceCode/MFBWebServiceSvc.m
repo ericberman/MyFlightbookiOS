@@ -20693,54 +20693,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	[pool drain];
 }
 @end
-MFBWebServiceSvc_PropertyTemplateGroup MFBWebServiceSvc_PropertyTemplateGroup_enumFromString(NSString *string)
-{
-	if([string isEqualToString:@"Automatic"]) {
-		return MFBWebServiceSvc_PropertyTemplateGroup_Automatic;
-	}
-	if([string isEqualToString:@"Training"]) {
-		return MFBWebServiceSvc_PropertyTemplateGroup_Training;
-	}
-	if([string isEqualToString:@"Checkrides"]) {
-		return MFBWebServiceSvc_PropertyTemplateGroup_Checkrides;
-	}
-	if([string isEqualToString:@"Missions"]) {
-		return MFBWebServiceSvc_PropertyTemplateGroup_Missions;
-	}
-	if([string isEqualToString:@"Roles"]) {
-		return MFBWebServiceSvc_PropertyTemplateGroup_Roles;
-	}
-	if([string isEqualToString:@"Lessons"]) {
-		return MFBWebServiceSvc_PropertyTemplateGroup_Lessons;
-	}
-	
-	return MFBWebServiceSvc_PropertyTemplateGroup_none;
-}
-NSString * MFBWebServiceSvc_PropertyTemplateGroup_stringFromEnum(MFBWebServiceSvc_PropertyTemplateGroup enumValue)
-{
-	switch (enumValue) {
-		case MFBWebServiceSvc_PropertyTemplateGroup_Automatic:
-			return @"Automatic";
-			break;
-		case MFBWebServiceSvc_PropertyTemplateGroup_Training:
-			return @"Training";
-			break;
-		case MFBWebServiceSvc_PropertyTemplateGroup_Checkrides:
-			return @"Checkrides";
-			break;
-		case MFBWebServiceSvc_PropertyTemplateGroup_Missions:
-			return @"Missions";
-			break;
-		case MFBWebServiceSvc_PropertyTemplateGroup_Roles:
-			return @"Roles";
-			break;
-		case MFBWebServiceSvc_PropertyTemplateGroup_Lessons:
-			return @"Lessons";
-			break;
-		default:
-			return @"";
-	}
-}
 @implementation MFBWebServiceSvc_PropertyTemplate
 @synthesize soapSigner;
 - (id)init
@@ -20749,7 +20701,7 @@ NSString * MFBWebServiceSvc_PropertyTemplateGroup_stringFromEnum(MFBWebServiceSv
 		ID_ = 0;
 		Name = 0;
 		Description = 0;
-		Group = 0;
+		GroupAsInt = 0;
 		GroupDisplayName = 0;
 		PropertyTypes = 0;
 		IsDefault = 0;
@@ -20763,6 +20715,7 @@ NSString * MFBWebServiceSvc_PropertyTemplateGroup_stringFromEnum(MFBWebServiceSv
 	if(ID_ != nil) [ID_ release];
 	if(Name != nil) [Name release];
 	if(Description != nil) [Description release];
+	if(GroupAsInt != nil) [GroupAsInt release];
 	if(GroupDisplayName != nil) [GroupDisplayName release];
 	if(PropertyTypes != nil) [PropertyTypes release];
 	if(IsDefault != nil) [IsDefault release];
@@ -20808,8 +20761,8 @@ NSString * MFBWebServiceSvc_PropertyTemplateGroup_stringFromEnum(MFBWebServiceSv
 	if(((void *)self.Description) != 0) {
 		xmlAddChild(node, [self.Description xmlNodeForDoc:node->doc elementName:@"Description" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Group) != 0) {
-		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:Group", [MFBWebServiceSvc_PropertyTemplateGroup_stringFromEnum(self.Group) xmlString]);
+	if(((void *)self.GroupAsInt) != 0) {
+		xmlAddChild(node, [self.GroupAsInt xmlNodeForDoc:node->doc elementName:@"GroupAsInt" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 	if(((void *)self.GroupDisplayName) != 0) {
 		xmlAddChild(node, [self.GroupDisplayName xmlNodeForDoc:node->doc elementName:@"GroupDisplayName" elementNSPrefix:@"MFBWebServiceSvc"]);
@@ -20825,7 +20778,7 @@ NSString * MFBWebServiceSvc_PropertyTemplateGroup_stringFromEnum(MFBWebServiceSv
 @synthesize ID_;
 @synthesize Name;
 @synthesize Description;
-@synthesize Group;
+@synthesize GroupAsInt;
 @synthesize GroupDisplayName;
 @synthesize PropertyTypes;
 @synthesize IsDefault;
@@ -20961,10 +20914,38 @@ NSString * MFBWebServiceSvc_PropertyTemplateGroup_stringFromEnum(MFBWebServiceSv
 				
 				self.Description = newChild;
 			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "Group")) {
+			if(xmlStrEqual(cur->name, (const xmlChar *) "GroupAsInt")) {
 				
-				MFBWebServiceSvc_PropertyTemplateGroup enumRepresentation = MFBWebServiceSvc_PropertyTemplateGroup_enumFromString(elementString);
-				self.Group = enumRepresentation;
+				Class elementClass = nil;
+				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if(instanceType == NULL) {
+					elementClass = [NSNumber class];
+				} else {
+					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
+					
+					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
+					
+					NSString *elementClassString = nil;
+					if([elementTypeArray count] > 1) {
+						NSString *prefix = [elementTypeArray objectAtIndex:0];
+						NSString *localName = [elementTypeArray objectAtIndex:1];
+						
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
+						
+						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
+						
+						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
+					} else {
+						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
+					}
+					
+					elementClass = NSClassFromString(elementClassString);
+					xmlFree(instanceType);
+				}
+				
+				id newChild = [elementClass deserializeNode:cur];
+				
+				self.GroupAsInt = newChild;
 			}
 			if(xmlStrEqual(cur->name, (const xmlChar *) "GroupDisplayName")) {
 				
@@ -27458,11 +27439,11 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSoapBinding *)MFBWebServiceSoapBinding
 {
-	return [[[MFBWebServiceSoapBinding alloc] initWithAddress:@"https://myflightbook.com/logbook/Public/WebService.asmx"] autorelease];
+	return [[[MFBWebServiceSoapBinding alloc] initWithAddress:@"https://developer.myflightbook.com/logbook/Public/WebService.asmx"] autorelease];
 }
 + (MFBWebServiceSoap12Binding *)MFBWebServiceSoap12Binding
 {
-	return [[[MFBWebServiceSoap12Binding alloc] initWithAddress:@"https://myflightbook.com/logbook/Public/WebService.asmx"] autorelease];
+	return [[[MFBWebServiceSoap12Binding alloc] initWithAddress:@"https://developer.myflightbook.com/logbook/Public/WebService.asmx"] autorelease];
 }
 @end
 @implementation MFBWebServiceSoapBinding

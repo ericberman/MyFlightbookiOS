@@ -703,7 +703,7 @@ NSString * const _szKeyTemplatePropTypes = @"keyTemplTypes";
     [encoder encodeObject:self.ID_ forKey:_szKeyTemplateID];
     [encoder encodeObject:self.Name forKey:_szKeyTemplateName];
     [encoder encodeObject:self.Description forKey:_szKeyTemplateDesc];
-    [encoder encodeInteger:self.Group forKey:_szKeyTemplateGroup];
+    [encoder encodeObject:self.GroupAsInt forKey:_szKeyTemplateGroup];
     [encoder encodeObject:self.IsDefault forKey:_szKeyTemplateDefault];
     [encoder encodeObject:self.PropertyTypes forKey:_szKeyTemplatePropTypes];
 }
@@ -713,7 +713,7 @@ NSString * const _szKeyTemplatePropTypes = @"keyTemplTypes";
     self.ID_ = [decoder decodeObjectForKey:_szKeyTemplateID];
     self.Name = [decoder decodeObjectForKey:_szKeyTemplateName];
     self.Description = [decoder decodeObjectForKey:_szKeyTemplateDesc];
-    self.Group = [decoder decodeIntForKey:_szKeyTemplateGroup];
+    self.GroupAsInt = [decoder decodeObjectForKey:_szKeyTemplateGroup];
     self.IsDefault = [decoder decodeObjectForKey:_szKeyTemplateDefault];
     self.PropertyTypes = [decoder decodeObjectForKey:_szKeyTemplatePropTypes];
     return self;
@@ -777,14 +777,14 @@ NSString * const _szKeyTemplatePropTypes = @"keyTemplTypes";
     
     // sort the array by group, then by name
     NSArray * sorted = [rgTemplates sortedArrayUsingComparator:^NSComparisonResult(MFBWebServiceSvc_PropertyTemplate *  _Nonnull obj1, MFBWebServiceSvc_PropertyTemplate *  _Nonnull obj2) {
-        if (obj1.Group == obj2.Group) {
-            if (obj1.Group == MFBWebServiceSvc_PropertyTemplateGroup_Automatic)
+        if (obj1.GroupAsInt.integerValue == obj2.GroupAsInt.integerValue) {
+            if (obj1.GroupAsInt.integerValue == GROUP_ID_AUTOMATIC)
                 return [obj2.ID_ compare:obj1.ID_];
             else
                 return [obj1.Name compare:obj2.Name options:NSCaseInsensitiveSearch];
-        } else if (obj1.Group == MFBWebServiceSvc_PropertyTemplateGroup_Automatic)
+        } else if (obj1.GroupAsInt.integerValue == GROUP_ID_AUTOMATIC)
             return NSOrderedAscending;
-        else if (obj2.Group == MFBWebServiceSvc_PropertyTemplateGroup_Automatic)
+        else if (obj2.GroupAsInt.integerValue == GROUP_ID_AUTOMATIC)
             return NSOrderedDescending;
         else
             return [obj1.GroupDisplayName compare:obj2.GroupDisplayName options:NSCaseInsensitiveSearch];
