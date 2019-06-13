@@ -1032,9 +1032,9 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
             return [ExpandHeaderCell getHeaderCell:tableView withTitle:NSLocalizedString(@"Images", @"Images Header") forSection:sectImages initialState:[self isExpanded:sectImages]];
         case rowPropertiesHeader: {
             ExpandHeaderCell * cell = [ExpandHeaderCell getHeaderCell:tableView withTitle:NSLocalizedString(@"Properties", @"Properties Header") forSection:sectProperties initialState:[self isExpanded:sectProperties]];
-            if (FlightProps.sharedTemplates.count > 0) {
+            if (FlightProps.sharedTemplates.count > 0 && self.le.entryData.isNewOrPending) {
                 cell.DisclosureButton.hidden = NO;
-                [cell.DisclosureButton addTarget:self action:@selector(pickTemplates) forControlEvents:UIControlEventTouchDown];
+                [cell.DisclosureButton addTarget:self action:@selector(pickTemplates:) forControlEvents:UIControlEventTouchDown];
             }
             return cell;
         }
@@ -2432,10 +2432,13 @@ static NSDateFormatter * dfSunriseSunset = nil;
     [self.tableView reloadData];
 }
 
-- (void) pickTemplates {
+- (void) pickTemplates:(id) sender {
     SelectTemplates * st = [SelectTemplates new];
     st.templateSet = self.activeTemplates;
     st.delegate = self;
-    [self.navigationController pushViewController:st animated:YES];
+    if (sender != nil && [sender isKindOfClass:UIView.class])
+        [self pushOrPopView:st fromView:sender withDelegate:self];
+    else
+        [self.navigationController pushViewController:st animated:YES];
 }
 @end
