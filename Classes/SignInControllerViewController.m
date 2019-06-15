@@ -109,8 +109,11 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         BOOL fresult = [app.userProfile GetAuthToken];
-        if (fresult)
-            [[FlightProps new] loadCustomPropertyTypes];
+        if (fresult) {
+            FlightProps * fp = [FlightProps new];
+            [fp setCacheRetry];
+            [fp loadCustomPropertyTypes];
+        }
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self dismissViewControllerAnimated:YES completion:^{
