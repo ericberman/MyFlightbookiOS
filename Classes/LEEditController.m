@@ -1282,7 +1282,7 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
                 if ([pc handleClick])
                 {
                     [self.flightProps propValueChanged:pc.cfp];
-                    if ([pc.cfp isDefaultForType:pc.cpt] && ![[MFBWebServiceSvc_PropertyTemplate propListForSets:self.activeTemplates] containsObject:pc.cpt.PropTypeID]) {
+                    if ([pc.cfp isDefaultForType:pc.cpt] && !pc.cpt.isLocked && ![[MFBWebServiceSvc_PropertyTemplate propListForSets:self.activeTemplates] containsObject:pc.cpt.PropTypeID]) {
                         [self.le.entryData.CustomProperties.CustomFlightProperty removeObject:pc.cfp];
                         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
                     }
@@ -1441,7 +1441,7 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
         PropertyCell * pc = (PropertyCell *) tc;
         [pc handleTextUpdate:textField];
         [self.flightProps propValueChanged:pc.cfp];
-        if ([pc.cfp isDefaultForType:pc.cpt] && ![[MFBWebServiceSvc_PropertyTemplate propListForSets:self.activeTemplates] containsObject:pc.cpt.PropTypeID]) {
+        if ([pc.cfp isDefaultForType:pc.cpt] && !pc.cpt.isLocked && ![[MFBWebServiceSvc_PropertyTemplate propListForSets:self.activeTemplates] containsObject:pc.cpt.PropTypeID]) {
             [self.le.entryData.CustomProperties.CustomFlightProperty removeObject:pc.cfp];
             [self.tableView deleteRowsAtIndexPaths:@[ip] withRowAnimation:UITableViewRowAnimationFade];
         }
