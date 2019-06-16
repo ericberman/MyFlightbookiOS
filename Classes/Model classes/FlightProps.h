@@ -73,6 +73,7 @@
 + (FlightProps *) getFlightPropsNoNet;
 + (NSMutableArray<MFBWebServiceSvc_PropertyTemplate *> *) sharedTemplates;
 + (void) saveTemplates;
++ (void) updateTemplates:(NSMutableSet<MFBWebServiceSvc_PropertyTemplate *> *) templates forAircraft:(MFBWebServiceSvc_Aircraft *) ac;
 
 @property (readwrite, strong) NSMutableArray<MFBWebServiceSvc_CustomPropertyType *> * rgPropTypes;
 @property (readwrite, strong) MFBWebServiceSvc_ArrayOfCustomFlightProperty * rgFlightProps;

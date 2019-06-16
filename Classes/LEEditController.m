@@ -2110,12 +2110,11 @@ static NSDateFormatter * dfSunriseSunset = nil;
     self.idPopAircraft.text = ac.displayTailNumber;
 
     // switching aircraft - update the templates, starting fresh.
-    if (ac.DefaultTemplates.int_.count > 0) {
+    if (ac.DefaultTemplates.int_.count > 0)
         [self.activeTemplates removeAllObjects];
-        [self updateTemplatesForAircraft:ac];
-        [self templatesUpdated:self.activeTemplates];
-        [self.tableView reloadData];
-    }
+    [self updateTemplatesForAircraft:ac];
+    [self templatesUpdated:self.activeTemplates];
+    [self.tableView reloadData];
 }
 
 #pragma mark - DatePicker
@@ -2374,26 +2373,7 @@ static NSDateFormatter * dfSunriseSunset = nil;
 
 #pragma mark Templates
 - (void) updateTemplatesForAircraft:(MFBWebServiceSvc_Aircraft *) ac {
-    NSArray * defaultTemplates = MFBWebServiceSvc_PropertyTemplate.defaultTemplates;
-    MFBWebServiceSvc_PropertyTemplate * ptSim = MFBWebServiceSvc_PropertyTemplate.simTemplate;
-    MFBWebServiceSvc_PropertyTemplate * ptAnon = MFBWebServiceSvc_PropertyTemplate.anonTemplate;
-    [self.activeTemplates removeObject:ptSim];
-    [self.activeTemplates removeObject:ptAnon];
-
-    // If there is an aircraft specified and it has templates specified, use them .
-    if (ac != nil && ac.DefaultTemplates != nil && ac.DefaultTemplates.int_.count > 0) {
-        [self.activeTemplates addObjectsFromArray:[MFBWebServiceSvc_PropertyTemplate templatesWithIDs:ac.DefaultTemplates.int_]];
-    } else if (defaultTemplates != nil && defaultTemplates.count > 0) {
-        // check for default templates and use them exclusively
-        [self.activeTemplates addObjectsFromArray:defaultTemplates];
-    }
-    
-    // Always add in sim/anon as needed
-    if (ac.isSim && ptSim != nil)
-        [self.activeTemplates addObject:ptSim];
-    
-    if (ac.isAnonymous && ptAnon != nil)
-        [self.activeTemplates addObject:ptAnon];
+    [FlightProps updateTemplates:self.activeTemplates forAircraft:ac];
 }
 
 - (void) templatesUpdated:(NSSet<MFBWebServiceSvc_PropertyTemplate *> *) templateSet {

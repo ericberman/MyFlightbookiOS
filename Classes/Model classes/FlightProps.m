@@ -91,6 +91,29 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
     [defs synchronize];
 }
 
++ (void) updateTemplates:(NSMutableSet<MFBWebServiceSvc_PropertyTemplate *> *) templates forAircraft:(MFBWebServiceSvc_Aircraft *) ac {
+    NSArray * defaultTemplates = MFBWebServiceSvc_PropertyTemplate.defaultTemplates;
+    MFBWebServiceSvc_PropertyTemplate * ptSim = MFBWebServiceSvc_PropertyTemplate.simTemplate;
+    MFBWebServiceSvc_PropertyTemplate * ptAnon = MFBWebServiceSvc_PropertyTemplate.anonTemplate;
+    [templates removeObject:ptSim];
+    [templates removeObject:ptAnon];
+    
+    // If there is an aircraft specified and it has templates specified, use them .
+    if (ac != nil && ac.DefaultTemplates != nil && ac.DefaultTemplates.int_.count > 0) {
+        [templates addObjectsFromArray:[MFBWebServiceSvc_PropertyTemplate templatesWithIDs:ac.DefaultTemplates.int_]];
+    } else if (defaultTemplates != nil && defaultTemplates.count > 0) {
+        // check for default templates and use them exclusively
+        [templates addObjectsFromArray:defaultTemplates];
+    }
+    
+    // Always add in sim/anon as needed
+    if (ac.isSim && ptSim != nil)
+        [templates addObject:ptSim];
+    
+    if (ac.isAnonymous && ptAnon != nil)
+        [templates addObject:ptAnon];
+}
+
 + (void) flushTemplates {
     [FlightProps.sharedTemplates removeAllObjects];
     [FlightProps saveTemplates];
