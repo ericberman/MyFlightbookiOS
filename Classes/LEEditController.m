@@ -2317,40 +2317,11 @@ static NSDateFormatter * dfSunriseSunset = nil;
 }
 
 - (void) sendFlightToPilot {
-    if (self.le.entryData.SendFlightLink.length == 0)
-        return;
-    
-    NSString * szEncodedSubject = [NSLocalizedString(@"flightActionSendSubject", @"Flight Action - Send Subject") stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-    NSString * szEncodedBody = [[NSString stringWithFormat:NSLocalizedString(@"flightActionSendBody", @"Flight Action - Send Body"), self.le.entryData.SendFlightLink] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-    NSString * szURL = [NSString stringWithFormat:@"mailto:?subject=%@&body=%@",
-                        szEncodedSubject,
-                        szEncodedBody];
-    
-    [[UIApplication sharedApplication]  openURL: [NSURL URLWithString: szURL]];
+    [self.le.entryData sendFlight];
 }
 
 - (void) shareFlight:(id) sender {
-    if (self.le.entryData.SocialMediaLink.length == 0)
-        return;
-    
-    NSString * szComment = [[NSString stringWithFormat:@"%@ %@", self.le.entryData.Comment, self.le.entryData.Route] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    NSURL * url = [NSURL URLWithString:self.le.entryData.SocialMediaLink];
-    UIActivityViewController * avc = [[UIActivityViewController alloc] initWithActivityItems:@[szComment, url] applicationActivities:nil];
-    
-    UIBarButtonItem * bbi = (UIBarButtonItem *) sender;
-    UIView * bbiView = [bbi valueForKey:@"view"];
-    avc.popoverPresentationController.sourceView = bbiView;
-    avc.popoverPresentationController.sourceRect = bbiView.frame;
-    
-    avc.excludedActivityTypes = @[UIActivityTypeAirDrop,
-                                   UIActivityTypePrint,
-                                   UIActivityTypeAssignToContact,
-                                   UIActivityTypeSaveToCameraRoll,
-                                   UIActivityTypeAddToReadingList,
-                                   UIActivityTypePostToFlickr,
-                                   UIActivityTypePostToVimeo];
-    
-    [self presentViewController:avc animated:YES completion:nil];
+    [self.le.entryData shareFlight:sender fromViewController:self];
 }
 
 - (void) sendFlight:(id) sender {

@@ -119,6 +119,8 @@
 - (void) addApproachDescription:(NSString *) description;
 - (MFBWebServiceSvc_LogbookEntry *) clone;
 - (MFBWebServiceSvc_LogbookEntry *) cloneAndReverse;
+- (void) sendFlight;
+- (void) shareFlight:(UIBarButtonItem *) sender fromViewController:(UIViewController *) source;
 
 - (NSString *) fromJSONDictionary:(NSDictionary *) dict dateFormatter:(NSDateFormatter *) dfDate dateTimeFormatter:(NSDateFormatter *) dfDateTime;
 @end

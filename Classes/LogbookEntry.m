@@ -952,9 +952,46 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
     @finally {
     }
 
-
     return szResult;
 }
+
+- (void) sendFlight {
+    if (self.SendFlightLink.length == 0)
+        return;
+    
+    NSString * szEncodedSubject = [NSLocalizedString(@"flightActionSendSubject", @"Flight Action - Send Subject") stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    NSString * szEncodedBody = [[NSString stringWithFormat:NSLocalizedString(@"flightActionSendBody", @"Flight Action - Send Body"), self.SendFlightLink] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    NSString * szURL = [NSString stringWithFormat:@"mailto:?subject=%@&body=%@",
+                        szEncodedSubject,
+                        szEncodedBody];
+    
+    [[UIApplication sharedApplication]  openURL: [NSURL URLWithString: szURL]];
+}
+
+- (void) shareFlight:(UIBarButtonItem *) sender fromViewController:(UIViewController *) source {
+    if (self.SocialMediaLink.length == 0)
+        return;
+    
+    NSString * szComment = [[NSString stringWithFormat:@"%@ %@", self.Comment, self.Route] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSURL * url = [NSURL URLWithString:self.SocialMediaLink];
+    UIActivityViewController * avc = [[UIActivityViewController alloc] initWithActivityItems:@[szComment, url] applicationActivities:nil];
+    
+    UIBarButtonItem * bbi = (UIBarButtonItem *) sender;
+    UIView * bbiView = [bbi valueForKey:@"view"];
+    avc.popoverPresentationController.sourceView = bbiView;
+    avc.popoverPresentationController.sourceRect = bbiView.frame;
+    
+    avc.excludedActivityTypes = @[UIActivityTypeAirDrop,
+                                  UIActivityTypePrint,
+                                  UIActivityTypeAssignToContact,
+                                  UIActivityTypeSaveToCameraRoll,
+                                  UIActivityTypeAddToReadingList,
+                                  UIActivityTypePostToFlickr,
+                                  UIActivityTypePostToVimeo];
+    
+    [source presentViewController:avc animated:YES completion:nil];
+}
+
 @end
 
 @implementation MFBWebServiceSvc_FlightQuery (MFBIPhone)
