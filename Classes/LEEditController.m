@@ -112,36 +112,6 @@ enum rows {
 CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, heightTimes, heightSharing;
 
 #pragma mark - LongPressCross-fill support
-- (void) crossFillFrom:(UITextField *) src to:(UITextField *) dst
-{
-    // animate the source button onto the target, change the value, then restore the source
-    [dst resignFirstResponder];
-    
-    CGRect rSrc = src.frame;
-    CGRect rDst = dst.frame;
-    
-    UITextField * tfTemp = [[UITextField alloc] initWithFrame:rSrc];
-    tfTemp.font = src.font;
-    tfTemp.text = src.text;
-    tfTemp.textAlignment = src.textAlignment;
-    tfTemp.textColor = src.textColor;
-    [src.superview addSubview:tfTemp];
-    
-    src.translatesAutoresizingMaskIntoConstraints = NO;
-    [UIView animateWithDuration:0.5f animations:^{
-        tfTemp.frame = rDst;
-    }
-     completion:^(BOOL finished) {
-         dst.text = src.text;
-         [UIView animateWithDuration:0.5f animations:^{
-             tfTemp.frame = rSrc;
-         }
-          completion:^(BOOL finished) {
-              [tfTemp removeFromSuperview];
-          }];
-     }];
-}
-
 - (BOOL) gestureRecognizer:(UIGestureRecognizer *) gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
     return YES;
@@ -167,7 +137,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 - (void) crossFillTotal:(UILongPressGestureRecognizer *)sender
 {
     if (sender.state == UIGestureRecognizerStateBegan)
-        [self crossFillFrom:self.idTotalTime to:(UITextField *)sender.view];
+        [(UITextField *) sender.view crossFillFrom:self.idTotalTime];
 }
 
 - (void) setHighWaterHobbs:(UILongPressGestureRecognizer *) sender {
@@ -1312,8 +1282,7 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
                 if ([pc handleClick])
                 {
                     [self.flightProps propValueChanged:pc.cfp];
-                    if (!pc.cpt.isLocked && [pc.cfp isDefaultForType:pc.cpt])
-                    {
+                    if ([pc.cfp isDefaultForType:pc.cpt] && ![[MFBWebServiceSvc_PropertyTemplate propListForSets:self.activeTemplates] containsObject:pc.cpt.PropTypeID]) {
                         [self.le.entryData.CustomProperties.CustomFlightProperty removeObject:pc.cfp];
                         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
                     }
@@ -1472,8 +1441,7 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
         PropertyCell * pc = (PropertyCell *) tc;
         [pc handleTextUpdate:textField];
         [self.flightProps propValueChanged:pc.cfp];
-        if (!pc.cpt.isLocked && [pc.cfp isDefaultForType:pc.cpt])
-        {
+        if ([pc.cfp isDefaultForType:pc.cpt] && ![[MFBWebServiceSvc_PropertyTemplate propListForSets:self.activeTemplates] containsObject:pc.cpt.PropTypeID]) {
             [self.le.entryData.CustomProperties.CustomFlightProperty removeObject:pc.cfp];
             [self.tableView deleteRowsAtIndexPaths:@[ip] withRowAnimation:UITableViewRowAnimationFade];
         }

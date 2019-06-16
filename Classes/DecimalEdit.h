@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2018 MyFlightbook, LLC
+ Copyright (C) 2017-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 7/31/11.
-//  Copyright 2011-2017 MyFlightbook LLC. All rights reserved.
+//  Copyright 2011-2019 MyFlightbook LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -44,5 +44,5 @@
 + (NSNumber *) valueForString:(NSString *) sz withType:(int) numType withHHMM:(BOOL) fIsHHMM;
 - (BOOL) isValidNumber:(NSString *) szProposed;
 - (void) setValue:(NSNumber *) num withDefault:(NSNumber *) numDefault;
-
+- (void) crossFillFrom:(UITextField *) txtSrc;
 @end

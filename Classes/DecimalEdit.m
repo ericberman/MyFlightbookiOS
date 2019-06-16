@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 7/31/11.
-//  Copyright 2011-2017 MyFlightbook LLC. All rights reserved.
+//  Copyright 2011-2019 MyFlightbook LLC. All rights reserved.
 //
 
 #import "DecimalEdit.h"
@@ -231,4 +231,32 @@ static NSNumberFormatter * _nfDecimal = nil;
     return rangeResult.length == szProposed.length && rangeResult.location == 0;
 }
 
+- (void) crossFillFrom:(UITextField *) src {
+    // animate the source button onto the target, change the value, then restore the source
+    [self resignFirstResponder];
+    
+    CGRect rSrc = src.frame;
+    CGRect rDst = self.frame;
+    
+    UITextField * tfTemp = [[UITextField alloc] initWithFrame:rSrc];
+    tfTemp.font = src.font;
+    tfTemp.text = src.text;
+    tfTemp.textAlignment = src.textAlignment;
+    tfTemp.textColor = src.textColor;
+    [src.superview addSubview:tfTemp];
+    
+    src.translatesAutoresizingMaskIntoConstraints = NO;
+    [UIView animateWithDuration:0.5f animations:^{
+        tfTemp.frame = rDst;
+    }
+                     completion:^(BOOL finished) {
+                         self.text = src.text;
+                         [UIView animateWithDuration:0.5f animations:^{
+                             tfTemp.frame = rSrc;
+                         }
+                                          completion:^(BOOL finished) {
+                                              [tfTemp removeFromSuperview];
+                                          }];
+                     }];
+}
 @end
