@@ -95,9 +95,11 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
     NSArray * defaultTemplates = MFBWebServiceSvc_PropertyTemplate.defaultTemplates;
     MFBWebServiceSvc_PropertyTemplate * ptSim = MFBWebServiceSvc_PropertyTemplate.simTemplate;
     MFBWebServiceSvc_PropertyTemplate * ptAnon = MFBWebServiceSvc_PropertyTemplate.anonTemplate;
-    [templates removeObject:ptSim];
-    [templates removeObject:ptAnon];
-    
+    if (ptSim != nil)
+        [templates removeObject:ptSim];
+    if (ptAnon != nil)
+        [templates removeObject:ptAnon];
+
     // If there is an aircraft specified and it has templates specified, use them .
     if (ac != nil && ac.DefaultTemplates != nil && ac.DefaultTemplates.int_.count > 0) {
         [templates addObjectsFromArray:[MFBWebServiceSvc_PropertyTemplate templatesWithIDs:ac.DefaultTemplates.int_]];
