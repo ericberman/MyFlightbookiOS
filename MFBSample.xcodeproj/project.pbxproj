@@ -160,6 +160,7 @@
 		9A6DFCF5224302230061FE86 /* Default-Landscape-2688x1242.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DFCF1224302230061FE86 /* Default-Landscape-2688x1242.png */; };
 		9A6DFCF6224302230061FE86 /* Default-Landscape-2436x1125.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DFCF2224302230061FE86 /* Default-Landscape-2436x1125.png */; };
 		9A6DFCF8224306B30061FE86 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DFCF7224306B30061FE86 /* Launch Screen.storyboard */; };
+		9A70B18722C07A8500CA7E21 /* FlightEditorBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A70B18622C07A8500CA7E21 /* FlightEditorBaseTableViewController.m */; };
 		9A73C84821AF51F500AE1221 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A73C84721AF51F400AE1221 /* NotificationCenter.framework */; };
 		9A73C84C21AF51F500AE1221 /* TodayCurrencyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A73C84B21AF51F500AE1221 /* TodayCurrencyController.m */; };
 		9A73C84F21AF51F500AE1221 /* CurrencyTodayWidget.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A73C84D21AF51F500AE1221 /* CurrencyTodayWidget.storyboard */; };
@@ -713,6 +714,8 @@
 		9A6DFCF1224302230061FE86 /* Default-Landscape-2688x1242.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape-2688x1242.png"; sourceTree = "<group>"; };
 		9A6DFCF2224302230061FE86 /* Default-Landscape-2436x1125.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape-2436x1125.png"; sourceTree = "<group>"; };
 		9A6DFCF7224306B30061FE86 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		9A70B18522C07A8500CA7E21 /* FlightEditorBaseTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlightEditorBaseTableViewController.h; sourceTree = "<group>"; };
+		9A70B18622C07A8500CA7E21 /* FlightEditorBaseTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FlightEditorBaseTableViewController.m; sourceTree = "<group>"; };
 		9A73C83F21AF51C200AE1221 /* MyFlightbook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = MyFlightbook.entitlements; path = MyFlightbook/MyFlightbook.entitlements; sourceTree = "<group>"; };
 		9A73C84021AF51C900AE1221 /* MyFlightbookWatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyFlightbookWatch.entitlements; sourceTree = "<group>"; };
 		9A73C84121AF51CF00AE1221 /* MyFlightbookWatch Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MyFlightbookWatch Extension.entitlements"; sourceTree = "<group>"; };
@@ -1250,6 +1253,8 @@
 				9A117D89221780D30095CE32 /* GPSDeviceViewTableViewController.m */,
 				9A8BFADD22B00B1000CB79E0 /* SelectTemplates.h */,
 				9A8BFADE22B00B1000CB79E0 /* SelectTemplates.m */,
+				9A70B18522C07A8500CA7E21 /* FlightEditorBaseTableViewController.h */,
+				9A70B18622C07A8500CA7E21 /* FlightEditorBaseTableViewController.m */,
 			);
 			name = "Flight Entry";
 			sourceTree = "<group>";
@@ -2432,6 +2437,7 @@
 				9A17C5FA13E89B1B00C47C82 /* VisitedAirportRow.m in Sources */,
 				9A78376E13E8AB99007CD501 /* VADetails.m in Sources */,
 				9A6A602213E91145000CB7A6 /* MakeModel.m in Sources */,
+				9A70B18722C07A8500CA7E21 /* FlightEditorBaseTableViewController.m in Sources */,
 				9A1CCB2320879A3400C2D1E4 /* OptionSelection.m in Sources */,
 				9AF8B37813FA1445006D1CE9 /* SunriseSunset.m in Sources */,
 				9A4587BD14C205500045AF51 /* RecentFlightCell.m in Sources */,

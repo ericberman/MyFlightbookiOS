@@ -27,10 +27,6 @@
 #import "LEEditController.h"
 #import <QuartzCore/QuartzCore.h>
 #import <MobileCoreServices/UTCoreTypes.h>
-#import <ExternalAccessory/EAAccessory.h>
-#import <ExternalAccessory/EAAccessoryManager.h>
-#import <ExternalAccessory/ExternalAccessoryDefines.h>
-#import "GPSDeviceViewTableViewController.h"
 #import "HostedWebViewViewController.h"
 #import "NearbyAirports.h"
 #import "ImageComment.h"
@@ -54,7 +50,6 @@
 @property (nonatomic, strong) NSMutableDictionary * dictPropCells;
 @property (nonatomic, strong) UIImage * digitizedSig;
 @property (nonatomic, strong) NSArray<MFBWebServiceSvc_Aircraft *> * selectibleAircraft;
-@property (readwrite, strong) NSMutableArray<EAAccessory *> * externalAccessories;
 @property (readwrite, strong) NSMutableSet<MFBWebServiceSvc_PropertyTemplate *> * activeTemplates;
 
 - (void) updatePausePlay;
@@ -87,7 +82,6 @@
 @synthesize vwAccessory, activeTextField, flightProps;
 @synthesize dictPropCells, digitizedSig;
 @synthesize selectibleAircraft;
-@synthesize externalAccessories;
 @synthesize activeTemplates;
 
 NSString * const _szKeyCachedImageArray = @"cachedImageArrayKey";
@@ -112,27 +106,7 @@ enum rows {
 CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, heightTimes, heightSharing;
 
 #pragma mark - LongPressCross-fill support
-- (BOOL) gestureRecognizer:(UIGestureRecognizer *) gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
-{
-    return YES;
-}
 
-- (void) enableLongPressForField:(UITextField *) txt withSelector:(SEL) s
-{
-    if (txt == nil)
-        return;
-    
-    // Disable the existing long-press recognizer
-    NSArray * currentGestures = [NSArray arrayWithArray:txt.gestureRecognizers];
-    for (UIGestureRecognizer *recognizer in currentGestures)
-        if ([recognizer isKindOfClass:[UILongPressGestureRecognizer class]])
-            [txt removeGestureRecognizer:recognizer];
-    
-    UILongPressGestureRecognizer * lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:s];
-    lpgr.minimumPressDuration = 0.7; // in seconds
-    lpgr.delegate = self;
-    [txt addGestureRecognizer:lpgr];
-}
 
 - (void) crossFillTotal:(UILongPressGestureRecognizer *)sender
 {
@@ -221,15 +195,6 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     txt.autocorrectionType = UITextAutocorrectionTypeNo;
     txt.inputAccessoryView = self.vwAccessory;
     txt.delegate = self;
-}
-
-- (void) enableLabelClickForField:(UITextField *) txt
-{
-    if (txt.tag <= 0)
-        return;
-    for (UIView * vw in txt.superview.subviews)
-        if ([vw isKindOfClass:[UILabel class]] && ((UILabel *) vw).tag == txt.tag)
-            [vw addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:txt action:@selector(becomeFirstResponder)]];
 }
 
 - (void) asyncLoadDigitizedSig
@@ -423,8 +388,6 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     if (self.le.entryData.isSigned && self.le.entryData.HasDigitizedSig)
         [NSThread detachNewThreadSelector:@selector(asyncLoadDigitizedSig) toTarget:self withObject:nil];
     
-    self.externalAccessories = [NSMutableArray<EAAccessory*> new];
-    
     [mfbApp() registerNotifyResetAll:self];
 }
 
@@ -440,18 +403,12 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     self.selectibleAircraft = nil;
 }
 
-- (void) viewWillDisappear:(BOOL)animated
-{
+- (void) viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
 	[self initLEFromForm];
     self.navigationController.toolbarHidden = YES;
     [self.dictPropCells removeAllObjects];
     [self saveState];
-	[super viewWillDisappear:animated];
-    
-    [EAAccessoryManager.sharedAccessoryManager unregisterForLocalNotifications];
-    NSNotificationCenter * notctr = NSNotificationCenter.defaultCenter;
-    [notctr removeObserver:self name:EAAccessoryDidConnectNotification object:nil];
-    [notctr removeObserver:self name:EAAccessoryDidDisconnectNotification object:nil];
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -516,18 +473,6 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 	
     [self.tableView reloadData];
 	[app ensureWarningShownForUser];
-    
-    [EAAccessoryManager.sharedAccessoryManager registerForLocalNotifications];
-    self.externalAccessories = [NSMutableArray arrayWithArray:EAAccessoryManager.sharedAccessoryManager.connectedAccessories];
-    NSNotificationCenter * notctr = NSNotificationCenter.defaultCenter;
-    [notctr addObserver:self selector:@selector(deviceDidConnect:) name:EAAccessoryDidConnectNotification object:nil];
-    [notctr addObserver:self selector:@selector(deviceDidDisconnect:) name:EAAccessoryDidDisconnectNotification object:nil];
-}
-
-- (void)viewWillTransitionToSize:(CGSize)size
-       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
-{
-    NSLog(@"New width: %f", size.width);
 }
 
 - (BOOL) flightCouldBeInProgress
@@ -578,11 +523,6 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
         dtTotal = 0; // should never happen
     
     return dtTotal;
-}
-
-- (NSString *) elapsedTimeDisplay:(NSTimeInterval) dt
-{
-    return [NSString stringWithFormat:@"%02d:%02d:%02d", (int) (dt / 3600), (int) ((((int) dt) % 3600) / 60), ((int) dt) % 60];
 }
 
 - (void) updatePausePlay
@@ -880,12 +820,6 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
     return timeHobbsStart;
 }
 
-- (void) setLabelInflated:(BOOL) fInflate forEditCell:(EditCell *)ec
-{
-    UIFont * font = fInflate ? [UIFont boldSystemFontOfSize:14.0] : [UIFont systemFontOfSize:12.0];
-    ec.txt.font = ec.lbl.font = font;
-}
-
 #pragma mark - TableViewDatasource
 - (NSInteger) cellIDFromIndexPath:(NSIndexPath *) ip
 {
@@ -1019,7 +953,7 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
         case rowLandings:
             return self.cellLandings;
         case rowGPS:
-            self.cellGPS.accessoryType = self.externalAccessories.count == 0 ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
+            self.cellGPS.accessoryType = self.hasAccessories ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
             return self.cellGPS;
         case rowHobbsStart: {
             EditCell * dcell = [self decimalCell:tableView withPrompt:NSLocalizedString(@"Hobbs Start:", @"Hobbs Start prompt") andValue:self.le.entryData.HobbsStart selector:@selector(hobbsChanged:) andInflation:(nt == timeHobbsStart)];
@@ -1267,12 +1201,8 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
             return;
         }
         case rowGPS:
-            if (self.externalAccessories.count > 0) {
-                GPSDeviceViewTableViewController * gpsView = [GPSDeviceViewTableViewController new];
-                gpsView.eaaccessory = self.externalAccessories[0];
-                [self.navigationController pushViewController:gpsView animated:YES];
-                break;
-            }
+            [self viewAccessories];
+            break;
         default:
         {
             // We've already excluded propheader and add properties above.
@@ -2032,19 +1962,6 @@ static NSDateFormatter * dfSunriseSunset = nil;
 }
 
 #pragma mark - UIPopoverPresentationController functions
-// UIPopoverPresentationController functions
-- (void)popoverPresentationControllerDidDismissPopover:(UIPopoverPresentationController *)popoverController
-{
-    [self.tableView reloadData];
-}
-
-- (BOOL)popoverPresentationControllerShouldDismissPopover:(UIPopoverPresentationController *)popoverController
-{
-    // let the property display know it is going to go away.
-    [popoverController.presentedViewController viewWillDisappear:NO];
-    return true;
-}
-
 - (void) refreshProperties
 {
     if (self.le.entryData.isNewOrPending && self.le.entryData.CustomProperties == nil)
@@ -2324,19 +2241,6 @@ static NSDateFormatter * dfSunriseSunset = nil;
     uac.popoverPresentationController.sourceRect = bbiView.frame;
 
     [self presentViewController:uac animated:YES completion:nil];
-}
-
-#pragma mark - External devices
-- (void) deviceDidConnect:(NSNotification *) notification {
-    EAAccessory * accessory = notification.userInfo[EAAccessoryKey];
-    [self.externalAccessories addObject:accessory];
-
-    [self.tableView reloadData];
-}
-
-- (void) deviceDidDisconnect:(NSNotification *) notification {
-    self.externalAccessories = [NSMutableArray arrayWithArray:EAAccessoryManager.sharedAccessoryManager.connectedAccessories];
-    [self.tableView reloadData];
 }
 
 #pragma mark Templates

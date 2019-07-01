@@ -26,6 +26,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FlightEditorBaseTableViewController.h"
 #import "LogbookEntry.h"
 #import "MFBProfile.h"
 #import "NearbyAirports.h"
@@ -39,7 +40,7 @@
 #import "TotalsCalculator.h"
 #import "SelectTemplates.h"
 
-@interface LEEditController : CollapsibleTable <NearbyAirportsDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate, AutoDetectDelegate, SelectTemplatesDelegate, UIAlertViewDelegate, UIPickerViewDataSource, UIContentContainer, ApproachEditorDelegate, TotalsCalculatorDelegate> {
+@interface LEEditController : FlightEditorBaseTableViewController <NearbyAirportsDelegate, UITextFieldDelegate, AutoDetectDelegate, SelectTemplatesDelegate, UIAlertViewDelegate, UIPickerViewDataSource, ApproachEditorDelegate, TotalsCalculatorDelegate> {
 }
 
 @property (nonatomic, strong) IBOutlet UITextField * idDate;
@@ -100,7 +101,6 @@
 - (IBAction)dateChanged:(UIDatePicker *)sender;
 - (IBAction) addApproach:(id) sender;
 
-- (NSString *) elapsedTimeDisplay:(NSTimeInterval) dt;
 - (NSTimeInterval) elapsedTime;
 
 - (void) startEngineExternal;
