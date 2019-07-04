@@ -160,16 +160,14 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
     // update the text fields
     self.fq.GeneralText = self.ecText.txt.text;
     self.fq.ModelName = self.ecModelName.txt.text;
-    
-    NSCharacterSet * alphaSet = [NSCharacterSet alphanumericCharacterSet];
+
+    NSString * szAirports = self.ecAirports.txt.text;
+    NSError * err = NULL;
+    NSRegularExpression * reAirports = [[NSRegularExpression alloc] initWithPattern:@"!?@?[a-zA-Z0-9]+!?" options:NSRegularExpressionCaseInsensitive error:&err];
+    NSArray *matches = [reAirports matchesInString:szAirports options:0 range:NSMakeRange(0, szAirports.length)];
     [self.fq.AirportList.string removeAllObjects];
-    [self.fq.AirportList.string addObjectsFromArray:[self.ecAirports.txt.text componentsSeparatedByCharactersInSet:[alphaSet invertedSet]]];
-    // remove empty strings
-    for (NSString * sz in self.fq.AirportList.string)
-    {
-        if ([sz length] == 0)
-            [self.fq.AirportList.string removeObject:sz];
-    }
+    for (NSTextCheckingResult * match in matches)
+        [self.fq.AirportList.string addObject:[szAirports substringWithRange:match.range]];
     
     if (self.ecQueryName.txt.text.length > 0 && !fSkipLoadText)
         [self AddCannedQuery:self.fq withName:self.ecQueryName.txt.text];
