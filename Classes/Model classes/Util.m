@@ -154,8 +154,9 @@
 - (NSDate *) dateByAddingCalendarMonths:(int) cMonths
 {
     NSCalendar * cal = [NSCalendar currentCalendar];
-	NSDateComponents * comps = [cal components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:self];
+    NSDateComponents * comps = [cal componentsInTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0] fromDate:self];
     NSDateComponents * compsDelta = [[NSDateComponents alloc] init];
+    compsDelta.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
 
     // go to the first day of this month
     [comps setDay:1];
@@ -163,13 +164,16 @@
     
     if (cMonths >= 0)
     {
-        // going forward - we want the last day of the month so we go to the first day of 1 month beyond what we want,
-        // then back up a day
-        [compsDelta setMonth:cMonths + 1];
+        // Proper way to do this is to add an extra month and then back off a day.  E.g., 7/1/2019 + 12 months goes 13 months ahead to 8/1/2020 and then backs up to 7/31/2020
+        // HOWEVER, NSCalendar's math is messed up - adding 13 months to 7/1/2019 yields 7/31/2020 instead of 8/1/2019.  Bizarre - must be using a fixed 365 day year or something.
+        // So let's add years before months
+        compsDelta.month = cMonths;
         dt = [cal dateByAddingComponents:compsDelta toDate:dt options:0];
-        [compsDelta setMonth:0];
-        [compsDelta setDay:-1];
-        return [cal dateByAddingComponents:compsDelta toDate:dt options:0];
+        comps = [cal componentsInTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0] fromDate:dt];
+        comps.day = 0;
+        comps.month = comps.month + 1;
+        dt = [cal dateFromComponents:comps];
+        return dt;
     }
     else
     {
