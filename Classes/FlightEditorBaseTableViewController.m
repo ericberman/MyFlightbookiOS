@@ -28,7 +28,8 @@
 #import <ExternalAccessory/EAAccessory.h>
 #import <ExternalAccessory/EAAccessoryManager.h>
 #import <ExternalAccessory/ExternalAccessoryDefines.h>
-
+#import "DecimalEdit.h"
+#import "MFBTheme.h"
 
 @interface FlightEditorBaseTableViewController ()
 @property (readwrite, strong) NSMutableArray<EAAccessory *> * externalAccessories;
@@ -37,6 +38,45 @@
 @implementation FlightEditorBaseTableViewController
 
 @synthesize externalAccessories;
+@synthesize idDate, idRoute, idComments, idTotalTime, idPopAircraft, idApproaches, idHold, idLandings, idDayLandings, idNightLandings;
+@synthesize idNight, idIMC, idSimIMC, idGrndSim, idXC, idDual, idCFI, idSIC, idPIC, idPublic;
+@synthesize datePicker, pickerView;
+@synthesize idLblStatus, idLblSpeed, idLblAltitude, idLblQuality, idimgRecording, idbtnPausePlay, idbtnAppendNearest, idlblElapsedTime;
+@synthesize lblLat, lblLon, lblSunset, lblSunrise;
+@synthesize cellComments, cellDateAndTail, cellGPS, cellLandings, cellRoute, cellSharing, cellTimeBlock;
+@synthesize vwAccessory;
+@synthesize activeTextField;
+
+#pragma mark - UI / UITableViewCell Helpers
+- (void) setNumericField:(UITextField *) txt toType:(int) nt {
+    txt.NumberType = nt;
+    txt.autocorrectionType = UITextAutocorrectionTypeNo;
+    txt.inputAccessoryView = self.vwAccessory;
+    txt.delegate = self;
+}
+
+- (EditCell *) decimalCell:(UITableView *) tableView withPrompt:(NSString *)szPrompt andValue:(NSNumber *)val selector:(SEL)sel andInflation:(BOOL) fIsInflated {
+    EditCell * ec = [EditCell getEditCell:tableView withAccessory:self.vwAccessory];
+    [self setNumericField:ec.txt toType:ntDecimal];
+    [ec.txt addTarget:self action:sel forControlEvents:UIControlEventEditingChanged];
+    [ec.txt setValue:val withDefault:@0.0];
+    ec.lbl.text = szPrompt;
+    [self setLabelInflated:fIsInflated forEditCell:ec];
+    return ec;
+}
+
+- (EditCell *) dateCell:(NSDate *) dt withPrompt:(NSString *) szPrompt forTableView:(UITableView *) tableView inflated:(BOOL) fInflated {
+    EditCell * ec = [EditCell getEditCell:tableView withAccessory:self.vwAccessory];
+    ec.txt.inputView = self.datePicker;
+    ec.txt.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"(Tap for Now)", @"Prompt UTC Date/Time that is currently un-set (tapping sets it to NOW in UTC)")];
+    ec.txt.delegate = self;
+    ec.lbl.text = szPrompt;
+    ec.txt.clearButtonMode = UITextFieldViewModeNever;
+    ec.txt.text = [NSDate isUnknownDate:dt] ? @"" : [dt utcString];
+    [self setLabelInflated:fInflated forEditCell:ec];
+    
+    return ec;
+}
 
 #pragma mark - Gesture support
 - (BOOL) gestureRecognizer:(UIGestureRecognizer *) gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
@@ -65,6 +105,11 @@
     for (UIView * vw in txt.superview.subviews)
         if ([vw isKindOfClass:[UILabel class]] && ((UILabel *) vw).tag == txt.tag)
             [vw addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:txt action:@selector(becomeFirstResponder)]];
+}
+
+- (void) crossFillTotal:(UILongPressGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateBegan)
+        [(UITextField *) sender.view crossFillFrom:self.idTotalTime];
 }
 
 #pragma mark - External devices
@@ -119,11 +164,87 @@
     return true;
 }
 
+#pragma mark - CollapsibleTable
+- (void) nextClicked {
+    UITableViewCell * cell = [self owningCellGeneric:self.activeTextField];
+    if ([cell isKindOfClass:[NavigableCell class]] && [((NavigableCell *) cell) navNext:self.activeTextField])
+        return;
+    [super nextClicked];
+}
+
+- (void) prevClicked {
+    UITableViewCell * cell = [self owningCellGeneric:self.activeTextField];
+    if ([cell isKindOfClass:[NavigableCell class]] && [((NavigableCell *) cell) navPrev:self.activeTextField])
+        return;
+    [super prevClicked];
+}
+
+- (void) doneClicked {
+    self.activeTextField = nil;
+    [super doneClicked];
+}
+
+#pragma mark - UITextViewDelegate
+- (BOOL) textFieldShouldClear:(UITextField *)textField {
+    return YES;
+}
+
+- (BOOL) textFieldShouldReturn:(UITextField *)textField {
+    self.activeTextField = nil;
+    return YES;
+}
+
 #pragma mark - View lifecyle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // Set the accessory view and the inputview for our various text boxes.
+    self.vwAccessory = [AccessoryBar getAccessoryBar:self];
+
     self.externalAccessories = [NSMutableArray<EAAccessory*> new];
+    
+    // Set numeric fields
+    [self setNumericField:self.idLandings toType:ntInteger];
+    [self setNumericField:self.idDayLandings toType:ntInteger];
+    [self setNumericField:self.idNightLandings toType:ntInteger];
+    [self setNumericField:self.idApproaches toType:ntInteger];
+    
+    [self setNumericField:self.idXC toType:ntTime];
+    [self setNumericField:self.idSIC toType:ntTime];
+    [self setNumericField:self.idSimIMC toType:ntTime];
+    [self setNumericField:self.idCFI toType:ntTime];
+    [self setNumericField:self.idDual toType:ntTime];
+    [self setNumericField:self.idGrndSim toType:ntTime];
+    [self setNumericField:self.idIMC toType:ntTime];
+    [self setNumericField:self.idNight toType:ntTime];
+    [self setNumericField:self.idPIC toType:ntTime];
+    [self setNumericField:self.idTotalTime toType:ntTime];
+    
+    [self enableLabelClickForField:self.idLandings];
+    [self enableLabelClickForField:self.idNightLandings];
+    [self enableLabelClickForField:self.idDayLandings];
+    [self enableLabelClickForField:self.idApproaches];
+    
+    [self enableLabelClickForField:self.idNight];
+    [self enableLabelClickForField:self.idSimIMC];
+    [self enableLabelClickForField:self.idIMC];
+    [self enableLabelClickForField:self.idXC];
+    [self enableLabelClickForField:self.idDual];
+    [self enableLabelClickForField:self.idGrndSim];
+    [self enableLabelClickForField:self.idCFI];
+    [self enableLabelClickForField:self.idSIC];
+    [self enableLabelClickForField:self.idPIC];
+    [self enableLabelClickForField:self.idTotalTime];
+    
+    [self enableLongPressForField:self.idNight withSelector:@selector(crossFillTotal:)];
+    [self enableLongPressForField:self.idSimIMC withSelector:@selector(crossFillTotal:)];
+    [self enableLongPressForField:self.idIMC withSelector:@selector(crossFillTotal:)];
+    [self enableLongPressForField:self.idXC withSelector:@selector(crossFillTotal:)];
+    [self enableLongPressForField:self.idDual withSelector:@selector(crossFillTotal:)];
+    [self enableLongPressForField:self.idGrndSim withSelector:@selector(crossFillTotal:)];
+    [self enableLongPressForField:self.idCFI withSelector:@selector(crossFillTotal:)];
+    [self enableLongPressForField:self.idSIC withSelector:@selector(crossFillTotal:)];
+    [self enableLongPressForField:self.idPIC withSelector:@selector(crossFillTotal:)];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -143,5 +264,4 @@
     [notctr removeObserver:self name:EAAccessoryDidConnectNotification object:nil];
     [notctr removeObserver:self name:EAAccessoryDidDisconnectNotification object:nil];
 }
-
 @end

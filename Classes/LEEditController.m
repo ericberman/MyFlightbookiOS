@@ -27,7 +27,6 @@
 #import "LEEditController.h"
 #import <QuartzCore/QuartzCore.h>
 #import <MobileCoreServices/UTCoreTypes.h>
-#import "HostedWebViewViewController.h"
 #import "NearbyAirports.h"
 #import "ImageComment.h"
 #import "FlightProps.h"
@@ -40,17 +39,12 @@
 #import "DecimalEdit.h"
 #import "TextCell.h"
 #import "MFBTheme.h"
-#import "SelectTemplates.h"
 
 @interface LEEditController()
-@property (nonatomic, strong) AccessoryBar * vwAccessory;
 @property (nonatomic, strong) NSTimer * timerElapsed;
-@property (nonatomic, strong) UITextField * activeTextField;
-@property (strong) FlightProps * flightProps;
 @property (nonatomic, strong) NSMutableDictionary * dictPropCells;
 @property (nonatomic, strong) UIImage * digitizedSig;
 @property (nonatomic, strong) NSArray<MFBWebServiceSvc_Aircraft *> * selectibleAircraft;
-@property (readwrite, strong) NSMutableSet<MFBWebServiceSvc_PropertyTemplate *> * activeTemplates;
 
 - (void) updatePausePlay;
 - (void) updatePositionReport;
@@ -62,7 +56,6 @@
 - (void) initLEFromForm;
 - (void) resetFlight;
 - (void) submitFlight:(id)sender;
-- (void) signFlight:(id)sender;
 - (void) startEngine;
 - (void) stopEngine;
 - (void) startFlight;
@@ -73,20 +66,13 @@
 
 @implementation LEEditController
 
-@synthesize idDate, idRoute, idComments, idTotalTime, idPopAircraft, idApproaches, idHold, idLandings, idDayLandings, idNightLandings;
-@synthesize idNight, idIMC, idSimIMC, idGrndSim, idXC, idDual, idCFI, idSIC, idPIC, idPublic, le, delegate;
-@synthesize datePicker, pickerView;
-@synthesize idLblStatus, idLblSpeed, idLblAltitude, idLblQuality, idimgRecording, idbtnPausePlay, idbtnAppendNearest, idlblElapsedTime, timerElapsed;
-@synthesize lblLat, lblLon, lblSunset, lblSunrise;
-@synthesize cellComments, cellDateAndTail, cellGPS, cellLandings, cellRoute, cellSharing, cellTimeBlock;
-@synthesize vwAccessory, activeTextField, flightProps;
+@synthesize activeTextField, flightProps;
 @synthesize dictPropCells, digitizedSig;
 @synthesize selectibleAircraft;
-@synthesize activeTemplates;
+@synthesize le;
+@synthesize timerElapsed;
 
 NSString * const _szKeyCachedImageArray = @"cachedImageArrayKey";
-NSString * const _szKeyFacebookState = @"keyFacebookState";
-NSString * const _szKeyTwitterState = @"keyTwitterState";
 NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
 NSString * const _szkeyITCCollapseState = @"keyITCCollapseState";
 
@@ -106,14 +92,6 @@ enum rows {
 CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, heightTimes, heightSharing;
 
 #pragma mark - LongPressCross-fill support
-
-
-- (void) crossFillTotal:(UILongPressGestureRecognizer *)sender
-{
-    if (sender.state == UIGestureRecognizerStateBegan)
-        [(UITextField *) sender.view crossFillFrom:self.idTotalTime];
-}
-
 - (void) setHighWaterHobbs:(UILongPressGestureRecognizer *) sender {
     if (sender.state == UIGestureRecognizerStateBegan) {
         UITextField * target = (UITextField *) sender.view;
@@ -150,7 +128,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 
     // Initialize the active templates to the defaults, either for this aircraft or the ones you've indicated you want to use by default.
     self.activeTemplates = [NSMutableSet<MFBWebServiceSvc_PropertyTemplate *> setWithArray: (ac.DefaultTemplates.int_.count > 0) ? [MFBWebServiceSvc_PropertyTemplate templatesWithIDs:ac.DefaultTemplates.int_] : MFBWebServiceSvc_PropertyTemplate.defaultTemplates];
-    [self templatesUpdated:activeTemplates];
+    [self templatesUpdated:self.activeTemplates];
 
 	[self setCurrentAircraft:ac];
 	
@@ -189,14 +167,6 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     [self performSelectorOnMainThread:@selector(resetFlight) withObject:nil waitUntilDone:NO];
 }
 
-- (void) setNumericField:(UITextField *) txt toType:(int) nt
-{
-    txt.NumberType = nt;
-    txt.autocorrectionType = UITextAutocorrectionTypeNo;
-    txt.inputAccessoryView = self.vwAccessory;
-    txt.delegate = self;
-}
-
 - (void) asyncLoadDigitizedSig
 {
     @autoreleasepool {
@@ -220,42 +190,6 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     heightRoute = self.cellRoute.frame.size.height;
     heightSharing = self.cellSharing.frame.size.height;
     heightTimes = self.cellTimeBlock.frame.size.height;
-
-    // Set the accessory view and the inputview for our various text boxes.
-    self.vwAccessory = [AccessoryBar getAccessoryBar:self];
-    
-    // Set numeric fields
-    [self setNumericField:self.idLandings toType:ntInteger];
-    [self setNumericField:self.idDayLandings toType:ntInteger];
-    [self setNumericField:self.idNightLandings toType:ntInteger];
-    [self setNumericField:self.idApproaches toType:ntInteger];
-
-    [self setNumericField:self.idXC toType:ntTime];
-    [self setNumericField:self.idSIC toType:ntTime];
-    [self setNumericField:self.idSimIMC toType:ntTime];
-    [self setNumericField:self.idCFI toType:ntTime];
-    [self setNumericField:self.idDual toType:ntTime];
-    [self setNumericField:self.idGrndSim toType:ntTime];
-    [self setNumericField:self.idIMC toType:ntTime];
-    [self setNumericField:self.idNight toType:ntTime];
-    [self setNumericField:self.idPIC toType:ntTime];
-    [self setNumericField:self.idTotalTime toType:ntTime];
-    
-    [self enableLabelClickForField:self.idLandings];
-    [self enableLabelClickForField:self.idNightLandings];
-    [self enableLabelClickForField:self.idDayLandings];
-    [self enableLabelClickForField:self.idApproaches];
-    
-    [self enableLabelClickForField:self.idNight];
-    [self enableLabelClickForField:self.idSimIMC];
-    [self enableLabelClickForField:self.idIMC];
-    [self enableLabelClickForField:self.idXC];
-    [self enableLabelClickForField:self.idDual];
-    [self enableLabelClickForField:self.idGrndSim];
-    [self enableLabelClickForField:self.idCFI];
-    [self enableLabelClickForField:self.idSIC];
-    [self enableLabelClickForField:self.idPIC];
-    [self enableLabelClickForField:self.idTotalTime];
     
     [self.idbtnAppendNearest addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(appendAdHoc:)]];
 
@@ -367,15 +301,6 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     }
     
     // Set up longpress recognizers for times
-    [self enableLongPressForField:self.idNight withSelector:@selector(crossFillTotal:)];
-    [self enableLongPressForField:self.idSimIMC withSelector:@selector(crossFillTotal:)];
-    [self enableLongPressForField:self.idIMC withSelector:@selector(crossFillTotal:)];
-    [self enableLongPressForField:self.idXC withSelector:@selector(crossFillTotal:)];
-    [self enableLongPressForField:self.idDual withSelector:@selector(crossFillTotal:)];
-    [self enableLongPressForField:self.idGrndSim withSelector:@selector(crossFillTotal:)];
-    [self enableLongPressForField:self.idCFI withSelector:@selector(crossFillTotal:)];
-    [self enableLongPressForField:self.idSIC withSelector:@selector(crossFillTotal:)];
-    [self enableLongPressForField:self.idPIC withSelector:@selector(crossFillTotal:)];
     [self enableLongPressForField:self.idTotalTime withSelector:@selector(timeCalculator:)];
 
     // Make the checkboxes checkboxes
@@ -724,7 +649,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     UIView * targetView = [app recentsView].view;
     
     // and let any delegate know that the flight has updated
-    if (self.delegate != nil && [delegate respondsToSelector:@selector(flightUpdated:)])
+    if (self.delegate != nil)
         [self.delegate flightUpdated:self];
     else {
         [UIView transitionFromView:self.navigationController.view
@@ -887,20 +812,6 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
     }
 }
 
-- (EditCell *) dateCell:(NSDate *) dt withPrompt:(NSString *) szPrompt forTableView:(UITableView *) tableView inflated:(BOOL) fInflated
-{
-    EditCell * ec = [EditCell getEditCell:tableView withAccessory:self.vwAccessory];
-    ec.txt.inputView = self.datePicker;
-    ec.txt.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"(Tap for Now)", @"Prompt UTC Date/Time that is currently un-set (tapping sets it to NOW in UTC)")];
-    ec.txt.delegate = self;
-    ec.lbl.text = szPrompt;
-    ec.txt.clearButtonMode = UITextFieldViewModeNever;
-    ec.txt.text = [NSDate isUnknownDate:dt] ? @"" : [dt utcString];
-    [self setLabelInflated:fInflated forEditCell:ec];
-
-    return ec;
-}
-
 - (void) hobbsChanged:(UITextField *) sender
 {
     EditCell * ec = [self owningCell:sender];
@@ -909,17 +820,6 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
         self.le.entryData.HobbsStart = sender.value;
     else
         self.le.entryData.HobbsEnd = sender.value;
-}
-
-- (EditCell *) decimalCell:(UITableView *) tableView withPrompt:(NSString *)szPrompt andValue:(NSNumber *)val selector:(SEL)sel andInflation:(BOOL) fIsInflated
-{
-    EditCell * ec = [EditCell getEditCell:tableView withAccessory:self.vwAccessory];
-    [self setNumericField:ec.txt toType:ntDecimal];
-    [ec.txt addTarget:self action:sel forControlEvents:UIControlEventEditingChanged];
-    [ec.txt setValue:val withDefault:@0.0];
-    ec.lbl.text = szPrompt;
-    [self setLabelInflated:fIsInflated forEditCell:ec];
-    return ec;
 }
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -1339,17 +1239,6 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
     }
     self.activeTextField = textField;
     return fShouldEdit;
-}
-
-- (BOOL) textFieldShouldClear:(UITextField *)textField
-{
-    return YES;
-}
-
-- (BOOL) textFieldShouldReturn:(UITextField *)textField
-{
-    self.activeTextField = nil;
-    return YES;
 }
 
 - (void) textFieldDidEndEditing:(UITextField *)textField
@@ -1869,8 +1758,8 @@ static NSDateFormatter * dfSunriseSunset = nil;
     double lon = loc.coordinate.longitude;
     if (self.lblLat != nil && self.lblLon != nil)
     {
-        lblLat.text = [MFBLocation latitudeDisplay:lat];
-        lblLon.text = [MFBLocation longitudeDisplay:lon];
+        self.lblLat.text = [MFBLocation latitudeDisplay:lat];
+        self.lblLon.text = [MFBLocation longitudeDisplay:lon];
     }
     
     if (self.lblSunrise != nil && self.lblSunset != nil)
@@ -1936,19 +1825,6 @@ static NSDateFormatter * dfSunriseSunset = nil;
 {
 	AutodetectOptions * vwAutoOptions = [[AutodetectOptions alloc] initWithNibName:@"AutodetectOptions" bundle:nil];
     [self.navigationController pushViewController:vwAutoOptions animated:YES];
-}
-
-- (void) signFlight:(id)sender
-{
-	NSString * szURL = [NSString stringWithFormat:@"https://%@/logbook/public/SignEntry.aspx?idFlight=%d&auth=%@&naked=1&night=%@",
-						MFBHOSTNAME,
-						[self.le.entryData.FlightID intValue],
-						[(mfbApp()).userProfile.AuthToken stringByURLEncodingString],
-                        MFBTheme.currentTheme.Type == themeNight ? @"yes" : @"no"];
-	
-    HostedWebViewViewController * vwWeb = [[HostedWebViewViewController alloc] initWithURL:szURL];
-    [mfbApp() invalidateCachedTotals];   // this flight could now be invalid
-	[self.navigationController pushViewController:vwWeb animated:YES];
 }
 
 #pragma mark View Properties
@@ -2077,22 +1953,6 @@ static NSDateFormatter * dfSunriseSunset = nil;
     }
 }
 
-- (void) nextClicked
-{
-    UITableViewCell * cell = [self owningCellGeneric:self.activeTextField];
-    if ([cell isKindOfClass:[NavigableCell class]] && [((NavigableCell *) cell) navNext:self.activeTextField])
-        return;
-    [super nextClicked];
-}
-
-- (void) prevClicked
-{
-    UITableViewCell * cell = [self owningCellGeneric:self.activeTextField];
-    if ([cell isKindOfClass:[NavigableCell class]] && [((NavigableCell *) cell) navPrev:self.activeTextField])
-        return;
-    [super prevClicked];
-}
-
 - (void) deleteClicked
 {
     self.activeTextField.text = @"";
@@ -2130,12 +1990,6 @@ static NSDateFormatter * dfSunriseSunset = nil;
             [self.tableView endEditing:YES];
     }
     [self initLEFromForm];
-}
-
-- (void) doneClicked
-{
-    self.activeTextField = nil;
-    [super doneClicked];
 }
 
 #pragma mark - Add Image
@@ -2181,87 +2035,5 @@ static NSDateFormatter * dfSunriseSunset = nil;
 - (void) updateTotal:(NSNumber *)value {
     self.le.entryData.TotalFlightTime = value;
     self.idTotalTime.value = value;
-}
-
-#pragma mark - Send actions
-- (void) repeatFlight:(BOOL) fReverse {
-    LogbookEntry * leNew = [[LogbookEntry alloc] init];
-
-    leNew.entryData  = fReverse ? [self.le.entryData cloneAndReverse] : [self.le.entryData clone];
-    leNew.entryData.FlightID = QUEUED_FLIGHT_UNSUBMITTED;   // don't auto-submit this flight!
-    MFBAppDelegate * app = [MFBAppDelegate threadSafeAppDelegate];
-    [app queueFlightForLater:leNew];
-    
-    UIAlertController * alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"flightActionComplete", @"Flight Action Complete Title") message:NSLocalizedString(@"flightActionRepeatComplete", @"Flight Action - repeated flight created") preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"OK") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        if (self.delegate != nil && [self.delegate respondsToSelector:@selector(flightUpdated:)])
-            [self.delegate flightUpdated:self];
-    }]];
-    [self presentViewController:alert animated:YES completion:nil];
-}
-
-- (void) sendFlightToPilot {
-    [self.le.entryData sendFlight];
-}
-
-- (void) shareFlight:(id) sender {
-    [self.le.entryData shareFlight:sender fromViewController:self];
-}
-
-- (void) sendFlight:(id) sender {
-    UIAlertController * uac = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"flightActionMenuPrompt", @"Actions for this flight") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    [uac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"flightActionRepeatFlight", @"Flight Action - repeat a flight") style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        [self repeatFlight:NO];
-    }]];
-
-    [uac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"flightActionReverseFlight", @"Flight Action - repeat and reverse flight") style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        [self repeatFlight:YES];
-    }]];
-    
-    if (self.le.entryData.SendFlightLink.length > 0) {
-        [uac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"flightActionSend", @"Flight Action - Send") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self sendFlightToPilot];
-        }]];
-    }
-    
-    if (self.le.entryData.SocialMediaLink.length > 0) {
-        [uac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"flightActionShare", @"Flight Action - Share") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self shareFlight:sender];
-        }]];
-    }
-    
-    [uac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel (button)") style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
-        [uac dismissViewControllerAnimated:YES completion:nil];
-    }]];
-    
-    UIBarButtonItem * bbi = (UIBarButtonItem *) sender;
-    UIView * bbiView = [bbi valueForKey:@"view"];
-    uac.popoverPresentationController.sourceView = bbiView;
-    uac.popoverPresentationController.sourceRect = bbiView.frame;
-
-    [self presentViewController:uac animated:YES completion:nil];
-}
-
-#pragma mark Templates
-- (void) updateTemplatesForAircraft:(MFBWebServiceSvc_Aircraft *) ac {
-    [FlightProps updateTemplates:self.activeTemplates forAircraft:ac];
-}
-
-- (void) templatesUpdated:(NSSet<MFBWebServiceSvc_PropertyTemplate *> *) templateSet {
-    self.activeTemplates = [NSMutableSet setWithSet:templateSet];
-    NSMutableArray * rgAllProps = [self.flightProps crossProduct:self.le.entryData.CustomProperties.CustomFlightProperty];
-    [self.le.entryData.CustomProperties setProperties:[flightProps distillList:rgAllProps includeLockedProps:YES includeTemplates:self.activeTemplates]];
-    [self.tableView reloadData];
-}
-
-- (void) pickTemplates:(id) sender {
-    SelectTemplates * st = [SelectTemplates new];
-    st.templateSet = self.activeTemplates;
-    st.delegate = self;
-    if (sender != nil && [sender isKindOfClass:UIView.class])
-        [self pushOrPopView:st fromView:sender withDelegate:self];
-    else
-        [self.navigationController pushViewController:st animated:YES];
 }
 @end

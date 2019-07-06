@@ -26,7 +26,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FlightEditorBaseTableViewController.h"
+#import "LogbookEntryBaseViewControllerTableViewController.h"
 #import "LogbookEntry.h"
 #import "MFBProfile.h"
 #import "NearbyAirports.h"
@@ -40,57 +40,8 @@
 #import "TotalsCalculator.h"
 #import "SelectTemplates.h"
 
-@interface LEEditController : FlightEditorBaseTableViewController <NearbyAirportsDelegate, UITextFieldDelegate, AutoDetectDelegate, SelectTemplatesDelegate, UIAlertViewDelegate, UIPickerViewDataSource, ApproachEditorDelegate, TotalsCalculatorDelegate> {
+@interface LEEditController : LogbookEntryBaseViewControllerTableViewController <NearbyAirportsDelegate, UITextFieldDelegate, AutoDetectDelegate, UIAlertViewDelegate, UIPickerViewDataSource, ApproachEditorDelegate, TotalsCalculatorDelegate> {
 }
-
-@property (nonatomic, strong) IBOutlet UITextField * idDate;
-@property (nonatomic, strong) IBOutlet UITextField * idRoute;
-@property (nonatomic, strong) IBOutlet UITextField * idComments;
-@property (nonatomic, strong) IBOutlet UITextField * idTotalTime;
-@property (nonatomic, strong) IBOutlet UITextField * idPopAircraft;
-@property (nonatomic, strong) IBOutlet UITextField * idApproaches;
-@property (nonatomic, strong) IBOutlet UIButton * idHold;
-@property (nonatomic, strong) IBOutlet UITextField * idLandings;
-@property (nonatomic, strong) IBOutlet UITextField * idDayLandings;
-@property (nonatomic, strong) IBOutlet UITextField * idNightLandings;
-@property (nonatomic, strong) IBOutlet UITextField * idNight;
-@property (nonatomic, strong) IBOutlet UITextField * idIMC;
-@property (nonatomic, strong) IBOutlet UITextField * idSimIMC;
-@property (nonatomic, strong) IBOutlet UITextField * idGrndSim;
-@property (nonatomic, strong) IBOutlet UITextField * idXC;
-@property (nonatomic, strong) IBOutlet UITextField * idDual;
-@property (nonatomic, strong) IBOutlet UITextField * idCFI;
-@property (nonatomic, strong) IBOutlet UITextField * idSIC;
-@property (nonatomic, strong) IBOutlet UITextField * idPIC;
-@property (nonatomic, strong) IBOutlet UIButton * idPublic;
-
-@property (nonatomic, strong) IBOutlet UILabel * idLblStatus;
-@property (nonatomic, strong) IBOutlet UILabel * idLblSpeed;
-@property (nonatomic, strong) IBOutlet UILabel * idLblAltitude;
-@property (nonatomic, strong) IBOutlet UILabel * idLblQuality;
-@property (nonatomic, strong) IBOutlet UIImageView * idimgRecording;
-@property (nonatomic, strong) IBOutlet UILabel * idlblElapsedTime;
-@property (nonatomic, strong) IBOutlet UIButton * idbtnPausePlay;
-@property (nonatomic, strong) IBOutlet UIButton * idbtnAppendNearest;
-@property (nonatomic, strong) IBOutlet UILabel * lblLat;
-@property (nonatomic, strong) IBOutlet UILabel * lblLon;
-@property (nonatomic, strong) IBOutlet UILabel * lblSunrise;
-@property (nonatomic, strong) IBOutlet UILabel * lblSunset;
-
-@property (nonatomic, strong) IBOutlet id delegate;
-@property (strong) LogbookEntry * le;
-
-/* cells */
-@property (nonatomic, strong) IBOutlet UITableViewCell * cellDateAndTail;
-@property (nonatomic, strong) IBOutlet EditCell * cellComments;
-@property (nonatomic, strong) IBOutlet EditCell * cellRoute;
-@property (nonatomic, strong) IBOutlet UITableViewCell * cellLandings;
-@property (nonatomic, strong) IBOutlet UITableViewCell * cellGPS;
-@property (nonatomic, strong) IBOutlet UITableViewCell * cellTimeBlock;
-@property (nonatomic, strong) IBOutlet UITableViewCell * cellSharing;
-
-@property (nonatomic, strong) IBOutlet UIDatePicker * datePicker;
-@property (nonatomic, strong) IBOutlet UIPickerView * pickerView;
 
 // Cockpit view IBActions
 - (IBAction) viewClosest;
@@ -111,9 +62,4 @@
 - (BOOL) autoHobbs;
 
 - (void) saveState;
-@end
-
-
-@protocol LEEditDelegate
-- (void) flightUpdated:(LEEditController *) sender;
 @end

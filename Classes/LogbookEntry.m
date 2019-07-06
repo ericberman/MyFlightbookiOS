@@ -86,8 +86,6 @@ NSString * const _szKeyCustomProperties = @"pref_leCustProperties";
 NSString * const _szKeyPendingFlightsArray = @"pref_pendingFlightsArray";
 
 NSString * const _szkeyEntryData = @"_keyEntryData";
-NSString * const _szkeyTweet = @"_keyTweet";
-NSString * const _szkeyFaceBook = @"_keyFacebook";
 NSString * const _szkeyImages = @"_keyImageArray";
 
 NSString * const _szkeyIsPaused = @"_keyIsPaused";
