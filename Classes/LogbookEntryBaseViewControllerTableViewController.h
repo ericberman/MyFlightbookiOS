@@ -27,6 +27,8 @@
 #import "LogbookEntry.h"
 #import "SelectTemplates.h"
 #import "FlightProps.h"
+#import "ApproachEditor.h"
+#import "TotalsCalculator.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -37,16 +39,24 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 // FlightEditorBaseTableViewController, but now knows about a logbook entry and its associated properties and templates.  Still no actual layout...
-@interface LogbookEntryBaseViewControllerTableViewController : FlightEditorBaseTableViewController<SelectTemplatesDelegate>
+@interface LogbookEntryBaseViewControllerTableViewController : FlightEditorBaseTableViewController<SelectTemplatesDelegate, ApproachEditorDelegate, TotalsCalculatorDelegate>
 @property (strong) LogbookEntry * le;
 @property (strong) FlightProps * flightProps;
 @property (readwrite, strong) NSMutableSet<MFBWebServiceSvc_PropertyTemplate *> * activeTemplates;
 @property (nonatomic, strong) IBOutlet id<LEEditDelegate> delegate;
 
-
 // Template functionality
 - (void) updateTemplatesForAircraft:(MFBWebServiceSvc_Aircraft *) ac;
 - (void) pickTemplates:(id) sender;
+
+// Approach Editor
+- (IBAction) addApproach:(id) sender;
+
+// Options
+- (IBAction) configAutoDetect;
+
+// Long-press
+- (void) setHighWaterHobbs:(UILongPressGestureRecognizer *) sender;
 
 // actions on a flight
 - (void) sendFlight:(id) sender;

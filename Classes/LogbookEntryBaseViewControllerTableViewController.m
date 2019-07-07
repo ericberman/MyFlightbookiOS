@@ -27,6 +27,8 @@
 #import "FlightProperties.h"
 #import "HostedWebViewViewController.h"
 #import "MFBTheme.h"
+#import "DecimalEdit.h"
+#import "NearbyAirports.h"
 
 @interface LogbookEntryBaseViewControllerTableViewController ()
 
@@ -41,6 +43,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // Set up longpress recognizers for times
+    [self enableLongPressForField:self.idTotalTime withSelector:@selector(timeCalculator:)];
 }
 
 #pragma mark - Table view data source
@@ -140,5 +145,55 @@
         [self pushOrPopView:st fromView:sender withDelegate:self];
     else
         [self.navigationController pushViewController:st animated:YES];
+}
+
+#pragma mark - Approach Helper
+- (IBAction) addApproach:(id) sender {
+    ApproachEditor * editor = [ApproachEditor new];
+    editor.delegate = self;
+    [editor setAirports:[Airports CodesFromString:self.idRoute.text]];
+    [self pushOrPopView:editor fromView:sender withDelegate:self];
+}
+
+- (void) addApproachDescription:(ApproachDescription *) approachDescription {
+    [self.le.entryData addApproachDescription:approachDescription.description];
+    
+    if (approachDescription.addToTotals)
+        self.idApproaches.value = self.le.entryData.Approaches = @(self.le.entryData.Approaches.integerValue + approachDescription.approachCount);
+    [self.tableView reloadData];
+}
+
+#pragma mark - Time Calculator
+- (void) timeCalculator:(UILongPressGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        [self.idTotalTime resignFirstResponder];
+        self.le.entryData.TotalFlightTime = self.idTotalTime.value;
+        TotalsCalculator * tc = [TotalsCalculator new];
+        tc.delegate = self;
+        [tc setInitialTotal:self.le.entryData.TotalFlightTime];
+        [self pushOrPopView:tc fromView:self.idTotalTime withDelegate:self];
+    }
+}
+
+- (void) updateTotal:(NSNumber *)value {
+    self.le.entryData.TotalFlightTime = value;
+    self.idTotalTime.value = value;
+}
+
+#pragma mark Options
+- (void) configAutoDetect {
+    AutodetectOptions * vwAutoOptions = [[AutodetectOptions alloc] initWithNibName:@"AutodetectOptions" bundle:nil];
+    [self.navigationController pushViewController:vwAutoOptions animated:YES];
+}
+
+#pragma mark - LongPressCross-fill support
+- (void) setHighWaterHobbs:(UILongPressGestureRecognizer *) sender {
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        UITextField * target = (UITextField *) sender.view;
+        NSNumber * highWaterHobbs = [[Aircraft sharedAircraft] getHighWaterHobbsForAircraft:self.le.entryData.AircraftID];
+        if (highWaterHobbs != nil && highWaterHobbs.doubleValue > 0) {
+            target.value = self.le.entryData.HobbsStart = highWaterHobbs;
+        }
+    }
 }
 @end

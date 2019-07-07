@@ -245,6 +245,11 @@
     [self enableLongPressForField:self.idCFI withSelector:@selector(crossFillTotal:)];
     [self enableLongPressForField:self.idSIC withSelector:@selector(crossFillTotal:)];
     [self enableLongPressForField:self.idPIC withSelector:@selector(crossFillTotal:)];
+    
+    // Make the checkboxes checkboxes
+    [self.idHold setIsCheckbox];
+    [self.idPublic setIsCheckbox];
+    self.idHold.contentHorizontalAlignment = self.idPublic.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
 }
 
 - (void) viewWillAppear:(BOOL)animated {

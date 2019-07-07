@@ -36,21 +36,17 @@
 #import "GPSSim.h"
 #import "SunriseSunset.h"
 #import "CollapsibleTable.h"
-#import "ApproachEditor.h"
-#import "TotalsCalculator.h"
 #import "FlightProperties.h"
 
-@interface LEEditController : LogbookEntryBaseViewControllerTableViewController <NearbyAirportsDelegate, EditPropertyDelegate, AutoDetectDelegate, UIAlertViewDelegate, UIPickerViewDataSource, ApproachEditorDelegate, TotalsCalculatorDelegate> {
+@interface LEEditController : LogbookEntryBaseViewControllerTableViewController <NearbyAirportsDelegate, EditPropertyDelegate, AutoDetectDelegate, UIAlertViewDelegate, UIPickerViewDataSource, TotalsCalculatorDelegate> {
 }
 
 // Cockpit view IBActions
 - (IBAction) viewClosest;
 - (IBAction) autofillClosest;
-- (IBAction) configAutoDetect;
 - (IBAction) toggleFlightPause;
 - (IBAction) newAircraft;
 - (IBAction)dateChanged:(UIDatePicker *)sender;
-- (IBAction) addApproach:(id) sender;
 
 - (NSTimeInterval) elapsedTime;
 

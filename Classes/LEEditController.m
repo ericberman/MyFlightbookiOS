@@ -35,7 +35,6 @@
 #import "ButtonCell.h"
 #import "math.h"
 #import "RecentFlights.h"
-#import "ApproachEditor.h"
 #import "DecimalEdit.h"
 #import "TextCell.h"
 #import "MFBTheme.h"
@@ -90,17 +89,6 @@ enum rows {
 };
 
 CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, heightTimes, heightSharing;
-
-#pragma mark - LongPressCross-fill support
-- (void) setHighWaterHobbs:(UILongPressGestureRecognizer *) sender {
-    if (sender.state == UIGestureRecognizerStateBegan) {
-        UITextField * target = (UITextField *) sender.view;
-        NSNumber * highWaterHobbs = [[Aircraft sharedAircraft] getHighWaterHobbsForAircraft:self.le.entryData.AircraftID];
-        if (highWaterHobbs != nil && highWaterHobbs.doubleValue > 0) {
-            target.value = self.le.entryData.HobbsStart = highWaterHobbs;
-        }
-    }
-}
 
 #pragma mark - Object Life Cycle / initialization
 // The designated initializer. Override to perform setup that is required before the view is loaded.
@@ -299,15 +287,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
         self.timerElapsed = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(updatePausePlay) userInfo:nil repeats:YES];
         [[NSRunLoop currentRunLoop] addTimer:self.timerElapsed forMode:NSDefaultRunLoopMode];
     }
-    
-    // Set up longpress recognizers for times
-    [self enableLongPressForField:self.idTotalTime withSelector:@selector(timeCalculator:)];
 
-    // Make the checkboxes checkboxes
-    [self.idHold setIsCheckbox];
-    [self.idPublic setIsCheckbox];
-    self.idHold.contentHorizontalAlignment = self.idPublic.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    
     self.dictPropCells = [[NSMutableDictionary alloc] init];
     
     if (self.le.entryData.isSigned && self.le.entryData.HasDigitizedSig)
@@ -1804,13 +1784,6 @@ static NSDateFormatter * dfSunriseSunset = nil;
     [self updatePositionReport];
 }
 
-#pragma mark Options
-- (void) configAutoDetect
-{
-	AutodetectOptions * vwAutoOptions = [[AutodetectOptions alloc] initWithNibName:@"AutodetectOptions" bundle:nil];
-    [self.navigationController pushViewController:vwAutoOptions animated:YES];
-}
-
 #pragma mark View Properties
 - (void) propertyUpdated:(MFBWebServiceSvc_CustomPropertyType *)cpt {
     NSInteger propID = cpt.PropTypeID.integerValue;
@@ -1996,40 +1969,5 @@ static NSDateFormatter * dfSunriseSunset = nil;
     [super addImage:ci];
     if (![self isExpanded:sectImages])
         [self expandSection:sectImages];
-}
-
-#pragma mark - Approach Helper
-- (IBAction) addApproach:(id) sender
-{
-    ApproachEditor * editor = [ApproachEditor new];
-    editor.delegate = self;
-    [editor setAirports:[Airports CodesFromString:self.idRoute.text]];
-    [self pushOrPopView:editor fromView:sender withDelegate:self];
-}
-
-- (void) addApproachDescription:(ApproachDescription *) approachDescription
-{
-    [self.le.entryData addApproachDescription:approachDescription.description];
-
-    if (approachDescription.addToTotals)
-        self.idApproaches.value = self.le.entryData.Approaches = @(self.le.entryData.Approaches.integerValue + approachDescription.approachCount);
-    [self.tableView reloadData];
-}
-
-#pragma mark - Time Calculator
-- (void) timeCalculator:(UILongPressGestureRecognizer *)sender {
-    if (sender.state == UIGestureRecognizerStateBegan) {
-        [self.idTotalTime resignFirstResponder];
-        [self initLEFromForm];
-        TotalsCalculator * tc = [TotalsCalculator new];
-        tc.delegate = self;
-        [tc setInitialTotal:self.le.entryData.TotalFlightTime];
-        [self pushOrPopView:tc fromView:self.idTotalTime withDelegate:self];
-    }
-}
-
-- (void) updateTotal:(NSNumber *)value {
-    self.le.entryData.TotalFlightTime = value;
-    self.idTotalTime.value = value;
 }
 @end
