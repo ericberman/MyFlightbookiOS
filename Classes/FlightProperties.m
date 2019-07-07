@@ -49,6 +49,7 @@
 @implementation FlightProperties
 
 @synthesize le, flightProps, content, activeTextField, indices, rgAllProps, rgFilteredProps, vwAccessory, datePicker, dictPropCells, activeTemplates;
+@synthesize delegate;
 
 static NSString * szKeyRowValues = @"rowValues";
 static NSString * szKeyHeaderTitle = @"headerTitle";
@@ -356,6 +357,9 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
         return; // should never happen?
 
     [pc handleTextUpdate:textField];
+    
+    if (self.delegate != nil)
+        [delegate propertyUpdated:pc.cpt];
     
     [self.flightProps propValueChanged:pc.cfp];
 }

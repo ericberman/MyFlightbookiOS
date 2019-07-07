@@ -357,8 +357,6 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     [self.idHold setTitleColor:MFBTheme.currentTheme.labelForeColor forState:UIControlStateSelected];
     [self.idHold setTitleColor:MFBTheme.currentTheme.labelForeColor forState:UIControlStateHighlighted];
 
-    [self autoBlock];
-    
     // pick up any changes in the HHMM setting
     self.idXC.IsHHMM = self.idSIC.IsHHMM = self.idSimIMC.IsHHMM = self.idCFI.IsHHMM = self.idDual.IsHHMM =
     self.idGrndSim.IsHHMM = self.idIMC.IsHHMM = self.idNight.IsHHMM = self.idPIC.IsHHMM = self.idTotalTime.IsHHMM = [AutodetectOptions HHMMPref];
@@ -1217,7 +1215,6 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
         default:
             if (self.ipActive.section == sectProperties && row >= rowPropertyFirst)
                 fShouldEdit = [((PropertyCell *) tc) prepForEditing];
-            [self autoBlock];
             break;
     }
     
@@ -1244,7 +1241,6 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
 - (void) textFieldDidEndEditing:(UITextField *)textField
 {
     // catch any changes from retained fields
-    [self autoBlock];
     [self initLEFromForm];
 
     UITableViewCell * tc = [self owningCellGeneric:textField];
@@ -1259,6 +1255,7 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
     {
         PropertyCell * pc = (PropertyCell *) tc;
         [pc handleTextUpdate:textField];
+        [self propertyUpdated:pc.cpt];
         [self.flightProps propValueChanged:pc.cfp];
         if ([pc.cfp isDefaultForType:pc.cpt] && !pc.cpt.isLocked && ![[MFBWebServiceSvc_PropertyTemplate propListForSets:self.activeTemplates] containsObject:pc.cpt.PropTypeID]) {
             [self.le.entryData.CustomProperties.CustomFlightProperty removeObject:pc.cfp];
@@ -1424,12 +1421,6 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
             
             if (![NSDate isUnknownDate:blockOut] && ![NSDate isUnknownDate:blockIn])
                 dtTotal = ([blockIn timeIntervalSinceDate:blockOut] / 3600.0) - dtPauseTime;
-            
-            // We need to be aggressive about doing autoblock for a variety of reasons, but
-            // that means we needlessly recompute things like cross-country (below)
-            // so short circuit that if we've just recomputed the same time
-            if (round(dtTotal*100) == round(le.entryData.TotalFlightTime.doubleValue * 100))
-                return NO;
 
         }
             break;
@@ -1461,13 +1452,6 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
     
     return NO;
 }
-
-// autototal based on block is a bit trickier because block is a property, so this checks if we are in block mode and lets us do some extra auto-totals.
-- (void) autoBlock {
-    if (AutodetectOptions.autoTotalMode == autoTotalBlock)
-        [self autoTotal];
-}
-
 
 - (BOOL) autoHobbs
 {
@@ -1828,11 +1812,23 @@ static NSDateFormatter * dfSunriseSunset = nil;
 }
 
 #pragma mark View Properties
+- (void) propertyUpdated:(MFBWebServiceSvc_CustomPropertyType *)cpt {
+    NSInteger propID = cpt.PropTypeID.integerValue;
+    
+    if (AutodetectOptions.autoTotalMode == autoTotalBlock)
+    {
+        // Autoblock if editing a block time start or stop
+        if (propID == PropTypeID_BlockOut || propID == PropTypeID_BlockIn)
+            [self autoTotal];
+    }
+}
+
 - (void) viewProperties:(UIView *) sender
 {
     FlightProperties * vwProps = [[FlightProperties alloc] initWithNibName:@"FlightProperties" bundle:nil];
     vwProps.le = self.le;
     vwProps.activeTemplates = self.activeTemplates;
+    vwProps.delegate = self;
 
     [self pushOrPopView:vwProps fromView:sender withDelegate:self];
 }

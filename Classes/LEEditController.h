@@ -38,9 +38,9 @@
 #import "CollapsibleTable.h"
 #import "ApproachEditor.h"
 #import "TotalsCalculator.h"
-#import "SelectTemplates.h"
+#import "FlightProperties.h"
 
-@interface LEEditController : LogbookEntryBaseViewControllerTableViewController <NearbyAirportsDelegate, UITextFieldDelegate, AutoDetectDelegate, UIAlertViewDelegate, UIPickerViewDataSource, ApproachEditorDelegate, TotalsCalculatorDelegate> {
+@interface LEEditController : LogbookEntryBaseViewControllerTableViewController <NearbyAirportsDelegate, EditPropertyDelegate, AutoDetectDelegate, UIAlertViewDelegate, UIPickerViewDataSource, ApproachEditorDelegate, TotalsCalculatorDelegate> {
 }
 
 // Cockpit view IBActions

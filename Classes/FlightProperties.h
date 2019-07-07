@@ -33,6 +33,10 @@
 #import "PullRefreshTableViewController.h"
 #import "AccessoryBar.h"
 
+@protocol EditPropertyDelegate
+- (void) propertyUpdated:(MFBWebServiceSvc_CustomPropertyType *) cpt;
+@end
+
 @interface FlightProperties : PullRefreshTableViewController <UITextFieldDelegate, AccessoryBarDelegate, UISearchBarDelegate> {
 }
 
@@ -40,4 +44,5 @@
 @property (strong, readwrite) IBOutlet UIDatePicker * datePicker;
 @property (nonatomic, strong) IBOutlet UISearchBar * searchBar;
 @property (nonatomic, strong) NSSet<MFBWebServiceSvc_PropertyTemplate *> * activeTemplates;
+@property (nonatomic, strong) id<EditPropertyDelegate> delegate;
 @end
