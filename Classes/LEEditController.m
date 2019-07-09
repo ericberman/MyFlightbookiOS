@@ -1220,6 +1220,9 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
 
 - (void) textFieldDidEndEditing:(UITextField *)textField
 {
+    // to check if total changed
+    double oldTotal = self.le.entryData.TotalFlightTime.doubleValue;
+    
     // catch any changes from retained fields
     [self initLEFromForm];
 
@@ -1229,6 +1232,26 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
     // If the cell is off-screen (hidden), we need to get its index path by position.
     if (ip == nil && tc != nil)
         ip = [self.tableView indexPathForRowAtPoint:tc.center];
+    
+    // Issue #164: See if this was the aircraft field, in which case we need to update templates
+    if (textField == self.idPopAircraft) {
+        // switching aircraft - update the templates, starting fresh.
+        MFBWebServiceSvc_Aircraft * ac = [Aircraft.sharedAircraft AircraftByID:self.le.entryData.AircraftID.intValue];
+        NSMutableSet<MFBWebServiceSvc_PropertyTemplate *> * original = [[NSMutableSet alloc] initWithSet:self.activeTemplates];
+        if (ac.DefaultTemplates.int_.count > 0)
+            [self.activeTemplates removeAllObjects];
+        [self updateTemplatesForAircraft:ac];
+        
+        // call templatesUpdated, but only if there's actually been a change
+        NSInteger originalCount = original.count;
+        [original minusSet:self.activeTemplates];
+        if (originalCount != self.activeTemplates.count || original.count != 0)
+            [self templatesUpdated:self.activeTemplates];
+    } else if (textField == self.idTotalTime) {
+        // Issue #159: if total time changes, need to reset properties cross-fill value.
+        if (oldTotal != self.idTotalTime.value.doubleValue)
+            [self.tableView reloadData];
+    }
     
     NSInteger row = [self cellIDFromIndexPath:ip];
     if (row >= rowPropertyFirst)
@@ -1838,13 +1861,6 @@ static NSDateFormatter * dfSunriseSunset = nil;
     MFBWebServiceSvc_Aircraft * ac = self.selectibleAircraft[row];
     self.le.entryData.AircraftID = ac.AircraftID;
     self.idPopAircraft.text = ac.displayTailNumber;
-
-    // switching aircraft - update the templates, starting fresh.
-    if (ac.DefaultTemplates.int_.count > 0)
-        [self.activeTemplates removeAllObjects];
-    [self updateTemplatesForAircraft:ac];
-    [self templatesUpdated:self.activeTemplates];
-    [self.tableView reloadData];
 }
 
 #pragma mark - DatePicker
