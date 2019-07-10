@@ -18,7 +18,7 @@
  */
 
 //
-//  FirstViewController.h
+//  LEEditController
 //  MFBSample
 //
 //  Created by Eric Berman on 11/28/09.
@@ -26,7 +26,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LogbookEntryBaseViewControllerTableViewController.h"
+#import "LogbookEntryBaseTableViewController.h"
 #import "LogbookEntry.h"
 #import "MFBProfile.h"
 #import "NearbyAirports.h"
@@ -38,7 +38,7 @@
 #import "CollapsibleTable.h"
 #import "FlightProperties.h"
 
-@interface LEEditController : LogbookEntryBaseViewControllerTableViewController <NearbyAirportsDelegate, EditPropertyDelegate, AutoDetectDelegate, UIAlertViewDelegate, UIPickerViewDataSource, TotalsCalculatorDelegate> {
+@interface LEEditController : LogbookEntryBaseTableViewController <NearbyAirportsDelegate, EditPropertyDelegate, AutoDetectDelegate, UIAlertViewDelegate, UIPickerViewDataSource, TotalsCalculatorDelegate> {
 }
 
 // Cockpit view IBActions
