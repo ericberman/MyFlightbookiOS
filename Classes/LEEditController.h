@@ -29,23 +29,17 @@
 #import "LogbookEntryBaseTableViewController.h"
 #import "LogbookEntry.h"
 #import "MFBProfile.h"
-#import "NearbyAirports.h"
 #import "CommentedImage.h"
 #import "AutodetectOptions.h"
-#import "MyAircraft.h"
 #import "GPSSim.h"
 #import "SunriseSunset.h"
-#import "CollapsibleTable.h"
 #import "FlightProperties.h"
 
-@interface LEEditController : LogbookEntryBaseTableViewController <NearbyAirportsDelegate, EditPropertyDelegate, AutoDetectDelegate, UIAlertViewDelegate, UIPickerViewDataSource, TotalsCalculatorDelegate> {
+@interface LEEditController : LogbookEntryBaseTableViewController <EditPropertyDelegate, AutoDetectDelegate, UIAlertViewDelegate, UIPickerViewDataSource> {
 }
 
 // Cockpit view IBActions
-- (IBAction) viewClosest;
-- (IBAction) autofillClosest;
 - (IBAction) toggleFlightPause;
-- (IBAction) newAircraft;
 - (IBAction)dateChanged:(UIDatePicker *)sender;
 
 - (NSTimeInterval) elapsedTime;

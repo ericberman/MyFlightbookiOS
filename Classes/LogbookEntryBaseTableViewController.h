@@ -29,21 +29,30 @@
 #import "FlightProps.h"
 #import "ApproachEditor.h"
 #import "TotalsCalculator.h"
+#import "NearbyAirports.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
+// FlightEditorBaseTableViewController, but now knows about a logbook entry and its associated properties and templates.
+// Also handles launching of various IBActions like adding aircraft, approaches, launching the totals calculator etc..
+// Main pieces not in here are UITableView delegate and data source.
 @class LogbookEntryBaseTableViewController;
 
 @protocol LEEditDelegate
 - (void) flightUpdated:(LogbookEntryBaseTableViewController *) sender;
 @end
 
-// FlightEditorBaseTableViewController, but now knows about a logbook entry and its associated properties and templates.  Still no actual layout...
-@interface LogbookEntryBaseTableViewController : FlightEditorBaseTableViewController<SelectTemplatesDelegate, ApproachEditorDelegate, TotalsCalculatorDelegate>
+@interface LogbookEntryBaseTableViewController : FlightEditorBaseTableViewController<SelectTemplatesDelegate, ApproachEditorDelegate, TotalsCalculatorDelegate, NearbyAirportsDelegate>
 @property (strong) LogbookEntry * le;
 @property (strong) FlightProps * flightProps;
 @property (readwrite, strong) NSMutableSet<MFBWebServiceSvc_PropertyTemplate *> * activeTemplates;
 @property (nonatomic, strong) IBOutlet id<LEEditDelegate> delegate;
+
+// Binding data to/from the UI
+- (void) initLEFromForm;
+- (void) initFormFromLE;
+- (void) resetDateOfFlight;
+- (void) setCurrentAircraft: (MFBWebServiceSvc_Aircraft *) ac;
 
 // Template functionality
 - (void) updateTemplatesForAircraft:(MFBWebServiceSvc_Aircraft *) ac;
@@ -55,8 +64,16 @@ NS_ASSUME_NONNULL_BEGIN
 // Options
 - (IBAction) configAutoDetect;
 
+// New Aircraft
+- (IBAction) newAircraft;
+
 // Long-press
 - (void) setHighWaterHobbs:(UILongPressGestureRecognizer *) sender;
+
+// Nearby airports IBActions.
+- (IBAction) viewClosest;
+- (IBAction) autofillClosest;
+
 
 // actions on a flight
 - (void) sendFlight:(id) sender;

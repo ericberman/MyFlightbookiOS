@@ -27,7 +27,6 @@
 #import "LEEditController.h"
 #import <QuartzCore/QuartzCore.h>
 #import <MobileCoreServices/UTCoreTypes.h>
-#import "NearbyAirports.h"
 #import "ImageComment.h"
 #import "FlightProps.h"
 #import "FlightProperties.h"
@@ -37,7 +36,6 @@
 #import "RecentFlights.h"
 #import "DecimalEdit.h"
 #import "TextCell.h"
-#import "MFBTheme.h"
 
 @interface LEEditController()
 @property (nonatomic, strong) NSTimer * timerElapsed;
@@ -47,12 +45,8 @@
 
 - (void) updatePausePlay;
 - (void) updatePositionReport;
-- (void) setDisplayDate:(NSDate *) dt;
-- (void) setCurrentAircraft:(MFBWebServiceSvc_Aircraft *)ac;
 - (BOOL) autoHobbs;
 - (BOOL) autoTotal;
-- (void) initFormFromLE;
-- (void) initLEFromForm;
 - (void) resetFlight;
 - (void) submitFlight:(id)sender;
 - (void) startEngine;
@@ -179,8 +173,6 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     heightSharing = self.cellSharing.frame.size.height;
     heightTimes = self.cellTimeBlock.frame.size.height;
     
-    [self.idbtnAppendNearest addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(appendAdHoc:)]];
-
     // And set up remaining inputviews/accessory views
     self.idDate.inputView = self.datePicker;
     self.idPopAircraft.inputView = self.pickerView;
@@ -322,25 +314,6 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     
     MFBAppDelegate * app = mfbApp();
     
-    // Issue #109 - stupid apple bug; button initially shows up as gray despite being enabled.
-    self.navigationItem.rightBarButtonItem.enabled = NO;
-    self.navigationItem.rightBarButtonItem.enabled = YES;
-    
-    // fix placeholder theming
-    self.idComments.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"Comments", @"Entry field: Comments")];
-    self.idRoute.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"Route", @"Entry field: Route")];
-    self.idPopAircraft.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"Aircraft", @"Entry field: Aircraft")];
-    [self.idPublic setTitleColor:MFBTheme.currentTheme.labelForeColor forState:UIControlStateNormal];
-    [self.idPublic setTitleColor:MFBTheme.currentTheme.labelForeColor forState:UIControlStateSelected];
-    [self.idPublic setTitleColor:MFBTheme.currentTheme.labelForeColor forState:UIControlStateHighlighted];
-    [self.idHold setTitleColor:MFBTheme.currentTheme.labelForeColor forState:UIControlStateNormal];
-    [self.idHold setTitleColor:MFBTheme.currentTheme.labelForeColor forState:UIControlStateSelected];
-    [self.idHold setTitleColor:MFBTheme.currentTheme.labelForeColor forState:UIControlStateHighlighted];
-
-    // pick up any changes in the HHMM setting
-    self.idXC.IsHHMM = self.idSIC.IsHHMM = self.idSimIMC.IsHHMM = self.idCFI.IsHHMM = self.idDual.IsHHMM =
-    self.idGrndSim.IsHHMM = self.idIMC.IsHHMM = self.idNight.IsHHMM = self.idPIC.IsHHMM = self.idTotalTime.IsHHMM = [AutodetectOptions HHMMPref];
-
     // Pick up an aircraft if one was added and none had been selected
     if ([self.idPopAircraft.text length] == 0)
     {
@@ -491,100 +464,18 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 }
 
 #pragma mark - Read/Write Form
-- (void) initLEFromForm
-{
-	// make sure view has actually loaded!
-	if (self.idRoute == nil) // should always have a route.
-		return;
-	
-	MFBWebServiceSvc_LogbookEntry * entryData = self.le.entryData;
-	
-	// Set _le properties that have not been auto-set already
-	if (entryData.FlightID == nil)
-		entryData.FlightID = @-1;
-    entryData.Route = self.idRoute.text;
-    entryData.Comment = self.idComments.text;
-    entryData.Approaches = self.idApproaches.value;
-    entryData.fHoldingProcedures = [[USBoolean alloc] initWithBool:self.idHold.selected];
-    entryData.FullStopLandings = self.idDayLandings.value;
-    entryData.NightLandings = self.idNightLandings.value;
-    entryData.Landings = self.idLandings.value;
-
-    entryData.CFI = self.idCFI.value;
-    entryData.SIC = self.idSIC.value;
-    entryData.PIC = self.idPIC.value;
-    entryData.Dual = self.idDual.value;
-    entryData.CrossCountry = self.idXC.value;
-    entryData.IMC = self.idIMC.value;
-    entryData.SimulatedIFR = self.idSimIMC.value;
-    entryData.GroundSim = self.idGrndSim.value;
-    entryData.Nighttime = self.idNight.value;
-    entryData.TotalFlightTime = self.idTotalTime.value;
-
-    entryData.fIsPublic = [[USBoolean alloc] initWithBool:self.idPublic.selected];
-}
-
-- (void) setCurrentAircraft: (MFBWebServiceSvc_Aircraft *) ac
-{
-    if (ac == nil)
-    {
-        self.le.entryData.AircraftID = @0;
-        self.idPopAircraft.text = @"";
-    }
-    else {
-        BOOL fChanged = ac.AircraftID.integerValue != self.le.entryData.AircraftID.integerValue;
-        if (self.idPopAircraft != nil) {
-            self.idPopAircraft.text = ac.TailNumber;
-            self.le.entryData.AircraftID = ac.AircraftID;
-        }
-        
-        if (fChanged)
-            [self updateTemplatesForAircraft:ac];
-    }
-}
-
-- (void) setDisplayDate: (NSDate *) dt
-{
-	if (self.idDate != nil)
-        self.idDate.text = [dt dateString];
-}
 
 - (void) initFormFromLE:(BOOL) fReloadTable
-{	
-	MFBWebServiceSvc_LogbookEntry * entryData = self.le.entryData;	
-	
-	[self setDisplayDate:entryData.Date];
-	
-    [self setCurrentAircraft:[[Aircraft sharedAircraft] AircraftByID:entryData.AircraftID.intValue]];
-    self.idRoute.text = entryData.Route;
-    self.idComments.text = entryData.Comment;
-    [self.idApproaches setValue:entryData.Approaches withDefault:@0.0];
-    [self.idLandings setValue:entryData.Landings withDefault:@0.0];
-    [self.idDayLandings setValue:entryData.FullStopLandings withDefault:@0.0];
-    [self.idNightLandings setValue:entryData.NightLandings withDefault:@0.0];
-
-    [self.idTotalTime setValue:entryData.TotalFlightTime withDefault:@0.0];
-    [self.idCFI setValue:entryData.CFI withDefault:@0.0];
-    [self.idSIC setValue:entryData.SIC withDefault:@0.0];
-    [self.idPIC setValue:entryData.PIC withDefault:@0.0];
-    [self.idDual setValue:entryData.Dual withDefault:@0.0];
-    [self.idXC setValue:entryData.CrossCountry withDefault:@0.0];
-    [self.idIMC setValue:entryData.IMC withDefault:@0.0];
-    [self.idSimIMC setValue:entryData.SimulatedIFR withDefault:@0.0];
-    [self.idGrndSim setValue:entryData.GroundSim withDefault:@0.0];
-    [self.idNight setValue:entryData.Nighttime withDefault:@0.0];
-	[self.idHold setCheckboxValue:entryData.fHoldingProcedures.boolValue];
+{
+    [super initFormFromLE];
     
-    // sharing options
-    [self.idPublic setCheckboxValue:entryData.fIsPublic.boolValue];
-	
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSMutableArray<CommentedImage *> * rgCiLocal = [NSMutableArray new];
         for (CommentedImage * ci in self.le.rgPicsForFlight)
             if (!ci.imgInfo.livesOnServer)
                 [rgCiLocal addObject:ci];
         NSMutableArray * rgPics = [NSMutableArray new];
-        if ([CommentedImage initCommentedImagesFromMFBII:entryData.FlightImages.MFBImageInfo toArray:rgPics]) {
+        if ([CommentedImage initCommentedImagesFromMFBII:self.le.entryData.FlightImages.MFBImageInfo toArray:rgPics]) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.le.rgPicsForFlight = rgPics;
                 [rgPics addObjectsFromArray:rgCiLocal];
@@ -596,7 +487,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     });
     
     [self updatePausePlay];
-	
+    
     self.idimgRecording.hidden = !mfbApp().mfbloc.fRecordFlightData || ![self flightCouldBeInProgress];
     mfbApp().watchData.isRecording = !self.idimgRecording.hidden;
     
@@ -604,17 +495,11 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
         [self.tableView reloadData];
 }
 
-- (void) initFormFromLE
-{
+- (void) initFormFromLE {
     [self initFormFromLE:YES];
 }
 
 #pragma mark Flight Submission
-- (IBAction) newAircraft
-{
-    [MyAircraft pushNewAircraftOnViewController:self.navigationController];    
-}
-
 // Called after a flight is EITHER successfully posted to the site OR successfully queued for later.
 - (void) submitFlightSuccessful
 {
@@ -1311,17 +1196,6 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
 }
 
 #pragma mark In the Cockpit
-- (void) resetDateOfFlight
-{
-    NSDate * dt = [NSDate date];
-    
-    if (self.le.entryData.isKnownEngineStart && [self.le.entryData.EngineStart compare:dt] == NSOrderedAscending)
-        dt = self.le.entryData.EngineStart;
-    if (self.le.entryData.isKnownFlightStart && [self.le.entryData.FlightStart compare:dt] == NSOrderedAscending)
-        dt = self.le.entryData.FlightStart;
-    [self setDisplayDate:(le.entryData.Date = dt)];
-}
-
 - (void) startEngine
 {
     if (self.le.entryData.isNewFlight)
@@ -1578,69 +1452,6 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
     [self autoHobbs];
     [self autoTotal];
     [mfbApp() updateWatchContext];
-}
-
-#pragma mark NearbyAirportsDelegate
-- (void) airportClicked:(MFBWebServiceSvc_airport *) ap
-{
-	if (ap != nil)
-	{
-		NSString * newRoute = [Airports appendAirport:ap ToRoute:((self.idRoute == nil) ? self.le.entryData.Route : self.idRoute.text)];
-		self.le.entryData.Route = newRoute;
-		if (self.idRoute != nil)
-			self.idRoute.text = newRoute;
-	}
-}
-
-- (void) routeUpdated:(NSString *)newRoute
-{
-    self.idRoute.text = self.le.entryData.Route = newRoute;
-}
-
-#pragma mark autofill
-- (IBAction) autofillClosest
-{
-	NSString * szRoute = [Airports appendNearestAirport:self.le.entryData.Route];
-	self.le.entryData.Route = self.idRoute.text = szRoute;
-}
-
-- (void) appendAdHoc:(id) sender
-{
-    NSString * szLatLong = [[[MFBWebServiceSvc_LatLong alloc] initWithCoord:mfbApp().mfbloc.lastSeenLoc.coordinate] toAdhocString];
-    NSString * szRoute = [Airports appendAirport:[MFBWebServiceSvc_airport getAdHoc:szLatLong] ToRoute:self.le.entryData.Route];
-    self.le.entryData.Route = self.idRoute.text = szRoute;
-}
-
-- (IBAction) viewClosest
-{
-	if (self.navigationController != nil)
-	{        
-        [self initLEFromForm];
-        NearbyAirports * vwNearbyAirports =[[NearbyAirports alloc] init];
-        
-        Airports * ap = [[Airports alloc] init];
-        [ap loadAirportsFromRoute:self.le.entryData.Route];
-        vwNearbyAirports.pathAirports = ap;
-        vwNearbyAirports.routeText = self.le.entryData.Route;
-        vwNearbyAirports.delegateNearest = ([self.le.entryData isNewFlight] ? self : nil);
-        
-        vwNearbyAirports.associatedFlight = self.le;
-        [vwNearbyAirports getPathForLogbookEntry];
-        
-        vwNearbyAirports.rgImages = [[NSMutableArray alloc] init];
-        
-        if (self.le.entryData.isNewFlight)
-            self.le.gpxPath = mfbApp().mfbloc.gpxData;
-        
-        for (CommentedImage * ci in self.le.rgPicsForFlight)
-        {
-            if (ci.imgInfo.Location != nil && ci.imgInfo.Location.Latitude != nil && ci.imgInfo.Location.Longitude != nil)
-                [vwNearbyAirports.rgImages addObject:ci];
-        }
-        
-        if (self.navigationController != nil)
-            [self.navigationController pushViewController:vwNearbyAirports animated:YES];
-	}
 }
 
 #pragma mark Autodetection delegates
