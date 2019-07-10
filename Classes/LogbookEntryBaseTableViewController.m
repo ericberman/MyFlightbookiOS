@@ -17,24 +17,24 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 //
-//  LogbookEntryBaseViewControllerTableViewController.m
+//  LogbookEntryTableViewController.m
 //  MyFlightbook
 //
 //  Created by Eric Berman on 7/4/19.
 //
 
-#import "LogbookEntryBaseViewControllerTableViewController.h"
+#import "LogbookEntryBaseTableViewController.h"
 #import "FlightProperties.h"
 #import "HostedWebViewViewController.h"
 #import "MFBTheme.h"
 #import "DecimalEdit.h"
 #import "NearbyAirports.h"
 
-@interface LogbookEntryBaseViewControllerTableViewController ()
+@interface LogbookEntryBaseTableViewController ()
 
 @end
 
-@implementation LogbookEntryBaseViewControllerTableViewController
+@implementation LogbookEntryBaseTableViewController
 
 @synthesize le;
 @synthesize activeTemplates;

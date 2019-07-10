@@ -17,7 +17,7 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 //
-//  LogbookEntryBaseViewControllerTableViewController.h
+//  LogbookEntryBaseTableViewController.h
 //  MyFlightbook
 //
 //  Created by Eric Berman on 7/4/19.
@@ -32,14 +32,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class LogbookEntryBaseViewControllerTableViewController;
+@class LogbookEntryBaseTableViewController;
 
 @protocol LEEditDelegate
-- (void) flightUpdated:(LogbookEntryBaseViewControllerTableViewController *) sender;
+- (void) flightUpdated:(LogbookEntryBaseTableViewController *) sender;
 @end
 
 // FlightEditorBaseTableViewController, but now knows about a logbook entry and its associated properties and templates.  Still no actual layout...
-@interface LogbookEntryBaseViewControllerTableViewController : FlightEditorBaseTableViewController<SelectTemplatesDelegate, ApproachEditorDelegate, TotalsCalculatorDelegate>
+@interface LogbookEntryBaseTableViewController : FlightEditorBaseTableViewController<SelectTemplatesDelegate, ApproachEditorDelegate, TotalsCalculatorDelegate>
 @property (strong) LogbookEntry * le;
 @property (strong) FlightProps * flightProps;
 @property (readwrite, strong) NSMutableSet<MFBWebServiceSvc_PropertyTemplate *> * activeTemplates;

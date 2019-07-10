@@ -208,7 +208,7 @@
 		9A7B3B952135A8AA00CD3BEA /* WPSAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7B3B942135A8AA00CD3BEA /* WPSAlertController.m */; };
 		9A7C143C1533D660007EB69A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9A7C143B1533D660007EB69A /* Settings.bundle */; };
 		9A7FE95D12494F87001A8722 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7FE95C12494F87001A8722 /* Reachability.m */; };
-		9A8005A022CEBCCF00EC487E /* LogbookEntryBaseViewControllerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A80059F22CEBCCF00EC487E /* LogbookEntryBaseViewControllerTableViewController.m */; };
+		9A8005A022CEBCCF00EC487E /* LogbookEntryBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A80059F22CEBCCF00EC487E /* LogbookEntryBaseTableViewController.m */; };
 		9A804AF616EE445F002F77CA /* DateRangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A804AF416EE445F002F77CA /* DateRangeViewController.m */; };
 		9A804AF716EE445F002F77CA /* DateRangeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A804AF516EE445F002F77CA /* DateRangeViewController.xib */; };
 		9A820A991D970359001EDEDF /* MakeModel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A820A971D970359001EDEDF /* MakeModel.xib */; };
@@ -758,8 +758,8 @@
 		9A7E42B611810DBF002000A4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9A7FE95B12494F87001A8722 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Classes/Reachability.h; sourceTree = SOURCE_ROOT; };
 		9A7FE95C12494F87001A8722 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Classes/Reachability.m; sourceTree = SOURCE_ROOT; };
-		9A80059E22CEBCCF00EC487E /* LogbookEntryBaseViewControllerTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogbookEntryBaseViewControllerTableViewController.h; sourceTree = "<group>"; };
-		9A80059F22CEBCCF00EC487E /* LogbookEntryBaseViewControllerTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogbookEntryBaseViewControllerTableViewController.m; sourceTree = "<group>"; };
+		9A80059E22CEBCCF00EC487E /* LogbookEntryBaseTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogbookEntryBaseTableViewController.h; sourceTree = "<group>"; };
+		9A80059F22CEBCCF00EC487E /* LogbookEntryBaseTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogbookEntryBaseTableViewController.m; sourceTree = "<group>"; };
 		9A804AF316EE445F002F77CA /* DateRangeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateRangeViewController.h; sourceTree = "<group>"; };
 		9A804AF416EE445F002F77CA /* DateRangeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateRangeViewController.m; sourceTree = "<group>"; };
 		9A804AF516EE445F002F77CA /* DateRangeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DateRangeViewController.xib; sourceTree = "<group>"; };
@@ -1258,8 +1258,8 @@
 				9A8BFADE22B00B1000CB79E0 /* SelectTemplates.m */,
 				9A70B18522C07A8500CA7E21 /* FlightEditorBaseTableViewController.h */,
 				9A70B18622C07A8500CA7E21 /* FlightEditorBaseTableViewController.m */,
-				9A80059E22CEBCCF00EC487E /* LogbookEntryBaseViewControllerTableViewController.h */,
-				9A80059F22CEBCCF00EC487E /* LogbookEntryBaseViewControllerTableViewController.m */,
+				9A80059E22CEBCCF00EC487E /* LogbookEntryBaseTableViewController.h */,
+				9A80059F22CEBCCF00EC487E /* LogbookEntryBaseTableViewController.m */,
 			);
 			name = "Flight Entry";
 			sourceTree = "<group>";
@@ -2386,7 +2386,7 @@
 				9A6B78A122399C8C0014B0C2 /* NewAircraftViewController.m in Sources */,
 				9ACEDB9922388BAB00221A17 /* AircraftViewController.m in Sources */,
 				9A691EBA10C73E4300DF1CA6 /* LogbookEntry.m in Sources */,
-				9A8005A022CEBCCF00EC487E /* LogbookEntryBaseViewControllerTableViewController.m in Sources */,
+				9A8005A022CEBCCF00EC487E /* LogbookEntryBaseTableViewController.m in Sources */,
 				9A73C8B021B1A9A500AE1221 /* CurrencyCategories.m in Sources */,
 				9A73C86C21B0671900AE1221 /* TodayWidgetBase.m in Sources */,
 				9A69202B10CCBD8B00DF1CA6 /* NSDate+ISO8601Parsing.m in Sources */,
