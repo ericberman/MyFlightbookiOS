@@ -50,6 +50,4 @@
 
 - (BOOL) autoTotal;
 - (BOOL) autoHobbs;
-
-- (void) saveState;
 @end

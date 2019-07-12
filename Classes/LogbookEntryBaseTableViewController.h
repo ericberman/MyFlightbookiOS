@@ -58,6 +58,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) updateTemplatesForAircraft:(MFBWebServiceSvc_Aircraft *) ac;
 - (void) pickTemplates:(id) sender;
 
+// Properties
+- (void) refreshProperties;
+
 // Approach Editor
 - (IBAction) addApproach:(id) sender;
 
@@ -74,6 +77,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction) viewClosest;
 - (IBAction) autofillClosest;
 
+// Saving a flight
+- (void) submitFlight:(id) sender;
+
+// Saving state
+- (void) saveState;
+- (void) restoreFlightInProgress;
+
+// Reset flight
+- (void) resetFlight;
+- (void) resetFlightWithConfirmation;
 
 // actions on a flight
 - (void) sendFlight:(id) sender;

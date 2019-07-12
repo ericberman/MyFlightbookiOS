@@ -30,6 +30,7 @@
 #import "DecimalEdit.h"
 #import "NearbyAirports.h"
 #import "MyAircraft.h"
+#import "RecentFlights.h"
 
 @interface LogbookEntryBaseTableViewController ()
 
@@ -76,6 +77,168 @@
 
 #pragma mark - Table view data source
 // ALL DONE IN SUPER OR SUBCLASSES
+
+NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
+
+#pragma mark - Save State
+- (void) saveState {
+    // don't save anything if we are viewing an existing flight
+    if (self.le.entryData.isNewFlight) {
+        // LE should already be in sync with the UI.
+        self.le.entryData.FlightData = MFBAppDelegate.threadSafeAppDelegate.mfbloc.flightDataAsString;
+        
+        NSUserDefaults * defs = [NSUserDefaults standardUserDefaults];
+        [defs setObject:[NSKeyedArchiver archivedDataWithRootObject:@[self.le]] forKey:_szKeyCurrentFlight];
+        [defs synchronize];
+    }
+}
+
+- (void) restoreFlightInProgress {
+    NSData * ar = (NSData *) [NSUserDefaults.standardUserDefaults objectForKey:_szKeyCurrentFlight];
+    if (ar != nil) {
+        self.le = (LogbookEntry *) ((NSArray *)[NSKeyedUnarchiver unarchiveObjectWithData:ar])[0];
+        self.le.entryData.Date = [NSDate date]; // go with today
+    }
+    else {
+        self.le = [[LogbookEntry alloc] init];
+        [self setupForNewFlight];
+    }
+}
+
+#pragma mark - Resetting flights
+// re-initializes a flight but DOES NOT update any UI.
+- (void) setupForNewFlight {
+    NSNumber * endingHobbs = self.le.entryData.HobbsEnd; // remember ending hobbs for last flight...
+    
+    self.le    = [[LogbookEntry alloc] init];
+    self.le.entryData.Date = [NSDate date];
+    self.le.entryData.FlightID = NEW_FLIGHT_ID;
+    // Add in any locked properties - but don't hit the web.
+    FlightProps * fp = [FlightProps getFlightPropsNoNet];
+    [self.le.entryData.CustomProperties setProperties:[fp defaultPropList]];
+    
+    MFBWebServiceSvc_Aircraft * ac = [[Aircraft sharedAircraft] preferredAircraft];
+    
+    // Initialize the active templates to the defaults, either for this aircraft or the ones you've indicated you want to use by default.
+    self.activeTemplates = [NSMutableSet<MFBWebServiceSvc_PropertyTemplate *> setWithArray: (ac.DefaultTemplates.int_.count > 0) ? [MFBWebServiceSvc_PropertyTemplate templatesWithIDs:ac.DefaultTemplates.int_] : MFBWebServiceSvc_PropertyTemplate.defaultTemplates];
+    [self templatesUpdated:self.activeTemplates];
+    
+    [self setCurrentAircraft:ac];
+    
+    MFBLocation * mfbloc = mfbApp().mfbloc;
+    [mfbloc stopRecordingFlightData];
+    [mfbloc resetFlightData]; // clean up any old flight-tracking data
+    
+    [self.le initNumerics];
+    
+    // ...and start the starting hobbs to be the previous flight's ending hobbs.  If it was nil, we're fine.
+    self.le.entryData.HobbsStart = endingHobbs;
+    [self saveState]; // clean up any old state
+    [MFBAppDelegate.threadSafeAppDelegate updateWatchContext];
+}
+
+- (void) resetFlight {
+    [self setupForNewFlight];
+    [self initFormFromLE];
+}
+
+- (void) resetFlightWithConfirmation {
+    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"" message:NSLocalizedString(@"Are you sure you want to reset this flight?  This CANNOT be undone", @"Reset Flight confirmation") preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel (button)") style:UIAlertActionStyleCancel handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"OK") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [self resetFlight];
+        mfbApp().watchData.flightStage = flightStageUnstarted;
+        [mfbApp() updateWatchContext];
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+#pragma mark - Saving flights
+#pragma mark Flight Submission
+// Called after a flight is EITHER successfully posted to the site OR successfully queued for later.
+- (void) submitFlightSuccessful
+{
+    MFBAppDelegate * app = mfbApp();
+    // set the preferred aircraft
+    [Aircraft sharedAircraft].DefaultAircraftID = self.le.entryData.AircraftID.intValue;
+    
+    // invalidate any cached totals and currency, since the newly entered flight renders them obsolete
+    [app invalidateCachedTotals];
+    UIView * targetView = [app recentsView].view;
+    
+    // and let any delegate know that the flight has updated
+    if (self.delegate != nil)
+        [self.delegate flightUpdated:self];
+    else {
+        [UIView transitionFromView:self.navigationController.view
+                            toView:targetView
+                          duration:0.75
+                           options:UIViewAnimationOptionTransitionCurlUp
+                        completion:^(BOOL finished)
+         {
+             if (finished)
+             {
+                 // Could this be where the recents view isn't loaded?
+                 mfbApp().tabBarController.selectedViewController = mfbApp().tabRecents;
+                 [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+             }
+         }];
+    }
+    
+    // clear the form for another entry
+    [self setupForNewFlight];
+    [self initFormFromLE];
+}
+
+- (void) submitFlight:(id) sender {
+    [self.tableView endEditing:YES];
+    // Basic validation
+    // make sure we have the latest of everything - this should be unnecessary
+    [self initLEFromForm];
+    
+    if ([self.le.entryData.AircraftID intValue] <= 0)
+    {
+        UIAlertController * alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"No Aircraft", @"Title for No Aircraft error")
+                                                                        message:NSLocalizedString(@"Each flight must specify an aircraft.  Create one now?", @"Error - must have aircraft")
+                                                                 preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel (button)") style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Create", @"Button title to create an aircraft") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self newAircraft];
+        }]];
+        [self presentViewController:alert animated:YES completion:nil];
+        return;
+    }
+    
+    MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
+    if (![app.userProfile isValid]) // should never happen - app delegate should have prevented this page from showing.
+        return;
+    
+    self.le.szAuthToken = app.userProfile.AuthToken;
+    self.le.entryData.User = app.userProfile.UserName;
+    
+    BOOL fIsNew = [self.le.entryData isNewFlight];
+    
+    // get flight telemetry
+    [app.mfbloc stopRecordingFlightData];
+    if (fIsNew)
+        self.le.entryData.FlightData = [app.mfbloc flightDataAsString];
+    else if (![self.le.entryData isNewOrPending]) // for existing flights, don't send up flighttrackdata
+        self.le.entryData.FlightData = nil;
+    
+    // remove any non-default properties from the list.
+    [self.le.entryData.CustomProperties setProperties:[self.flightProps distillList:self.le.entryData.CustomProperties.CustomFlightProperty includeLockedProps:NO includeTemplates:nil]];
+    
+    self.le.errorString = @""; // assume no error
+    
+    // if it's a new flight, queue it.  We set the id to -2 to distinguish it from a new flight.
+    // If it's pending, we just no-op and tell the user it's still queued.
+    if (self.le.entryData.isNewOrPending)
+        self.le.entryData.FlightID = PENDING_FLIGHT_ID;
+    
+    // add it to the pending flight queue - it will start submitting when recent flights are viewed
+    [app queueFlightForLater:self.le];
+    [self submitFlightSuccessful];
+}
 
 #pragma mark - Binding data to UI
 - (void) initLEFromForm {
@@ -195,7 +358,6 @@
 - (void) shareFlight:(id) sender {
     [self.le.entryData shareFlight:sender fromViewController:self];
 }
-
 
 - (void) sendFlight:(id) sender {
     UIAlertController * uac = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"flightActionMenuPrompt", @"Actions for this flight") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
@@ -348,9 +510,8 @@
 }
 
 - (IBAction) viewClosest {
-    if (self.navigationController != nil)
-    {
-        [self initLEFromForm];
+    if (self.navigationController != nil) {
+        self.le.entryData.Route = self.idRoute.text;
         NearbyAirports * vwNearbyAirports =[[NearbyAirports alloc] init];
         
         Airports * ap = [[Airports alloc] init];
@@ -376,5 +537,16 @@
         if (self.navigationController != nil)
             [self.navigationController pushViewController:vwNearbyAirports animated:YES];
     }
+}
+
+#pragma mark - UIPopoverPresentationController functions
+- (void) refreshProperties {
+    if (self.le.entryData.isNewOrPending && self.le.entryData.CustomProperties == nil)
+        self.le.entryData.CustomProperties = [[MFBWebServiceSvc_ArrayOfCustomFlightProperty alloc] init];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        FlightProps * fp = [FlightProps new];
+        [fp loadCustomPropertyTypes];
+    });
 }
 @end
