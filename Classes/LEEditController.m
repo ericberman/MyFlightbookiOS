@@ -38,7 +38,7 @@
 
 @interface LEEditController()
 @property (nonatomic, strong) NSTimer * timerElapsed;
-@property (nonatomic, strong) NSMutableDictionary * dictPropCells;
+@property (nonatomic, strong) NSMutableDictionary<NSNumber *, PropertyCell *> * dictPropCells;
 @property (nonatomic, strong) UIImage * digitizedSig;
 @property (nonatomic, strong) NSArray<MFBWebServiceSvc_Aircraft *> * selectibleAircraft;
 
@@ -55,11 +55,10 @@
 
 @implementation LEEditController
 
-@synthesize activeTextField, flightProps;
-@synthesize dictPropCells, digitizedSig;
-@synthesize selectibleAircraft;
-@synthesize le;
 @synthesize timerElapsed;
+@synthesize dictPropCells;
+@synthesize digitizedSig;
+@synthesize selectibleAircraft;
 
 NSString * const _szKeyCachedImageArray = @"cachedImageArrayKey";
 NSString * const _szkeyITCCollapseState = @"keyITCCollapseState";
@@ -87,11 +86,6 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
         // Custom initialization
     }
     return self;
-}
-
-- (void) invalidateViewController
-{
-    [self performSelectorOnMainThread:@selector(resetFlight) withObject:nil waitUntilDone:NO];
 }
 
 - (void) asyncLoadDigitizedSig

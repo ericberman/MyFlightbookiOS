@@ -153,7 +153,10 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
     [self presentViewController:alert animated:YES completion:nil];
 }
 
-#pragma mark - Saving flights
+- (void) invalidateViewController {
+    [self performSelectorOnMainThread:@selector(resetFlight) withObject:nil waitUntilDone:NO];
+}
+
 #pragma mark Flight Submission
 // Called after a flight is EITHER successfully posted to the site OR successfully queued for later.
 - (void) submitFlightSuccessful
