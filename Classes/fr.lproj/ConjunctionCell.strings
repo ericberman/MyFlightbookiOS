@@ -1,0 +1,12 @@
+
+/* Class = "UISegmentedControl"; 8Cz-9r-dAl.segmentTitles[0] = "Any"; ObjectID = "8Cz-9r-dAl"; */
+"8Cz-9r-dAl.segmentTitles[0]" = "Au moins";
+
+/* Class = "UISegmentedControl"; 8Cz-9r-dAl.segmentTitles[1] = "All"; ObjectID = "8Cz-9r-dAl"; */
+"8Cz-9r-dAl.segmentTitles[1]" = "À tous";
+
+/* Class = "UISegmentedControl"; 8Cz-9r-dAl.segmentTitles[2] = "None"; ObjectID = "8Cz-9r-dAl"; */
+"8Cz-9r-dAl.segmentTitles[2]" = "À aucun";
+
+/* Class = "UILabel"; text = "Match:"; ObjectID = "oFv-lU-tdl"; */
+"oFv-lU-tdl.text" = "Correspond:";

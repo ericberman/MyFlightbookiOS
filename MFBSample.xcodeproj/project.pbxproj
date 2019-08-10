@@ -358,6 +358,7 @@
 		9ABC6B411EBCD9E100EE9C97 /* sigok.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ABC6B3D1EBCD9E100EE9C97 /* sigok.png */; };
 		9ABC6B421EBCD9E100EE9C97 /* sigok@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ABC6B3E1EBCD9E100EE9C97 /* sigok@2x.png */; };
 		9ABC6B441EBE2E4B00EE9C97 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 9ABC6B431EBE2E4B00EE9C97 /* LICENSE */; };
+		9ABC7EFD22FF5EDD00338439 /* ConjunctionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ABC7EFB22FF5EDC00338439 /* ConjunctionCell.xib */; };
 		9AC264341BE6CEA900914D30 /* Recording.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A196C2F112312EB007A7DD1 /* Recording.png */; };
 		9AC264351BE6CEA900914D30 /* Recording@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A5E746D1710E8F7004C58CC /* Recording@2x.png */; };
 		9AC264361BE6CEA900914D30 /* Recording@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A902D7D1A210E7700698017 /* Recording@3x.png */; };
@@ -925,6 +926,8 @@
 		9ABC6B3D1EBCD9E100EE9C97 /* sigok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sigok.png; sourceTree = "<group>"; };
 		9ABC6B3E1EBCD9E100EE9C97 /* sigok@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sigok@2x.png"; sourceTree = "<group>"; };
 		9ABC6B431EBE2E4B00EE9C97 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		9ABC7EFC22FF5EDC00338439 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ConjunctionCell.xib; sourceTree = "<group>"; };
+		9ABC7F0122FF60AD00338439 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/ConjunctionCell.strings; sourceTree = "<group>"; };
 		9AC6AF0B1BD01576004AB2E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/about.xib; sourceTree = "<group>"; };
 		9AC6AF0C1BD01577004AB2E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AccessoryBar.xib; sourceTree = "<group>"; };
 		9AC6AF0D1BD01578004AB2E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AutodetectOptions.xib; sourceTree = "<group>"; };
@@ -1827,6 +1830,7 @@
 		9ADB297A16F66C4B008D9582 /* CustomTableCells */ = {
 			isa = PBXGroup;
 			children = (
+				9ABC7EFB22FF5EDC00338439 /* ConjunctionCell.xib */,
 				9A23CFA616F53B5D001C9098 /* ButtonCell.h */,
 				9A23CFA716F53B5D001C9098 /* ButtonCell.m */,
 				9A23CFA916F53B7D001C9098 /* ButtonCell.xib */,
@@ -2148,6 +2152,7 @@
 				9A954D341531FBD6000E00ED /* Currency.xib.txt in Resources */,
 				9A954D351531FBD6000E00ED /* CurrencyRow.xib.txt in Resources */,
 				9A954D361531FBD6000E00ED /* EditAircraft-iPad.xib.txt in Resources */,
+				9ABC7EFD22FF5EDD00338439 /* ConjunctionCell.xib in Resources */,
 				9A954D371531FBD6000E00ED /* EditAircraft.xib.txt in Resources */,
 				9A902D6C1A210A9D00698017 /* Favorite@3x.png in Resources */,
 				9A954D381531FBD6000E00ED /* EditProperty.xib.txt in Resources */,
@@ -3308,6 +3313,15 @@
 				9A87F5121BD172AB00F9479D /* fr */,
 			);
 			name = AccessoryBar.xib;
+			sourceTree = "<group>";
+		};
+		9ABC7EFB22FF5EDC00338439 /* ConjunctionCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9ABC7EFC22FF5EDC00338439 /* Base */,
+				9ABC7F0122FF60AD00338439 /* fr */,
+			);
+			name = ConjunctionCell.xib;
 			sourceTree = "<group>";
 		};
 		9ACC118F19E232FF00AA4E3C /* InfoPlist.strings */ = {
