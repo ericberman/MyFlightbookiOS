@@ -18,16 +18,17 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Match:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oFv-lU-tdl">
-                        <rect key="frame" x="20" y="11" width="120" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Match:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oFv-lU-tdl">
+                        <rect key="frame" x="9" y="11.5" width="120" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="7Sv-Op-73k"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <segmentedControl opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="8Cz-9r-dAl">
-                        <rect key="frame" x="148" y="8" width="244" height="29"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <segmentedControl opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="8Cz-9r-dAl">
+                        <rect key="frame" x="137" y="8" width="143" height="29"/>
                         <segments>
                             <segment title="Any"/>
                             <segment title="All"/>
@@ -35,6 +36,13 @@
                         </segments>
                     </segmentedControl>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="8Cz-9r-dAl" secondAttribute="trailing" constant="1" id="Taa-Ed-FBA"/>
+                    <constraint firstItem="oFv-lU-tdl" firstAttribute="leading" secondItem="wUF-0J-ejg" secondAttribute="leading" constant="9" id="W4h-hI-ohe"/>
+                    <constraint firstItem="8Cz-9r-dAl" firstAttribute="leading" secondItem="oFv-lU-tdl" secondAttribute="trailing" constant="8" symbolic="YES" id="bPY-NK-jHG"/>
+                    <constraint firstItem="oFv-lU-tdl" firstAttribute="centerY" secondItem="wUF-0J-ejg" secondAttribute="centerY" id="j3c-HX-rKl"/>
+                    <constraint firstItem="8Cz-9r-dAl" firstAttribute="centerY" secondItem="wUF-0J-ejg" secondAttribute="centerY" id="l0f-9k-21N"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="segConjunction" destination="8Cz-9r-dAl" id="sh1-qt-f18"/>

@@ -682,6 +682,15 @@
 /* Flight is signed */
 "ffSigned" = "Vol est signé";
 
+/* Flight has Landings */
+"ffLandings" = "Débarquements (tous)";
+
+/* Flight has Ground Sim */
+"ffGroundSim" = "Heure du simulateur au sol";
+
+/* Flight has ANY instrument */
+"ffAnyInstrument" = "IMC ou IMC simulé";
+
 /* Query name header description */
 "QueryNameHeaderDesc" = "Donnez un nom à cette requête ou sélectionnez des requêtes précédemment nommées";
 

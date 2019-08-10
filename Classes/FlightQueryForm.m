@@ -72,8 +72,8 @@ typedef enum _afRows {afTailwheel = 1, afHighPerf, afGlass, afTAA, afComplex, af
     afEngineAny, afEnginePiston, afEngineTurboProp, afEngineJet, afEngineTurbine, afEngineElectric,
     afInstanceAny, afInstanceReal, afInstanceTraining, afMax = afInstanceTraining} afRows;
 
-typedef enum _ffRows {ffConjunction = 1, ffFSLanding, ffFSNightLanding, ffApproaches, ffHold, ffTelemetry, ffImages, ffXC, ffSimIMC, ffActualIMC, ffNight,
-ffIsPublic, ffDual, ffCFI, ffSIC, ffPIC, ffTotalTime, ffSigned, ffMax = ffSigned} ffRows;
+typedef enum _ffRows {ffConjunction = 1, ffAnyLandings, ffFSLanding, ffFSNightLanding, ffApproaches, ffHold, ffXC, ffSimIMC, ffActualIMC, ffAnyInstrument, ffGroundSim, ffNight,
+ffDual, ffCFI, ffSIC, ffPIC, ffTotalTime, ffIsPublic, ffTelemetry, ffImages, ffSigned, ffMax = ffSigned} ffRows;
 
 static NSArray * makesInUse = nil;
 
@@ -706,6 +706,14 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
                     cell.textLabel.text = NSLocalizedString(@"ffIMC", @"Flight has actual IMC time");
                     cell.accessoryType = self.fq.HasIMC.boolValue ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
                     break;
+                case ffSimIMC:
+                    cell.textLabel.text = NSLocalizedString(@"ffSimIMC", @"Flight has simulated IMC");
+                    cell.accessoryType = self.fq.HasSimIMCTime.boolValue ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+                    break;
+                case ffAnyInstrument:
+                    cell.textLabel.text = NSLocalizedString(@"ffAnyInstrument", @"Flight has ANY instrument");
+                    cell.accessoryType = self.fq.HasAnyInstrument.boolValue ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+                    break;
                 case ffApproaches:
                     cell.textLabel.text = NSLocalizedString(@"ffApproaches", @"Flight has instrument approaches");
                     cell.accessoryType = self.fq.HasApproaches.boolValue ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
@@ -725,6 +733,14 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
                 case ffFSNightLanding:
                     cell.textLabel.text = NSLocalizedString(@"ffFSNightLanding", @"Flight has full-stop night-landings");
                     cell.accessoryType = self.fq.HasNightLandings.boolValue ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+                    break;
+                case ffAnyLandings:
+                    cell.textLabel.text = NSLocalizedString(@"ffLandings", @"Flight has landings");
+                    cell.accessoryType = self.fq.HasLandings.boolValue ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+                    break;
+                case ffGroundSim:
+                    cell.textLabel.text = NSLocalizedString(@"ffGroundSim", @"Flight has Ground Sim");
+                    cell.accessoryType = self.fq.HasGroundSim.boolValue ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
                     break;
                 case ffHold:
                     cell.textLabel.text = NSLocalizedString(@"ffHold", @"Flight has holding procedures");
@@ -749,10 +765,6 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
                 case ffTotalTime:
                     cell.textLabel.text = NSLocalizedString(@"ffTotal", @"Flight has Total Time logged");
                     cell.accessoryType = self.fq.HasTotalTime.boolValue ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
-                    break;
-                case ffSimIMC:
-                    cell.textLabel.text = NSLocalizedString(@"ffSimIMC", @"Flight has simulated IMC");
-                    cell.accessoryType = self.fq.HasSimIMCTime.boolValue ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
                     break;
                 case ffTelemetry:
                     cell.textLabel.text = NSLocalizedString(@"ffTelemetry", @"Flight has Telemetry Data");
@@ -1087,6 +1099,15 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
                     break;
                 case ffFSNightLanding:
                     self.fq.HasNightLandings.boolValue = !self.fq.HasNightLandings.boolValue;
+                    break;
+                case ffAnyLandings:
+                    self.fq.HasLandings.boolValue = !self.fq.HasLandings.boolValue;
+                    break;
+                case ffAnyInstrument:
+                    self.fq.HasAnyInstrument.boolValue = !self.fq.HasAnyInstrument.boolValue;
+                    break;
+                case ffGroundSim:
+                    self.fq.HasGroundSim.boolValue = !self.fq.HasGroundSim.boolValue;
                     break;
                 case ffHold:
                     self.fq.HasHolds.boolValue = !self.fq.HasHolds.boolValue;
