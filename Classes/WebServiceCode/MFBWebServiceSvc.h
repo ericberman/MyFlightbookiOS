@@ -885,6 +885,14 @@ SOAPSigner *soapSigner;
 - (NSDictionary *)attributes;
 @end
 typedef enum {
+	MFBWebServiceSvc_GroupConjunction_none = 0,
+	MFBWebServiceSvc_GroupConjunction_Any,
+	MFBWebServiceSvc_GroupConjunction_All,
+	MFBWebServiceSvc_GroupConjunction_None,
+} MFBWebServiceSvc_GroupConjunction;
+MFBWebServiceSvc_GroupConjunction MFBWebServiceSvc_GroupConjunction_enumFromString(NSString *string);
+NSString * MFBWebServiceSvc_GroupConjunction_stringFromEnum(MFBWebServiceSvc_GroupConjunction enumValue);
+typedef enum {
 	MFBWebServiceSvc_AllowedAircraftTypes_none = 0,
 	MFBWebServiceSvc_AllowedAircraftTypes_Any,
 	MFBWebServiceSvc_AllowedAircraftTypes_SimulatorOnly,
@@ -1023,8 +1031,10 @@ SOAPSigner *soapSigner;
 	MFBWebServiceSvc_FlightDistance Distance;
 	MFBWebServiceSvc_ArrayOfCategoryClass * CatClasses;
 	MFBWebServiceSvc_ArrayOfCustomPropertyType * PropertyTypes;
+	MFBWebServiceSvc_GroupConjunction PropertiesConjunction;
 	NSString * UserName;
 	USBoolean * IsPublic;
+	MFBWebServiceSvc_GroupConjunction FlightCharacteristicsConjunction;
 	USBoolean * HasNightLandings;
 	USBoolean * HasFullStopLandings;
 	USBoolean * HasLandings;
@@ -1080,8 +1090,10 @@ SOAPSigner *soapSigner;
 @property (nonatomic, assign) MFBWebServiceSvc_FlightDistance Distance;
 @property (nonatomic, retain) MFBWebServiceSvc_ArrayOfCategoryClass * CatClasses;
 @property (nonatomic, retain) MFBWebServiceSvc_ArrayOfCustomPropertyType * PropertyTypes;
+@property (nonatomic, assign) MFBWebServiceSvc_GroupConjunction PropertiesConjunction;
 @property (nonatomic, retain) NSString * UserName;
 @property (nonatomic, retain) USBoolean * IsPublic;
+@property (nonatomic, assign) MFBWebServiceSvc_GroupConjunction FlightCharacteristicsConjunction;
 @property (nonatomic, retain) USBoolean * HasNightLandings;
 @property (nonatomic, retain) USBoolean * HasFullStopLandings;
 @property (nonatomic, retain) USBoolean * HasLandings;

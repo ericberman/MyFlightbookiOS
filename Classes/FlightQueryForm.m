@@ -30,6 +30,7 @@
 #import "ExpandHeaderCell.h"
 #import "Util.h"
 #import "MFBTheme.h"
+#import "ConjunctionCell.h"
 
 @interface FlightQueryForm ()
 @property (nonatomic, strong) MFBWebServiceSvc_FlightQuery * fq;
@@ -41,6 +42,8 @@
 @property (nonatomic, strong) EditCell * ecModelName;
 @property (nonatomic, strong) EditCell * ecAirports;
 @property (nonatomic, strong) EditCell * ecQueryName;
+@property (nonatomic, strong) ConjunctionCell * conjCellFlightFeatures;
+@property (nonatomic, strong) ConjunctionCell * conjCellProps;
 
 + (NSMutableArray<MFBWebServiceSvc_CannedQuery *> *) rgCannedQueries;
 + (void) setRgCannedProperties:(NSMutableArray<MFBWebServiceSvc_CannedQuery *> *) value;
@@ -48,7 +51,7 @@
 
 @implementation FlightQueryForm
 
-@synthesize delegate, fq, ecText, ecAirports, ecModelName, ecQueryName, fSuppressRefresh, fShowAllAircraft;
+@synthesize delegate, fq, ecText, ecAirports, ecModelName, ecQueryName, fSuppressRefresh, fShowAllAircraft, conjCellFlightFeatures, conjCellProps;
 
 typedef enum _fqSections {fqsText = 0, 
 fqsDate, 
@@ -69,7 +72,7 @@ typedef enum _afRows {afTailwheel = 1, afHighPerf, afGlass, afTAA, afComplex, af
     afEngineAny, afEnginePiston, afEngineTurboProp, afEngineJet, afEngineTurbine, afEngineElectric,
     afInstanceAny, afInstanceReal, afInstanceTraining, afMax = afInstanceTraining} afRows;
 
-typedef enum _ffRows {ffFSLanding = 1, ffFSNightLanding, ffApproaches, ffHold, ffTelemetry, ffImages, ffXC, ffSimIMC, ffActualIMC, ffNight,
+typedef enum _ffRows {ffConjunction = 1, ffFSLanding, ffFSNightLanding, ffApproaches, ffHold, ffTelemetry, ffImages, ffXC, ffSimIMC, ffActualIMC, ffNight,
 ffIsPublic, ffDual, ffCFI, ffSIC, ffPIC, ffTotalTime, ffSigned, ffMax = ffSigned} ffRows;
 
 static NSArray * makesInUse = nil;
@@ -149,6 +152,8 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
     [self.expandedSections removeAllIndexes];
     self.ecText.txt.text = @"";
     self.ecAirports.txt.text = @"";
+    self.conjCellFlightFeatures.conjunction = self.fq.FlightCharacteristicsConjunction;
+    self.conjCellProps.conjunction = self.fq.PropertiesConjunction;
     [self.tableView reloadData];
 }
 
@@ -345,6 +350,10 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
 - (void) viewWillDisappear:(BOOL)animated
 {
     [self loadText];
+    if (self.conjCellFlightFeatures != nil)
+        self.fq.FlightCharacteristicsConjunction = self.conjCellFlightFeatures.conjunction;
+    if (self.conjCellProps != nil)
+        self.fq.PropertiesConjunction = self.conjCellProps.conjunction;
     if (self.fSuppressRefresh)
     {
         self.fSuppressRefresh = NO;
@@ -520,7 +529,7 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
         case fqsCatClass:
             return [self rowsInSection:section withItemCount:MFBWebServiceSvc_CatClassID_PoweredParaglider];
         case fqsProperties:
-            return [self rowsInSection:section withItemCount:self.rgUsedProps.count];
+            return [self rowsInSection:section withItemCount:self.rgUsedProps.count + 1];
         case fqsNamedQueries:
             return [self rowsInSection:fqsNamedQueries withItemCount: 1 + FlightQueryForm.rgCannedQueries.count];
     }
@@ -568,6 +577,9 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
             {
                 if (indexPath.row == 0) // general text
                 {
+                    if (self.ecText != nil)
+                        return self.ecText;
+                    
                     self.ecText = [EditCell getEditCell:self.tableView withAccessory:nil];
                     self.ecText.lbl.text = NSLocalizedString(@"TextContains", @"General Text");
                     self.ecText.txt.text = fq.GeneralText;
@@ -585,6 +597,9 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
             
             if (indexPath.row == 1) // airports (0 is header cell)
             {
+                if (self.ecAirports != nil)
+                    return self.ecAirports;
+                
                 self.ecAirports = [EditCell getEditCell:self.tableView withAccessory:nil];
                 self.ecAirports.lbl.text = NSLocalizedString(@"AirportsVisited", @"Airport Criteria");
                 self.ecAirports.txt.text = [fq.AirportList.string componentsJoinedByString:@" "];
@@ -677,6 +692,13 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
         {
             if (indexPath.row == 0) // header row
                 return [ExpandHeaderCell getHeaderCell:self.tableView withTitle:NSLocalizedString(@"FlightFeatures", @"Flight Features") forSection:indexPath.section initialState:[self isExpanded:indexPath.section]];
+            
+            if (indexPath.row == ffConjunction) {
+                if (self.conjCellFlightFeatures == nil)
+                    self.conjCellFlightFeatures = [ConjunctionCell getConjunctionCell:tableView withConjunction:self.fq.FlightCharacteristicsConjunction];
+                return self.conjCellFlightFeatures;
+            }
+            
             UITableViewCell * cell = [self getSubtitleCell];
             switch (indexPath.row)
             {
@@ -755,8 +777,14 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
         {
             if (indexPath.row == 0) // header row
                 return [ExpandHeaderCell getHeaderCell:self.tableView withTitle:NSLocalizedString(@"Properties", @"Properties Header") forSection:indexPath.section initialState:[self isExpanded:indexPath.section]];
+            if (indexPath.row == 1) {
+                if (self.conjCellProps == nil)
+                    self.conjCellProps = [ConjunctionCell getConjunctionCell:tableView withConjunction:self.fq.PropertiesConjunction];
+                return self.conjCellProps;
+            }
+            
             UITableViewCell * cell = [self getSubtitleCell];
-            MFBWebServiceSvc_CustomPropertyType * cpt = (MFBWebServiceSvc_CustomPropertyType *)self.rgUsedProps[indexPath.row - 1];
+            MFBWebServiceSvc_CustomPropertyType * cpt = (MFBWebServiceSvc_CustomPropertyType *)self.rgUsedProps[indexPath.row - 2];
             cell.textLabel.text = cpt.Title;
             cell.accessoryType = [self.fq hasPropertyType:cpt] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
             return cell;
@@ -1034,7 +1062,7 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
             break;
         case fqsProperties:
         {
-            MFBWebServiceSvc_CustomPropertyType * cpt = (MFBWebServiceSvc_CustomPropertyType *)self.rgUsedProps[indexPath.row - 1];
+            MFBWebServiceSvc_CustomPropertyType * cpt = (MFBWebServiceSvc_CustomPropertyType *)self.rgUsedProps[indexPath.row - 2];
             [self.fq togglePropertyType:cpt];
             [self.tableView reloadData];
             break;

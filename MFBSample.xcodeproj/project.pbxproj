@@ -10,6 +10,7 @@
 		1D3623260D0F684500981E51 /* MFBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* MFBAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		28216C970DB411BC00E5133A /* LEEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28216C960DB411BC00E5133A /* LEEditController.m */; };
+		9A017B7722FA46A9007F0210 /* ConjunctionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A017B7522FA46A9007F0210 /* ConjunctionCell.m */; };
 		9A020B3310FFEF3F00801349 /* RecentFlights.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A020B3110FFEF3F00801349 /* RecentFlights.m */; };
 		9A050D292138790100B3F794 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A050D282138790000B3F794 /* Photos.framework */; };
 		9A073B4820F65AD6007A4470 /* MFBLogo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A073B4720F65AD5007A4470 /* MFBLogo@3x.png */; };
@@ -228,6 +229,7 @@
 		9A8BFADF22B00B1000CB79E0 /* SelectTemplates.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A8BFADE22B00B1000CB79E0 /* SelectTemplates.m */; };
 		9A8D628015851392001105F2 /* DateRangeSelector.xib.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9A8D627E15851392001105F2 /* DateRangeSelector.xib.txt */; };
 		9A8D6283158513AB001105F2 /* DateRangeSelector.xib.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9A8D6281158513AB001105F2 /* DateRangeSelector.xib.txt */; };
+		9A8E279722FA4B9400D04F79 /* ConjunctionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A8E279622FA4B9400D04F79 /* ConjunctionCell.xib */; };
 		9A902D5B1A2102E800698017 /* aircraft@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A902D591A2102E800698017 /* aircraft@3x.png */; };
 		9A902D5C1A2102E800698017 /* twitter@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A902D5A1A2102E800698017 /* twitter@3x.png */; };
 		9A902D5E1A21046600698017 /* profile@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A902D5D1A21046600698017 /* profile@3x.png */; };
@@ -531,6 +533,8 @@
 		28A0AB4B0D9B1048005BE974 /* MFBSample_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFBSample_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MFBSample-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MFBSample-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		9A017B7422FA46A9007F0210 /* ConjunctionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConjunctionCell.h; sourceTree = "<group>"; };
+		9A017B7522FA46A9007F0210 /* ConjunctionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConjunctionCell.m; sourceTree = "<group>"; };
 		9A020B3010FFEF3F00801349 /* RecentFlights.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentFlights.h; sourceTree = "<group>"; };
 		9A020B3110FFEF3F00801349 /* RecentFlights.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentFlights.m; sourceTree = "<group>"; };
 		9A050D282138790000B3F794 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
@@ -792,6 +796,7 @@
 		9A8BFADE22B00B1000CB79E0 /* SelectTemplates.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectTemplates.m; sourceTree = "<group>"; };
 		9A8D627F15851392001105F2 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text; name = fr; path = Classes/fr.lproj/DateRangeSelector.xib.txt; sourceTree = "<group>"; };
 		9A8D6282158513AB001105F2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text; name = en; path = Classes/en.lproj/DateRangeSelector.xib.txt; sourceTree = "<group>"; };
+		9A8E279622FA4B9400D04F79 /* ConjunctionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConjunctionCell.xib; sourceTree = "<group>"; };
 		9A8FF5A71BD97C1800C78A49 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = "fr.lproj/MainWindow-iPad.strings"; sourceTree = "<group>"; };
 		9A8FF5A81BD97C3300C78A49 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MainWindow.strings; sourceTree = "<group>"; };
 		9A8FF5A91BD97C5500C78A49 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/NearbyAirports.strings; sourceTree = "<group>"; };
@@ -1855,6 +1860,9 @@
 				9A3A272F1573F002009AE0F6 /* WaitCell.h */,
 				9A3A27301573F002009AE0F6 /* WaitCell.m */,
 				9A3A27321573F062009AE0F6 /* WaitCell.xib */,
+				9A017B7422FA46A9007F0210 /* ConjunctionCell.h */,
+				9A017B7522FA46A9007F0210 /* ConjunctionCell.m */,
+				9A8E279622FA4B9400D04F79 /* ConjunctionCell.xib */,
 			);
 			name = CustomTableCells;
 			sourceTree = "<group>";
@@ -2143,6 +2151,7 @@
 				9A954D341531FBD6000E00ED /* Currency.xib.txt in Resources */,
 				9A954D351531FBD6000E00ED /* CurrencyRow.xib.txt in Resources */,
 				9A954D361531FBD6000E00ED /* EditAircraft-iPad.xib.txt in Resources */,
+				9A8E279722FA4B9400D04F79 /* ConjunctionCell.xib in Resources */,
 				9A954D371531FBD6000E00ED /* EditAircraft.xib.txt in Resources */,
 				9A902D6C1A210A9D00698017 /* Favorite@3x.png in Resources */,
 				9A954D381531FBD6000E00ED /* EditProperty.xib.txt in Resources */,
@@ -2402,6 +2411,7 @@
 				9A69215B10CDC74A00DF1CA6 /* MFBProfile.m in Sources */,
 				9A8BF94010E1846E002F01ED /* Aircraft.m in Sources */,
 				9A8BF94210E1846E002F01ED /* MFBSoapCall.m in Sources */,
+				9A017B7722FA46A9007F0210 /* ConjunctionCell.m in Sources */,
 				9A9CB2691E513B28002B2E11 /* TotalsCalculator.m in Sources */,
 				9AF7AD1B10E1D7DC00A7DD43 /* Totals.m in Sources */,
 				9AD832CC10E296C8007817A4 /* Currency.m in Sources */,

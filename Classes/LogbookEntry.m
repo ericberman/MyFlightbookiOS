@@ -1042,6 +1042,10 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
     f.AircraftInstanceTypes = MFBWebServiceSvc_AircraftInstanceRestriction_AllAircraft;
     f.ModelName = [NSString new];
     f.TypeNames = [MFBWebServiceSvc_ArrayOfString new];
+    
+    f.PropertiesConjunction = MFBWebServiceSvc_GroupConjunction_Any;
+    f.FlightCharacteristicsConjunction = MFBWebServiceSvc_GroupConjunction_All;
+    
     return f;
 }
 

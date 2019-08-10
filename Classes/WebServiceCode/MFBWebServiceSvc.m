@@ -7265,6 +7265,36 @@ NSString * MFBWebServiceSvc_CFPPropertyType_stringFromEnum(MFBWebServiceSvc_CFPP
 	[pool drain];
 }
 @end
+MFBWebServiceSvc_GroupConjunction MFBWebServiceSvc_GroupConjunction_enumFromString(NSString *string)
+{
+	if([string isEqualToString:@"Any"]) {
+		return MFBWebServiceSvc_GroupConjunction_Any;
+	}
+	if([string isEqualToString:@"All"]) {
+		return MFBWebServiceSvc_GroupConjunction_All;
+	}
+	if([string isEqualToString:@"None"]) {
+		return MFBWebServiceSvc_GroupConjunction_None;
+	}
+	
+	return MFBWebServiceSvc_GroupConjunction_none;
+}
+NSString * MFBWebServiceSvc_GroupConjunction_stringFromEnum(MFBWebServiceSvc_GroupConjunction enumValue)
+{
+	switch (enumValue) {
+		case MFBWebServiceSvc_GroupConjunction_Any:
+			return @"Any";
+			break;
+		case MFBWebServiceSvc_GroupConjunction_All:
+			return @"All";
+			break;
+		case MFBWebServiceSvc_GroupConjunction_None:
+			return @"None";
+			break;
+		default:
+			return @"";
+	}
+}
 MFBWebServiceSvc_AllowedAircraftTypes MFBWebServiceSvc_AllowedAircraftTypes_enumFromString(NSString *string)
 {
 	if([string isEqualToString:@"Any"]) {
@@ -8579,8 +8609,10 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 		Distance = 0;
 		CatClasses = 0;
 		PropertyTypes = 0;
+		PropertiesConjunction = 0;
 		UserName = 0;
 		IsPublic = 0;
+		FlightCharacteristicsConjunction = 0;
 		HasNightLandings = 0;
 		HasFullStopLandings = 0;
 		HasLandings = 0;
@@ -8715,11 +8747,17 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 	if(((void *)self.PropertyTypes) != 0) {
 		xmlAddChild(node, [self.PropertyTypes xmlNodeForDoc:node->doc elementName:@"PropertyTypes" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
+	if(((void *)self.PropertiesConjunction) != 0) {
+		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:PropertiesConjunction", [MFBWebServiceSvc_GroupConjunction_stringFromEnum(self.PropertiesConjunction) xmlString]);
+	}
 	if(((void *)self.UserName) != 0) {
 		xmlAddChild(node, [self.UserName xmlNodeForDoc:node->doc elementName:@"UserName" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 	if(((void *)self.IsPublic) != 0) {
 		xmlAddChild(node, [self.IsPublic xmlNodeForDoc:node->doc elementName:@"IsPublic" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
+	if(((void *)self.FlightCharacteristicsConjunction) != 0) {
+		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:FlightCharacteristicsConjunction", [MFBWebServiceSvc_GroupConjunction_stringFromEnum(self.FlightCharacteristicsConjunction) xmlString]);
 	}
 	if(((void *)self.HasNightLandings) != 0) {
 		xmlAddChild(node, [self.HasNightLandings xmlNodeForDoc:node->doc elementName:@"HasNightLandings" elementNSPrefix:@"MFBWebServiceSvc"]);
@@ -8847,8 +8885,10 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 @synthesize Distance;
 @synthesize CatClasses;
 @synthesize PropertyTypes;
+@synthesize PropertiesConjunction;
 @synthesize UserName;
 @synthesize IsPublic;
+@synthesize FlightCharacteristicsConjunction;
 @synthesize HasNightLandings;
 @synthesize HasFullStopLandings;
 @synthesize HasLandings;
@@ -8998,6 +9038,11 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 				
 				self.PropertyTypes = newChild;
 			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "PropertiesConjunction")) {
+				
+				MFBWebServiceSvc_GroupConjunction enumRepresentation = MFBWebServiceSvc_GroupConjunction_enumFromString(elementString);
+				self.PropertiesConjunction = enumRepresentation;
+			}
 			if(xmlStrEqual(cur->name, (const xmlChar *) "UserName")) {
 				
 				Class elementClass = nil;
@@ -9063,6 +9108,11 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 				id newChild = [elementClass deserializeNode:cur];
 				
 				self.IsPublic = newChild;
+			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "FlightCharacteristicsConjunction")) {
+				
+				MFBWebServiceSvc_GroupConjunction enumRepresentation = MFBWebServiceSvc_GroupConjunction_enumFromString(elementString);
+				self.FlightCharacteristicsConjunction = enumRepresentation;
 			}
 			if(xmlStrEqual(cur->name, (const xmlChar *) "HasNightLandings")) {
 				
@@ -27439,11 +27489,11 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSoapBinding *)MFBWebServiceSoapBinding
 {
-	return [[[MFBWebServiceSoapBinding alloc] initWithAddress:@"https://developer.myflightbook.com/logbook/Public/WebService.asmx"] autorelease];
+	return [[[MFBWebServiceSoapBinding alloc] initWithAddress:@"https://myflightbook.com/logbook/public/webservice.asmx"] autorelease];
 }
 + (MFBWebServiceSoap12Binding *)MFBWebServiceSoap12Binding
 {
-	return [[[MFBWebServiceSoap12Binding alloc] initWithAddress:@"https://developer.myflightbook.com/logbook/Public/WebService.asmx"] autorelease];
+	return [[[MFBWebServiceSoap12Binding alloc] initWithAddress:@"https://myflightbook.com/logbook/public/webservice.asmx"] autorelease];
 }
 @end
 @implementation MFBWebServiceSoapBinding
