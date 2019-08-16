@@ -250,8 +250,6 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
             self.le.entryData.AircraftID = ac.AircraftID;
         }
     }
-    // And reload the aircraft picker regardless, in case it changed too
-    [self.pickerView reloadAllComponents];
     
 	[self initFormFromLE]; // pick up any potential changes
 	
@@ -272,7 +270,10 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     // Initialize the list of selectibleAircraft and hold on to it
     // We do this on each view-will-appear so that we can pick up any aircraft that have been shown/hidden.
     self.selectibleAircraft = [Aircraft.sharedAircraft AircraftForSelection:self.le.entryData.AircraftID];
-	
+
+    // And reload the aircraft picker regardless, in case it changed too
+    [self.pickerView reloadAllComponents];
+
     [self.tableView reloadData];
 	[app ensureWarningShownForUser];
 }
