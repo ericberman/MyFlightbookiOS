@@ -958,7 +958,7 @@ Vous pouvez choisir un dans la liste fournie, le modifier, ou faire un de vos pr
 "Engine Start:" = "Mise en route moteur:";
 
 /* Flight Properties */
-"Flight Properties" = "Modifier Caractéristiques du Vol";
+"Flight Properties" = "Caractéristiques";
 
 /* Options Strings */
 /* Entering Times */
