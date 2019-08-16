@@ -39,6 +39,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.templateGroups = [MFBWebServiceSvc_PropertyTemplate groupTemplates:FlightProps.sharedTemplates];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)];
 }
 
 #pragma retrieving templates

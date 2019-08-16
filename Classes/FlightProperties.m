@@ -103,9 +103,8 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
 	if (self.le != nil)
-		self.navigationItem.rightBarButtonItem = self.editButtonItem;
+        self.navigationItem.rightBarButtonItems = @[self.editButtonItem, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)]];
 	
 	self.navigationItem.title = NSLocalizedString(@"Flight Properties", @"Title for flight properties list page");
 
