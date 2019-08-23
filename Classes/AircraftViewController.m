@@ -450,6 +450,7 @@ enum aircraftRows {rowInfoStart, rowStaticDesc = rowInfoStart, rowInfoLast,
                     cell.indentationLevel = 1;
                     cell.textLabel.adjustsFontSizeToFitWidth = YES;
                     cell.textLabel.text = ci.imgInfo.Comment;
+                    cell.textLabel.numberOfLines = 3;
                     if (ci.hasThumbnailCache)
                         cell.imageView.image = [ci GetThumbnail];
                     else

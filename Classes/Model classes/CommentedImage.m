@@ -776,6 +776,7 @@ static char UIB_CACHEDTHUMB_KEY;
 	[encoder encodeObject:self.URLFullImage forKey:@"MFBIIFullImageURL"];
     [encoder encodeInteger:self.ImageType forKey:@"MFBIIImageType"];
     [encoder encodeObject:self.cachedThumb forKey:@"MFBIICachedThumb"];
+    [encoder encodeObject:self.URLThumbnail forKey:@"MFBIIURLThumb"];
 }
 
 - (instancetype)initWithCoderMFB:(NSCoder *)decoder
@@ -785,6 +786,7 @@ static char UIB_CACHEDTHUMB_KEY;
 	self.ThumbnailFile = [decoder decodeObjectForKey:@"MFBIIThumbFile"];
 	self.VirtualPath = [decoder decodeObjectForKey:@"MFBIIVirtPath"];	
 	self.URLFullImage = [decoder decodeObjectForKey:@"MFBIIFullImageURL"];
+    self.URLThumbnail = [decoder decodeObjectForKey:@"MFBIIURLThumb"];
     @try {
         self.ImageType = (MFBWebServiceSvc_ImageFileType) [decoder decodeIntegerForKey:@"MFBIIImageType"];
         self.cachedThumb = (UIImage *) [decoder decodeObjectForKey:@"MFBIICachedThumb"];
@@ -800,7 +802,7 @@ static char UIB_CACHEDTHUMB_KEY;
 
 - (NSURL *) urlForImage
 {
-	NSString * szURLImage = [NSString stringWithFormat:@"https://%@%@%@", MFBHOSTNAME, self.VirtualPath, self.ThumbnailFile];
+    NSString * szURLImage = [self.URLThumbnail hasPrefix:@"/"] ? [NSString stringWithFormat:@"https://%@%@", MFBHOSTNAME, self.URLThumbnail] : self.URLThumbnail;
 	return [NSURL URLWithString:szURLImage];
 }
 
