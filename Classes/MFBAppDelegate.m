@@ -926,6 +926,7 @@ handleWatchKitExtensionRequest:(NSDictionary *)userInfo
         self.fSuppressWatchNotification = YES;  // don't allow any outbound messages while we are refreshing here.
         NSLog(@"Action requested - %@...", request);
         if ([request compare:WATCH_ACTION_START] == NSOrderedSame) {
+            [self.mfbloc startUpdatingLocation];
             [self.leMain performSelectorOnMainThread:@selector(startEngineExternal) withObject:nil waitUntilDone:YES];
         }
         else if ([request compare:WATCH_ACTION_END] == NSOrderedSame) {
