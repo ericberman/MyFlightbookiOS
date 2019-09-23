@@ -78,6 +78,7 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.tableView.backgroundColor = MFBTheme.currentTheme.tableBackColor;
     [self.tableView reloadData];
 }
 

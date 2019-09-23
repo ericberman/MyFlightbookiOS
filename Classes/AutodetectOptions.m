@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2010-2018 MyFlightbook, LLC
+ Copyright (C) 2010-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -58,6 +58,7 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
 
 - (void) viewWillAppear:(BOOL)animated
 {
+    self.tableView.backgroundColor = MFBTheme.currentTheme.tableBackColor;
     self.navigationController.toolbarHidden = YES;
 	self.idswAutoDetect.on = [AutodetectOptions autodetectTakeoffs];
     self.idswRecordFlight.on = [AutodetectOptions recordTelemetry];

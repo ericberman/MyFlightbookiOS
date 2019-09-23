@@ -46,7 +46,6 @@
 
 @property (nonatomic, strong) UIColor * navBarBackColor;
 
-@property (nonatomic, strong) UIColor * tableBackColor;
 @property (nonatomic, readwrite) UITableViewCellFocusStyle tableFocusStyle;
 @property (nonatomic, readwrite) UITableViewCellSelectionStyle tableSelectStyle;
 
@@ -116,10 +115,10 @@
 }
 
 static NSArray * rgThemes = nil;
-static MFBTheme * currentTheme = nil;
+static MFBTheme * _currentTheme = nil;
 
 - (void) applyTheme {
-    currentTheme = self;
+    _currentTheme = self;
     
     [UIButton.appearance setTitleColor:self.buttonNormalColor forState:UIControlStateNormal];
     [UIButton.appearance setTitleColor:self.buttonSelectedColor forState:UIControlStateSelected];
@@ -168,6 +167,13 @@ static MFBTheme * currentTheme = nil;
 
     // Branded colors - regardless of theme
     UITabBar.appearance.tintColor = UIToolbar.appearance.tintColor = UIButton.appearance.tintColor = UISegmentedControl.appearance.tintColor = [MFBTheme MFBBrandColor];
+    
+    if (@available(iOS 13.0, *)) {
+        UISegmentedControl.appearance.selectedSegmentTintColor = MFBTheme.MFBBrandColor;
+    } else {
+        // Fallback on earlier versions
+    }
+    
     UISwitch.appearance.onTintColor = MFBTheme.MFBBrandColor;
 
 }
@@ -227,9 +233,9 @@ static MFBTheme * currentTheme = nil;
 }
 
 + (MFBTheme *) currentTheme {
-    if (currentTheme == nil)
-        return currentTheme = MFBTheme.availableThemes[0];
-    return currentTheme;
+    if (_currentTheme == nil)
+        return _currentTheme = MFBTheme.availableThemes[0];
+    return _currentTheme;
 }
 
 - (void) applyToAllViews {

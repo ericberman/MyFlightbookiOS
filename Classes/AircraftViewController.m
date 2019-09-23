@@ -139,7 +139,6 @@ enum aircraftRows {rowInfoStart, rowStaticDesc = rowInfoStart, rowInfoLast,
 - (void) viewWillAppear:(BOOL)animated
 {
     self.navigationController.toolbarHidden = NO;
-    [self.navigationController setToolbarHidden:NO];
     [super viewWillAppear:animated];
     [self.tableView reloadData];
 }

@@ -74,6 +74,7 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
 {
     [self.navigationController setToolbarHidden:YES];
     MFBAppDelegate * app = mfbApp();
+    self.tableView.backgroundColor = MFBTheme.currentTheme.tableBackColor;
 
     self.szUser = app.userProfile.UserName;
     self.szPass = app.userProfile.Password;
