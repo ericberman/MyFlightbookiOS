@@ -44,6 +44,7 @@ enum _trainingLinks {cidFirst, cidInstructors = cidFirst, cidStudents, cidReqSig
 
 - (void) viewWillAppear:(BOOL)animated
 {
+    self.tableView.backgroundColor = MFBTheme.currentTheme.tableBackColor;
     [self.navigationController setToolbarHidden:YES];
     [self.tableView reloadData];
     [super viewWillAppear:animated];
