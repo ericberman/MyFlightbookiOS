@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2018 MyFlightbook, LLC
+ Copyright (C) 2017-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -55,6 +55,7 @@
 - (BOOL) isExpanded:(NSInteger) section;
 - (void) collapseAll;
 - (void) expandAll:(UITableView *) tableView;
+- (void) reload;
 
 - (NSIndexPath *) nextNavCell:(NSIndexPath *) ip;
 - (NSIndexPath *) prevNavCell:(NSIndexPath *) ip;

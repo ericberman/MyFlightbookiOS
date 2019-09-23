@@ -81,7 +81,7 @@ BOOL fCouldBeMoreFlights;
                 self.dictImages[le.FlightID] = ci;  // TODO: this line is crashing sometimes.  EXC_BAD_ACCESS.  Why?
             }
         }
-        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+        [self performSelectorOnMainThread:@selector(reload) withObject:nil waitUntilDone:NO];
     }
 }
 

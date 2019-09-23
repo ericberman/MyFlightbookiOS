@@ -80,7 +80,7 @@ BOOL fNeedsRefresh = NO;
                 break;
             
             if (ci.imgInfo != nil)
-                [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+                [self performSelectorOnMainThread:@selector(reload) withObject:nil waitUntilDone:NO];
         }
         
         // Cache the images
