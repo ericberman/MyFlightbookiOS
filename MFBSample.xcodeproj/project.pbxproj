@@ -385,7 +385,6 @@
 		9ACDC8E81BDFEA1400B0A077 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9ACDC8E71BDFEA1400B0A077 /* Assets.xcassets */; };
 		9ACDC8EC1BDFEA1400B0A077 /* MyFlightbookWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 9ACDC8CC1BDFEA1300B0A077 /* MyFlightbookWatch.app */; };
 		9ACDC9011BE01BC600B0A077 /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ACDC8FF1BE01BC600B0A077 /* WatchConnectivity.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		9ACDC9021BE01BC600B0A077 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ACDC9001BE01BC600B0A077 /* WatchKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		9ACEDB9922388BAB00221A17 /* AircraftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACEDB9722388BAB00221A17 /* AircraftViewController.m */; };
 		9AD2FFC11BE1AF3D00A9B21B /* Play.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AEC4CA213AD4B7C0044897B /* Play.png */; };
 		9AD2FFC21BE1AF3E00A9B21B /* Play.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AEC4CA213AD4B7C0044897B /* Play.png */; };
@@ -1055,7 +1054,6 @@
 				9AA94A66220F63880056AED3 /* ExternalAccessory.framework in Frameworks */,
 				9A050D292138790100B3F794 /* Photos.framework in Frameworks */,
 				9ACDC9011BE01BC600B0A077 /* WatchConnectivity.framework in Frameworks */,
-				9ACDC9021BE01BC600B0A077 /* WatchKit.framework in Frameworks */,
 				9AFEFF9F1BD02E1E0083043A /* CoreMedia.framework in Frameworks */,
 				9A6247A31AA509A3002A8E0B /* MediaPlayer.framework in Frameworks */,
 				9AC7B8C314D0AEF0009139BF /* QuartzCore.framework in Frameworks */,
