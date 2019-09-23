@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2018 MyFlightbook, LLC
+ Copyright (C) 2018-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -177,11 +177,28 @@ static MFBTheme * currentTheme = nil;
     return [[NSAttributedString alloc] initWithString:placeholder attributes:@{NSForegroundColorAttributeName : self.hintColor}];
 }
 
+- (UITextField *) findTextField:(UIView *) parent {
+    if (parent == nil || parent.subviews == nil || parent.subviews.count == 0)
+        return nil;
+    for (UIView * view in parent.subviews) {
+        if ([view isKindOfClass:[UITextField class]])
+            return (UITextField *) view;
+        else if (view.subviews.count > 0) {
+            UITextField * textField = [self findTextField:view];
+            if (textField != nil)
+                return textField;
+        }
+    }
+    return nil;
+}
+
 - (void) setSearchBar:(UISearchBar *) searchBar Placholeder:(NSString *) placeholder {
-    UITextField *searchTextField = [searchBar valueForKey:@"_searchField"];
-    searchTextField.placeholder = nil;
-    if ([searchTextField respondsToSelector:@selector(setAttributedPlaceholder:)]) {
-        searchTextField.attributedPlaceholder = [self formatAsPlaceholder:placeholder];
+    UITextField *searchTextField = [self findTextField:searchBar];
+    if (searchTextField != nil) {
+        searchTextField.placeholder = nil;
+        if ([searchTextField respondsToSelector:@selector(setAttributedPlaceholder:)]) {
+            searchTextField.attributedPlaceholder = [self formatAsPlaceholder:placeholder];
+        }
     }
 }
 
