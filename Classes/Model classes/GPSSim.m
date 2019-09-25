@@ -187,7 +187,7 @@
         le.errorString = t.lastError;
     
     le.entryData.FlightID = QUEUED_FLIGHT_UNSUBMITTED;   // don't auto-submit this flight!
-    [MFBAppDelegate.threadSafeAppDelegate queueFlightForLater:le];
+    [MFBAppDelegate.threadSafeAppDelegate performSelectorOnMainThread:@selector(queueFlightForLater:) withObject:le waitUntilDone:NO];
 
     return le;
 }
