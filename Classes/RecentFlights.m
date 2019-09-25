@@ -639,6 +639,9 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectPendingFlights, sectExi
     // dismiss the progress indicator
     [self dismissViewControllerAnimated:YES completion:nil];
     
+    if (le == nil)
+        return;
+    
     LEEditController * lev = [self pushViewControllerForFlight:le];
     
     // Check for an existing new flight in-progress.
