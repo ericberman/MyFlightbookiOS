@@ -9,48 +9,42 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleTypeIconFile</key>
-			<string>Icon.png</string>
 			<key>CFBundleTypeIconFiles</key>
 			<array>
-				<string>Icon@2x</string>
+				<string>Icon@2x.png</string>
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>GPX File</string>
 			<key>LSHandlerRank</key>
-			<string>Default</string>
+			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>com.myflightbook.myflightbookiphone.gpx</string>
 			</array>
 		</dict>
 		<dict>
-			<key>CFBundleTypeIconFile</key>
-			<string>Icon.png</string>
 			<key>CFBundleTypeIconFiles</key>
 			<array>
-				<string>Icon@2x</string>
+				<string>Icon@2x.png</string>
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>KML File</string>
 			<key>LSHandlerRank</key>
-			<string>Default</string>
+			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>com.myflightbook.myflightbookiphone.kml</string>
 			</array>
 		</dict>
 		<dict>
-			<key>CFBundleTypeIconFile</key>
-			<string>Icon.png</string>
 			<key>CFBundleTypeIconFiles</key>
 			<array>
-				<string>Icon@2x</string>
+				<string>Icon@2x.png</string>
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>NMEA File</string>
 			<key>LSHandlerRank</key>
-			<string>Default</string>
+			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>com.myflightbook.myflightbookiphone.nmea</string>
@@ -210,46 +204,76 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
+				<string>public.data</string>
 				<string>public.text</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>GPX File</string>
+			<key>UTTypeIconFiles</key>
+			<array>
+				<string>Icon@2x.png</string>
+			</array>
 			<key>UTTypeIdentifier</key>
 			<string>com.myflightbook.myflightbookiphone.gpx</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
+				<key>public.mime-type</key>
+				<string>application/gpx+xml</string>
 				<key>public.filename-extension</key>
-				<string>gpx</string>
+				<array>
+					<string>gpx</string>
+					<string>GPX</string>
+				</array>
 			</dict>
 		</dict>
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
+				<string>public.data</string>
 				<string>public.text</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>KML File</string>
+			<key>UTTypeIconFile</key>
+			<string></string>
+			<key>UTTypeIconFiles</key>
+			<array>
+				<string>Icon@2x.png</string>
+			</array>
 			<key>UTTypeIdentifier</key>
 			<string>com.myflightbook.myflightbookiphone.kml</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
+				<key>public.mime-type</key>
+				<string>application/vnd.google-earth.kml+xml</string>
 				<key>public.filename-extension</key>
-				<string>kml</string>
+				<array>
+					<string>KML</string>
+					<string>kml</string>
+				</array>
 			</dict>
 		</dict>
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
+				<string>public.data</string>
 				<string>public.text</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>NMEA File</string>
+			<key>UTTypeIconFiles</key>
+			<array>
+				<string>Icon@2x.png</string>
+			</array>
 			<key>UTTypeIdentifier</key>
 			<string>com.myflightbook.myflightbookiphone.nmea</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
-				<string>nmea</string>
+				<array>
+					<string>NMEA</string>
+					<string>nmea</string>
+				</array>
 			</dict>
 		</dict>
 	</array>
