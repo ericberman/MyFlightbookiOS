@@ -31,12 +31,12 @@ typedef enum : NSInteger {
 } ThemeType;
 
 typedef enum : NSInteger {
+    ThemeModeAuto,
     ThemeModeOff,
-    ThemeModeOn,
-    ThemeModeAuto
+    ThemeModeOn
 } ThemeMode;
 
-#define keyThemePref    @"currentThemePref"
+#define keyThemePref    @"currentThemePref2"
 #define keyThemeType    @"currentThemeType"
 
 #define NOTIFY_THEME_CHANGED @"notify_theme_changed"

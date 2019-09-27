@@ -298,7 +298,7 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
             for (int i = nflSunsetPlus60; i < nflLast; i++)
                 [landingOptionNames addObject:[MFBLocation nightLandingOptionName:i]];
             
-            NSArray<NSString *> * nightModeOptions = [NSArray arrayWithObjects:[MFBTheme modeName:ThemeModeOff], [MFBTheme modeName:ThemeModeOn], [MFBTheme modeName:ThemeModeAuto], nil];
+            NSArray<NSString *> * nightModeOptions = [NSArray arrayWithObjects:[MFBTheme modeName:ThemeModeAuto], [MFBTheme modeName:ThemeModeOff], [MFBTheme modeName:ThemeModeOn], nil];
             ThemeOptionSelection * tos = [[ThemeOptionSelection alloc] initWithTitle:NSLocalizedString(@"NightModePrompt", @"Night Mode Prompt") forOptionKey:keyThemePref options:nightModeOptions];
             
             mvos.optionGroups = @[
