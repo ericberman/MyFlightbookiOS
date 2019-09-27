@@ -321,7 +321,9 @@ enum aircraftRows {rowInfoStart, rowStaticDesc = rowInfoStart, rowInfoLast,
                 szInstanceTypeDesc = [NSString stringWithFormat:@" (%@)", (aircraft.rgAircraftInstanceTypes)[[self.ac.InstanceTypeID intValue] - 1]];
             cell.textLabel.text = [NSString stringWithFormat:@"%@%@", self.ac.TailNumber, szInstanceTypeDesc];
             cell.textLabel.adjustsFontSizeToFitWidth = YES;
-            cell.detailTextLabel.text = [aircraft descriptionOfModelId:[self.ac.ModelID intValue]];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (%@)",
+                [self.ac.ModelCommonName stringByReplacingOccurrencesOfString:@"  " withString:@" "],
+                [self.ac.ModelDescription stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }
@@ -489,8 +491,9 @@ enum aircraftRows {rowInfoStart, rowStaticDesc = rowInfoStart, rowInfoLast,
     if (section == 0) {
         UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
         
-        header.textLabel.font = [UIFont systemFontOfSize:9];
         header.textLabel.textAlignment = NSTextAlignmentCenter;
+        header.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        header.textLabel.numberOfLines = 2;
     }
 }
 
