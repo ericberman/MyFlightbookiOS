@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -83,6 +83,7 @@
 @interface MFBWebServiceSvc_Aircraft (NSCodingSupport)
 - (void)encodeWithCoderMFB:(NSCoder *)encoder;
 - (instancetype)initWithCoderMFB:(NSCoder *)decoder;
+- (NSString *) modelFullDescription;
 + (MFBWebServiceSvc_Aircraft *) getNewAircraft;
 - (BOOL) isNew;
 - (BOOL) isSim;

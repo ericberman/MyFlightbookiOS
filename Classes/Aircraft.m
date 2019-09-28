@@ -618,6 +618,12 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
     return [NSString stringWithFormat:@"%@ - %@, ID=%d", self.TailNumber, self.ModelCommonName, self.AircraftID.intValue];
 }
 
+- (NSString *) modelFullDescription {
+    return [NSString stringWithFormat:@"%@ (%@)",
+        [self.ModelCommonName stringByReplacingOccurrencesOfString:@"  " withString:@" "],
+        [self.ModelDescription stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+}
+
 - (BOOL) isNew
 {
     return self.AircraftID == nil || [self.AircraftID intValue] < 0;

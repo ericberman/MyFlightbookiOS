@@ -321,9 +321,7 @@ enum aircraftRows {rowInfoStart, rowStaticDesc = rowInfoStart, rowInfoLast,
                 szInstanceTypeDesc = [NSString stringWithFormat:@" (%@)", (aircraft.rgAircraftInstanceTypes)[[self.ac.InstanceTypeID intValue] - 1]];
             cell.textLabel.text = [NSString stringWithFormat:@"%@%@", self.ac.TailNumber, szInstanceTypeDesc];
             cell.textLabel.adjustsFontSizeToFitWidth = YES;
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (%@)",
-                [self.ac.ModelCommonName stringByReplacingOccurrencesOfString:@"  " withString:@" "],
-                [self.ac.ModelDescription stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+            cell.detailTextLabel.text = self.ac.modelFullDescription;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }

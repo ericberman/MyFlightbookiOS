@@ -237,9 +237,7 @@ BOOL fNeedsRefresh = NO;
     MFBWebServiceSvc_Aircraft * ac = [self aircraftAtIndexPath:indexPath];
 		
 	cell.textLabel.text = ac.displayTailNumber;
-	cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (%@)", 
-								 [ac.ModelCommonName stringByReplacingOccurrencesOfString:@"  " withString:@" "], 
-								 [ac.ModelDescription stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+    cell.detailTextLabel.text = ac.modelFullDescription;
     cell.imageView.layer.opacity = cell.detailTextLabel.layer.opacity = cell.textLabel.layer.opacity = (ac.HideFromSelection.boolValue) ? 0.7 : 1.0;
 
     cell.imageView.image = [UIImage imageNamed:@"noimage"];
