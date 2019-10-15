@@ -443,7 +443,7 @@ static MFBAppDelegate * _mainApp = nil;
     self.notifyDataChanged = [[NSMutableArray alloc] init];
     self.notifyResetAll = [[NSMutableArray alloc] init];
     
-    [MFBTheme restoreTheme];
+    [MFBTheme setMFBTheme];
     self.tabBarController.moreNavigationController.navigationBar.tintColor = MFBTheme.MFBBrandColor;
 
 	if (self.window)

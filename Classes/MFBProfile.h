@@ -45,7 +45,6 @@
 - (int) cacheStatus:(NSString *) szUser;
 - (BOOL) createUser:(MFBWebServiceSvc_CreateUser *) cu;
 - (NSString *) authRedirForUser:(NSString *) params;
-- (NSString *) authRedirForUser:(NSString *) params themeNight:(BOOL) fNight;
 
 @property (readwrite, strong) NSString * UserName;
 @property (readwrite, strong) NSString * Password;

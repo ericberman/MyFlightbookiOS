@@ -26,6 +26,7 @@
 
 #import "HostedWebViewViewController.h"
 #import "Util.h"
+#import "MFBTheme.h"
 
 @interface HostedWebViewViewController ()
 
@@ -45,7 +46,12 @@
 - (instancetype) initWithURL:(NSString *)szURL
 {
     if (self = [super init]) {
-        self.szurl = szURL;
+        NSMutableString * sz = [[NSMutableString alloc] initWithString:szURL];
+        if (MFBTheme.isDarkMode) {
+            if (![sz containsString:@"night="])
+                [sz appendString:[sz containsString:@"?"] ? @"&night=yes" : @"?night=no"];
+        }
+        self.szurl = sz;
     }
     return self;
 }

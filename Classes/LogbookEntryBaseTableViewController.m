@@ -26,7 +26,6 @@
 #import "LogbookEntryBaseTableViewController.h"
 #import "FlightProperties.h"
 #import "HostedWebViewViewController.h"
-#import "MFBTheme.h"
 #import "DecimalEdit.h"
 #import "NearbyAirports.h"
 #import "MyAircraft.h"
@@ -59,16 +58,9 @@
     self.navigationItem.rightBarButtonItem.enabled = NO;
     self.navigationItem.rightBarButtonItem.enabled = YES;
     
-    // fix placeholder theming
-    self.idComments.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"Comments", @"Entry field: Comments")];
-    self.idRoute.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"Route", @"Entry field: Route")];
-    self.idPopAircraft.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"Aircraft", @"Entry field: Aircraft")];
-    [self.idPublic setTitleColor:MFBTheme.currentTheme.labelForeColor forState:UIControlStateNormal];
-    [self.idPublic setTitleColor:MFBTheme.currentTheme.labelForeColor forState:UIControlStateSelected];
-    [self.idPublic setTitleColor:MFBTheme.currentTheme.labelForeColor forState:UIControlStateHighlighted];
-    [self.idHold setTitleColor:MFBTheme.currentTheme.labelForeColor forState:UIControlStateNormal];
-    [self.idHold setTitleColor:MFBTheme.currentTheme.labelForeColor forState:UIControlStateSelected];
-    [self.idHold setTitleColor:MFBTheme.currentTheme.labelForeColor forState:UIControlStateHighlighted];
+    self.idComments.placeholder = NSLocalizedString(@"Comments", @"Entry field: Comments");
+    self.idRoute.placeholder = NSLocalizedString(@"Route", @"Entry field: Route");
+    self.idPopAircraft.placeholder = NSLocalizedString(@"Aircraft", @"Entry field: Aircraft");
     
     // pick up any changes in the HHMM setting
     self.idXC.IsHHMM = self.idSIC.IsHHMM = self.idSimIMC.IsHHMM = self.idCFI.IsHHMM = self.idDual.IsHHMM =
@@ -405,11 +397,10 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
 
 #pragma mark - Signing flights
 - (void) signFlight:(id)sender {
-    NSString * szURL = [NSString stringWithFormat:@"https://%@/logbook/public/SignEntry.aspx?idFlight=%d&auth=%@&naked=1&night=%@",
+    NSString * szURL = [NSString stringWithFormat:@"https://%@/logbook/public/SignEntry.aspx?idFlight=%d&auth=%@&naked=1",
                         MFBHOSTNAME,
                         [self.le.entryData.FlightID intValue],
-                        [(mfbApp()).userProfile.AuthToken stringByURLEncodingString],
-                        MFBTheme.currentTheme.Type == themeNight ? @"yes" : @"no"];
+                        [(mfbApp()).userProfile.AuthToken stringByURLEncodingString]];
     
     HostedWebViewViewController * vwWeb = [[HostedWebViewViewController alloc] initWithURL:szURL];
     [mfbApp() invalidateCachedTotals];   // this flight could now be invalid

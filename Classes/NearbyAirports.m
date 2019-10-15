@@ -27,7 +27,6 @@
 #import "NearbyAirports.h"
 #import "ImageComment.h"
 #import <QuartzCore/QuartzCore.h>
-#import "MFBTheme.h"
 
 @interface NearbyAirports ()
 @property (atomic, readwrite) BOOL flightPathInProgress;
@@ -106,7 +105,7 @@ CGFloat defaultSearchHeight;
     self.mapView.mapType = [AutodetectOptions mapType];
     [self enableSendTelemetry];
     [self.bbAddCurloc setEnabled:self.delegateNearest != nil];
-    [MFBTheme.currentTheme setSearchBar:self.searchBar Placholeder:NSLocalizedString(@"RouteSearchPrompt", @"Airport codes to map")];
+    self.searchBar.placeholder = NSLocalizedString(@"RouteSearchPrompt", @"Airport codes to map");
 	[super viewWillAppear:animated];
 }
 

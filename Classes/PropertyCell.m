@@ -30,7 +30,6 @@
 #import "Util.h"
 #import "DecimalEdit.h"
 #import <QuartzCore/QuartzCore.h>
-#import "MFBTheme.h"
 
 @interface PropertyCell()
 @property (strong) NSNumber * autofillValue;
@@ -143,7 +142,16 @@
 
 - (void) styleLabelAsDefault:(BOOL)fIsDefault
 {
-    self.lbl.textColor = (fIsDefault) ? MFBTheme.currentTheme.cellValue1DetailTextColor : MFBTheme.currentTheme.labelForeColor;
+    UIColor * textColor;
+    UIColor * dimmedColor;
+    if (@available(iOS 13.0, *)) {
+        textColor = UIColor.labelColor;
+        dimmedColor = UIColor.secondaryLabelColor;
+    } else {
+        textColor = UIColor.blackColor;
+        dimmedColor = UIColor.darkGrayColor;
+    }
+    self.lbl.textColor = (fIsDefault) ? dimmedColor : textColor;
     self.lbl.font = (fIsDefault) ? [UIFont systemFontOfSize:12.0] : [UIFont boldSystemFontOfSize:12.0];
 }
 
@@ -274,9 +282,9 @@
             break;
         case MFBWebServiceSvc_CFPPropertyType_cfpDate:
         case MFBWebServiceSvc_CFPPropertyType_cfpDateTime:
-            self.txt.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:(self.cpt.Type == MFBWebServiceSvc_CFPPropertyType_cfpDate) ?
+            self.txt.placeholder = (self.cpt.Type == MFBWebServiceSvc_CFPPropertyType_cfpDate) ?
             NSLocalizedString(@"Tap for Today", @"Prompt on button to specify a date that is not yet specified") :
-            NSLocalizedString(@"Tap for Now", @"Prompt on button to specify a date/time that is not yet specified")];
+            NSLocalizedString(@"Tap for Now", @"Prompt on button to specify a date/time that is not yet specified");
             self.txt.inputView = dp;
             break;
         case MFBWebServiceSvc_CFPPropertyType_cfpCurrency:

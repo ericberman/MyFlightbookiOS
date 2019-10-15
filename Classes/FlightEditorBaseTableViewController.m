@@ -29,7 +29,6 @@
 #import <ExternalAccessory/EAAccessoryManager.h>
 #import <ExternalAccessory/ExternalAccessoryDefines.h>
 #import "DecimalEdit.h"
-#import "MFBTheme.h"
 
 @interface FlightEditorBaseTableViewController ()
 @property (readwrite, strong) NSMutableArray<EAAccessory *> * externalAccessories;
@@ -68,7 +67,7 @@
 - (EditCell *) dateCell:(NSDate *) dt withPrompt:(NSString *) szPrompt forTableView:(UITableView *) tableView inflated:(BOOL) fInflated {
     EditCell * ec = [EditCell getEditCell:tableView withAccessory:self.vwAccessory];
     ec.txt.inputView = self.datePicker;
-    ec.txt.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"(Tap for Now)", @"Prompt UTC Date/Time that is currently un-set (tapping sets it to NOW in UTC)")];
+    ec.txt.placeholder = NSLocalizedString(@"(Tap for Now)", @"Prompt UTC Date/Time that is currently un-set (tapping sets it to NOW in UTC)");
     ec.txt.delegate = self;
     ec.lbl.text = szPrompt;
     ec.txt.clearButtonMode = UITextFieldViewModeNever;

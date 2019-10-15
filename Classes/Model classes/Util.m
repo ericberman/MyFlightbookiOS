@@ -73,7 +73,13 @@
     UIFont * italicFont = [UIFont fontWithDescriptor:[[baseFont fontDescriptor] fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitItalic] size:baseFont.pointSize];
 
     __block NSUInteger lastPos = 0;
-    UIColor * textColor = MFBTheme.currentTheme.labelForeColor;
+    UIColor * textColor;
+    if (@available(iOS 13.0, *)) {
+        textColor = UIColor.labelColor;
+    } else {
+        textColor = UIColor.blackColor;
+    }
+
     NSMutableAttributedString * attr = [[NSMutableAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName : textColor}];
     [reg enumerateMatchesInString:sz options:0 range:NSMakeRange(0, sz.length) usingBlock:^(NSTextCheckingResult * _Nullable match, NSMatchingFlags flags, BOOL * _Nonnull stop) {
         NSRange matchRange = match.range;

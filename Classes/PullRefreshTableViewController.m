@@ -203,6 +203,11 @@
             cell = topLevelObjects[1];
     }
     cell.Prompt.text = s;
+    if (@available(iOS 13.0, *)) {
+        cell.ActivityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleMedium;
+    } else {
+        cell.ActivityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    }
     [cell.ActivityIndicator startAnimating];
     return cell;   
 }

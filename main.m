@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -32,7 +32,6 @@
 #import "CommentedImage.h"
 #import "FlightProps.h"
 #import "LogbookEntry.h"
-#import "MFBTheme.h"
 
 void Swizzle(Class c, SEL orig, SEL new)
 {
@@ -85,10 +84,6 @@ void SwizzleArchivedClasses()
         
         Swizzle([MFBWebServiceSvc_PropertyTemplate class], @selector(initWithCoder:), @selector(initWithCoderMFB:));
         Swizzle([MFBWebServiceSvc_PropertyTemplate class], @selector(encodeWithCoder:), @selector(encodeWithCoderMFB:));
-        
-        // Theme support - tables suck because UIAppearance can't set primary/detail text colors.
-        Swizzle([UITableViewCell class], @selector(initWithStyle:reuseIdentifier:), @selector(initWithMFBThemedStyle:reuseIdentifier:));
-        Swizzle([UITableView class], @selector(dequeueReusableCellWithIdentifier:), @selector(dequeueThemedReusableCellWithIdentifier:));
     });
 }
 

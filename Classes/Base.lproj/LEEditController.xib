@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -63,26 +61,25 @@
                 <outlet property="dataSource" destination="-1" id="502"/>
                 <outlet property="delegate" destination="-1" id="503"/>
             </connections>
+            <point key="canvasLocation" x="139" y="193"/>
         </pickerView>
         <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" id="472" userLabel="datePicker">
             <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-            <date key="date" timeIntervalSinceReferenceDate="386015756.71822">
-                <!--2013-03-26 18:35:56 +0000-->
-            </date>
             <connections>
                 <action selector="dateChanged:" destination="-1" eventType="valueChanged" id="533"/>
             </connections>
+            <point key="canvasLocation" x="139" y="256"/>
         </datePicker>
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="cellDateAndTail" id="316" customClass="NavigableCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="316" id="UXh-1T-tcS">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="324" userLabel="txtDate">
-                        <rect key="frame" x="16" y="7" width="120" height="30"/>
+                        <rect key="frame" x="15" y="5" width="120" height="34"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="120" id="B9W-Ka-vhs"/>
                         </constraints>
@@ -93,21 +90,17 @@
                         </connections>
                     </textField>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="326" userLabel="btnAddAircraft">
-                        <rect key="frame" x="282" y="11" width="22" height="22"/>
+                        <rect key="frame" x="279" y="10" width="25" height="24"/>
                         <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                         <state key="normal">
-                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </state>
-                        <state key="highlighted">
-                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                         <connections>
                             <action selector="newAircraft" destination="-1" eventType="touchDown" id="328"/>
                         </connections>
                     </button>
                     <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="329" userLabel="txtAircraft">
-                        <rect key="frame" x="152" y="7" width="120" height="30"/>
+                        <rect key="frame" x="149" y="5" width="120" height="34"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="zbZ-bW-v7i"/>
                         </constraints>
@@ -139,18 +132,17 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="321" id="DL7-HT-psE">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="44.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Comments:" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="330">
-                        <rect key="frame" x="16" y="5" width="258" height="14.5"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <rect key="frame" x="15" y="5" width="259" height="14.5"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="333" userLabel="txtComments">
-                        <rect key="frame" x="16" y="21.5" width="258" height="19"/>
+                        <rect key="frame" x="15" y="21.5" width="259" height="19"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes"/>
                         <connections>
@@ -178,18 +170,17 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="314" id="Y1E-St-QCB">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Route:" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="336">
-                        <rect key="frame" x="16" y="5" width="224" height="15"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <rect key="frame" x="15" y="5" width="225" height="15"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="337" userLabel="txtRoute">
-                        <rect key="frame" x="16" y="22" width="224" height="19"/>
+                        <rect key="frame" x="15" y="22" width="219" height="19"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no"/>
                         <connections>
@@ -197,21 +188,17 @@
                         </connections>
                     </textField>
                     <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="338" userLabel="btnViewRoute">
-                        <rect key="frame" x="282" y="11" width="22" height="22"/>
+                        <rect key="frame" x="279" y="10" width="25" height="24"/>
                         <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                         <connections>
                             <action selector="viewClosest" destination="-1" eventType="touchDown" id="340"/>
                         </connections>
                     </button>
                     <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="339" userLabel="btnNearest">
-                        <rect key="frame" x="250" y="11" width="22" height="22"/>
+                        <rect key="frame" x="244" y="10" width="25" height="24"/>
                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
                         <state key="normal">
-                            <color key="titleColor" red="0.19607843" green="0.30980393000000001" blue="0.52156866000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </state>
-                        <state key="highlighted">
-                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                         <connections>
                             <action selector="autofillClosest" destination="-1" eventType="touchUpInside" id="RLd-Iz-SLc"/>
@@ -242,63 +229,54 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="109"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="318" id="cvw-td-8w4">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="108.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="109"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" text="Approaches:" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="360">
                         <rect key="frame" x="160" y="20" width="90" height="14.5"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="90" id="sYH-KW-gCI"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" text="Landings:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="361">
-                        <rect key="frame" x="16" y="20" width="100" height="14.5"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <rect key="frame" x="15" y="20" width="100" height="14.5"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="w2F-06-dCF"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" text="Day Full-stop:" lineBreakMode="wordWrap" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="362">
-                        <rect key="frame" x="16" y="47" width="100" height="14.5"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <rect key="frame" x="15" y="47.5" width="100" height="14.5"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="wz9-fg-Rb5"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" text="Night Full-stop:" lineBreakMode="wordWrap" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="363">
-                        <rect key="frame" x="16" y="74" width="100" height="14.5"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <rect key="frame" x="15" y="74.5" width="100" height="14.5"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="AnR-qJ-cRe"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="365">
                         <rect key="frame" x="160" y="41" width="47" height="27"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                         <state key="normal" title="Holding">
-                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </state>
-                        <state key="highlighted">
-                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                     </button>
                     <textField opaque="NO" clearsContextBeforeDrawing="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="378" userLabel="txtApproaches">
-                        <rect key="frame" x="250" y="19.5" width="30" height="15"/>
+                        <rect key="frame" x="250" y="18" width="30" height="18.5"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="30" id="qVW-rZ-kdf"/>
                         </constraints>
@@ -309,7 +287,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clearsContextBeforeDrawing="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="381" userLabel="txtLandings">
-                        <rect key="frame" x="124" y="19.5" width="40" height="15"/>
+                        <rect key="frame" x="123" y="18" width="40" height="18.5"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="9dF-O8-Yzc"/>
                         </constraints>
@@ -320,7 +298,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clearsContextBeforeDrawing="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="384" userLabel="txtDayLandings">
-                        <rect key="frame" x="124" y="47" width="40" height="15"/>
+                        <rect key="frame" x="123" y="45.5" width="40" height="18.5"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="9cT-R3-7ac"/>
                         </constraints>
@@ -331,7 +309,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clearsContextBeforeDrawing="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="387" userLabel="txtNightLandings">
-                        <rect key="frame" x="124" y="74" width="40" height="15"/>
+                        <rect key="frame" x="123" y="72.5" width="40" height="18.5"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="bam-Cn-nbW"/>
                         </constraints>
@@ -342,14 +320,10 @@
                         </connections>
                     </textField>
                     <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0al-24-wNt" userLabel="btnAddApproach">
-                        <rect key="frame" x="282" y="16" width="22" height="22"/>
+                        <rect key="frame" x="279" y="15.5" width="25" height="24"/>
                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
                         <state key="normal">
-                            <color key="titleColor" red="0.19607843" green="0.30980393000000001" blue="0.52156866000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </state>
-                        <state key="highlighted">
-                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                         <connections>
                             <action selector="addApproach:" destination="-1" eventType="touchUpInside" id="wIY-ah-3e5"/>
@@ -386,12 +360,13 @@
                 <outlet property="firstResponderControl" destination="381" id="551"/>
                 <outlet property="lastResponderControl" destination="378" id="552"/>
             </connections>
+            <point key="canvasLocation" x="139" y="208"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="cellGPS" rowHeight="77" id="320">
             <rect key="frame" x="0.0" y="0.0" width="320" height="77"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="320" id="Boe-b6-Oyg">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="76.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="77"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3fw-Vq-oIp" userLabel="vwSunRiseSet">
@@ -400,23 +375,23 @@
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(Sunrise)" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="354">
                                 <rect key="frame" x="25" y="7.5" width="77" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(Sunset)" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="355">
                                 <rect key="frame" x="25" y="20.5" width="77" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="sunrise.png" translatesAutoresizingMaskIntoConstraints="NO" id="356">
-                                <rect key="frame" x="0.0" y="-3" width="20" height="20"/>
+                                <rect key="frame" x="0.0" y="-23" width="20" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="Kcl-dU-c1C"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="sunset.png" translatesAutoresizingMaskIntoConstraints="NO" id="357">
-                                <rect key="frame" x="0.0" y="20.5" width="20" height="20"/>
+                                <rect key="frame" x="0.0" y="20.5" width="20" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="tKU-Xs-bB8"/>
                                 </constraints>
@@ -444,13 +419,13 @@
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(Longitude)" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="352">
                                 <rect key="frame" x="24.5" y="20.5" width="56" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(Latitude)" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="353">
                                 <rect key="frame" x="29" y="7.5" width="47" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -470,13 +445,13 @@
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="--" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="347">
                                 <rect key="frame" x="48.5" y="6.5" width="8" height="14"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="12"/>
-                                <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="--" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="LYI-vh-GeJ">
                                 <rect key="frame" x="48.5" y="19.5" width="8" height="14"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="12"/>
-                                <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -496,13 +471,13 @@
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Elapsed:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="350">
                                 <rect key="frame" x="31.5" y="0.0" width="41.5" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="00:00:00" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="351">
                                 <rect key="frame" x="28" y="12" width="48.5" height="14"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="12"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -522,13 +497,13 @@
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="(unknown)" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="345">
                                 <rect key="frame" x="22" y="12" width="61" height="14"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="12"/>
-                                <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Flight Status:" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="5qP-LJ-KVB">
                                 <rect key="frame" x="20.5" y="0.0" width="64.5" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -548,13 +523,13 @@
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="GPS quality:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="348">
                                 <rect key="frame" x="23" y="0.0" width="59" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="(unknown)" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="349">
                                 <rect key="frame" x="22" y="12" width="61" height="14"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="12"/>
-                                <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -569,17 +544,13 @@
                         </constraints>
                     </view>
                     <imageView hidden="YES" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="Recording.png" translatesAutoresizingMaskIntoConstraints="NO" id="359">
-                        <rect key="frame" x="21" y="21" width="10" height="10"/>
+                        <rect key="frame" x="20" y="16" width="20" height="20"/>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="358" userLabel="btnPausePlay">
-                        <rect key="frame" x="288" y="17" width="16" height="18"/>
+                        <rect key="frame" x="273" y="10" width="32" height="32"/>
                         <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                         <state key="normal" image="Pause.png">
-                            <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </state>
-                        <state key="highlighted">
-                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                         <connections>
                             <action selector="toggleFlightPause" destination="-1" eventType="touchDown" id="OsX-fO-Gf8"/>
@@ -611,7 +582,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="179"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="315" id="6Ad-iY-G5B">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="178.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="179"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" tag="10" contentMode="scaleToFill" text="Total:" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="419">
@@ -621,7 +592,7 @@
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="3PY-D6-Nlr"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" text="X-Country:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="420">
@@ -631,27 +602,27 @@
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="ZXZ-Sq-rW6"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" text="Night:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="421">
-                        <rect key="frame" x="16" y="11" width="80" height="14.5"/>
+                        <rect key="frame" x="15" y="11" width="80" height="14.5"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="JCA-j4-o9d"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" text="IMC:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="422">
-                        <rect key="frame" x="16" y="40.5" width="80" height="14.5"/>
+                        <rect key="frame" x="15" y="40.5" width="80" height="14.5"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="2tb-zM-5MH"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" text="Sim. IMC:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="423">
@@ -661,27 +632,27 @@
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="7dj-f7-LDH"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" text="Dual:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="424">
-                        <rect key="frame" x="16" y="70" width="80" height="14.5"/>
+                        <rect key="frame" x="15" y="70" width="80" height="14.5"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="1A1-84-ws9"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" tag="7" contentMode="scaleToFill" text="CFI:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="425">
-                        <rect key="frame" x="16" y="99.5" width="80" height="14.5"/>
+                        <rect key="frame" x="15" y="99.5" width="80" height="14.5"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="Ew7-7D-Ryt"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" tag="8" contentMode="scaleToFill" text="SIC:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="426">
@@ -691,17 +662,17 @@
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="kqR-4s-NOw"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" tag="9" contentMode="scaleToFill" text="PIC:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="427">
-                        <rect key="frame" x="16" y="129" width="80" height="14.5"/>
+                        <rect key="frame" x="15" y="129" width="80" height="14.5"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="z60-1A-F55"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" tag="6" contentMode="scaleToFill" text="Ground Sim:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="439">
@@ -711,11 +682,11 @@
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="9hq-Wk-Ghn"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="452" userLabel="txtNight">
-                        <rect key="frame" x="96" y="10" width="40" height="17"/>
+                        <rect key="frame" x="95" y="9" width="40" height="18.5"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="rEn-Wd-HWy"/>
                         </constraints>
@@ -726,7 +697,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="453" userLabel="txtIMC">
-                        <rect key="frame" x="96" y="39.5" width="40" height="17"/>
+                        <rect key="frame" x="95" y="38.5" width="40" height="18.5"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="P3b-ys-B0g"/>
                         </constraints>
@@ -737,7 +708,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="454" userLabel="txtDual">
-                        <rect key="frame" x="96" y="69" width="40" height="17"/>
+                        <rect key="frame" x="95" y="68" width="40" height="18.5"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="BDo-9L-q2s"/>
                         </constraints>
@@ -748,7 +719,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="455" userLabel="txtCFI">
-                        <rect key="frame" x="96" y="98.5" width="40" height="17"/>
+                        <rect key="frame" x="95" y="97.5" width="40" height="18.5"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="RlV-mu-zNT"/>
                         </constraints>
@@ -759,7 +730,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="456" userLabel="txtPIC">
-                        <rect key="frame" x="96" y="128" width="40" height="17"/>
+                        <rect key="frame" x="95" y="127" width="40" height="18.5"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="eRd-8e-KAz"/>
                         </constraints>
@@ -770,7 +741,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="457" userLabel="txtSIMIMC">
-                        <rect key="frame" x="240" y="10" width="40" height="17"/>
+                        <rect key="frame" x="240" y="9" width="40" height="18.5"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="4my-0g-mRG"/>
                         </constraints>
@@ -781,7 +752,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="458" userLabel="txtXC">
-                        <rect key="frame" x="240" y="39.5" width="40" height="17"/>
+                        <rect key="frame" x="240" y="38.5" width="40" height="18.5"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="J7M-UY-qk5"/>
                         </constraints>
@@ -792,7 +763,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="459" userLabel="txtGrndSim">
-                        <rect key="frame" x="240" y="69" width="40" height="17"/>
+                        <rect key="frame" x="240" y="68" width="40" height="18.5"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="Ksz-fX-B3Y"/>
                         </constraints>
@@ -803,7 +774,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="460" userLabel="txtSIC">
-                        <rect key="frame" x="240" y="98.5" width="40" height="17"/>
+                        <rect key="frame" x="240" y="97.5" width="40" height="18.5"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="Zd0-UP-1cj"/>
                         </constraints>
@@ -814,7 +785,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="461" userLabel="txtTotal">
-                        <rect key="frame" x="240" y="128" width="40" height="17"/>
+                        <rect key="frame" x="240" y="127" width="40" height="18.5"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="z8C-sA-Haa"/>
                         </constraints>
@@ -886,25 +857,19 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="322" id="lN6-qM-XsN">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="54.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="MFBLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="463">
-                        <rect key="frame" x="16" y="11.5" width="32" height="32"/>
+                        <rect key="frame" x="16" y="-4.5" width="64" height="64"/>
                     </imageView>
                     <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="466">
-                        <rect key="frame" x="56" y="14" width="163" height="27"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <rect key="frame" x="88" y="14" width="163" height="27"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="105" id="Ol2-8K-JgV"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <state key="normal" title="Share flight on MyFlightbook">
-                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                        </state>
-                        <state key="highlighted">
-                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </state>
+                        <state key="normal" title="Share flight on MyFlightbook"/>
                     </button>
                 </subviews>
                 <constraints>
@@ -917,15 +882,16 @@
             </tableViewCellContentView>
             <point key="canvasLocation" x="-73.599999999999994" y="562.66866566716647"/>
         </tableViewCell>
-        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="505">
+        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="505">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <nil key="simulatedStatusBarMetrics"/>
+            <point key="canvasLocation" x="140" y="459"/>
         </tableView>
     </objects>
     <resources>
-        <image name="MFBLogo.png" width="32" height="32"/>
+        <image name="MFBLogo.png" width="48" height="48"/>
         <image name="Pause.png" width="16" height="16"/>
         <image name="Recording.png" width="10" height="10"/>
         <image name="sunrise.png" width="20" height="20"/>

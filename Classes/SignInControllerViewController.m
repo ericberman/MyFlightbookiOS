@@ -37,7 +37,6 @@
 #import "FlightProps.h"
 #import "HostedWebViewViewController.h"
 #import "WPSAlertController.h"
-#import "MFBTheme.h"
 
 @interface SignInControllerViewController ()
 @property (nonatomic, strong) NSString * szUser;
@@ -74,7 +73,6 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
 {
     [self.navigationController setToolbarHidden:YES];
     MFBAppDelegate * app = mfbApp();
-    self.tableView.backgroundColor = MFBTheme.currentTheme.tableBackColor;
 
     self.szUser = app.userProfile.UserName;
     self.szPass = app.userProfile.Password;
@@ -205,10 +203,6 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
     return nil;
 }
 
-- (void) tableView:(UITableView *) tableView willDisplayFooterView:(nonnull UIView *)view forSection:(NSInteger)section {
-    [MFBTheme.currentTheme applyThemeToTableHeader:view];
-}
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return sectLast;
@@ -286,7 +280,7 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
             ec.txt.autocorrectionType = UITextAutocorrectionTypeNo;
             ec.txt.text = (cid == cidEmail) ? self.szUser : self.szPass;
             ec.lbl.text = (cid == cidEmail) ? NSLocalizedString(@"E-mail", @"E-mail prompt") : NSLocalizedString(@"Password", @"PasswordPrmopt");
-            ec.txt.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:(cid == cidEmail) ? NSLocalizedString(@"E-Mail Placeholder", @"E-Mail Placeholder") : NSLocalizedString(@"Password Placeholder", @"Password Placeholder")];
+            ec.txt.placeholder = (cid == cidEmail) ? NSLocalizedString(@"E-Mail Placeholder", @"E-Mail Placeholder") : NSLocalizedString(@"Password Placeholder", @"Password Placeholder");
             ec.txt.returnKeyType = (cid == cidEmail) ? UIReturnKeyNext : UIReturnKeyGo;
             return ec;
         }
@@ -348,11 +342,10 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
 - (void) contactUs
 {
     MFBAppDelegate * app = mfbApp();
-	NSString * szURL = [NSString stringWithFormat:@"https://%@/logbook/public/ContactMe.aspx?email=%@&subj=%@&noCap=1&naked=1&night=%@",
+	NSString * szURL = [NSString stringWithFormat:@"https://%@/logbook/public/ContactMe.aspx?email=%@&subj=%@&noCap=1&naked=1",
 						MFBHOSTNAME,
                         app.userProfile.UserName,
-						[[NSString stringWithFormat:@"Comment from %@ user", (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? @"iPad" : @"iPhone"] stringByURLEncodingString],
-                        MFBTheme.currentTheme.Type == themeNight ? @"yes" : @"no"];
+						[[NSString stringWithFormat:@"Comment from %@ user", (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? @"iPad" : @"iPhone"] stringByURLEncodingString]];
     [self pushURL:szURL];
 }
 
@@ -364,9 +357,8 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
 
 - (void) showAbout
 {
-	about * vwAbout = [[about alloc] init];
-	vwAbout.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-	[self presentViewController:vwAbout animated:YES completion:^{}];
+	about * vwAbout = [[about alloc] initWithNibName:@"about" bundle:nil];
+    [self.navigationController pushViewController:vwAbout animated:YES];
 }
 
 - (void) createUser
@@ -408,7 +400,7 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
             if (!mfbApp().userProfile.isValid)
                 return;
             
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[mfbApp().userProfile authRedirForUser:@"d=donate" themeNight:NO]]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[mfbApp().userProfile authRedirForUser:@"d=donate"]]];
             break;
         case cidCreateAcct:
             [self.tableView endEditing:YES];

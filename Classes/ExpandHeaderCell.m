@@ -75,9 +75,8 @@
             cell = topLevelObjects[1];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    cell.backgroundColor = [MFBTheme currentTheme].expandHeaderBackColor;
-    cell.HeaderLabel.textColor = [MFBTheme currentTheme].expandHeaderTextColor;
-    [MFBTheme.currentTheme applyThemedImageNamed:@"Collapsed.png" toImageView:cell.ExpandCollapseLabel];
+
+    [MFBTheme applyThemedImageNamed:@"Collapsed.png" toImageView:cell.ExpandCollapseLabel];
     cell.HeaderLabel.text = szTitle;
     [cell setExpanded:initExpanded];
     cell.DisclosureButton.hidden = YES;

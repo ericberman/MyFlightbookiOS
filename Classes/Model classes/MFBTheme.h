@@ -24,66 +24,11 @@
 //  Created by Eric Berman on 12/7/18.
 //
 
-#import "OptionSelection.h"
-
-typedef enum : NSInteger {
-    themeDay = 0, themeNight
-} ThemeType;
-
-typedef enum : NSInteger {
-    ThemeModeAuto,
-    ThemeModeOff,
-    ThemeModeOn
-} ThemeMode;
-
-#define keyThemePref    @"currentThemePref2"
-#define keyThemeType    @"currentThemeType"
-
-#define NOTIFY_THEME_CHANGED @"notify_theme_changed"
-
-#import <Foundation/Foundation.h>
-
-NS_ASSUME_NONNULL_BEGIN
-
 @interface MFBTheme : NSObject
 
-+ (void) restoreTheme;
-+ (ThemeMode) themeMode;
-+ (void) setTheme:(ThemeType) themeType;
-+ (NSString *) modeName:(ThemeMode) mode;
-+ (MFBTheme *) currentTheme;
++ (BOOL) isDarkMode;
 + (UIColor *) MFBBrandColor;
-
-- (NSAttributedString *) formatAsPlaceholder:(NSString *) placeholder;
-- (void) setSearchBar:(UISearchBar *) searchBar Placholeder:(NSString *) placeholder;
-- (void) applyThemedImageNamed:(NSString *) imageName toImageView:(UIImageView *) imgView;
-- (void) applyThemeToCell:(UITableViewCell *) cell;
-- (void) applyThemeToTableHeader:(UIView *) header;
-
-@property (nonatomic, readwrite) ThemeType Type;
-@property (nonatomic, strong) UIColor * labelForeColor;
-@property (nonatomic, strong) UIColor * labelBackColor;
-@property (nonatomic, strong) UIColor * tableBackColor;
-@property (nonatomic, strong) UIColor * dimmedColor;
-@property (nonatomic, strong) UIColor * expandHeaderBackColor;
-@property (nonatomic, strong) UIColor * expandHeaderTextColor;
-@property (nonatomic, strong) UIColor * cellValue1DetailTextColor;
-
++ (void) applyThemedImageNamed:(NSString *) imageName toImageView:(UIImageView *) imgView;
++ (void) setMFBTheme;
 @end
 
-@interface ThemeOptionSelection : OptionSelection
-@end
-
-@interface UITableViewCell (MFBTheming)
-- (instancetype) initWithMFBThemedStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
-@end
-
-@interface UITableView (MFBTheming)
-- (UITableViewCell *) dequeueThemedReusableCellWithIdentifier:(NSString *)identifier;
-@end
-
-@interface UIColor (MFBTheming)
-- (NSString *) asRGB;
-@end
-
-NS_ASSUME_NONNULL_END

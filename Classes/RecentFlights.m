@@ -31,7 +31,6 @@
 #import "DecimalEdit.h"
 #import "FlightProps.h"
 #import "iRate.h"
-#import "MFBTheme.h"
 #import "WPSAlertController.h"
 
 @interface RecentFlights()
@@ -122,7 +121,6 @@ BOOL fCouldBeMoreFlights;
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)];
     else
         self.navigationItem.leftBarButtonItem = nil;
-    self.tableView.backgroundColor = MFBTheme.currentTheme.tableBackColor;
     self.navigationController.toolbarHidden = YES;
 
     if (self.dictImages == nil)

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -31,18 +29,18 @@
         <window opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" visibleAtLaunch="YES" id="2">
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="rootViewController" destination="106" id="259"/>
             </connections>
+            <point key="canvasLocation" x="662" y="142"/>
         </window>
         <tabBarController id="106">
             <extendedEdge key="edgesForExtendedLayout"/>
-            <tabBar key="tabBar" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" selectedItem="Myn-AJ-tv7" id="107">
+            <tabBar key="tabBar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" selectedItem="Myn-AJ-tv7" id="107">
                 <rect key="frame" x="0.0" y="519" width="320" height="49"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <color key="tintColor" red="0.0" green="0.73725490196078436" blue="0.83137254901960778" alpha="1" colorSpace="calibratedRGB"/>
             </tabBar>
             <viewControllers>
@@ -211,16 +209,17 @@
             <connections>
                 <outlet property="delegate" destination="3" id="168"/>
             </connections>
+            <point key="canvasLocation" x="140" y="143"/>
         </tabBarController>
     </objects>
     <resources>
-        <image name="aircraft.png" width="30" height="30"/>
-        <image name="airporttab.png" width="30" height="30"/>
-        <image name="currency.png" width="30" height="30"/>
-        <image name="newflight.png" width="30" height="30"/>
-        <image name="profile.png" width="30" height="30"/>
-        <image name="runway.png" width="30" height="30"/>
-        <image name="totals.png" width="30" height="30"/>
-        <image name="training.png" width="30" height="30"/>
+        <image name="aircraft.png" width="45" height="45"/>
+        <image name="airporttab.png" width="45" height="45"/>
+        <image name="currency.png" width="45" height="45"/>
+        <image name="newflight.png" width="45" height="45"/>
+        <image name="profile.png" width="45" height="45"/>
+        <image name="runway.png" width="45" height="45"/>
+        <image name="totals.png" width="45" height="45"/>
+        <image name="training.png" width="45" height="45"/>
     </resources>
 </document>

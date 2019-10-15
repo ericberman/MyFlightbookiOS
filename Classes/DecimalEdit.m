@@ -38,11 +38,18 @@
     [self setImage:[UIImage imageNamed:@"Checkbox-Sel"] forState:UIControlStateSelected];
     [self setImage:[UIImage imageNamed:@"Checkbox"] forState:UIControlStateNormal];
     [self addTarget:self action:@selector(toggleCheck:) forControlEvents:UIControlEventTouchUpInside];
-    self.backgroundColor = [UIColor clearColor];
-    self.layer.backgroundColor = [[UIColor clearColor] CGColor];
-    self.layer.borderColor = [[UIColor clearColor] CGColor];
+    UIColor * backColor = UIColor.clearColor;
+    UIColor * checkColor;
+    if (@available(iOS 13.0, *)) {
+        checkColor = UIColor.labelColor;
+    } else {
+        checkColor = UIColor.darkTextColor;
+    }
+
+    self.layer.backgroundColor = backColor.CGColor;
+    self.layer.borderColor = backColor.CGColor;
+    self.backgroundColor = backColor;
     
-    UIColor * checkColor = MFBTheme.currentTheme.labelForeColor;
     if (checkColor != nil) {
         [self setTitleColor:checkColor forState:UIControlStateNormal];
         [self setTitleColor:checkColor forState:UIControlStateFocused];
@@ -92,7 +99,7 @@ static NSNumberFormatter * _nfDecimal = nil;
 {
     NSString * szVal = (IsHHMM ? @"Y" : @"N");
     objc_setAssociatedObject(self, &UIB_ISHHMM_KEY, szVal, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    self.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:[UITextField stringFromNumber:@0.0 forType:self.NumberType inHHMM:IsHHMM]];
+    self.placeholder = [UITextField stringFromNumber:@0.0 forType:self.NumberType inHHMM:IsHHMM];
     [self updateKeyboardType:self.NumberType :self.IsHHMM];
 }
 

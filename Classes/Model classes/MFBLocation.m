@@ -30,7 +30,6 @@
 #import "SunriseSunset.h"
 #import "Airports.h"
 #import "Telemetry.h"
-#import "MFBTheme.h"
 
 @interface MFBLocation()
 @property (strong) CLLocationManager * locManager;
@@ -389,19 +388,6 @@ static int vLanding = LANDING_SPEED_DEFAULT;
         
         BOOL fIsNightForFlight = [self IsNightForFlight:sst];
         BOOL fIsNightForLandings = ([AutodetectOptions nightLandingPref] == nflNight) ? fIsNightForFlight : sst.isFAANight;
-
-        if (self.fUpdatesTheme && MFBTheme.themeMode == ThemeModeAuto) {
-            switch (MFBTheme.currentTheme.Type) {
-                case themeDay:
-                    if (sst.solarAngle < 0)
-                        [MFBTheme setTheme:themeNight];
-                        break;
-                case themeNight:
-                    if (sst.solarAngle > 0)
-                        [MFBTheme setTheme:themeDay];
-                    break;
-            }
-        }
 
         if (self.PreviousLoc != nil && self.fPreviousLocWasNight && fIsNightForFlight && fAutodetect)
         {

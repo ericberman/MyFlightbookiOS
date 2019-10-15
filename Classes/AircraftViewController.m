@@ -39,7 +39,6 @@
 #import "CountryCode.h"
 #import "HostedWebViewViewController.h"
 #import "WPSAlertController.h"
-#import "MFBTheme.h"
 
 @interface AircraftViewController ()
 - (void) findFlights:(id)sender;
@@ -139,6 +138,7 @@ enum aircraftRows {rowInfoStart, rowStaticDesc = rowInfoStart, rowInfoLast,
 - (void) viewWillAppear:(BOOL)animated
 {
     self.navigationController.toolbarHidden = NO;
+    self.navigationController.toolbar.translucent = NO;
     [super viewWillAppear:animated];
     [self.tableView reloadData];
 }
@@ -247,7 +247,13 @@ enum aircraftRows {rowInfoStart, rowStaticDesc = rowInfoStart, rowInfoLast,
     {
         BOOL fIsExpired = [dtExpiration compare:[NSDate date]] == NSOrderedAscending;
         ec.lblDetail.text = [NSString stringWithFormat:(fIsExpired ? NSLocalizedString(@"CurrencyExpired", @"Currency Expired format string") : NSLocalizedString(@"CurrencyValid", @"Currency Valid format string")), [self utcShortDate:dtExpiration]];
-        ec.lblDetail.textColor = (fIsExpired) ? [UIColor redColor] : MFBTheme.currentTheme.cellValue1DetailTextColor;
+        UIColor * detailColor;
+        if (@available(iOS 13.0, *)) {
+            detailColor = UIColor.secondaryLabelColor;
+        } else {
+            detailColor = UIColor.darkGrayColor;
+        }
+        ec.lblDetail.textColor = (fIsExpired) ? [UIColor redColor] : detailColor;
     }
 }
 
@@ -263,7 +269,7 @@ enum aircraftRows {rowInfoStart, rowStaticDesc = rowInfoStart, rowInfoLast,
 {
     EditCell * ec = [EditCell getEditCellDetail:tableView withAccessory:self.vwAccessory];
     ec.txt.inputView = self.datePicker;
-    ec.txt.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"(Tap for Today)", @"Prompt for date that is currently un-set (tapping sets it to TODAY)")];
+    ec.txt.placeholder = NSLocalizedString(@"(Tap for Today)", @"Prompt for date that is currently un-set (tapping sets it to TODAY)");
     ec.txt.delegate = self;
     ec.lbl.text = szPrompt;
     ec.txt.clearButtonMode = UITextFieldViewModeNever;
@@ -288,7 +294,7 @@ enum aircraftRows {rowInfoStart, rowStaticDesc = rowInfoStart, rowInfoLast,
     EditCell * ec = [EditCell getEditCell:tableView withAccessory:self.vwAccessory];
     ec.lbl.text = szPrompt;
     ec.txt.text = szText;
-    ec.txt.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:szPlaceholder];
+    ec.txt.placeholder = szPlaceholder;
     ec.txt.delegate = self;
     ec.txt.clearButtonMode = UITextFieldViewModeWhileEditing;
     return ec;

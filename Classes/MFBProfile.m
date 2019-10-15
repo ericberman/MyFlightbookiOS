@@ -29,7 +29,6 @@
 #import "MFBWebServiceSvc.h"
 #import "MFBAppDelegate.h"
 #import "ApiKeys.h"
-#import "MFBTheme.h"
 
 @implementation MFBProfile
 
@@ -303,12 +302,8 @@ NSString * const _szKeyCachedTokenRetrievalDate = @"keyCacheTokenDate";
 }
 
 - (NSString *) authRedirForUser:(NSString *) params {
-    return [self authRedirForUser:params themeNight:YES];
-}
-
-- (NSString *) authRedirForUser:(NSString *) params  themeNight:(BOOL) fNight {
-    return [NSString stringWithFormat:@"https://%@/logbook/public/authredir.aspx?u=%@&p=%@&%@&%@",
-            MFBHOSTNAME, self.UserName.stringByURLEncodingString, self.Password.stringByURLEncodingString, fNight ? (MFBTheme.currentTheme.Type == themeNight ? @"night=yes" : @"night=no") : @"", params];
+    return [NSString stringWithFormat:@"https://%@/logbook/public/authredir.aspx?u=%@&p=%@&%@",
+            MFBHOSTNAME, self.UserName.stringByURLEncodingString, self.Password.stringByURLEncodingString, params];
 }
 @end
 

@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2014-2018 MyFlightbook, LLC
+ Copyright (C) 2014-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -44,7 +44,6 @@ enum _trainingLinks {cidFirst, cidInstructors = cidFirst, cidStudents, cidReqSig
 
 - (void) viewWillAppear:(BOOL)animated
 {
-    self.tableView.backgroundColor = MFBTheme.currentTheme.tableBackColor;
     [self.navigationController setToolbarHidden:YES];
     [self.tableView reloadData];
     [super viewWillAppear:animated];
@@ -108,9 +107,13 @@ enum _trainingLinks {cidFirst, cidInstructors = cidFirst, cidStudents, cidReqSig
             break;
     }
     
-    if (!self.canViewTraining)
-        cell.textLabel.textColor = MFBTheme.currentTheme.dimmedColor;
-    [MFBTheme.currentTheme applyThemedImageNamed:@"training.png" toImageView:cell.imageView];
+    if (!self.canViewTraining) {
+        if (@available(iOS 13.0, *)) {
+            cell.textLabel.textColor = UIColor.tertiaryLabelColor;
+        } else
+            cell.textLabel.textColor = UIColor.grayColor;
+    }
+    [MFBTheme applyThemedImageNamed:@"training.png" toImageView:cell.imageView];
     return cell;
 }
 

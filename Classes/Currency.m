@@ -28,7 +28,6 @@
 #import "HostedWebViewViewController.h"
 #import "AircraftViewController.h"
 #import "RecentFlights.h"
-#import "MFBTheme.h"
 
 @interface Currency()
 @property (readwrite, strong) NSMutableArray<MFBWebServiceSvc_CurrencyStatusItem *> * rgCurrency;
@@ -228,7 +227,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == sectDisclaimer)
-        [self pushWebURL:[NSString stringWithFormat:@"https://%@/logbook/Public/CurrencyDisclaimer.aspx?naked=1&night=%@", MFBHOSTNAME, MFBTheme.currentTheme.Type == themeNight ? @"yes" : @"no"]];
+        [self pushWebURL:[NSString stringWithFormat:@"https://%@/logbook/Public/CurrencyDisclaimer.aspx?naked=1", MFBHOSTNAME]];
     else if (indexPath.section == sectCurrency) {
         MFBWebServiceSvc_CurrencyStatusItem * ci = (self.rgCurrency)[indexPath.row];
         

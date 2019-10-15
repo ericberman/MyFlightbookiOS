@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2018 MyFlightbook, LLC
+ Copyright (C) 2017-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 6/17/11.
-//  Copyright 2011-2018 MyFlightbook LLC. All rights reserved.
+//  Copyright 2011-2019 MyFlightbook LLC. All rights reserved.
 //
 
 #import "CurrencyRow.h"
@@ -91,7 +91,11 @@
         case MFBWebServiceSvc_CurrencyState_NoDate:
         case MFBWebServiceSvc_CurrencyState_none:
         default:
-            cell.lblValue.textColor = UILabel.appearance.textColor;
+            if (@available(iOS 13.0, *)) {
+                cell.lblValue.textColor = UIColor.labelColor;
+            } else {
+                cell.lblValue.textColor = UIColor.blackColor;
+            }
             break;
     }
     

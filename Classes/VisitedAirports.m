@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2011-2018 MyFlightbook, LLC
+ Copyright (C) 2011-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -28,7 +28,6 @@
 #import "VisitedAirports.h"
 #import "VisitedAirportRow.h"
 #import "VADetails.h"
-#import "MFBTheme.h"
 
 @interface VisitedAirports()
 @property (strong) NSMutableArray<MFBWebServiceSvc_VisitedAirport *> * rgVAFiltered;
@@ -93,7 +92,7 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [MFBTheme.currentTheme setSearchBar:self.searchBar Placholeder:NSLocalizedString(@"AirportsSearchPrompt", @"Search for airports")];
+    self.searchBar.placeholder = NSLocalizedString(@"AirportsSearchPrompt", @"Search for airports");
 }
 
 - (void)viewDidAppear:(BOOL)animated

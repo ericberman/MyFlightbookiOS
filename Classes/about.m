@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2010-2018 MyFlightbook, LLC
+ Copyright (C) 2010-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,12 +22,11 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 1/11/10.
-//  Copyright 2010-2017 MyFlightbook LLC. All rights reserved.
+//  Copyright 2010-2019 MyFlightbook LLC. All rights reserved.
 //
 
 #import "about.h"
 #import "MFBAppDelegate.h"
-#import "MFBTheme.h"
 
 @implementation about
 
@@ -51,8 +50,6 @@
     if (lblDetails != nil)
         lblDetails.text = [NSString stringWithFormat:@"%@, %d, %d, %@", MFBHOSTNAME, [MFBLocation TakeOffSpeed], [MFBLocation LandingSpeed], [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
     
-    self.view.backgroundColor = MFBTheme.currentTheme.labelBackColor;
-
     lblDetailedText.text = NSLocalizedString(@"AboutMyFlightbook", @"About MyFlightbook");
 }
 
@@ -65,18 +62,4 @@
 {
     return UIInterfaceOrientationMaskAll;
 }
-
-- (void)didReceiveMemoryWarning {
-	// Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-	
-	// Release any cached data, images, etc that aren't in use.
-}
-
-- (IBAction) dismissAbout
-{
-	[self dismissViewControllerAnimated:YES completion:^{}];
-}
-
-
 @end

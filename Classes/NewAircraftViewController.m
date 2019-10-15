@@ -34,7 +34,6 @@
 #import "CheckboxCell.h"
 #import "CountryCode.h"
 #import "WPSAlertController.h"
-#import "MFBTheme.h"
 
 @interface NewAircraftViewController ()
 @property (nonatomic, strong) NSString * szTailnumberLast;
@@ -120,7 +119,7 @@ enum aircraftRows {rowMainFirst, rowInstanceType = rowMainFirst, rowIsAnonymous,
 
 - (void) viewWillAppear:(BOOL)animated {
     self.navigationController.toolbarHidden = NO;
-    [self.navigationController setToolbarHidden:NO];
+    self.navigationController.toolbar.translucent = NO;
     [super viewWillAppear:animated];
     [self.tableView reloadData];
 }
@@ -290,7 +289,7 @@ enum aircraftRows {rowMainFirst, rowInstanceType = rowMainFirst, rowIsAnonymous,
                 ec.txt.inputView = self.picker;
             }
             
-            ec.txt.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:(row == rowTailnum) ? NSLocalizedString(@"(Tail)", @"Tail Hint") : NSLocalizedString(@"(Model)", @"Model Hint")];
+            ec.txt.placeholder = (row == rowTailnum) ? NSLocalizedString(@"(Tail)", @"Tail Hint") : NSLocalizedString(@"(Model)", @"Model Hint");
             ec.txt.delegate = self;
             ec.txt.clearButtonMode = UITextFieldViewModeNever;
             ec.txt.adjustsFontSizeToFitWidth = YES;

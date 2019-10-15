@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" colorMatched="YES">
-    <device id="ipad9_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,33 +12,42 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4" id="3Kg-H0-opb">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="45.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" text="Description" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="5">
-                        <rect key="frame" x="20" y="0.0" width="196" height="28"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="249" text="Description" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="5">
+                        <rect key="frame" x="16" y="4" width="203" height="16.5"/>
+                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="Value" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" id="6">
-                        <rect key="frame" x="233" y="0.0" width="76" height="28"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="Value" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="6">
+                        <rect key="frame" x="229" y="4" width="80" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="Gdo-Qz-ZIL"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="SubDesc" lineBreakMode="tailTruncation" minimumFontSize="10" id="7">
-                        <rect key="frame" x="20" y="29" width="289" height="15"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="SubDesc" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="7">
+                        <rect key="frame" x="16" y="25.5" width="289" height="12"/>
                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="10"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="6" firstAttribute="centerY" secondItem="5" secondAttribute="centerY" id="1ou-Ws-ncl"/>
+                    <constraint firstAttribute="trailing" secondItem="7" secondAttribute="trailing" constant="15" id="5cW-pa-JIG"/>
+                    <constraint firstAttribute="trailing" secondItem="6" secondAttribute="trailing" constant="11" id="JJr-6y-FKy"/>
+                    <constraint firstItem="6" firstAttribute="leading" secondItem="5" secondAttribute="trailing" constant="10" id="NWH-sG-CbE"/>
+                    <constraint firstItem="5" firstAttribute="top" secondItem="3Kg-H0-opb" secondAttribute="top" constant="4" id="QaZ-J8-XBf"/>
+                    <constraint firstItem="7" firstAttribute="top" secondItem="5" secondAttribute="bottom" constant="5" id="rXX-qv-rMm"/>
+                    <constraint firstItem="5" firstAttribute="leading" secondItem="3Kg-H0-opb" secondAttribute="leading" constant="16" id="rb8-eu-8BL"/>
+                    <constraint firstItem="7" firstAttribute="leading" secondItem="3Kg-H0-opb" secondAttribute="leading" constant="16" id="uv8-fW-aki"/>
+                </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <connections>
                 <outlet property="txtLabel" destination="5" id="8"/>
                 <outlet property="txtSubDesc" destination="7" id="9"/>

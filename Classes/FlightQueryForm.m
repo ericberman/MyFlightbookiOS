@@ -29,7 +29,6 @@
 #import "LogbookEntry.h"
 #import "ExpandHeaderCell.h"
 #import "Util.h"
-#import "MFBTheme.h"
 #import "ConjunctionCell.h"
 
 @interface FlightQueryForm ()
@@ -583,7 +582,7 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
                     self.ecText = [EditCell getEditCell:self.tableView withAccessory:nil];
                     self.ecText.lbl.text = NSLocalizedString(@"TextContains", @"General Text");
                     self.ecText.txt.text = fq.GeneralText;
-                    self.ecText.txt.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"TextContainsPrompt", @"General Text Prompt")];
+                    self.ecText.txt.placeholder = NSLocalizedString(@"TextContainsPrompt", @"General Text Prompt");
                     self.ecText.txt.returnKeyType = UIReturnKeyDone;
                     self.ecText.txt.autocapitalizationType = UITextAutocapitalizationTypeSentences;
                     [self.ecText.txt setDelegate:self];
@@ -603,7 +602,7 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
                 self.ecAirports = [EditCell getEditCell:self.tableView withAccessory:nil];
                 self.ecAirports.lbl.text = NSLocalizedString(@"AirportsVisited", @"Airport Criteria");
                 self.ecAirports.txt.text = [fq.AirportList.string componentsJoinedByString:@" "];
-                self.ecAirports.txt.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"AirportsVisitedPrompt", @"Airport Criteria Prompt")];
+                self.ecAirports.txt.placeholder = NSLocalizedString(@"AirportsVisitedPrompt", @"Airport Criteria Prompt");
                 self.ecAirports.txt.returnKeyType = UIReturnKeyDone;
                 self.ecAirports.txt.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
                 [self.ecAirports.txt setDelegate:self];
@@ -672,7 +671,7 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
                 self.ecModelName = [EditCell getEditCell:self.tableView withAccessory:nil];
                 self.ecModelName.lbl.text = NSLocalizedString(@"FlightModelName", @"Model Free-text");
                 self.ecModelName.txt.text = fq.ModelName;
-                self.ecModelName.txt.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"FlightModelNamePrompt", @"Model Free-text Prompt")];
+                self.ecModelName.txt.placeholder = NSLocalizedString(@"FlightModelNamePrompt", @"Model Free-text Prompt");
                 self.ecModelName.txt.returnKeyType = UIReturnKeyDone;
                 self.ecModelName.txt.autocapitalizationType = UITextAutocapitalizationTypeSentences;
                 [self.ecModelName.txt setDelegate:self];
@@ -895,7 +894,7 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
             else if (indexPath.row == 1) {
                 self.ecQueryName = [EditCell getEditCell:self.tableView withAccessory:nil];
                 self.ecQueryName.lbl.text = NSLocalizedString(@"QueryNamePrompt", @"Prompt for query name");
-                self.ecQueryName.txt.attributedPlaceholder = [MFBTheme.currentTheme formatAsPlaceholder:NSLocalizedString(@"QueryNamePrompt", @"Prompt for query name")];
+                self.ecQueryName.txt.placeholder = NSLocalizedString(@"QueryNamePrompt", @"Prompt for query name");
                 self.ecQueryName.txt.returnKeyType = UIReturnKeyDone;
                 self.ecQueryName.txt.autocapitalizationType = UITextAutocapitalizationTypeWords;
                 [self.ecQueryName.txt setDelegate:self];

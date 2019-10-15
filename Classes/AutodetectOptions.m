@@ -28,7 +28,6 @@
 #import "OptionKeys.h"
 #import "TextCell.h"
 #import "MultiValOptionSelector.h"
-#import "MFBTheme.h"
 
 @implementation AutodetectOptions
 
@@ -58,7 +57,6 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
 
 - (void) viewWillAppear:(BOOL)animated
 {
-    self.tableView.backgroundColor = MFBTheme.currentTheme.tableBackColor;
     self.navigationController.toolbarHidden = YES;
 	self.idswAutoDetect.on = [AutodetectOptions autodetectTakeoffs];
     self.idswRecordFlight.on = [AutodetectOptions recordTelemetry];
@@ -297,14 +295,10 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
             NSMutableArray<NSString *> * landingOptionNames = [[NSMutableArray alloc] init];
             for (int i = nflSunsetPlus60; i < nflLast; i++)
                 [landingOptionNames addObject:[MFBLocation nightLandingOptionName:i]];
-            
-            NSArray<NSString *> * nightModeOptions = [NSArray arrayWithObjects:[MFBTheme modeName:ThemeModeAuto], [MFBTheme modeName:ThemeModeOff], [MFBTheme modeName:ThemeModeOn], nil];
-            ThemeOptionSelection * tos = [[ThemeOptionSelection alloc] initWithTitle:NSLocalizedString(@"NightModePrompt", @"Night Mode Prompt") forOptionKey:keyThemePref options:nightModeOptions];
-            
+                        
             mvos.optionGroups = @[
                                   [[OptionSelection alloc] initWithTitle:NSLocalizedString(@"NightFlightStarts", @"Night flight options") forOptionKey:keyNightFlightPref options:flightOptionNames],
                                   [[OptionSelection alloc] initWithTitle:NSLocalizedString(@"NightLandingsStart", @"Night Landing options") forOptionKey:keyNightLandingPref options:landingOptionNames]
-                                  ,tos
                                   ];
             
             [self.navigationController pushViewController:mvos animated:YES];
@@ -331,7 +325,7 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
         }
             break;
         case rowOnlineSettings:
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[mfbApp().userProfile authRedirForUser:@"d=profile" themeNight:NO]]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[mfbApp().userProfile authRedirForUser:@"d=profile"]]];
             break;
         default:
             break;

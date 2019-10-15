@@ -28,7 +28,6 @@
 #import "PropertyCell.h"
 #import "DecimalEdit.h"
 #import "Util.h"
-#import "MFBTheme.h"
 
 @interface FlightProperties ()
 @property (strong) NSArray<MFBWebServiceSvc_CustomPropertyType *> * rgFilteredProps;
@@ -121,7 +120,7 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
 - (void) viewWillAppear:(BOOL)animated
 {
     self.navigationController.toolbarHidden = YES;
-    [MFBTheme.currentTheme setSearchBar:self.searchBar Placholeder:NSLocalizedString(@"PropertySearchPrompt", @"Search Prompt Properties")];
+    self.searchBar.placeholder = NSLocalizedString(@"PropertySearchPrompt", @"Search Prompt Properties");
     [super viewWillAppear:animated];
 }
 
