@@ -71,6 +71,7 @@ enum rows {
     rowPropertiesHeader, rowAddProperties,
     rowSigFirst, rowSigHeader, rowSigState, rowSigComment, rowSigValidity, rowSigLast = rowSigValidity,
     rowImagesHeader,
+    rowSharingHeader,
     rowSharing,
     rowImageFirst = 1000,
     rowPropertyFirst = 10000
@@ -147,6 +148,8 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     }
     if (self.le.entryData.isSigned)
         [self.expandedSections addIndex:sectSignature];
+    
+    [self.expandedSections addIndex:sectSharing];
     
     /* Set up toolbar and submit buttons */
     UIBarButtonItem * biSign = [[UIBarButtonItem alloc]
@@ -450,7 +453,7 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
         case sectProperties:
             return (row == 0) ? rowPropertiesHeader : ((row == [self.le.entryData.CustomProperties.CustomFlightProperty count] + 1) ? rowAddProperties : rowPropertyFirst + row);
         case sectSharing:
-            return rowSharing;
+            return (row == 0) ? rowSharingHeader : rowSharing;
         case sectTimes:
             return rowTimes;
         case sectSignature:
@@ -478,7 +481,7 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
         case sectProperties:
             return 1 + ([self isExpanded:sectProperties] ? [self.le.entryData.CustomProperties.CustomFlightProperty count] + 1 : 0);
         case sectSharing:
-            return 1;
+            return [self isExpanded:sectSharing] ? 2 : 1;
         case sectTimes:
             return 1;
         case sectSignature:
@@ -492,8 +495,6 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
 {
     switch (section)
     {
-        case sectSharing:
-            return NSLocalizedString(@"Sharing", @"Sharing Header");
         case sectSignature:
             return self.le.entryData.CFISignatureState == MFBWebServiceSvc_SignatureState_None ? nil : @"";
         default:
@@ -561,6 +562,8 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
             return [self dateCell:self.le.entryData.FlightEnd withPrompt:NSLocalizedString(@"Last Landing:", @"Last Landing prompt") forTableView:self.tableView inflated:(nt == timeFlightEnd)];
         case rowTimes:
             return self.cellTimeBlock;
+        case rowSharingHeader:
+            return [ExpandHeaderCell getHeaderCell:tableView withTitle:NSLocalizedString(@"Sharing", @"Sharing Header") forSection:sectSharing initialState:[self isExpanded:sectSharing]];
         case rowSharing:
             return self.cellSharing;
         case rowAddProperties:
@@ -767,6 +770,7 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
         case rowPropertiesHeader:
         case rowCockpitHeader:
         case rowImagesHeader:
+        case rowSharingHeader:
             [self toggleSection:indexPath.section];
             // preserve the state of ITC expansion
             if ([self.le.entryData isNewFlight])
