@@ -257,6 +257,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     
 	[self initFormFromLE]; // pick up any potential changes
 	
+    self.navigationController.toolbarHidden = NO;
     self.navigationController.toolbar.translucent = NO;
     
 	[self saveState]; // keep things in sync with any changes
