@@ -36,7 +36,7 @@
 @end
 
 @interface NSAttributedString(MFBAdditions)
-+ (NSAttributedString *) attributedStringFromMarkDown:(NSString *) sz;
++ (NSAttributedString *) attributedStringFromMarkDown:(NSString *) sz size:(CGFloat) size;
 @end
 
 @interface UITableViewController(MFBAdditions)

@@ -153,7 +153,7 @@
         [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName : textColor}]];
     }
     else
-        [attrString appendAttributedString:[NSAttributedString attributedStringFromMarkDown:trimmedComments]];
+        [attrString appendAttributedString:[NSAttributedString attributedStringFromMarkDown:trimmedComments size:12.0]];
     
     if ([AutodetectOptions showFlightTimes]) {
         [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:@{NSForegroundColorAttributeName : textColor}]];

@@ -65,10 +65,10 @@
 @end
 
 @implementation NSAttributedString(MFBAdditions)
-+ (NSAttributedString *) attributedStringFromMarkDown:(NSString *) sz {
++ (NSAttributedString *) attributedStringFromMarkDown:(NSString *) sz size:(CGFloat) size {
     NSError * error = nil;
     NSRegularExpression * reg = [[NSRegularExpression alloc] initWithPattern:@"(\\*[^*_\r\n]*\\*)|(_[^*_\r\n]*_)" options:NSRegularExpressionCaseInsensitive error:&error];
-    UIFont * baseFont = [UIFont systemFontOfSize:12];
+    UIFont * baseFont = [UIFont systemFontOfSize:size];
     UIFont * boldFont = [UIFont fontWithDescriptor:[[baseFont fontDescriptor] fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold] size:baseFont.pointSize];
     UIFont * italicFont = [UIFont fontWithDescriptor:[[baseFont fontDescriptor] fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitItalic] size:baseFont.pointSize];
 

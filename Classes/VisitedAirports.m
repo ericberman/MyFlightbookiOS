@@ -343,14 +343,10 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
     else
     {    
         // Configure the cell...
-        VisitedAirportRow *cell = (VisitedAirportRow *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"VisitedAirportRow" owner:self options:nil];
-            id firstObject = topLevelObjects[0];
-            if ( [firstObject isKindOfClass:[UITableViewCell class]] )
-                cell = firstObject;     
-            else cell = topLevelObjects[1];
-        }
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil)
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
         if (df == nil)
         {
@@ -360,15 +356,15 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
         
         MFBWebServiceSvc_VisitedAirport * va;
         va = (MFBWebServiceSvc_VisitedAirport *) (self.content)[indexPath.section][szKeyRowValues][indexPath.row];
-        cell.lblAirport.text = [va.Airport.Name capitalizedString];
-        cell.lblAirportCode.text = va.Airport.Code;
+
+        cell.textLabel.attributedText = [NSAttributedString attributedStringFromMarkDown:[NSString stringWithFormat:@"*%@* - %@", va.Airport.Code, va.Airport.Name.capitalizedString] size:cell.textLabel.font.pointSize];
         double dist = [va.Airport.DistanceFromPosition doubleValue];
         NSString * szDist = (dist > 0) ? [NSString localizedStringWithFormat:NSLocalizedString(@"(%.1fnm) ", @"Distance to an airport; the '%.1f' gets replaced by the numerical value at runtime; leave it there"), dist] : @"";
         if ([va.NumberOfVisits intValue] == 1)
-            cell.lblStats.text = [NSString stringWithFormat:NSLocalizedString(@"%@%d visit on %@", @"For a visited airport, this puts the distance at the first %@, the number of visits at the %d, and the date of the visit at the latter %@; e.g., '(3.2nm) 2 visits on Jan 10 2010', so leave the %d and %@ intact"), szDist, [va.NumberOfVisits intValue],
+            cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%@%d visit on %@", @"For a visited airport, this puts the distance at the first %@, the number of visits at the %d, and the date of the visit at the latter %@; e.g., '(3.2nm) 2 visits on Jan 10 2010', so leave the %d and %@ intact"), szDist, [va.NumberOfVisits intValue],
                                   [df stringFromDate:va.EarliestVisitDate]];
         else
-            cell.lblStats.text = [NSString stringWithFormat:NSLocalizedString(@"%@%d visits from %@ to %@", @"For a visited airport, this puts the distance at the first %@, the number of visits at the %d, and the earliest/latest dates at the other %@; e.g., '(3.2nm) 2 visits from Jan 10 2010 to Mar 31, 2011', so leave the %d/%@ intact"), szDist, [va.NumberOfVisits intValue],
+            cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%@%d visits from %@ to %@", @"For a visited airport, this puts the distance at the first %@, the number of visits at the %d, and the earliest/latest dates at the other %@; e.g., '(3.2nm) 2 visits from Jan 10 2010 to Mar 31, 2011', so leave the %d/%@ intact"), szDist, [va.NumberOfVisits intValue],
                          [df stringFromDate:va.EarliestVisitDate], [df stringFromDate:va.LatestVisitDate]];
 
         return cell;
