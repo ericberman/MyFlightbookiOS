@@ -117,12 +117,17 @@
 {
     if ([body isKindOfClass:[MFBWebServiceSvc_PropertiesAndTemplatesForUserResponse class]]) {
         MFBWebServiceSvc_PropertiesAndTemplatesForUserResponse * resp = (MFBWebServiceSvc_PropertiesAndTemplatesForUserResponse *) body;
+        
+        // sanity check, but should never happen.
+        if (resp.PropertiesAndTemplatesForUserResult.UserProperties.CustomPropertyType == nil || resp.PropertiesAndTemplatesForUserResult.UserProperties.CustomPropertyType.count == 0)
+            return;
+        
         [FlightProps.sharedTemplates removeAllObjects];
         [FlightProps.sharedTemplates addObjectsFromArray:resp.PropertiesAndTemplatesForUserResult.UserTemplates.PropertyTemplate];
         [FlightProps saveTemplates];
         self.templateGroups = [MFBWebServiceSvc_PropertyTemplate groupTemplates:FlightProps.sharedTemplates];
         self.fIsValid = YES;
-        
+
         // update the cache of proptypes too, since we got 'em...
         FlightProps * fp = [[FlightProps alloc] init];
         fp.rgPropTypes = resp.PropertiesAndTemplatesForUserResult.UserProperties.CustomPropertyType;

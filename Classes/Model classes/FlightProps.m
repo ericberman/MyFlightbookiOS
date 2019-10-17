@@ -231,7 +231,8 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
             // Use from DB by default - in case we are off-line, or there is some other failure
             if (self.rgPropTypes == nil || self.rgPropTypes.count == 0) {
                 [self setPropTypeArray:[self propertiesFromDB]];
-                [self cacheProps];
+                if (self.rgPropTypes != nil && self.rgPropTypes.count > 0)  // should always be true.
+                    [self cacheProps];
             }
             // Fall through - we will fetch them below
             break;
