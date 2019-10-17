@@ -177,7 +177,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     bbGallery.enabled = self.canUsePhotoLibrary;
     bbCamera.enabled = self.canUseCamera;
     
-    bbGallery.style = bbCamera.style = UIBarButtonItemStylePlain;
+    bbGallery.style = bbCamera.style = bbSend.style = UIBarButtonItemStylePlain;
     
     NSMutableArray * ar = [[NSMutableArray alloc] init];
     if ([self.le.entryData isNewFlight]) {
@@ -192,6 +192,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     [ar addObject:bbGallery];
     [ar addObject:bbCamera];
     
+    self.navigationController.toolbarHidden = NO;
     self.toolbarItems = ar;
     
     // Submit button
@@ -256,7 +257,6 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     
 	[self initFormFromLE]; // pick up any potential changes
 	
-	[self.navigationController setToolbarHidden:NO];
     self.navigationController.toolbar.translucent = NO;
     
 	[self saveState]; // keep things in sync with any changes
