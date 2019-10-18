@@ -39,6 +39,7 @@
 #import "WPSAlertController.h"
 #import "SynchronousCalls.h"
 #import "MFBTheme.h"
+#import <UserNotifications/UserNotifications.h>
 
 #ifdef DEBUG
 #warning DEBUG BUILD!!.
@@ -781,21 +782,25 @@ static MFBAppDelegate * _mainApp = nil;
 }
 
 #pragma mark Pending Flights
+- (void) setBadgeCount {
+    NSInteger cPendingFlights = self.rgPendingFlights.count;
+    if (self.tbiRecent != nil)
+        self.tbiRecent.badgeValue = (cPendingFlights == 0) ? nil : [NSString stringWithFormat:@"%ld", (long) cPendingFlights];;
+    [UIApplication sharedApplication].applicationIconBadgeNumber = cPendingFlights;
+}
+
 - (void) addBadgeForPendingFlights
 {
-	int cPendingFlights = (int) [self.rgPendingFlights count];
-	
-	NSString * szBadge = (cPendingFlights == 0) ? nil : [NSString stringWithFormat:@"%d", cPendingFlights];
-    
-    // Request notification permission to show the badge for pending flights.
-    if (cPendingFlights > 0) {
-        UIUserNotificationSettings* notificationSettings = [UIUserNotificationSettings settingsForTypes: UIUserNotificationTypeBadge categories:nil];
-        [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
-    }
-	
-	if (self.tbiRecent != nil)
-		self.tbiRecent.badgeValue = szBadge;
-	[UIApplication sharedApplication].applicationIconBadgeNumber = cPendingFlights;
+    [UNUserNotificationCenter.currentNotificationCenter getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
+        if (settings.badgeSetting == UNNotificationSettingEnabled)
+            [self performSelectorOnMainThread:@selector(setBadgeCount) withObject:nil waitUntilDone:NO];
+        else if (self.rgPendingFlights.count > 0)
+            // Request notification permission to show the badge for pending flights.
+            [UNUserNotificationCenter.currentNotificationCenter requestAuthorizationWithOptions:UNAuthorizationOptionBadge completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                if (granted)
+                    [self performSelectorOnMainThread:@selector(setBadgeCount) withObject:nil waitUntilDone:NO];
+            }];
+    }];
 }
 
 - (void) queueFlightForLater:(LogbookEntry *) le

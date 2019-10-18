@@ -352,7 +352,7 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
 - (void) followOnFacebook
 {
     NSString * szURL = @"https://www.facebook.com/pages/MyFlightbook/145794653106";
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:szURL]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:szURL] options:@{} completionHandler:nil];
 }
 
 - (void) showAbout
@@ -376,7 +376,7 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
     {
         case cidForgotPW:
             [self.tableView endEditing:YES];
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@/logbook/Logon/ResetPass.aspx", MFBHOSTNAME]]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@/logbook/Logon/ResetPass.aspx", MFBHOSTNAME]] options:@{} completionHandler:nil];
             break;
         case cidContact:
             [self.tableView endEditing:YES];
@@ -400,7 +400,7 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
             if (!mfbApp().userProfile.isValid)
                 return;
             
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[mfbApp().userProfile authRedirForUser:@"d=donate"]]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[mfbApp().userProfile authRedirForUser:@"d=donate"]] options:@{} completionHandler:nil];
             break;
         case cidCreateAcct:
             [self.tableView endEditing:YES];

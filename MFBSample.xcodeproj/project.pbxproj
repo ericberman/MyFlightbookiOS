@@ -59,6 +59,7 @@
 		9A23CFA516F50C57001C9098 /* SignInControllerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A23CFA316F50C57001C9098 /* SignInControllerViewController.xib */; };
 		9A23CFA816F53B5E001C9098 /* ButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A23CFA716F53B5D001C9098 /* ButtonCell.m */; };
 		9A23CFAA16F53B7D001C9098 /* ButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A23CFA916F53B7D001C9098 /* ButtonCell.xib */; };
+		9A25F249235A5A3B002B3B48 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A73C84721AF51F400AE1221 /* NotificationCenter.framework */; };
 		9A2BD09A10E04619001D4043 /* totals.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A2BD09910E04619001D4043 /* totals.png */; };
 		9A2D594214C3485800FD8F05 /* RecentFlightCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A2D594114C3485800FD8F05 /* RecentFlightCell.xib */; };
 		9A30B1C01103D61C002A5029 /* MoreInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A30B1BF1103D61C002A5029 /* MoreInfo.png */; };
@@ -1055,6 +1056,7 @@
 				9A050D292138790100B3F794 /* Photos.framework in Frameworks */,
 				9ACDC9011BE01BC600B0A077 /* WatchConnectivity.framework in Frameworks */,
 				9AFEFF9F1BD02E1E0083043A /* CoreMedia.framework in Frameworks */,
+				9A25F249235A5A3B002B3B48 /* NotificationCenter.framework in Frameworks */,
 				9A6247A31AA509A3002A8E0B /* MediaPlayer.framework in Frameworks */,
 				9AC7B8C314D0AEF0009139BF /* QuartzCore.framework in Frameworks */,
 				9AA09D7414684EBA00192184 /* AssetsLibrary.framework in Frameworks */,
@@ -3377,7 +3379,7 @@
 				GCC_PREFIX_HEADER = MFBSample_Prefix.pch;
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "MFBSample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3420,7 +3422,7 @@
 				GCC_PREFIX_HEADER = MFBSample_Prefix.pch;
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "MFBSample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3506,7 +3508,7 @@
 				GCC_PREFIX_HEADER = MFBSample_Prefix.pch;
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "MFBSample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

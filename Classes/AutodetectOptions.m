@@ -325,7 +325,7 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
         }
             break;
         case rowOnlineSettings:
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[mfbApp().userProfile authRedirForUser:@"d=profile"]]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[mfbApp().userProfile authRedirForUser:@"d=profile"]] options:@{} completionHandler:nil];
             break;
         default:
             break;

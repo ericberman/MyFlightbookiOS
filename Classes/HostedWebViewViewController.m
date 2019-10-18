@@ -132,7 +132,7 @@
 - (void) webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
     if ([navigationResponse.response.MIMEType compare:@"text/calendar"] == NSOrderedSame) {
         decisionHandler(WKNavigationResponsePolicyCancel);
-        [[UIApplication sharedApplication] openURL:navigationResponse.response.URL];
+        [[UIApplication sharedApplication] openURL:navigationResponse.response.URL options:@{} completionHandler:nil];
     } else
         decisionHandler(WKNavigationResponsePolicyAllow);
 }

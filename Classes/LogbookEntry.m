@@ -963,7 +963,7 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
                         szEncodedSubject,
                         szEncodedBody];
     
-    [[UIApplication sharedApplication]  openURL: [NSURL URLWithString: szURL]];
+    [[UIApplication sharedApplication]  openURL: [NSURL URLWithString: szURL] options:@{} completionHandler:nil];
 }
 
 - (void) shareFlight:(UIBarButtonItem *) sender fromViewController:(UIViewController *) source {

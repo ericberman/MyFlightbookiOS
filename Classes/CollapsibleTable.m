@@ -400,13 +400,18 @@ BOOL fSelectFirst = NO;
     if (fImage || fVideo)
     {
         CLLocation * loc = nil;
+        PHAsset * thisPhoto = nil;
         if (!fCamera) {
-            NSURL *url = info[UIImagePickerControllerReferenceURL];
-            PHFetchResult *res = [PHAsset fetchAssetsWithALAssetURLs:[NSArray arrayWithObject:url] options:nil];
-            if (res.count > 0) {
-                PHAsset *thisPhoto = [res objectAtIndex: 0];
-                loc = [thisPhoto location];
+            if (@available(iOS 11.0, *))
+                thisPhoto = info[UIImagePickerControllerPHAsset];
+            else {
+                NSURL *url = info[UIImagePickerControllerReferenceURL];
+                PHFetchResult *res = [PHAsset fetchAssetsWithALAssetURLs:@[url] options:nil];
+                if (res.count > 0)
+                    thisPhoto = [res objectAtIndex: 0];
             }
+            if (thisPhoto != nil)
+                loc = thisPhoto.location;
         }
         
         CommentedImage * ci = [[CommentedImage alloc] init];

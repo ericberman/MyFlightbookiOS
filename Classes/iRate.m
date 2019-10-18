@@ -940,7 +940,7 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
             NSLog(@"iRate will open the App Store ratings page using the following URL: %@", self.ratingsURL);
         }
         
-        [[UIApplication sharedApplication] openURL:self.ratingsURL];
+        [[UIApplication sharedApplication] openURL:self.ratingsURL options:@{} completionHandler:nil];
         [self.delegate iRateDidOpenAppStore];
     }
     else
