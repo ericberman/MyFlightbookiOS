@@ -15,11 +15,13 @@
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>GPX File</string>
+            <key>CFBundleTypeRole</key>
+            <string>Viewer</string>
 			<key>LSHandlerRank</key>
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>com.myflightbook.myflightbookiphone.gpx</string>
+				<string>com.topografix.gpx</string>
 			</array>
 		</dict>
 		<dict>
@@ -29,11 +31,13 @@
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>KML File</string>
+            <key>CFBundleTypeRole</key>
+            <string>Viewer</string>
 			<key>LSHandlerRank</key>
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>com.myflightbook.myflightbookiphone.kml</string>
+				<string>com.google.earth.kml</string>
 			</array>
 		</dict>
 		<dict>
@@ -43,6 +47,8 @@
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>NMEA File</string>
+            <key>CFBundleTypeRole</key>
+            <string>Viewer</string>
 			<key>LSHandlerRank</key>
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
@@ -212,7 +218,7 @@
 				<string>Icon@2x.png</string>
 			</array>
 			<key>UTTypeIdentifier</key>
-			<string>com.myflightbook.myflightbookiphone.gpx</string>
+			<string>com.topografix.gpx</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -221,7 +227,12 @@
 					<string>GPX</string>
 				</array>
 				<key>public.mime-type</key>
-				<string>application/gpx+xml</string>
+				<array>
+					<string>application/gpx+xml</string>
+					<string>text/xml</string>
+					<string>application/xml</string>
+					<string>application/octet-stream</string>
+				</array>
 			</dict>
 		</dict>
 		<dict>
@@ -232,14 +243,16 @@
 			</array>
 			<key>UTTypeDescription</key>
 			<string>KML File</string>
-			<key>UTTypeIconFile</key>
-			<string></string>
 			<key>UTTypeIconFiles</key>
 			<array>
 				<string>Icon@2x.png</string>
 			</array>
-			<key>UTTypeIdentifier</key>
-			<string>com.myflightbook.myflightbookiphone.kml</string>
+            <key>UTTypeIdentifier</key>
+            <string>com.google.earth.kml</string>
+            <key>UTTypeReferenceURL</key>
+            <string>http://earth.google.com/kml/</string>
+            <key>com.apple.ostype</key>
+            <string>GKml</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
