@@ -580,6 +580,8 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
     [encoder encodeInt:(int) self.RoleForPilot forKey:@"RoleForPilot"];
     [encoder encodeObject:self.DefaultImage forKey:@"DefaultImage"];
     [encoder encodeObject:self.DefaultTemplates forKey:@"DefaultTemplates"];
+    [encoder encodeObject:self.PublicNotes forKey:@"PublicNotes"];
+    [encoder encodeObject:self.PrivateNotes forKey:@"PrivateNotes"];
 }
 	 
 - (instancetype)initWithCoderMFB:(NSCoder *)decoder
@@ -609,6 +611,8 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
         self.RoleForPilot = MFBWebServiceSvc_PilotRole_None;
     self.DefaultImage = [decoder decodeObjectForKey:@"DefaultImage"];
     self.DefaultTemplates = [decoder decodeObjectForKey:@"DefaultTemplates"];
+    self.PublicNotes = [decoder decodeObjectForKey:@"PublicNotes"];
+    self.PrivateNotes = [decoder decodeObjectForKey:@"PrivateNotes"];
 	
 	return self;
 }

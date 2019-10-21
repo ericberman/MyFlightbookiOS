@@ -229,15 +229,36 @@ BOOL fNeedsRefresh = NO;
     
     FixedImageCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[FixedImageCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell = [[FixedImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 	}
     
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	
     MFBWebServiceSvc_Aircraft * ac = [self aircraftAtIndexPath:indexPath];
-		
-	cell.textLabel.text = ac.displayTailNumber;
-    cell.detailTextLabel.text = ac.modelFullDescription;
+    CGFloat textSizeLabel = cell.textLabel.font.pointSize;
+    CGFloat textSizeDetail = textSizeLabel * 0.8;
+    
+    UIFont * baseFont = [UIFont systemFontOfSize:textSizeDetail];
+    UIFont * boldFont = [UIFont fontWithDescriptor:[[baseFont fontDescriptor] fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold] size:textSizeLabel];
+    UIFont * italicFont = [UIFont fontWithDescriptor:[[baseFont fontDescriptor] fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitItalic] size:textSizeDetail];
+    UIColor * colorMain;
+    UIColor * colorNotes;
+    if (@available(iOS 13.0, *)) {
+        colorMain = UIColor.labelColor;
+        colorNotes = UIColor.secondaryLabelColor;
+    } else {
+        colorMain = UIColor.darkTextColor;
+        colorNotes = UIColor.darkGrayColor;
+    }
+
+    
+    cell.textLabel.numberOfLines = 3;
+    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    NSMutableAttributedString * szTail = [[NSMutableAttributedString alloc] initWithString:ac.displayTailNumber attributes:@{NSFontAttributeName : boldFont, NSForegroundColorAttributeName : colorMain}];
+    [szTail appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@ ", ac.modelFullDescription] attributes:@{NSFontAttributeName : italicFont, NSForegroundColorAttributeName : colorMain}]];
+    [szTail appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@", ac.PrivateNotes == nil ? @"" : ac.PrivateNotes, ac.PublicNotes == nil ? @"" : ac.PublicNotes] attributes:@{NSFontAttributeName : baseFont, NSForegroundColorAttributeName : colorNotes}]];
+    cell.textLabel.attributedText = szTail;
+    
     cell.imageView.layer.opacity = cell.detailTextLabel.layer.opacity = cell.textLabel.layer.opacity = (ac.HideFromSelection.boolValue) ? 0.7 : 1.0;
 
     cell.imageView.image = [UIImage imageNamed:@"noimage"];
