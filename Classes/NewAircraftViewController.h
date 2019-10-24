@@ -33,5 +33,5 @@
 #import "AircraftViewControllerBase.h"
 #import "MFBSoapCall.h"
 
-@interface NewAircraftViewController : AircraftViewControllerBase<UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, AccessoryBarDelegate, MFBSoapCallDelegate>
+@interface NewAircraftViewController : AircraftViewControllerBase<UIPickerViewDelegate, UITextFieldDelegate, AccessoryBarDelegate, MFBSoapCallDelegate>
 @end

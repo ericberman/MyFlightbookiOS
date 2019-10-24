@@ -38,17 +38,16 @@
 @interface NewAircraftViewController ()
 @property (nonatomic, strong) NSString * szTailnumberLast;
 @property (nonatomic, strong) NSArray<MFBWebServiceSvc_Aircraft *>* suggestedAircraft;
-@property (nonatomic, strong) UIPickerView * picker;
 @end
 
 @implementation NewAircraftViewController
 
 enum aircraftSections {sectMain, sectSuggestions, sectModel, sectImages, sectLast};
-enum aircraftRows {rowMainFirst, rowInstanceType = rowMainFirst, rowIsAnonymous, rowTailnum, rowMainLast,
+enum aircraftRows {rowMainFirst, rowInstanceTypeReal = rowMainFirst, rowInstanceTypeUncertified, rowInstanceTypeATD, rowInstanceTypeFTD, rowInstanceTypeFFS, rowIsAnonymous, rowTailnum, rowMainLast,
     rowModel,
     rowSuggestion, rowImageHeader};
 
-@synthesize picker, szTailnumberLast, suggestedAircraft;
+@synthesize szTailnumberLast, suggestedAircraft;
 #pragma mark - ViewController
 - (instancetype) initWithAircraft:(MFBWebServiceSvc_Aircraft *) aircraft {
     self = [super initWithAircraft:aircraft];
@@ -75,9 +74,6 @@ enum aircraftRows {rowMainFirst, rowInstanceType = rowMainFirst, rowIsAnonymous,
         [self.expandedSections removeAllIndexes];
         if ([self.rgImages count] > 0)
             [self expandSection:sectImages];
-        
-        self.picker = [[UIPickerView alloc] init];
-        self.picker.delegate = self;
     }
     return self;
 }
@@ -190,7 +186,7 @@ enum aircraftRows {rowMainFirst, rowInstanceType = rowMainFirst, rowIsAnonymous,
 - (NSInteger) cellIDFromIndexPath:(NSIndexPath *) ip {
     switch (ip.section) {
         case sectMain:
-            return ip.row;
+            return rowMainFirst + ip.row;
         case sectImages:
             return rowImageHeader + ip.row;
         case sectModel:
@@ -207,7 +203,25 @@ enum aircraftRows {rowMainFirst, rowInstanceType = rowMainFirst, rowIsAnonymous,
 }
 
 - (NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return nil;
+    switch (section) {
+        case sectMain:
+            return NSLocalizedString(@"Aircraft Details", @"New Aircraft Section - Details");
+        case sectModel:
+            return NSLocalizedString(@"Model of Aircraft", @"New Aircraft Section - Model");
+        default:
+            return @"";
+    }
+}
+
+- (UITableViewCell *) tableCell:(UITableView *) tableView forInstanceType:(MFBWebServiceSvc_AircraftInstanceTypes) instanceType {
+    static NSString * cellIdentifier = @"cellIns«tanceType";
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (cell == nil)
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    
+    cell.textLabel.text = [Aircraft aircraftInstanceTypeDisplay:instanceType];
+    cell.accessoryType = (instanceType == self.ac.InstanceType) ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+    return cell;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -277,18 +291,19 @@ enum aircraftRows {rowMainFirst, rowInstanceType = rowMainFirst, rowIsAnonymous,
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             return cell;
         }
-        case rowInstanceType:
+        case rowInstanceTypeReal:
+            return [self tableCell:tableView forInstanceType:MFBWebServiceSvc_AircraftInstanceTypes_RealAircraft];
+        case rowInstanceTypeUncertified:
+            return [self tableCell:tableView forInstanceType:MFBWebServiceSvc_AircraftInstanceTypes_UncertifiedSimulator];
+        case rowInstanceTypeATD:
+            return [self tableCell:tableView forInstanceType:MFBWebServiceSvc_AircraftInstanceTypes_CertifiedATD];
+        case rowInstanceTypeFTD:
+            return [self tableCell:tableView forInstanceType:MFBWebServiceSvc_AircraftInstanceTypes_CertifiedIFRSimulator];
+        case rowInstanceTypeFFS:
+            return [self tableCell:tableView forInstanceType:MFBWebServiceSvc_AircraftInstanceTypes_CertifiedIFRAndLandingsSimulator];
         case rowTailnum: {
             EditCell * ec = [EditCell getEditCellNoLabel:tableView withAccessory:self.vwAccessory];
-            if (row == rowTailnum) {
-                ec.txt.text = self.ac.TailNumber;
-                ec.txt.inputView = nil;
-            }
-            else {
-                ec.txt.text = (NSString *) (aircraft.rgAircraftInstanceTypes)[[self.ac.InstanceTypeID intValue] - 1];
-                ec.txt.inputView = self.picker;
-            }
-            
+            ec.txt.text = self.ac.TailNumber;
             ec.txt.placeholder = (row == rowTailnum) ? NSLocalizedString(@"(Tail)", @"Tail Hint") : NSLocalizedString(@"(Model)", @"Model Hint");
             ec.txt.delegate = self;
             ec.txt.clearButtonMode = UITextFieldViewModeNever;
@@ -376,6 +391,26 @@ enum aircraftRows {rowMainFirst, rowInstanceType = rowMainFirst, rowIsAnonymous,
             [self.tableView endEditing:YES];
             [self toggleSection:indexPath.section];
             break;
+        case rowInstanceTypeReal:
+            self.ac.InstanceType = MFBWebServiceSvc_AircraftInstanceTypes_RealAircraft;
+            [self.tableView reloadData];
+            break;
+        case rowInstanceTypeUncertified:
+            self.ac.InstanceType = MFBWebServiceSvc_AircraftInstanceTypes_UncertifiedSimulator;
+            [self.tableView reloadData];
+            break;
+        case rowInstanceTypeATD:
+            self.ac.InstanceType = MFBWebServiceSvc_AircraftInstanceTypes_CertifiedATD;
+            [self.tableView reloadData];
+            break;
+        case rowInstanceTypeFTD:
+            self.ac.InstanceType = MFBWebServiceSvc_AircraftInstanceTypes_CertifiedIFRSimulator;
+            [self.tableView reloadData];
+            break;
+        case rowInstanceTypeFFS:
+            self.ac.InstanceType = MFBWebServiceSvc_AircraftInstanceTypes_CertifiedIFRAndLandingsSimulator;
+            [self.tableView reloadData];
+            break;
         default:
             [self.tableView endEditing:YES];
             if (row > rowImageHeader) {
@@ -385,32 +420,6 @@ enum aircraftRows {rowMainFirst, rowInstanceType = rowMainFirst, rowIsAnonymous,
             }
             break;
     }
-}
-
-#pragma mark - Data Source - picker
-- (NSInteger) numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 1;
-}
-
-- (NSInteger) pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return Aircraft.sharedAircraft.rgAircraftInstanceTypes.count;
-}
-
-- (NSString *) pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    return (NSString *) ([Aircraft sharedAircraft].rgAircraftInstanceTypes)[row];
-}
-
-- (void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    EditCell * ec = (EditCell *) [self.tableView cellForRowAtIndexPath:self.ipActive];
-    
-    BOOL fIsSim = [self.ac isSim];
-    
-    self.ac.InstanceTypeID = @(row + 1);
-    ec.txt.text = (NSString *) ([Aircraft sharedAircraft].rgAircraftInstanceTypes)[[self.ac.InstanceTypeID intValue] - 1];
-    
-    // if it changed to/from being a sim, reload the table.
-    if ([self.ac isSim] ^ fIsSim)
-        [self.tableView reloadData];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -466,7 +475,6 @@ enum aircraftRows {rowMainFirst, rowInstanceType = rowMainFirst, rowIsAnonymous,
 - (BOOL) isNavigableRow:(NSIndexPath *)ip {
     switch ([self cellIDFromIndexPath:ip]) {
         case rowTailnum:
-        case rowInstanceType:
             return [self.ac isNew];
         default:
             return NO;

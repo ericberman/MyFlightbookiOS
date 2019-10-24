@@ -83,7 +83,7 @@
 "Authentication Issue" = "Problème d'authentication";
 
 /* Indiates an ATD (FAA training device type) */
-"Aviation Training Device (ATD)" = "Simulateur approuvé (ATD)";
+"Aviation Training Device (ATD)" = "Sim/ATD";
 
 /* Cancel (button) */
 "Cancel" = "Annuler";
@@ -298,6 +298,12 @@
 /* Subtitle for anonymous aircraft */
 "Anonymous Subtitle" = "(C'est à dire, pas immatriculation spécifique.)";
 
+/* New Aircraft Section - Details */
+"Aircraft Details" = "Détails pour l'avion";
+
+/* New Aircraft Section - Model */
+"Model of Aircraft" = "Maquette d'avion";
+
 /* Title for list of recent flights */
 "Recent Flights" = "Vols Récents";
 
@@ -317,10 +323,10 @@
 "Signing in..." = "S'identifier";
 
 /* Indicates a training device where instrument approaches can count towards instrument currency */
-"Sim: Log approaches" = "Sim: Logger les approches";
+"Sim: Log approaches" = "Sim/FTD: (Logger les approches)";
 
 /* Indicates a device where instrument approaches and landings count towards instrument currency and passenger carrying currency */
-"Sim: Log approaches, landings" = "Sim: Logger les approaches, les atterrissages";
+"Sim: Log approaches, landings" = "Sim/FFS: (Logger les approaches, les atterrissages)";
 
 /* Indicates an uncertified sim such as Microsoft Flight Simulator */
 "Sim: Uncertified" = "Sim: Non certifié";

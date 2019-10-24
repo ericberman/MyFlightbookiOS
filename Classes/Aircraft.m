@@ -45,7 +45,7 @@ NSString * const _szKeyCachedAircraft = @"keyCacheAircraft";
 NSString * const _szKeyCachedAircraftRetrievalDate = @"keyCacheAircraftDate";
 NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
 
-@synthesize rgAircraftForUser, errorString, aircraftIDPreferred, rgAircraftInstanceTypes, rgMakeModels, dictHighWaterHobbs, dictHighWaterTach;
+@synthesize rgAircraftForUser, errorString, aircraftIDPreferred, rgMakeModels, dictHighWaterHobbs, dictHighWaterTach;
 
 #define CONTEXT_DELETE_AIRCRAFT 1085683
 #define CONTEXT_AIRCRAFTFORUSER 8503832
@@ -62,15 +62,26 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
         self.dictHighWaterHobbs = [NSMutableDictionary new];
         self.dictHighWaterTach = [NSMutableDictionary new];
 
-		self.rgAircraftInstanceTypes = @[NSLocalizedString(@"Real Aircraft", @"Indicates an actual aircraft"),
-            NSLocalizedString(@"Sim: Uncertified", @"Indicates an uncertified sim such as Microsoft Flight Simulator"),
-            NSLocalizedString(@"Sim: Log approaches", @"Indicates a training device where instrument approaches can count towards instrument currency"),
-            NSLocalizedString(@"Sim: Log approaches, landings", @"Indicates a device where instrument approaches and landings count towards instrument currency and passenger carrying currency"),
-            NSLocalizedString(@"Aviation Training Device (ATD)", @"Indiates an ATD (FAA training device type)")];
-		
 		self.rgMakeModels = nil;
 	}
 	return self;
+}
+
++ (NSString *) aircraftInstanceTypeDisplay:(MFBWebServiceSvc_AircraftInstanceTypes) instanceType {
+    switch (instanceType) {
+        default:
+            return @"";
+        case MFBWebServiceSvc_AircraftInstanceTypes_RealAircraft:
+            return NSLocalizedString(@"Real Aircraft", @"Indicates an actual aircraft");
+        case MFBWebServiceSvc_AircraftInstanceTypes_UncertifiedSimulator:
+            return NSLocalizedString(@"Sim: Uncertified", @"Indicates an uncertified sim such as Microsoft Flight Simulator");
+        case MFBWebServiceSvc_AircraftInstanceTypes_CertifiedATD:
+            return NSLocalizedString(@"Aviation Training Device (ATD)", @"Indiates an ATD (FAA training device type)");
+        case MFBWebServiceSvc_AircraftInstanceTypes_CertifiedIFRSimulator:
+            return NSLocalizedString(@"Sim: Log approaches", @"Indicates a training device where instrument approaches can count towards instrument currency");
+        case MFBWebServiceSvc_AircraftInstanceTypes_CertifiedIFRAndLandingsSimulator:
+            return NSLocalizedString(@"Sim: Log approaches, landings", @"Indicates a device where instrument approaches and landings count towards instrument currency and passenger carrying currency");
+    }
 }
 
 + (Aircraft *) sharedAircraft
@@ -266,7 +277,7 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
 	
 	MFBWebServiceSvc_AddAircraftForUser * addAircraft = [MFBWebServiceSvc_AddAircraftForUser new];
 	
-	addAircraft.idInstanceType = ac.InstanceTypeID;
+    addAircraft.idInstanceType = [ac instanceTypeIDFromInstanceType:ac.InstanceType];
 	addAircraft.idModel = ac.ModelID;
 	addAircraft.szTail = ac.TailNumber;
 	addAircraft.szAuthUserToken = szAuthToken;
@@ -557,10 +568,14 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
 
 #pragma mark NSCodingSupport for underlying SOAP object
 @implementation MFBWebServiceSvc_Aircraft (NSCodingSupport)
+- (NSNumber *) instanceTypeIDFromInstanceType:(MFBWebServiceSvc_AircraftInstanceTypes) instanceType {
+    return (instanceType == MFBWebServiceSvc_AircraftInstanceTypes_RealAircraft) ? @1 : @(instanceType - MFBWebServiceSvc_AircraftInstanceTypes_Mintype + 1);
+}
+
 - (void)encodeWithCoderMFB:(NSCoder *)encoder
 {
 	[encoder encodeObject:self.AircraftID forKey:@"AircraftID"];
-	[encoder encodeObject:self.InstanceTypeID forKey:@"InstanceTypeID"];
+    [encoder encodeInt:self.InstanceType forKey:@"InstanceType"];
 	[encoder encodeObject:self.Last100 forKey:@"Last100"];
 	[encoder encodeObject:self.LastAltimeter forKey:@"LastAltimeter"];
 	[encoder encodeObject:self.LastAnnual forKey:@"LastAnnual"];
@@ -578,6 +593,7 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
 	[encoder encodeObject:self.AircraftImages forKey:@"AircraftImages"];
     [encoder encodeBool:self.HideFromSelection.boolValue forKey:@"HideFromSelectionBOOL"];
     [encoder encodeInt:(int) self.RoleForPilot forKey:@"RoleForPilot"];
+    [encoder encodeBool:self.CopyPICNameWithCrossfill.boolValue forKey:@"CopyPICName"];
     [encoder encodeObject:self.DefaultImage forKey:@"DefaultImage"];
     [encoder encodeObject:self.DefaultTemplates forKey:@"DefaultTemplates"];
     [encoder encodeObject:self.PublicNotes forKey:@"PublicNotes"];
@@ -589,7 +605,8 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
 	self = [self init];
 	
 	self.AircraftID = [decoder decodeObjectForKey:@"AircraftID"];
-	self.InstanceTypeID = [decoder decodeObjectForKey:@"InstanceTypeID"];
+    self.InstanceType = [decoder decodeIntForKey:@"InstanceType"];
+    self.InstanceTypeID = [self instanceTypeIDFromInstanceType:self.InstanceType];
 	self.Last100 = [decoder decodeObjectForKey:@"Last100"];
 	self.LastAltimeter = [decoder decodeObjectForKey:@"LastAltimeter"];
 	self.LastAnnual = [decoder decodeObjectForKey:@"LastAnnual"];
@@ -607,6 +624,7 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
 	self.AircraftImages = [decoder decodeObjectForKey:@"AircraftImages"];
     self.HideFromSelection = [[USBoolean alloc] initWithBool:[decoder decodeBoolForKey:@"HideFromSelectionBOOL"]];
     self.RoleForPilot = [decoder decodeIntForKey:@"RoleForPilot"];
+    self.CopyPICNameWithCrossfill = [[USBoolean alloc] initWithBool:[decoder decodeBoolForKey:@"CopyPICName"]];
     if (self.RoleForPilot == MFBWebServiceSvc_PilotRole_none)
         self.RoleForPilot = MFBWebServiceSvc_PilotRole_None;
     self.DefaultImage = [decoder decodeObjectForKey:@"DefaultImage"];
@@ -635,7 +653,7 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
 
 - (BOOL) isSim
 {
-    return [self.InstanceTypeID intValue] != MFBWebServiceSvc_AircraftInstanceTypes_RealAircraft;
+    return self.InstanceType != MFBWebServiceSvc_AircraftInstanceTypes_RealAircraft;
 }
 
 - (BOOL) isAnonymous
@@ -699,7 +717,8 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
     MFBWebServiceSvc_Aircraft * ac = [[MFBWebServiceSvc_Aircraft alloc] init];
     ac.TailNumber = [CountryCode BestGuessForCurrentLocale].Prefix; // initialize with just "N" or whatever is appropriate for this locale.
 	ac.AircraftID = @-1;
-	ac.InstanceTypeID = @(MFBWebServiceSvc_AircraftInstanceTypes_RealAircraft);
+    ac.InstanceType = MFBWebServiceSvc_AircraftInstanceTypes_RealAircraft;
+    ac.InstanceTypeID = [ac instanceTypeIDFromInstanceType:ac.InstanceType];
 	ac.Last100 = @0;
 	ac.LastAltimeter = [NSDate distantPast];
 	ac.LastAnnual = [NSDate distantPast];

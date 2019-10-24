@@ -39,13 +39,13 @@
 
 @property (readwrite, strong) NSArray<MFBWebServiceSvc_Aircraft *> * rgAircraftForUser;
 @property (readwrite, strong) NSString * errorString;
-@property (nonatomic, strong) NSArray<NSString *> * rgAircraftInstanceTypes;
 @property (nonatomic, strong) NSArray<MFBWebServiceSvc_SimpleMakeModel *> * rgMakeModels;
 @property (nonatomic, readwrite) int DefaultAircraftID;
 
 + (Aircraft *) sharedAircraft;
 + (NSString *) PrefixSIM;
 + (NSString *) PrefixAnonymous;
++ (NSString *) aircraftInstanceTypeDisplay:(MFBWebServiceSvc_AircraftInstanceTypes) instanceType;
 
 - (void) setHighWaterTach:(NSNumber *) tach forAircraft:(NSNumber *) aircraftID;
 - (NSNumber *) getHighWaterTachForAircraft:(NSNumber *) aircraftID;
@@ -81,6 +81,7 @@
 
 // Add methods to the MFBWebServiceSvc_Aircraft object (from WSDL) to make it comform to the NSCoding protocol
 @interface MFBWebServiceSvc_Aircraft (NSCodingSupport)
+- (NSNumber *) instanceTypeIDFromInstanceType:(MFBWebServiceSvc_AircraftInstanceTypes) instanceType;
 - (void)encodeWithCoderMFB:(NSCoder *)encoder;
 - (instancetype)initWithCoderMFB:(NSCoder *)decoder;
 - (NSString *) modelFullDescription;

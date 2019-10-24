@@ -49,7 +49,7 @@
 
 @implementation AircraftViewController
 
-enum aircraftSections {sectInfo, sectImages, sectFavorite, sectPrefs, sectNotes, sectMaintenance, sectLast};
+enum aircraftSections {sectInfo, sectFavorite, sectPrefs, sectNotes, sectMaintenance, sectImages, sectLast};
 enum aircraftRows {rowInfoStart, rowStaticDesc = rowInfoStart, rowInfoLast,
     rowFavorite,
     rowPrefsHeader, rowPrefsFirst = rowPrefsHeader, rowRoleNone, rowRolePIC, rowRoleSIC, rowRoleCFI, rowPrefsLast=rowRoleCFI,
@@ -312,7 +312,6 @@ enum aircraftRows {rowInfoStart, rowStaticDesc = rowInfoStart, rowInfoLast,
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSInteger row = [self cellIDFromIndexPath:indexPath];
-	Aircraft * aircraft = [Aircraft sharedAircraft];
 
     switch (row)
     {
@@ -324,10 +323,10 @@ enum aircraftRows {rowInfoStart, rowStaticDesc = rowInfoStart, rowInfoLast,
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
             NSString * szInstanceTypeDesc = @"";
             if ([self.ac isSim])
-                szInstanceTypeDesc = [NSString stringWithFormat:@" (%@)", (aircraft.rgAircraftInstanceTypes)[[self.ac.InstanceTypeID intValue] - 1]];
-            cell.textLabel.text = [NSString stringWithFormat:@"%@%@", self.ac.TailNumber, szInstanceTypeDesc];
+                szInstanceTypeDesc = [Aircraft aircraftInstanceTypeDisplay:self.ac.InstanceType];
+            cell.textLabel.text = self.ac.TailNumber;
             cell.textLabel.adjustsFontSizeToFitWidth = YES;
-            cell.detailTextLabel.text = self.ac.modelFullDescription;
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", self.ac.modelFullDescription, szInstanceTypeDesc];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }
