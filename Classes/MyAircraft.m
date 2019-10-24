@@ -255,7 +255,8 @@ BOOL fNeedsRefresh = NO;
     cell.textLabel.numberOfLines = 3;
     cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
     NSMutableAttributedString * szTail = [[NSMutableAttributedString alloc] initWithString:ac.displayTailNumber attributes:@{NSFontAttributeName : boldFont, NSForegroundColorAttributeName : colorMain}];
-    [szTail appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@ ", ac.modelFullDescription] attributes:@{NSFontAttributeName : italicFont, NSForegroundColorAttributeName : colorMain}]];
+    [szTail appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@ %@", ac.modelFullDescription, ac.isSim ? [NSString stringWithFormat:@"%@ ", [Aircraft aircraftInstanceTypeDisplay:ac.InstanceType]] : @""]
+                                                                               attributes:@{NSFontAttributeName : italicFont, NSForegroundColorAttributeName : colorMain}]];
     [szTail appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@", ac.PrivateNotes == nil ? @"" : ac.PrivateNotes, ac.PublicNotes == nil ? @"" : ac.PublicNotes] attributes:@{NSFontAttributeName : baseFont, NSForegroundColorAttributeName : colorNotes}]];
     cell.textLabel.attributedText = szTail;
     
