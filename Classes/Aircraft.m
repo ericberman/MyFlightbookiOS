@@ -598,6 +598,8 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
     [encoder encodeObject:self.DefaultTemplates forKey:@"DefaultTemplates"];
     [encoder encodeObject:self.PublicNotes forKey:@"PublicNotes"];
     [encoder encodeObject:self.PrivateNotes forKey:@"PrivateNotes"];
+    [encoder encodeBool:self.IsGlass.boolValue forKey:@"IsGlass"];
+    [encoder encodeObject:self.ICAO forKey:@"ICAO"];
 }
 	 
 - (instancetype)initWithCoderMFB:(NSCoder *)decoder
@@ -631,7 +633,9 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
     self.DefaultTemplates = [decoder decodeObjectForKey:@"DefaultTemplates"];
     self.PublicNotes = [decoder decodeObjectForKey:@"PublicNotes"];
     self.PrivateNotes = [decoder decodeObjectForKey:@"PrivateNotes"];
-	
+    self.IsGlass = [[USBoolean alloc] initWithBool:[decoder decodeBoolForKey:@"IsGlass"]];
+    self.ICAO = [decoder decodeObjectForKey:@"ICAO"];
+    
 	return self;
 }
 
