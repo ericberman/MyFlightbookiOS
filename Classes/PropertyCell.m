@@ -278,7 +278,7 @@
             self.txt.keyboardType = UIKeyboardTypeDefault;
             // turn off autocorrect if we have previous values from which to choose.  This prevents spacebar from accepting the propoosed text.
             [self.txt setAutocorrectionType: (self.cpt.PreviousValues.string.count > 0) ? UITextAutocorrectionTypeNo : UITextAutocorrectionTypeDefault];
-            self.txt.autocapitalizationType = UITextAutocapitalizationTypeSentences;
+            self.txt.autocapitalizationType = ((self.cpt.Flags.unsignedIntValue & 0x04000000) == 0) ? UITextAutocapitalizationTypeSentences : UITextAutocapitalizationTypeAllCharacters;
             break;
         case MFBWebServiceSvc_CFPPropertyType_cfpDate:
         case MFBWebServiceSvc_CFPPropertyType_cfpDateTime:
