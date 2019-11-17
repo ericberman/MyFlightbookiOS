@@ -15,8 +15,8 @@
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>GPX File</string>
-            <key>CFBundleTypeRole</key>
-            <string>Viewer</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
 			<key>LSHandlerRank</key>
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
@@ -31,8 +31,8 @@
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>KML File</string>
-            <key>CFBundleTypeRole</key>
-            <string>Viewer</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
 			<key>LSHandlerRank</key>
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
@@ -47,8 +47,8 @@
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>NMEA File</string>
-            <key>CFBundleTypeRole</key>
-            <string>Viewer</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
 			<key>LSHandlerRank</key>
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
@@ -247,12 +247,10 @@
 			<array>
 				<string>Icon@2x.png</string>
 			</array>
-            <key>UTTypeIdentifier</key>
-            <string>com.google.earth.kml</string>
-            <key>UTTypeReferenceURL</key>
-            <string>http://earth.google.com/kml/</string>
-            <key>com.apple.ostype</key>
-            <string>GKml</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.google.earth.kml</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://earth.google.com/kml/</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -263,6 +261,8 @@
 				<key>public.mime-type</key>
 				<string>application/vnd.google-earth.kml+xml</string>
 			</dict>
+			<key>com.apple.ostype</key>
+			<string>GKml</string>
 		</dict>
 		<dict>
 			<key>UTTypeConformsTo</key>
