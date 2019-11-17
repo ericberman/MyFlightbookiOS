@@ -657,7 +657,14 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
 
 - (BOOL) isSim
 {
-    return self.InstanceType != MFBWebServiceSvc_AircraftInstanceTypes_RealAircraft;
+    switch (self.InstanceType) {
+        case MFBWebServiceSvc_AircraftInstanceTypes_none:
+        case MFBWebServiceSvc_AircraftInstanceTypes_RealAircraft:
+        case MFBWebServiceSvc_AircraftInstanceTypes_Mintype:
+            return NO;
+        default:
+            return YES;
+    }
 }
 
 - (BOOL) isAnonymous
