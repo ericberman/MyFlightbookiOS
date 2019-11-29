@@ -238,6 +238,11 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     [self saveState];
 }
 
+- (void) viewDidAppear:(BOOL)animated {
+    self.navigationController.toolbarHidden = NO;
+    self.navigationController.toolbar.translucent = NO;    
+}
+
 - (void) viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
@@ -257,9 +262,6 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     
 	[self initFormFromLE]; // pick up any potential changes
 	
-    self.navigationController.toolbarHidden = NO;
-    self.navigationController.toolbar.translucent = NO;
-    
 	[self saveState]; // keep things in sync with any changes
     
     // the option to record could have changed; if so, and if we are in-flight, need to start recording.
