@@ -111,23 +111,32 @@ BOOL gLogging = EXF_LOGGING;
 }
 
 #pragma mark SaveState
+- (void) saveTabState {
+    // Remember the last-used tab, but not if it is the "More" tab (button #5)
+    NSInteger i = self.tabBarController.selectedIndex;
+    
+    NSUserDefaults * def = NSUserDefaults.standardUserDefaults;
+
+    [def setInteger:((i < 4) ? i : 0) forKey:_szKeySelectedTab];
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 30200
+    // if iPad, override the above line - we can store any saved tab
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        [def setInteger:i forKey:_szKeySelectedTab];
+#endif
+    [def synchronize];
+}
+
 - (void) saveState
 {
 	if (self.leMain != nil && ![self checkNoAircraft])
 		[self.leMain saveState];
-	
-	// Remember the last-used tab, but not if it is the "More" tab (button #5)
-	NSInteger i = self.tabBarController.selectedIndex;
-	
-	NSUserDefaults * def = [NSUserDefaults standardUserDefaults];
 
-	[def setInteger:((i < 4) ? i : 0) forKey:_szKeySelectedTab];
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 30200
-	// if iPad, override the above line - we can store any saved tab
-	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-		[[NSUserDefaults standardUserDefaults] setInteger:i forKey:_szKeySelectedTab];
-#endif
+    if (NSThread.isMainThread)
+        [self saveTabState];
+    else
+        [self performSelectorOnMainThread:@selector(saveTabState) withObject:nil waitUntilDone:NO];
 	
+    NSUserDefaults * def = NSUserDefaults.standardUserDefaults;
 	// remember whether or not we were flying and recording flight data.
     [self.mfbloc saveState];
 	[def setObject:[NSKeyedArchiver archivedDataWithRootObject:self.rgPendingFlights] forKey:_szKeyPrefPendingFlights];
