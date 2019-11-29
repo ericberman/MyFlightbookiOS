@@ -110,7 +110,7 @@
 
 @implementation Telemetry
 
-@synthesize szRawData, samplesToReturn, elementInProgress, locInProgress, hasSpeed;
+@synthesize szRawData, samplesToReturn, elementInProgress, locInProgress, hasSpeed, metaData;
 
 #pragma mark - Initialization
 - (instancetype) init
@@ -119,6 +119,7 @@
     {
         self.hasSpeed = NO;
         self.lastError = @"";
+        self.metaData = [NSMutableDictionary new];
     }
     return self;
 }
@@ -478,6 +479,10 @@ enum KMLArrayContext currentContext;
             self.locInProgress.latitude = [self.numberFormatter numberFromString:szLat].doubleValue;
             self.locInProgress.longitude = [self.numberFormatter numberFromString:szLon].doubleValue;
         }
+    } else if ([elementName compare:@"name" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+        NSString * szTail = attributeDict[TELEMETRY_META_AIRCRAFT_TAIL];
+        if (szTail != nil && szTail.length > 0)
+            self.metaData[TELEMETRY_META_AIRCRAFT_TAIL] = szTail;
     }
 }
 

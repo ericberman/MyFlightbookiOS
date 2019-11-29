@@ -38,6 +38,7 @@ typedef NS_ENUM(int, ImportedFileType) {GPX, KML, CSV, NMEA, Unknown};
 
 @property (strong, nonatomic) NSString * szRawData;
 @property (strong, nonatomic) NSString * lastError;
+@property (strong, nonatomic) NSMutableDictionary<NSString *, NSObject *> * metaData;
 @property (nonatomic) BOOL hasSpeed;
 
 - (instancetype) init NS_DESIGNATED_INITIALIZER;
@@ -49,6 +50,8 @@ typedef NS_ENUM(int, ImportedFileType) {GPX, KML, CSV, NMEA, Unknown};
 - (NSString *) serializeAs:(enum ImportedFileType) ft;
 + (enum ImportedFileType) typeFromURL:(NSURL *) url;
 + (Telemetry *) telemetryWithURL:(NSURL *) url;
+
+#define TELEMETRY_META_AIRCRAFT_TAIL @"aircraft"
 @end
 
 /* Concrete subclasses */

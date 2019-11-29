@@ -188,6 +188,13 @@
     if (t.lastError.length > 0)
         le.errorString = t.lastError;
     
+    if (t.metaData[TELEMETRY_META_AIRCRAFT_TAIL] != nil) {
+        Aircraft * aircraft = [Aircraft sharedAircraft];
+        MFBWebServiceSvc_Aircraft * ac = [aircraft AircraftByTail:(NSString *) t.metaData[TELEMETRY_META_AIRCRAFT_TAIL]];
+        if (ac != nil)
+            le.entryData.AircraftID = ac.AircraftID;
+    }
+    
     le.entryData.FlightID = QUEUED_FLIGHT_UNSUBMITTED;   // don't auto-submit this flight!
     [MFBAppDelegate.threadSafeAppDelegate performSelectorOnMainThread:@selector(queueFlightForLater:) withObject:le waitUntilDone:NO];
 
