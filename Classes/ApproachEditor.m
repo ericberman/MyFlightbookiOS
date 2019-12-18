@@ -74,6 +74,7 @@ enum appchRows {rowCount, rowApproachType, rowRunway, rowAirport, rowAddToTotals
 
 - (void) viewWillDisappear:(BOOL)animated
 {
+    [self.tableView endEditing:YES];
     if (self.delegate != nil)
         [self.delegate addApproachDescription:self.approachDescription];
     [super viewWillDisappear:animated];
