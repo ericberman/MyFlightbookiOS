@@ -65,6 +65,8 @@
 - (NSMutableArray *) distillList:(NSMutableArray *) rgFp includeLockedProps:(BOOL) fIncludeLock includeTemplates:(NSSet<MFBWebServiceSvc_PropertyTemplate *> *) templates;
 - (NSMutableArray *) crossProduct:(NSMutableArray *) rgFp;
 - (NSMutableArray *) defaultPropList;
+- (void) setPropTypeArray:(NSArray *) ar;
+- (NSArray<MFBWebServiceSvc_CustomPropertyType *> *) syncrhonizedProps;
 
 - (void) propValueChanged:(MFBWebServiceSvc_CustomFlightProperty *) fp;
 

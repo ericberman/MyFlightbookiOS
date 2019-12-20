@@ -130,7 +130,7 @@
 
         // update the cache of proptypes too, since we got 'em...
         FlightProps * fp = [[FlightProps alloc] init];
-        fp.rgPropTypes = resp.PropertiesAndTemplatesForUserResult.UserProperties.CustomPropertyType;
+        [fp setPropTypeArray:resp.PropertiesAndTemplatesForUserResult.UserProperties.CustomPropertyType];
         [fp cacheProps];
     }
 }

@@ -67,7 +67,7 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
     self.content = [[NSMutableArray alloc] init];
     NSString * szKey = @"";
     
-    for (MFBWebServiceSvc_CustomPropertyType * cpt in self.flightProps.rgPropTypes)
+    for (MFBWebServiceSvc_CustomPropertyType * cpt in self.flightProps.syncrhonizedProps)
     {
         NSString * szNewKey;
         NSMutableDictionary * dictForKey;

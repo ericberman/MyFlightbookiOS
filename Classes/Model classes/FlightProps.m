@@ -133,6 +133,12 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
     }
 }
 
+- (NSArray<MFBWebServiceSvc_CustomPropertyType *> *) syncrhonizedProps {
+    @synchronized (self.rgPropTypes) {
+        return [NSArray arrayWithArray:self.rgPropTypes];
+    }
+}
+
 - (instancetype) init
 {
     self = [super init];
@@ -310,13 +316,12 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
 	}
 }
 
-- (MFBWebServiceSvc_CustomPropertyType *) PropTypeFromID:(NSNumber *) id
-{
-	for (MFBWebServiceSvc_CustomPropertyType * cpt in self.rgPropTypes)
-	{
-		if ([cpt.PropTypeID intValue] == [id intValue])
-			return cpt;
-	}
+- (MFBWebServiceSvc_CustomPropertyType *) PropTypeFromID:(NSNumber *) id {
+    @synchronized(self.rgPropTypes) {
+        for (MFBWebServiceSvc_CustomPropertyType * cpt in self.rgPropTypes)
+            if ([cpt.PropTypeID intValue] == [id intValue])
+                return cpt;
+    }
 	
 	return nil;
 }
@@ -393,27 +398,25 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
 {
     NSMutableArray * rgResult = [[NSMutableArray alloc] init];
 
-    for (MFBWebServiceSvc_CustomPropertyType * cpt in self.rgPropTypes)
-    {
-        MFBWebServiceSvc_CustomFlightProperty * cfp = nil;
-        
-        for (MFBWebServiceSvc_CustomFlightProperty * fp in rgFp)
-        {
-            if ([fp.PropTypeID intValue] == [cpt.PropTypeID intValue])
-            {
-                cfp = fp;
-                break;
+    @synchronized (self.rgPropTypes) {
+        for (MFBWebServiceSvc_CustomPropertyType * cpt in self.rgPropTypes) {
+            MFBWebServiceSvc_CustomFlightProperty * cfp = nil;
+            
+            for (MFBWebServiceSvc_CustomFlightProperty * fp in rgFp) {
+                if ([fp.PropTypeID intValue] == [cpt.PropTypeID intValue]) {
+                    cfp = fp;
+                    break;
+                }
             }
+            
+            if (cfp == nil) {
+                cfp = [MFBWebServiceSvc_CustomFlightProperty getNewFlightProperty];
+                cfp.PropTypeID = cpt.PropTypeID;
+                [cfp setDefaultForType:cpt];
+            }
+            
+            [rgResult addObject:cfp];
         }
-        
-        if (cfp == nil)
-        {
-            cfp = [MFBWebServiceSvc_CustomFlightProperty getNewFlightProperty];
-            cfp.PropTypeID = cpt.PropTypeID;
-            [cfp setDefaultForType:cpt];
-        }
-        
-        [rgResult addObject:cfp];
     }
     
     return rgResult;    
@@ -422,14 +425,15 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
 - (NSMutableArray *) defaultPropList
 {
     NSMutableArray * rgResult = [[NSMutableArray alloc] init];
-    for (MFBWebServiceSvc_CustomPropertyType * cpt in self.rgPropTypes)
-        if (cpt.isLocked)
-        {
-            MFBWebServiceSvc_CustomFlightProperty * cfp = [MFBWebServiceSvc_CustomFlightProperty getNewFlightProperty];
-            cfp.PropTypeID = cpt.PropTypeID;
-            [cfp setDefaultForType:cpt];
-            [rgResult addObject:cfp];
-        }
+    @synchronized (self.rgPropTypes) {
+        for (MFBWebServiceSvc_CustomPropertyType * cpt in self.rgPropTypes)
+            if (cpt.isLocked) {
+                MFBWebServiceSvc_CustomFlightProperty * cfp = [MFBWebServiceSvc_CustomFlightProperty getNewFlightProperty];
+                cfp.PropTypeID = cpt.PropTypeID;
+                [cfp setDefaultForType:cpt];
+                [rgResult addObject:cfp];
+            }
+    }
     return rgResult;
 }
 
@@ -500,12 +504,13 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
         [self.dictLockedTypes removeObjectForKey:[FlightProps keyForID:(int)propTypeID]];
     
     // Update the relevant propertytype
-    for (MFBWebServiceSvc_CustomPropertyType * cpt in self.rgPropTypes)
-        if (cpt.PropTypeID.intValue == propTypeID)
-        {
-            cpt.isLocked = fLock;
-            break;
-        }
+    @synchronized (self.rgPropTypes) {
+        for (MFBWebServiceSvc_CustomPropertyType * cpt in self.rgPropTypes)
+            if (cpt.PropTypeID.intValue == propTypeID) {
+                cpt.isLocked = fLock;
+                break;
+            }
+    }
     [FlightProps saveLockedPropTypes:self.dictLockedTypes];
 }
 
