@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2018 MyFlightbook, LLC
+ Copyright (C) 2017-2019 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -105,6 +105,26 @@
     return attrString;
 }
 
+- (NSAttributedString *) attributedUTCDateRange:(NSString *) label start:(NSDate *) dtStart end:(NSDate *) dtEnd withFont:(UIFont *) font
+{
+    UIColor * textColor;;
+    UIColor * dimmedColor;
+    if (@available(iOS 13.0, *)) {
+        textColor = UIColor.labelColor;
+        dimmedColor = UIColor.secondaryLabelColor;
+    } else {
+        textColor = UIColor.blackColor;
+        dimmedColor = UIColor.darkGrayColor;
+    }
+
+    if ([NSDate isUnknownDate:dtStart] || [NSDate isUnknownDate:dtEnd])
+        return [[NSAttributedString alloc] init];
+    
+    NSMutableAttributedString * attrString = [[NSMutableAttributedString alloc] initWithString:label attributes:@{NSFontAttributeName : font, NSForegroundColorAttributeName : textColor}];
+    [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@ - %@ ", dtStart.utcString, dtEnd.utcString] attributes:@{NSForegroundColorAttributeName : dimmedColor}]];
+    return attrString;
+}
+
 - (void) setFlight:(MFBWebServiceSvc_LogbookEntry *)le withImage:(id)ci withError:(NSString *) szErr
 {
     UIColor * textColor;;
@@ -121,8 +141,8 @@
     UIFont * baseFont = [UIFont systemFontOfSize:12];
     BOOL fUseHHMM = [AutodetectOptions HHMMPref];
     UIFont * boldFont = [UIFont fontWithDescriptor:[[baseFont fontDescriptor] fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold] size:baseFont.pointSize];
-    UIFont * largeBoldFont = [UIFont fontWithDescriptor:[[baseFont fontDescriptor] fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold] size:baseFont.pointSize * 1.2];
-    UIFont * italicFont = [UIFont fontWithDescriptor:[[baseFont fontDescriptor] fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitItalic] size:baseFont.pointSize];
+    UIFont * largeBoldFont = [UIFont fontWithDescriptor:[[baseFont fontDescriptor] fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold] size:baseFont.pointSize * 1.3];
+    UIFont * italicFont = [UIFont fontWithDescriptor:[[baseFont fontDescriptor] fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitItalic | UIFontDescriptorTraitBold] size:baseFont.pointSize];
     
     NSDateFormatter * df = [[NSDateFormatter alloc] init];
     [df setDateStyle:NSDateFormatterShortStyle];
@@ -142,9 +162,9 @@
     
     NSString * trimmedRoute = [le.Route stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (trimmedRoute.length == 0) {
-        [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@\n", NSLocalizedString(@"(No Route)", @"No Route")] attributes:@{NSForegroundColorAttributeName : dimmedColor }]];
+        [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@ ", NSLocalizedString(@"(No Route)", @"No Route")] attributes:@{NSFontAttributeName : italicFont, NSForegroundColorAttributeName : dimmedColor }]];
     } else
-        [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@\n", le.Route]
+        [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@ ", le.Route]
                                                                            attributes:@{NSFontAttributeName : italicFont, NSForegroundColorAttributeName : dimmedColor}]];
     NSString * trimmedComments = [le.Comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (trimmedComments.length == 0) {
@@ -172,6 +192,8 @@
         [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldSIC", @"Entry Field: SIC") forValue:le.SIC withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
         [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldPIC", @"Entry Field: PIC") forValue:le.PIC withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
         [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldTotal", @"Entry Field: Total") forValue:le.TotalFlightTime withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
+        [attrString appendAttributedString:[self attributedUTCDateRange:NSLocalizedString(@"Engine Time", @"Auto-fill based on engine time") start:le.EngineStart end:le.EngineEnd withFont:boldFont]];
+        [attrString appendAttributedString:[self attributedUTCDateRange:NSLocalizedString(@"Flight Time", @"Auto-fill based on time in the air") start:le.EngineStart end:le.EngineEnd withFont:boldFont]];
     }
     
     self.lblComments.attributedText = attrString;
