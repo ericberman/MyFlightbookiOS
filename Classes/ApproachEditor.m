@@ -34,14 +34,13 @@
 @property (nonatomic, strong) AccessoryBar * vwAccessory;
 @property (nonatomic, strong) UIPickerView * vwPickerApproach;
 @property (nonatomic, strong) UIPickerView * vwPickerRunway;
-@property (nonatomic, strong) UIPickerView * vwPickerAirports;
 @end
 
 @implementation ApproachEditor
 
 enum appchRows {rowCount, rowApproachType, rowRunway, rowAirport, rowAddToTotals, rowMax};
 
-@synthesize airportList, approachDescription, delegate, vwAccessory, vwPickerApproach, vwPickerRunway, vwPickerAirports;
+@synthesize airportList, approachDescription, delegate, vwAccessory, vwPickerApproach, vwPickerRunway;
 
 - (instancetype) init
 {
@@ -53,9 +52,8 @@ enum appchRows {rowCount, rowApproachType, rowRunway, rowAirport, rowAddToTotals
         self.vwAccessory = [AccessoryBar getAccessoryBar:self];
         self.vwPickerApproach = [UIPickerView new];
         self.vwPickerRunway = [UIPickerView new];
-        self.vwPickerAirports = [UIPickerView new];
-        self.vwPickerApproach.dataSource = self.vwPickerRunway.dataSource = self.vwPickerAirports.dataSource = self;
-        self.vwPickerRunway.delegate = self.vwPickerApproach.delegate = self.vwPickerAirports.delegate = self;
+        self.vwPickerApproach.dataSource = self.vwPickerRunway.dataSource = self;
+        self.vwPickerRunway.delegate = self.vwPickerApproach.delegate = self;
     }
     return self;
 }
@@ -64,8 +62,8 @@ enum appchRows {rowCount, rowApproachType, rowRunway, rowAirport, rowAddToTotals
 {
     if (lst == nil)
         lst = [NSMutableArray new];
-    self.airportList = [[lst reverseObjectEnumerator] allObjects];
-    self.approachDescription.airportName = (lst != nil && lst.count > 0) ? self.airportList[0] : @"";
+    self.airportList = lst;
+    self.approachDescription.airportName = (lst != nil && lst.count > 0) ? self.airportList[lst.count - 1] : @"";
 }
 
 - (void)viewDidLoad {
@@ -148,8 +146,7 @@ enum appchRows {rowCount, rowApproachType, rowRunway, rowAirport, rowAddToTotals
             ec.txt.text = self.approachDescription.airportName;
             ec.txt.placeholder = NSLocalizedString(@"ApproachAirport", @"Approach Helper - Airport");
             ec.txt.returnKeyType = UIReturnKeyGo;
-            if (self.airportList != nil && self.airportList.count > 0)
-                ec.txt.inputView = self.vwPickerAirports;
+            ec.txt.delegate = self;
             break;
     }
     return ec;
@@ -217,6 +214,46 @@ enum appchRows {rowCount, rowApproachType, rowRunway, rowAirport, rowAddToTotals
 }
 
 #pragma mark -
+#pragma mark UITextFieldDelegate
+// Returns an autocompletion based on the given prefix.
+- (NSString *) proposeCompletion:(NSString *) szPrefix
+{
+    if (szPrefix.length > 0 && self.airportList != nil && self.airportList.count > 0)
+    {
+        NSString * szTest = szPrefix.lowercaseString;
+        for (NSString * sz in self.airportList)
+        {
+            if ([sz.lowercaseString hasPrefix:szTest])
+                return sz;
+        }
+    }
+    
+    return szPrefix;
+}
+
+- (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    // always allow deletion of a selection (allows for deletion of proposed selection)
+    if (string.length == 0)
+        return YES;
+
+    if ([string rangeOfCharacterFromSet:[NSCharacterSet.alphanumericCharacterSet invertedSet]].location != NSNotFound)
+        return NO;
+    
+    // check for autocomplete
+    NSString * szUserTyped = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    NSString * szUserTypedWithCompletion = [self proposeCompletion:szUserTyped];
+    if ([szUserTyped compare:szUserTypedWithCompletion] != NSOrderedSame)
+    {
+        textField.text = szUserTypedWithCompletion;
+        UITextPosition * startPos = [textField positionFromPosition:textField.beginningOfDocument offset:szUserTyped.length];
+        UITextPosition * endPos = textField.endOfDocument;
+        [textField setSelectedTextRange:[textField textRangeFromPosition:startPos toPosition:endPos]];
+        return NO;
+    }
+    return YES; // any string can be edited
+}
+
+#pragma mark -
 #pragma mark AccessoryViewDelegates
 - (BOOL) isNavigableRow:(NSIndexPath *)ip
 {
@@ -230,8 +267,6 @@ enum appchRows {rowCount, rowApproachType, rowRunway, rowAirport, rowAddToTotals
         return 2;
     else if (pickerView == self.vwPickerApproach)
         return 2;
-    else if (pickerView == self.vwPickerAirports)
-        return 1;
     return 0;
 }
 
@@ -241,8 +276,6 @@ enum appchRows {rowCount, rowApproachType, rowRunway, rowAirport, rowAddToTotals
         return (component == 0) ? [ApproachDescription RunwayNames].count : [ApproachDescription RunwayModifiers].count;
     else if (pickerView == self.vwPickerApproach)
         return (component == 0) ? [ApproachDescription ApproachNames].count : [ApproachDescription ApproachSuffixes].count;
-    else if (pickerView == self.vwPickerAirports)
-        return self.airportList.count;
     return 0;
 }
 
@@ -252,8 +285,6 @@ enum appchRows {rowCount, rowApproachType, rowRunway, rowAirport, rowAddToTotals
         return (component == 0)? [ApproachDescription RunwayNames][row] : [ApproachDescription RunwayModifiers][row];
     else if (pickerView == self.vwPickerApproach)
         return (component == 0) ? [ApproachDescription ApproachNames][row] : [ApproachDescription ApproachSuffixes][row];
-    else if (pickerView == self.vwPickerAirports)
-        return self.airportList[row];
     return @"";
 }
 
@@ -286,8 +317,8 @@ enum appchRows {rowCount, rowApproachType, rowRunway, rowAirport, rowAddToTotals
             ec.txt.text = self.approachDescription.approachName = sz;
         }
             break;
-        case rowAirport:
-            ec.txt.text = self.approachDescription.airportName = self.airportList[row];
+        default:
+            break;
     }
 }
 
