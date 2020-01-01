@@ -747,7 +747,9 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
         }
         else if (indexPath.section == sectProperties)
         {
+            MFBWebServiceSvc_CustomFlightProperty * cfp = self.le.entryData.CustomProperties.CustomFlightProperty[indexPath.row - 1];
             [self.le.entryData.CustomProperties.CustomFlightProperty removeObjectAtIndex:indexPath.row - 1];
+            [self.flightProps deleteProperty:cfp forUser:mfbApp().userProfile.AuthToken];
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         }
 	}
