@@ -239,6 +239,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 }
 
 - (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     self.navigationController.toolbarHidden = NO;
     self.navigationController.toolbar.translucent = NO;    
 }
