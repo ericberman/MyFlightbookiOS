@@ -208,15 +208,18 @@ BOOL fNeedsRefresh = NO;
 	[ac loadAircraftForUser:YES]; // refresh = force a load, potentially updating cache.
 }
 
-- (void) invalidateViewController
-{
+- (void) reloadTableview {
+    [self.tableView reloadData];
+}
+
+- (void) invalidateViewController {
     [[Aircraft sharedAircraft] clearAircraft];
     [self initAircraftLists];
     fNeedsRefresh = YES;
     if ([NSThread isMainThread])
         [self.tableView reloadData];
     else
-        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+        [self performSelectorOnMainThread:@selector(reloadTableview) withObject:nil waitUntilDone:NO];
 }
 
 #pragma mark TableView Delegates
