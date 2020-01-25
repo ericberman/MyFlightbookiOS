@@ -175,7 +175,8 @@
     else
         [attrString appendAttributedString:[NSAttributedString attributedStringFromMarkDown:trimmedComments size:12.0]];
     
-    if ([AutodetectOptions showFlightTimes]) {
+    flightTimeDetail detail = AutodetectOptions.showFlightTimes;
+    if (detail != flightTimeNone) {
         [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:@{NSForegroundColorAttributeName : textColor}]];
         
         // Add various values
@@ -192,8 +193,11 @@
         [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldSIC", @"Entry Field: SIC") forValue:le.SIC withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
         [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldPIC", @"Entry Field: PIC") forValue:le.PIC withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
         [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldTotal", @"Entry Field: Total") forValue:le.TotalFlightTime withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
-        [attrString appendAttributedString:[self attributedUTCDateRange:NSLocalizedString(@"Engine Time", @"Auto-fill based on engine time") start:le.EngineStart end:le.EngineEnd withFont:boldFont]];
-        [attrString appendAttributedString:[self attributedUTCDateRange:NSLocalizedString(@"Flight Time", @"Auto-fill based on time in the air") start:le.EngineStart end:le.EngineEnd withFont:boldFont]];
+        
+        if (detail == flightTimeDetailed) {
+            [attrString appendAttributedString:[self attributedUTCDateRange:NSLocalizedString(@"Engine Time", @"Auto-fill based on engine time") start:le.EngineStart end:le.EngineEnd withFont:boldFont]];
+            [attrString appendAttributedString:[self attributedUTCDateRange:NSLocalizedString(@"Flight Time", @"Auto-fill based on time in the air") start:le.FlightStart end:le.FlightEnd withFont:boldFont]];
+        }
     }
     
     self.lblComments.attributedText = attrString;

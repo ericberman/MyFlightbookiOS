@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -22,7 +22,7 @@
                 <outlet property="idswRecordFlight" destination="8" id="17"/>
                 <outlet property="idswRecordHighRes" destination="8cc-b8-HXM" id="Q6p-ac-Dxn"/>
                 <outlet property="idswRoundNearestTenth" destination="Pjm-s8-SAA" id="b8z-Bc-9m1"/>
-                <outlet property="idswShowFlightTimes" destination="leT-vh-meS" id="UYj-xK-QD8"/>
+                <outlet property="idswShowFlightTimes" destination="TTD-gB-ODv" id="AVH-Cx-eXp"/>
                 <outlet property="idswShowImages" destination="DEh-7q-b6O" id="2Ty-cI-hMW"/>
                 <outlet property="idswTakeoffSpeed" destination="77" id="80"/>
                 <outlet property="idswUseHHMM" destination="40" id="53"/>
@@ -64,20 +64,20 @@
                             <action selector="recordFlightClicked:" destination="-1" eventType="valueChanged" id="57"/>
                         </connections>
                     </switch>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Record High Resolution" lineBreakMode="wordWrap" numberOfLines="2" minimumFontSize="10" preferredMaxLayoutWidth="180" translatesAutoresizingMaskIntoConstraints="NO" id="5cU-q7-bDt">
-                        <rect key="frame" x="8" y="99" width="292" height="14.5"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Record High Resolution" lineBreakMode="wordWrap" numberOfLines="2" minimumFontSize="10" preferredMaxLayoutWidth="180" translatesAutoresizingMaskIntoConstraints="NO" id="5cU-q7-bDt" userLabel="lblRecordHighRes">
+                        <rect key="frame" x="8" y="99" width="232" height="14.5"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="8cc-b8-HXM">
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="8cc-b8-HXM" userLabel="swRecordHighRes">
                         <rect key="frame" x="251" y="91" width="51" height="31"/>
                         <connections>
                             <action selector="recordHighResClicked:" destination="-1" eventType="valueChanged" id="3cn-XR-07n"/>
                         </connections>
                     </switch>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slower to upload/download, but works better with apps like CloudAhoy" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vSc-Pf-R1W">
-                        <rect key="frame" x="8" y="113" width="292" height="26.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slower to upload/download, but works better with apps like CloudAhoy" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vSc-Pf-R1W" userLabel="CloudAhoyNote">
+                        <rect key="frame" x="8" y="113" width="232" height="26.5"/>
                         <fontDescription key="fontDescription" type="system" weight="thin" pointSize="11"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -90,13 +90,14 @@
                     <constraint firstItem="8" firstAttribute="leading" secondItem="10" secondAttribute="trailing" constant="10" id="AbJ-Aq-t98"/>
                     <constraint firstItem="8cc-b8-HXM" firstAttribute="leading" secondItem="8" secondAttribute="leading" id="BHN-Kz-aj3"/>
                     <constraint firstItem="9" firstAttribute="top" secondItem="cqp-l0-kfx" secondAttribute="top" constant="19" id="E6J-cF-eGt"/>
+                    <constraint firstItem="8cc-b8-HXM" firstAttribute="leading" secondItem="5cU-q7-bDt" secondAttribute="trailing" constant="11" id="HU6-1z-0a3"/>
+                    <constraint firstItem="8cc-b8-HXM" firstAttribute="leading" secondItem="vSc-Pf-R1W" secondAttribute="trailing" constant="11" id="KpO-z3-IGh"/>
                     <constraint firstItem="9" firstAttribute="leading" secondItem="cqp-l0-kfx" secondAttribute="leading" constant="8" id="Lpx-nh-vGF"/>
                     <constraint firstItem="8" firstAttribute="leading" secondItem="7" secondAttribute="leading" id="NxM-y9-xAN"/>
-                    <constraint firstItem="vSc-Pf-R1W" firstAttribute="trailing" secondItem="8cc-b8-HXM" secondAttribute="trailing" id="Tqm-CN-riD"/>
                     <constraint firstItem="vSc-Pf-R1W" firstAttribute="width" secondItem="5cU-q7-bDt" secondAttribute="width" id="VAt-gl-ccK"/>
                     <constraint firstItem="8" firstAttribute="top" secondItem="7" secondAttribute="bottom" constant="11" id="Vo1-yY-DYq"/>
-                    <constraint firstItem="vSc-Pf-R1W" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5cU-q7-bDt" secondAttribute="leading" id="eje-r9-Yfv"/>
-                    <constraint firstAttribute="trailing" secondItem="5cU-q7-bDt" secondAttribute="trailing" constant="20" id="es0-7o-Caa"/>
+                    <constraint firstItem="vSc-Pf-R1W" firstAttribute="leading" secondItem="5cU-q7-bDt" secondAttribute="leading" id="eje-r9-Yfv"/>
+                    <constraint firstAttribute="trailing" secondItem="5cU-q7-bDt" secondAttribute="trailing" constant="80" id="es0-7o-Caa"/>
                     <constraint firstItem="7" firstAttribute="top" secondItem="cqp-l0-kfx" secondAttribute="top" constant="11" id="gGJ-Fc-3cc"/>
                     <constraint firstItem="10" firstAttribute="centerY" secondItem="8" secondAttribute="centerY" id="gU6-7c-bZM"/>
                     <constraint firstItem="vSc-Pf-R1W" firstAttribute="top" secondItem="5cU-q7-bDt" secondAttribute="bottom" constant="-0.5" id="l0d-CY-XSo"/>
@@ -152,36 +153,41 @@
                             <action selector="showImagesClicked:" destination="-1" eventType="valueChanged" id="nBp-wC-kDx"/>
                         </connections>
                     </switch>
-                    <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="leT-vh-meS">
-                        <rect key="frame" x="251" y="47.5" width="51" height="31"/>
-                        <connections>
-                            <action selector="showFlightTimesClicked:" destination="-1" eventType="valueChanged" id="bs2-78-pSP"/>
-                        </connections>
-                    </switch>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" text="Show times for flights:" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" preferredMaxLayoutWidth="180" translatesAutoresizingMaskIntoConstraints="NO" id="LKd-q7-csB">
-                        <rect key="frame" x="10" y="55" width="233" height="14.5"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" text="Show images for flights:" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" preferredMaxLayoutWidth="180" translatesAutoresizingMaskIntoConstraints="NO" id="0pm-yI-Vkq">
                         <rect key="frame" x="10" y="16" width="233" height="14.5"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="TTD-gB-ODv" userLabel="SegFlightDetail">
+                        <rect key="frame" x="157" y="46" width="143" height="32"/>
+                        <segments>
+                            <segment title="Low"/>
+                            <segment title="Med"/>
+                            <segment title="High"/>
+                        </segments>
+                        <connections>
+                            <action selector="showFlightTimesClicked:" destination="-1" eventType="valueChanged" id="CoO-PP-QYA"/>
+                        </connections>
+                    </segmentedControl>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" text="Flight Detail:" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" preferredMaxLayoutWidth="180" translatesAutoresizingMaskIntoConstraints="NO" id="LKd-q7-csB">
+                        <rect key="frame" x="10" y="55" width="77" height="14.5"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="TTD-gB-ODv" firstAttribute="trailing" secondItem="DEh-7q-b6O" secondAttribute="trailing" id="Dea-mw-Krv"/>
+                    <constraint firstItem="TTD-gB-ODv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="LKd-q7-csB" secondAttribute="trailing" constant="70" id="Hwc-1z-4RY"/>
                     <constraint firstAttribute="trailing" secondItem="DEh-7q-b6O" secondAttribute="trailing" constant="20" id="LC8-EI-k7f"/>
                     <constraint firstAttribute="bottom" secondItem="LKd-q7-csB" secondAttribute="bottom" constant="15.5" id="ULq-tV-w5o"/>
-                    <constraint firstItem="LKd-q7-csB" firstAttribute="leading" secondItem="pfc-8o-78q" secondAttribute="leading" constant="10" id="abF-E4-rc8"/>
-                    <constraint firstAttribute="trailing" secondItem="leT-vh-meS" secondAttribute="trailing" constant="20" id="cOE-rn-RvR"/>
-                    <constraint firstAttribute="bottom" secondItem="leT-vh-meS" secondAttribute="bottom" constant="6.5" id="cfv-IW-VsK"/>
+                    <constraint firstItem="LKd-q7-csB" firstAttribute="leading" secondItem="0pm-yI-Vkq" secondAttribute="leading" id="a42-vz-GZh"/>
                     <constraint firstItem="0pm-yI-Vkq" firstAttribute="leading" secondItem="pfc-8o-78q" secondAttribute="leading" constant="10" id="enn-Te-EJT"/>
                     <constraint firstItem="DEh-7q-b6O" firstAttribute="top" secondItem="pfc-8o-78q" secondAttribute="top" constant="8" id="hut-6X-Jbc"/>
                     <constraint firstItem="DEh-7q-b6O" firstAttribute="leading" secondItem="0pm-yI-Vkq" secondAttribute="trailing" constant="8" id="kQs-a3-jBb"/>
                     <constraint firstItem="0pm-yI-Vkq" firstAttribute="top" secondItem="pfc-8o-78q" secondAttribute="top" constant="16" id="nVZ-9s-dGK"/>
-                    <constraint firstItem="leT-vh-meS" firstAttribute="leading" secondItem="LKd-q7-csB" secondAttribute="trailing" constant="8" id="opn-fL-hbf"/>
+                    <constraint firstItem="TTD-gB-ODv" firstAttribute="top" secondItem="DEh-7q-b6O" secondAttribute="bottom" constant="7" id="xpN-dP-cup"/>
                 </constraints>
             </tableViewCellContentView>
             <point key="canvasLocation" x="40" y="108.39580209895054"/>

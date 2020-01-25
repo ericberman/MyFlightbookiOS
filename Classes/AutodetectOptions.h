@@ -44,6 +44,10 @@ typedef NS_ENUM(NSInteger, autoTotal) {
     autoTotalNone = 0, autoTotalFlight, autoTotalEngine, autoTotalHobbs, autoTotalBlock, autoTotalFlightStartToEngineEnd, autoTotalLast = autoTotalFlightStartToEngineEnd
 };
 
+typedef NS_ENUM(NSInteger, flightTimeDetail) {
+    flightTimeNone, flightTimeShort, flightTimeDetailed
+};
+
 @property (nonatomic, strong) IBOutlet UISwitch * idswAutoDetect;
 @property (nonatomic, strong) IBOutlet UISwitch * idswRecordFlight;
 @property (nonatomic, strong) IBOutlet UISwitch * idswRecordHighRes;
@@ -52,7 +56,7 @@ typedef NS_ENUM(NSInteger, autoTotal) {
 @property (nonatomic, strong) IBOutlet UISwitch * idswUseLocal;
 @property (nonatomic, strong) IBOutlet UISwitch * idswUseHeliports;
 @property (nonatomic, strong) IBOutlet UISwitch * idswShowImages;
-@property (nonatomic, strong) IBOutlet UISwitch * idswShowFlightTimes;
+@property (nonatomic, strong) IBOutlet UISegmentedControl * idswShowFlightTimes;
 @property (nonatomic, strong) IBOutlet UISegmentedControl * idswTakeoffSpeed;
 @property (nonatomic, strong) IBOutlet UISegmentedControl * idswMapOptions;
 
@@ -76,7 +80,7 @@ typedef NS_ENUM(NSInteger, autoTotal) {
 - (IBAction) takeOffSpeedCanged:(UISegmentedControl *)sender;
 - (IBAction) mapTypeChanged:(UISegmentedControl *)sender;
 - (IBAction) showImagesClicked:(UISwitch *) sender;
-- (IBAction) showFlightTimesClicked:(UISwitch *)sender;
+- (IBAction) showFlightTimesClicked:(UISegmentedControl *)sender;
 
 + (int) autoTotalMode;
 + (BOOL) roundTotalToNearestTenth;
@@ -89,7 +93,7 @@ typedef NS_ENUM(NSInteger, autoTotal) {
 + (BOOL) recordHighRes;
 + (BOOL) includeHeliports;
 + (BOOL) showFlightImages;
-+ (BOOL) showFlightTimes;
++ (flightTimeDetail) showFlightTimes;
 + (MKMapType) mapType;
 + (NightFlightOptions) nightFlightPref;
 + (NightLandingOptions) nightLandingPref;

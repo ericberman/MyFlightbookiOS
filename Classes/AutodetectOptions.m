@@ -66,7 +66,7 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
     self.idswUseLocal.on = [AutodetectOptions UseLocalTime];
     self.idswRoundNearestTenth.on = [AutodetectOptions roundTotalToNearestTenth];
     self.idswShowImages.on = [AutodetectOptions showFlightImages];
-    self.idswShowFlightTimes.on = [AutodetectOptions showFlightTimes];
+    self.idswShowFlightTimes.selectedSegmentIndex = [AutodetectOptions showFlightTimes];
     
     self.idswTakeoffSpeed.selectedSegmentIndex = 0;
     int toCurrent = [AutodetectOptions TakeoffSpeed];
@@ -387,8 +387,8 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
     [[NSUserDefaults standardUserDefaults] setBool:!sender.on forKey:keyShowImages];
 }
 
-- (IBAction)showFlightTimesClicked:(UISwitch *)sender {
-    [[NSUserDefaults standardUserDefaults] setBool:!sender.on forKey:keyShowFlightTimes];
+- (IBAction)showFlightTimesClicked:(UISegmentedControl *)sender {
+    [[NSUserDefaults standardUserDefaults] setInteger:sender.selectedSegmentIndex forKey:keyShowFlightTimes];
 }
 
 #pragma mark - GetCurrentSettings
@@ -457,9 +457,9 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
     return ![[NSUserDefaults standardUserDefaults] boolForKey:keyShowImages];
 }
 
-+ (BOOL) showFlightTimes
++ (flightTimeDetail) showFlightTimes
 {
-    return ![[NSUserDefaults standardUserDefaults] boolForKey:keyShowFlightTimes];
+    return (flightTimeDetail) [[NSUserDefaults standardUserDefaults] integerForKey:keyShowFlightTimes];
 }
 
 + (NightFlightOptions) nightFlightPref {

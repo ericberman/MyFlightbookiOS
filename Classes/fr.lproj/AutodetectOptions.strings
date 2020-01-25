@@ -84,4 +84,13 @@
 "vSc-Pf-R1W.text" = "Plus lent, mais fonctionne mieux avec des applications comme CloudAhoy";
 
 /* Class = "UILabel"; text = "Show times for flights"; ObjectID = "LKd-q7-csB"; */
-"LKd-q7-csB.text" = "Afficher les heures de vol";
+"LKd-q7-csB.text" = "Plan de vol";
+
+/* Class = "UISegmentedControl";  TTD-gB-ODv.segmentTitles[0] = "Bas"; ObjectID="TTD-gB-ODv"; */
+"TTD-gB-ODv.segmentTitles[0]" = "Bas";
+
+/* Class = "UISegmentedControl";  TTD-gB-ODv.segmentTitles[1] = "Moyen"; ObjectID="TTD-gB-ODv"; */
+"TTD-gB-ODv.segmentTitles[1]" = "Moyen";
+
+/* Class = "UISegmentedControl";  TTD-gB-ODv.segmentTitles[2] = "Haut"; ObjectID="TTD-gB-ODv"; */
+"TTD-gB-ODv.segmentTitles[2]" = "Haut";

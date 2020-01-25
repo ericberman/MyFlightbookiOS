@@ -36,7 +36,7 @@
 #define keyIncludeHeliports @"keyIncludeHeliports"
 #define keyMapMode @"keyMappingMode"
 #define keyShowImages @"keyShowImages"
-#define keyShowFlightTimes @"keyShowFlightTimes"
+#define keyShowFlightTimes @"keyShowFlightTimes2"
 #define keyNightFlightPref @"keyNightFlightPref"
 #define keyNightLandingPref @"keyNightLandingPref"
 
