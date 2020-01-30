@@ -245,7 +245,7 @@
 "ReqSignatures" = "Demander des signatures";
 
 /* Prompt for 8710 form */
-"8710Form" = "8710 Forme";
+"8710Form" = "8710 / IACRA";
 
 /* Error message for training if offline or not signed in */
 "TrainingNotAvailable" = "Vous devez être connecté et avoir accès à Internet pour afficher les éléments de formation.";
