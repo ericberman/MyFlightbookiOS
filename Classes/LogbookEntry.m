@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2019 MyFlightbook, LLC
+ Copyright (C) 2009-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -34,6 +34,7 @@
 #import "DecimalEdit.h"
 
 @interface LogbookEntry ()
+@property (strong) NSDate * stashedDate;
 @end
 
 @implementation LogbookEntry
@@ -47,6 +48,7 @@
 @synthesize fIsPaused;
 @synthesize progressLabel;
 @synthesize gpxPath;
+@synthesize stashedDate;
 
 // keys for preferences.
 NSString * const _szkeyHasSavedState = @"pref_leSavedState";
@@ -169,7 +171,9 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
 	// We only really have to do this because we have a mix of UTC and "local" dates
 	// SOOO....
 	// adjust the date to a UTC date that looks like the right date
+    self.stashedDate = self.entryData.Date;
 	commitFlight.le.Date = [MFBSoapCall UTCDateFromLocalDate:commitFlight.le.Date];
+    [MFBAppDelegate.threadSafeAppDelegate saveState];
     
     sc.contextFlag = CONTEXT_FLAG_COMMIT;
 
@@ -184,6 +188,7 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
 	{
 		MFBWebServiceSvc_CommitFlightWithOptionsResponse * resp = (MFBWebServiceSvc_CommitFlightWithOptionsResponse *) body;
 		self.entryData = resp.CommitFlightWithOptionsResult;
+        self.stashedDate = nil;
 		retVal = YES;
 	}
 	if ([body isKindOfClass:[MFBWebServiceSvc_DeleteLogbookEntryResponse class]])
@@ -334,7 +339,13 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
 #pragma Persistence
 - (void)encodeWithCoder:(NSCoder *)encoder
 {
+    // Be sure NOT to encode this with the UTCDateFromLocalDate version from commitFlight
+    // So if there is a stashed date, use that.
+    NSDate * dtTemp = self.entryData.Date;
+    if (self.stashedDate != nil)
+        self.entryData.Date = self.stashedDate;
 	[encoder encodeObject:self.entryData forKey:_szkeyEntryData];
+    self.entryData.Date = dtTemp;
 	[encoder encodeObject:self.rgPicsForFlight forKey:_szkeyImages];
     [encoder encodeBool:self.fIsPaused forKey:_szkeyIsPaused];
     [encoder encodeDouble:self.dtTotalPauseTime forKey:_szkeyPausedTime];
