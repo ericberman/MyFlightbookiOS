@@ -228,6 +228,11 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
 - (void) ResultCompleted:(MFBSoapCall *)sc
 {
     self.errorString = sc.errorString;
+    
+    if (self.stashedDate != nil) {
+        self.entryData.Date = self.stashedDate;
+        self.stashedDate = nil;
+    }
 
     if (sc.contextFlag == CONTEXT_FLAG_COMMIT)
         [NSThread detachNewThreadSelector:@selector(submitImagesWorker:) toTarget:self withObject:sc];
