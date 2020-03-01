@@ -173,7 +173,6 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
 	// adjust the date to a UTC date that looks like the right date
     self.stashedDate = self.entryData.Date;
 	commitFlight.le.Date = [MFBSoapCall UTCDateFromLocalDate:commitFlight.le.Date];
-    [MFBAppDelegate.threadSafeAppDelegate saveState];
     
     sc.contextFlag = CONTEXT_FLAG_COMMIT;
 
