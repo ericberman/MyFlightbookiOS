@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2019 MyFlightbook, LLC
+ Copyright (C) 2019-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -47,6 +47,7 @@
     
     // Set up longpress recognizers for times
     [self enableLongPressForField:self.idTotalTime withSelector:@selector(timeCalculator:)];
+    [self enableLongPressForField:self.idDate withSelector:@selector(setToday:)];
     
     [self.idbtnAppendNearest addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(appendAdHoc:)]];
 }
@@ -460,6 +461,15 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
 - (void) updateTotal:(NSNumber *)value {
     self.le.entryData.TotalFlightTime = value;
     self.idTotalTime.value = value;
+}
+
+#pragma mark - Set Today
+- (void) setToday:(UILongPressGestureRecognizer *) sender {
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        [self.idDate resignFirstResponder];
+        self.le.entryData.Date = [NSDate new];
+        [self setDisplayDate:self.le.entryData.Date];
+    }
 }
 
 #pragma mark Options
