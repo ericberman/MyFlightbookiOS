@@ -467,8 +467,7 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
 - (void) setToday:(UILongPressGestureRecognizer *) sender {
     if (sender.state == UIGestureRecognizerStateBegan) {
         [self.idDate resignFirstResponder];
-        self.le.entryData.Date = [NSDate new];
-        [self setDisplayDate:self.le.entryData.Date];
+        [self resetDateOfFlight];
     }
 }
 
