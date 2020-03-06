@@ -159,7 +159,8 @@
 
 - (NSDate *) dateByAddingCalendarMonths:(int) cMonths
 {
-    NSCalendar * cal = [NSCalendar currentCalendar];
+    NSCalendar * cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    [cal setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
     NSDateComponents * comps = [cal componentsInTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0] fromDate:self];
     NSDateComponents * compsDelta = [[NSDateComponents alloc] init];
     compsDelta.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
@@ -173,12 +174,21 @@
         // Proper way to do this is to add an extra month and then back off a day.  E.g., 7/1/2019 + 12 months goes 13 months ahead to 8/1/2020 and then backs up to 7/31/2020
         // HOWEVER, NSCalendar's math is messed up - adding 13 months to 7/1/2019 yields 7/31/2020 instead of 8/1/2019.  Bizarre - must be using a fixed 365 day year or something.
         // So let's add years before months
-        compsDelta.month = cMonths;
-        dt = [cal dateByAddingComponents:compsDelta toDate:dt options:0];
-        comps = [cal componentsInTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0] fromDate:dt];
-        comps.day = 0;
-        comps.month = comps.month + 1;
-        dt = [cal dateFromComponents:comps];
+        // we've already backed up to the 1st of the month, so we can instead just add one to the # of months to add.
+        NSDateComponents * compNew = [[NSDateComponents alloc] init];
+        long year = comps.year + (cMonths + 1) / 12;
+        long month = comps.month + (cMonths + 1) % 12;
+        while (month > 12) {
+            year++;
+            month -= 12;
+        }
+        compNew.day = 1;
+        compNew.month = month;
+        compNew.year = year;
+        compNew.hour = compNew.minute = compNew.second = 0;
+        compNew.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+        compNew.calendar = cal;
+        dt = [[cal dateFromComponents:compNew] dateByAddingTimeInterval:-24*60*60];
         return dt;
     }
     else
