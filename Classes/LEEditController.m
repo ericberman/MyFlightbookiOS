@@ -275,6 +275,9 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
         [self updatePositionReport];
     }
     
+    // enable/disable the add/update button based on sign-in state
+    self.navigationItem.rightBarButtonItem.enabled = mfbApp().userProfile.isValid;
+    
     // Initialize the list of selectibleAircraft and hold on to it
     // We do this on each view-will-appear so that we can pick up any aircraft that have been shown/hidden.
     self.selectibleAircraft = [Aircraft.sharedAircraft AircraftForSelection:self.le.entryData.AircraftID];
