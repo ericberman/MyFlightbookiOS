@@ -380,7 +380,7 @@
 "You are not signed in.  Please sign in or create an account." = "Vous n'êtes pas identifié. Merci de vous identifier ou de créer un compte";
 
 /* Prompt if you are signed in. */
-"You are signed in." = "Vous êtes connecté.";
+"You are signed in." = "Vous êtes connecté en tant que %@.";
 
 /* Must be signed in to create an aircraft */
 "You must be signed in to create an aircraft" = "Vous devez vous connecter pour créer un aéronef";

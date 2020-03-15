@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2013-2019 MyFlightbook, LLC
+ Copyright (C) 2013-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -45,7 +45,7 @@
 @end
 
 enum signinSections {sectWhySignIn, sectCredentials, sectSignIn, sectCreateAccount, sectForgotPW, sectLinks, sectAbout, sectLast};
-enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cidCreateAcct, cidLinksFirst, cidFAQ = cidLinksFirst, cidContact, cidSupport, cidFollowFB, cidLinksLast=cidFollowFB, cidOptions, cidAbout};
+enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, cidCreateAcct, cidLinksFirst, cidFAQ = cidLinksFirst, cidContact, cidSupport, cidFollowFB, cidLinksLast=cidFollowFB, cidOptions, cidAbout};
 
 @implementation SignInControllerViewController
 @synthesize vwAccessory, szUser, szPass;
@@ -159,7 +159,7 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
         case sectCredentials:
             return cidEmail + row;
         case sectSignIn:
-            return cidSignIn;
+            return cidSignInOut;
         case sectForgotPW:
             return cidForgotPW;
         case sectCreateAccount:
@@ -190,15 +190,15 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
     return cell;
 }
 
-- (NSString *) tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+- (NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if (section == sectCredentials)
     {
-        MFBAppDelegate * app = mfbApp();
-        if ([app.userProfile isValid])
-            return NSLocalizedString(@"You are signed in.", @"Prompt if you are signed in.");
+        if (mfbApp().userProfile.isValid)
+            return [NSString stringWithFormat:NSLocalizedString(@"You are signed in.", @"Prompt if you are signed in."), mfbApp().userProfile.UserName];
         else
             return NSLocalizedString(@"You are not signed in.  Please sign in or create an account.", @"Prompt if you are not signed in.");
+        
     }
     return nil;
 }
@@ -213,15 +213,15 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
     switch (section)
     {
         case sectWhySignIn:
-            return 1; // just the explanation text
+            return mfbApp().userProfile.isValid ? 0 : 1; // just the explanation text
         case sectCredentials:
-            return 2; // email + password
+            return mfbApp().userProfile.isValid ? 0 : 2; // email + password
         case sectSignIn:
-            return 1 + ([mfbApp().userProfile isValid] ? 1 : 0); // Just the "sign-in" button unless we're signed in, in which case sign-out button too
+            return 1;
         case sectForgotPW:
             return 1; // just the "Forgot password" cell
         case sectCreateAccount:
-            return 1; // just the "Create account" cell
+            return mfbApp().userProfile.isValid ? 0 : 1; // just the "Create account" cell, but only if not signed in
         case sectLinks:
             return cidLinksLast - cidLinksFirst + 1;
         case sectAbout:
@@ -255,18 +255,18 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
             cell.textLabel.text = NSLocalizedString(@"Reset Password", @"Reset Password Prompt");
             return cell;
         }
-        case cidSignIn:
+        case cidSignInOut:
         {
             ButtonCell * cell = [ButtonCell getButtonCell:self.tableView];
-            if (indexPath.row == 0)
-            {
-                [cell.btn setTitle:NSLocalizedString(@"Sign-in", @"Sign-in") forState:0];
-                [cell.btn addTarget:self action:@selector(UpdateProfile) forControlEvents:UIControlEventTouchUpInside];
-            }
-            else
+            if (mfbApp().userProfile.isValid)
             {
                 [cell.btn setTitle:NSLocalizedString(@"Sign-out", @"Sign-out") forState:0];
                 [cell.btn addTarget:self action:@selector(signOut:) forControlEvents:UIControlEventTouchUpInside];
+            }
+            else
+            {
+                [cell.btn setTitle:NSLocalizedString(@"Sign-in", @"Sign-in") forState:0];
+                [cell.btn addTarget:self action:@selector(UpdateProfile) forControlEvents:UIControlEventTouchUpInside];
             }
             return cell;
         }
@@ -303,6 +303,7 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignIn, cidForgotPW, cid
             UITableViewCell * cell = [self getCell];
             cell.textLabel.text = NSLocalizedString(@"Follow on Facebook", @"Prompt to follow on Facebook");
             cell.imageView.image = [UIImage imageNamed:@"f_logo"];
+            cell.textLabel.textColor = [UILabel appearance].textColor;
             return cell;
         }
         case cidSupport:
