@@ -1440,6 +1440,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 		ICAO = 0;
 		GlassUpgradeDate = 0;
 		AvionicsTechnologyUpgrade = 0;
+		MaintenanceNote = 0;
 	}
 	
 	return self;
@@ -1476,6 +1477,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	if(DefaultTemplates != nil) [DefaultTemplates release];
 	if(ICAO != nil) [ICAO release];
 	if(GlassUpgradeDate != nil) [GlassUpgradeDate release];
+	if(MaintenanceNote != nil) [MaintenanceNote release];
 	
 	[super dealloc];
 }
@@ -1605,6 +1607,9 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	if(((void *)self.AvionicsTechnologyUpgrade) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:AvionicsTechnologyUpgrade", [MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(self.AvionicsTechnologyUpgrade) xmlString]);
 	}
+	if(((void *)self.MaintenanceNote) != 0) {
+		xmlAddChild(node, [self.MaintenanceNote xmlNodeForDoc:node->doc elementName:@"MaintenanceNote" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
 }
 /* elements */
 @synthesize InstanceTypeID;
@@ -1639,6 +1644,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 @synthesize ICAO;
 @synthesize GlassUpgradeDate;
 @synthesize AvionicsTechnologyUpgrade;
+@synthesize MaintenanceNote;
 /* attributes */
 - (NSDictionary *)attributes
 {
@@ -2643,6 +2649,39 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 				
 				MFBWebServiceSvc_AvionicsTechnologyType enumRepresentation = MFBWebServiceSvc_AvionicsTechnologyType_enumFromString(elementString);
 				self.AvionicsTechnologyUpgrade = enumRepresentation;
+			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "MaintenanceNote")) {
+				
+				Class elementClass = nil;
+				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if(instanceType == NULL) {
+					elementClass = [NSString class];
+				} else {
+					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
+					
+					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
+					
+					NSString *elementClassString = nil;
+					if([elementTypeArray count] > 1) {
+						NSString *prefix = [elementTypeArray objectAtIndex:0];
+						NSString *localName = [elementTypeArray objectAtIndex:1];
+						
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
+						
+						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
+						
+						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
+					} else {
+						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
+					}
+					
+					elementClass = NSClassFromString(elementClassString);
+					xmlFree(instanceType);
+				}
+				
+				id newChild = [elementClass deserializeNode:cur];
+				
+				self.MaintenanceNote = newChild;
 			}
 		}
 	}
@@ -11336,6 +11375,66 @@ NSString * MFBWebServiceSvc_NumType_stringFromEnum(MFBWebServiceSvc_NumType enum
 			return @"";
 	}
 }
+MFBWebServiceSvc_TotalsGroup MFBWebServiceSvc_TotalsGroup_enumFromString(NSString *string)
+{
+	if([string isEqualToString:@"None"]) {
+		return MFBWebServiceSvc_TotalsGroup_None;
+	}
+	if([string isEqualToString:@"CategoryClass"]) {
+		return MFBWebServiceSvc_TotalsGroup_CategoryClass;
+	}
+	if([string isEqualToString:@"ICAO"]) {
+		return MFBWebServiceSvc_TotalsGroup_ICAO;
+	}
+	if([string isEqualToString:@"Model"]) {
+		return MFBWebServiceSvc_TotalsGroup_Model;
+	}
+	if([string isEqualToString:@"Capabilities"]) {
+		return MFBWebServiceSvc_TotalsGroup_Capabilities;
+	}
+	if([string isEqualToString:@"CoreFields"]) {
+		return MFBWebServiceSvc_TotalsGroup_CoreFields;
+	}
+	if([string isEqualToString:@"Properties"]) {
+		return MFBWebServiceSvc_TotalsGroup_Properties;
+	}
+	if([string isEqualToString:@"Total"]) {
+		return MFBWebServiceSvc_TotalsGroup_Total;
+	}
+	
+	return MFBWebServiceSvc_TotalsGroup_none;
+}
+NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGroup enumValue)
+{
+	switch (enumValue) {
+		case MFBWebServiceSvc_TotalsGroup_None:
+			return @"None";
+			break;
+		case MFBWebServiceSvc_TotalsGroup_CategoryClass:
+			return @"CategoryClass";
+			break;
+		case MFBWebServiceSvc_TotalsGroup_ICAO:
+			return @"ICAO";
+			break;
+		case MFBWebServiceSvc_TotalsGroup_Model:
+			return @"Model";
+			break;
+		case MFBWebServiceSvc_TotalsGroup_Capabilities:
+			return @"Capabilities";
+			break;
+		case MFBWebServiceSvc_TotalsGroup_CoreFields:
+			return @"CoreFields";
+			break;
+		case MFBWebServiceSvc_TotalsGroup_Properties:
+			return @"Properties";
+			break;
+		case MFBWebServiceSvc_TotalsGroup_Total:
+			return @"Total";
+			break;
+		default:
+			return @"";
+	}
+}
 @implementation MFBWebServiceSvc_TotalsItem
 @synthesize soapSigner;
 - (id)init
@@ -11349,6 +11448,8 @@ NSString * MFBWebServiceSvc_NumType_stringFromEnum(MFBWebServiceSvc_NumType enum
 		IsTime = 0;
 		IsCurrency = 0;
 		Query = 0;
+		Group = 0;
+		GroupName = 0;
 	}
 	
 	return self;
@@ -11363,6 +11464,7 @@ NSString * MFBWebServiceSvc_NumType_stringFromEnum(MFBWebServiceSvc_NumType enum
 	if(IsTime != nil) [IsTime release];
 	if(IsCurrency != nil) [IsCurrency release];
 	if(Query != nil) [Query release];
+	if(GroupName != nil) [GroupName release];
 	
 	[super dealloc];
 }
@@ -11420,6 +11522,12 @@ NSString * MFBWebServiceSvc_NumType_stringFromEnum(MFBWebServiceSvc_NumType enum
 	if(((void *)self.Query) != 0) {
 		xmlAddChild(node, [self.Query xmlNodeForDoc:node->doc elementName:@"Query" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
+	if(((void *)self.Group) != 0) {
+		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:Group", [MFBWebServiceSvc_TotalsGroup_stringFromEnum(self.Group) xmlString]);
+	}
+	if(((void *)self.GroupName) != 0) {
+		xmlAddChild(node, [self.GroupName xmlNodeForDoc:node->doc elementName:@"GroupName" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
 }
 /* elements */
 @synthesize Value;
@@ -11430,6 +11538,8 @@ NSString * MFBWebServiceSvc_NumType_stringFromEnum(MFBWebServiceSvc_NumType enum
 @synthesize IsTime;
 @synthesize IsCurrency;
 @synthesize Query;
+@synthesize Group;
+@synthesize GroupName;
 /* attributes */
 - (NSDictionary *)attributes
 {
@@ -11698,6 +11808,44 @@ NSString * MFBWebServiceSvc_NumType_stringFromEnum(MFBWebServiceSvc_NumType enum
 				id newChild = [elementClass deserializeNode:cur];
 				
 				self.Query = newChild;
+			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "Group")) {
+				
+				MFBWebServiceSvc_TotalsGroup enumRepresentation = MFBWebServiceSvc_TotalsGroup_enumFromString(elementString);
+				self.Group = enumRepresentation;
+			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "GroupName")) {
+				
+				Class elementClass = nil;
+				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if(instanceType == NULL) {
+					elementClass = [NSString class];
+				} else {
+					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
+					
+					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
+					
+					NSString *elementClassString = nil;
+					if([elementTypeArray count] > 1) {
+						NSString *prefix = [elementTypeArray objectAtIndex:0];
+						NSString *localName = [elementTypeArray objectAtIndex:1];
+						
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
+						
+						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
+						
+						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
+					} else {
+						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
+					}
+					
+					elementClass = NSClassFromString(elementClassString);
+					xmlFree(instanceType);
+				}
+				
+				id newChild = [elementClass deserializeNode:cur];
+				
+				self.GroupName = newChild;
 			}
 		}
 	}

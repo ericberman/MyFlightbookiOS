@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2013-2019 MyFlightbook, LLC
+ Copyright (C) 2013-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -55,7 +55,7 @@ enum aircraftRows {rowInfoStart, rowStaticDesc = rowInfoStart, rowInfoLast,
     rowPrefsHeader, rowPrefsFirst = rowPrefsHeader, rowRoleNone, rowRolePIC, rowRoleSIC, rowRoleCFI, rowPrefsLast=rowRoleCFI,
     rowNotesHeader, rowNotesFirst = rowNotesHeader, rowNotesPublic, rowNotesPrivate, rowNotesLast = rowNotesPrivate,
     rowMaintHeader,
-    rowMaintFirst = rowMaintHeader, rowVOR, rowXPnder, rowPitot, rowAltimeter, rowELT, rowAnnual, row100hr, rowOil, rowEngine, rowRegistration, rowMaintLast = rowRegistration,
+    rowMaintFirst = rowMaintHeader, rowAnnual, rowXPnder, rowPitot, rowAltimeter, rowELT, rowVOR, row100hr, rowOil, rowEngine, rowRegistration, rowMaintNotes, rowMaintLast = rowMaintNotes,
     rowImageHeader};
 
 @synthesize datePicker;
@@ -297,6 +297,8 @@ enum aircraftRows {rowInfoStart, rowStaticDesc = rowInfoStart, rowInfoLast,
     ec.txt.placeholder = szPlaceholder;
     ec.txt.delegate = self;
     ec.txt.clearButtonMode = UITextFieldViewModeWhileEditing;
+    ec.txt.adjustsFontSizeToFitWidth = YES;
+    ec.txt.minimumFontSize = 6.0;
     return ec;
 }
 
@@ -384,6 +386,8 @@ enum aircraftRows {rowInfoStart, rowStaticDesc = rowInfoStart, rowInfoLast,
             return [self decimalCell:self.ac.LastOilChange withPrompt:NSLocalizedString(@"Oil Change", @"Oil Change") forTableView:tableView];
         case rowEngine:
             return [self decimalCell:self.ac.LastNewEngine withPrompt:NSLocalizedString(@"New Engine", @"New Engine") forTableView:tableView];
+        case rowMaintNotes:
+            return [self textCell:@"" WithPrompt:NSLocalizedString(@"MaintenanceNotes", @"Maintenance Notes") andPlacholder:NSLocalizedString(@"MaintenanceNotesPrompt", @"Maintenance Notes Prompt") forTableView:tableView];
         case rowFavorite:
         {
             CheckboxCell * cc = [CheckboxCell getButtonCell:tableView];
@@ -542,6 +546,9 @@ enum aircraftRows {rowInfoStart, rowStaticDesc = rowInfoStart, rowInfoLast,
         case rowRegistration:
             [((EditCell *) [tableView cellForRowAtIndexPath:indexPath]).txt becomeFirstResponder];
             break;
+        case rowMaintNotes:
+            [((TextCell *) [tableView cellForRowAtIndexPath:indexPath]).txt becomeFirstResponder];
+            break;
         case rowMaintHeader:
         case rowImageHeader:
         case rowPrefsHeader:
@@ -661,6 +668,9 @@ enum aircraftRows {rowInfoStart, rowStaticDesc = rowInfoStart, rowInfoLast,
         case rowOil:
             self.ac.LastOilChange = textField.value;
             break;
+        case rowMaintNotes:
+            self.ac.MaintenanceNote = textField.text;
+            break;
         default:
             break;
     }
@@ -735,6 +745,7 @@ enum aircraftRows {rowInfoStart, rowStaticDesc = rowInfoStart, rowInfoLast,
         case row100hr:
         case rowOil:
         case rowEngine:
+        case rowMaintNotes:
             break;
     }
     return YES;

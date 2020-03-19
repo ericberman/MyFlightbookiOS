@@ -900,6 +900,12 @@ Vous pouvez choisir un dans la liste fournie, le modifier, ou faire un de vos pr
 /* Maintenance Prompt */
 "Maintenance Prompt" = "Renseignement ci-dessous de la dernière date ou du dernier compteur pour:";
 
+/* Maintenance Notes */
+"MaintenanceNotes" = "Remarques:";
+
+/* Maintenance Notes Prompt */
+"MaintenanceNotesPrompt" = "Par exemple, emplacement / type / erreur de vérification VOR";
+
 /* Sign in and account Placeholder strings */
 /* E-Mail Placeholder */
 "E-Mail Placeholder" = "EMail";

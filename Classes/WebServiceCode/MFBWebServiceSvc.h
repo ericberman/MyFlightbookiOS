@@ -301,6 +301,7 @@ SOAPSigner *soapSigner;
 	NSString * ICAO;
 	NSDate * GlassUpgradeDate;
 	MFBWebServiceSvc_AvionicsTechnologyType AvionicsTechnologyUpgrade;
+	NSString * MaintenanceNote;
 /* attributes */
 }
 - (NSString *)nsPrefix;
@@ -344,6 +345,7 @@ SOAPSigner *soapSigner;
 @property (nonatomic, retain) NSString * ICAO;
 @property (nonatomic, retain) NSDate * GlassUpgradeDate;
 @property (nonatomic, assign) MFBWebServiceSvc_AvionicsTechnologyType AvionicsTechnologyUpgrade;
+@property (nonatomic, retain) NSString * MaintenanceNote;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
@@ -1237,6 +1239,19 @@ typedef enum {
 } MFBWebServiceSvc_NumType;
 MFBWebServiceSvc_NumType MFBWebServiceSvc_NumType_enumFromString(NSString *string);
 NSString * MFBWebServiceSvc_NumType_stringFromEnum(MFBWebServiceSvc_NumType enumValue);
+typedef enum {
+	MFBWebServiceSvc_TotalsGroup_none = 0,
+	MFBWebServiceSvc_TotalsGroup_None,
+	MFBWebServiceSvc_TotalsGroup_CategoryClass,
+	MFBWebServiceSvc_TotalsGroup_ICAO,
+	MFBWebServiceSvc_TotalsGroup_Model,
+	MFBWebServiceSvc_TotalsGroup_Capabilities,
+	MFBWebServiceSvc_TotalsGroup_CoreFields,
+	MFBWebServiceSvc_TotalsGroup_Properties,
+	MFBWebServiceSvc_TotalsGroup_Total,
+} MFBWebServiceSvc_TotalsGroup;
+MFBWebServiceSvc_TotalsGroup MFBWebServiceSvc_TotalsGroup_enumFromString(NSString *string);
+NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGroup enumValue);
 @interface MFBWebServiceSvc_TotalsItem : NSObject <NSCoding> {
 SOAPSigner *soapSigner;
 /* elements */
@@ -1248,6 +1263,8 @@ SOAPSigner *soapSigner;
 	USBoolean * IsTime;
 	USBoolean * IsCurrency;
 	MFBWebServiceSvc_FlightQuery * Query;
+	MFBWebServiceSvc_TotalsGroup Group;
+	NSString * GroupName;
 /* attributes */
 }
 - (NSString *)nsPrefix;
@@ -1267,6 +1284,8 @@ SOAPSigner *soapSigner;
 @property (nonatomic, retain) USBoolean * IsTime;
 @property (nonatomic, retain) USBoolean * IsCurrency;
 @property (nonatomic, retain) MFBWebServiceSvc_FlightQuery * Query;
+@property (nonatomic, assign) MFBWebServiceSvc_TotalsGroup Group;
+@property (nonatomic, retain) NSString * GroupName;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
