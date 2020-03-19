@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2018 MyFlightbook, LLC
+ Copyright (C) 2018-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -50,5 +50,47 @@
             return [self.Value formatAsType:ntTime inHHMM:fHHMM useGrouping:YES];
             break;
     }
+}
+
+- (NSString *) GroupName {
+    switch (self.Group) {
+        case MFBWebServiceSvc_TotalsGroup_None:
+        case MFBWebServiceSvc_TotalsGroup_none:
+            return NSLocalizedString(@"TotalsGroupNone", @"TotalsGroup None");
+        default:
+        case MFBWebServiceSvc_TotalsGroup_Properties:
+            return NSLocalizedString(@"TotalsGroupProperties", @"TotalsGroup Properties");
+        case MFBWebServiceSvc_TotalsGroup_ICAO:
+            return NSLocalizedString(@"TotalsGroupICAO", @"TotalsGroup ICAO");
+        case MFBWebServiceSvc_TotalsGroup_CategoryClass:
+            return NSLocalizedString(@"TotalsGroupCategoryClass", @"TotalsGroup Category/Class");
+        case MFBWebServiceSvc_TotalsGroup_Model:
+            return NSLocalizedString(@"TotalsGroupModel", @"TotalsGroup Model");
+        case MFBWebServiceSvc_TotalsGroup_Capabilities:
+            return NSLocalizedString(@"TotalsGroupCapabilities", @"TotalsGroup Capabilities");
+        case MFBWebServiceSvc_TotalsGroup_CoreFields:
+            return NSLocalizedString(@"TotalsGroupCore", @"TotalsGroup CoreFields");
+        case MFBWebServiceSvc_TotalsGroup_Total:
+            return NSLocalizedString(@"TotalsGroupTotal", @"TotalsGroup Total");
+    }
+}
+
++ (NSArray<NSArray<MFBWebServiceSvc_TotalsItem *> *> *) GroupItems:(NSArray<MFBWebServiceSvc_TotalsItem *> *) totalsItems {
+    NSMutableDictionary<NSNumber *, NSMutableArray<MFBWebServiceSvc_TotalsItem *> *> * d = [NSMutableDictionary new];
+    for (MFBWebServiceSvc_TotalsItem * ti in totalsItems) {
+        NSNumber * key = [NSNumber numberWithInt:(int) ti.Group];
+        if (d[key] == nil)
+            d[key] = [NSMutableArray<MFBWebServiceSvc_TotalsItem *> new];
+        
+        [d[key] addObject:ti];
+    }
+    
+    NSMutableArray<NSArray<MFBWebServiceSvc_TotalsItem *> *> * result = [NSMutableArray new];
+    for (int i = 0; i <= (int) MFBWebServiceSvc_TotalsGroup_Total; i++) {
+        NSNumber * key = [NSNumber numberWithInt:i];
+        if (d[key] != nil)
+            [result addObject:d[key]];
+    }
+    return result;
 }
 @end

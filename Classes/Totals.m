@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2019 MyFlightbook, LLC
+ Copyright (C) 2009-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -25,32 +25,29 @@
 //
 
 #import "Totals.h"
+#import "TotalsCategories.h"
 #import "MFBAppDelegate.h"
 #import "DecimalEdit.h"
 #import "util.h"
 #import "RecentFlights.h"
 
+@interface Totals()
+@property (nonatomic, strong) NSArray<NSArray<MFBWebServiceSvc_TotalsItem *> *> * rgTotalsGroups;
+@property (nonatomic, strong) NSString * errorString;
+@end
+
 @implementation Totals
 
-@synthesize rgTotals;
 @synthesize errorString;
 @synthesize fq;
-/*
- // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        // Custom initialization
-    }
-    return self;
-}
-*/
+@synthesize rgTotalsGroups;
 
 #pragma mark View Management
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-	self.rgTotals = [NSMutableArray new];
+    self.rgTotalsGroups = [NSArray new];
     self.fIsValid = NO;
 	self.errorString = [NSString new];
     self.fq = [MFBWebServiceSvc_FlightQuery getNewFlightQuery];
@@ -71,7 +68,7 @@
 
 - (void) invalidateViewController
 {
-    self.rgTotals = nil;
+    self.rgTotalsGroups = nil;
     self.fIsValid = NO;
     [self.tableView reloadData];
 }
@@ -80,7 +77,7 @@
 {
     [super viewDidAppear:animated];
 	
-	if (self.rgTotals == nil || !self.fIsValid)
+	if (self.rgTotalsGroups == nil || !self.fIsValid)
 	{
 		[self refresh];
         [self.tableView reloadData];
@@ -92,7 +89,7 @@
     [super didReceiveMemoryWarning];
 	
 	// Release any cached data, images, etc that aren't in use.
-	self.rgTotals = nil;
+    self.rgTotalsGroups = nil;
 	[mfbApp() invalidateCachedTotals];
 }
 
@@ -140,7 +137,7 @@
 	if ([body isKindOfClass:[MFBWebServiceSvc_TotalsForUserWithQueryResponse class]])
 	{
 		MFBWebServiceSvc_TotalsForUserWithQueryResponse * resp = (MFBWebServiceSvc_TotalsForUserWithQueryResponse *) body;
-        self.rgTotals = resp.TotalsForUserWithQueryResult.TotalsItem;
+        self.rgTotalsGroups = [MFBWebServiceSvc_TotalsItem GroupItems:resp.TotalsForUserWithQueryResult.TotalsItem];
         self.fIsValid = YES;
 	}
 }
@@ -161,7 +158,7 @@
 #pragma mark Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 1 + (self.callInProgress ? 1 : (self.rgTotalsGroups.count == 0 ? 1 : self.rgTotalsGroups.count));
 }
 
 // Customize the number of rows in the table view.
@@ -172,7 +169,7 @@
     {
         if (self.callInProgress)
             return 1;
-        return [self.rgTotals count];
+        return (self.rgTotalsGroups.count == 0) ? 0 : self.rgTotalsGroups[section - 1].count;
     }
 }
 
@@ -180,10 +177,10 @@
 {
     if (section == 0)
         return @"";
-    else if (section == 1 && [self.rgTotals count] == 0)
+    else if (section == 1 && self.rgTotalsGroups.count == 0)
         return NSLocalizedString(@"No totals are available.", @"No totals retrieved");
     else
-        return @"";
+        return self.rgTotalsGroups[section - 1][0].GroupName;
 }
 
 // Customize the appearance of table view cells.
@@ -209,19 +206,9 @@
     if (self.callInProgress)
         return [self waitCellWithText:NSLocalizedString(@"Getting Totals...", @"progress indicator")];
 
-    MFBWebServiceSvc_TotalsItem * ti = (MFBWebServiceSvc_TotalsItem *) (self.rgTotals)[indexPath.row];
+    MFBWebServiceSvc_TotalsItem * ti = self.rgTotalsGroups[indexPath.section - 1][indexPath.row];
     return [TotalsRow rowForTotal:ti forTableView:tableView usngHHMM:[AutodetectOptions HHMMPref]];
 }
-
-/*
-- (NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    if (section == 0)
-        return @"Date Range";
-    else
-        return @"Totals";
-}
- */
 
 - (void) queryUpdated:(MFBWebServiceSvc_FlightQuery *) f
 {
@@ -242,7 +229,7 @@
     }
     else
     {
-        MFBWebServiceSvc_TotalsItem * ti = (MFBWebServiceSvc_TotalsItem *) (self.rgTotals)[indexPath.row];
+        MFBWebServiceSvc_TotalsItem * ti = self.rgTotalsGroups[indexPath.section - 1][indexPath.row];
         
         if (ti.Query != nil)
         {
@@ -252,54 +239,5 @@
             [self.navigationController pushViewController:rf animated:YES];
         }
     }
-    
-
-    // Navigation logic may go here. Create and push another view controller.
-	// AnotherViewController *anotherViewController = [[AnotherViewController alloc] initWithNibName:@"AnotherView" bundle:nil];
-	// [self.navigationController pushViewController:anotherViewController];
-	// [anotherViewController release];
 }
-
-
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
- 
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
- }   
- else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }   
- }
- */
-
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
- }
- */
-
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-
-
-
 @end
