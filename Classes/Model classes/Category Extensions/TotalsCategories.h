@@ -31,7 +31,6 @@
 
 @interface MFBWebServiceSvc_TotalsItem (MFBToday)
 - (NSString *) formattedValue:(BOOL) fHHMM;
-- (NSString *) GroupName;
 + (NSArray<NSArray<MFBWebServiceSvc_TotalsItem *> *> *) GroupItems:(NSArray<MFBWebServiceSvc_TotalsItem *> *) totalsItems;
 @end
 #endif /* TotalsCategories_h */

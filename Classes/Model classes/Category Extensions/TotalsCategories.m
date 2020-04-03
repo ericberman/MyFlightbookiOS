@@ -52,29 +52,6 @@
     }
 }
 
-- (NSString *) GroupName {
-    switch (self.Group) {
-        case MFBWebServiceSvc_TotalsGroup_None:
-        case MFBWebServiceSvc_TotalsGroup_none:
-            return NSLocalizedString(@"TotalsGroupNone", @"TotalsGroup None");
-        default:
-        case MFBWebServiceSvc_TotalsGroup_Properties:
-            return NSLocalizedString(@"TotalsGroupProperties", @"TotalsGroup Properties");
-        case MFBWebServiceSvc_TotalsGroup_ICAO:
-            return NSLocalizedString(@"TotalsGroupICAO", @"TotalsGroup ICAO");
-        case MFBWebServiceSvc_TotalsGroup_CategoryClass:
-            return NSLocalizedString(@"TotalsGroupCategoryClass", @"TotalsGroup Category/Class");
-        case MFBWebServiceSvc_TotalsGroup_Model:
-            return NSLocalizedString(@"TotalsGroupModel", @"TotalsGroup Model");
-        case MFBWebServiceSvc_TotalsGroup_Capabilities:
-            return NSLocalizedString(@"TotalsGroupCapabilities", @"TotalsGroup Capabilities");
-        case MFBWebServiceSvc_TotalsGroup_CoreFields:
-            return NSLocalizedString(@"TotalsGroupCore", @"TotalsGroup CoreFields");
-        case MFBWebServiceSvc_TotalsGroup_Total:
-            return NSLocalizedString(@"TotalsGroupTotal", @"TotalsGroup Total");
-    }
-}
-
 + (NSArray<NSArray<MFBWebServiceSvc_TotalsItem *> *> *) GroupItems:(NSArray<MFBWebServiceSvc_TotalsItem *> *) totalsItems {
     NSMutableDictionary<NSNumber *, NSMutableArray<MFBWebServiceSvc_TotalsItem *> *> * d = [NSMutableDictionary new];
     for (MFBWebServiceSvc_TotalsItem * ti in totalsItems) {
