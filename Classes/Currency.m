@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2019 MyFlightbook, LLC
+ Copyright (C) 2009-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -247,6 +247,14 @@
             case MFBWebServiceSvc_CurrencyGroups_FlightReview:
                 [self pushAuthURL:@"FLIGHTREVIEW"];
                 break;
+            case MFBWebServiceSvc_CurrencyGroups_FlightExperience:
+                if (ci.Query != nil)  {
+                    RecentFlights * rf = [[RecentFlights alloc] initWithNibName:@"RecentFlights" bundle:nil];
+                    rf.fq = ci.Query;
+                    [rf refresh];
+                    [self.navigationController pushViewController:rf animated:YES];
+                }
+                break;
             case MFBWebServiceSvc_CurrencyGroups_CustomCurrency:
                 if (ci.Query != nil)  {
                     RecentFlights * rf = [[RecentFlights alloc] initWithNibName:@"RecentFlights" bundle:nil];
@@ -267,7 +275,6 @@
                 break;
             case MFBWebServiceSvc_CurrencyGroups_none:
             case MFBWebServiceSvc_CurrencyGroups_None:
-            case MFBWebServiceSvc_CurrencyGroups_FlightExperience:
                 break;
         }
     }
