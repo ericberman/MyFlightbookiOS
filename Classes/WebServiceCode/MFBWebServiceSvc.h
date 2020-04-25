@@ -10,6 +10,7 @@
 @class MFBWebServiceSvc_ArrayOfMFBImageInfo;
 @class MFBWebServiceSvc_ArrayOfInt;
 @class MFBWebServiceSvc_MFBImageInfo;
+@class MFBWebServiceSvc_MFBImageInfoBase;
 @class MFBWebServiceSvc_LatLong;
 @class MFBWebServiceSvc_AddAircraftForUser;
 @class MFBWebServiceSvc_AddAircraftForUserResponse;
@@ -53,6 +54,7 @@
 @class MFBWebServiceSvc_ArrayOfLogbookEntry;
 @class MFBWebServiceSvc_LogbookEntry;
 @class MFBWebServiceSvc_LogbookEntryBase;
+@class MFBWebServiceSvc_LogbookEntryCore;
 @class MFBWebServiceSvc_ArrayOfCustomFlightProperty;
 @class MFBWebServiceSvc_ArrayOfVideoRef;
 @class MFBWebServiceSvc_CustomFlightProperty;
@@ -170,7 +172,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_MFBImageInfo : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_MFBImageInfoBase : NSObject <NSCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSNumber * Width;
@@ -190,7 +192,7 @@ SOAPSigner *soapSigner;
 - (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
 - (void)addAttributesToNode:(xmlNodePtr)node;
 - (void)addElementsToNode:(xmlNodePtr)node;
-+ (MFBWebServiceSvc_MFBImageInfo *)deserializeNode:(xmlNodePtr)cur;
++ (MFBWebServiceSvc_MFBImageInfoBase *)deserializeNode:(xmlNodePtr)cur;
 - (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
 - (void)deserializeElementsFromNode:(xmlNodePtr)cur;
 @property (retain) SOAPSigner *soapSigner;
@@ -206,6 +208,21 @@ SOAPSigner *soapSigner;
 @property (nonatomic, retain) MFBWebServiceSvc_LatLong * Location;
 @property (nonatomic, retain) NSString * URLFullImage;
 @property (nonatomic, retain) NSString * URLThumbnail;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_MFBImageInfo : MFBWebServiceSvc_MFBImageInfoBase {
+/* elements */
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_MFBImageInfo *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+/* elements */
 /* attributes */
 - (NSDictionary *)attributes;
 @end
@@ -1627,15 +1644,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-typedef enum {
-	MFBWebServiceSvc_SignatureState_none = 0,
-	MFBWebServiceSvc_SignatureState_None,
-	MFBWebServiceSvc_SignatureState_Valid,
-	MFBWebServiceSvc_SignatureState_Invalid,
-} MFBWebServiceSvc_SignatureState;
-MFBWebServiceSvc_SignatureState MFBWebServiceSvc_SignatureState_enumFromString(NSString *string);
-NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_SignatureState enumValue);
-@interface MFBWebServiceSvc_LogbookEntryBase : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_LogbookEntryCore : NSObject <NSCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * User;
@@ -1677,15 +1686,6 @@ SOAPSigner *soapSigner;
 	MFBWebServiceSvc_ArrayOfCustomFlightProperty * CustomProperties;
 	MFBWebServiceSvc_ArrayOfMFBImageInfo * FlightImages;
 	MFBWebServiceSvc_ArrayOfVideoRef * Videos;
-	NSString * CFIComments;
-	NSDate * CFISignatureDate;
-	NSString * CFICertificate;
-	NSDate * CFIExpiration;
-	NSString * CFIEmail;
-	NSString * CFIName;
-	MFBWebServiceSvc_SignatureState CFISignatureState;
-	NSData * DigitizedSignature;
-	USBoolean * HasDigitizedSig;
 	NSString * SendFlightLink;
 	NSString * SocialMediaLink;
 /* attributes */
@@ -1694,7 +1694,7 @@ SOAPSigner *soapSigner;
 - (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
 - (void)addAttributesToNode:(xmlNodePtr)node;
 - (void)addElementsToNode:(xmlNodePtr)node;
-+ (MFBWebServiceSvc_LogbookEntryBase *)deserializeNode:(xmlNodePtr)cur;
++ (MFBWebServiceSvc_LogbookEntryCore *)deserializeNode:(xmlNodePtr)cur;
 - (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
 - (void)deserializeElementsFromNode:(xmlNodePtr)cur;
 @property (retain) SOAPSigner *soapSigner;
@@ -1738,6 +1738,39 @@ SOAPSigner *soapSigner;
 @property (nonatomic, retain) MFBWebServiceSvc_ArrayOfCustomFlightProperty * CustomProperties;
 @property (nonatomic, retain) MFBWebServiceSvc_ArrayOfMFBImageInfo * FlightImages;
 @property (nonatomic, retain) MFBWebServiceSvc_ArrayOfVideoRef * Videos;
+@property (nonatomic, retain) NSString * SendFlightLink;
+@property (nonatomic, retain) NSString * SocialMediaLink;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+typedef enum {
+	MFBWebServiceSvc_SignatureState_none = 0,
+	MFBWebServiceSvc_SignatureState_None,
+	MFBWebServiceSvc_SignatureState_Valid,
+	MFBWebServiceSvc_SignatureState_Invalid,
+} MFBWebServiceSvc_SignatureState;
+MFBWebServiceSvc_SignatureState MFBWebServiceSvc_SignatureState_enumFromString(NSString *string);
+NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_SignatureState enumValue);
+@interface MFBWebServiceSvc_LogbookEntryBase : MFBWebServiceSvc_LogbookEntryCore {
+/* elements */
+	NSString * CFIComments;
+	NSDate * CFISignatureDate;
+	NSString * CFICertificate;
+	NSDate * CFIExpiration;
+	NSString * CFIEmail;
+	NSString * CFIName;
+	MFBWebServiceSvc_SignatureState CFISignatureState;
+	USBoolean * HasDigitizedSig;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_LogbookEntryBase *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+/* elements */
 @property (nonatomic, retain) NSString * CFIComments;
 @property (nonatomic, retain) NSDate * CFISignatureDate;
 @property (nonatomic, retain) NSString * CFICertificate;
@@ -1745,10 +1778,7 @@ SOAPSigner *soapSigner;
 @property (nonatomic, retain) NSString * CFIEmail;
 @property (nonatomic, retain) NSString * CFIName;
 @property (nonatomic, assign) MFBWebServiceSvc_SignatureState CFISignatureState;
-@property (nonatomic, retain) NSData * DigitizedSignature;
 @property (nonatomic, retain) USBoolean * HasDigitizedSig;
-@property (nonatomic, retain) NSString * SendFlightLink;
-@property (nonatomic, retain) NSString * SocialMediaLink;
 /* attributes */
 - (NSDictionary *)attributes;
 @end

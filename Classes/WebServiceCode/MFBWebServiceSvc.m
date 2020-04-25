@@ -472,7 +472,7 @@ NSString * MFBWebServiceSvc_ImageFileType_stringFromEnum(MFBWebServiceSvc_ImageF
 	[pool drain];
 }
 @end
-@implementation MFBWebServiceSvc_MFBImageInfo
+@implementation MFBWebServiceSvc_MFBImageInfoBase
 @synthesize soapSigner;
 - (id)init
 {
@@ -591,9 +591,9 @@ NSString * MFBWebServiceSvc_ImageFileType_stringFromEnum(MFBWebServiceSvc_ImageF
 	
 	return attributes;
 }
-+ (MFBWebServiceSvc_MFBImageInfo *)deserializeNode:(xmlNodePtr)cur
++ (MFBWebServiceSvc_MFBImageInfoBase *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_MFBImageInfo *newObject = [[MFBWebServiceSvc_MFBImageInfo new] autorelease];
+	MFBWebServiceSvc_MFBImageInfoBase *newObject = [[MFBWebServiceSvc_MFBImageInfoBase new] autorelease];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -951,6 +951,141 @@ NSString * MFBWebServiceSvc_ImageFileType_stringFromEnum(MFBWebServiceSvc_ImageF
 				id newChild = [elementClass deserializeNode:cur];
 				
 				self.URLThumbnail = newChild;
+			}
+		}
+	}
+}
+/* NSCoder functions taken from: 
+ * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
+ */
+- (id) initWithCoder:(NSCoder *)decoder {
+	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
+	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
+	self = [super init];
+	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
+		[super performSelector:@selector(initWithCoder:) withObject:decoder];
+	if (self == nil) { return nil; }
+ 
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	unsigned int numIvars = 0;
+	Ivar * ivars = class_copyIvarList([self class], &numIvars);
+	for(int i = 0; i < numIvars; i++) {
+		Ivar thisIvar = ivars[i];
+		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+		id value = [decoder decodeObjectForKey:key];
+		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+		[self setValue:value forKey:key];
+	}
+	if (numIvars > 0) { free(ivars); }
+	[pool drain];
+	return self;
+}
+- (void) encodeWithCoder:(NSCoder *)encoder {
+	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
+		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
+	}
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	unsigned int numIvars = 0;
+	Ivar * ivars = class_copyIvarList([self class], &numIvars);
+	for (int i = 0; i < numIvars; i++) {
+		Ivar thisIvar = ivars[i];
+		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+		id value = [self valueForKey:key];
+		[encoder encodeObject:value forKey:key];
+	}
+	if (numIvars > 0) { free(ivars); }
+	[pool drain];
+}
+@end
+@implementation MFBWebServiceSvc_MFBImageInfo
+- (id)init
+{
+	if((self = [super init])) {
+	}
+	
+	return self;
+}
+- (void)dealloc
+{
+	
+	[super dealloc];
+}
+- (NSString *)nsPrefix
+{
+	return @"MFBWebServiceSvc";
+}
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
+{
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"MFBWebServiceSvc", elName];
+	}
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
+	xmlNodePtr root = xmlDocGetRootElement(doc);
+	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"MFBWebServiceSvc:MFBImageInfo");
+	// BUGBUG: ASP.NET compatibility: need to add xmlns attribute or else parameters don't make it.  Is there a good
+	// place to do this so that we don't have to redo this whenever we autogenerate new code?
+	xmlNsPtr xmlns = xmlSearchNs(doc, root, (const xmlChar*)"xmlns");
+	xmlSetNsProp(node, xmlns, (const xmlChar*)"xmlns", (const xmlChar*)"http://myflightbook.com/");	
+	
+	
+	[self addAttributesToNode:node];
+	
+	[self addElementsToNode:node];
+	
+	return node;
+}
+- (void)addAttributesToNode:(xmlNodePtr)node
+{
+	[super addAttributesToNode:node];
+	
+}
+- (void)addElementsToNode:(xmlNodePtr)node
+{
+	[super addElementsToNode:node];
+	
+}
+/* elements */
+/* attributes */
+- (NSDictionary *)attributes
+{
+	NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+	
+	return attributes;
+}
++ (MFBWebServiceSvc_MFBImageInfo *)deserializeNode:(xmlNodePtr)cur
+{
+	MFBWebServiceSvc_MFBImageInfo *newObject = [[MFBWebServiceSvc_MFBImageInfo new] autorelease];
+	
+	[newObject deserializeAttributesFromNode:cur];
+	[newObject deserializeElementsFromNode:cur];
+	
+	return newObject;
+}
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur
+{
+	[super deserializeAttributesFromNode:cur];
+}
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur
+{
+	
+	[super deserializeElementsFromNode:cur];
+	
+	for( cur = cur->children ; cur != NULL ; cur = cur->next ) {
+		if(cur->type == XML_ELEMENT_NODE) {
+			xmlChar *elementText = xmlNodeListGetString(cur->doc, cur->children, 1);
+			NSString *elementString = nil;
+			
+			if(elementText != NULL) {
+				elementString = [NSString stringWithCString:(char*)elementText encoding:NSUTF8StringEncoding];
+				[elementString self]; // avoid compiler warning for unused var
+				xmlFree(elementText);
 			}
 		}
 	}
@@ -15383,37 +15518,7 @@ NSString * MFBWebServiceSvc_VideoSource_stringFromEnum(MFBWebServiceSvc_VideoSou
 	[pool drain];
 }
 @end
-MFBWebServiceSvc_SignatureState MFBWebServiceSvc_SignatureState_enumFromString(NSString *string)
-{
-	if([string isEqualToString:@"None"]) {
-		return MFBWebServiceSvc_SignatureState_None;
-	}
-	if([string isEqualToString:@"Valid"]) {
-		return MFBWebServiceSvc_SignatureState_Valid;
-	}
-	if([string isEqualToString:@"Invalid"]) {
-		return MFBWebServiceSvc_SignatureState_Invalid;
-	}
-	
-	return MFBWebServiceSvc_SignatureState_none;
-}
-NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_SignatureState enumValue)
-{
-	switch (enumValue) {
-		case MFBWebServiceSvc_SignatureState_None:
-			return @"None";
-			break;
-		case MFBWebServiceSvc_SignatureState_Valid:
-			return @"Valid";
-			break;
-		case MFBWebServiceSvc_SignatureState_Invalid:
-			return @"Invalid";
-			break;
-		default:
-			return @"";
-	}
-}
-@implementation MFBWebServiceSvc_LogbookEntryBase
+@implementation MFBWebServiceSvc_LogbookEntryCore
 @synthesize soapSigner;
 - (id)init
 {
@@ -15457,15 +15562,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		CustomProperties = 0;
 		FlightImages = 0;
 		Videos = 0;
-		CFIComments = 0;
-		CFISignatureDate = 0;
-		CFICertificate = 0;
-		CFIExpiration = 0;
-		CFIEmail = 0;
-		CFIName = 0;
-		CFISignatureState = 0;
-		DigitizedSignature = 0;
-		HasDigitizedSig = 0;
 		SendFlightLink = 0;
 		SocialMediaLink = 0;
 	}
@@ -15514,14 +15610,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	if(CustomProperties != nil) [CustomProperties release];
 	if(FlightImages != nil) [FlightImages release];
 	if(Videos != nil) [Videos release];
-	if(CFIComments != nil) [CFIComments release];
-	if(CFISignatureDate != nil) [CFISignatureDate release];
-	if(CFICertificate != nil) [CFICertificate release];
-	if(CFIExpiration != nil) [CFIExpiration release];
-	if(CFIEmail != nil) [CFIEmail release];
-	if(CFIName != nil) [CFIName release];
-	if(DigitizedSignature != nil) [DigitizedSignature release];
-	if(HasDigitizedSig != nil) [HasDigitizedSig release];
 	if(SendFlightLink != nil) [SendFlightLink release];
 	if(SocialMediaLink != nil) [SocialMediaLink release];
 	
@@ -15674,33 +15762,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	if(((void *)self.Videos) != 0) {
 		xmlAddChild(node, [self.Videos xmlNodeForDoc:node->doc elementName:@"Videos" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.CFIComments) != 0) {
-		xmlAddChild(node, [self.CFIComments xmlNodeForDoc:node->doc elementName:@"CFIComments" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-	if(((void *)self.CFISignatureDate) != 0) {
-		xmlAddChild(node, [self.CFISignatureDate xmlNodeForDoc:node->doc elementName:@"CFISignatureDate" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-	if(((void *)self.CFICertificate) != 0) {
-		xmlAddChild(node, [self.CFICertificate xmlNodeForDoc:node->doc elementName:@"CFICertificate" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-	if(((void *)self.CFIExpiration) != 0) {
-		xmlAddChild(node, [self.CFIExpiration xmlNodeForDoc:node->doc elementName:@"CFIExpiration" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-	if(((void *)self.CFIEmail) != 0) {
-		xmlAddChild(node, [self.CFIEmail xmlNodeForDoc:node->doc elementName:@"CFIEmail" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-	if(((void *)self.CFIName) != 0) {
-		xmlAddChild(node, [self.CFIName xmlNodeForDoc:node->doc elementName:@"CFIName" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-	if(((void *)self.CFISignatureState) != 0) {
-		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:CFISignatureState", [MFBWebServiceSvc_SignatureState_stringFromEnum(self.CFISignatureState) xmlString]);
-	}
-	if(((void *)self.DigitizedSignature) != 0) {
-		xmlAddChild(node, [self.DigitizedSignature xmlNodeForDoc:node->doc elementName:@"DigitizedSignature" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-	if(((void *)self.HasDigitizedSig) != 0) {
-		xmlAddChild(node, [self.HasDigitizedSig xmlNodeForDoc:node->doc elementName:@"HasDigitizedSig" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
 	if(((void *)self.SendFlightLink) != 0) {
 		xmlAddChild(node, [self.SendFlightLink xmlNodeForDoc:node->doc elementName:@"SendFlightLink" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
@@ -15748,15 +15809,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 @synthesize CustomProperties;
 @synthesize FlightImages;
 @synthesize Videos;
-@synthesize CFIComments;
-@synthesize CFISignatureDate;
-@synthesize CFICertificate;
-@synthesize CFIExpiration;
-@synthesize CFIEmail;
-@synthesize CFIName;
-@synthesize CFISignatureState;
-@synthesize DigitizedSignature;
-@synthesize HasDigitizedSig;
 @synthesize SendFlightLink;
 @synthesize SocialMediaLink;
 /* attributes */
@@ -15766,9 +15818,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	
 	return attributes;
 }
-+ (MFBWebServiceSvc_LogbookEntryBase *)deserializeNode:(xmlNodePtr)cur
++ (MFBWebServiceSvc_LogbookEntryCore *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_LogbookEntryBase *newObject = [[MFBWebServiceSvc_LogbookEntryBase new] autorelease];
+	MFBWebServiceSvc_LogbookEntryCore *newObject = [[MFBWebServiceSvc_LogbookEntryCore new] autorelease];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -17079,6 +17131,284 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 				
 				self.Videos = newChild;
 			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "SendFlightLink")) {
+				
+				Class elementClass = nil;
+				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if(instanceType == NULL) {
+					elementClass = [NSString class];
+				} else {
+					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
+					
+					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
+					
+					NSString *elementClassString = nil;
+					if([elementTypeArray count] > 1) {
+						NSString *prefix = [elementTypeArray objectAtIndex:0];
+						NSString *localName = [elementTypeArray objectAtIndex:1];
+						
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
+						
+						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
+						
+						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
+					} else {
+						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
+					}
+					
+					elementClass = NSClassFromString(elementClassString);
+					xmlFree(instanceType);
+				}
+				
+				id newChild = [elementClass deserializeNode:cur];
+				
+				self.SendFlightLink = newChild;
+			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "SocialMediaLink")) {
+				
+				Class elementClass = nil;
+				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if(instanceType == NULL) {
+					elementClass = [NSString class];
+				} else {
+					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
+					
+					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
+					
+					NSString *elementClassString = nil;
+					if([elementTypeArray count] > 1) {
+						NSString *prefix = [elementTypeArray objectAtIndex:0];
+						NSString *localName = [elementTypeArray objectAtIndex:1];
+						
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
+						
+						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
+						
+						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
+					} else {
+						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
+					}
+					
+					elementClass = NSClassFromString(elementClassString);
+					xmlFree(instanceType);
+				}
+				
+				id newChild = [elementClass deserializeNode:cur];
+				
+				self.SocialMediaLink = newChild;
+			}
+		}
+	}
+}
+/* NSCoder functions taken from: 
+ * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
+ */
+- (id) initWithCoder:(NSCoder *)decoder {
+	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
+	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
+	self = [super init];
+	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
+		[super performSelector:@selector(initWithCoder:) withObject:decoder];
+	if (self == nil) { return nil; }
+ 
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	unsigned int numIvars = 0;
+	Ivar * ivars = class_copyIvarList([self class], &numIvars);
+	for(int i = 0; i < numIvars; i++) {
+		Ivar thisIvar = ivars[i];
+		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+		id value = [decoder decodeObjectForKey:key];
+		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+		[self setValue:value forKey:key];
+	}
+	if (numIvars > 0) { free(ivars); }
+	[pool drain];
+	return self;
+}
+- (void) encodeWithCoder:(NSCoder *)encoder {
+	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
+		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
+	}
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	unsigned int numIvars = 0;
+	Ivar * ivars = class_copyIvarList([self class], &numIvars);
+	for (int i = 0; i < numIvars; i++) {
+		Ivar thisIvar = ivars[i];
+		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+		id value = [self valueForKey:key];
+		[encoder encodeObject:value forKey:key];
+	}
+	if (numIvars > 0) { free(ivars); }
+	[pool drain];
+}
+@end
+MFBWebServiceSvc_SignatureState MFBWebServiceSvc_SignatureState_enumFromString(NSString *string)
+{
+	if([string isEqualToString:@"None"]) {
+		return MFBWebServiceSvc_SignatureState_None;
+	}
+	if([string isEqualToString:@"Valid"]) {
+		return MFBWebServiceSvc_SignatureState_Valid;
+	}
+	if([string isEqualToString:@"Invalid"]) {
+		return MFBWebServiceSvc_SignatureState_Invalid;
+	}
+	
+	return MFBWebServiceSvc_SignatureState_none;
+}
+NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_SignatureState enumValue)
+{
+	switch (enumValue) {
+		case MFBWebServiceSvc_SignatureState_None:
+			return @"None";
+			break;
+		case MFBWebServiceSvc_SignatureState_Valid:
+			return @"Valid";
+			break;
+		case MFBWebServiceSvc_SignatureState_Invalid:
+			return @"Invalid";
+			break;
+		default:
+			return @"";
+	}
+}
+@implementation MFBWebServiceSvc_LogbookEntryBase
+- (id)init
+{
+	if((self = [super init])) {
+		CFIComments = 0;
+		CFISignatureDate = 0;
+		CFICertificate = 0;
+		CFIExpiration = 0;
+		CFIEmail = 0;
+		CFIName = 0;
+		CFISignatureState = 0;
+		HasDigitizedSig = 0;
+	}
+	
+	return self;
+}
+- (void)dealloc
+{
+	if(CFIComments != nil) [CFIComments release];
+	if(CFISignatureDate != nil) [CFISignatureDate release];
+	if(CFICertificate != nil) [CFICertificate release];
+	if(CFIExpiration != nil) [CFIExpiration release];
+	if(CFIEmail != nil) [CFIEmail release];
+	if(CFIName != nil) [CFIName release];
+	if(HasDigitizedSig != nil) [HasDigitizedSig release];
+	
+	[super dealloc];
+}
+- (NSString *)nsPrefix
+{
+	return @"MFBWebServiceSvc";
+}
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
+{
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"MFBWebServiceSvc", elName];
+	}
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
+	xmlNodePtr root = xmlDocGetRootElement(doc);
+	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"MFBWebServiceSvc:LogbookEntryBase");
+	// BUGBUG: ASP.NET compatibility: need to add xmlns attribute or else parameters don't make it.  Is there a good
+	// place to do this so that we don't have to redo this whenever we autogenerate new code?
+	xmlNsPtr xmlns = xmlSearchNs(doc, root, (const xmlChar*)"xmlns");
+	xmlSetNsProp(node, xmlns, (const xmlChar*)"xmlns", (const xmlChar*)"http://myflightbook.com/");	
+	
+	
+	[self addAttributesToNode:node];
+	
+	[self addElementsToNode:node];
+	
+	return node;
+}
+- (void)addAttributesToNode:(xmlNodePtr)node
+{
+	[super addAttributesToNode:node];
+	
+}
+- (void)addElementsToNode:(xmlNodePtr)node
+{
+	[super addElementsToNode:node];
+	
+	if(((void *)self.CFIComments) != 0) {
+		xmlAddChild(node, [self.CFIComments xmlNodeForDoc:node->doc elementName:@"CFIComments" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
+	if(((void *)self.CFISignatureDate) != 0) {
+		xmlAddChild(node, [self.CFISignatureDate xmlNodeForDoc:node->doc elementName:@"CFISignatureDate" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
+	if(((void *)self.CFICertificate) != 0) {
+		xmlAddChild(node, [self.CFICertificate xmlNodeForDoc:node->doc elementName:@"CFICertificate" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
+	if(((void *)self.CFIExpiration) != 0) {
+		xmlAddChild(node, [self.CFIExpiration xmlNodeForDoc:node->doc elementName:@"CFIExpiration" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
+	if(((void *)self.CFIEmail) != 0) {
+		xmlAddChild(node, [self.CFIEmail xmlNodeForDoc:node->doc elementName:@"CFIEmail" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
+	if(((void *)self.CFIName) != 0) {
+		xmlAddChild(node, [self.CFIName xmlNodeForDoc:node->doc elementName:@"CFIName" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
+	if(((void *)self.CFISignatureState) != 0) {
+		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:CFISignatureState", [MFBWebServiceSvc_SignatureState_stringFromEnum(self.CFISignatureState) xmlString]);
+	}
+	if(((void *)self.HasDigitizedSig) != 0) {
+		xmlAddChild(node, [self.HasDigitizedSig xmlNodeForDoc:node->doc elementName:@"HasDigitizedSig" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
+}
+/* elements */
+@synthesize CFIComments;
+@synthesize CFISignatureDate;
+@synthesize CFICertificate;
+@synthesize CFIExpiration;
+@synthesize CFIEmail;
+@synthesize CFIName;
+@synthesize CFISignatureState;
+@synthesize HasDigitizedSig;
+/* attributes */
+- (NSDictionary *)attributes
+{
+	NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+	
+	return attributes;
+}
++ (MFBWebServiceSvc_LogbookEntryBase *)deserializeNode:(xmlNodePtr)cur
+{
+	MFBWebServiceSvc_LogbookEntryBase *newObject = [[MFBWebServiceSvc_LogbookEntryBase new] autorelease];
+	
+	[newObject deserializeAttributesFromNode:cur];
+	[newObject deserializeElementsFromNode:cur];
+	
+	return newObject;
+}
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur
+{
+	[super deserializeAttributesFromNode:cur];
+}
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur
+{
+	
+	[super deserializeElementsFromNode:cur];
+	
+	for( cur = cur->children ; cur != NULL ; cur = cur->next ) {
+		if(cur->type == XML_ELEMENT_NODE) {
+			xmlChar *elementText = xmlNodeListGetString(cur->doc, cur->children, 1);
+			NSString *elementString = nil;
+			
+			if(elementText != NULL) {
+				elementString = [NSString stringWithCString:(char*)elementText encoding:NSUTF8StringEncoding];
+				[elementString self]; // avoid compiler warning for unused var
+				xmlFree(elementText);
+			}
 			if(xmlStrEqual(cur->name, (const xmlChar *) "CFIComments")) {
 				
 				Class elementClass = nil;
@@ -17282,39 +17612,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 				MFBWebServiceSvc_SignatureState enumRepresentation = MFBWebServiceSvc_SignatureState_enumFromString(elementString);
 				self.CFISignatureState = enumRepresentation;
 			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "DigitizedSignature")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [NSData class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				self.DigitizedSignature = newChild;
-			}
 			if(xmlStrEqual(cur->name, (const xmlChar *) "HasDigitizedSig")) {
 				
 				Class elementClass = nil;
@@ -17347,72 +17644,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 				id newChild = [elementClass deserializeNode:cur];
 				
 				self.HasDigitizedSig = newChild;
-			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "SendFlightLink")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [NSString class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				self.SendFlightLink = newChild;
-			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "SocialMediaLink")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [NSString class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				self.SocialMediaLink = newChild;
 			}
 		}
 	}
