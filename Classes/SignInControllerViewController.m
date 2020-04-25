@@ -45,7 +45,7 @@
 @end
 
 enum signinSections {sectWhySignIn, sectCredentials, sectSignIn, sectCreateAccount, sectForgotPW, sectLinks, sectAbout, sectLast};
-enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, cidCreateAcct, cidLinksFirst, cidFAQ = cidLinksFirst, cidContact, cidSupport, cidFollowFB, cidLinksLast=cidFollowFB, cidOptions, cidAbout};
+enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, cidCreateAcct, cidLinksFirst, cidFAQ = cidLinksFirst, cidContact, cidSupport, cidFollowTwitter, cidFollowFB, cidLinksLast=cidFollowFB, cidOptions, cidAbout};
 
 @implementation SignInControllerViewController
 @synthesize vwAccessory, szUser, szPass;
@@ -306,6 +306,14 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
             cell.textLabel.textColor = [UILabel appearance].textColor;
             return cell;
         }
+        case cidFollowTwitter:
+        {
+            UITableViewCell * cell = [self getCell];
+            cell.textLabel.text = NSLocalizedString(@"Follow on Twitter", @"Prompt to follow on Twitter");
+            cell.imageView.image = [UIImage imageNamed:@"twitter"];
+            cell.textLabel.textColor = [UILabel appearance].textColor;
+            return cell;
+        }
         case cidSupport:
         {
             UITableViewCell * cell = [self getCell];
@@ -356,6 +364,12 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:szURL] options:@{} completionHandler:nil];
 }
 
+- (void) followOnTwitter
+{
+    NSString * szURL = @"https://www.twitter.com/myflightbook";
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:szURL] options:@{} completionHandler:nil];
+}
+
 - (void) showAbout
 {
 	about * vwAbout = [[about alloc] initWithNibName:@"about" bundle:nil];
@@ -386,6 +400,10 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
         case cidFollowFB:
             [self.tableView endEditing:YES];
             [self followOnFacebook];
+            break;
+        case cidFollowTwitter:
+            [self.tableView endEditing:YES];
+            [self followOnTwitter];
             break;
         case cidAbout:
             [self.tableView endEditing:YES];

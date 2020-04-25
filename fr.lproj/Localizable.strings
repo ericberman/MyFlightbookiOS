@@ -746,6 +746,9 @@
 /* Prompt to follow on Facebook */
 "Follow on Facebook" = "Suivre MyFlightbook";
 
+/* Prompt to follow on Twitter */
+"Follow on Twitter" = "Follow MyFlightbook";
+
 /* Prompt for password reset */
 "Forgot Password?" = "Forgot Password?";
 

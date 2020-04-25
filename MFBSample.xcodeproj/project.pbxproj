@@ -35,6 +35,7 @@
 		9A1213B3111D3113001CDDB6 /* CommentedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A1213B2111D3113001CDDB6 /* CommentedImage.m */; };
 		9A16571F14DC59B9004FDC35 /* sunrise.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A16571D14DC59B8004FDC35 /* sunrise.png */; };
 		9A16572014DC59B9004FDC35 /* sunset.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A16571E14DC59B9004FDC35 /* sunset.png */; };
+		9A170C982437FCF600CDECCF /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A170C972437FCF600CDECCF /* CoreServices.framework */; };
 		9A17C5F113E8952C00C47C82 /* airporttab.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A17C5F013E8952C00C47C82 /* airporttab.png */; };
 		9A17C5F513E895CB00C47C82 /* VisitedAirports.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A17C5F313E895CB00C47C82 /* VisitedAirports.m */; };
 		9A17C5FA13E89B1B00C47C82 /* VisitedAirportRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A17C5F913E89B1B00C47C82 /* VisitedAirportRow.m */; };
@@ -103,6 +104,7 @@
 		9A565B6A13E351C200BEFFA7 /* GPSSim.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A565B6913E351C200BEFFA7 /* GPSSim.m */; };
 		9A58E0481131A77C005988FA /* MyAircraft.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A58E0461131A77C005988FA /* MyAircraft.m */; };
 		9A58E0541131AC4C005988FA /* aircraft.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A58E0531131AC4C005988FA /* aircraft.png */; };
+		9A5950012454BB7000333233 /* f_logo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A5950002454BB7000333233 /* f_logo@3x.png */; };
 		9A5A082C147ED30600C05C50 /* LEEditController-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A5A0824147ED30600C05C50 /* LEEditController-iPad.xib */; };
 		9A5A082D147ED30600C05C50 /* LEEditController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A5A0826147ED30600C05C50 /* LEEditController.xib */; };
 		9A5A082E147ED30600C05C50 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A5A0828147ED30600C05C50 /* MainWindow-iPad.xib */; };
@@ -332,8 +334,6 @@
 		9AA09D7014684E8100192184 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A69203A10CCC08200DF1CA6 /* CFNetwork.framework */; };
 		9AA09D7114684E8D00192184 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AFAC0BA10E5B32300225E90 /* MapKit.framework */; };
 		9AA09D7214684EA200192184 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AFAC10010E5C7CD00225E90 /* CoreLocation.framework */; };
-		9AA09D7314684EA200192184 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AA06CB810F3C27E00D635C1 /* MobileCoreServices.framework */; };
-		9AA09D7414684EBA00192184 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ACED2961337C66F00E3DC8F /* AssetsLibrary.framework */; };
 		9AA09D7514684EBA00192184 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AA09D6814684DC800192184 /* AudioToolbox.framework */; };
 		9AA09D7614684EBA00192184 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A7E42B611810DBF002000A4 /* SystemConfiguration.framework */; };
 		9AA0B7F520F3DE3300587028 /* (null) in Resources */ = {isa = PBXBuildFile; };
@@ -569,6 +569,7 @@
 		9A1213B2111D3113001CDDB6 /* CommentedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentedImage.m; sourceTree = "<group>"; };
 		9A16571D14DC59B8004FDC35 /* sunrise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sunrise.png; sourceTree = "<group>"; };
 		9A16571E14DC59B9004FDC35 /* sunset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sunset.png; sourceTree = "<group>"; };
+		9A170C972437FCF600CDECCF /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		9A17C5F013E8952C00C47C82 /* airporttab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = airporttab.png; sourceTree = "<group>"; };
 		9A17C5F213E895CB00C47C82 /* VisitedAirports.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitedAirports.h; sourceTree = "<group>"; };
 		9A17C5F313E895CB00C47C82 /* VisitedAirports.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitedAirports.m; sourceTree = "<group>"; };
@@ -666,6 +667,7 @@
 		9A58E0451131A77C005988FA /* MyAircraft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAircraft.h; sourceTree = "<group>"; };
 		9A58E0461131A77C005988FA /* MyAircraft.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAircraft.m; sourceTree = "<group>"; };
 		9A58E0531131AC4C005988FA /* aircraft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aircraft.png; sourceTree = "<group>"; };
+		9A5950002454BB7000333233 /* f_logo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "f_logo@3x.png"; sourceTree = "<group>"; };
 		9A5DA32019E847E50016100C /* EditCellML.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditCellML.xib; sourceTree = "<group>"; };
 		9A5E746B1710E8F7004C58CC /* Pause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pause@2x.png"; sourceTree = "<group>"; };
 		9A5E746C1710E8F7004C58CC /* Play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Play@2x.png"; sourceTree = "<group>"; };
@@ -1059,18 +1061,17 @@
 				9A25F249235A5A3B002B3B48 /* NotificationCenter.framework in Frameworks */,
 				9A6247A31AA509A3002A8E0B /* MediaPlayer.framework in Frameworks */,
 				9AC7B8C314D0AEF0009139BF /* QuartzCore.framework in Frameworks */,
-				9AA09D7414684EBA00192184 /* AssetsLibrary.framework in Frameworks */,
 				9AA09D7514684EBA00192184 /* AudioToolbox.framework in Frameworks */,
 				9AA09D7614684EBA00192184 /* SystemConfiguration.framework in Frameworks */,
 				9AA09D7214684EA200192184 /* CoreLocation.framework in Frameworks */,
 				9AA09D6A14684DDA00192184 /* Foundation.framework in Frameworks */,
-				9AA09D7314684EA200192184 /* MobileCoreServices.framework in Frameworks */,
 				9AA09D7114684E8D00192184 /* MapKit.framework in Frameworks */,
 				9AA09D7014684E8100192184 /* CFNetwork.framework in Frameworks */,
 				9AA09D6F14684E7600192184 /* CoreGraphics.framework in Frameworks */,
 				9AA09D6E14684E3A00192184 /* Security.framework in Frameworks */,
 				9AA09D6C14684DF400192184 /* AVFoundation.framework in Frameworks */,
 				9AA09D6B14684DE600192184 /* UIKit.framework in Frameworks */,
+				9A170C982437FCF600CDECCF /* CoreServices.framework in Frameworks */,
 				9A3A694F11B85C72009A5C88 /* libsqlite3.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1178,6 +1179,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9A170C972437FCF600CDECCF /* CoreServices.framework */,
 				9AA94A65220F63880056AED3 /* ExternalAccessory.framework */,
 				9A050D282138790000B3F794 /* Photos.framework */,
 				9ACDC8FF1BE01BC600B0A077 /* WatchConnectivity.framework */,
@@ -1432,6 +1434,7 @@
 		9A8BF94F10E1B9C7002F01ED /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				9A5950002454BB7000333233 /* f_logo@3x.png */,
 				9AA4030A230746B10043F9CB /* search.png */,
 				9AA4030B230746B10043F9CB /* search@2x.png */,
 				9AA4030C230746B20043F9CB /* search@3x.png */,
@@ -1987,7 +1990,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1140;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
 						DevelopmentTeam = 99X7N8Z9WP;
@@ -2271,6 +2274,7 @@
 				9A897FE01666B39800D9019C /* sunrise@2x.png in Resources */,
 				9A897FE21666B3A700D9019C /* sunset@2x.png in Resources */,
 				9A902D5E1A21046600698017 /* profile@3x.png in Resources */,
+				9A5950012454BB7000333233 /* f_logo@3x.png in Resources */,
 				9AA4030D230746B20043F9CB /* search.png in Resources */,
 				9A1C4C3B22639CAC00ED3444 /* Default-Portrait2304x3096.png in Resources */,
 				9A99506216E3C17F00C61594 /* PropertyCell.xib in Resources */,
@@ -3360,7 +3364,6 @@
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -3379,7 +3382,7 @@
 				GCC_PREFIX_HEADER = MFBSample_Prefix.pch;
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "MFBSample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3401,7 +3404,6 @@
 		1D6058950D05DD3E006BFB54 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -3422,7 +3424,7 @@
 				GCC_PREFIX_HEADER = MFBSample_Prefix.pch;
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "MFBSample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3474,7 +3476,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = MyFlightbook;
 				PROVISIONING_PROFILE = "";
@@ -3487,7 +3489,6 @@
 		9A67391210FBC6D00008CF82 /* Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -3508,7 +3509,7 @@
 				GCC_PREFIX_HEADER = MFBSample_Prefix.pch;
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "MFBSample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3559,7 +3560,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "MyFlightbook - Currency/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 2020.03.20;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -3600,7 +3601,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "MyFlightbook - Currency/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 2020.03.20;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -3642,7 +3643,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "MyFlightbook - Currency/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 2020.03.20;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -3689,7 +3690,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "MyFlightbook - Totals/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 2020.03.20;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -3729,7 +3730,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "MyFlightbook - Totals/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 2020.03.20;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -3770,7 +3771,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "MyFlightbook - Totals/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 2020.03.20;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -4153,7 +4154,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = MyFlightbook;
@@ -4199,7 +4200,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = MyFlightbook;
 				PROVISIONING_PROFILE = "";
