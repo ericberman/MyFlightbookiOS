@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2019 MyFlightbook, LLC
+ Copyright (C) 2017-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -180,6 +180,8 @@
         [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:@{NSForegroundColorAttributeName : textColor}]];
         
         // Add various values
+        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldTotal", @"Entry Field: Total") forValue:le.TotalFlightTime withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
+
         [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldLandings", @"Entry Field: Landings") forValue:le.Landings withFont:boldFont inHHMM:fUseHHMM numType:ntInteger]];
         [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldApproaches", @"Entry Field: Approaches") forValue:le.Approaches withFont:boldFont inHHMM:fUseHHMM numType:ntInteger]];
         
@@ -192,7 +194,6 @@
         [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldCFI", @"Entry Field: CFI") forValue:le.CFI withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
         [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldSIC", @"Entry Field: SIC") forValue:le.SIC withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
         [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldPIC", @"Entry Field: PIC") forValue:le.PIC withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
-        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldTotal", @"Entry Field: Total") forValue:le.TotalFlightTime withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
         
         if (detail == flightTimeDetailed) {
             [attrString appendAttributedString:[self attributedUTCDateRange:NSLocalizedString(@"Engine Time", @"Auto-fill based on engine time") start:le.EngineStart end:le.EngineEnd withFont:boldFont]];
