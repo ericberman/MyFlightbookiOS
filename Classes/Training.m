@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2014-2019 MyFlightbook, LLC
+ Copyright (C) 2014-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -33,7 +33,7 @@
 
 @end
 
-enum _trainingLinks {cidFirst, cidInstructors = cidFirst, cidStudents, cidReqSignatures, cidEndorsements, cid8710, cidAchievements, cidMilestoneProgress, cidLast = cidMilestoneProgress};
+enum _trainingLinks {cidFirst, cidInstructors = cidFirst, cidStudents, cidReqSignatures, cidEndorsements, cid8710, cidModelRollup, cidTimeRollup, cidAchievements, cidMilestoneProgress, cidLast = cidMilestoneProgress};
 
 @implementation Training
 
@@ -105,6 +105,12 @@ enum _trainingLinks {cidFirst, cidInstructors = cidFirst, cidStudents, cidReqSig
         case cid8710:
             cell.textLabel.text = NSLocalizedString(@"8710Form", @"Prompt for 8710 form");
             break;
+        case cidModelRollup:
+            cell.textLabel.text = NSLocalizedString(@"ModelRollup", @"Prompt for Model Rollup");
+            break;
+        case cidTimeRollup:
+            cell.textLabel.text = NSLocalizedString(@"TimeRollup", @"Prompt for Time Rollup");
+            break;
     }
     
     if (!self.canViewTraining) {
@@ -158,6 +164,12 @@ enum _trainingLinks {cidFirst, cidInstructors = cidFirst, cidStudents, cidReqSig
             break;
         case cid8710:
             [self pushAuthURL:@"8710"];
+            break;
+        case cidTimeRollup:
+            [self pushAuthURL:@"TimeRollup"];
+            break;
+        case cidModelRollup:
+            [self pushAuthURL:@"ModelRollup"];
             break;
     }
 }
