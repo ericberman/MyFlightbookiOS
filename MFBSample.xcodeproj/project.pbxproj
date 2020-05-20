@@ -17,6 +17,7 @@
 		9A085CAE20F3EF5500DDA442 /* tower@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A085CAB20F3EF5500DDA442 /* tower@2x.png */; };
 		9A085CAF20F3EF5500DDA442 /* tower.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A085CAC20F3EF5500DDA442 /* tower.png */; };
 		9A085CB020F3EF5500DDA442 /* tower@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A085CAD20F3EF5500DDA442 /* tower@3x.png */; };
+		9A0BF18124743D5E003C2172 /* PackAndGo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0BF18024743D5E003C2172 /* PackAndGo.m */; };
 		9A0C938511E63A850062AF27 /* FlightProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C938311E63A850062AF27 /* FlightProperties.m */; };
 		9A0DD9F8158579BE00FB6DF2 /* FixedImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0DD9F7158579BE00FB6DF2 /* FixedImageCell.m */; };
 		9A0EDBC31288FD9C00153C6E /* Default-Landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A0EDBC01288FD9C00153C6E /* Default-Landscape.png */; };
@@ -545,6 +546,8 @@
 		9A085CAB20F3EF5500DDA442 /* tower@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tower@2x.png"; sourceTree = "<group>"; };
 		9A085CAC20F3EF5500DDA442 /* tower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tower.png; sourceTree = "<group>"; };
 		9A085CAD20F3EF5500DDA442 /* tower@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tower@3x.png"; sourceTree = "<group>"; };
+		9A0BF18024743D5E003C2172 /* PackAndGo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PackAndGo.m; sourceTree = "<group>"; };
+		9A0BF18224743D72003C2172 /* PackAndGo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PackAndGo.h; sourceTree = "<group>"; };
 		9A0C938211E63A850062AF27 /* FlightProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlightProperties.h; sourceTree = "<group>"; };
 		9A0C938311E63A850062AF27 /* FlightProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlightProperties.m; sourceTree = "<group>"; };
 		9A0DD9F6158579BE00FB6DF2 /* FixedImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixedImageCell.h; sourceTree = "<group>"; };
@@ -1748,6 +1751,8 @@
 				9A1CCB2420879A4D00C2D1E4 /* OptionSelection.h */,
 				9A91DD0B21BB680700E08FEC /* MFBTheme.h */,
 				9A91DD0C21BB680700E08FEC /* MFBTheme.m */,
+				9A0BF18024743D5E003C2172 /* PackAndGo.m */,
+				9A0BF18224743D72003C2172 /* PackAndGo.h */,
 			);
 			path = "Model classes";
 			sourceTree = "<group>";
@@ -2462,6 +2467,7 @@
 				9AEB4B461A0DE5C200629998 /* CountryCode.m in Sources */,
 				9A73C8A821B07BE900AE1221 /* TotalsCategories.m in Sources */,
 				9A565B6A13E351C200BEFFA7 /* GPSSim.m in Sources */,
+				9A0BF18124743D5E003C2172 /* PackAndGo.m in Sources */,
 				9A21D5CB2214D1E300961605 /* BadElfSession.swift in Sources */,
 				9A52F0F813E5DE5D00D75504 /* DecimalEdit.m in Sources */,
 				9A0F0E7413E88781007E54C1 /* MFBWebServiceSvc.m in Sources */,

@@ -30,6 +30,7 @@
 #import "DecimalEdit.h"
 #import "util.h"
 #import "RecentFlights.h"
+#import "PackAndGo.h"
 
 @interface Totals()
 @property (nonatomic, strong) NSArray<NSArray<MFBWebServiceSvc_TotalsItem *> *> * rgTotalsGroups;
@@ -98,6 +99,8 @@
 {    	
 	NSLog(@"LoadTotalsForUser");
 	self.errorString = @"";
+    
+    self.tableView.allowsSelection = YES;
 	
     NSString * authToken = mfbApp().userProfile.AuthToken;
 	if ([authToken length] == 0)
@@ -107,8 +110,20 @@
     }
     else if (![mfbApp() isOnLine])
     {
-        self.errorString = NSLocalizedString(@"No connection to the Internet is available", @"Error: Offline");
-        [self showError:self.errorString withTitle:NSLocalizedString(@"Error loading totals", @"Title for error message")];
+        NSDate * dtLastPack = PackAndGo.lastTotalsPackDate;
+        if (dtLastPack != nil) {
+            NSDateFormatter * df = NSDateFormatter.new;
+            df.dateStyle = NSDateFormatterShortStyle;
+            self.rgTotalsGroups = [MFBWebServiceSvc_TotalsItem GroupItems:PackAndGo.cachedTotals];
+            [self.tableView reloadData];
+            self.fIsValid = YES;
+            self.tableView.allowsSelection = NO;
+            [self showError:[NSString stringWithFormat:NSLocalizedString(@"PackAndGoUsingCached", @"Pack and go - Using Cached"), [df stringFromDate:dtLastPack]] withTitle:NSLocalizedString(@"PackAndGoOffline", @"Pack and go - Using Cached")];
+        }
+        else {
+            self.errorString = NSLocalizedString(@"No connection to the Internet is available", @"Error: Offline");
+            [self showError:self.errorString withTitle:NSLocalizedString(@"Error loading totals", @"Title for error message")];
+        }
     }
     else
     {
@@ -137,6 +152,8 @@
 	if ([body isKindOfClass:[MFBWebServiceSvc_TotalsForUserWithQueryResponse class]])
 	{
 		MFBWebServiceSvc_TotalsForUserWithQueryResponse * resp = (MFBWebServiceSvc_TotalsForUserWithQueryResponse *) body;
+        if (self.fq.isUnrestricted)
+            [PackAndGo updateTotals:resp.TotalsForUserWithQueryResult.TotalsItem];
         self.rgTotalsGroups = [MFBWebServiceSvc_TotalsItem GroupItems:resp.TotalsForUserWithQueryResult.TotalsItem];
         self.fIsValid = YES;
 	}
@@ -164,7 +181,7 @@
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0)
-        return 1;
+        return mfbApp().isOnLine ? 1 : 0;
     else
     {
         if (self.callInProgress)

@@ -37,6 +37,7 @@
 #import "FlightProps.h"
 #import "HostedWebViewViewController.h"
 #import "WPSAlertController.h"
+#import "PackAndGo.h"
 
 @interface SignInControllerViewController ()
 @property (nonatomic, strong) NSString * szUser;
@@ -44,8 +45,8 @@
 @property (nonatomic, strong) IBOutlet AccessoryBar * vwAccessory;
 @end
 
-enum signinSections {sectWhySignIn, sectCredentials, sectSignIn, sectCreateAccount, sectForgotPW, sectLinks, sectAbout, sectLast};
-enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, cidCreateAcct, cidLinksFirst, cidFAQ = cidLinksFirst, cidContact, cidSupport, cidFollowTwitter, cidFollowFB, cidLinksLast=cidFollowFB, cidOptions, cidAbout};
+enum signinSections {sectWhySignIn, sectCredentials, sectSignIn, sectCreateAccount, sectForgotPW, sectLinks, sectAbout, sectPackAndGo, sectLast};
+enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, cidCreateAcct, cidLinksFirst, cidFAQ = cidLinksFirst, cidContact, cidSupport, cidFollowTwitter, cidFollowFB, cidLinksLast=cidFollowFB, cidOptions, cidAbout, cidPackAndGo };
 
 @implementation SignInControllerViewController
 @synthesize vwAccessory, szUser, szPass;
@@ -143,6 +144,7 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
     [app.userProfile SavePrefs];
     [FlightProps.sharedTemplates removeAllObjects];
     [FlightProps saveTemplates];
+    [PackAndGo clearPackedData];
     [self.tableView reloadData];
 }
 
@@ -168,6 +170,8 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
             return cidLinksFirst + row;
         case sectAbout:
             return cidOptions + row;
+        case sectPackAndGo:
+            return cidPackAndGo;
         default:
             return 0;
     }
@@ -192,13 +196,28 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
 
 - (NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if (section == sectCredentials)
-    {
+    if (section == sectCredentials) {
         if (mfbApp().userProfile.isValid)
             return [NSString stringWithFormat:NSLocalizedString(@"You are signed in.", @"Prompt if you are signed in."), mfbApp().userProfile.UserName];
         else
             return NSLocalizedString(@"You are not signed in.  Please sign in or create an account.", @"Prompt if you are not signed in.");
-        
+    } else if (section == sectPackAndGo && mfbApp().userProfile.isValid)
+        return NSLocalizedString(@"PackAndGoDesc", @"Pack and go description");
+
+    return nil;
+}
+
+- (NSString *) tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    if (section == sectPackAndGo && mfbApp().userProfile.isValid) {
+        NSDate * dtPacked = PackAndGo.lastPackDate;
+        if (dtPacked == nil)
+            return NSLocalizedString(@"PackAndGoStatusNone", @"Pack and go not packed");
+        else {
+            NSDateFormatter * df = NSDateFormatter.new;
+            df.dateStyle = NSDateFormatterShortStyle;
+            df.timeStyle = NSDateFormatterLongStyle;
+            return [NSString stringWithFormat:NSLocalizedString(@"PackAndGoStatusOK", @"Pack and go status OK"), [df stringFromDate:dtPacked]];
+        }
     }
     return nil;
 }
@@ -220,6 +239,8 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
             return 1;
         case sectForgotPW:
             return 1; // just the "Forgot password" cell
+        case sectPackAndGo:
+            return mfbApp().userProfile.isValid ? 1 : 0;
         case sectCreateAccount:
             return mfbApp().userProfile.isValid ? 0 : 1; // just the "Create account" cell, but only if not signed in
         case sectLinks:
@@ -336,6 +357,12 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
             cell.textLabel.text = NSLocalizedString(@"Options", @"Options button for autodetect, etc.");
             return cell;
         }
+        case cidPackAndGo: {
+            UITableViewCell * cell = [self getCell];
+            cell.textLabel.text = NSLocalizedString(@"PackAndGo", @"Pack and Go");
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            return cell;
+        }
     }
     
     @throw [NSException exceptionWithName:@"Invalid indexpath" reason:@"Request for cell in SignInViewController with invalid indexpath" userInfo:@{@"indexPath:" : indexPath}];
@@ -380,6 +407,34 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
 {
     NewUserTableController * nutc = [[NewUserTableController alloc] initWithNibName:@"NewUserTableController" bundle:nil];
 	[self.navigationController pushViewController:nutc animated:YES];
+}
+
+- (void) packAndGo {
+    MFBAppDelegate * app = mfbApp();
+    
+    PackAndGo * p = [PackAndGo new];
+    p.authToken = app.userProfile.AuthToken;
+    
+    [self.tableView endEditing:YES];
+
+    [WPSAlertController presentProgressAlertWithTitle:NSLocalizedString(@"PackAndGoInProgress", @"Pack and go - downloaded") onViewController:self];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // pack the various things, stopping on an error.
+        BOOL fResult = p.packCurrency && p.packTotals && p.packFlights && p.packVisited;
+        
+        if (fResult)
+            PackAndGo.lastPackDate = NSDate.new;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self dismissViewControllerAnimated:YES completion:^{
+                if (!fResult) {
+                    [self showError:p.errorString];
+                }
+            }];
+            [self.tableView reloadData];
+        });
+    });
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -434,6 +489,9 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
             break;
         case cidOptions:
             [self.navigationController pushViewController:[[AutodetectOptions alloc] initWithNibName:@"AutodetectOptions" bundle:nil] animated:YES];
+            break;
+        case cidPackAndGo:
+            [self packAndGo];
             break;
         default:
             [self.tableView endEditing:YES];

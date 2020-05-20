@@ -25,6 +25,7 @@
 //
 
 #import "WPSAlertController.h"
+#import "MFBTheme.h"
 
 @interface WPSAlertController ()
 @property (nonatomic, strong) UIWindow *alertWindow;
@@ -70,7 +71,7 @@
         [WPSAlertController alertControllerWithTitle:message message:message preferredStyle:UIAlertControllerStyleAlert] :
         [UIAlertController alertControllerWithTitle:message message:nil preferredStyle:UIAlertControllerStyleAlert];
     
-    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:MFBTheme.isDarkMode ? UIActivityIndicatorViewStyleWhite : UIActivityIndicatorViewStyleGray];
     [spinner startAnimating];
     
     UIViewController *customVC = [[UIViewController alloc] init];

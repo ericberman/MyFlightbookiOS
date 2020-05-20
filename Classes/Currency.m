@@ -28,9 +28,10 @@
 #import "HostedWebViewViewController.h"
 #import "AircraftViewController.h"
 #import "RecentFlights.h"
+#import "PackAndGo.h"
 
 @interface Currency()
-@property (readwrite, strong) NSMutableArray<MFBWebServiceSvc_CurrencyStatusItem *> * rgCurrency;
+@property (readwrite, strong) NSArray<MFBWebServiceSvc_CurrencyStatusItem *> * rgCurrency;
 @property (readwrite, strong) NSString * errorString;
 @end
 
@@ -105,6 +106,7 @@
 	self.errorString = @"";
     NSString * szAuthToken = mfbApp().userProfile.AuthToken;
 	
+    self.tableView.allowsSelection = YES;
 	if ([szAuthToken length] == 0)
     {
 		self.errorString = NSLocalizedString(@"You must be signed in to view currency", @"Must be signed in to view currency");
@@ -112,8 +114,20 @@
     }
     else if (![mfbApp() isOnLine])
     {
-        self.errorString = NSLocalizedString(@"No connection to the Internet is available", @"Error: Offline");
-        [self showError:self.errorString withTitle:NSLocalizedString(@"Error loading currency", @"Title Error message when loading currency")];
+        NSDate * dtLastPack = PackAndGo.lastCurrencyPackDate;
+        if (dtLastPack != nil) {
+            NSDateFormatter * df = NSDateFormatter.new;
+            df.dateStyle = NSDateFormatterShortStyle;
+            self.rgCurrency = PackAndGo.cachedCurrency;
+            [self.tableView reloadData];
+            self.fIsValid = YES;
+            self.tableView.allowsSelection = NO;
+            [self showError:[NSString stringWithFormat:NSLocalizedString(@"PackAndGoUsingCached", @"Pack and go - Using Cached"), [df stringFromDate:dtLastPack]] withTitle:NSLocalizedString(@"PackAndGoOffline", @"Pack and go - Using Cached")];
+        }
+        else {
+            self.errorString = NSLocalizedString(@"No connection to the Internet is available", @"Error: Offline");
+            [self showError:self.errorString withTitle:NSLocalizedString(@"Error loading currency", @"Title Error message when loading currency")];
+        }
     }
     else
     {
@@ -142,6 +156,7 @@
 		MFBWebServiceSvc_ArrayOfCurrencyStatusItem * rgCs = resp.GetCurrencyForUserResult;
 		
         self.rgCurrency = rgCs.CurrencyStatusItem;
+        [PackAndGo updateCurrency:self.rgCurrency];
         self.fIsValid = YES;
 	}
 }

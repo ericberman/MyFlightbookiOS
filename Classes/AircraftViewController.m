@@ -827,7 +827,7 @@ enum aircraftRows {rowInfoStart, rowStaticDesc = rowInfoStart, rowInfoLast,
 #pragma mark - Find Flights
 - (void) findFlights:(id)sender
 {
-    if (self.ac == nil || self.navigationController == nil)
+    if (self.ac == nil || self.navigationController == nil || !mfbApp().isOnLine)
         return;
     
     MFBWebServiceSvc_FlightQuery * fq = [MFBWebServiceSvc_FlightQuery getNewFlightQuery];

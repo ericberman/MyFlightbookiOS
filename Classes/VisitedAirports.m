@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2011-2019 MyFlightbook, LLC
+ Copyright (C) 2011-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -28,6 +28,7 @@
 #import "VisitedAirports.h"
 #import "VisitedAirportRow.h"
 #import "VADetails.h"
+#import "PackAndGo.h"
 
 @interface VisitedAirports()
 @property (strong) NSMutableArray<MFBWebServiceSvc_VisitedAirport *> * rgVAFiltered;
@@ -113,10 +114,19 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
 }
 
 #pragma mark - GetData
+- (void) setData:(NSArray<MFBWebServiceSvc_VisitedAirport *> *) arr {
+    self.rgVA = [NSMutableArray arrayWithArray:arr];
+    [self.rgVA sortUsingSelector:@selector(compareName:)];
+    [self refreshFilteredAirports:self.searchBar.text = @""];
+    self.rgVAFiltered = [NSMutableArray arrayWithArray:self.rgVA];
+    [self setUpIndices];
+}
+
 - (void) updateVisitedAirports
 {
     self.errorString = @"";
 	
+    self.tableView.allowsSelection = YES;
     NSString * authToken = mfbApp().userProfile.AuthToken;
 	if ([authToken length] == 0)
     {
@@ -125,8 +135,20 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
     }
     else if (![mfbApp() isOnLine])
     {
-        self.errorString = NSLocalizedString(@"No connection to the Internet is available", @"Error: Offline");
-        [self showError:self.errorString withTitle:NSLocalizedString(@"Error loading visited airports", @"Title when an error occurs loading visited airports")];
+        NSDate * dtLastPack = PackAndGo.lastVisitedPackDate;
+        if (dtLastPack != nil) {
+            NSDateFormatter * df = NSDateFormatter.new;
+            df.dateStyle = NSDateFormatterShortStyle;
+            [self setData:PackAndGo.cachedVisited];
+            self.tableView.allowsSelection = NO;
+            [self.tableView reloadData];
+            self.fIsValid = YES;
+            [self showError:[NSString stringWithFormat:NSLocalizedString(@"PackAndGoUsingCached", @"Pack and go - Using Cached"), [df stringFromDate:dtLastPack]] withTitle:NSLocalizedString(@"PackAndGoOffline", @"Pack and go - Using Cached")];
+        }
+        else {
+            self.errorString = NSLocalizedString(@"No connection to the Internet is available", @"Error: Offline");
+            [self showError:self.errorString withTitle:NSLocalizedString(@"Error loading visited airports", @"Title when an error occurs loading visited airports")];
+        }
     }
     else
     {
@@ -242,11 +264,10 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
                     va.Airport.DistanceFromPosition = @0.0;
             }
         }
-        [self.rgVA sortUsingSelector:@selector(compareName:)];
-        [self refreshFilteredAirports:self.searchBar.text = @""];
-        self.rgVAFiltered = [NSMutableArray arrayWithArray:self.rgVA];
         
-        [self setUpIndices];
+        [self setData:self.rgVA];
+        
+        [PackAndGo updateVisited:self.rgVA];
         
         self.fIsValid = YES;
 	}
@@ -430,6 +451,9 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
     
     // don't respond to selection if we're refreshing.
     if (isLoading)
+        return;
+    
+    if (!mfbApp().isOnLine)
         return;
     
     if (self.vaDetails == nil)

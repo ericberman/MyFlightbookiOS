@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2010-2019 MyFlightbook, LLC
+ Copyright (C) 2010-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -317,9 +317,9 @@ BOOL fNeedsRefresh = NO;
 	[MyAircraft viewAircraft:[self aircraftAtIndexPath:indexPath] onNavigationController:self.navigationController withDelegate:self];
 }
 
-- (void) newAircraft
-{
-	[MyAircraft viewAircraft:[MFBWebServiceSvc_Aircraft getNewAircraft] onNavigationController:self.navigationController withDelegate:self];
+- (void) newAircraft {
+    if (mfbApp().isOnLine)
+        [MyAircraft viewAircraft:[MFBWebServiceSvc_Aircraft getNewAircraft] onNavigationController:self.navigationController withDelegate:self];
 }
 
 + (void) pushNewAircraftOnViewController:(UINavigationController *) nav

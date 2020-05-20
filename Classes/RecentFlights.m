@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2010-2019 MyFlightbook, LLC
+ Copyright (C) 2010-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -32,6 +32,7 @@
 #import "FlightProps.h"
 #import "iRate.h"
 #import "WPSAlertController.h"
+#import "PackAndGo.h"
 
 @interface RecentFlights()
 @property (atomic, strong) NSMutableDictionary * dictImages;
@@ -126,7 +127,13 @@ BOOL fCouldBeMoreFlights;
     if (self.dictImages == nil)
     {
         self.dictImages = [NSMutableDictionary new];
-        [NSThread detachNewThreadSelector:@selector(asyncLoadThumbnailsForFlights:) toTarget:self withObject:self.rgFlights];
+        if (mfbApp().isOnLine)
+            [NSThread detachNewThreadSelector:@selector(asyncLoadThumbnailsForFlights:) toTarget:self withObject:self.rgFlights];
+    }
+    
+    if (!mfbApp().isOnLine && (self.rgFlights == nil || self.rgFlights.count == 0) && PackAndGo.lastFlightsPackDate != nil) {
+        self.rgFlights = [NSMutableArray arrayWithArray:PackAndGo.cachedFlights];
+        [self warnPackedData:PackAndGo.lastVisitedPackDate];
     }
     
     [super viewWillAppear:animated];
@@ -138,11 +145,26 @@ BOOL fCouldBeMoreFlights;
 	[self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void) warnPackedData:(NSDate *) dtLastPack {
+    NSDateFormatter * df = NSDateFormatter.new;
+    df.dateStyle = NSDateFormatterShortStyle;
+    [self showError:[NSString stringWithFormat:NSLocalizedString(@"PackAndGoUsingCached", @"Pack and go - Using Cached"), [df stringFromDate:dtLastPack]] withTitle:NSLocalizedString(@"PackAndGoOffline", @"Pack and go - Using Cached")];
+}
+
 - (void) refresh:(BOOL) fSubmitPending
 {
+    NSDate * dtLastPack = PackAndGo.lastFlightsPackDate;
     if (!mfbApp().isOnLine) {
-        self.errorString = NSLocalizedString(@"No connection to the Internet is available", @"Error: Offline");
-        [self showError:self.errorString withTitle:NSLocalizedString(@"Error loading recent flights", @"Title for error message on recent flights")];
+        if (dtLastPack != nil) {
+            self.rgFlights = [NSMutableArray arrayWithArray:PackAndGo.cachedFlights];
+            [self.tableView reloadData];
+            self.fIsValid = YES;
+            [self warnPackedData:dtLastPack];
+        }
+        else {
+            self.errorString = NSLocalizedString(@"No connection to the Internet is available", @"Error: Offline");
+            [self showError:self.errorString withTitle:NSLocalizedString(@"Error loading recent flights", @"Title for error message on recent flights")];
+        }
         return;
     }
     
@@ -413,13 +435,13 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectPendingFlights, sectExi
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch ([self sectionFromIndexPathSection:section]) {
         case sectFlightQuery:
-            return 1;
+            return mfbApp().isOnLine ? 1 : 0;
         case sectUploadInProgress:
             return 1;
         case sectPendingFlights:
             return mfbApp().rgPendingFlights.count;
         case sectExistingFlights:
-            return self.rgFlights.count + ((self.callInProgress || fCouldBeMoreFlights) ? 1 : 0);
+            return self.rgFlights.count + (mfbApp().isOnLine && ((self.callInProgress || fCouldBeMoreFlights)) ? 1 : 0);
         default:
             NSAssert(NO, @"Unknown section requested");
             return 0;
