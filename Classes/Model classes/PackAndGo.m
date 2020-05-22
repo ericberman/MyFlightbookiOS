@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #import <Foundation/Foundation.h>
 #import "PackAndGo.h"
 #import "LogbookEntry.h"
+#import "FlightProps.h"
 
 @implementation PackAndGo
 
@@ -108,6 +109,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     } else if ([body isKindOfClass:[MFBWebServiceSvc_VisitedAirportsResponse class]]) {
         MFBWebServiceSvc_VisitedAirportsResponse * resp = (MFBWebServiceSvc_VisitedAirportsResponse *) body;
         [PackAndGo updateVisited:resp.VisitedAirportsResult.VisitedAirport];
+    } else if ([body isKindOfClass:MFBWebServiceSvc_AircraftForUserResponse.class]) {
+        MFBWebServiceSvc_AircraftForUserResponse * resp = (MFBWebServiceSvc_AircraftForUserResponse *) body;
+        [Aircraft.sharedAircraft cacheAircraft:resp.AircraftForUserResult.Aircraft forUser:self.authToken];
+    } else if ([body isKindOfClass:MFBWebServiceSvc_PropertiesAndTemplatesForUserResponse.class]) {
+        MFBWebServiceSvc_PropertiesAndTemplatesForUserResponse * resp = (MFBWebServiceSvc_PropertiesAndTemplatesForUserResponse *) body;
+        [FlightProps.new cachePropsAndTemplates:resp];
     }
 }
 
@@ -205,6 +212,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 + (NSDate *) lastFlightsPackDate {
     return [PackAndGo dateForKey:keyFlightsDate];
+}
+
+#pragma mark - Aircraft and Props
+- (BOOL) packAircraft {
+    MFBWebServiceSvc_AircraftForUser * acSvc = MFBWebServiceSvc_AircraftForUser.new;
+    acSvc.szAuthUserToken = self.authToken;
+    MFBSoapCall * sc =  [self getSoapCall];
+    [sc makeCallSynchronous:^MFBWebServiceSoapBindingResponse *(MFBWebServiceSoapBinding *b) {
+        return [b AircraftForUserUsingParameters:acSvc];
+    } asSecure:YES];
+
+    self.errorString = sc.errorString;
+    return self.errorString.length == 0;
+}
+
+- (BOOL) packProps {
+    MFBWebServiceSvc_PropertiesAndTemplatesForUser * fpSvc = MFBWebServiceSvc_PropertiesAndTemplatesForUser.new;
+     fpSvc.szAuthUserToken = self.authToken;
+     MFBSoapCall * sc =  [self getSoapCall];
+     [sc makeCallSynchronous:^MFBWebServiceSoapBindingResponse *(MFBWebServiceSoapBinding *b) {
+         return [b PropertiesAndTemplatesForUserUsingParameters:fpSvc];
+     } asSecure:YES];
+
+     self.errorString = sc.errorString;
+     return self.errorString.length == 0;
 }
 
 #pragma mark - Visited

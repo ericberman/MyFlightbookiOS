@@ -34,6 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 @interface PackAndGo : NSObject<MFBSoapCallDelegate> {
 }
 
+- (BOOL) packAircraft;
+- (BOOL) packProps;
 - (BOOL) packCurrency;
 + (void) updateCurrency:(NSArray<MFBWebServiceSvc_CurrencyStatusItem *> *) currency;
 + (NSArray<MFBWebServiceSvc_CurrencyStatusItem *> *) cachedCurrency;

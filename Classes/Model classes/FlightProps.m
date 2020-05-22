@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2010-2019 MyFlightbook, LLC
+ Copyright (C) 2010-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -293,26 +293,29 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
     }];
 }
 
+- (void) cachePropsAndTemplates:(MFBWebServiceSvc_PropertiesAndTemplatesForUserResponse *) resp {
+    MFBWebServiceSvc_TemplatePropTypeBundle * bundle = resp.PropertiesAndTemplatesForUserResult;
+    MFBWebServiceSvc_ArrayOfCustomPropertyType * rgCpt = bundle.UserProperties;
+    
+    if (rgCpt != nil && rgCpt.CustomPropertyType != nil && rgCpt.CustomPropertyType.count > 0) {
+        [self setPropTypeArray:rgCpt.CustomPropertyType];
+        [self cacheProps];
+    }
+    else
+        [self setPropTypeArray:[self propertiesFromDB]]; // update from the DB since refresh didn't work.
+    
+    if (bundle.UserTemplates != nil && bundle.UserTemplates.PropertyTemplate != nil) {
+        [FlightProps.sharedTemplates removeAllObjects];
+        [FlightProps.sharedTemplates addObjectsFromArray:bundle.UserTemplates.PropertyTemplate];
+        [FlightProps saveTemplates];
+    }
+}
+
 - (void) BodyReturned:(id)body
 {
-	if ([body isKindOfClass:[MFBWebServiceSvc_PropertiesAndTemplatesForUserResponse class]])
-	{
+	if ([body isKindOfClass:[MFBWebServiceSvc_PropertiesAndTemplatesForUserResponse class]]) {
 		MFBWebServiceSvc_PropertiesAndTemplatesForUserResponse * resp = (MFBWebServiceSvc_PropertiesAndTemplatesForUserResponse *) body;
-        MFBWebServiceSvc_TemplatePropTypeBundle * bundle = resp.PropertiesAndTemplatesForUserResult;
-		MFBWebServiceSvc_ArrayOfCustomPropertyType * rgCpt = bundle.UserProperties;
-		
-        if (rgCpt != nil && rgCpt.CustomPropertyType != nil && rgCpt.CustomPropertyType.count > 0) {
-            [self setPropTypeArray:rgCpt.CustomPropertyType];
-            [self cacheProps];
-        }
-        else
-            [self setPropTypeArray:[self propertiesFromDB]]; // update from the DB since refresh didn't work.
-        
-        if (bundle.UserTemplates != nil && bundle.UserTemplates.PropertyTemplate != nil) {
-            [FlightProps.sharedTemplates removeAllObjects];
-            [FlightProps.sharedTemplates addObjectsFromArray:bundle.UserTemplates.PropertyTemplate];
-            [FlightProps saveTemplates];
-        }
+        [self cachePropsAndTemplates:resp];
 	}
 }
 

@@ -409,6 +409,11 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
 	[self.navigationController pushViewController:nutc animated:YES];
 }
 
+- (BOOL) runBlock:(BOOL (^)(void)) callToMake withMessage:(NSString *) sz onAlert:(UIAlertController *) uac {
+    dispatch_async(dispatch_get_main_queue(), ^{ uac.title = sz; });
+    return callToMake();
+}
+
 - (void) packAndGo {
     MFBAppDelegate * app = mfbApp();
     
@@ -417,25 +422,24 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
     
     [self.tableView endEditing:YES];
 
-    [WPSAlertController presentProgressAlertWithTitle:NSLocalizedString(@"PackAndGoInProgress", @"Pack and go - downloaded") onViewController:self];
+    UIAlertController * uac = [WPSAlertController presentProgressAlertWithTitle:NSLocalizedString(@"PackAndGoInProgress", @"Pack and go - downloaded") onViewController:self];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         // pack the various things, stopping on an error.
-        BOOL fResult = p.packCurrency && p.packTotals && p.packFlights && p.packVisited;
+        BOOL fResult =
+        [self runBlock:^{ return p.packAircraft; } withMessage:NSLocalizedString(@"Updating aircraft...", @"Progress: updating aircraft") onAlert:uac] &&
+        [self runBlock:^{ return p.packProps; } withMessage:NSLocalizedString(@"PackAndGoProgProps", @"Pack progress - properties") onAlert:uac] &&
+        [self runBlock:^{ return p.packCurrency; } withMessage:NSLocalizedString(@"Getting Currency...", @"Progress indicator for currency") onAlert:uac] &&
+        [self runBlock:^{ return p.packTotals; } withMessage:NSLocalizedString(@"Getting Totals...", @"progress indicator") onAlert:uac] &&
+        [self runBlock:^{ return p.packVisited; } withMessage:NSLocalizedString(@"Getting Visited Airports...", @"Progress indicator while getting visited airports") onAlert:uac] &&
+        [self runBlock:^{ return p.packFlights; } withMessage:NSLocalizedString(@"Getting Recent Flights...", @"Progress - getting recent flights") onAlert:uac];
         
         if (fResult)
             PackAndGo.lastPackDate = NSDate.new;
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self dismissViewControllerAnimated:YES completion:^{
-                if (fResult) {
-                    // asynchronously try to update aircraft and properties.
-                    [Aircraft.sharedAircraft loadAircraftForUser:YES];
-                    FlightProps * fp = FlightProps.new;
-                    [fp setCacheRetry];
-                    [fp loadCustomPropertyTypes];
-                }
-                else
+                if (!fResult)
                     [self showError:p.errorString];
             }];
             [self.tableView reloadData];
