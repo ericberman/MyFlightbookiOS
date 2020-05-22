@@ -86,6 +86,13 @@
 }
 
 - (void) commitAircraft {
+    if (!mfbApp().isOnLine) {
+        MFBSoapCall * sc = MFBSoapCall.new;
+        sc.errorString = NSLocalizedString(@"No access to the Internet", @"Error message if app cannot connect to the Internet");
+        [self aircraftRefreshComplete:sc withCaller:Aircraft.sharedAircraft];
+        return;
+    }
+
     // Don't upload if we have videos and are not on wifi:
     if (![CommentedImage canSubmitImages:self.rgImages]) {
         MFBSoapCall * sc = [MFBSoapCall alloc];
