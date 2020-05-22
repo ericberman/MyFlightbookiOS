@@ -428,9 +428,15 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self dismissViewControllerAnimated:YES completion:^{
-                if (!fResult) {
-                    [self showError:p.errorString];
+                if (fResult) {
+                    // asynchronously try to update aircraft and properties.
+                    [Aircraft.sharedAircraft loadAircraftForUser:YES];
+                    FlightProps * fp = FlightProps.new;
+                    [fp setCacheRetry];
+                    [fp loadCustomPropertyTypes];
                 }
+                else
+                    [self showError:p.errorString];
             }];
             [self.tableView reloadData];
         });
