@@ -846,8 +846,8 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
         if (dt == nil)
             self.datePicker.date = dt = NSDate.date.dateByTruncatingSeconds;
         
-        completionBlock(self.datePicker.date);
-        ec.txt.text = [self.datePicker.date dateString];
+        completionBlock(dt);
+        ec.txt.text = [dt dateString];
         [self.tableView endEditing:YES];
         
         NSInteger row = [self cellIDFromIndexPath:self.ipActive];
