@@ -63,7 +63,7 @@
 - (NSString *) stringValueForProperty:(MFBWebServiceSvc_CustomFlightProperty *) fp;
 + (NSString *) stringValueForProperty:(MFBWebServiceSvc_CustomFlightProperty *) fp withType:(MFBWebServiceSvc_CustomPropertyType *) cpt;
 
-- (NSMutableArray *) distillList:(NSMutableArray *) rgFp includeLockedProps:(BOOL) fIncludeLock includeTemplates:(NSSet<MFBWebServiceSvc_PropertyTemplate *> *) templates;
+- (NSMutableArray<MFBWebServiceSvc_CustomFlightProperty *> *) distillList:(NSArray<MFBWebServiceSvc_CustomFlightProperty *> *) rgFp includeLockedProps:(BOOL) fIncludeLock includeTemplates:(NSSet<MFBWebServiceSvc_PropertyTemplate *> *) templates;
 - (NSMutableArray *) crossProduct:(NSMutableArray *) rgFp;
 - (NSMutableArray *) defaultPropList;
 - (void) setPropTypeArray:(NSArray *) ar;

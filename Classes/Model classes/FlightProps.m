@@ -377,9 +377,9 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
 /*
   Returns a distillation of the provided list to only those items which are non-default AND not locked AND not in the specified templates
 */
-- (NSMutableArray *) distillList:(NSMutableArray *) rgFp includeLockedProps:(BOOL) fIncludeLock includeTemplates:(NSSet<MFBWebServiceSvc_PropertyTemplate *> *) templates
+- (NSMutableArray<MFBWebServiceSvc_CustomFlightProperty *> *) distillList:(NSArray<MFBWebServiceSvc_CustomFlightProperty *> *) rgFp includeLockedProps:(BOOL) fIncludeLock includeTemplates:(NSSet<MFBWebServiceSvc_PropertyTemplate *> *) templates
 {
-    NSMutableArray * rgResult = [[NSMutableArray alloc] init];
+    NSMutableArray<MFBWebServiceSvc_CustomFlightProperty *> * rgResult = [[NSMutableArray alloc] init];
     
     NSSet<NSNumber *> * templatedProps = (templates == nil) ? [NSSet<NSNumber *> new] : [MFBWebServiceSvc_PropertyTemplate propListForSets:templates];
     
@@ -391,7 +391,15 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
                 [rgResult addObject:cfp];
         }
     
-    return rgResult;
+    return [NSMutableArray arrayWithArray:[rgResult sortedArrayUsingComparator:^NSComparisonResult(MFBWebServiceSvc_CustomFlightProperty *  _Nonnull cfp1, MFBWebServiceSvc_CustomFlightProperty *  _Nonnull cfp2) {
+        MFBWebServiceSvc_CustomPropertyType * cpt1 = [self PropTypeFromID:cfp1.PropTypeID];
+        MFBWebServiceSvc_CustomPropertyType * cpt2 = [self PropTypeFromID:cfp2.PropTypeID];
+        
+        NSString * key1 = (cpt1.SortKey.length > 0) ? cpt1.SortKey : cpt1.Title;
+        NSString * key2 = (cpt2.SortKey.length > 0) ? cpt2.SortKey : cpt2.Title;
+        
+        return [key1 compare:key2 options:NSCaseInsensitiveSearch];
+    }]];
 }
 
 /*
