@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2019 MyFlightbook, LLC
+ Copyright (C) 2017-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -213,10 +213,11 @@ static int vLanding = LANDING_SPEED_DEFAULT;
         }
         
         self.locManager.delegate = self;
-        self.locManager.desiredAccuracy = kCLLocationAccuracyBest;
+        self.locManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
         self.locManager.distanceFilter = kCLDistanceFilterNone;
-        self.locManager.pausesLocationUpdatesAutomatically = YES;
+        self.locManager.pausesLocationUpdatesAutomatically = NO;
         self.locManager.activityType = CLActivityTypeOtherNavigation;
+        self.locManager.allowsBackgroundLocationUpdates = YES;
     }
 	
     [self.locManager startUpdatingLocation];
