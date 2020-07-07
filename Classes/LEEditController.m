@@ -843,11 +843,11 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
         // Since we don't display seconds, truncate them; this prevents odd looking math like
         // an interval from 12:13:59 to 12:15:01, which is a 1:02 but would display as 12:13-12:15 (which looks like 2 minutes)
         // By truncating the time, we go straight to 12:13:00 and 12:15:00, which will even yield 2 minutes.
-        if (dt == nil)
+        if (dt == nil || [NSDate isUnknownDate:dt])
             self.datePicker.date = dt = NSDate.date.dateByTruncatingSeconds;
         
         completionBlock(dt);
-        ec.txt.text = [dt dateString];
+        ec.txt.text = [NSDate isUnknownDate:dt] ? @"" : dt.utcString;
         [self.tableView endEditing:YES];
         
         NSInteger row = [self cellIDFromIndexPath:self.ipActive];
