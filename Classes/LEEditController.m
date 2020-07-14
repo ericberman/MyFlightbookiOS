@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2019 MyFlightbook, LLC
+ Copyright (C) 2009-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -918,8 +918,12 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
         }
             break;
         default:
-            if (self.ipActive.section == sectProperties && row >= rowPropertyFirst)
-                fShouldEdit = [((PropertyCell *) tc) prepForEditing];
+            if (self.ipActive.section == sectProperties && row >= rowPropertyFirst) {
+                PropertyCell * pc = (PropertyCell *) tc;
+                fShouldEdit = [pc prepForEditing];
+                if (!fShouldEdit && pc.cpt.Type == MFBWebServiceSvc_CFPPropertyType_cfpDateTime)
+                    [self propertyUpdated:pc.cpt];
+            }
             break;
     }
     
