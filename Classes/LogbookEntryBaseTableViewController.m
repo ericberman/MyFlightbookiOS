@@ -415,6 +415,7 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
 
 - (void) templatesUpdated:(NSSet<MFBWebServiceSvc_PropertyTemplate *> *) templateSet {
     self.activeTemplates = [NSMutableSet setWithSet:templateSet];
+    [self updateTemplatesForAircraft:[Aircraft.sharedAircraft AircraftByID:self.le.entryData.AircraftID.intValue]];
     NSMutableArray * rgAllProps = [self.flightProps crossProduct:self.le.entryData.CustomProperties.CustomFlightProperty];
     [self.le.entryData.CustomProperties setProperties:[self.flightProps distillList:rgAllProps includeLockedProps:YES includeTemplates:self.activeTemplates]];
     [self.tableView reloadData];

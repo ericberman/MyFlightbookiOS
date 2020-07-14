@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2019 MyFlightbook, LLC
+ Copyright (C) 2019-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -125,6 +125,10 @@
         [FlightProps.sharedTemplates removeAllObjects];
         [FlightProps.sharedTemplates addObjectsFromArray:resp.PropertiesAndTemplatesForUserResult.UserTemplates.PropertyTemplate];
         [FlightProps saveTemplates];
+        [self.templateSet removeAllObjects];
+        for (MFBWebServiceSvc_PropertyTemplate * pt in FlightProps.sharedTemplates)
+            if (pt.IsDefault.boolValue)
+                [self.templateSet addObject:pt];
         self.templateGroups = [MFBWebServiceSvc_PropertyTemplate groupTemplates:FlightProps.sharedTemplates];
         self.fIsValid = YES;
 
@@ -138,8 +142,11 @@
 - (void) ResultCompleted:(MFBSoapCall *)sc {
     if ([sc.errorString length] > 0)
         [self showError:sc.errorString withTitle:NSLocalizedString(@"Error loading totals", @"Title for error message")];
-    else
+    else {
         [self.tableView reloadData];
+        if (self.delegate != nil)
+            [self.delegate templatesUpdated:self.templateSet];
+    }
     
     if (isLoading)
         [self stopLoading];
