@@ -402,14 +402,7 @@ BOOL fSelectFirst = NO;
         CLLocation * loc = nil;
         PHAsset * thisPhoto = nil;
         if (!fCamera) {
-            if (@available(iOS 11.0, *))
-                thisPhoto = info[UIImagePickerControllerPHAsset];
-            else {
-                NSURL *url = info[UIImagePickerControllerReferenceURL];
-                PHFetchResult *res = [PHAsset fetchAssetsWithALAssetURLs:@[url] options:nil];
-                if (res.count > 0)
-                    thisPhoto = [res objectAtIndex: 0];
-            }
+            thisPhoto = info[UIImagePickerControllerPHAsset];
             if (thisPhoto != nil)
                 loc = thisPhoto.location;
         }
