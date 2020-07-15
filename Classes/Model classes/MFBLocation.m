@@ -575,7 +575,13 @@ static int vLanding = LANDING_SPEED_DEFAULT;
 #pragma mark Display
 + (NSString *) altitudeDisplay:(CLLocation *) loc
 {
-    return [NSString localizedStringWithFormat:@"%d%@",  (int) round(loc.altitude * METERS_TO_FEET), NSLocalizedString(@"ft", "Feet")];
+    switch (AutodetectOptions.altitudeUnits) {
+        default:
+        case altUnitFt:
+            return [NSString localizedStringWithFormat:@"%d%@",  (int) round(loc.altitude * METERS_TO_FEET), NSLocalizedString(@"ft", "Feet")];
+        case altUnitMeters:
+            return [NSString localizedStringWithFormat:@"%d%@",  (int) round(loc.altitude), NSLocalizedString(@"meters", "meters")];
+    }
 }
 
 + (NSString *) speedDisplay: (CLLocationSpeed) s
@@ -583,7 +589,15 @@ static int vLanding = LANDING_SPEED_DEFAULT;
     // Negative speeds are stupid.
     if (s < 0)
         s = 0;
-    return [NSString localizedStringWithFormat:NSLocalizedString(@"%.1fkts", @"Speed in knots.  '%.1f' is replaced by the actual speed; leave it there."), s];
+    switch (AutodetectOptions.speedUnits) {
+        default:
+        case speedUnitKts:
+            return [NSString localizedStringWithFormat:NSLocalizedString(@"%.1fkts", @"Speed in knots.  '%.1f' is replaced by the actual speed; leave it there."), s];
+        case speedUnitKph:
+            return [NSString localizedStringWithFormat:NSLocalizedString(@"%.1fkm/h", @"Speed in kph"), s * KTS_TO_KPH];
+        case speedUnitMph:
+            return [NSString localizedStringWithFormat:NSLocalizedString(@"%.1fmph", @"Speed in mph"), s * KTS_TO_MPH];
+    }
 }
 
 + (NSString *) latitudeDisplay:(double) lat

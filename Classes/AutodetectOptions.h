@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2018 MyFlightbook, LLC
+ Copyright (C) 2017-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -42,6 +42,14 @@ typedef NS_ENUM(NSInteger, autoHobbs) {
 };
 typedef NS_ENUM(NSInteger, autoTotal) {
     autoTotalNone = 0, autoTotalFlight, autoTotalEngine, autoTotalHobbs, autoTotalBlock, autoTotalFlightStartToEngineEnd, autoTotalLast = autoTotalFlightStartToEngineEnd
+};
+
+typedef NS_ENUM(NSInteger, unitsSpeed) {
+    speedUnitKts = 0, speedUnitMph, speedUnitKph, speedUnitLast = speedUnitKph
+};
+
+typedef NS_ENUM(NSInteger, unitsAlt) {
+    altUnitFt = 0, altUnitMeters, altUnitLast = altUnitMeters
 };
 
 typedef NS_ENUM(NSInteger, flightTimeDetail) {
@@ -97,4 +105,6 @@ typedef NS_ENUM(NSInteger, flightTimeDetail) {
 + (MKMapType) mapType;
 + (NightFlightOptions) nightFlightPref;
 + (NightLandingOptions) nightLandingPref;
++ (unitsSpeed) speedUnits;
++ (unitsAlt) altitudeUnits;
 @end

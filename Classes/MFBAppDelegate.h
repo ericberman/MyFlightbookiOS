@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2018 MyFlightbook, LLC
+ Copyright (C) 2009-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -69,6 +69,8 @@
 #define MFB_KEYAIRCRAFTIMAGE @"txtAircraft"
 
 #define MPS_TO_KNOTS 1.94384449
+#define KTS_TO_KPH 1.852
+#define KTS_TO_MPH 1.15078
 #define METERS_TO_FEET 3.2808399
 #define METERS_IN_A_NM 1852.0
 #define NM_IN_A_METER 0.000539956803

@@ -39,5 +39,7 @@
 #define keyShowFlightTimes @"keyShowFlightTimes2"
 #define keyNightFlightPref @"keyNightFlightPref"
 #define keyNightLandingPref @"keyNightLandingPref"
+#define keySpeedUnitPref @"keySpeedUnitPref"
+#define keyAltUnitPref @"keyAltUnitPref"
 
 #endif /* OptionKeys_h */
