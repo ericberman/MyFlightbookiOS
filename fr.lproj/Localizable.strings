@@ -464,7 +464,7 @@
 "Trailing 90" = "90 derniers jours";
 
 /* Totals - Trailing 30 days */
-"Trailing 30" = "90 derniers jours";
+"Trailing 30" = "30 derniers jours";
 
 /* Totals - Year-to-date */
 "YTD" = "Cette année";
