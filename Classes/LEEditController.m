@@ -1377,6 +1377,9 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
 
 - (void) addNightTime:(double) t
 {
+    if (self.le.fIsPaused)
+        return;
+    
     double accumulatedNight = (self.le.accumulatedNightTime += t);
     
     if ([AutodetectOptions roundTotalToNearestTenth])
