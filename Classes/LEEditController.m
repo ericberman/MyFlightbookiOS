@@ -256,7 +256,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
         MFBWebServiceSvc_Aircraft * ac = [[Aircraft sharedAircraft] preferredAircraft];
         if (ac != nil)
         {
-            self.idPopAircraft.text = ac.TailNumber;
+            self.idPopAircraft.text = ac.displayTailNumber;
             self.le.entryData.AircraftID = ac.AircraftID;
         }
     }
