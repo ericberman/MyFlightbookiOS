@@ -292,7 +292,7 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
     else {
         BOOL fChanged = ac.AircraftID.integerValue != self.le.entryData.AircraftID.integerValue;
         if (self.idPopAircraft != nil) {
-            self.idPopAircraft.text = ac.TailNumber;
+            self.idPopAircraft.text = ac.displayTailNumber;
             self.le.entryData.AircraftID = ac.AircraftID;
         }
         
