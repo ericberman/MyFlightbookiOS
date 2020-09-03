@@ -800,6 +800,15 @@
 /* Sign-out */
 "Sign-out" = "Déconnectez";
 
+/* 2fa Title */
+"2FATitle" = "Entrez le code d'authentification";
+
+/* 2fa Watermark */
+"2FAWatermark" = "######";
+
+/* 2fa Prompt */
+"2FAPrompt" = "Veuillez saisir le code à 6 chiffres de votre application d'authentification";
+
 /* Reset Password Prompt */
 "Reset Password" = "Mot de passe oublié?";
 
