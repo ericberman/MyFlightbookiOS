@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2019 MyFlightbook, LLC
+ Copyright (C) 2009-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -30,12 +30,17 @@
 #import "MFBAppDelegate.h"
 #import "ApiKeys.h"
 
+@interface MFBProfile ()
+@property (readwrite) MFBWebServiceSvc_AuthStatus authStatus;
+@end
+
 @implementation MFBProfile
 
 @synthesize UserName=_szUser;
 @synthesize Password=_szPass;
 @synthesize AuthToken=_szAuthToken;
 @synthesize ErrorString = _szError;
+@synthesize authStatus;
 
 NSString * const _szPrefsPath = @"MyFlightbookDataPrefs";
 NSString * const _szKeyUser = @"UserKey";
@@ -141,11 +146,43 @@ NSString * const _szKeyCachedTokenRetrievalDate = @"keyCacheTokenDate";
     return cacheInvalid;
 }
 
-- (BOOL) GetAuthToken
+- (BOOL) RefreshAuthToken {
+    int cacheStat = [self cacheStatus:self.UserName];
+
+    if (cacheStat == cacheValid)    // nothing to do
+        return YES;
+
+    // Cache is either invalid or valid but want to refresh.  Either way, we'll try a refresh, but only if we can do so
+    if (self.UserName.length == 0 || self.Password.length == 0 || self.AuthToken.length == 0 || !MFBAppDelegate.threadSafeAppDelegate.isOnLine)
+        return NO;
+    
+    NSLog(@"RefreshAuthToken - cache isn't valid but we have information required to refresh, so refreshing");
+        
+    MFBWebServiceSvc_RefreshAuthToken * refreshSvc = [MFBWebServiceSvc_RefreshAuthToken new];
+    refreshSvc.szAppToken = _szKeyAppToken;
+    refreshSvc.szUser = self.UserName;
+    refreshSvc.szPass = self.Password;
+    refreshSvc.szPreviousToken = self.AuthToken;
+    
+    MFBSoapCall * sc = [[MFBSoapCall alloc] init];
+    sc.delegate = self;
+    sc.timeOut = 10.0; // 10 second timeout
+    
+    // Make async call - result will be cached asynchronously, so we can simply return.
+    [sc makeCallAsyncSecure:^(MFBWebServiceSoapBinding *b, MFBSoapCall *sc) {
+        [b RefreshAuthTokenAsyncUsingParameters:refreshSvc delegate:sc];
+    }];
+
+    return YES;
+}
+
+- (MFBWebServiceSvc_AuthStatus) GetAuthToken:(NSString *) sz2FACode
 {
 	NSLog(@"GetAuthToken");
-	BOOL fAttemptRefresh = NO;
     self.ErrorString = @"";
+    
+    if (NSThread.isMainThread)
+        NSLog(@"GetAuthToken called from main thread - naughty!  We will crash");
     
 	if ([self.UserName length] == 0)
 	{
@@ -158,21 +195,6 @@ NSString * const _szKeyCachedTokenRetrievalDate = @"keyCacheTokenDate";
 		return NO;
 	}
     
-    switch ([self cacheStatus:self.UserName])
-    {
-        case cacheInvalid:
-            NSLog(@"No valid authtoken - need to hit the server");
-            break;
-        case cacheValid:
-            NSLog(@"Cached Authtoken is valid.");
-            return YES;
-        case cacheValidButRefresh:
-            fAttemptRefresh = YES;
-            NSLog(@"Cached Authtoken is valid, but a refresh attempt will be made...");
-            break;
-    }
-    
-	NSString * szAuthTokenCached = [[NSUserDefaults standardUserDefaults] stringForKey:_szKeyCachedToken];
 	NSString * szUserCached = [[NSUserDefaults standardUserDefaults] stringForKey:_szKeyCachedUser];
 	
 	// clear the cache if requesting for a different user
@@ -181,47 +203,31 @@ NSString * const _szKeyCachedTokenRetrievalDate = @"keyCacheTokenDate";
 		[self clearCache];
 	}
 	
-	MFBWebServiceSvc_AuthTokenForUser * authTokSvc = [MFBWebServiceSvc_AuthTokenForUser new];
+	MFBWebServiceSvc_AuthTokenForUserNew * authTokSvc = [MFBWebServiceSvc_AuthTokenForUserNew new];
 	authTokSvc.szAppToken = _szKeyAppToken;
 	authTokSvc.szUser = self.UserName;
 	authTokSvc.szPass = self.Password;
+    authTokSvc.sz2FactorAuth = sz2FACode;
 	
 	MFBSoapCall * sc = [[MFBSoapCall alloc] init];
 	sc.delegate = self;
 	sc.timeOut = 10.0; // 10 second timeout
 	
     [sc makeCallSynchronous:^MFBWebServiceSoapBindingResponse *(MFBWebServiceSoapBinding *b) {
-        return [b AuthTokenForUserUsingParameters:authTokSvc];
+        return [b AuthTokenForUserNewUsingParameters:authTokSvc];
     } asSecure:YES];
 	self.ErrorString = sc.errorString;
     
-	if ([self.ErrorString length] == 0 && [self.AuthToken length] > 0)
-	{
+    if ([self.ErrorString length] == 0 && [self.AuthToken length] > 0 && self.authStatus == MFBWebServiceSvc_AuthStatus_Success) {
 		NSLog(@"Authtoken successfully retrieved - updating cache");
 		[self cacheAuthCreds];
         if (szUserCached == nil || [szUserCached compare:self.UserName] != NSOrderedSame) // signed in as someone new
             [self performSelectorOnMainThread:@selector(clearOldUserContent) withObject:nil waitUntilDone:YES];
-		return YES;
-	}
-	
-	// if we're here and this was an attempted refresh, then there was a problem - just ignore it and 
-	// use the cached credentials (which should be valid)
-	if (fAttemptRefresh && [szAuthTokenCached length] > 0)
-	{
-		self.ErrorString = @"";
-		self.AuthToken = szAuthTokenCached;
-		NSLog(@"AuthToken Refresh attempt failed, reverting to cached credentials");
-		return YES;
-	}
-	
-	// if we didn't get any actual error, but didn't get an auth string, that's also an error
-	if ([self.AuthToken length] == 0)
-	{
+        return self.authStatus;
+	} else if ([self.AuthToken length] == 0 && self.ErrorString.length == 0)  // if we didn't get any actual error, but didn't get an auth string, that's also an error
 		self.ErrorString = NSLocalizedString(@"Unable to authenticate.  Please check your email address and password and ensure that you have Internet access", @"Error - authentication failure");
-		return NO;
-	}
 	
-	return NO;
+    return self.authStatus;
 }
 
 - (BOOL) createUser:(MFBWebServiceSvc_CreateUser *) cu
@@ -281,18 +287,28 @@ NSString * const _szKeyCachedTokenRetrievalDate = @"keyCacheTokenDate";
 
 - (void) BodyReturned:(id)body
 {
-	if ([body isKindOfClass:[MFBWebServiceSvc_AuthTokenForUserResponse class]])
+	if ([body isKindOfClass:[MFBWebServiceSvc_AuthTokenForUserNewResponse class]])
 	{
-		MFBWebServiceSvc_AuthTokenForUserResponse * resp = (MFBWebServiceSvc_AuthTokenForUserResponse *) body;
-		self.AuthToken = resp.AuthTokenForUserResult;
-		if ([self.AuthToken length] > 0)
-			self.ErrorString = @"";
+		MFBWebServiceSvc_AuthTokenForUserNewResponse * resp = (MFBWebServiceSvc_AuthTokenForUserNewResponse *) body;
+        self.authStatus = resp.AuthTokenForUserNewResult.Result;
+        if (self.authStatus == MFBWebServiceSvc_AuthStatus_Success) {
+            self.AuthToken = resp.AuthTokenForUserNewResult.AuthToken;
+            if ([self.AuthToken length] > 0)
+                self.ErrorString = @"";
+        }
 	}
 	else if ([body isKindOfClass:[MFBWebServiceSvc_CreateUserResponse class]])
 	{
 		MFBWebServiceSvc_CreateUserResponse * resp = (MFBWebServiceSvc_CreateUserResponse *) body;
 		self.AuthToken = resp.CreateUserResult.szAuthToken;
-	}
+    } else if ([body isKindOfClass:MFBWebServiceSvc_RefreshAuthTokenResponse.class]) {
+        MFBWebServiceSvc_RefreshAuthTokenResponse * resp = (MFBWebServiceSvc_RefreshAuthTokenResponse *) body;
+        NSString * szAuth = resp.RefreshAuthTokenResult;
+        if (szAuth.length > 0) {
+            self.AuthToken = szAuth;
+            [self cacheAuthCreds];
+        }
+    }
 }
 
 
