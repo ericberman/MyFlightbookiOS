@@ -92,6 +92,11 @@
 @class MFBWebServiceSvc_UpdateImageAnnotationResponse;
 @class MFBWebServiceSvc_AuthTokenForUser;
 @class MFBWebServiceSvc_AuthTokenForUserResponse;
+@class MFBWebServiceSvc_AuthTokenForUserNew;
+@class MFBWebServiceSvc_AuthTokenForUserNewResponse;
+@class MFBWebServiceSvc_AuthResult;
+@class MFBWebServiceSvc_RefreshAuthToken;
+@class MFBWebServiceSvc_RefreshAuthTokenResponse;
 @class MFBWebServiceSvc_CreateUser;
 @class MFBWebServiceSvc_CreateUserResponse;
 @class MFBWebServiceSvc_UserEntity;
@@ -2499,6 +2504,123 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
+@interface MFBWebServiceSvc_AuthTokenForUserNew : NSObject <NSCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	NSString * szAppToken;
+	NSString * szUser;
+	NSString * szPass;
+	NSString * sz2FactorAuth;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_AuthTokenForUserNew *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, retain) NSString * szAppToken;
+@property (nonatomic, retain) NSString * szUser;
+@property (nonatomic, retain) NSString * szPass;
+@property (nonatomic, retain) NSString * sz2FactorAuth;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+typedef enum {
+	MFBWebServiceSvc_AuthStatus_none = 0,
+	MFBWebServiceSvc_AuthStatus_Failed,
+	MFBWebServiceSvc_AuthStatus_TwoFactorCodeRequired,
+	MFBWebServiceSvc_AuthStatus_Success,
+} MFBWebServiceSvc_AuthStatus;
+MFBWebServiceSvc_AuthStatus MFBWebServiceSvc_AuthStatus_enumFromString(NSString *string);
+NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatus enumValue);
+@interface MFBWebServiceSvc_AuthResult : NSObject <NSCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	MFBWebServiceSvc_AuthStatus Result;
+	NSString * AuthToken;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_AuthResult *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, assign) MFBWebServiceSvc_AuthStatus Result;
+@property (nonatomic, retain) NSString * AuthToken;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_AuthTokenForUserNewResponse : NSObject <NSCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	MFBWebServiceSvc_AuthResult * AuthTokenForUserNewResult;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_AuthTokenForUserNewResponse *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, retain) MFBWebServiceSvc_AuthResult * AuthTokenForUserNewResult;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_RefreshAuthToken : NSObject <NSCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	NSString * szAppToken;
+	NSString * szUser;
+	NSString * szPass;
+	NSString * szPreviousToken;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_RefreshAuthToken *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, retain) NSString * szAppToken;
+@property (nonatomic, retain) NSString * szUser;
+@property (nonatomic, retain) NSString * szPass;
+@property (nonatomic, retain) NSString * szPreviousToken;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_RefreshAuthTokenResponse : NSObject <NSCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	NSString * RefreshAuthTokenResult;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_RefreshAuthTokenResponse *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, retain) NSString * RefreshAuthTokenResult;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
 @interface MFBWebServiceSvc_CreateUser : NSObject <NSCoding> {
 SOAPSigner *soapSigner;
 /* elements */
@@ -2993,6 +3115,10 @@ SOAPSigner *soapSigner;
 - (void)UpdateImageAnnotationAsyncUsingParameters:(MFBWebServiceSvc_UpdateImageAnnotation *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoapBindingResponse *)AuthTokenForUserUsingParameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters ;
 - (void)AuthTokenForUserAsyncUsingParameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
+- (MFBWebServiceSoapBindingResponse *)AuthTokenForUserNewUsingParameters:(MFBWebServiceSvc_AuthTokenForUserNew *)aParameters ;
+- (void)AuthTokenForUserNewAsyncUsingParameters:(MFBWebServiceSvc_AuthTokenForUserNew *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
+- (MFBWebServiceSoapBindingResponse *)RefreshAuthTokenUsingParameters:(MFBWebServiceSvc_RefreshAuthToken *)aParameters ;
+- (void)RefreshAuthTokenAsyncUsingParameters:(MFBWebServiceSvc_RefreshAuthToken *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoapBindingResponse *)CreateUserUsingParameters:(MFBWebServiceSvc_CreateUser *)aParameters ;
 - (void)CreateUserAsyncUsingParameters:(MFBWebServiceSvc_CreateUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoapBindingResponse *)GetNamedQueriesForUserUsingParameters:(MFBWebServiceSvc_GetNamedQueriesForUser *)aParameters ;
@@ -3232,6 +3358,22 @@ SOAPSigner *soapSigner;
 	parameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters
 ;
 @end
+@interface MFBWebServiceSoapBinding_AuthTokenForUserNew : MFBWebServiceSoapBindingOperation {
+	MFBWebServiceSvc_AuthTokenForUserNew * parameters;
+}
+@property (nonatomic, retain) MFBWebServiceSvc_AuthTokenForUserNew * parameters;
+- (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_AuthTokenForUserNew *)aParameters
+;
+@end
+@interface MFBWebServiceSoapBinding_RefreshAuthToken : MFBWebServiceSoapBindingOperation {
+	MFBWebServiceSvc_RefreshAuthToken * parameters;
+}
+@property (nonatomic, retain) MFBWebServiceSvc_RefreshAuthToken * parameters;
+- (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_RefreshAuthToken *)aParameters
+;
+@end
 @interface MFBWebServiceSoapBinding_CreateUser : MFBWebServiceSoapBindingOperation {
 	MFBWebServiceSvc_CreateUser * parameters;
 }
@@ -3391,6 +3533,10 @@ SOAPSigner *soapSigner;
 - (void)UpdateImageAnnotationAsyncUsingParameters:(MFBWebServiceSvc_UpdateImageAnnotation *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoap12BindingResponse *)AuthTokenForUserUsingParameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters ;
 - (void)AuthTokenForUserAsyncUsingParameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
+- (MFBWebServiceSoap12BindingResponse *)AuthTokenForUserNewUsingParameters:(MFBWebServiceSvc_AuthTokenForUserNew *)aParameters ;
+- (void)AuthTokenForUserNewAsyncUsingParameters:(MFBWebServiceSvc_AuthTokenForUserNew *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
+- (MFBWebServiceSoap12BindingResponse *)RefreshAuthTokenUsingParameters:(MFBWebServiceSvc_RefreshAuthToken *)aParameters ;
+- (void)RefreshAuthTokenAsyncUsingParameters:(MFBWebServiceSvc_RefreshAuthToken *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoap12BindingResponse *)CreateUserUsingParameters:(MFBWebServiceSvc_CreateUser *)aParameters ;
 - (void)CreateUserAsyncUsingParameters:(MFBWebServiceSvc_CreateUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoap12BindingResponse *)GetNamedQueriesForUserUsingParameters:(MFBWebServiceSvc_GetNamedQueriesForUser *)aParameters ;
@@ -3628,6 +3774,22 @@ SOAPSigner *soapSigner;
 @property (nonatomic, retain) MFBWebServiceSvc_AuthTokenForUser * parameters;
 - (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)aDelegate
 	parameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters
+;
+@end
+@interface MFBWebServiceSoap12Binding_AuthTokenForUserNew : MFBWebServiceSoap12BindingOperation {
+	MFBWebServiceSvc_AuthTokenForUserNew * parameters;
+}
+@property (nonatomic, retain) MFBWebServiceSvc_AuthTokenForUserNew * parameters;
+- (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_AuthTokenForUserNew *)aParameters
+;
+@end
+@interface MFBWebServiceSoap12Binding_RefreshAuthToken : MFBWebServiceSoap12BindingOperation {
+	MFBWebServiceSvc_RefreshAuthToken * parameters;
+}
+@property (nonatomic, retain) MFBWebServiceSvc_RefreshAuthToken * parameters;
+- (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_RefreshAuthToken *)aParameters
 ;
 @end
 @interface MFBWebServiceSoap12Binding_CreateUser : MFBWebServiceSoap12BindingOperation {

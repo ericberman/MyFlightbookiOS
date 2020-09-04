@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2019 MyFlightbook, LLC
+ Copyright (C) 2009-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -627,37 +627,6 @@ static MFBAppDelegate * _mainApp = nil;
         [NSThread detachNewThreadSelector:@selector(refreshIfNeeded) toTarget:aircraft withObject:nil];
 }
 
-- (void) appReactivateBackground
-{
-    static BOOL fNeedsRefreshOnActivate;
-    _mainApp = self;
-
-    if (!fNeedsRefreshOnActivate)
-    {
-        NSLog(@"AppReactivate - 1st time, skipping refresh");
-        fNeedsRefreshOnActivate = YES;
-        return;
-    }
-    else
-        NSLog(@"appReactivate - doing a refresh if needed.");
-
-    // Can't refresh if not online or if we have no profile
-    if (self.userProfile == nil || [self.userProfile.UserName length] == 0 || ![self isOnLine])
-    {
-        NSLog(@"appReactivate - No profile or not online; aborting refresh");
-        return;
-    }
-
-    @autoreleasepool {
-        // Refresh IF we have a valid cache but need to refresh.
-        if ([self.userProfile cacheStatus:self.userProfile.UserName] != cacheValid)
-        {
-            NSLog(@"AppReactivate - Refreshing authentication...");
-            [self.userProfile GetAuthToken];
-        }
-    }
-}
-
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     _mainApp = self;
@@ -685,8 +654,9 @@ static MFBAppDelegate * _mainApp = nil;
     
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] loadFromUserDefaults];   // sync any cookies.
 
-    // below does a refresh on a background thread.
-    [NSThread detachNewThreadSelector:@selector(appReactivateBackground) toTarget:self withObject:nil];
+    // refreah authtoken if needed and if online with a valid profile 
+    if (self.userProfile != nil && self.userProfile.UserName.length > 0 && self.isOnLine)
+        [self.userProfile RefreshAuthToken];
 }
 
 - (void) applicationWillResignActive:(UIApplication *)application

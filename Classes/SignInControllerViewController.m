@@ -43,13 +43,14 @@
 @property (nonatomic, strong) NSString * szUser;
 @property (nonatomic, strong) NSString * szPass;
 @property (nonatomic, strong) IBOutlet AccessoryBar * vwAccessory;
+@property (nonatomic, strong) NSString * sz2fa;
 @end
 
 enum signinSections {sectWhySignIn, sectCredentials, sectSignIn, sectCreateAccount, sectForgotPW, sectLinks, sectAbout, sectPackAndGo, sectLast};
 enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, cidCreateAcct, cidLinksFirst, cidFAQ = cidLinksFirst, cidContact, cidSupport, cidFollowTwitter, cidFollowFB, cidLinksLast=cidFollowFB, cidOptions, cidAbout, cidPackAndGo };
 
 @implementation SignInControllerViewController
-@synthesize vwAccessory, szUser, szPass;
+@synthesize vwAccessory, szUser, szPass, sz2fa;
 
 - (instancetype)initWithStyle:(UITableViewStyle)style
 {
@@ -94,6 +95,23 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
     [self.tableView reloadData];
 }
 
+- (void) get2FA {
+    UIAlertController * alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"2FATitle", @"2fa Title") message:NSLocalizedString(@"2FAPrompt", @"2fa Prompt") preferredStyle:UIAlertControllerStyleAlert];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = NSLocalizedString(@"2FAWatermark", @"2fa Watermark");
+    }];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel (button)") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        self.sz2fa = alert.textFields[0].text;
+        [self.navigationController popViewControllerAnimated:YES];
+        [self UpdateProfile];
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
+
+}
+
 - (IBAction) UpdateProfile
 {
 	MFBAppDelegate * app = mfbApp();
@@ -108,8 +126,10 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
     [WPSAlertController presentProgressAlertWithTitle:NSLocalizedString(@"Signing in...", @"Progress: Signing In") onViewController:self];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        BOOL fresult = [app.userProfile GetAuthToken];
-        if (fresult) {
+        MFBWebServiceSvc_AuthStatus result = [app.userProfile GetAuthToken:self.sz2fa];
+        
+        // if successful, refresh flight properties.
+        if (result == MFBWebServiceSvc_AuthStatus_Success) {
             FlightProps * fp = [FlightProps new];
             [fp setCacheRetry];
             [fp loadCustomPropertyTypes];
@@ -117,8 +137,9 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self dismissViewControllerAnimated:YES completion:^{
-                if (fresult) {
+                if (result == MFBWebServiceSvc_AuthStatus_Success) {
                     MFBAppDelegate * app = mfbApp();
+                    self.sz2fa = nil;
                     
                     [app ensureWarningShownForUser];
                     [app.userProfile SavePrefs];
@@ -127,6 +148,8 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
                     [[Aircraft sharedAircraft] refreshIfNeeded];
                     
                     [app DefaultPage];
+                } else if (result == MFBWebServiceSvc_AuthStatus_TwoFactorCodeRequired) {
+                    [self get2FA];
                 }
                 else
                     [self showError:app.userProfile.ErrorString];

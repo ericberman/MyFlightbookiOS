@@ -24168,6 +24168,1100 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	[pool drain];
 }
 @end
+@implementation MFBWebServiceSvc_AuthTokenForUserNew
+@synthesize soapSigner;
+- (id)init
+{
+	if((self = [super init])) {
+		szAppToken = 0;
+		szUser = 0;
+		szPass = 0;
+		sz2FactorAuth = 0;
+	}
+	
+	return self;
+}
+- (void)dealloc
+{
+	[soapSigner release];
+	if(szAppToken != nil) [szAppToken release];
+	if(szUser != nil) [szUser release];
+	if(szPass != nil) [szPass release];
+	if(sz2FactorAuth != nil) [sz2FactorAuth release];
+	
+	[super dealloc];
+}
+- (NSString *)nsPrefix
+{
+	return @"MFBWebServiceSvc";
+}
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
+{
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"MFBWebServiceSvc", elName];
+	}
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
+	
+	[self addAttributesToNode:node];
+	
+	[self addElementsToNode:node];
+	
+	return node;
+}
+- (void)addAttributesToNode:(xmlNodePtr)node
+{
+	
+}
+- (void)addElementsToNode:(xmlNodePtr)node
+{
+	
+	if(((void *)self.szAppToken) != 0) {
+		xmlAddChild(node, [self.szAppToken xmlNodeForDoc:node->doc elementName:@"szAppToken" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
+	if(((void *)self.szUser) != 0) {
+		xmlAddChild(node, [self.szUser xmlNodeForDoc:node->doc elementName:@"szUser" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
+	if(((void *)self.szPass) != 0) {
+		xmlAddChild(node, [self.szPass xmlNodeForDoc:node->doc elementName:@"szPass" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
+	if(((void *)self.sz2FactorAuth) != 0) {
+		xmlAddChild(node, [self.sz2FactorAuth xmlNodeForDoc:node->doc elementName:@"sz2FactorAuth" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
+}
+/* elements */
+@synthesize szAppToken;
+@synthesize szUser;
+@synthesize szPass;
+@synthesize sz2FactorAuth;
+/* attributes */
+- (NSDictionary *)attributes
+{
+	NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+	
+	return attributes;
+}
++ (MFBWebServiceSvc_AuthTokenForUserNew *)deserializeNode:(xmlNodePtr)cur
+{
+	MFBWebServiceSvc_AuthTokenForUserNew *newObject = [[MFBWebServiceSvc_AuthTokenForUserNew new] autorelease];
+	
+	[newObject deserializeAttributesFromNode:cur];
+	[newObject deserializeElementsFromNode:cur];
+	
+	return newObject;
+}
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur
+{
+}
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur
+{
+	
+	
+	for( cur = cur->children ; cur != NULL ; cur = cur->next ) {
+		if(cur->type == XML_ELEMENT_NODE) {
+			xmlChar *elementText = xmlNodeListGetString(cur->doc, cur->children, 1);
+			NSString *elementString = nil;
+			
+			if(elementText != NULL) {
+				elementString = [NSString stringWithCString:(char*)elementText encoding:NSUTF8StringEncoding];
+				[elementString self]; // avoid compiler warning for unused var
+				xmlFree(elementText);
+			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "szAppToken")) {
+				
+				Class elementClass = nil;
+				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if(instanceType == NULL) {
+					elementClass = [NSString class];
+				} else {
+					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
+					
+					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
+					
+					NSString *elementClassString = nil;
+					if([elementTypeArray count] > 1) {
+						NSString *prefix = [elementTypeArray objectAtIndex:0];
+						NSString *localName = [elementTypeArray objectAtIndex:1];
+						
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
+						
+						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
+						
+						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
+					} else {
+						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
+					}
+					
+					elementClass = NSClassFromString(elementClassString);
+					xmlFree(instanceType);
+				}
+				
+				id newChild = [elementClass deserializeNode:cur];
+				
+				self.szAppToken = newChild;
+			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "szUser")) {
+				
+				Class elementClass = nil;
+				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if(instanceType == NULL) {
+					elementClass = [NSString class];
+				} else {
+					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
+					
+					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
+					
+					NSString *elementClassString = nil;
+					if([elementTypeArray count] > 1) {
+						NSString *prefix = [elementTypeArray objectAtIndex:0];
+						NSString *localName = [elementTypeArray objectAtIndex:1];
+						
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
+						
+						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
+						
+						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
+					} else {
+						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
+					}
+					
+					elementClass = NSClassFromString(elementClassString);
+					xmlFree(instanceType);
+				}
+				
+				id newChild = [elementClass deserializeNode:cur];
+				
+				self.szUser = newChild;
+			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "szPass")) {
+				
+				Class elementClass = nil;
+				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if(instanceType == NULL) {
+					elementClass = [NSString class];
+				} else {
+					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
+					
+					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
+					
+					NSString *elementClassString = nil;
+					if([elementTypeArray count] > 1) {
+						NSString *prefix = [elementTypeArray objectAtIndex:0];
+						NSString *localName = [elementTypeArray objectAtIndex:1];
+						
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
+						
+						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
+						
+						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
+					} else {
+						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
+					}
+					
+					elementClass = NSClassFromString(elementClassString);
+					xmlFree(instanceType);
+				}
+				
+				id newChild = [elementClass deserializeNode:cur];
+				
+				self.szPass = newChild;
+			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "sz2FactorAuth")) {
+				
+				Class elementClass = nil;
+				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if(instanceType == NULL) {
+					elementClass = [NSString class];
+				} else {
+					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
+					
+					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
+					
+					NSString *elementClassString = nil;
+					if([elementTypeArray count] > 1) {
+						NSString *prefix = [elementTypeArray objectAtIndex:0];
+						NSString *localName = [elementTypeArray objectAtIndex:1];
+						
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
+						
+						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
+						
+						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
+					} else {
+						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
+					}
+					
+					elementClass = NSClassFromString(elementClassString);
+					xmlFree(instanceType);
+				}
+				
+				id newChild = [elementClass deserializeNode:cur];
+				
+				self.sz2FactorAuth = newChild;
+			}
+		}
+	}
+}
+/* NSCoder functions taken from: 
+ * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
+ */
+- (id) initWithCoder:(NSCoder *)decoder {
+	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
+	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
+	self = [super init];
+	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
+		[super performSelector:@selector(initWithCoder:) withObject:decoder];
+	if (self == nil) { return nil; }
+ 
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	unsigned int numIvars = 0;
+	Ivar * ivars = class_copyIvarList([self class], &numIvars);
+	for(int i = 0; i < numIvars; i++) {
+		Ivar thisIvar = ivars[i];
+		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+		id value = [decoder decodeObjectForKey:key];
+		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+		[self setValue:value forKey:key];
+	}
+	if (numIvars > 0) { free(ivars); }
+	[pool drain];
+	return self;
+}
+- (void) encodeWithCoder:(NSCoder *)encoder {
+	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
+		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
+	}
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	unsigned int numIvars = 0;
+	Ivar * ivars = class_copyIvarList([self class], &numIvars);
+	for (int i = 0; i < numIvars; i++) {
+		Ivar thisIvar = ivars[i];
+		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+		id value = [self valueForKey:key];
+		[encoder encodeObject:value forKey:key];
+	}
+	if (numIvars > 0) { free(ivars); }
+	[pool drain];
+}
+@end
+MFBWebServiceSvc_AuthStatus MFBWebServiceSvc_AuthStatus_enumFromString(NSString *string)
+{
+	if([string isEqualToString:@"Failed"]) {
+		return MFBWebServiceSvc_AuthStatus_Failed;
+	}
+	if([string isEqualToString:@"TwoFactorCodeRequired"]) {
+		return MFBWebServiceSvc_AuthStatus_TwoFactorCodeRequired;
+	}
+	if([string isEqualToString:@"Success"]) {
+		return MFBWebServiceSvc_AuthStatus_Success;
+	}
+	
+	return MFBWebServiceSvc_AuthStatus_none;
+}
+NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatus enumValue)
+{
+	switch (enumValue) {
+		case MFBWebServiceSvc_AuthStatus_Failed:
+			return @"Failed";
+			break;
+		case MFBWebServiceSvc_AuthStatus_TwoFactorCodeRequired:
+			return @"TwoFactorCodeRequired";
+			break;
+		case MFBWebServiceSvc_AuthStatus_Success:
+			return @"Success";
+			break;
+		default:
+			return @"";
+	}
+}
+@implementation MFBWebServiceSvc_AuthResult
+@synthesize soapSigner;
+- (id)init
+{
+	if((self = [super init])) {
+		Result = 0;
+		AuthToken = 0;
+	}
+	
+	return self;
+}
+- (void)dealloc
+{
+	[soapSigner release];
+	if(AuthToken != nil) [AuthToken release];
+	
+	[super dealloc];
+}
+- (NSString *)nsPrefix
+{
+	return @"MFBWebServiceSvc";
+}
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
+{
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"MFBWebServiceSvc", elName];
+	}
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
+	
+	[self addAttributesToNode:node];
+	
+	[self addElementsToNode:node];
+	
+	return node;
+}
+- (void)addAttributesToNode:(xmlNodePtr)node
+{
+	
+}
+- (void)addElementsToNode:(xmlNodePtr)node
+{
+	
+	if(((void *)self.Result) != 0) {
+		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:Result", [MFBWebServiceSvc_AuthStatus_stringFromEnum(self.Result) xmlString]);
+	}
+	if(((void *)self.AuthToken) != 0) {
+		xmlAddChild(node, [self.AuthToken xmlNodeForDoc:node->doc elementName:@"AuthToken" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
+}
+/* elements */
+@synthesize Result;
+@synthesize AuthToken;
+/* attributes */
+- (NSDictionary *)attributes
+{
+	NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+	
+	return attributes;
+}
++ (MFBWebServiceSvc_AuthResult *)deserializeNode:(xmlNodePtr)cur
+{
+	MFBWebServiceSvc_AuthResult *newObject = [[MFBWebServiceSvc_AuthResult new] autorelease];
+	
+	[newObject deserializeAttributesFromNode:cur];
+	[newObject deserializeElementsFromNode:cur];
+	
+	return newObject;
+}
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur
+{
+}
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur
+{
+	
+	
+	for( cur = cur->children ; cur != NULL ; cur = cur->next ) {
+		if(cur->type == XML_ELEMENT_NODE) {
+			xmlChar *elementText = xmlNodeListGetString(cur->doc, cur->children, 1);
+			NSString *elementString = nil;
+			
+			if(elementText != NULL) {
+				elementString = [NSString stringWithCString:(char*)elementText encoding:NSUTF8StringEncoding];
+				[elementString self]; // avoid compiler warning for unused var
+				xmlFree(elementText);
+			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "Result")) {
+				
+				MFBWebServiceSvc_AuthStatus enumRepresentation = MFBWebServiceSvc_AuthStatus_enumFromString(elementString);
+				self.Result = enumRepresentation;
+			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "AuthToken")) {
+				
+				Class elementClass = nil;
+				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if(instanceType == NULL) {
+					elementClass = [NSString class];
+				} else {
+					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
+					
+					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
+					
+					NSString *elementClassString = nil;
+					if([elementTypeArray count] > 1) {
+						NSString *prefix = [elementTypeArray objectAtIndex:0];
+						NSString *localName = [elementTypeArray objectAtIndex:1];
+						
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
+						
+						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
+						
+						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
+					} else {
+						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
+					}
+					
+					elementClass = NSClassFromString(elementClassString);
+					xmlFree(instanceType);
+				}
+				
+				id newChild = [elementClass deserializeNode:cur];
+				
+				self.AuthToken = newChild;
+			}
+		}
+	}
+}
+/* NSCoder functions taken from: 
+ * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
+ */
+- (id) initWithCoder:(NSCoder *)decoder {
+	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
+	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
+	self = [super init];
+	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
+		[super performSelector:@selector(initWithCoder:) withObject:decoder];
+	if (self == nil) { return nil; }
+ 
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	unsigned int numIvars = 0;
+	Ivar * ivars = class_copyIvarList([self class], &numIvars);
+	for(int i = 0; i < numIvars; i++) {
+		Ivar thisIvar = ivars[i];
+		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+		id value = [decoder decodeObjectForKey:key];
+		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+		[self setValue:value forKey:key];
+	}
+	if (numIvars > 0) { free(ivars); }
+	[pool drain];
+	return self;
+}
+- (void) encodeWithCoder:(NSCoder *)encoder {
+	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
+		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
+	}
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	unsigned int numIvars = 0;
+	Ivar * ivars = class_copyIvarList([self class], &numIvars);
+	for (int i = 0; i < numIvars; i++) {
+		Ivar thisIvar = ivars[i];
+		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+		id value = [self valueForKey:key];
+		[encoder encodeObject:value forKey:key];
+	}
+	if (numIvars > 0) { free(ivars); }
+	[pool drain];
+}
+@end
+@implementation MFBWebServiceSvc_AuthTokenForUserNewResponse
+@synthesize soapSigner;
+- (id)init
+{
+	if((self = [super init])) {
+		AuthTokenForUserNewResult = 0;
+	}
+	
+	return self;
+}
+- (void)dealloc
+{
+	[soapSigner release];
+	if(AuthTokenForUserNewResult != nil) [AuthTokenForUserNewResult release];
+	
+	[super dealloc];
+}
+- (NSString *)nsPrefix
+{
+	return @"MFBWebServiceSvc";
+}
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
+{
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"MFBWebServiceSvc", elName];
+	}
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
+	
+	[self addAttributesToNode:node];
+	
+	[self addElementsToNode:node];
+	
+	return node;
+}
+- (void)addAttributesToNode:(xmlNodePtr)node
+{
+	
+}
+- (void)addElementsToNode:(xmlNodePtr)node
+{
+	
+	if(((void *)self.AuthTokenForUserNewResult) != 0) {
+		xmlAddChild(node, [self.AuthTokenForUserNewResult xmlNodeForDoc:node->doc elementName:@"AuthTokenForUserNewResult" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
+}
+/* elements */
+@synthesize AuthTokenForUserNewResult;
+/* attributes */
+- (NSDictionary *)attributes
+{
+	NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+	
+	return attributes;
+}
++ (MFBWebServiceSvc_AuthTokenForUserNewResponse *)deserializeNode:(xmlNodePtr)cur
+{
+	MFBWebServiceSvc_AuthTokenForUserNewResponse *newObject = [[MFBWebServiceSvc_AuthTokenForUserNewResponse new] autorelease];
+	
+	[newObject deserializeAttributesFromNode:cur];
+	[newObject deserializeElementsFromNode:cur];
+	
+	return newObject;
+}
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur
+{
+}
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur
+{
+	
+	
+	for( cur = cur->children ; cur != NULL ; cur = cur->next ) {
+		if(cur->type == XML_ELEMENT_NODE) {
+			xmlChar *elementText = xmlNodeListGetString(cur->doc, cur->children, 1);
+			NSString *elementString = nil;
+			
+			if(elementText != NULL) {
+				elementString = [NSString stringWithCString:(char*)elementText encoding:NSUTF8StringEncoding];
+				[elementString self]; // avoid compiler warning for unused var
+				xmlFree(elementText);
+			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "AuthTokenForUserNewResult")) {
+				
+				Class elementClass = nil;
+				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if(instanceType == NULL) {
+					elementClass = [MFBWebServiceSvc_AuthResult class];
+				} else {
+					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
+					
+					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
+					
+					NSString *elementClassString = nil;
+					if([elementTypeArray count] > 1) {
+						NSString *prefix = [elementTypeArray objectAtIndex:0];
+						NSString *localName = [elementTypeArray objectAtIndex:1];
+						
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
+						
+						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
+						
+						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
+					} else {
+						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
+					}
+					
+					elementClass = NSClassFromString(elementClassString);
+					xmlFree(instanceType);
+				}
+				
+				id newChild = [elementClass deserializeNode:cur];
+				
+				self.AuthTokenForUserNewResult = newChild;
+			}
+		}
+	}
+}
+/* NSCoder functions taken from: 
+ * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
+ */
+- (id) initWithCoder:(NSCoder *)decoder {
+	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
+	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
+	self = [super init];
+	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
+		[super performSelector:@selector(initWithCoder:) withObject:decoder];
+	if (self == nil) { return nil; }
+ 
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	unsigned int numIvars = 0;
+	Ivar * ivars = class_copyIvarList([self class], &numIvars);
+	for(int i = 0; i < numIvars; i++) {
+		Ivar thisIvar = ivars[i];
+		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+		id value = [decoder decodeObjectForKey:key];
+		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+		[self setValue:value forKey:key];
+	}
+	if (numIvars > 0) { free(ivars); }
+	[pool drain];
+	return self;
+}
+- (void) encodeWithCoder:(NSCoder *)encoder {
+	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
+		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
+	}
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	unsigned int numIvars = 0;
+	Ivar * ivars = class_copyIvarList([self class], &numIvars);
+	for (int i = 0; i < numIvars; i++) {
+		Ivar thisIvar = ivars[i];
+		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+		id value = [self valueForKey:key];
+		[encoder encodeObject:value forKey:key];
+	}
+	if (numIvars > 0) { free(ivars); }
+	[pool drain];
+}
+@end
+@implementation MFBWebServiceSvc_RefreshAuthToken
+@synthesize soapSigner;
+- (id)init
+{
+	if((self = [super init])) {
+		szAppToken = 0;
+		szUser = 0;
+		szPass = 0;
+		szPreviousToken = 0;
+	}
+	
+	return self;
+}
+- (void)dealloc
+{
+	[soapSigner release];
+	if(szAppToken != nil) [szAppToken release];
+	if(szUser != nil) [szUser release];
+	if(szPass != nil) [szPass release];
+	if(szPreviousToken != nil) [szPreviousToken release];
+	
+	[super dealloc];
+}
+- (NSString *)nsPrefix
+{
+	return @"MFBWebServiceSvc";
+}
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
+{
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"MFBWebServiceSvc", elName];
+	}
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
+	
+	[self addAttributesToNode:node];
+	
+	[self addElementsToNode:node];
+	
+	return node;
+}
+- (void)addAttributesToNode:(xmlNodePtr)node
+{
+	
+}
+- (void)addElementsToNode:(xmlNodePtr)node
+{
+	
+	if(((void *)self.szAppToken) != 0) {
+		xmlAddChild(node, [self.szAppToken xmlNodeForDoc:node->doc elementName:@"szAppToken" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
+	if(((void *)self.szUser) != 0) {
+		xmlAddChild(node, [self.szUser xmlNodeForDoc:node->doc elementName:@"szUser" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
+	if(((void *)self.szPass) != 0) {
+		xmlAddChild(node, [self.szPass xmlNodeForDoc:node->doc elementName:@"szPass" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
+	if(((void *)self.szPreviousToken) != 0) {
+		xmlAddChild(node, [self.szPreviousToken xmlNodeForDoc:node->doc elementName:@"szPreviousToken" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
+}
+/* elements */
+@synthesize szAppToken;
+@synthesize szUser;
+@synthesize szPass;
+@synthesize szPreviousToken;
+/* attributes */
+- (NSDictionary *)attributes
+{
+	NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+	
+	return attributes;
+}
++ (MFBWebServiceSvc_RefreshAuthToken *)deserializeNode:(xmlNodePtr)cur
+{
+	MFBWebServiceSvc_RefreshAuthToken *newObject = [[MFBWebServiceSvc_RefreshAuthToken new] autorelease];
+	
+	[newObject deserializeAttributesFromNode:cur];
+	[newObject deserializeElementsFromNode:cur];
+	
+	return newObject;
+}
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur
+{
+}
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur
+{
+	
+	
+	for( cur = cur->children ; cur != NULL ; cur = cur->next ) {
+		if(cur->type == XML_ELEMENT_NODE) {
+			xmlChar *elementText = xmlNodeListGetString(cur->doc, cur->children, 1);
+			NSString *elementString = nil;
+			
+			if(elementText != NULL) {
+				elementString = [NSString stringWithCString:(char*)elementText encoding:NSUTF8StringEncoding];
+				[elementString self]; // avoid compiler warning for unused var
+				xmlFree(elementText);
+			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "szAppToken")) {
+				
+				Class elementClass = nil;
+				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if(instanceType == NULL) {
+					elementClass = [NSString class];
+				} else {
+					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
+					
+					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
+					
+					NSString *elementClassString = nil;
+					if([elementTypeArray count] > 1) {
+						NSString *prefix = [elementTypeArray objectAtIndex:0];
+						NSString *localName = [elementTypeArray objectAtIndex:1];
+						
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
+						
+						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
+						
+						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
+					} else {
+						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
+					}
+					
+					elementClass = NSClassFromString(elementClassString);
+					xmlFree(instanceType);
+				}
+				
+				id newChild = [elementClass deserializeNode:cur];
+				
+				self.szAppToken = newChild;
+			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "szUser")) {
+				
+				Class elementClass = nil;
+				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if(instanceType == NULL) {
+					elementClass = [NSString class];
+				} else {
+					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
+					
+					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
+					
+					NSString *elementClassString = nil;
+					if([elementTypeArray count] > 1) {
+						NSString *prefix = [elementTypeArray objectAtIndex:0];
+						NSString *localName = [elementTypeArray objectAtIndex:1];
+						
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
+						
+						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
+						
+						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
+					} else {
+						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
+					}
+					
+					elementClass = NSClassFromString(elementClassString);
+					xmlFree(instanceType);
+				}
+				
+				id newChild = [elementClass deserializeNode:cur];
+				
+				self.szUser = newChild;
+			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "szPass")) {
+				
+				Class elementClass = nil;
+				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if(instanceType == NULL) {
+					elementClass = [NSString class];
+				} else {
+					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
+					
+					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
+					
+					NSString *elementClassString = nil;
+					if([elementTypeArray count] > 1) {
+						NSString *prefix = [elementTypeArray objectAtIndex:0];
+						NSString *localName = [elementTypeArray objectAtIndex:1];
+						
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
+						
+						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
+						
+						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
+					} else {
+						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
+					}
+					
+					elementClass = NSClassFromString(elementClassString);
+					xmlFree(instanceType);
+				}
+				
+				id newChild = [elementClass deserializeNode:cur];
+				
+				self.szPass = newChild;
+			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "szPreviousToken")) {
+				
+				Class elementClass = nil;
+				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if(instanceType == NULL) {
+					elementClass = [NSString class];
+				} else {
+					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
+					
+					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
+					
+					NSString *elementClassString = nil;
+					if([elementTypeArray count] > 1) {
+						NSString *prefix = [elementTypeArray objectAtIndex:0];
+						NSString *localName = [elementTypeArray objectAtIndex:1];
+						
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
+						
+						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
+						
+						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
+					} else {
+						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
+					}
+					
+					elementClass = NSClassFromString(elementClassString);
+					xmlFree(instanceType);
+				}
+				
+				id newChild = [elementClass deserializeNode:cur];
+				
+				self.szPreviousToken = newChild;
+			}
+		}
+	}
+}
+/* NSCoder functions taken from: 
+ * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
+ */
+- (id) initWithCoder:(NSCoder *)decoder {
+	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
+	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
+	self = [super init];
+	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
+		[super performSelector:@selector(initWithCoder:) withObject:decoder];
+	if (self == nil) { return nil; }
+ 
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	unsigned int numIvars = 0;
+	Ivar * ivars = class_copyIvarList([self class], &numIvars);
+	for(int i = 0; i < numIvars; i++) {
+		Ivar thisIvar = ivars[i];
+		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+		id value = [decoder decodeObjectForKey:key];
+		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+		[self setValue:value forKey:key];
+	}
+	if (numIvars > 0) { free(ivars); }
+	[pool drain];
+	return self;
+}
+- (void) encodeWithCoder:(NSCoder *)encoder {
+	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
+		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
+	}
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	unsigned int numIvars = 0;
+	Ivar * ivars = class_copyIvarList([self class], &numIvars);
+	for (int i = 0; i < numIvars; i++) {
+		Ivar thisIvar = ivars[i];
+		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+		id value = [self valueForKey:key];
+		[encoder encodeObject:value forKey:key];
+	}
+	if (numIvars > 0) { free(ivars); }
+	[pool drain];
+}
+@end
+@implementation MFBWebServiceSvc_RefreshAuthTokenResponse
+@synthesize soapSigner;
+- (id)init
+{
+	if((self = [super init])) {
+		RefreshAuthTokenResult = 0;
+	}
+	
+	return self;
+}
+- (void)dealloc
+{
+	[soapSigner release];
+	if(RefreshAuthTokenResult != nil) [RefreshAuthTokenResult release];
+	
+	[super dealloc];
+}
+- (NSString *)nsPrefix
+{
+	return @"MFBWebServiceSvc";
+}
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
+{
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"MFBWebServiceSvc", elName];
+	}
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
+	
+	[self addAttributesToNode:node];
+	
+	[self addElementsToNode:node];
+	
+	return node;
+}
+- (void)addAttributesToNode:(xmlNodePtr)node
+{
+	
+}
+- (void)addElementsToNode:(xmlNodePtr)node
+{
+	
+	if(((void *)self.RefreshAuthTokenResult) != 0) {
+		xmlAddChild(node, [self.RefreshAuthTokenResult xmlNodeForDoc:node->doc elementName:@"RefreshAuthTokenResult" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
+}
+/* elements */
+@synthesize RefreshAuthTokenResult;
+/* attributes */
+- (NSDictionary *)attributes
+{
+	NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+	
+	return attributes;
+}
++ (MFBWebServiceSvc_RefreshAuthTokenResponse *)deserializeNode:(xmlNodePtr)cur
+{
+	MFBWebServiceSvc_RefreshAuthTokenResponse *newObject = [[MFBWebServiceSvc_RefreshAuthTokenResponse new] autorelease];
+	
+	[newObject deserializeAttributesFromNode:cur];
+	[newObject deserializeElementsFromNode:cur];
+	
+	return newObject;
+}
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur
+{
+}
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur
+{
+	
+	
+	for( cur = cur->children ; cur != NULL ; cur = cur->next ) {
+		if(cur->type == XML_ELEMENT_NODE) {
+			xmlChar *elementText = xmlNodeListGetString(cur->doc, cur->children, 1);
+			NSString *elementString = nil;
+			
+			if(elementText != NULL) {
+				elementString = [NSString stringWithCString:(char*)elementText encoding:NSUTF8StringEncoding];
+				[elementString self]; // avoid compiler warning for unused var
+				xmlFree(elementText);
+			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "RefreshAuthTokenResult")) {
+				
+				Class elementClass = nil;
+				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if(instanceType == NULL) {
+					elementClass = [NSString class];
+				} else {
+					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
+					
+					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
+					
+					NSString *elementClassString = nil;
+					if([elementTypeArray count] > 1) {
+						NSString *prefix = [elementTypeArray objectAtIndex:0];
+						NSString *localName = [elementTypeArray objectAtIndex:1];
+						
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
+						
+						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
+						
+						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
+					} else {
+						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
+					}
+					
+					elementClass = NSClassFromString(elementClassString);
+					xmlFree(instanceType);
+				}
+				
+				id newChild = [elementClass deserializeNode:cur];
+				
+				self.RefreshAuthTokenResult = newChild;
+			}
+		}
+	}
+}
+/* NSCoder functions taken from: 
+ * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
+ */
+- (id) initWithCoder:(NSCoder *)decoder {
+	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
+	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
+	self = [super init];
+	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
+		[super performSelector:@selector(initWithCoder:) withObject:decoder];
+	if (self == nil) { return nil; }
+ 
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	unsigned int numIvars = 0;
+	Ivar * ivars = class_copyIvarList([self class], &numIvars);
+	for(int i = 0; i < numIvars; i++) {
+		Ivar thisIvar = ivars[i];
+		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+		id value = [decoder decodeObjectForKey:key];
+		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+		[self setValue:value forKey:key];
+	}
+	if (numIvars > 0) { free(ivars); }
+	[pool drain];
+	return self;
+}
+- (void) encodeWithCoder:(NSCoder *)encoder {
+	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
+		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
+	}
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	unsigned int numIvars = 0;
+	Ivar * ivars = class_copyIvarList([self class], &numIvars);
+	for (int i = 0; i < numIvars; i++) {
+		Ivar thisIvar = ivars[i];
+		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+		id value = [self valueForKey:key];
+		[encoder encodeObject:value forKey:key];
+	}
+	if (numIvars > 0) { free(ivars); }
+	[pool drain];
+}
+@end
 @implementation MFBWebServiceSvc_CreateUser
 @synthesize soapSigner;
 - (id)init
@@ -27868,11 +28962,11 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSoapBinding *)MFBWebServiceSoapBinding
 {
-	return [[[MFBWebServiceSoapBinding alloc] initWithAddress:@"https://myflightbook.com/logbook/public/webservice.asmx"] autorelease];
+	return [[[MFBWebServiceSoapBinding alloc] initWithAddress:@"https://myflightbook.com/logbook/Public/webservice.asmx"] autorelease];
 }
 + (MFBWebServiceSoap12Binding *)MFBWebServiceSoap12Binding
 {
-	return [[[MFBWebServiceSoap12Binding alloc] initWithAddress:@"https://myflightbook.com/logbook/public/webservice.asmx"] autorelease];
+	return [[[MFBWebServiceSoap12Binding alloc] initWithAddress:@"https://myflightbook.com/logbook/Public/webservice.asmx"] autorelease];
 }
 @end
 @implementation MFBWebServiceSoapBinding
@@ -28248,6 +29342,30 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 - (void)AuthTokenForUserAsyncUsingParameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_AuthTokenForUser*)[MFBWebServiceSoapBinding_AuthTokenForUser alloc] initWithBinding:self delegate:responseDelegate
+																							 parameters:aParameters
+																							 ] autorelease]];
+}
+- (MFBWebServiceSoapBindingResponse *)AuthTokenForUserNewUsingParameters:(MFBWebServiceSvc_AuthTokenForUserNew *)aParameters 
+{
+	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_AuthTokenForUserNew*)[MFBWebServiceSoapBinding_AuthTokenForUserNew alloc] initWithBinding:self delegate:self
+																							parameters:aParameters
+																							] autorelease]];
+}
+- (void)AuthTokenForUserNewAsyncUsingParameters:(MFBWebServiceSvc_AuthTokenForUserNew *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
+{
+	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_AuthTokenForUserNew*)[MFBWebServiceSoapBinding_AuthTokenForUserNew alloc] initWithBinding:self delegate:responseDelegate
+																							 parameters:aParameters
+																							 ] autorelease]];
+}
+- (MFBWebServiceSoapBindingResponse *)RefreshAuthTokenUsingParameters:(MFBWebServiceSvc_RefreshAuthToken *)aParameters 
+{
+	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_RefreshAuthToken*)[MFBWebServiceSoapBinding_RefreshAuthToken alloc] initWithBinding:self delegate:self
+																							parameters:aParameters
+																							] autorelease]];
+}
+- (void)RefreshAuthTokenAsyncUsingParameters:(MFBWebServiceSvc_RefreshAuthToken *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
+{
+	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_RefreshAuthToken*)[MFBWebServiceSoapBinding_RefreshAuthToken alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ] autorelease]];
 }
@@ -31266,6 +32384,220 @@ parameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters
 	}
 }
 @end
+@implementation MFBWebServiceSoapBinding_AuthTokenForUserNew
+@synthesize parameters;
+- (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
+parameters:(MFBWebServiceSvc_AuthTokenForUserNew *)aParameters
+{
+	if((self = [super initWithBinding:aBinding delegate:responseDelegate])) {
+		self.parameters = aParameters;
+	}
+	
+	return self;
+}
+- (void)dealloc
+{
+	if(parameters != nil) [parameters release];
+	
+	[super dealloc];
+}
+- (void)main
+{
+	[response autorelease];
+	response = [MFBWebServiceSoapBindingResponse new];
+	
+	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
+	
+	NSMutableDictionary *headerElements = nil;
+	headerElements = [NSMutableDictionary dictionary];
+	
+	NSMutableDictionary *bodyElements = nil;
+	NSMutableArray *bodyKeys = nil;
+	bodyElements = [NSMutableDictionary dictionary];
+	bodyKeys = [NSMutableArray array];
+	id obj = nil;
+	if(parameters != nil) obj = parameters;
+	if(obj != nil) {
+		[bodyElements setObject:obj forKey:@"AuthTokenForUserNew"];
+		[bodyKeys addObject:@"AuthTokenForUserNew"];
+	}
+	
+	NSString *operationXMLString = [envelope serializedFormUsingHeaderElements:headerElements bodyElements:bodyElements bodyKeys:bodyKeys];
+	operationXMLString = binding.soapSigner ? [binding.soapSigner signRequest:operationXMLString] : operationXMLString;
+	
+	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/AuthTokenForUserNew" forOperation:self];
+}
+- (void)connectionDidFinishLoading
+{
+	if (responseData != nil && delegate != nil)
+	{
+		xmlDocPtr doc;
+		xmlNodePtr cur;
+		
+		if (binding.logXMLInOut) {
+			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+		}
+		
+#if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
+	// Not yet defined in 10.5 libxml
+	#define XML_PARSE_COMPACT 0
+#endif
+    // EricBe: Put explicit conversion since [responseData length] is NSInteger but xmlReadMemory wants int.
+	doc = xmlReadMemory([responseData bytes], (int) [responseData length], NULL, NULL, XML_PARSE_COMPACT | XML_PARSE_NOBLANKS);
+		
+		if (doc == NULL) {
+			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Errors while parsing returned XML" forKey:NSLocalizedDescriptionKey];
+			
+			response.error = [NSError errorWithDomain:@"MFBWebServiceSoapBindingResponseXML" code:1 userInfo:userInfo];
+			[delegate operation:self completedWithResponse:response];
+		} else {
+			cur = xmlDocGetRootElement(doc);
+			cur = cur->children;
+			
+			for( ; cur != NULL ; cur = cur->next) {
+				if(cur->type == XML_ELEMENT_NODE) {
+					
+					if(xmlStrEqual(cur->name, (const xmlChar *) "Body")) {
+						NSMutableArray *responseBodyParts = [NSMutableArray array];
+						
+						xmlNodePtr bodyNode;
+						for(bodyNode=cur->children ; bodyNode != NULL ; bodyNode = bodyNode->next) {
+							if(cur->type == XML_ELEMENT_NODE) {
+								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "AuthTokenForUserNewResponse")) {
+									MFBWebServiceSvc_AuthTokenForUserNewResponse *bodyObject = [MFBWebServiceSvc_AuthTokenForUserNewResponse deserializeNode:bodyNode];
+									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
+									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
+								}
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
+									NSDictionary *exceptions = [NSDictionary dictionary];
+									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
+									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
+									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
+								}
+							}
+						}
+						
+						response.bodyParts = responseBodyParts;
+					}
+				}
+			}
+			
+			xmlFreeDoc(doc);
+		}
+		
+		xmlCleanupParser();
+		[delegate operation:self completedWithResponse:response];
+	}
+}
+@end
+@implementation MFBWebServiceSoapBinding_RefreshAuthToken
+@synthesize parameters;
+- (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
+parameters:(MFBWebServiceSvc_RefreshAuthToken *)aParameters
+{
+	if((self = [super initWithBinding:aBinding delegate:responseDelegate])) {
+		self.parameters = aParameters;
+	}
+	
+	return self;
+}
+- (void)dealloc
+{
+	if(parameters != nil) [parameters release];
+	
+	[super dealloc];
+}
+- (void)main
+{
+	[response autorelease];
+	response = [MFBWebServiceSoapBindingResponse new];
+	
+	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
+	
+	NSMutableDictionary *headerElements = nil;
+	headerElements = [NSMutableDictionary dictionary];
+	
+	NSMutableDictionary *bodyElements = nil;
+	NSMutableArray *bodyKeys = nil;
+	bodyElements = [NSMutableDictionary dictionary];
+	bodyKeys = [NSMutableArray array];
+	id obj = nil;
+	if(parameters != nil) obj = parameters;
+	if(obj != nil) {
+		[bodyElements setObject:obj forKey:@"RefreshAuthToken"];
+		[bodyKeys addObject:@"RefreshAuthToken"];
+	}
+	
+	NSString *operationXMLString = [envelope serializedFormUsingHeaderElements:headerElements bodyElements:bodyElements bodyKeys:bodyKeys];
+	operationXMLString = binding.soapSigner ? [binding.soapSigner signRequest:operationXMLString] : operationXMLString;
+	
+	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/RefreshAuthToken" forOperation:self];
+}
+- (void)connectionDidFinishLoading
+{
+	if (responseData != nil && delegate != nil)
+	{
+		xmlDocPtr doc;
+		xmlNodePtr cur;
+		
+		if (binding.logXMLInOut) {
+			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+		}
+		
+#if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
+	// Not yet defined in 10.5 libxml
+	#define XML_PARSE_COMPACT 0
+#endif
+    // EricBe: Put explicit conversion since [responseData length] is NSInteger but xmlReadMemory wants int.
+	doc = xmlReadMemory([responseData bytes], (int) [responseData length], NULL, NULL, XML_PARSE_COMPACT | XML_PARSE_NOBLANKS);
+		
+		if (doc == NULL) {
+			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Errors while parsing returned XML" forKey:NSLocalizedDescriptionKey];
+			
+			response.error = [NSError errorWithDomain:@"MFBWebServiceSoapBindingResponseXML" code:1 userInfo:userInfo];
+			[delegate operation:self completedWithResponse:response];
+		} else {
+			cur = xmlDocGetRootElement(doc);
+			cur = cur->children;
+			
+			for( ; cur != NULL ; cur = cur->next) {
+				if(cur->type == XML_ELEMENT_NODE) {
+					
+					if(xmlStrEqual(cur->name, (const xmlChar *) "Body")) {
+						NSMutableArray *responseBodyParts = [NSMutableArray array];
+						
+						xmlNodePtr bodyNode;
+						for(bodyNode=cur->children ; bodyNode != NULL ; bodyNode = bodyNode->next) {
+							if(cur->type == XML_ELEMENT_NODE) {
+								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "RefreshAuthTokenResponse")) {
+									MFBWebServiceSvc_RefreshAuthTokenResponse *bodyObject = [MFBWebServiceSvc_RefreshAuthTokenResponse deserializeNode:bodyNode];
+									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
+									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
+								}
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
+									NSDictionary *exceptions = [NSDictionary dictionary];
+									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
+									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
+									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
+								}
+							}
+						}
+						
+						response.bodyParts = responseBodyParts;
+					}
+				}
+			}
+			
+			xmlFreeDoc(doc);
+		}
+		
+		xmlCleanupParser();
+		[delegate operation:self completedWithResponse:response];
+	}
+}
+@end
 @implementation MFBWebServiceSoapBinding_CreateUser
 @synthesize parameters;
 - (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
@@ -32474,6 +33806,30 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 - (void)AuthTokenForUserAsyncUsingParameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_AuthTokenForUser*)[MFBWebServiceSoap12Binding_AuthTokenForUser alloc] initWithBinding:self delegate:responseDelegate
+																							 parameters:aParameters
+																							 ] autorelease]];
+}
+- (MFBWebServiceSoap12BindingResponse *)AuthTokenForUserNewUsingParameters:(MFBWebServiceSvc_AuthTokenForUserNew *)aParameters 
+{
+	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_AuthTokenForUserNew*)[MFBWebServiceSoap12Binding_AuthTokenForUserNew alloc] initWithBinding:self delegate:self
+																							parameters:aParameters
+																							] autorelease]];
+}
+- (void)AuthTokenForUserNewAsyncUsingParameters:(MFBWebServiceSvc_AuthTokenForUserNew *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
+{
+	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_AuthTokenForUserNew*)[MFBWebServiceSoap12Binding_AuthTokenForUserNew alloc] initWithBinding:self delegate:responseDelegate
+																							 parameters:aParameters
+																							 ] autorelease]];
+}
+- (MFBWebServiceSoap12BindingResponse *)RefreshAuthTokenUsingParameters:(MFBWebServiceSvc_RefreshAuthToken *)aParameters 
+{
+	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_RefreshAuthToken*)[MFBWebServiceSoap12Binding_RefreshAuthToken alloc] initWithBinding:self delegate:self
+																							parameters:aParameters
+																							] autorelease]];
+}
+- (void)RefreshAuthTokenAsyncUsingParameters:(MFBWebServiceSvc_RefreshAuthToken *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
+{
+	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_RefreshAuthToken*)[MFBWebServiceSoap12Binding_RefreshAuthToken alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ] autorelease]];
 }
@@ -35466,6 +36822,220 @@ parameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters
 							if(cur->type == XML_ELEMENT_NODE) {
 								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "AuthTokenForUserResponse")) {
 									MFBWebServiceSvc_AuthTokenForUserResponse *bodyObject = [MFBWebServiceSvc_AuthTokenForUserResponse deserializeNode:bodyNode];
+									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
+									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
+								}
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
+									NSDictionary *exceptions = [NSDictionary dictionary];
+									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
+									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
+									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
+								}
+							}
+						}
+						
+						response.bodyParts = responseBodyParts;
+					}
+				}
+			}
+			
+			xmlFreeDoc(doc);
+		}
+		
+		xmlCleanupParser();
+		[delegate operation:self completedWithResponse:response];
+	}
+}
+@end
+@implementation MFBWebServiceSoap12Binding_AuthTokenForUserNew
+@synthesize parameters;
+- (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
+parameters:(MFBWebServiceSvc_AuthTokenForUserNew *)aParameters
+{
+	if((self = [super initWithBinding:aBinding delegate:responseDelegate])) {
+		self.parameters = aParameters;
+	}
+	
+	return self;
+}
+- (void)dealloc
+{
+	if(parameters != nil) [parameters release];
+	
+	[super dealloc];
+}
+- (void)main
+{
+	[response autorelease];
+	response = [MFBWebServiceSoap12BindingResponse new];
+	
+	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
+	
+	NSMutableDictionary *headerElements = nil;
+	headerElements = [NSMutableDictionary dictionary];
+	
+	NSMutableDictionary *bodyElements = nil;
+	NSMutableArray *bodyKeys = nil;
+	bodyElements = [NSMutableDictionary dictionary];
+	bodyKeys = [NSMutableArray array];
+	id obj = nil;
+	if(parameters != nil) obj = parameters;
+	if(obj != nil) {
+		[bodyElements setObject:obj forKey:@"AuthTokenForUserNew"];
+		[bodyKeys addObject:@"AuthTokenForUserNew"];
+	}
+	
+	NSString *operationXMLString = [envelope serializedFormUsingHeaderElements:headerElements bodyElements:bodyElements bodyKeys:bodyKeys];
+	operationXMLString = binding.soapSigner ? [binding.soapSigner signRequest:operationXMLString] : operationXMLString;
+	
+	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/AuthTokenForUserNew" forOperation:self];
+}
+- (void)connectionDidFinishLoading
+{
+	if (responseData != nil && delegate != nil)
+	{
+		xmlDocPtr doc;
+		xmlNodePtr cur;
+		
+		if (binding.logXMLInOut) {
+			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+		}
+		
+#if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
+	// Not yet defined in 10.5 libxml
+	#define XML_PARSE_COMPACT 0
+#endif
+    // EricBe: Put explicit conversion since [responseData length] is NSInteger but xmlReadMemory wants int.
+	doc = xmlReadMemory([responseData bytes], (int) [responseData length], NULL, NULL, XML_PARSE_COMPACT | XML_PARSE_NOBLANKS);
+		
+		if (doc == NULL) {
+			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Errors while parsing returned XML" forKey:NSLocalizedDescriptionKey];
+			
+			response.error = [NSError errorWithDomain:@"MFBWebServiceSoap12BindingResponseXML" code:1 userInfo:userInfo];
+			[delegate operation:self completedWithResponse:response];
+		} else {
+			cur = xmlDocGetRootElement(doc);
+			cur = cur->children;
+			
+			for( ; cur != NULL ; cur = cur->next) {
+				if(cur->type == XML_ELEMENT_NODE) {
+					
+					if(xmlStrEqual(cur->name, (const xmlChar *) "Body")) {
+						NSMutableArray *responseBodyParts = [NSMutableArray array];
+						
+						xmlNodePtr bodyNode;
+						for(bodyNode=cur->children ; bodyNode != NULL ; bodyNode = bodyNode->next) {
+							if(cur->type == XML_ELEMENT_NODE) {
+								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "AuthTokenForUserNewResponse")) {
+									MFBWebServiceSvc_AuthTokenForUserNewResponse *bodyObject = [MFBWebServiceSvc_AuthTokenForUserNewResponse deserializeNode:bodyNode];
+									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
+									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
+								}
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
+									NSDictionary *exceptions = [NSDictionary dictionary];
+									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
+									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
+									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
+								}
+							}
+						}
+						
+						response.bodyParts = responseBodyParts;
+					}
+				}
+			}
+			
+			xmlFreeDoc(doc);
+		}
+		
+		xmlCleanupParser();
+		[delegate operation:self completedWithResponse:response];
+	}
+}
+@end
+@implementation MFBWebServiceSoap12Binding_RefreshAuthToken
+@synthesize parameters;
+- (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
+parameters:(MFBWebServiceSvc_RefreshAuthToken *)aParameters
+{
+	if((self = [super initWithBinding:aBinding delegate:responseDelegate])) {
+		self.parameters = aParameters;
+	}
+	
+	return self;
+}
+- (void)dealloc
+{
+	if(parameters != nil) [parameters release];
+	
+	[super dealloc];
+}
+- (void)main
+{
+	[response autorelease];
+	response = [MFBWebServiceSoap12BindingResponse new];
+	
+	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
+	
+	NSMutableDictionary *headerElements = nil;
+	headerElements = [NSMutableDictionary dictionary];
+	
+	NSMutableDictionary *bodyElements = nil;
+	NSMutableArray *bodyKeys = nil;
+	bodyElements = [NSMutableDictionary dictionary];
+	bodyKeys = [NSMutableArray array];
+	id obj = nil;
+	if(parameters != nil) obj = parameters;
+	if(obj != nil) {
+		[bodyElements setObject:obj forKey:@"RefreshAuthToken"];
+		[bodyKeys addObject:@"RefreshAuthToken"];
+	}
+	
+	NSString *operationXMLString = [envelope serializedFormUsingHeaderElements:headerElements bodyElements:bodyElements bodyKeys:bodyKeys];
+	operationXMLString = binding.soapSigner ? [binding.soapSigner signRequest:operationXMLString] : operationXMLString;
+	
+	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/RefreshAuthToken" forOperation:self];
+}
+- (void)connectionDidFinishLoading
+{
+	if (responseData != nil && delegate != nil)
+	{
+		xmlDocPtr doc;
+		xmlNodePtr cur;
+		
+		if (binding.logXMLInOut) {
+			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+		}
+		
+#if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
+	// Not yet defined in 10.5 libxml
+	#define XML_PARSE_COMPACT 0
+#endif
+    // EricBe: Put explicit conversion since [responseData length] is NSInteger but xmlReadMemory wants int.
+	doc = xmlReadMemory([responseData bytes], (int) [responseData length], NULL, NULL, XML_PARSE_COMPACT | XML_PARSE_NOBLANKS);
+		
+		if (doc == NULL) {
+			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Errors while parsing returned XML" forKey:NSLocalizedDescriptionKey];
+			
+			response.error = [NSError errorWithDomain:@"MFBWebServiceSoap12BindingResponseXML" code:1 userInfo:userInfo];
+			[delegate operation:self completedWithResponse:response];
+		} else {
+			cur = xmlDocGetRootElement(doc);
+			cur = cur->children;
+			
+			for( ; cur != NULL ; cur = cur->next) {
+				if(cur->type == XML_ELEMENT_NODE) {
+					
+					if(xmlStrEqual(cur->name, (const xmlChar *) "Body")) {
+						NSMutableArray *responseBodyParts = [NSMutableArray array];
+						
+						xmlNodePtr bodyNode;
+						for(bodyNode=cur->children ; bodyNode != NULL ; bodyNode = bodyNode->next) {
+							if(cur->type == XML_ELEMENT_NODE) {
+								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "RefreshAuthTokenResponse")) {
+									MFBWebServiceSvc_RefreshAuthTokenResponse *bodyObject = [MFBWebServiceSvc_RefreshAuthTokenResponse deserializeNode:bodyNode];
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
