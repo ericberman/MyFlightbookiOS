@@ -32,6 +32,7 @@
 #import "Util.h"
 #import "Airports.h"
 #import "DecimalEdit.h"
+#import "Telemetry.h"
 
 @interface LogbookEntry ()
 @property (strong) NSDate * stashedDate;
@@ -262,35 +263,23 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
 {
     if (szTelemetry == nil)
         return;
-
-    self.rgPathLatLong = [[MFBWebServiceSvc_ArrayOfLatLong alloc] init];
     
-    NSArray * rgRows = [szTelemetry componentsSeparatedByString:@"\n"];
-    
-    if (rgRows == nil || [rgRows count] == 0)
+    Telemetry * t = [Telemetry telemetryWithString:szTelemetry];
+    if (t == nil)
         return;
     
-    NSNumberFormatter * nf = [[NSNumberFormatter alloc] init];
-    [nf setDecimalSeparator:@"."];
+    NSArray<CLLocation *> * samples = t.samples;
+    
+    self.rgPathLatLong = [[MFBWebServiceSvc_ArrayOfLatLong alloc] init];
     
     @try {
-        for (NSString * szRow in rgRows)
-        {
-            if ([szRow length] > 0)
-            {
-                NSArray * rgItems = [szRow componentsSeparatedByString:@","];
-                if ([rgItems count] > 2)
-                {
-                    MFBWebServiceSvc_LatLong * ll = [[MFBWebServiceSvc_LatLong alloc] init];
-                    ll.Latitude = [nf numberFromString:rgItems[0]];
-                    ll.Longitude = [nf numberFromString:rgItems[1]];
-                    
-                    // this will skip the first row and any other bogus rows.
-                    if (ll.Latitude != nil && ll.Longitude != nil)
-                        [self.rgPathLatLong.LatLong addObject:ll];
-                }
-            }
+        for (CLLocation * loc in samples) {
+            MFBWebServiceSvc_LatLong * ll = [[MFBWebServiceSvc_LatLong alloc] init];
+            ll.Latitude = @(loc.coordinate.latitude);
+            ll.Longitude = @(loc.coordinate.longitude);
+            [self.rgPathLatLong.LatLong addObject:ll];
         }
+        
         return;
     }
     @catch (NSException *exception) {

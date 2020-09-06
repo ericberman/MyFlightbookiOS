@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2014-2019 MyFlightbook, LLC
+ Copyright (C) 2014-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -176,6 +176,17 @@
     return ft;
 }
 
++ (enum ImportedFileType) typeFromString:(NSString *) szTelemetry {
+    if ([szTelemetry containsString:@"<gpx"])
+        return GPX;
+    if ([szTelemetry containsString:@"<kml"])
+        return KML;
+    if ([szTelemetry containsString:@"$GP"])
+        return NMEA;
+    
+    return CSV;
+}
+
 + (Telemetry *) telemetryWithURL:(NSURL *)url
 {
     enum ImportedFileType ft = [Telemetry typeFromURL:url];
@@ -189,6 +200,23 @@
             return [[CSVTelemetry alloc] initWithURL:url];
         case NMEA:
             return [[NMEATelemetry alloc] initWithURL:url];
+        case Unknown:
+        default:
+            return nil;
+    }
+}
+
++ (Telemetry *) telemetryWithString:(NSString *) szTelemetry {
+    enum ImportedFileType ft = [Telemetry typeFromString:szTelemetry];
+    switch (ft) {
+        case GPX:
+            return [[GPXTelemetry alloc] initWithString:szTelemetry];
+        case KML:
+            return [[KMLTelemetry alloc] initWithString:szTelemetry];
+        case CSV:
+            return [[CSVTelemetry alloc] initWithString:szTelemetry];
+        case NMEA:
+            return [[NMEATelemetry alloc] initWithString:szTelemetry];
         case Unknown:
         default:
             return nil;
@@ -552,10 +580,16 @@ enum KMLArrayContext currentContext;
     
     NSMutableArray * ar = [NSMutableArray new];
     
+    int iLine = 0;
+    
     for (NSString * sz in rgLines) {
         NSArray * rgLine = [sz componentsSeparatedByString:@","];
         
         if ([rgLine count] <= 6)
+            continue;
+        
+        // skip the header line
+        if (iLine++ == 0)
             continue;
         
         double Latitude = ((NSString *) rgLine[0]).doubleValue;

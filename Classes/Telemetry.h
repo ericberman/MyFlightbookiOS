@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2014-2019 MyFlightbook, LLC
+ Copyright (C) 2014-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -45,11 +45,12 @@ typedef NS_ENUM(int, ImportedFileType) {GPX, KML, CSV, NMEA, Unknown};
 - (instancetype) initWithURL:(NSURL *) url;
 - (instancetype) initWithString:(NSString *) sz;
 
-- (NSArray *) samples;
+- (NSArray<CLLocation *> *) samples;
 + (NSString *) serializeFromPath:(NSArray *) arSamples;
 - (NSString *) serializeAs:(enum ImportedFileType) ft;
 + (enum ImportedFileType) typeFromURL:(NSURL *) url;
 + (Telemetry *) telemetryWithURL:(NSURL *) url;
++ (Telemetry *) telemetryWithString:(NSString *) szTelemetry;
 
 #define TELEMETRY_META_AIRCRAFT_TAIL @"aircraft"
 @end
