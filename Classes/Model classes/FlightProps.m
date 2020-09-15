@@ -205,11 +205,13 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
 
 - (void) cacheProps
 {
-    NSUserDefaults * defs = [NSUserDefaults standardUserDefaults];
-    [defs setObject:[NSKeyedArchiver archivedDataWithRootObject:self.rgPropTypes] forKey:_szKeyCachedPropTypes];
-    [defs synchronize];
-    hasLoadedThisSession = YES; // we've initialized - no need to refresh the cache again this session.
-    NSLog(@"Customproperty cache refreshed");    
+    @synchronized (self.rgPropTypes) {
+        NSUserDefaults * defs = [NSUserDefaults standardUserDefaults];
+        [defs setObject:[NSKeyedArchiver archivedDataWithRootObject:self.rgPropTypes] forKey:_szKeyCachedPropTypes];
+        [defs synchronize];
+        hasLoadedThisSession = YES; // we've initialized - no need to refresh the cache again this session.
+        NSLog(@"Customproperty cache refreshed");
+    }
 }
 
 - (void) loadCustomPropertyTypes
