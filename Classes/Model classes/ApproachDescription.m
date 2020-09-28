@@ -78,7 +78,7 @@
 }
 
 + (NSArray<NSString *> *) ApproachSuffixes {
-    return @[@"", @"-A", @"-B", @"-C", @"-D", @"-X", @"-Y", @"-Z"];
+    return @[@"", @"-A", @"-B", @"-C", @"-D", @"-V", @"-W", @"-X", @"-Y", @"-Z"];
 }
 
 + (NSArray<NSString *> *) RunwayNames {
