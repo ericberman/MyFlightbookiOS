@@ -358,7 +358,7 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
             cellAll.accessoryType = ([rgVA count] > 0) ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
         }
         cellAll.textLabel.text = NSLocalizedString(@"All Airports", @"The 'airport' that shows all visited airports");
-        cellAll.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"(%d unique airports found)", @"# of unique visited airports that were found; '%d' gets replaced at runtime; leave it there!"), self.rgVAFiltered.count];
+        cellAll.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"(%lu unique airports found)", @"# of unique visited airports that were found; '%d' gets replaced at runtime; leave it there!"), (unsigned long)self.rgVAFiltered.count];
         return cellAll;
     }
     else

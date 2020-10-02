@@ -34,7 +34,7 @@
 #define PENDING_FLIGHT_ID @-2
 #define QUEUED_FLIGHT_UNSUBMITTED @-3
 
-@interface LogbookEntry : MFBAsyncOperation <MFBSoapCallDelegate, NSCoding> {
+@interface LogbookEntry : MFBAsyncOperation <MFBSoapCallDelegate, NSCoding, NSSecureCoding> {
 	@private
 	MFBWebServiceSvc_LogbookEntry * entryData;
 	NSMutableArray * rgPicsForFlight;
@@ -78,9 +78,6 @@
 - (void) getGPXDataForFlight;
 
 - (void) initNumerics;
-
-- (void) savePendingFlights:(NSMutableArray *) rgFlights;
-- (NSMutableArray *) getPendingFlights;
 
 - (void)encodeWithCoder:(NSCoder *)encoder;
 - (instancetype)initWithCoder:(NSCoder *)decoder;

@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2010-2019 MyFlightbook, LLC
+ Copyright (C) 2010-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -272,6 +272,7 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
                     break;
                 case PHAuthorizationStatusDenied:
                 case PHAuthorizationStatusRestricted:
+                case PHAuthorizationStatusLimited:
                     break;
                 case PHAuthorizationStatusAuthorized:
                     [self saveImageDataToLibrary:taggedJPG];
@@ -295,6 +296,7 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
                 break;
             case PHAuthorizationStatusDenied:
             case PHAuthorizationStatusRestricted:
+            case PHAuthorizationStatusLimited:
                 break;
             case PHAuthorizationStatusAuthorized:
                 [self saveVideoDataToLibrary:[NSURL URLWithString:self.imgInfo.URLFullImage]];
@@ -567,7 +569,7 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
 		
         if (progress != nil) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                progress([NSString stringWithFormat:NSLocalizedString(@"Uploading Image %d of %d", @"Progress message when uploading an image; the %d is replaced by numbers (e.g. '2 of 4')"), cImages, [rgImages count]]);
+                progress([NSString stringWithFormat:NSLocalizedString(@"Uploading Image %d of %lu", @"Progress message when uploading an image; the %d is replaced by numbers (e.g. '2 of 4')"), cImages, (unsigned long)[rgImages count]]);
             });
         }
 
@@ -742,6 +744,8 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
 	[imgView startAnimating];
 }
 
++ (BOOL) supportsSecureCoding {return YES; }
+
 - (void)encodeWithCoder:(NSCoder *)encoder
 {
 	[encoder encodeObject:self.imgInfo forKey:@"mfbImageInfo"];
@@ -752,8 +756,8 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
 {
 	self = [self init];
 	self.errorString = @"";
-	self.imgInfo = [decoder decodeObjectForKey:@"mfbImageInfo"];
-	self.szCacheFileName = [decoder	decodeObjectForKey:@"cacheName"];
+	self.imgInfo = [decoder decodeObjectOfClass:MFBWebServiceSvc_MFBImageInfo.class forKey:@"mfbImageInfo"];
+    self.szCacheFileName = [decoder	decodeObjectOfClass:NSString.class forKey:@"cacheName"];
 	return self;
 }	 	 
 @end
@@ -782,14 +786,14 @@ static char UIB_CACHEDTHUMB_KEY;
 - (instancetype)initWithCoderMFB:(NSCoder *)decoder
 {
 	self = [self init];
-	self.Comment = [decoder decodeObjectForKey:@"MFBIIComment"];
-	self.ThumbnailFile = [decoder decodeObjectForKey:@"MFBIIThumbFile"];
-	self.VirtualPath = [decoder decodeObjectForKey:@"MFBIIVirtPath"];	
-	self.URLFullImage = [decoder decodeObjectForKey:@"MFBIIFullImageURL"];
-    self.URLThumbnail = [decoder decodeObjectForKey:@"MFBIIURLThumb"];
+	self.Comment = [decoder decodeObjectOfClass:NSString.class forKey:@"MFBIIComment"];
+	self.ThumbnailFile = [decoder decodeObjectOfClass:NSString.class forKey:@"MFBIIThumbFile"];
+	self.VirtualPath = [decoder decodeObjectOfClass:NSString.class forKey:@"MFBIIVirtPath"];
+	self.URLFullImage = [decoder decodeObjectOfClass:NSString.class forKey:@"MFBIIFullImageURL"];
+    self.URLThumbnail = [decoder decodeObjectOfClass:NSString.class forKey:@"MFBIIURLThumb"];
     @try {
         self.ImageType = (MFBWebServiceSvc_ImageFileType) [decoder decodeIntegerForKey:@"MFBIIImageType"];
-        self.cachedThumb = (UIImage *) [decoder decodeObjectForKey:@"MFBIICachedThumb"];
+        self.cachedThumb = (UIImage *) [decoder decodeObjectOfClass:UIImage.class forKey:@"MFBIICachedThumb"];
     }
     @catch (NSException *exception) {
         self.ImageType = MFBWebServiceSvc_ImageFileType_JPEG;
@@ -822,8 +826,9 @@ static char UIB_CACHEDTHUMB_KEY;
 - (instancetype)initWithCoderMFB:(NSCoder *)decoder
 {
 	self = [self init];
-	
-	NSMutableArray * rgImages = [decoder decodeObjectForKey:@"RGMFBIImages"];
+
+    NSError * err;
+    NSMutableArray * rgImages = [decoder decodeTopLevelObjectOfClasses:[NSSet setWithArray:@[NSArray.class, MFBWebServiceSvc_MFBImageInfo.class]] forKey:@"RGMFBIImages" error:&err];
 	[self setImages:rgImages];
 	
 	return self;

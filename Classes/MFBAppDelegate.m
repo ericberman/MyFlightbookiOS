@@ -139,7 +139,7 @@ BOOL gLogging = EXF_LOGGING;
     NSUserDefaults * def = NSUserDefaults.standardUserDefaults;
 	// remember whether or not we were flying and recording flight data.
     [self.mfbloc saveState];
-	[def setObject:[NSKeyedArchiver archivedDataWithRootObject:self.rgPendingFlights] forKey:_szKeyPrefPendingFlights];
+	[def setObject:[NSKeyedArchiver archivedDataWithRootObject:self.rgPendingFlights requiringSecureCoding:YES error:nil] forKey:_szKeyPrefPendingFlights];
 	
 	[def synchronize];
 	NSLog(@"saveState - done and synchronized");
@@ -490,8 +490,9 @@ static MFBAppDelegate * _mainApp = nil;
     
     // recover pending flights (for count to add to recent-flights tab)
     NSData * ar = (NSData *) [NSUserDefaults.standardUserDefaults objectForKey:_szKeyPrefPendingFlights];
+    NSError * err = nil;
     if (ar != nil)
-        self.rgPendingFlights = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:ar]];
+        self.rgPendingFlights = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchivedObjectOfClasses:[NSSet setWithArray:@[NSArray.class, LogbookEntry.class, MFBWebServiceSvc_LogbookEntry.class]] fromData:ar error:&err]];
     else
         self.rgPendingFlights = [[NSMutableArray alloc] init];
     // set a badge for the # of pending flights.
@@ -892,17 +893,17 @@ handleWatchKitExtensionRequest:(NSDictionary *)userInfo
     if (request != nil) // request for data
     {
         if ([request compare:WATCH_REQUEST_STATUS] == NSOrderedSame) {
-            dictResponse[WATCH_RESPONSE_STATUS] = [NSKeyedArchiver archivedDataWithRootObject:self.watchData];
+            dictResponse[WATCH_RESPONSE_STATUS] = [NSKeyedArchiver archivedDataWithRootObject:self.watchData requiringSecureCoding:YES error:nil];
         }
         else if ([request compare:WATCH_REQUEST_CURRENCY] == NSOrderedSame) {
-            dictResponse[WATCH_RESPONSE_CURRENCY] = [NSKeyedArchiver archivedDataWithRootObject:[[SynchronousCalls new] currencyForUserSynchronous:self.userProfile.AuthToken]];
+            dictResponse[WATCH_RESPONSE_CURRENCY] = [NSKeyedArchiver archivedDataWithRootObject:[[SynchronousCalls new] currencyForUserSynchronous:self.userProfile.AuthToken] requiringSecureCoding:YES error:nil];
         }
         else if ([request compare:WATCH_REQUEST_TOTALS] == NSOrderedSame) {
-            dictResponse[WATCH_RESPONSE_TOTALS] = [NSKeyedArchiver archivedDataWithRootObject:[[SynchronousCalls new] totalsForUserSynchronous:self.userProfile.AuthToken]];
+            dictResponse[WATCH_RESPONSE_TOTALS] = [NSKeyedArchiver archivedDataWithRootObject:[[SynchronousCalls new] totalsForUserSynchronous:self.userProfile.AuthToken] requiringSecureCoding:YES error:nil];
         }
         else if ([request compare:WATCH_REQUEST_RECENTS] == NSOrderedSame) {
             NSArray * ar = [self refreshRecents];
-            dictResponse[WATCH_RESPONSE_RECENTS] = [NSKeyedArchiver archivedDataWithRootObject:ar];
+            dictResponse[WATCH_RESPONSE_RECENTS] = [NSKeyedArchiver archivedDataWithRootObject:ar requiringSecureCoding:YES error:nil];
         }
     }
     else if ((request = message[WATCH_MESSAGE_ACTION]) != nil)
@@ -920,7 +921,7 @@ handleWatchKitExtensionRequest:(NSDictionary *)userInfo
             [self.leMain performSelectorOnMainThread:@selector(toggleFlightPause) withObject:nil waitUntilDone:YES];
         }
         NSLog(@"Action request complete");
-        dictResponse[WATCH_RESPONSE_STATUS] = [NSKeyedArchiver archivedDataWithRootObject:self.watchData];
+        dictResponse[WATCH_RESPONSE_STATUS] = [NSKeyedArchiver archivedDataWithRootObject:self.watchData requiringSecureCoding:YES error:nil];
         self.fSuppressWatchNotification = NO;
         
         [self updateShortCutItems];

@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2013-2019 MyFlightbook, LLC
+ Copyright (C) 2013-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -416,7 +416,7 @@
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     if (self.cookies != nil && self.cookies.count > 0) {
-        NSData *cookieData = [NSKeyedArchiver archivedDataWithRootObject:self.cookies];
+        NSData *cookieData = [NSKeyedArchiver archivedDataWithRootObject:self.cookies requiringSecureCoding:YES error:nil];
         [userDefaults setObject:cookieData forKey:kCookiesKey];
     } else {
         [userDefaults removeObjectForKey:kCookiesKey];
@@ -428,7 +428,8 @@
 {
     NSData *cookieData = [[NSUserDefaults standardUserDefaults] objectForKey:kCookiesKey];
     if (cookieData != nil) {
-        NSArray *cookies = [NSKeyedUnarchiver unarchiveObjectWithData:cookieData];
+        NSError * err = nil;
+        NSArray *cookies = [NSKeyedUnarchiver unarchivedObjectOfClasses:[NSSet setWithArray:@[NSArray.class, NSHTTPCookie.class]] fromData:cookieData error:&err];
         for (NSHTTPCookie *cookie in cookies) {
             [self setCookie:cookie];
         }

@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2019 MyFlightbook, LLC
+ Copyright (C) 2009-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -147,7 +147,7 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
 {
     NSLog(@"Caching %d aircraft", (int) [rgAircraft count]);
 	NSUserDefaults * defs = [NSUserDefaults standardUserDefaults];
-	[defs setObject:[NSKeyedArchiver archivedDataWithRootObject:rgAircraft] forKey:_szKeyCachedAircraft];
+	[defs setObject:[NSKeyedArchiver archivedDataWithRootObject:rgAircraft requiringSecureCoding:YES error:nil] forKey:_szKeyCachedAircraft];
 	[defs setValue:szAuthToken forKey:_szKeyCachedAircraftAuthToken];
 	[defs setDouble:[[NSDate date] timeIntervalSince1970] forKey:_szKeyCachedAircraftRetrievalDate];
 	[defs synchronize];
@@ -162,8 +162,9 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
 - (NSArray *) cachedAircraft
 {
 	NSData * rgArrayLastData = [[NSUserDefaults standardUserDefaults] objectForKey:_szKeyCachedAircraft];
+    NSError * err = nil;
     if (rgArrayLastData != nil)
-        return [NSKeyedUnarchiver unarchiveObjectWithData:rgArrayLastData];
+        return [NSKeyedUnarchiver unarchivedObjectOfClasses:[NSSet setWithArray:@[NSArray.class, MFBWebServiceSvc_Aircraft.class]] fromData:rgArrayLastData error:&err];
     return nil;
 }
 
@@ -605,36 +606,37 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
 - (instancetype)initWithCoderMFB:(NSCoder *)decoder
 {
 	self = [self init];
+    NSError * err =  nil;
 	
-	self.AircraftID = [decoder decodeObjectForKey:@"AircraftID"];
+	self.AircraftID = [decoder decodeObjectOfClass:NSNumber.class forKey:@"AircraftID"];
     self.InstanceType = [decoder decodeIntForKey:@"InstanceType"];
     self.InstanceTypeID = [self instanceTypeIDFromInstanceType:self.InstanceType];
-	self.Last100 = [decoder decodeObjectForKey:@"Last100"];
-	self.LastAltimeter = [decoder decodeObjectForKey:@"LastAltimeter"];
-	self.LastAnnual = [decoder decodeObjectForKey:@"LastAnnual"];
-	self.LastELT = [decoder decodeObjectForKey:@"LastELT"];
-	self.LastNewEngine = [decoder decodeObjectForKey:@"LastNewEngine"];
-	self.LastOilChange = [decoder decodeObjectForKey:@"LastOilChange"];
-	self.LastStatic = [decoder decodeObjectForKey:@"LastStatic"];
-	self.LastTransponder = [decoder decodeObjectForKey:@"LastTransponder"];
-	self.LastVOR = [decoder decodeObjectForKey:@"LastVOR"];
-    self.RegistrationDue = [decoder decodeObjectForKey:@"RegistrationDue"];
-	self.ModelCommonName = [decoder decodeObjectForKey:@"ModelCommonName"];
-	self.ModelDescription = [decoder decodeObjectForKey:@"ModelDescription"];
-	self.ModelID = [decoder decodeObjectForKey:@"ModelID"];
-	self.TailNumber = [decoder decodeObjectForKey:@"TailNumber"];
-	self.AircraftImages = [decoder decodeObjectForKey:@"AircraftImages"];
+	self.Last100 = [decoder decodeObjectOfClass:NSNumber.class forKey:@"Last100"];
+	self.LastAltimeter = [decoder decodeObjectOfClass:NSDate.class forKey:@"LastAltimeter"];
+	self.LastAnnual = [decoder decodeObjectOfClass:NSDate.class forKey:@"LastAnnual"];
+	self.LastELT = [decoder decodeObjectOfClass:NSDate.class forKey:@"LastELT"];
+	self.LastNewEngine = [decoder decodeObjectOfClass:NSNumber.class forKey:@"LastNewEngine"];
+	self.LastOilChange = [decoder decodeObjectOfClass:NSNumber.class forKey:@"LastOilChange"];
+	self.LastStatic = [decoder decodeObjectOfClass:NSDate.class forKey:@"LastStatic"];
+	self.LastTransponder = [decoder decodeObjectOfClass:NSDate.class forKey:@"LastTransponder"];
+	self.LastVOR = [decoder decodeObjectOfClass:NSDate.class forKey:@"LastVOR"];
+    self.RegistrationDue = [decoder decodeObjectOfClass:NSDate.class forKey:@"RegistrationDue"];
+	self.ModelCommonName = [decoder decodeObjectOfClass:NSString.class forKey:@"ModelCommonName"];
+	self.ModelDescription = [decoder decodeObjectOfClass:NSString.class forKey:@"ModelDescription"];
+	self.ModelID = [decoder decodeObjectOfClass:NSNumber.class forKey:@"ModelID"];
+	self.TailNumber = [decoder decodeObjectOfClass:NSString.class forKey:@"TailNumber"];
+	self.AircraftImages = [decoder decodeObjectOfClass:MFBWebServiceSvc_ArrayOfMFBImageInfo.class forKey:@"AircraftImages"];
     self.HideFromSelection = [[USBoolean alloc] initWithBool:[decoder decodeBoolForKey:@"HideFromSelectionBOOL"]];
     self.RoleForPilot = [decoder decodeIntForKey:@"RoleForPilot"];
     self.CopyPICNameWithCrossfill = [[USBoolean alloc] initWithBool:[decoder decodeBoolForKey:@"CopyPICName"]];
     if (self.RoleForPilot == MFBWebServiceSvc_PilotRole_none)
         self.RoleForPilot = MFBWebServiceSvc_PilotRole_None;
-    self.DefaultImage = [decoder decodeObjectForKey:@"DefaultImage"];
-    self.DefaultTemplates = [decoder decodeObjectForKey:@"DefaultTemplates"];
-    self.PublicNotes = [decoder decodeObjectForKey:@"PublicNotes"];
-    self.PrivateNotes = [decoder decodeObjectForKey:@"PrivateNotes"];
+    self.DefaultImage = [decoder decodeObjectOfClass:NSString.class forKey:@"DefaultImage"];
+    self.DefaultTemplates = [decoder decodeTopLevelObjectOfClasses:[NSSet setWithArray:@[NSMutableArray.class, MFBWebServiceSvc_ArrayOfInt.class]] forKey:@"DefaultTemplates" error:&err];
+    self.PublicNotes = [decoder decodeObjectOfClass:NSString.class forKey:@"PublicNotes"];
+    self.PrivateNotes = [decoder decodeObjectOfClass:NSString.class forKey:@"PrivateNotes"];
     self.IsGlass = [[USBoolean alloc] initWithBool:[decoder decodeBoolForKey:@"IsGlass"]];
-    self.ICAO = [decoder decodeObjectForKey:@"ICAO"];
+    self.ICAO = [decoder decodeObjectOfClass:NSString.class forKey:@"ICAO"];
     
 	return self;
 }

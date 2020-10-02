@@ -61,13 +61,63 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     [defs synchronize];
 }
 
+static NSSet * setAllowedPackedClasses = nil;
+
 + (NSArray *) valuesForKey:(NSString *) key {
-    return (NSArray *) [NSKeyedUnarchiver unarchiveObjectWithData:[NSUserDefaults.standardUserDefaults objectForKey:key]];
+    if (setAllowedPackedClasses == nil) {
+        setAllowedPackedClasses = [NSSet setWithArray:@[
+            NSArray.class,
+            NSMutableArray.class,
+            NSString.class,
+            NSDate.class,
+            NSNumber.class,
+            LogbookEntry.class,
+            USBoolean.class,
+            MFBWebServiceSvc_LogbookEntry.class,
+            MFBWebServiceSvc_airport.class,
+            MFBWebServiceSvc_VideoRef.class,
+            MFBWebServiceSvc_MakeModel.class,
+            MFBWebServiceSvc_Aircraft.class,
+            MFBWebServiceSvc_ArrayOfVideoRef.class,
+            MFBWebServiceSvc_ArrayOfString.class,
+            MFBWebServiceSvc_ArrayOfInt.class,
+            MFBWebServiceSvc_ArrayOfAirport.class,
+            MFBWebServiceSvc_ArrayOfMakeModel.class,
+            MFBWebServiceSvc_ArrayOfLatLong.class,
+            MFBWebServiceSvc_ArrayOfLogbookEntry.class,
+            MFBWebServiceSvc_ArrayOfLatLong.class,
+            MFBWebServiceSvc_ArrayOfAircraft.class,
+            MFBWebServiceSvc_ArrayOfTotalsItem.class,
+            MFBWebServiceSvc_ArrayOfCannedQuery.class,
+            MFBWebServiceSvc_ArrayOfCategoryClass.class,
+            MFBWebServiceSvc_ArrayOfPropertyTemplate.class,
+            MFBWebServiceSvc_ArrayOfVisitedAirport.class,
+            MFBWebServiceSvc_ArrayOfMFBImageInfo.class,
+            MFBWebServiceSvc_ArrayOfCurrencyStatusItem.class,
+            MFBWebServiceSvc_ArrayOfCustomPropertyType.class,
+            MFBWebServiceSvc_ArrayOfCustomFlightProperty.class,
+            MFBWebServiceSvc_FlightQuery.class,
+            MFBWebServiceSvc_TotalsItem.class,
+            MFBWebServiceSvc_CurrencyStatusItem.class,
+            MFBWebServiceSvc_VisitedAirport.class,
+            MFBWebServiceSvc_Aircraft.class,
+            MFBWebServiceSvc_VideoRef.class,
+            MFBWebServiceSvc_LatLong.class,
+            MFBWebServiceSvc_CannedQuery.class,
+            MFBWebServiceSvc_CategoryClass.class,
+            MFBWebServiceSvc_PropertyTemplate.class,
+            MFBWebServiceSvc_MFBImageInfo.class,
+            MFBWebServiceSvc_CustomPropertyType.class,
+            MFBWebServiceSvc_CustomFlightProperty.class
+        ]];
+    }
+    NSError * err = nil;
+    return (NSArray *) [NSKeyedUnarchiver unarchivedObjectOfClasses:setAllowedPackedClasses fromData:[NSUserDefaults.standardUserDefaults objectForKey:key] error:&err];
 }
 
 + (void) setValues:(NSArray *) arr forKey:(NSString *) key {
     NSUserDefaults * defs = NSUserDefaults.standardUserDefaults;
-    [defs setObject:[NSKeyedArchiver archivedDataWithRootObject:arr] forKey:key];
+    [defs setObject:[NSKeyedArchiver archivedDataWithRootObject:arr requiringSecureCoding:YES error:nil] forKey:key];
     [defs synchronize];
 }
 

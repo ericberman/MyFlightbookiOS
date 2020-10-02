@@ -370,6 +370,10 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
 	return self;
 }
 
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
+
 @end
 
 @implementation SOAPFault

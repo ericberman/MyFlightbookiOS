@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2018 MyFlightbook, LLC
+ Copyright (C) 2017-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -57,6 +57,8 @@
     self.latDisplay = self.lonDisplay = self.speedDisplay = self.altDisplay = self.flightstatus = nil;
 }
 
++ (BOOL)supportsSecureCoding {return YES;}
+
 - (instancetype) initWithCoder:(NSCoder *)aDecoder
 {
     self.latDisplay = [aDecoder decodeObjectForKey:keyWatchLatitude];
@@ -106,6 +108,8 @@
     return self;
 }
 
++ (BOOL)supportsSecureCoding {return YES;}
+
 - (void) encodeWithCoder:(NSCoder *)aCoder
 {
     [aCoder encodeObject:self.attribute forKey:keyCurAttribute];
@@ -150,6 +154,8 @@
     [aCoder encodeObject:self.subDesc forKey:keyTotalSubDesc];
 }
 
++ (BOOL)supportsSecureCoding {return YES;}
+
 - (instancetype) initWithCoder:(NSCoder *)aDecoder
 {
     self.title = [aDecoder decodeObjectForKey:keyTotalTitle];
@@ -179,6 +185,9 @@
     }
     return self;
 }
+
++ (BOOL)supportsSecureCoding {return YES;}
+
 
 - (void) encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:self.Comment forKey:keyLEComment];

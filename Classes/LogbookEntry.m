@@ -330,6 +330,10 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
 }
 
 #pragma Persistence
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
 - (void)encodeWithCoder:(NSCoder *)encoder
 {
     // Be sure NOT to encode this with the UTCDateFromLocalDate version from commitFlight
@@ -349,8 +353,8 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
 - (instancetype)initWithCoder:(NSCoder *)decoder
 {
 	self = [self init];
-	self.entryData = [decoder decodeObjectForKey:_szkeyEntryData];
-	self.rgPicsForFlight = [NSMutableArray arrayWithArray:[decoder decodeObjectForKey:_szkeyImages]];
+    self.entryData = [decoder decodeObjectOfClass:MFBWebServiceSvc_LogbookEntry.class forKey:_szkeyEntryData];
+    self.rgPicsForFlight = [NSMutableArray arrayWithArray:[decoder decodeObjectOfClasses:[NSSet setWithArray:@[NSArray.class, NSMutableArray.class, CommentedImage.class, MFBWebServiceSvc_MFBImageInfo.class]] forKey:_szkeyImages]];
     self.fIsPaused = [decoder decodeBoolForKey:_szkeyIsPaused];
     self.dtTotalPauseTime = [decoder decodeDoubleForKey:_szkeyPausedTime];
     self.dtTimeOfLastPause = [decoder decodeDoubleForKey:_szkeyLastPauseTime];
@@ -385,26 +389,6 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
 	entryData.TotalFlightTime = @0.0;
 	
 	entryData.CatClassOverride = @0;
-}
-
-- (void) savePendingFlights:(NSMutableArray *) rgFlights
-{
-	NSUserDefaults * defs = [NSUserDefaults standardUserDefaults];
-	[defs setObject:[NSKeyedArchiver archivedDataWithRootObject:rgFlights] forKey:_szKeyPendingFlightsArray];
-	[defs synchronize];
-}
-
-- (NSMutableArray *) getPendingFlights
-{
-	NSData * rgPendingFlights = [[NSUserDefaults standardUserDefaults] objectForKey:_szKeyPendingFlightsArray];
-	
-	NSArray * cachedArray = nil;
-	if (rgPendingFlights != nil)
-		cachedArray = [NSKeyedUnarchiver unarchiveObjectWithData:rgPendingFlights];
-	if (cachedArray != nil)
-		return [NSMutableArray arrayWithArray:cachedArray];
-	
-	return nil;
 }
 
 // JSON format here is described at Support the LogTen Pro API format for a “myflightbook://“ url scheme, as defined at
@@ -658,44 +642,44 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
 - (instancetype)initWithCoderMFB:(NSCoder *)decoder
 {
 	self = [self init];
-	self.AircraftID = [decoder decodeObjectForKey:@"AircraftID"];	
+	self.AircraftID = [decoder decodeObjectOfClass:NSNumber.class forKey:@"AircraftID"];
 
-	self.FlightID = [decoder decodeObjectForKey:_szkeyFlightID];
-	self.AircraftID = [decoder decodeObjectForKey:_szkeyAircraftID];
-	self.Approaches = [decoder decodeObjectForKey:_szkeyApproaches];
-	self.CFI = [decoder decodeObjectForKey:_szkeyCFI];
-	self.Comment = [decoder decodeObjectForKey:_szkeyComment];
-	self.CrossCountry = [decoder decodeObjectForKey:_szkeyCrossCountry];
-	self.Date = [decoder decodeObjectForKey:_szkeyDate];
-	self.Dual = [decoder decodeObjectForKey:_szkeyDual];
-	self.EngineEnd = [decoder decodeObjectForKey:_szkeyEngineEnd];
-	self.EngineStart = [decoder decodeObjectForKey:_szkeyEngineStart];
-	self.FlightEnd = [decoder decodeObjectForKey:_szkeyFlightEnd];
-	self.FlightStart = [decoder decodeObjectForKey:_szkeyFlightStart];
-	self.FullStopLandings = [decoder decodeObjectForKey:_szkeyFullStopLandings];
-	self.HobbsEnd = [decoder decodeObjectForKey:_szkeyHobbsEnd];
-	self.HobbsStart = [decoder decodeObjectForKey:_szkeyHobbsStart];
-	self.IMC = [decoder decodeObjectForKey:_szkeyIMC];
-	self.Landings = [decoder decodeObjectForKey:_szkeyLandings];
-	self.NightLandings = [decoder decodeObjectForKey:_szkeyNightLandings];
-	self.Nighttime = [decoder decodeObjectForKey:_szkeyNight];
-	self.PIC = [decoder decodeObjectForKey:_szkeyPIC];
-	self.Route = [decoder decodeObjectForKey:_szkeyRoute];
-	self.SIC = [decoder decodeObjectForKey:_szkeySIC];
-	self.SimulatedIFR = [decoder decodeObjectForKey:_szkeySimulatedIFR];
-	self.GroundSim = [decoder decodeObjectForKey:_szkeyGroundSim];
+	self.FlightID = [decoder decodeObjectOfClass:NSNumber.class forKey:_szkeyFlightID];
+	self.AircraftID = [decoder decodeObjectOfClass:NSNumber.class forKey:_szkeyAircraftID];
+	self.Approaches = [decoder decodeObjectOfClass:NSNumber.class forKey:_szkeyApproaches];
+	self.CFI = [decoder decodeObjectOfClass:NSNumber.class forKey:_szkeyCFI];
+	self.Comment = [decoder decodeObjectOfClass:NSString.class forKey:_szkeyComment];
+	self.CrossCountry = [decoder decodeObjectOfClass:NSNumber.class forKey:_szkeyCrossCountry];
+	self.Date = [decoder decodeObjectOfClass:NSDate.class forKey:_szkeyDate];
+	self.Dual = [decoder decodeObjectOfClass:NSNumber.class forKey:_szkeyDual];
+	self.EngineEnd = [decoder decodeObjectOfClass:NSDate.class forKey:_szkeyEngineEnd];
+	self.EngineStart = [decoder decodeObjectOfClass:NSDate.class forKey:_szkeyEngineStart];
+	self.FlightEnd = [decoder decodeObjectOfClass:NSDate.class forKey:_szkeyFlightEnd];
+	self.FlightStart = [decoder decodeObjectOfClass:NSDate.class forKey:_szkeyFlightStart];
+	self.FullStopLandings = [decoder decodeObjectOfClass:NSNumber.class forKey:_szkeyFullStopLandings];
+	self.HobbsEnd = [decoder decodeObjectOfClass:NSNumber.class forKey:_szkeyHobbsEnd];
+	self.HobbsStart = [decoder decodeObjectOfClass:NSNumber.class forKey:_szkeyHobbsStart];
+	self.IMC = [decoder decodeObjectOfClass:NSNumber.class forKey:_szkeyIMC];
+	self.Landings = [decoder decodeObjectOfClass:NSNumber.class forKey:_szkeyLandings];
+	self.NightLandings = [decoder decodeObjectOfClass:NSNumber.class forKey:_szkeyNightLandings];
+	self.Nighttime = [decoder decodeObjectOfClass:NSNumber.class forKey:_szkeyNight];
+	self.PIC = [decoder decodeObjectOfClass:NSNumber.class forKey:_szkeyPIC];
+	self.Route = [decoder decodeObjectOfClass:NSString.class forKey:_szkeyRoute];
+	self.SIC = [decoder decodeObjectOfClass:NSNumber.class forKey:_szkeySIC];
+	self.SimulatedIFR = [decoder decodeObjectOfClass:NSNumber.class forKey:_szkeySimulatedIFR];
+	self.GroundSim = [decoder decodeObjectOfClass:NSNumber.class forKey:_szkeyGroundSim];
 	if (self.GroundSim == nil)
 		self.GroundSim = @0.0;
-	self.TotalFlightTime = [decoder decodeObjectForKey:_szkeyTotalFlight];
-	self.User = [decoder decodeObjectForKey:_szkeyUser];
-	self.FlightData = [decoder decodeObjectForKey:_szKeyFlightData];
+	self.TotalFlightTime = [decoder decodeObjectOfClass:NSNumber.class forKey:_szkeyTotalFlight];
+	self.User = [decoder decodeObjectOfClass:NSString.class forKey:_szkeyUser];
+	self.FlightData = [decoder decodeObjectOfClass:NSString.class forKey:_szKeyFlightData];
 	
-	self.CustomProperties = [decoder decodeObjectForKey:_szKeyCustomProperties];
+    self.CustomProperties = [decoder decodeObjectOfClasses:[NSSet setWithArray:@[NSArray.class, MFBWebServiceSvc_CustomFlightProperty.class, MFBWebServiceSvc_ArrayOfCustomFlightProperty.class, MFBWebServiceSvc_CustomPropertyType.class]] forKey:_szKeyCustomProperties];
 
 	self.fHoldingProcedures = [[USBoolean alloc] initWithBool:[decoder decodeBoolForKey:_szkeyHolding]];
 	self.fIsPublic = [[USBoolean alloc] initWithBool:[decoder decodeBoolForKey:_szkeyIsPublic]];
 	
-	self.CatClassOverride = [decoder decodeObjectForKey:_szKeyCatClassOverride];
+	self.CatClassOverride = [decoder decodeObjectOfClass:NSNumber.class forKey:_szKeyCatClassOverride];
 	if (self.CatClassOverride == nil)
 		self.CatClassOverride = @0;
 	
@@ -705,8 +689,9 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
 #pragma mark - Clone/Reverse
 - (MFBWebServiceSvc_LogbookEntry *) clone {
     // A bit of a hack for a deep copy: encode it then decode it.
-    NSData * thisArchived = [NSKeyedArchiver archivedDataWithRootObject:self];
-    MFBWebServiceSvc_LogbookEntry * leNew = [NSKeyedUnarchiver unarchiveObjectWithData:thisArchived];
+    NSError * err = nil;
+    NSData * thisArchived = [NSKeyedArchiver archivedDataWithRootObject:self requiringSecureCoding:YES error:&err];
+    MFBWebServiceSvc_LogbookEntry * leNew = [NSKeyedUnarchiver unarchivedObjectOfClass:MFBWebServiceSvc_LogbookEntry.class fromData:thisArchived error:&err];
     leNew.FlightID = NEW_FLIGHT_ID;
     
     if (leNew.CustomProperties != nil)

@@ -76,9 +76,10 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
     static dispatch_once_t pred;
     static NSMutableArray<MFBWebServiceSvc_PropertyTemplate *> * shared = nil;
     dispatch_once(&pred, ^{
+        NSError * err = nil;
         NSData * data = [NSUserDefaults.standardUserDefaults objectForKey:_szKeyCachedTemplates];
         if (data != nil)
-            shared = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+            shared = [NSKeyedUnarchiver unarchivedObjectOfClasses:[NSSet setWithArray:@[NSArray.class, MFBWebServiceSvc_PropertyTemplate.class, MFBWebServiceSvc_ArrayOfPropertyTemplate.class]] fromData:data error:&err];
         else
             shared = [NSMutableArray new];
     });
@@ -87,7 +88,7 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
 
 + (void) saveTemplates {
     NSUserDefaults * defs = NSUserDefaults.standardUserDefaults;
-    [defs setObject:[NSKeyedArchiver archivedDataWithRootObject:FlightProps.sharedTemplates] forKey:_szKeyCachedTemplates];
+    [defs setObject:[NSKeyedArchiver archivedDataWithRootObject:FlightProps.sharedTemplates requiringSecureCoding:YES error:nil] forKey:_szKeyCachedTemplates];
     [defs synchronize];
 }
 
@@ -157,9 +158,10 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
 
 - (NSArray<MFBWebServiceSvc_CustomPropertyType *> *) cachedProps
 {
-	NSData * rgArrayLastData = [[NSUserDefaults standardUserDefaults] objectForKey:_szKeyCachedPropTypes];	
+    NSData * rgArrayLastData = [[NSUserDefaults standardUserDefaults] objectForKey:_szKeyCachedPropTypes];
+    NSError * err = nil;
 	if (rgArrayLastData != nil)
-		return [NSKeyedUnarchiver unarchiveObjectWithData:rgArrayLastData];
+		return [NSKeyedUnarchiver unarchivedObjectOfClasses:[NSSet setWithArray:@[NSArray.class, MFBWebServiceSvc_CustomPropertyType.class]] fromData:rgArrayLastData error:&err];
     else
         return nil;
 }
@@ -207,7 +209,7 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
 {
     @synchronized (self.rgPropTypes) {
         NSUserDefaults * defs = [NSUserDefaults standardUserDefaults];
-        [defs setObject:[NSKeyedArchiver archivedDataWithRootObject:self.rgPropTypes] forKey:_szKeyCachedPropTypes];
+        [defs setObject:[NSKeyedArchiver archivedDataWithRootObject:self.rgPropTypes requiringSecureCoding:YES error:nil] forKey:_szKeyCachedPropTypes];
         [defs synchronize];
         hasLoadedThisSession = YES; // we've initialized - no need to refresh the cache again this session.
         NSLog(@"Customproperty cache refreshed");
@@ -616,14 +618,14 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
 - (instancetype)initWithCoderMFB:(NSCoder *)decoder
 {
 	self = [self init];
-	self.PropID = [decoder decodeObjectForKey:_szKeyPropID];
-	self.FlightID = [decoder decodeObjectForKey:_szKeyFlightID];
-	self.PropTypeID = [decoder decodeObjectForKey:_szKeyPropTypeID];
-	self.IntValue = [decoder decodeObjectForKey:_szKeyIntVal];
+	self.PropID = [decoder decodeObjectOfClass:NSNumber.class forKey:_szKeyPropID];
+	self.FlightID = [decoder decodeObjectOfClass:NSNumber.class forKey:_szKeyFlightID];
+	self.PropTypeID = [decoder decodeObjectOfClass:NSNumber.class forKey:_szKeyPropTypeID];
+	self.IntValue = [decoder decodeObjectOfClass:NSNumber.class forKey:_szKeyIntVal];
 	self.BoolValue = [[USBoolean alloc] initWithBool:[decoder decodeBoolForKey:_szKeyBoolVal]];
-	self.DecValue = [decoder decodeObjectForKey:_szKeyDecVal];
-	self.TextValue = [decoder decodeObjectForKey:_szKeyTextVal];
-	self.DateValue = [decoder decodeObjectForKey:_szKeyDateVal];
+	self.DecValue = [decoder decodeObjectOfClass:NSNumber.class forKey:_szKeyDecVal];
+	self.TextValue = [decoder decodeObjectOfClass:NSString.class forKey:_szKeyTextVal];
+	self.DateValue = [decoder decodeObjectOfClass:NSDate.class forKey:_szKeyDateVal];
 	return self;
 }
 @end
@@ -637,7 +639,8 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
 - (instancetype)initWithCoderMFB:(NSCoder *)decoder
 {
 	self = [self init];
-	NSArray * rgProps = (NSArray *) [decoder decodeObjectForKey:_szKeyPropArray];
+    NSError * err;
+    NSArray * rgProps = (NSArray *) [decoder decodeTopLevelObjectOfClasses:[NSSet setWithArray:@[NSArray.class, MFBWebServiceSvc_CustomFlightProperty.class, MFBWebServiceSvc_CustomPropertyType.class]] forKey:_szKeyPropArray error:&err];
 	for (MFBWebServiceSvc_CustomFlightProperty * cfp in rgProps)
 		[self addCustomFlightProperty:cfp];
 
@@ -689,13 +692,14 @@ static char UIB_ISLOCKED_KEY;
 	self = [self init];
 	
 	self.Type = (MFBWebServiceSvc_CFPPropertyType) [decoder decodeInt32ForKey:@"cptType"];
-	self.Title = [decoder decodeObjectForKey:@"cptTitle"];
-    self.SortKey = [decoder decodeObjectForKey:@"cptSortKey"];
-	self.PropTypeID = [decoder decodeObjectForKey:@"cptPropTypeID"];
-	self.FormatString = [decoder decodeObjectForKey:@"cptFormatString"];
-    self.Description = [decoder decodeObjectForKey:@"cptDescription"];
-    self.PreviousValues = [decoder decodeObjectForKey:@"cptPrevValues"];
-	self.Flags = [decoder decodeObjectForKey:@"cptFlags"];
+	self.Title = [decoder decodeObjectOfClass:NSString.class forKey:@"cptTitle"];
+    self.SortKey = [decoder decodeObjectOfClass:NSString.class forKey:@"cptSortKey"];
+	self.PropTypeID = [decoder decodeObjectOfClass:NSNumber.class forKey:@"cptPropTypeID"];
+	self.FormatString = [decoder decodeObjectOfClass:NSString.class forKey:@"cptFormatString"];
+    self.Description = [decoder decodeObjectOfClass:NSString.class forKey:@"cptDescription"];
+    NSError * err = nil;
+    self.PreviousValues = [decoder decodeTopLevelObjectOfClasses:[NSSet setWithArray:@[MFBWebServiceSvc_ArrayOfString.class, NSString.class, NSMutableArray.class]] forKey:@"cptPrevValues" error:&err];
+	self.Flags = [decoder decodeObjectOfClass:NSNumber.class forKey:@"cptFlags"];
     self.IsFavorite = [[USBoolean alloc] initWithBool:[decoder decodeBoolForKey:@"cptFavoriteBOOL"]];
     self.isLocked = [decoder decodeBoolForKey:@"_cptLocked"];
     
@@ -754,12 +758,13 @@ NSString * const _szKeyTemplatePropTypes = @"keyTemplTypes";
 
 - (instancetype)initWithCoderMFB:(NSCoder *)decoder {
     self = [self init];
-    self.ID_ = [decoder decodeObjectForKey:_szKeyTemplateID];
-    self.Name = [decoder decodeObjectForKey:_szKeyTemplateName];
-    self.Description = [decoder decodeObjectForKey:_szKeyTemplateDesc];
-    self.GroupAsInt = [decoder decodeObjectForKey:_szKeyTemplateGroup];
-    self.IsDefault = [decoder decodeObjectForKey:_szKeyTemplateDefault];
-    self.PropertyTypes = [decoder decodeObjectForKey:_szKeyTemplatePropTypes];
+    NSError * err;
+    self.ID_ = [decoder decodeObjectOfClass:NSNumber.class forKey:_szKeyTemplateID];
+    self.Name = [decoder decodeObjectOfClass:NSString.class forKey:_szKeyTemplateName];
+    self.Description = [decoder decodeObjectOfClass:NSString.class forKey:_szKeyTemplateDesc];
+    self.GroupAsInt = [decoder decodeObjectOfClass:NSNumber.class forKey:_szKeyTemplateGroup];
+    self.IsDefault = [decoder decodeObjectOfClass:USBoolean.class forKey:_szKeyTemplateDefault];
+    self.PropertyTypes = [decoder decodeTopLevelObjectOfClasses:[NSSet setWithArray:@[NSMutableArray.class, MFBWebServiceSvc_ArrayOfInt.class]] forKey:_szKeyTemplatePropTypes error:&err];
     return self;
 }
 

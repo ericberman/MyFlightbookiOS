@@ -115,7 +115,7 @@
 @class MFBWebServiceSvc_AirportsInBoundingBox;
 @class MFBWebServiceSvc_AirportsInBoundingBoxResponse;
 @class MFBWebServiceSvc_ArrayOfAirport;
-@interface MFBWebServiceSvc_AircraftForUser : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_AircraftForUser : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAuthUserToken;
@@ -156,7 +156,7 @@ typedef enum {
 } MFBWebServiceSvc_ImageFileType;
 MFBWebServiceSvc_ImageFileType MFBWebServiceSvc_ImageFileType_enumFromString(NSString *string);
 NSString * MFBWebServiceSvc_ImageFileType_stringFromEnum(MFBWebServiceSvc_ImageFileType enumValue);
-@interface MFBWebServiceSvc_LatLong : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_LatLong : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSNumber * Latitude;
@@ -177,7 +177,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_MFBImageInfoBase : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_MFBImageInfoBase : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSNumber * Width;
@@ -231,7 +231,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_ArrayOfMFBImageInfo : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_ArrayOfMFBImageInfo : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSMutableArray *MFBImageInfo;
@@ -260,7 +260,7 @@ typedef enum {
 } MFBWebServiceSvc_PilotRole;
 MFBWebServiceSvc_PilotRole MFBWebServiceSvc_PilotRole_enumFromString(NSString *string);
 NSString * MFBWebServiceSvc_PilotRole_stringFromEnum(MFBWebServiceSvc_PilotRole enumValue);
-@interface MFBWebServiceSvc_ArrayOfInt : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_ArrayOfInt : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSMutableArray *int_;
@@ -288,7 +288,7 @@ typedef enum {
 } MFBWebServiceSvc_AvionicsTechnologyType;
 MFBWebServiceSvc_AvionicsTechnologyType MFBWebServiceSvc_AvionicsTechnologyType_enumFromString(NSString *string);
 NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceSvc_AvionicsTechnologyType enumValue);
-@interface MFBWebServiceSvc_Aircraft : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_Aircraft : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSNumber * InstanceTypeID;
@@ -371,7 +371,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_ArrayOfAircraft : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_ArrayOfAircraft : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSMutableArray *Aircraft;
@@ -391,7 +391,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_AircraftForUserResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_AircraftForUserResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	MFBWebServiceSvc_ArrayOfAircraft * AircraftForUserResult;
@@ -410,7 +410,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_AddAircraftForUser : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_AddAircraftForUser : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAuthUserToken;
@@ -435,7 +435,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_AddAircraftForUserResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_AddAircraftForUserResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	MFBWebServiceSvc_ArrayOfAircraft * AddAircraftForUserResult;
@@ -454,7 +454,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_AircraftMatchingPrefix : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_AircraftMatchingPrefix : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAuthToken;
@@ -475,7 +475,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_AircraftMatchingPrefixResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_AircraftMatchingPrefixResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	MFBWebServiceSvc_ArrayOfAircraft * AircraftMatchingPrefixResult;
@@ -494,7 +494,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_UpdateMaintenanceForAircraft : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_UpdateMaintenanceForAircraft : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAuthUserToken;
@@ -515,7 +515,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_UpdateMaintenanceForAircraftResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_UpdateMaintenanceForAircraftResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 /* attributes */
@@ -532,7 +532,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAuthUserToken;
@@ -553,7 +553,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotesResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotesResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 /* attributes */
@@ -570,7 +570,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_DeleteAircraftForUser : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_DeleteAircraftForUser : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAuthUserToken;
@@ -591,7 +591,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_DeleteAircraftForUserResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_DeleteAircraftForUserResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	MFBWebServiceSvc_ArrayOfAircraft * DeleteAircraftForUserResult;
@@ -610,7 +610,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_MakesAndModels : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_MakesAndModels : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 /* attributes */
@@ -627,7 +627,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_SimpleMakeModel : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_SimpleMakeModel : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSNumber * ModelID;
@@ -648,7 +648,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_ArrayOfSimpleMakeModel : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_ArrayOfSimpleMakeModel : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSMutableArray *SimpleMakeModel;
@@ -668,7 +668,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_MakesAndModelsResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_MakesAndModelsResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	MFBWebServiceSvc_ArrayOfSimpleMakeModel * MakesAndModelsResult;
@@ -687,7 +687,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_GetCurrencyForUser : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_GetCurrencyForUser : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAuthToken;
@@ -774,7 +774,7 @@ typedef enum {
 } MFBWebServiceSvc_CatClassID;
 MFBWebServiceSvc_CatClassID MFBWebServiceSvc_CatClassID_enumFromString(NSString *string);
 NSString * MFBWebServiceSvc_CatClassID_stringFromEnum(MFBWebServiceSvc_CatClassID enumValue);
-@interface MFBWebServiceSvc_CategoryClass : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_CategoryClass : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * CatClass;
@@ -801,7 +801,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_ArrayOfCategoryClass : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_ArrayOfCategoryClass : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSMutableArray *CategoryClass;
@@ -833,7 +833,7 @@ typedef enum {
 } MFBWebServiceSvc_CFPPropertyType;
 MFBWebServiceSvc_CFPPropertyType MFBWebServiceSvc_CFPPropertyType_enumFromString(NSString *string);
 NSString * MFBWebServiceSvc_CFPPropertyType_stringFromEnum(MFBWebServiceSvc_CFPPropertyType enumValue);
-@interface MFBWebServiceSvc_ArrayOfString : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_ArrayOfString : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSMutableArray *string;
@@ -853,7 +853,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_CustomPropertyType : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_CustomPropertyType : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSNumber * PropTypeID;
@@ -888,7 +888,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_ArrayOfCustomPropertyType : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_ArrayOfCustomPropertyType : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSMutableArray *CustomPropertyType;
@@ -942,7 +942,7 @@ typedef enum {
 } MFBWebServiceSvc_TurbineLevel;
 MFBWebServiceSvc_TurbineLevel MFBWebServiceSvc_TurbineLevel_enumFromString(NSString *string);
 NSString * MFBWebServiceSvc_TurbineLevel_stringFromEnum(MFBWebServiceSvc_TurbineLevel enumValue);
-@interface MFBWebServiceSvc_MakeModel : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_MakeModel : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	MFBWebServiceSvc_AllowedAircraftTypes AllowedTypes;
@@ -1009,7 +1009,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_ArrayOfMakeModel : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_ArrayOfMakeModel : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSMutableArray *MakeModel;
@@ -1048,7 +1048,7 @@ typedef enum {
 } MFBWebServiceSvc_AircraftInstanceRestriction;
 MFBWebServiceSvc_AircraftInstanceRestriction MFBWebServiceSvc_AircraftInstanceRestriction_enumFromString(NSString *string);
 NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebServiceSvc_AircraftInstanceRestriction enumValue);
-@interface MFBWebServiceSvc_FlightQuery : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_FlightQuery : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	MFBWebServiceSvc_DateRanges DateRange;
@@ -1161,7 +1161,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_CurrencyStatusItem : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_CurrencyStatusItem : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * Attribute;
@@ -1192,7 +1192,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_ArrayOfCurrencyStatusItem : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_ArrayOfCurrencyStatusItem : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSMutableArray *CurrencyStatusItem;
@@ -1212,7 +1212,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_GetCurrencyForUserResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_GetCurrencyForUserResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	MFBWebServiceSvc_ArrayOfCurrencyStatusItem * GetCurrencyForUserResult;
@@ -1231,7 +1231,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_TotalsForUser : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_TotalsForUser : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAuthToken;
@@ -1274,7 +1274,7 @@ typedef enum {
 } MFBWebServiceSvc_TotalsGroup;
 MFBWebServiceSvc_TotalsGroup MFBWebServiceSvc_TotalsGroup_enumFromString(NSString *string);
 NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGroup enumValue);
-@interface MFBWebServiceSvc_TotalsItem : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_TotalsItem : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSNumber * Value;
@@ -1311,7 +1311,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_ArrayOfTotalsItem : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_ArrayOfTotalsItem : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSMutableArray *TotalsItem;
@@ -1331,7 +1331,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_TotalsForUserResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_TotalsForUserResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	MFBWebServiceSvc_ArrayOfTotalsItem * TotalsForUserResult;
@@ -1350,7 +1350,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_TotalsForUserWithQuery : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_TotalsForUserWithQuery : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAuthToken;
@@ -1371,7 +1371,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_TotalsForUserWithQueryResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_TotalsForUserWithQueryResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	MFBWebServiceSvc_ArrayOfTotalsItem * TotalsForUserWithQueryResult;
@@ -1390,7 +1390,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_VisitedAirports : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_VisitedAirports : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAuthToken;
@@ -1409,7 +1409,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_airport : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_airport : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSNumber * DistanceFromPosition;
@@ -1446,7 +1446,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_VisitedAirport : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_VisitedAirport : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * Code;
@@ -1475,7 +1475,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_ArrayOfVisitedAirport : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_ArrayOfVisitedAirport : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSMutableArray *VisitedAirport;
@@ -1495,7 +1495,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_VisitedAirportsResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_VisitedAirportsResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	MFBWebServiceSvc_ArrayOfVisitedAirport * VisitedAirportsResult;
@@ -1514,7 +1514,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_FlightsWithQueryAndOffset : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_FlightsWithQueryAndOffset : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAuthUserToken;
@@ -1539,7 +1539,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_CustomFlightProperty : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_CustomFlightProperty : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSNumber * PropID;
@@ -1572,7 +1572,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_ArrayOfCustomFlightProperty : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_ArrayOfCustomFlightProperty : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSMutableArray *CustomFlightProperty;
@@ -1600,7 +1600,7 @@ typedef enum {
 } MFBWebServiceSvc_VideoSource;
 MFBWebServiceSvc_VideoSource MFBWebServiceSvc_VideoSource_enumFromString(NSString *string);
 NSString * MFBWebServiceSvc_VideoSource_stringFromEnum(MFBWebServiceSvc_VideoSource enumValue);
-@interface MFBWebServiceSvc_VideoRef : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_VideoRef : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSNumber * ID_;
@@ -1629,7 +1629,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_ArrayOfVideoRef : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_ArrayOfVideoRef : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSMutableArray *VideoRef;
@@ -1649,7 +1649,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_LogbookEntryCore : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_LogbookEntryCore : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * User;
@@ -1802,7 +1802,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_ArrayOfLogbookEntry : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_ArrayOfLogbookEntry : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSMutableArray *LogbookEntry;
@@ -1822,7 +1822,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_FlightsWithQueryAndOffsetResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_FlightsWithQueryAndOffsetResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	MFBWebServiceSvc_ArrayOfLogbookEntry * FlightsWithQueryAndOffsetResult;
@@ -1841,7 +1841,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_FlightsWithQuery : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_FlightsWithQuery : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAuthUserToken;
@@ -1864,7 +1864,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_FlightsWithQueryResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_FlightsWithQueryResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	MFBWebServiceSvc_ArrayOfLogbookEntry * FlightsWithQueryResult;
@@ -1883,7 +1883,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_DeleteLogbookEntry : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_DeleteLogbookEntry : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAuthUserToken;
@@ -1904,7 +1904,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_DeleteLogbookEntryResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_DeleteLogbookEntryResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	USBoolean * DeleteLogbookEntryResult;
@@ -1923,7 +1923,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_PostingOptions : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_PostingOptions : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 /* attributes */
@@ -1940,7 +1940,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_CommitFlightWithOptions : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_CommitFlightWithOptions : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAuthUserToken;
@@ -1963,7 +1963,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_CommitFlightWithOptionsResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_CommitFlightWithOptionsResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	MFBWebServiceSvc_LogbookEntry * CommitFlightWithOptionsResult;
@@ -1982,7 +1982,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_FlightPathForFlight : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_FlightPathForFlight : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAuthUserToken;
@@ -2003,7 +2003,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_ArrayOfLatLong : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_ArrayOfLatLong : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSMutableArray *LatLong;
@@ -2023,7 +2023,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_FlightPathForFlightResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_FlightPathForFlightResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	MFBWebServiceSvc_ArrayOfLatLong * FlightPathForFlightResult;
@@ -2042,7 +2042,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_FlightPathForFlightGPX : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_FlightPathForFlightGPX : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAuthUserToken;
@@ -2063,7 +2063,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_FlightPathForFlightGPXResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_FlightPathForFlightGPXResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * FlightPathForFlightGPXResult;
@@ -2082,7 +2082,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_AvailablePropertyTypes : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_AvailablePropertyTypes : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 /* attributes */
@@ -2099,7 +2099,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_AvailablePropertyTypesResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_AvailablePropertyTypesResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	MFBWebServiceSvc_ArrayOfCustomPropertyType * AvailablePropertyTypesResult;
@@ -2118,7 +2118,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_AvailablePropertyTypesForUser : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_AvailablePropertyTypesForUser : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAuthUserToken;
@@ -2137,7 +2137,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_AvailablePropertyTypesForUserResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_AvailablePropertyTypesForUserResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	MFBWebServiceSvc_ArrayOfCustomPropertyType * AvailablePropertyTypesForUserResult;
@@ -2156,7 +2156,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_PropertiesAndTemplatesForUser : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_PropertiesAndTemplatesForUser : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAuthUserToken;
@@ -2175,7 +2175,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_PropertyTemplate : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_PropertyTemplate : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSNumber * ID_;
@@ -2206,7 +2206,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_ArrayOfPropertyTemplate : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_ArrayOfPropertyTemplate : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSMutableArray *PropertyTemplate;
@@ -2226,7 +2226,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_TemplatePropTypeBundle : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_TemplatePropTypeBundle : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	MFBWebServiceSvc_ArrayOfCustomPropertyType * UserProperties;
@@ -2247,7 +2247,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_PropertiesAndTemplatesForUserResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_PropertiesAndTemplatesForUserResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	MFBWebServiceSvc_TemplatePropTypeBundle * PropertiesAndTemplatesForUserResult;
@@ -2266,7 +2266,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_PropertiesForFlight : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_PropertiesForFlight : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAuthUserToken;
@@ -2287,7 +2287,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_PropertiesForFlightResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_PropertiesForFlightResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	MFBWebServiceSvc_ArrayOfCustomFlightProperty * PropertiesForFlightResult;
@@ -2306,7 +2306,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_DeletePropertiesForFlight : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_DeletePropertiesForFlight : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAuthUserToken;
@@ -2329,7 +2329,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_DeletePropertiesForFlightResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_DeletePropertiesForFlightResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 /* attributes */
@@ -2346,7 +2346,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_DeletePropertyForFlight : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_DeletePropertyForFlight : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAuthUserToken;
@@ -2369,7 +2369,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_DeletePropertyForFlightResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_DeletePropertyForFlightResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 /* attributes */
@@ -2386,7 +2386,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_DeleteImage : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_DeleteImage : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAuthUserToken;
@@ -2407,7 +2407,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_DeleteImageResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_DeleteImageResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 /* attributes */
@@ -2424,7 +2424,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_UpdateImageAnnotation : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_UpdateImageAnnotation : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAuthUserToken;
@@ -2445,7 +2445,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_UpdateImageAnnotationResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_UpdateImageAnnotationResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 /* attributes */
@@ -2462,7 +2462,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_AuthTokenForUser : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_AuthTokenForUser : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAppToken;
@@ -2485,7 +2485,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_AuthTokenForUserResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_AuthTokenForUserResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * AuthTokenForUserResult;
@@ -2504,7 +2504,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_AuthTokenForUserNew : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_AuthTokenForUserNew : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAppToken;
@@ -2537,7 +2537,7 @@ typedef enum {
 } MFBWebServiceSvc_AuthStatus;
 MFBWebServiceSvc_AuthStatus MFBWebServiceSvc_AuthStatus_enumFromString(NSString *string);
 NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatus enumValue);
-@interface MFBWebServiceSvc_AuthResult : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_AuthResult : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	MFBWebServiceSvc_AuthStatus Result;
@@ -2558,7 +2558,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_AuthTokenForUserNewResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_AuthTokenForUserNewResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	MFBWebServiceSvc_AuthResult * AuthTokenForUserNewResult;
@@ -2577,7 +2577,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_RefreshAuthToken : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_RefreshAuthToken : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAppToken;
@@ -2602,7 +2602,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_RefreshAuthTokenResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_RefreshAuthTokenResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * RefreshAuthTokenResult;
@@ -2621,7 +2621,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_CreateUser : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_CreateUser : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAppToken;
@@ -2669,7 +2669,7 @@ typedef enum {
 } MFBWebServiceSvc_MembershipCreateStatus;
 MFBWebServiceSvc_MembershipCreateStatus MFBWebServiceSvc_MembershipCreateStatus_enumFromString(NSString *string);
 NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceSvc_MembershipCreateStatus enumValue);
-@interface MFBWebServiceSvc_UserEntity : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_UserEntity : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAuthToken;
@@ -2692,7 +2692,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_CreateUserResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_CreateUserResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	MFBWebServiceSvc_UserEntity * CreateUserResult;
@@ -2711,7 +2711,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_GetNamedQueriesForUser : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_GetNamedQueriesForUser : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAuthToken;
@@ -2747,7 +2747,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_ArrayOfCannedQuery : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_ArrayOfCannedQuery : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSMutableArray *CannedQuery;
@@ -2767,7 +2767,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_GetNamedQueriesForUserResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_GetNamedQueriesForUserResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	MFBWebServiceSvc_ArrayOfCannedQuery * GetNamedQueriesForUserResult;
@@ -2786,7 +2786,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_AddNamedQueryForUser : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_AddNamedQueryForUser : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAuthToken;
@@ -2809,7 +2809,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_AddNamedQueryForUserResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_AddNamedQueryForUserResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	MFBWebServiceSvc_ArrayOfCannedQuery * AddNamedQueryForUserResult;
@@ -2828,7 +2828,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_DeleteNamedQueryForUser : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_DeleteNamedQueryForUser : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * szAuthToken;
@@ -2849,7 +2849,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_DeleteNamedQueryForUserResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_DeleteNamedQueryForUserResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	MFBWebServiceSvc_ArrayOfCannedQuery * DeleteNamedQueryForUserResult;
@@ -2868,7 +2868,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_SuggestModels : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_SuggestModels : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * prefixText;
@@ -2889,7 +2889,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_SuggestModelsResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_SuggestModelsResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	MFBWebServiceSvc_ArrayOfString * SuggestModelsResult;
@@ -2908,7 +2908,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_PreviouslyUsedTextProperties : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_PreviouslyUsedTextProperties : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * prefixText;
@@ -2931,7 +2931,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_PreviouslyUsedTextPropertiesResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_PreviouslyUsedTextPropertiesResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	MFBWebServiceSvc_ArrayOfString * PreviouslyUsedTextPropertiesResult;
@@ -2950,7 +2950,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_AirportsInBoundingBox : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_AirportsInBoundingBox : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSNumber * latSouth;
@@ -2975,7 +2975,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_ArrayOfAirport : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_ArrayOfAirport : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSMutableArray *airport;
@@ -2995,7 +2995,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_AirportsInBoundingBoxResponse : NSObject <NSCoding> {
+@interface MFBWebServiceSvc_AirportsInBoundingBoxResponse : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	MFBWebServiceSvc_ArrayOfAirport * AirportsInBoundingBoxResult;

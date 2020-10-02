@@ -172,6 +172,9 @@
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 MFBWebServiceSvc_AircraftInstanceTypes MFBWebServiceSvc_AircraftInstanceTypes_enumFromString(NSString *string)
 {
@@ -470,6 +473,9 @@ NSString * MFBWebServiceSvc_ImageFileType_stringFromEnum(MFBWebServiceSvc_ImageF
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_MFBImageInfoBase
@@ -996,6 +1002,9 @@ NSString * MFBWebServiceSvc_ImageFileType_stringFromEnum(MFBWebServiceSvc_ImageF
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_MFBImageInfo
 - (id)init
@@ -1130,6 +1139,9 @@ NSString * MFBWebServiceSvc_ImageFileType_stringFromEnum(MFBWebServiceSvc_ImageF
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_ArrayOfMFBImageInfo
@@ -1300,6 +1312,9 @@ NSString * MFBWebServiceSvc_ImageFileType_stringFromEnum(MFBWebServiceSvc_ImageF
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 MFBWebServiceSvc_PilotRole MFBWebServiceSvc_PilotRole_enumFromString(NSString *string)
@@ -1506,6 +1521,9 @@ NSString * MFBWebServiceSvc_PilotRole_stringFromEnum(MFBWebServiceSvc_PilotRole 
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 MFBWebServiceSvc_AvionicsTechnologyType MFBWebServiceSvc_AvionicsTechnologyType_enumFromString(NSString *string)
@@ -2862,6 +2880,9 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_ArrayOfAircraft
 @synthesize soapSigner;
@@ -3032,6 +3053,9 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_AircraftForUserResponse
 @synthesize soapSigner;
@@ -3195,6 +3219,9 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_AddAircraftForUser
@@ -3477,6 +3504,9 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_AddAircraftForUserResponse
 @synthesize soapSigner;
@@ -3640,6 +3670,9 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_AircraftMatchingPrefix
@@ -3844,6 +3877,9 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_AircraftMatchingPrefixResponse
 @synthesize soapSigner;
@@ -4007,6 +4043,9 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_UpdateMaintenanceForAircraft
@@ -4211,6 +4250,9 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_UpdateMaintenanceForAircraftResponse
 @synthesize soapSigner;
@@ -4322,6 +4364,9 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes
@@ -4526,6 +4571,9 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotesResponse
 @synthesize soapSigner;
@@ -4637,6 +4685,9 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_DeleteAircraftForUser
@@ -4841,6 +4892,9 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_DeleteAircraftForUserResponse
 @synthesize soapSigner;
@@ -5005,6 +5059,9 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_MakesAndModels
 @synthesize soapSigner;
@@ -5116,6 +5173,9 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_SimpleMakeModel
@@ -5320,6 +5380,9 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_ArrayOfSimpleMakeModel
 @synthesize soapSigner;
@@ -5490,6 +5553,9 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_MakesAndModelsResponse
 @synthesize soapSigner;
@@ -5654,6 +5720,9 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_GetCurrencyForUser
 @synthesize soapSigner;
@@ -5817,6 +5886,9 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 MFBWebServiceSvc_CurrencyState MFBWebServiceSvc_CurrencyState_enumFromString(NSString *string)
@@ -6427,6 +6499,9 @@ NSString * MFBWebServiceSvc_CatClassID_stringFromEnum(MFBWebServiceSvc_CatClassI
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_ArrayOfCategoryClass
 @synthesize soapSigner;
@@ -6596,6 +6671,9 @@ NSString * MFBWebServiceSvc_CatClassID_stringFromEnum(MFBWebServiceSvc_CatClassI
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 MFBWebServiceSvc_CFPPropertyType MFBWebServiceSvc_CFPPropertyType_enumFromString(NSString *string)
@@ -6820,6 +6898,9 @@ NSString * MFBWebServiceSvc_CFPPropertyType_stringFromEnum(MFBWebServiceSvc_CFPP
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_CustomPropertyType
@@ -7268,6 +7349,9 @@ NSString * MFBWebServiceSvc_CFPPropertyType_stringFromEnum(MFBWebServiceSvc_CFPP
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_ArrayOfCustomPropertyType
 @synthesize soapSigner;
@@ -7437,6 +7521,9 @@ NSString * MFBWebServiceSvc_CFPPropertyType_stringFromEnum(MFBWebServiceSvc_CFPP
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 MFBWebServiceSvc_GroupConjunction MFBWebServiceSvc_GroupConjunction_enumFromString(NSString *string)
@@ -8525,6 +8612,9 @@ NSString * MFBWebServiceSvc_TurbineLevel_stringFromEnum(MFBWebServiceSvc_Turbine
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_ArrayOfMakeModel
 @synthesize soapSigner;
@@ -8694,6 +8784,9 @@ NSString * MFBWebServiceSvc_TurbineLevel_stringFromEnum(MFBWebServiceSvc_Turbine
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 MFBWebServiceSvc_EngineTypeRestriction MFBWebServiceSvc_EngineTypeRestriction_enumFromString(NSString *string)
@@ -10596,6 +10689,9 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_CurrencyStatusItem
 @synthesize soapSigner;
@@ -10936,6 +11032,9 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_ArrayOfCurrencyStatusItem
 @synthesize soapSigner;
@@ -11106,6 +11205,9 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_GetCurrencyForUserResponse
 @synthesize soapSigner;
@@ -11269,6 +11371,9 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_TotalsForUser
@@ -11472,6 +11577,9 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 MFBWebServiceSvc_NumType MFBWebServiceSvc_NumType_enumFromString(NSString *string)
@@ -12026,6 +12134,9 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_ArrayOfTotalsItem
 @synthesize soapSigner;
@@ -12196,6 +12307,9 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_TotalsForUserResponse
 @synthesize soapSigner;
@@ -12359,6 +12473,9 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_TotalsForUserWithQuery
@@ -12563,6 +12680,9 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_TotalsForUserWithQueryResponse
 @synthesize soapSigner;
@@ -12727,6 +12847,9 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_VisitedAirports
 @synthesize soapSigner;
@@ -12890,6 +13013,9 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_airport
@@ -13406,6 +13532,9 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_VisitedAirport
 @synthesize soapSigner;
@@ -13765,6 +13894,9 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_ArrayOfVisitedAirport
 @synthesize soapSigner;
@@ -13935,6 +14067,9 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_VisitedAirportsResponse
 @synthesize soapSigner;
@@ -14098,6 +14233,9 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_FlightsWithQueryAndOffset
@@ -14379,6 +14517,9 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_CustomFlightProperty
@@ -14817,6 +14958,9 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_ArrayOfCustomFlightProperty
 @synthesize soapSigner;
@@ -14986,6 +15130,9 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 MFBWebServiceSvc_VideoSource MFBWebServiceSvc_VideoSource_enumFromString(NSString *string)
@@ -15347,6 +15494,9 @@ NSString * MFBWebServiceSvc_VideoSource_stringFromEnum(MFBWebServiceSvc_VideoSou
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_ArrayOfVideoRef
 @synthesize soapSigner;
@@ -15516,6 +15666,9 @@ NSString * MFBWebServiceSvc_VideoSource_stringFromEnum(MFBWebServiceSvc_VideoSou
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_LogbookEntryCore
@@ -17241,6 +17394,9 @@ NSString * MFBWebServiceSvc_VideoSource_stringFromEnum(MFBWebServiceSvc_VideoSou
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 MFBWebServiceSvc_SignatureState MFBWebServiceSvc_SignatureState_enumFromString(NSString *string)
 {
@@ -17689,6 +17845,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_LogbookEntry
 - (id)init
@@ -17823,6 +17982,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_ArrayOfLogbookEntry
@@ -17994,6 +18156,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_FlightsWithQueryAndOffsetResponse
 @synthesize soapSigner;
@@ -18157,6 +18322,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_FlightsWithQuery
@@ -18400,6 +18568,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_FlightsWithQueryResponse
 @synthesize soapSigner;
@@ -18563,6 +18734,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_DeleteLogbookEntry
@@ -18767,6 +18941,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_DeleteLogbookEntryResponse
 @synthesize soapSigner;
@@ -18931,6 +19108,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_PostingOptions
 @synthesize soapSigner;
@@ -19042,6 +19222,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_CommitFlightWithOptions
@@ -19285,6 +19468,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_CommitFlightWithOptionsResponse
 @synthesize soapSigner;
@@ -19448,6 +19634,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_FlightPathForFlight
@@ -19652,6 +19841,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_ArrayOfLatLong
 @synthesize soapSigner;
@@ -19822,6 +20014,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_FlightPathForFlightResponse
 @synthesize soapSigner;
@@ -19985,6 +20180,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_FlightPathForFlightGPX
@@ -20189,6 +20387,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_FlightPathForFlightGPXResponse
 @synthesize soapSigner;
@@ -20353,6 +20554,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_AvailablePropertyTypes
 @synthesize soapSigner;
@@ -20464,6 +20668,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_AvailablePropertyTypesResponse
@@ -20629,6 +20836,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_AvailablePropertyTypesForUser
 @synthesize soapSigner;
@@ -20792,6 +21002,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_AvailablePropertyTypesForUserResponse
@@ -20957,6 +21170,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_PropertiesAndTemplatesForUser
 @synthesize soapSigner;
@@ -21120,6 +21336,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_PropertyTemplate
@@ -21519,6 +21738,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_ArrayOfPropertyTemplate
 @synthesize soapSigner;
@@ -21688,6 +21910,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_TemplatePropTypeBundle
@@ -21892,6 +22117,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_PropertiesAndTemplatesForUserResponse
 @synthesize soapSigner;
@@ -22055,6 +22283,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_PropertiesForFlight
@@ -22259,6 +22490,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_PropertiesForFlightResponse
 @synthesize soapSigner;
@@ -22422,6 +22656,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_DeletePropertiesForFlight
@@ -22665,6 +22902,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_DeletePropertiesForFlightResponse
 @synthesize soapSigner;
@@ -22776,6 +23016,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_DeletePropertyForFlight
@@ -23019,6 +23262,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_DeletePropertyForFlightResponse
 @synthesize soapSigner;
@@ -23130,6 +23376,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_DeleteImage
@@ -23334,6 +23583,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_DeleteImageResponse
 @synthesize soapSigner;
@@ -23445,6 +23697,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_UpdateImageAnnotation
@@ -23649,6 +23904,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_UpdateImageAnnotationResponse
 @synthesize soapSigner;
@@ -23760,6 +24018,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_AuthTokenForUser
@@ -24003,6 +24264,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_AuthTokenForUserResponse
 @synthesize soapSigner;
@@ -24166,6 +24430,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_AuthTokenForUserNew
@@ -24448,6 +24715,9 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 MFBWebServiceSvc_AuthStatus MFBWebServiceSvc_AuthStatus_enumFromString(NSString *string)
 {
@@ -24652,6 +24922,9 @@ NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatu
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_AuthTokenForUserNewResponse
 @synthesize soapSigner;
@@ -24815,6 +25088,9 @@ NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatu
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_RefreshAuthToken
@@ -25097,6 +25373,9 @@ NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatu
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_RefreshAuthTokenResponse
 @synthesize soapSigner;
@@ -25260,6 +25539,9 @@ NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatu
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_CreateUser
@@ -25659,6 +25941,9 @@ NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatu
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 MFBWebServiceSvc_MembershipCreateStatus MFBWebServiceSvc_MembershipCreateStatus_enumFromString(NSString *string)
 {
@@ -25956,6 +26241,9 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_CreateUserResponse
 @synthesize soapSigner;
@@ -26120,6 +26408,9 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_GetNamedQueriesForUser
 @synthesize soapSigner;
@@ -26283,6 +26574,9 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_CannedQuery
@@ -26458,6 +26752,9 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_ArrayOfCannedQuery
 @synthesize soapSigner;
@@ -26628,6 +26925,9 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_GetNamedQueriesForUserResponse
 @synthesize soapSigner;
@@ -26791,6 +27091,9 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_AddNamedQueryForUser
@@ -27034,6 +27337,9 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_AddNamedQueryForUserResponse
 @synthesize soapSigner;
@@ -27197,6 +27503,9 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_DeleteNamedQueryForUser
@@ -27401,6 +27710,9 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_DeleteNamedQueryForUserResponse
 @synthesize soapSigner;
@@ -27564,6 +27876,9 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_SuggestModels
@@ -27768,6 +28083,9 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_SuggestModelsResponse
 @synthesize soapSigner;
@@ -27931,6 +28249,9 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_PreviouslyUsedTextProperties
@@ -28174,6 +28495,9 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_PreviouslyUsedTextPropertiesResponse
 @synthesize soapSigner;
@@ -28337,6 +28661,9 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc_AirportsInBoundingBox
@@ -28619,6 +28946,9 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_ArrayOfAirport
 @synthesize soapSigner;
@@ -28789,6 +29119,9 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
 }
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 @implementation MFBWebServiceSvc_AirportsInBoundingBoxResponse
 @synthesize soapSigner;
@@ -28952,6 +29285,9 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	}
 	if (numIvars > 0) { free(ivars); }
 	[pool drain];
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
 }
 @end
 @implementation MFBWebServiceSvc

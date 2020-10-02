@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2018 MyFlightbook, LLC
+ Copyright (C) 2017-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -62,7 +62,7 @@ typedef enum : NSUInteger {
     flightStageDone
 } NewFlightStages;
 
-@interface SimpleCurrencyItem : NSObject <NSCoding> {
+@interface SimpleCurrencyItem : NSObject <NSCoding, NSSecureCoding> {
 }
 
 @property (strong) NSString * attribute;
@@ -75,7 +75,7 @@ typedef enum : NSUInteger {
 
 @end
 
-@interface SimpleTotalItem : NSObject <NSCoding> {
+@interface SimpleTotalItem : NSObject <NSCoding, NSSecureCoding> {
 }
 
 @property (strong) NSString * title;
@@ -87,7 +87,7 @@ typedef enum : NSUInteger {
 
 @end
 
-@interface SimpleLogbookEntry : NSObject <NSCoding> {
+@interface SimpleLogbookEntry : NSObject <NSCoding, NSSecureCoding> {
 }
 
 @property (strong) NSString * Comment;
@@ -98,7 +98,7 @@ typedef enum : NSUInteger {
 
 @end
 
-@interface SharedWatch : NSObject <NSCoding> {
+@interface SharedWatch : NSObject <NSCoding, NSSecureCoding> {
 }
 
 @property (strong) NSString * latDisplay;

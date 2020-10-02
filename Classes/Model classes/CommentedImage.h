@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2010-2019 MyFlightbook, LLC
+ Copyright (C) 2010-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
-@interface CommentedImage : NSObject <MKAnnotation, NSCoding> {
+@interface CommentedImage : NSObject <MKAnnotation, NSCoding, NSSecureCoding> {
 	MFBWebServiceSvc_MFBImageInfo * imgInfo;
 	NSString * errorString;
 	

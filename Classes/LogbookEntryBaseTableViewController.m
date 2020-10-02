@@ -81,7 +81,8 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
         self.le.entryData.FlightData = MFBAppDelegate.threadSafeAppDelegate.mfbloc.flightDataAsString;
         
         NSUserDefaults * defs = [NSUserDefaults standardUserDefaults];
-        [defs setObject:[NSKeyedArchiver archivedDataWithRootObject:@[self.le]] forKey:_szKeyCurrentFlight];
+        NSError * err;
+        [defs setObject:[NSKeyedArchiver archivedDataWithRootObject:@[self.le] requiringSecureCoding:YES error:&err] forKey:_szKeyCurrentFlight];
         [defs synchronize];
     }
 }
@@ -89,7 +90,8 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
 - (void) restoreFlightInProgress {
     NSData * ar = (NSData *) [NSUserDefaults.standardUserDefaults objectForKey:_szKeyCurrentFlight];
     if (ar != nil) {
-        self.le = (LogbookEntry *) ((NSArray *)[NSKeyedUnarchiver unarchiveObjectWithData:ar])[0];
+        NSError * err;
+        self.le = (LogbookEntry *) ((NSArray *)[NSKeyedUnarchiver unarchivedObjectOfClasses:[NSSet setWithArray:@[NSArray.class, LogbookEntry.class, NSDate.class, CommentedImage.class]] fromData:ar error:&err])[0];
         self.le.entryData.Date = [NSDate date]; // go with today
     }
     else {
