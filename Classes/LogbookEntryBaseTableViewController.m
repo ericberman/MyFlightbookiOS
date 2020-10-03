@@ -90,9 +90,11 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
 - (void) restoreFlightInProgress {
     NSData * ar = (NSData *) [NSUserDefaults.standardUserDefaults objectForKey:_szKeyCurrentFlight];
     if (ar != nil) {
-        NSError * err;
+        NSError * err = nil;
         self.le = (LogbookEntry *) ((NSArray *)[NSKeyedUnarchiver unarchivedObjectOfClasses:[NSSet setWithArray:@[NSArray.class, LogbookEntry.class, NSDate.class, CommentedImage.class]] fromData:ar error:&err])[0];
         self.le.entryData.Date = [NSDate date]; // go with today
+        if (le.entryData.FlightID == nil || err != nil)
+            le.entryData.FlightID = @-1;    // if something screwed up in the unarchiving, set it up as a new flight.
     }
     else {
         self.le = [[LogbookEntry alloc] init];
