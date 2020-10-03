@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
-    <device id="watch42" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="17156" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch42"/>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11508"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="17034"/>
     </dependencies>
     <scenes>
         <!--New Flight-->
@@ -133,15 +131,6 @@
                         </table>
                         <label alignment="left" text="No totals are available.  Make sure you are signed in , and force-press to refresh." numberOfLines="5" id="QPq-4Q-DAs" userLabel="lblError"/>
                     </items>
-                    <menu key="menu" id="2mv-ib-vzK">
-                        <items>
-                            <menuItem title="Refresh" icon="resume" id="ouE-ce-g91">
-                                <connections>
-                                    <action selector="refresh" destination="tOL-R1-d3W" id="mgD-m3-SNw"/>
-                                </connections>
-                            </menuItem>
-                        </items>
-                    </menu>
                     <connections>
                         <outlet property="lblError" destination="QPq-4Q-DAs" id="Ajj-Nc-ctQ"/>
                         <outlet property="table" destination="Tfz-kD-CTx" id="CzX-YI-mjg"/>
@@ -195,15 +184,6 @@
                         </table>
                         <label alignment="left" text="No flights are available.  Make sure you are signed in , and force-press to refresh." numberOfLines="6" id="1JO-7S-UDd" userLabel="lblError"/>
                     </items>
-                    <menu key="menu" id="KWU-4p-p4k">
-                        <items>
-                            <menuItem title="Refresh" icon="resume" id="zLb-3A-hc6">
-                                <connections>
-                                    <action selector="refresh" destination="nTf-GX-DXe" id="fGd-f3-3WE"/>
-                                </connections>
-                            </menuItem>
-                        </items>
-                    </menu>
                     <connections>
                         <outlet property="lblError" destination="1JO-7S-UDd" id="1cY-hX-g7X"/>
                         <outlet property="table" destination="ElS-fm-sFT" id="M2q-DT-CBI"/>
@@ -247,15 +227,6 @@
                         </table>
                         <label alignment="left" text="No currency is available.  Make sure you are signed in , and force-press to refresh." numberOfLines="5" id="JPe-4X-D0f" userLabel="lblError"/>
                     </items>
-                    <menu key="menu" id="7vd-Od-S3U">
-                        <items>
-                            <menuItem title="Refresh" icon="resume" id="5Hx-73-LFQ">
-                                <connections>
-                                    <action selector="refresh" destination="jxf-FK-QQY" id="k5b-HE-mOC"/>
-                                </connections>
-                            </menuItem>
-                        </items>
-                    </menu>
                     <connections>
                         <outlet property="lblError" destination="JPe-4X-D0f" id="veY-a2-i5n"/>
                         <outlet property="table" destination="UCK-9d-Di6" id="M19-y7-oTj"/>
@@ -288,4 +259,8 @@
             <point key="canvasLocation" x="553" y="1001"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Pause.png" width="128" height="128"/>
+        <image name="Recording.png" width="128" height="128"/>
+    </resources>
 </document>
