@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2010-2019 MyFlightbook, LLC
+ Copyright (C) 2010-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -28,24 +28,30 @@
 #import "MFBAppDelegate.h"
 #import <MediaPlayer/MediaPlayer.h>
 
+@interface ImageComment()
+@property (nonatomic, strong) IBOutlet WKWebView * vwWebImage;
+@end
+
 @implementation ImageComment
 
-@synthesize ci, txtComment, vwWebImage;
-
-/*
- // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        // Custom initialization
-    }
-    return self;
-}
-*/
+@synthesize ci, txtComment, vwWebImage, vwWebHost;
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.txtComment.placeholder = NSLocalizedString(@"Add a comment for this image", @"Add a comment for this image");
+
+    WKWebViewConfiguration *conf = [[WKWebViewConfiguration alloc] init];
+    conf.preferences.javaScriptEnabled = YES;
+    conf.allowsInlineMediaPlayback = YES;
+    conf.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeAll;
+    
+    self.vwWebImage = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, self.vwWebHost.frame.size.width, self.vwWebHost.frame.size.height) configuration:conf];
+    self.vwWebImage.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self.vwWebHost addSubview:self.vwWebImage];
+
+    self.vwWebImage.navigationDelegate = self;
+    self.vwWebImage.UIDelegate = self;
 }
 
 
@@ -78,14 +84,11 @@
         [self.vwWebImage loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:szURL]]];
     }
     else if (self.ci.IsVideo)
-    {
-        self.vwWebImage.mediaPlaybackRequiresUserAction = YES;
         [self.vwWebImage loadRequest:[NSURLRequest requestWithURL:self.ci.LocalFileURL]];
-    }
     else
     {
         szURL = [NSString stringWithFormat:@"file://%@", [self.ci FullFilePathName]];
-        [self.vwWebImage loadHTMLString:[NSString stringWithFormat:@"<html><body><img src=\"%@\"></body></html>", szURL] baseURL:nil];
+        [self.vwWebImage loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:szURL]]];
 	}
 
 	[super viewWillAppear:animated];
@@ -106,6 +109,15 @@
 {
 	[textField resignFirstResponder];
 	return YES;
+}
+
+#pragma mark -- WKUIDelegate
+- (WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures
+{
+    if (!navigationAction.targetFrame.isMainFrame) {
+        [webView loadRequest:navigationAction.request];
+    }
+    return nil;
 }
 
 @end

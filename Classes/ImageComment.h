@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -26,16 +26,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
 #include "CommentedImage.h"
 
-@interface ImageComment : UIViewController <UITextFieldDelegate> {
-    CommentedImage * ci;
-	UITextField * txtComment;
-	UIImageView * imgView;
+@interface ImageComment : UIViewController <UITextFieldDelegate, WKUIDelegate, WKNavigationDelegate> {
 }
 
 @property (nonatomic, strong) CommentedImage * ci;
 @property (nonatomic, strong) IBOutlet UITextField * txtComment;
-@property (nonatomic, strong) IBOutlet UIWebView * vwWebImage;
-
+@property (nonatomic, strong) IBOutlet UIView * vwWebHost;
 @end
