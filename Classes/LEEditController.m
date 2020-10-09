@@ -115,6 +115,9 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     
     // And set up remaining inputviews/accessory views
     self.idDate.inputView = self.datePicker;
+    if (@available(iOS 13.4, *)) {
+        self.datePicker.preferredDatePickerStyle = UIDatePickerStyleWheels;
+    }
     self.idPopAircraft.inputView = self.pickerView;
     self.idComments.inputAccessoryView = self.idRoute.inputAccessoryView = self.idDate.inputAccessoryView = self.idPopAircraft.inputAccessoryView = self.vwAccessory;
     self.idPopAircraft.delegate = self.idComments.delegate = self.idRoute.delegate = self;
@@ -832,6 +835,11 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
 #pragma mark - UITextFieldDelegate
 - (BOOL) dateClick:(NSDate *) dt onInit:(void (^)(NSDate *))completionBlock
 {
+    self.datePicker.datePickerMode = UIDatePickerModeDateAndTime;
+    if (@available(iOS 13.4, *)) {
+        self.datePicker.preferredDatePickerStyle = UIDatePickerStyleWheels;
+    }
+
     EditCell * ec = (EditCell *) [self.tableView cellForRowAtIndexPath:self.ipActive];
 
     // see if this is a "Tap for today" click - if so, set to today and resign.
@@ -874,7 +882,6 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
     }
     
     self.datePicker.date = dt;
-    self.datePicker.datePickerMode = UIDatePickerModeDateAndTime;
     self.datePicker.timeZone = [AutodetectOptions UseLocalTime] ? [NSTimeZone systemTimeZone] : [NSTimeZone timeZoneForSecondsFromGMT:0];
     self.datePicker.locale = [AutodetectOptions UseLocalTime] ? [NSLocale currentLocale] : [NSLocale localeWithLocaleIdentifier:@"en-GB"];
     return YES;

@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2013-2019 MyFlightbook, LLC
+ Copyright (C) 2013-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -166,7 +166,9 @@
         dp.datePickerMode = fDateOnly ? UIDatePickerModeDate : UIDatePickerModeDateAndTime;
         dp.timeZone =  (fDateOnly || [AutodetectOptions UseLocalTime]) ? [NSTimeZone systemTimeZone] : [NSTimeZone timeZoneForSecondsFromGMT:0];
         dp.locale = (fDateOnly ||[AutodetectOptions UseLocalTime]) ? [NSLocale currentLocale] : [NSLocale localeWithLocaleIdentifier:@"en-GB"];
-
+        if (@available(iOS 13.4, *)) {
+            dp.preferredDatePickerStyle = UIDatePickerStyleWheels;
+        }
 
         [dp removeTarget:nil action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
         if ([self.txt.text length] == 0)   // initialize it to now

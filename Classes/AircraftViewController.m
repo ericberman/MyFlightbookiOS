@@ -66,6 +66,9 @@ enum aircraftRows {rowInfoStart, rowStaticDesc = rowInfoStart, rowInfoLast,
         self.imagesSection = sectImages;
         self.datePicker = [[UIDatePicker alloc] init];
         self.datePicker.datePickerMode = UIDatePickerModeDate;
+        if (@available(iOS 13.4, *)) {
+            self.datePicker.preferredDatePickerStyle = UIDatePickerStyleWheels;
+        }
         [self.datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
         self.datePicker.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
 

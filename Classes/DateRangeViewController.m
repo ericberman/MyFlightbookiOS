@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2013-2018 MyFlightbook, LLC
+ Copyright (C) 2013-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -54,6 +54,9 @@
     [super viewDidLoad];
     self.vwAccessory = [AccessoryBar getAccessoryBar:self];
     self.vwAccessory.btnDelete.enabled = NO;
+    if (@available(iOS 13.4, *)) {
+        self.vwDatePicker.preferredDatePickerStyle = UIDatePickerStyleWheels;
+    }
 }
 
 - (void)didReceiveMemoryWarning
