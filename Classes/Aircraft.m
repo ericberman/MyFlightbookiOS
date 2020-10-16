@@ -486,7 +486,7 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
         if (!ac.HideFromSelection.boolValue || (acIDToInclude != nil && (ac.AircraftID.intValue == acIDToInclude.intValue)))
             [rg addObject:ac];
     }
-    return rg;
+    return rg.count == 0 ? self.rgAircraftForUser : rg; // if it yielded no aircraft, then show them all.
 }
 
 - (NSArray *) modelsInUse

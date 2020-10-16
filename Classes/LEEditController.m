@@ -1494,26 +1494,51 @@ static NSDateFormatter * dfSunriseSunset = nil;
     [self pushOrPopView:vwProps fromView:sender withDelegate:self];
 }
 
-#pragma mark - Data Source - picker
+#pragma mark - Data Source - aircraft picker
 - (NSInteger) numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1;
 }
 
 - (NSInteger) pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return self.selectibleAircraft.count;
+    NSUInteger selectible = self.selectibleAircraft.count;
+    return (selectible == 0 || selectible == Aircraft.sharedAircraft.rgAircraftForUser.count) ? selectible : selectible + 1;
 }
 
-- (NSString *) pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+- (UIView *) pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(nullable UIView *)view {
+    if (view == nil) {
+        UILabel * l = [UILabel new];
+        l.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle1];
+        l.textAlignment = NSTextAlignmentCenter;
+        view = l;
+    }
+    
+    ((UILabel *) view).attributedText = [self pickerView:pickerView attributedTitleForRow:row forComponent:component];
+    return view;
+}
+
+- (NSAttributedString *) pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    CGFloat size = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle1].pointSize;
+    if (row == self.selectibleAircraft.count)   // "Show all"
+        return [NSAttributedString attributedStringFromMarkDown:[NSString stringWithFormat:@"_%@_", NSLocalizedString(@"ShowAllAircraft", @"Show all aircraft")] size:size];
+    
     MFBWebServiceSvc_Aircraft * ac = self.selectibleAircraft[row];
     if (ac.isAnonymous)
-        return ac.displayTailNumber;
-    return [NSString stringWithFormat:@"%@ (%@)", ac.TailNumber, ac.ModelDescription];
+        return [NSAttributedString attributedStringFromMarkDown:[NSString stringWithFormat:@"*%@*", ac.displayTailNumber] size:size];
+    
+    return [NSAttributedString attributedStringFromMarkDown:[NSString stringWithFormat:@"*%@* (%@)", ac.TailNumber, ac.ModelDescription] size:size];
 }
 
 - (void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    if (row == self.selectibleAircraft.count) {  // show all
+        self.selectibleAircraft = [NSArray arrayWithArray:Aircraft.sharedAircraft.rgAircraftForUser];
+        [pickerView reloadAllComponents];
+        [pickerView selectRow:0 inComponent:0 animated:YES];
+    }
+    else {
     MFBWebServiceSvc_Aircraft * ac = self.selectibleAircraft[row];
     self.le.entryData.AircraftID = ac.AircraftID;
     self.idPopAircraft.text = ac.displayTailNumber;
+    }
 }
 
 #pragma mark - DatePicker
