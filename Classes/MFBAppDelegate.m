@@ -356,6 +356,8 @@ static BOOL fAppLaunchFinished = NO;
             self.tabBarController.selectedViewController = self.tabTotals;
         } else if ([url.host compare:@"currency"] == NSOrderedSame) {
             self.tabBarController.selectedViewController = self.tabCurrency;
+        } else if ([url.host compare:@"newflight"] == NSOrderedSame) {
+            self.tabBarController.selectedViewController = self.tabNewFlight;
         }
     }
 }
@@ -372,6 +374,12 @@ static BOOL fAppLaunchFinished = NO;
             self.tabBarController.selectedViewController = self.tabTotals;
         else
             urlLaunchURL = [[NSURL alloc] initWithString:@"myflightbook://totals"];
+    }
+    else if ([shortcutItem.type compare:@"app.current"] == NSOrderedSame) {
+        if (fAppLaunchFinished)
+            self.tabBarController.selectedViewController = self.tabNewFlight;
+        else
+            urlLaunchURL = [[NSURL alloc] initWithString:@"myflightbook://newflight"];
     }
     else if ([shortcutItem.type compare:@"app.startEngine"] == NSOrderedSame)
         [self.leMain startEngineExternal];
@@ -582,7 +590,7 @@ static MFBAppDelegate * _mainApp = nil;
     
     // If a flight is in progress, add stop engine and pause/play as appropriate
     if ([self.leMain flightCouldBeInProgress]) {
-        [rgShortcuts addObject:[[UIApplicationShortcutItem alloc] initWithType:@"app.stopEngine" localizedTitle:NSLocalizedString(@"StopEngine", @"Shortcut - Stop Engine") localizedSubtitle:@"" icon:[UIApplicationShortcutIcon iconWithType:UIApplicationShortcutIconTypeTaskCompleted] userInfo:nil]];
+        [rgShortcuts addObject:[[UIApplicationShortcutItem alloc] initWithType:@"app.stopEngine" localizedTitle:NSLocalizedString(@"StopEngine", @"Shortcut - Stop Engine") localizedSubtitle:@"" icon:[UIApplicationShortcutIcon iconWithSystemImageName:@"stop.fill"] userInfo:nil]];
         if (self.leMain.le.fIsPaused)
             [rgShortcuts addObject:[[UIApplicationShortcutItem alloc] initWithType:@"app.resume" localizedTitle:NSLocalizedString(@"WatchPlay", @"Watch - Resume") localizedSubtitle:@"" icon:[UIApplicationShortcutIcon iconWithType:UIApplicationShortcutIconTypePlay] userInfo:nil]];
         else
@@ -591,6 +599,8 @@ static MFBAppDelegate * _mainApp = nil;
     else if (!self.leMain.le.entryData.isKnownEngineEnd)
         // flight not in progress - just add start flight
         [rgShortcuts addObject:[[UIApplicationShortcutItem alloc] initWithType:@"app.startEngine" localizedTitle:NSLocalizedString(@"StartEngine", @"Shortcut - Start Engine") localizedSubtitle:@"" icon:[UIApplicationShortcutIcon iconWithType:UIApplicationShortcutIconTypePlay] userInfo:nil]];
+    else    // completed flight waiting for submission
+        [rgShortcuts addObject:[[UIApplicationShortcutItem alloc] initWithType:@"app.current" localizedTitle:NSLocalizedString(@"CurrentFlight", @"Shortcut - Current Flight") localizedSubtitle:@"" icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"newflight.png"] userInfo:nil]];
 
     [[UIApplication sharedApplication] setShortcutItems:rgShortcuts];
 }

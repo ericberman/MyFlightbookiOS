@@ -1005,6 +1005,9 @@ Vous pouvez choisir un dans la liste fournie, le modifier, ou faire un de vos pr
 /* Shortcut - Stop Engine */
 "StopEngine" = "Arrêt Moteur";
 
+/* Shortcut - Current Flight */
+"CurrentFlight" = "Vol actuel";
+
 /* First Takeoff prompt */
 "First Takeoff:" = "Début du Vol:";
 
