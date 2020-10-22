@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2013-2019 MyFlightbook, LLC
+ Copyright (C) 2013-2020 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -370,7 +370,25 @@ BOOL fSelectFirst = NO;
 
 - (IBAction) pickImages:(id) sender
 {
-	[self addImages:NO fromButton:sender];
+    // Request permission so that we can get geotag
+    // Technically not required, so we'll call addImages regardless.
+    PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+    switch (status) {
+        case PHAuthorizationStatusNotDetermined: {
+            [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self addImages:NO fromButton:sender];
+                });
+            }];
+        }
+            break;
+        case PHAuthorizationStatusDenied:
+        case PHAuthorizationStatusRestricted:
+        case PHAuthorizationStatusLimited:
+        case PHAuthorizationStatusAuthorized:
+            [self addImages:NO fromButton:sender];
+            break;
+    }
 }
 
 - (IBAction) takePicture:(id) sender
