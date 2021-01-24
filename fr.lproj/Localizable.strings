@@ -1229,6 +1229,9 @@ Quel est le nom de la réception de votre mariage lieu a eu lieu?";
 /* Signature Status - certificate & Expiration */
 "sigStateTemplate2" = "CFI #%1$@, expiration %2$@";
 
+/* Signature Status - certificate & No Expiration */
+"sigStateTemplate2NoExp" = "Certificat# %1$@";
+
 /* Flight Action Menu Prompt */
 "flightActionMenuPrompt" = "Choisissez une action pour ce vol";
 

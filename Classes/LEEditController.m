@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2020 MyFlightbook, LLC
+ Copyright (C) 2009-2021 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -598,7 +598,10 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
             NSDateFormatter * df = [NSDateFormatter new];
             df.dateStyle = NSDateFormatterShortStyle;
             cell.textLabel.text = [NSString stringWithFormat:NSLocalizedString(@"sigStateTemplate1", @"Signature Status - date and CFI"), [df stringFromDate:self.le.entryData.CFISignatureDate], self.le.entryData.CFIName];
-            cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"sigStateTemplate2", @"Signature Status - certificate & Expiration"), self.le.entryData.CFICertificate, [df stringFromDate:self.le.entryData.CFIExpiration]];
+            if (self.le.entryData.CFIExpiration)
+            cell.detailTextLabel.text = [NSDate isUnknownDate:self.le.entryData.CFIExpiration] ?
+                [NSString stringWithFormat:NSLocalizedString(@"sigStateTemplate2NoExp", @"Signature Status - certificate & No Expiration"), self.le.entryData.CFICertificate] :
+                [NSString stringWithFormat:NSLocalizedString(@"sigStateTemplate2", @"Signature Status - certificate & Expiration"), self.le.entryData.CFICertificate, [df stringFromDate:self.le.entryData.CFIExpiration]];
             cell.textLabel.adjustsFontSizeToFitWidth = YES;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.imageView.image = [UIImage imageNamed:self.le.entryData.CFISignatureState == MFBWebServiceSvc_SignatureState_Valid ? @"sigok" : @"siginvalid"];
