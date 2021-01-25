@@ -1217,7 +1217,11 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
 		
 		if (dtHobbs > 0)
         {
-			self.le.entryData.HobbsEnd = @(hobbsStart + (dtHobbs / 3600.0));
+            double hobbsEnd = hobbsStart + (dtHobbs / 3600.0);
+            // Issue #226 - round to nearest 10th of an hour if needed
+            if (AutodetectOptions.roundTotalToNearestTenth)
+                hobbsEnd = round(hobbsEnd * 10.0) / 10.0;
+			self.le.entryData.HobbsEnd = @(hobbsEnd);
             
             // get the index path of the hobbs end cell
             // this is a bit of a hack, but it's robust to the cell changing position
