@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2018 MyFlightbook, LLC
+ Copyright (C) 2017-2021 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -331,7 +331,11 @@ static NSRegularExpression * _reAirports = nil;
     self.FacilityTypeCode = @((char *)sqlite3_column_text(row, 2));
     // column 3 is sourceusername - ignore it.
     // column 6 is preferred - ignore it
-    self.DistanceFromPosition = @(sqlite3_column_double(row, 7));
+    const char * sz = (char *) sqlite3_column_text(row, 7);
+    self.Country = (sz == NULL) ? @"" : @(sz);
+    sz = (char *) sqlite3_column_text(row, 8);
+    self.Admin1 = (sz == NULL) ? @"" : @(sz);
+    self.DistanceFromPosition = @(sqlite3_column_double(row, 9));
     return self;
 }
 
@@ -345,7 +349,20 @@ static NSRegularExpression * _reAirports = nil;
 
 - (NSString *) title
 {
-	return self.Name;
+    double dist = [self.DistanceFromPosition doubleValue];
+ 
+    MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
+
+    if (dist == 0.0 && app.mfbloc.lastSeenLoc != nil)
+    {
+        // try to compute the distance
+        CLLocationCoordinate2D cloc = app.mfbloc.lastSeenLoc.coordinate;
+        if (cloc.latitude != 0.0 && cloc.longitude != 0.0)
+            dist = NM_IN_A_METER * [app.mfbloc.lastSeenLoc distanceFromLocation:[[CLLocation alloc] initWithLatitude:self.Latitude.doubleValue longitude:self.Longitude.doubleValue]];
+    }
+    NSString * szDistance = [NSString localizedStringWithFormat:NSLocalizedString(@" (%.1fnm away)", @"Distance to airport - %.1f is replaced by the distance in nautical miles"), dist];
+    
+    return [NSString stringWithFormat:@"%@%@", self.Code, ((dist == 0.0) ? @"" : szDistance)];
 }
 
 - (NSComparisonResult) compareDistance:(MFBWebServiceSvc_airport *) ap
@@ -360,21 +377,11 @@ static NSRegularExpression * _reAirports = nil;
 }
 
 - (NSString *) subtitle
-{ 
-	MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
-	double dist = [self.DistanceFromPosition doubleValue];
+{
+    NSString * szLocale = (Country == nil || Country.length == 0 || [Country hasPrefix:@"--"]) ? @"" :
+        [[NSString stringWithFormat:@"%@%@", Admin1 == nil ? @"" : [NSString stringWithFormat:@"%@, ", Admin1], Country] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
 	
-	if (dist == 0.0 && app.mfbloc.lastSeenLoc != nil)
-	{
-		// try to compute the distance
-		CLLocationCoordinate2D cloc = app.mfbloc.lastSeenLoc.coordinate;
-		if (cloc.latitude != 0.0 && cloc.longitude != 0.0)
-            dist = NM_IN_A_METER * [app.mfbloc.lastSeenLoc distanceFromLocation:[[CLLocation alloc] initWithLatitude:self.Latitude.doubleValue longitude:self.Longitude.doubleValue]];
-	}
-	
-	NSString * szDistance = [NSString localizedStringWithFormat:NSLocalizedString(@" (%.1fnm away)", @"Distance to airport - %.1f is replaced by the distance in nautical miles"), dist];
-	
-	return [NSString stringWithFormat:@"%@%@", self.Code, ((dist == 0.0) ? @"" : szDistance)];
+    return szLocale.length == 0 ? self.Name : [NSString stringWithFormat:@"%@ (%@)", self.Name, szLocale];
 }
 
 + (MFBWebServiceSvc_airport *) getAdHoc:(NSString *) szLatLon;

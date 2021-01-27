@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2018 MyFlightbook, LLC
+ Copyright (C) 2017-2021 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -89,11 +89,7 @@
 			NSLog(@"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(self.database));
 
 		while (sqlite3_step(sqlAirportsNearPosition) == SQLITE_ROW)
-		{
-			MFBWebServiceSvc_airport * ap = [[MFBWebServiceSvc_airport alloc] initFromRow:sqlAirportsNearPosition];
-			[self.rgAirports addObject:ap];
-			 // slightly more efficient than autorelease
-		}
+			[self.rgAirports addObject:[[MFBWebServiceSvc_airport alloc] initFromRow:sqlAirportsNearPosition]];
 		
 		sqlite3_finalize(sqlAirportsNearPosition);
 	}

@@ -1418,6 +1418,8 @@ SOAPSigner *soapSigner;
 	NSString * FacilityType;
 	NSString * Code;
 	NSString * Name;
+	NSString * Country;
+	NSString * Admin1;
 	MFBWebServiceSvc_LatLong * LatLong;
 	NSString * Latitude;
 	NSString * Longitude;
@@ -1439,6 +1441,8 @@ SOAPSigner *soapSigner;
 @property (nonatomic, retain) NSString * FacilityType;
 @property (nonatomic, retain) NSString * Code;
 @property (nonatomic, retain) NSString * Name;
+@property (nonatomic, retain) NSString * Country;
+@property (nonatomic, retain) NSString * Admin1;
 @property (nonatomic, retain) MFBWebServiceSvc_LatLong * LatLong;
 @property (nonatomic, retain) NSString * Latitude;
 @property (nonatomic, retain) NSString * Longitude;
@@ -2957,6 +2961,7 @@ SOAPSigner *soapSigner;
 	NSNumber * lonWest;
 	NSNumber * latNorth;
 	NSNumber * lonEast;
+	USBoolean * fIncludeHeliports;
 /* attributes */
 }
 - (NSString *)nsPrefix;
@@ -2972,6 +2977,7 @@ SOAPSigner *soapSigner;
 @property (nonatomic, retain) NSNumber * lonWest;
 @property (nonatomic, retain) NSNumber * latNorth;
 @property (nonatomic, retain) NSNumber * lonEast;
+@property (nonatomic, retain) USBoolean * fIncludeHeliports;
 /* attributes */
 - (NSDictionary *)attributes;
 @end

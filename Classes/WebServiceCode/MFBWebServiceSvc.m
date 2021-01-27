@@ -13029,6 +13029,8 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 		FacilityType = 0;
 		Code = 0;
 		Name = 0;
+		Country = 0;
+		Admin1 = 0;
 		LatLong = 0;
 		Latitude = 0;
 		Longitude = 0;
@@ -13046,6 +13048,8 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 	if(FacilityType != nil) [FacilityType release];
 	if(Code != nil) [Code release];
 	if(Name != nil) [Name release];
+	if(Country != nil) [Country release];
+	if(Admin1 != nil) [Admin1 release];
 	if(LatLong != nil) [LatLong release];
 	if(Latitude != nil) [Latitude release];
 	if(Longitude != nil) [Longitude release];
@@ -13101,6 +13105,12 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 	if(((void *)self.Name) != 0) {
 		xmlAddChild(node, [self.Name xmlNodeForDoc:node->doc elementName:@"Name" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
+	if(((void *)self.Country) != 0) {
+		xmlAddChild(node, [self.Country xmlNodeForDoc:node->doc elementName:@"Country" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
+	if(((void *)self.Admin1) != 0) {
+		xmlAddChild(node, [self.Admin1 xmlNodeForDoc:node->doc elementName:@"Admin1" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
 	if(((void *)self.LatLong) != 0) {
 		xmlAddChild(node, [self.LatLong xmlNodeForDoc:node->doc elementName:@"LatLong" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
@@ -13121,6 +13131,8 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 @synthesize FacilityType;
 @synthesize Code;
 @synthesize Name;
+@synthesize Country;
+@synthesize Admin1;
 @synthesize LatLong;
 @synthesize Latitude;
 @synthesize Longitude;
@@ -13355,6 +13367,72 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 				id newChild = [elementClass deserializeNode:cur];
 				
 				self.Name = newChild;
+			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "Country")) {
+				
+				Class elementClass = nil;
+				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if(instanceType == NULL) {
+					elementClass = [NSString class];
+				} else {
+					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
+					
+					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
+					
+					NSString *elementClassString = nil;
+					if([elementTypeArray count] > 1) {
+						NSString *prefix = [elementTypeArray objectAtIndex:0];
+						NSString *localName = [elementTypeArray objectAtIndex:1];
+						
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
+						
+						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
+						
+						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
+					} else {
+						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
+					}
+					
+					elementClass = NSClassFromString(elementClassString);
+					xmlFree(instanceType);
+				}
+				
+				id newChild = [elementClass deserializeNode:cur];
+				
+				self.Country = newChild;
+			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "Admin1")) {
+				
+				Class elementClass = nil;
+				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if(instanceType == NULL) {
+					elementClass = [NSString class];
+				} else {
+					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
+					
+					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
+					
+					NSString *elementClassString = nil;
+					if([elementTypeArray count] > 1) {
+						NSString *prefix = [elementTypeArray objectAtIndex:0];
+						NSString *localName = [elementTypeArray objectAtIndex:1];
+						
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
+						
+						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
+						
+						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
+					} else {
+						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
+					}
+					
+					elementClass = NSClassFromString(elementClassString);
+					xmlFree(instanceType);
+				}
+				
+				id newChild = [elementClass deserializeNode:cur];
+				
+				self.Admin1 = newChild;
 			}
 			if(xmlStrEqual(cur->name, (const xmlChar *) "LatLong")) {
 				
@@ -28675,6 +28753,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 		lonWest = 0;
 		latNorth = 0;
 		lonEast = 0;
+		fIncludeHeliports = 0;
 	}
 	
 	return self;
@@ -28686,6 +28765,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	if(lonWest != nil) [lonWest release];
 	if(latNorth != nil) [latNorth release];
 	if(lonEast != nil) [lonEast release];
+	if(fIncludeHeliports != nil) [fIncludeHeliports release];
 	
 	[super dealloc];
 }
@@ -28731,12 +28811,16 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	if(((void *)self.lonEast) != 0) {
 		xmlAddChild(node, [self.lonEast xmlNodeForDoc:node->doc elementName:@"lonEast" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
+	if(((void *)self.fIncludeHeliports) != 0) {
+		xmlAddChild(node, [self.fIncludeHeliports xmlNodeForDoc:node->doc elementName:@"fIncludeHeliports" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
 }
 /* elements */
 @synthesize latSouth;
 @synthesize lonWest;
 @synthesize latNorth;
 @synthesize lonEast;
+@synthesize fIncludeHeliports;
 /* attributes */
 - (NSDictionary *)attributes
 {
@@ -28901,6 +28985,39 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 				id newChild = [elementClass deserializeNode:cur];
 				
 				self.lonEast = newChild;
+			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "fIncludeHeliports")) {
+				
+				Class elementClass = nil;
+				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if(instanceType == NULL) {
+					elementClass = [USBoolean class];
+				} else {
+					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
+					
+					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
+					
+					NSString *elementClassString = nil;
+					if([elementTypeArray count] > 1) {
+						NSString *prefix = [elementTypeArray objectAtIndex:0];
+						NSString *localName = [elementTypeArray objectAtIndex:1];
+						
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
+						
+						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
+						
+						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
+					} else {
+						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
+					}
+					
+					elementClass = NSClassFromString(elementClassString);
+					xmlFree(instanceType);
+				}
+				
+				id newChild = [elementClass deserializeNode:cur];
+				
+				self.fIncludeHeliports = newChild;
 			}
 		}
 	}
@@ -29298,11 +29415,11 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSoapBinding *)MFBWebServiceSoapBinding
 {
-	return [[[MFBWebServiceSoapBinding alloc] initWithAddress:@"https://myflightbook.com/logbook/Public/webservice.asmx"] autorelease];
+	return [[[MFBWebServiceSoapBinding alloc] initWithAddress:@"https://myflightbook.com/logbook/public/webservice.asmx"] autorelease];
 }
 + (MFBWebServiceSoap12Binding *)MFBWebServiceSoap12Binding
 {
-	return [[[MFBWebServiceSoap12Binding alloc] initWithAddress:@"https://myflightbook.com/logbook/Public/webservice.asmx"] autorelease];
+	return [[[MFBWebServiceSoap12Binding alloc] initWithAddress:@"https://myflightbook.com/logbook/public/webservice.asmx"] autorelease];
 }
 @end
 @implementation MFBWebServiceSoapBinding
