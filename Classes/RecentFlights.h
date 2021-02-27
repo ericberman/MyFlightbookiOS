@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2010-2018 MyFlightbook, LLC
+ Copyright (C) 2010-2021 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 1/14/10.
-//  Copyright 2010-2017 MyFlightbook LLC. All rights reserved.
+//  Copyright 2010-2021 MyFlightbook LLC. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -39,7 +39,6 @@ UIAlertViewDelegate, MFBSoapCallDelegate, QueryDelegate, ReachabilityDelegate> {
 @property (nonatomic, strong) MFBWebServiceSvc_FlightQuery * fq;
 
 - (void) loadFlightsForUser;
-- (void) refresh;
 - (void) submitPendingFlights;
 - (void) addJSONFlight:(NSString *) szJSON;
 - (void) addTelemetryFlight:(NSURL *) url;
