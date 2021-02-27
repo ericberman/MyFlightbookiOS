@@ -261,6 +261,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
         {
             self.idPopAircraft.text = ac.displayTailNumber;
             self.le.entryData.AircraftID = ac.AircraftID;
+            self.le.entryData.TailNumDisplay = ac.displayTailNumber;
         }
     }
     
@@ -1544,7 +1545,7 @@ static NSDateFormatter * dfSunriseSunset = nil;
     else {
     MFBWebServiceSvc_Aircraft * ac = self.selectibleAircraft[row];
     self.le.entryData.AircraftID = ac.AircraftID;
-    self.idPopAircraft.text = ac.displayTailNumber;
+    self.le.entryData.TailNumDisplay = self.idPopAircraft.text = ac.displayTailNumber;
     }
 }
 

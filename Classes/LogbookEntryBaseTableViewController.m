@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2019-2020 MyFlightbook, LLC
+ Copyright (C) 2019-2021 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -291,12 +291,12 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
 - (void) setCurrentAircraft: (MFBWebServiceSvc_Aircraft *) ac {
     if (ac == nil) {
         self.le.entryData.AircraftID = @0;
-        self.idPopAircraft.text = @"";
+        self.le.entryData.TailNumDisplay = self.idPopAircraft.text = @"";
     }
     else {
         BOOL fChanged = ac.AircraftID.integerValue != self.le.entryData.AircraftID.integerValue;
         if (self.idPopAircraft != nil) {
-            self.idPopAircraft.text = ac.displayTailNumber;
+            self.le.entryData.TailNumDisplay = self.idPopAircraft.text = ac.displayTailNumber;
             self.le.entryData.AircraftID = ac.AircraftID;
         }
         
