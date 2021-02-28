@@ -173,7 +173,7 @@
 "Flight Queued" = "Vols dans la liste";
 
 /* Title for list of flights awaiting upload */
-"Flights pending upload" = "Vols en attente de transfert vers le site";
+"Flights awaiting upload" = "Vols en attente de transfert vers le site";
 
 /* If a full-stop landing is detected, this is written into the comments for flight telemetry.  the %@ is replaced either with nothing or with 'night' to indicate a night landing */
 "Full-stop %@landing" = "atterrissages complets type :%@";
@@ -757,7 +757,7 @@
 /* Can't upload with videos unless on wifi */
 "ErrorNeedWifiForVids" = "Téléchargement de la vidéo nécessite WiFi.";
 
-/* Progress message when uploading pending flights */ 
+/* Progress message when uploading unsubmitted flights */ 
 "Flight %d of %d" = "Téléchargement de %d vol(s) sur  %d";
 
 /* Let a CFI sign this flight */

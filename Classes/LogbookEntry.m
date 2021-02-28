@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2020 MyFlightbook, LLC
+ Copyright (C) 2009-2021 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -220,7 +220,7 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
             } toPage:MFBFLIGHTIMAGEUPLOADPAGE authString:self.szAuthToken keyName:MFB_KEYFLIGHTIMAGE keyValue:[self.entryData.FlightID stringValue]];
 
             // If this was a pending flight, it will be in the pending flight list.  Remove it, if so.
-            [[MFBAppDelegate threadSafeAppDelegate] dequeuePendingFlight:self];
+            [[MFBAppDelegate threadSafeAppDelegate] dequeueUnsubmittedFlight:self];
         }
         [self performSelectorOnMainThread:@selector(operationCompleted:) withObject:sc waitUntilDone:NO];
     }
