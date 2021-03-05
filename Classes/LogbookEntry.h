@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2020 MyFlightbook, LLC
+ Copyright (C) 2009-2021 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -51,6 +51,7 @@
 @property (readwrite, strong) MFBWebServiceSvc_LogbookEntry * entryData;
 @property (readwrite, strong) NSMutableArray * rgPicsForFlight;
 @property (assign) BOOL fIsPaused;
+@property (readwrite) BOOL fShuntPending;
 @property (assign) NSTimeInterval dtTotalPauseTime;
 @property (assign) NSTimeInterval dtTimeOfLastPause;
 @property (readwrite) double accumulatedNightTime;
@@ -86,13 +87,18 @@
 
 @end
 
+@interface MFBWebServiceSvc_PendingFlight (MFBIPhone)
+- (void)encodeWithCoderMFB:(NSCoder *)encoder;
+- (instancetype)initWithCoderMFB:(NSCoder *)decoder;
+@end
+
 @interface MFBWebServiceSvc_LogbookEntry (AutodetectDelegate) <AutoDetectDelegate>
 @end
 
 @interface MFBWebServiceSvc_LogbookEntry (MFBIPhone)
 - (BOOL) isNewFlight;
-- (BOOL) isPending;
-- (BOOL) isNewOrPending;
+- (BOOL) isAwaitingUpload;
+- (BOOL) isNewOrAwaitingUpload;
 - (BOOL) isQueued;
 - (BOOL) isInInitialState;  // checks to see if a flight is empty but for the starting hobbs
 - (BOOL) isEmpty;           // checks to see if a flight is truly empty.

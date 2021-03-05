@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2020 MyFlightbook, LLC
+ Copyright (C) 2009-2021 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -88,7 +88,7 @@ typedef enum _cacheStatus {cacheInvalid, cacheValid, cacheValidButRefresh} Cache
 #define _szKeyPrefRecordHighRes @"keyRecordHighRes"
 #define _szKeyPrefAutoDetect @"keyAutoDetectTakeOffAndLanding"
 #define _szKeyPrefIsRecording @"keyPrefIsRecording"
-#define _szKeyPrefPendingFlights @"keyPendingFlights"
+#define _szKeyPrefUnsubmittedFlights @"keyPendingFlights"
 #define _szKeyPrefLastInstalledVersion @"keyLastVersion"
 #define _szKeyPrefDebugMode @"keyDebugMode"
 
@@ -110,7 +110,7 @@ typedef enum _cacheStatus {cacheInvalid, cacheValid, cacheValidButRefresh} Cache
 @property (nonatomic, strong) IBOutlet UITabBarController *tabBarController;
 @property (readwrite, strong) MFBProfile * userProfile;
 @property (nonatomic, strong) IBOutlet LEEditController * leMain;
-@property (strong) NSMutableArray * rgPendingFlights;
+@property (strong) NSMutableArray * rgUnsubmittedFlights;
 @property (readwrite, strong) MFBLocation * mfbloc;
 @property (readwrite) BOOL fDebugMode;
 @property (nonatomic, strong) IBOutlet UINavigationController * tabNewFlight;
@@ -138,7 +138,7 @@ typedef enum _cacheStatus {cacheInvalid, cacheValid, cacheValidButRefresh} Cache
 
 // Various tests of system functionality
 - (void) ensureWarningShownForUser;
-- (void) addBadgeForPendingFlights;
+- (void) addBadgeForUnsubmittedFlights;
 - (void) queueFlightForLater:(LogbookEntry *) le;
-- (void) dequeuePendingFlight:(LogbookEntry *) le;
+- (void) dequeueUnsubmittedFlight:(LogbookEntry *) le;
 @end

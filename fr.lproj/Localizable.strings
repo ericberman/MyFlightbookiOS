@@ -173,7 +173,10 @@
 "Flight Queued" = "Vols dans la liste";
 
 /* Title for list of flights awaiting upload */
-"Flights pending upload" = "Vols en attente de transfert vers le site";
+"Flights awaiting upload" = "Vols en attente de transfert vers le site";
+
+/* Title for list of pending flights */
+"PendingFlightsHeader" = "Vols en attente (sur le serveur mais pas encore dans votre journal de bord)";
 
 /* If a full-stop landing is detected, this is written into the comments for flight telemetry.  the %@ is replaced either with nothing or with 'night' to indicate a night landing */
 "Full-stop %@landing" = "atterrissages complets type :%@";
@@ -347,7 +350,7 @@
 "Release to refresh" = "Relacher pour rafraichir";
 
 /* Reset button on flight entry */
-"Reset" = "Remise à zéro";
+"Reset" = "Réinitialiser le vol";
 
 /* status message while retrieving user aircraft */
 "Retrieving aircraft list..." = "Récupération liste des aéronefs";
@@ -426,6 +429,9 @@
 
 /* Error - must be signed in to view flights */
 "You must be signed in to view recent flights." = "Vous devez être identifié pour voir les vols récents.";
+
+/* Error - must be signed in */
+"You must be signed in to perform this action" = "Vous devez être connecté pour effectuer cette action";
 
 /* No comment provided by engineer. */
 "You must be signed in to view totals." = "Vous devez être identifié pour consulter vos cumuls.";
@@ -757,7 +763,7 @@
 /* Can't upload with videos unless on wifi */
 "ErrorNeedWifiForVids" = "Téléchargement de la vidéo nécessite WiFi.";
 
-/* Progress message when uploading pending flights */ 
+/* Progress message when uploading unsubmitted flights */ 
 "Flight %d of %d" = "Téléchargement de %d vol(s) sur  %d";
 
 /* Let a CFI sign this flight */
@@ -1249,6 +1255,9 @@ Quel est le nom de la réception de votre mariage lieu a eu lieu?";
 
 /* Flight Action - Send Subject */
 "flightActionSendSubject" = "Ajouter ce vol à votre journal de bord";
+
+/* Flight Action - Save Pending */
+"flightActionSavePending" = "Enregistrer en tant que vol en attente";
 
 /* Flight Action - Send Body */
 "flightActionSendBody" = "Je vous envoie ce vol de mon journal de bord pour que vous puissiez l'ajouter au vôtre.\n\nS'il vous plaît visitez %s.\n\nVous aurez la possibilité d'examiner le vol et de faire des changements avant que le vol soit enregistré.";

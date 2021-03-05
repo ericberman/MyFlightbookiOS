@@ -39,7 +39,6 @@ UIAlertViewDelegate, MFBSoapCallDelegate, QueryDelegate, ReachabilityDelegate> {
 @property (nonatomic, strong) MFBWebServiceSvc_FlightQuery * fq;
 
 - (void) loadFlightsForUser;
-- (void) submitPendingFlights;
 - (void) addJSONFlight:(NSString *) szJSON;
 - (void) addTelemetryFlight:(NSURL *) url;
 @end

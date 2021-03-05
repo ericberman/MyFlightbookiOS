@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2020 MyFlightbook, LLC
+ Copyright (C) 2009-2021 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 11/28/09.
-//  Copyright 2009-2019 MyFlightbook LLC. All rights reserved.
+//  Copyright 2009-2021 MyFlightbook LLC. All rights reserved.
 //
 
 #import "MFBAppDelegate.h"
@@ -67,7 +67,7 @@ sqlite3 * _db;
 BOOL fNetworkStateKnown;
 
 @synthesize window, tabBarController, userProfile;
-@synthesize leMain, timerSyncState, rgPendingFlights, tbiRecent, mfbloc, fDebugMode;
+@synthesize leMain, timerSyncState, rgUnsubmittedFlights, tbiRecent, mfbloc, fDebugMode;
 @synthesize reachability, lastKnownNetworkStatus, reachabilityDelegate;
 @synthesize tabProfile, tabRecents, tabNewFlight;
 @synthesize notifyDataChanged, notifyResetAll;
@@ -139,7 +139,7 @@ BOOL gLogging = EXF_LOGGING;
     NSUserDefaults * def = NSUserDefaults.standardUserDefaults;
 	// remember whether or not we were flying and recording flight data.
     [self.mfbloc saveState];
-	[def setObject:[NSKeyedArchiver archivedDataWithRootObject:self.rgPendingFlights requiringSecureCoding:YES error:nil] forKey:_szKeyPrefPendingFlights];
+	[def setObject:[NSKeyedArchiver archivedDataWithRootObject:self.rgUnsubmittedFlights requiringSecureCoding:YES error:nil] forKey:_szKeyPrefUnsubmittedFlights];
 	
 	[def synchronize];
 	NSLog(@"saveState - done and synchronized");
@@ -496,15 +496,15 @@ static MFBAppDelegate * _mainApp = nil;
     
     [self invalidateCachedTotals];
     
-    // recover pending flights (for count to add to recent-flights tab)
-    NSData * ar = (NSData *) [NSUserDefaults.standardUserDefaults objectForKey:_szKeyPrefPendingFlights];
+    // recover unsubmitted flights (for count to add to recent-flights tab)
+    NSData * ar = (NSData *) [NSUserDefaults.standardUserDefaults objectForKey:_szKeyPrefUnsubmittedFlights];
     NSError * err = nil;
     if (ar != nil)
-        self.rgPendingFlights = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchivedObjectOfClasses:[NSSet setWithArray:@[NSArray.class, LogbookEntry.class, MFBWebServiceSvc_LogbookEntry.class]] fromData:ar error:&err]];
+        self.rgUnsubmittedFlights = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchivedObjectOfClasses:[NSSet setWithArray:@[NSArray.class, NSString.class, NSNumber.class, NSMutableString.class, LogbookEntry.class, MFBWebServiceSvc_PendingFlight.class, MFBWebServiceSvc_LogbookEntry.class]] fromData:ar error:&err]];
     else
-        self.rgPendingFlights = [[NSMutableArray alloc] init];
-    // set a badge for the # of pending flights.
-    [self addBadgeForPendingFlights];
+        self.rgUnsubmittedFlights = [[NSMutableArray alloc] init];
+    // set a badge for the # of unsubmitted flights.
+    [self addBadgeForUnsubmittedFlights];
     
     // reload persisted state of tabs, if needed.
     NSArray * rgPresistedTabs = [[NSUserDefaults standardUserDefaults] objectForKey:_szKeyTabOrder];
@@ -533,7 +533,7 @@ static MFBAppDelegate * _mainApp = nil;
     
     NSMutableArray * rgImages = [NSMutableArray arrayWithArray:self.leMain.le.rgPicsForFlight];
     // Now get any additional images
-    for (LogbookEntry * lbe in self.rgPendingFlights)
+    for (LogbookEntry * lbe in self.rgUnsubmittedFlights)
         [rgImages addObjectsFromArray:lbe.rgPicsForFlight];
     [CommentedImage cleanupObsoleteFiles:rgImages];
     
@@ -771,21 +771,21 @@ static MFBAppDelegate * _mainApp = nil;
         [vc invalidateViewController];
 }
 
-#pragma mark Pending Flights
+#pragma mark Unsubmitted Flights
 - (void) setBadgeCount {
-    NSInteger cPendingFlights = self.rgPendingFlights.count;
+    NSInteger cUnsubmittedFlights = self.rgUnsubmittedFlights.count;
     if (self.tbiRecent != nil)
-        self.tbiRecent.badgeValue = (cPendingFlights == 0) ? nil : [NSString stringWithFormat:@"%ld", (long) cPendingFlights];;
-    [UIApplication sharedApplication].applicationIconBadgeNumber = cPendingFlights;
+        self.tbiRecent.badgeValue = (cUnsubmittedFlights == 0) ? nil : [NSString stringWithFormat:@"%ld", (long) cUnsubmittedFlights];;
+    [UIApplication sharedApplication].applicationIconBadgeNumber = cUnsubmittedFlights;
 }
 
-- (void) addBadgeForPendingFlights
+- (void) addBadgeForUnsubmittedFlights
 {
     [UNUserNotificationCenter.currentNotificationCenter getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
         if (settings.badgeSetting == UNNotificationSettingEnabled)
             [self performSelectorOnMainThread:@selector(setBadgeCount) withObject:nil waitUntilDone:NO];
-        else if (self.rgPendingFlights.count > 0)
-            // Request notification permission to show the badge for pending flights.
+        else if (self.rgUnsubmittedFlights.count > 0)
+            // Request notification permission to show the badge for unsubmitted flights.
             [UNUserNotificationCenter.currentNotificationCenter requestAuthorizationWithOptions:UNAuthorizationOptionBadge completionHandler:^(BOOL granted, NSError * _Nullable error) {
                 if (granted)
                     [self performSelectorOnMainThread:@selector(setBadgeCount) withObject:nil waitUntilDone:NO];
@@ -795,22 +795,22 @@ static MFBAppDelegate * _mainApp = nil;
 
 - (void) queueFlightForLater:(LogbookEntry *) le
 {
-    if (![self.rgPendingFlights containsObject:le])
+    if (![self.rgUnsubmittedFlights containsObject:le])
     {
-        [self.rgPendingFlights addObject:le];
+        [self.rgUnsubmittedFlights addObject:le];
         [self invalidateCachedTotals];
         [self saveState];
-        [self performSelectorOnMainThread:@selector(addBadgeForPendingFlights) withObject:nil waitUntilDone:NO];
+        [self performSelectorOnMainThread:@selector(addBadgeForUnsubmittedFlights) withObject:nil waitUntilDone:NO];
     }
 }
 
-- (void) dequeuePendingFlight:(LogbookEntry *) le
+- (void) dequeueUnsubmittedFlight:(LogbookEntry *) le
 {
-	[self.rgPendingFlights removeObject:le];
+	[self.rgUnsubmittedFlights removeObject:le];
     // force a reload
 	[self invalidateCachedTotals];
 	[self saveState];
-    [self performSelectorOnMainThread:@selector(addBadgeForPendingFlights) withObject:nil waitUntilDone:NO];
+    [self performSelectorOnMainThread:@selector(addBadgeForUnsubmittedFlights) withObject:nil waitUntilDone:NO];
 }
 
 #pragma mark Watchkit

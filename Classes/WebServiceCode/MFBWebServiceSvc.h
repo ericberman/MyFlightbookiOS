@@ -71,6 +71,18 @@
 @class MFBWebServiceSvc_ArrayOfLatLong;
 @class MFBWebServiceSvc_FlightPathForFlightGPX;
 @class MFBWebServiceSvc_FlightPathForFlightGPXResponse;
+@class MFBWebServiceSvc_CreatePendingFlight;
+@class MFBWebServiceSvc_CreatePendingFlightResponse;
+@class MFBWebServiceSvc_ArrayOfPendingFlight;
+@class MFBWebServiceSvc_PendingFlight;
+@class MFBWebServiceSvc_PendingFlightsForUser;
+@class MFBWebServiceSvc_PendingFlightsForUserResponse;
+@class MFBWebServiceSvc_UpdatePendingFlight;
+@class MFBWebServiceSvc_UpdatePendingFlightResponse;
+@class MFBWebServiceSvc_DeletePendingFlight;
+@class MFBWebServiceSvc_DeletePendingFlightResponse;
+@class MFBWebServiceSvc_CommitPendingFlight;
+@class MFBWebServiceSvc_CommitPendingFlightResponse;
 @class MFBWebServiceSvc_AvailablePropertyTypes;
 @class MFBWebServiceSvc_AvailablePropertyTypesResponse;
 @class MFBWebServiceSvc_AvailablePropertyTypesForUser;
@@ -2086,6 +2098,241 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
+@interface MFBWebServiceSvc_CreatePendingFlight : NSObject <NSCoding, NSSecureCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	NSString * szAuthUserToken;
+	MFBWebServiceSvc_LogbookEntry * le;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_CreatePendingFlight *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, retain) NSString * szAuthUserToken;
+@property (nonatomic, retain) MFBWebServiceSvc_LogbookEntry * le;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_PendingFlight : MFBWebServiceSvc_LogbookEntry {
+/* elements */
+	NSString * PendingID;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_PendingFlight *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+/* elements */
+@property (nonatomic, retain) NSString * PendingID;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_ArrayOfPendingFlight : NSObject <NSCoding, NSSecureCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	NSMutableArray *PendingFlight;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_ArrayOfPendingFlight *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+- (void)addPendingFlight:(MFBWebServiceSvc_PendingFlight *)toAdd;
+@property (nonatomic, readonly) NSMutableArray * PendingFlight;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_CreatePendingFlightResponse : NSObject <NSCoding, NSSecureCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	MFBWebServiceSvc_ArrayOfPendingFlight * CreatePendingFlightResult;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_CreatePendingFlightResponse *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, retain) MFBWebServiceSvc_ArrayOfPendingFlight * CreatePendingFlightResult;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_PendingFlightsForUser : NSObject <NSCoding, NSSecureCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	NSString * szAuthUserToken;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_PendingFlightsForUser *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, retain) NSString * szAuthUserToken;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_PendingFlightsForUserResponse : NSObject <NSCoding, NSSecureCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	MFBWebServiceSvc_ArrayOfPendingFlight * PendingFlightsForUserResult;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_PendingFlightsForUserResponse *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, retain) MFBWebServiceSvc_ArrayOfPendingFlight * PendingFlightsForUserResult;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_UpdatePendingFlight : NSObject <NSCoding, NSSecureCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	NSString * szAuthUserToken;
+	MFBWebServiceSvc_PendingFlight * pf;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_UpdatePendingFlight *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, retain) NSString * szAuthUserToken;
+@property (nonatomic, retain) MFBWebServiceSvc_PendingFlight * pf;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_UpdatePendingFlightResponse : NSObject <NSCoding, NSSecureCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	MFBWebServiceSvc_ArrayOfPendingFlight * UpdatePendingFlightResult;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_UpdatePendingFlightResponse *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, retain) MFBWebServiceSvc_ArrayOfPendingFlight * UpdatePendingFlightResult;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_DeletePendingFlight : NSObject <NSCoding, NSSecureCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	NSString * szAuthUserToken;
+	NSString * idpending;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_DeletePendingFlight *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, retain) NSString * szAuthUserToken;
+@property (nonatomic, retain) NSString * idpending;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_DeletePendingFlightResponse : NSObject <NSCoding, NSSecureCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	MFBWebServiceSvc_ArrayOfPendingFlight * DeletePendingFlightResult;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_DeletePendingFlightResponse *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, retain) MFBWebServiceSvc_ArrayOfPendingFlight * DeletePendingFlightResult;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_CommitPendingFlight : NSObject <NSCoding, NSSecureCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	NSString * szAuthUserToken;
+	MFBWebServiceSvc_PendingFlight * pf;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_CommitPendingFlight *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, retain) NSString * szAuthUserToken;
+@property (nonatomic, retain) MFBWebServiceSvc_PendingFlight * pf;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_CommitPendingFlightResponse : NSObject <NSCoding, NSSecureCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	MFBWebServiceSvc_ArrayOfPendingFlight * CommitPendingFlightResult;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_CommitPendingFlightResponse *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (retain) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, retain) MFBWebServiceSvc_ArrayOfPendingFlight * CommitPendingFlightResult;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
 @interface MFBWebServiceSvc_AvailablePropertyTypes : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
@@ -2737,6 +2984,7 @@ SOAPSigner *soapSigner;
 @interface MFBWebServiceSvc_CannedQuery : MFBWebServiceSvc_FlightQuery {
 /* elements */
 	NSString * QueryName;
+	NSString * ColorString;
 /* attributes */
 }
 - (NSString *)nsPrefix;
@@ -2748,6 +2996,7 @@ SOAPSigner *soapSigner;
 - (void)deserializeElementsFromNode:(xmlNodePtr)cur;
 /* elements */
 @property (nonatomic, retain) NSString * QueryName;
+@property (nonatomic, retain) NSString * ColorString;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
@@ -3103,6 +3352,16 @@ SOAPSigner *soapSigner;
 - (void)FlightPathForFlightAsyncUsingParameters:(MFBWebServiceSvc_FlightPathForFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoapBindingResponse *)FlightPathForFlightGPXUsingParameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters ;
 - (void)FlightPathForFlightGPXAsyncUsingParameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
+- (MFBWebServiceSoapBindingResponse *)CreatePendingFlightUsingParameters:(MFBWebServiceSvc_CreatePendingFlight *)aParameters ;
+- (void)CreatePendingFlightAsyncUsingParameters:(MFBWebServiceSvc_CreatePendingFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
+- (MFBWebServiceSoapBindingResponse *)PendingFlightsForUserUsingParameters:(MFBWebServiceSvc_PendingFlightsForUser *)aParameters ;
+- (void)PendingFlightsForUserAsyncUsingParameters:(MFBWebServiceSvc_PendingFlightsForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
+- (MFBWebServiceSoapBindingResponse *)UpdatePendingFlightUsingParameters:(MFBWebServiceSvc_UpdatePendingFlight *)aParameters ;
+- (void)UpdatePendingFlightAsyncUsingParameters:(MFBWebServiceSvc_UpdatePendingFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
+- (MFBWebServiceSoapBindingResponse *)DeletePendingFlightUsingParameters:(MFBWebServiceSvc_DeletePendingFlight *)aParameters ;
+- (void)DeletePendingFlightAsyncUsingParameters:(MFBWebServiceSvc_DeletePendingFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
+- (MFBWebServiceSoapBindingResponse *)CommitPendingFlightUsingParameters:(MFBWebServiceSvc_CommitPendingFlight *)aParameters ;
+- (void)CommitPendingFlightAsyncUsingParameters:(MFBWebServiceSvc_CommitPendingFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoapBindingResponse *)AvailablePropertyTypesUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypes *)aParameters ;
 - (void)AvailablePropertyTypesAsyncUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypes *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoapBindingResponse *)AvailablePropertyTypesForUserUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypesForUser *)aParameters ;
@@ -3290,6 +3549,46 @@ SOAPSigner *soapSigner;
 @property (nonatomic, retain) MFBWebServiceSvc_FlightPathForFlightGPX * parameters;
 - (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)aDelegate
 	parameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters
+;
+@end
+@interface MFBWebServiceSoapBinding_CreatePendingFlight : MFBWebServiceSoapBindingOperation {
+	MFBWebServiceSvc_CreatePendingFlight * parameters;
+}
+@property (nonatomic, retain) MFBWebServiceSvc_CreatePendingFlight * parameters;
+- (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_CreatePendingFlight *)aParameters
+;
+@end
+@interface MFBWebServiceSoapBinding_PendingFlightsForUser : MFBWebServiceSoapBindingOperation {
+	MFBWebServiceSvc_PendingFlightsForUser * parameters;
+}
+@property (nonatomic, retain) MFBWebServiceSvc_PendingFlightsForUser * parameters;
+- (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_PendingFlightsForUser *)aParameters
+;
+@end
+@interface MFBWebServiceSoapBinding_UpdatePendingFlight : MFBWebServiceSoapBindingOperation {
+	MFBWebServiceSvc_UpdatePendingFlight * parameters;
+}
+@property (nonatomic, retain) MFBWebServiceSvc_UpdatePendingFlight * parameters;
+- (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_UpdatePendingFlight *)aParameters
+;
+@end
+@interface MFBWebServiceSoapBinding_DeletePendingFlight : MFBWebServiceSoapBindingOperation {
+	MFBWebServiceSvc_DeletePendingFlight * parameters;
+}
+@property (nonatomic, retain) MFBWebServiceSvc_DeletePendingFlight * parameters;
+- (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_DeletePendingFlight *)aParameters
+;
+@end
+@interface MFBWebServiceSoapBinding_CommitPendingFlight : MFBWebServiceSoapBindingOperation {
+	MFBWebServiceSvc_CommitPendingFlight * parameters;
+}
+@property (nonatomic, retain) MFBWebServiceSvc_CommitPendingFlight * parameters;
+- (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_CommitPendingFlight *)aParameters
 ;
 @end
 @interface MFBWebServiceSoapBinding_AvailablePropertyTypes : MFBWebServiceSoapBindingOperation {
@@ -3521,6 +3820,16 @@ SOAPSigner *soapSigner;
 - (void)FlightPathForFlightAsyncUsingParameters:(MFBWebServiceSvc_FlightPathForFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoap12BindingResponse *)FlightPathForFlightGPXUsingParameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters ;
 - (void)FlightPathForFlightGPXAsyncUsingParameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
+- (MFBWebServiceSoap12BindingResponse *)CreatePendingFlightUsingParameters:(MFBWebServiceSvc_CreatePendingFlight *)aParameters ;
+- (void)CreatePendingFlightAsyncUsingParameters:(MFBWebServiceSvc_CreatePendingFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
+- (MFBWebServiceSoap12BindingResponse *)PendingFlightsForUserUsingParameters:(MFBWebServiceSvc_PendingFlightsForUser *)aParameters ;
+- (void)PendingFlightsForUserAsyncUsingParameters:(MFBWebServiceSvc_PendingFlightsForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
+- (MFBWebServiceSoap12BindingResponse *)UpdatePendingFlightUsingParameters:(MFBWebServiceSvc_UpdatePendingFlight *)aParameters ;
+- (void)UpdatePendingFlightAsyncUsingParameters:(MFBWebServiceSvc_UpdatePendingFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
+- (MFBWebServiceSoap12BindingResponse *)DeletePendingFlightUsingParameters:(MFBWebServiceSvc_DeletePendingFlight *)aParameters ;
+- (void)DeletePendingFlightAsyncUsingParameters:(MFBWebServiceSvc_DeletePendingFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
+- (MFBWebServiceSoap12BindingResponse *)CommitPendingFlightUsingParameters:(MFBWebServiceSvc_CommitPendingFlight *)aParameters ;
+- (void)CommitPendingFlightAsyncUsingParameters:(MFBWebServiceSvc_CommitPendingFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoap12BindingResponse *)AvailablePropertyTypesUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypes *)aParameters ;
 - (void)AvailablePropertyTypesAsyncUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypes *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (MFBWebServiceSoap12BindingResponse *)AvailablePropertyTypesForUserUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypesForUser *)aParameters ;
@@ -3708,6 +4017,46 @@ SOAPSigner *soapSigner;
 @property (nonatomic, retain) MFBWebServiceSvc_FlightPathForFlightGPX * parameters;
 - (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)aDelegate
 	parameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters
+;
+@end
+@interface MFBWebServiceSoap12Binding_CreatePendingFlight : MFBWebServiceSoap12BindingOperation {
+	MFBWebServiceSvc_CreatePendingFlight * parameters;
+}
+@property (nonatomic, retain) MFBWebServiceSvc_CreatePendingFlight * parameters;
+- (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_CreatePendingFlight *)aParameters
+;
+@end
+@interface MFBWebServiceSoap12Binding_PendingFlightsForUser : MFBWebServiceSoap12BindingOperation {
+	MFBWebServiceSvc_PendingFlightsForUser * parameters;
+}
+@property (nonatomic, retain) MFBWebServiceSvc_PendingFlightsForUser * parameters;
+- (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_PendingFlightsForUser *)aParameters
+;
+@end
+@interface MFBWebServiceSoap12Binding_UpdatePendingFlight : MFBWebServiceSoap12BindingOperation {
+	MFBWebServiceSvc_UpdatePendingFlight * parameters;
+}
+@property (nonatomic, retain) MFBWebServiceSvc_UpdatePendingFlight * parameters;
+- (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_UpdatePendingFlight *)aParameters
+;
+@end
+@interface MFBWebServiceSoap12Binding_DeletePendingFlight : MFBWebServiceSoap12BindingOperation {
+	MFBWebServiceSvc_DeletePendingFlight * parameters;
+}
+@property (nonatomic, retain) MFBWebServiceSvc_DeletePendingFlight * parameters;
+- (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_DeletePendingFlight *)aParameters
+;
+@end
+@interface MFBWebServiceSoap12Binding_CommitPendingFlight : MFBWebServiceSoap12BindingOperation {
+	MFBWebServiceSvc_CommitPendingFlight * parameters;
+}
+@property (nonatomic, retain) MFBWebServiceSvc_CommitPendingFlight * parameters;
+- (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_CommitPendingFlight *)aParameters
 ;
 @end
 @interface MFBWebServiceSoap12Binding_AvailablePropertyTypes : MFBWebServiceSoap12BindingOperation {
