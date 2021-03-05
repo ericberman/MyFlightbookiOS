@@ -50,11 +50,13 @@
 @synthesize progressLabel;
 @synthesize gpxPath;
 @synthesize stashedDate;
+@synthesize fShuntPending;
 
 // keys for preferences.
 NSString * const _szkeyHasSavedState = @"pref_leSavedState";
 NSString * const _szkeySavedLE = @"pref_savedLE2";
 NSString * const _szkeyFlightID = @"pref_leFlightID";
+NSString * const _szKeyPendingID = @"pref_lePendingID";
 NSString * const _szkeyAircraftID = @"pref_leAircraftID";
 NSString * const _szkeyApproaches = @"pref_leApproaches";
 NSString * const _szkeyCFI = @"pref_leCFI";
@@ -92,6 +94,7 @@ NSString * const _szkeyEntryData = @"_keyEntryData";
 NSString * const _szkeyImages = @"_keyImageArray";
 
 NSString * const _szkeyIsPaused = @"_keyIsPaused";
+NSString * const _szkeyShuntPending = @"_keyShuntPending";
 NSString * const _szkeyPausedTime = @"_pausedTime";
 NSString * const _szkeyLastPauseTime = @"_lastPauseTime";
 NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
@@ -108,7 +111,7 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
 		self.rgPathLatLong = nil;
 		self.rgPicsForFlight = [[NSMutableArray alloc] init]; // No need to release earlier one, accessor method will release it and retain this one
 		self.errorString = @"";
-        self.fIsPaused = NO;
+        self.fIsPaused = self.fShuntPending = NO;
         self.dtTotalPauseTime = self.dtTimeOfLastPause = 0;
         self.accumulatedNightTime = 0.0;
 	}
@@ -152,34 +155,105 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
 	
 	MFBSoapCall * sc = [[MFBSoapCall alloc] init];
 	sc.delegate = self;
-	
-    // check for videos without WiFi
-    if (![CommentedImage canSubmitImages:self.rgPicsForFlight])
-    {
-        self.errorString = NSLocalizedString(@"ErrorNeedWifiForVids", @"Can't upload with videos unless on wifi");
-        [self operationCompleted:sc];
-        return;
+    
+    BOOL fIsPendingFlight = [self.entryData isKindOfClass:MFBWebServiceSvc_PendingFlight.class];
+    BOOL fIsExistingFlight = !self.entryData.isNewOrAwaitingUpload;
+    
+    MFBWebServiceSvc_PendingFlight * pf = fIsPendingFlight ? (MFBWebServiceSvc_PendingFlight *) self.entryData : nil;
+
+    /*
+        Scenarios:
+         - fShuntPending is false, Regular flight, new or existing: call CommitFlightWithOptions
+         - fShuntPending is false, Pending flight without a pending ID call CommitFlightWithOptions.  Shouldn't happen, but no big deal if it does
+         - fShuntPending is false, Pending flight with a Pending ID: call MFBWebServiceSvc_CommitPendingFlight to commit it
+         - fShuntPending is false, Pending flight without a pending ID: THROW EXCEPTION, how did this happen?
+     
+         - fShuntPending is true, Regular flight that is not new/pending (sorry about ambiguous "pending"): THROW EXCEPTION; this is an error
+         - fShuntPending is true, Regular flight that is NEW: call MFBWebServiceSvc_CreatePendingFlight
+         - fShuntPending is true, PendingFlight without a PendingID: call MFBWebServiceSvc_CreatePendingFlight.  Shouldn't happen, but no big deal if it does
+         - fShuntPending is true, PendingFlight with a PendingID: call MFBWebServiceSvc_UpdatePendingFlight
+     */
+    
+
+    // So...with the above said:
+    if (self.fShuntPending) {
+        if (fIsExistingFlight)
+            @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Attempting to save a flight already in the logbook into pending flights" userInfo:nil];
+        
+        // if it's a new logbookentry OR it's a pending flight without a pending ID, add it as a new pending flight
+        if (!fIsPendingFlight || pf.PendingID.length == 0) {
+            NSLog(@"Add pending flight");
+           
+            MFBSoapCall * sc = [[MFBSoapCall alloc] init];
+            sc.delegate = self;
+            
+            MFBWebServiceSvc_CreatePendingFlight * addPF = [MFBWebServiceSvc_CreatePendingFlight new];
+            addPF.szAuthUserToken = self.szAuthToken;
+            addPF.le = self.entryData;
+            
+            [sc makeCallAsync:^(MFBWebServiceSoapBinding *b, MFBSoapCall *sc) {
+                [b CreatePendingFlightAsyncUsingParameters:addPF delegate:sc];
+            }];
+        } else {
+            // Else it MUST be a pending flight and it MUST have a pending ID - update
+            NSLog(@"Update Pending Flight");
+            
+            if (![self.entryData isKindOfClass:MFBWebServiceSvc_PendingFlight.class])
+                @throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"updatePendingFlight called on something other than a pending flight!" userInfo:nil];
+            
+            MFBSoapCall * sc = [[MFBSoapCall alloc] init];
+            sc.delegate = self;
+            
+            MFBWebServiceSvc_UpdatePendingFlight * updPF = [MFBWebServiceSvc_UpdatePendingFlight new];
+            updPF.szAuthUserToken = self.szAuthToken;
+            updPF.pf = (MFBWebServiceSvc_PendingFlight *) self.entryData;
+            
+            [sc makeCallAsync:^(MFBWebServiceSoapBinding *b, MFBSoapCall *sc) {
+                [b UpdatePendingFlightAsyncUsingParameters:updPF delegate:sc];
+            }];
+        }
+    } else {
+        // we're going to try to save it as a regular flight.
+        if (fIsPendingFlight) {
+            if (fIsExistingFlight || pf.PendingID.length == 0)
+                @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Attempting to save a flight already in the logbook into pending flights, or save pending flight with no pendingID" userInfo:nil];
+            
+            MFBWebServiceSvc_CommitPendingFlight * commitPF = [MFBWebServiceSvc_CommitPendingFlight new];
+            commitPF.szAuthUserToken = self.szAuthToken;
+            commitPF.pf = (MFBWebServiceSvc_PendingFlight *) self.entryData;
+            [sc makeCallAsync:^(MFBWebServiceSoapBinding *b, MFBSoapCall *sc) {
+                [b CommitPendingFlightAsyncUsingParameters:commitPF delegate:sc];
+            }];
+        } else {
+            // check for videos without WiFi
+            if (![CommentedImage canSubmitImages:self.rgPicsForFlight])
+            {
+                self.errorString = NSLocalizedString(@"ErrorNeedWifiForVids", @"Can't upload with videos unless on wifi");
+                [self operationCompleted:sc];
+                return;
+            }
+            
+            MFBWebServiceSvc_CommitFlightWithOptions * commitFlight = [[MFBWebServiceSvc_CommitFlightWithOptions alloc] init];
+
+            commitFlight.le = self.entryData;
+            commitFlight.po = nil;
+            commitFlight.szAuthUserToken = self.szAuthToken;
+            
+            // Date in the entry data was done in local time; will be converted here to UTC, which could be different from
+            // actual date of flight.
+            // We only really have to do this because we have a mix of UTC and "local" dates
+            // SOOO....
+            // adjust the date to a UTC date that looks like the right date
+            self.stashedDate = self.entryData.Date;
+            commitFlight.le.Date = [MFBSoapCall UTCDateFromLocalDate:commitFlight.le.Date];
+            
+            sc.contextFlag = CONTEXT_FLAG_COMMIT;
+
+            [sc makeCallAsync:^(MFBWebServiceSoapBinding *b, MFBSoapCall *sc) {
+                [b CommitFlightWithOptionsAsyncUsingParameters:commitFlight delegate:sc];
+            }];
+        }
     }
-    
-	MFBWebServiceSvc_CommitFlightWithOptions * commitFlight = [[MFBWebServiceSvc_CommitFlightWithOptions alloc] init];
-
-	commitFlight.le = self.entryData;
-    commitFlight.po = nil;
-	commitFlight.szAuthUserToken = self.szAuthToken;
-    
-	// Date in the entry data was done in local time; will be converted here to UTC, which could be different from
-	// actual date of flight.
-	// We only really have to do this because we have a mix of UTC and "local" dates
-	// SOOO....
-	// adjust the date to a UTC date that looks like the right date
-    self.stashedDate = self.entryData.Date;
-	commitFlight.le.Date = [MFBSoapCall UTCDateFromLocalDate:commitFlight.le.Date];
-    
-    sc.contextFlag = CONTEXT_FLAG_COMMIT;
-
-    [sc makeCallAsync:^(MFBWebServiceSoapBinding *b, MFBSoapCall *sc) {
-        [b CommitFlightWithOptionsAsyncUsingParameters:commitFlight delegate:sc];
-    }];
 }
 
 - (void) BodyReturned:(id)body
@@ -206,6 +280,25 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
     {
         MFBWebServiceSvc_FlightPathForFlightGPXResponse * resp = (MFBWebServiceSvc_FlightPathForFlightGPXResponse *) body;
         self.gpxPath = resp.FlightPathForFlightGPXResult;
+        retVal = YES;
+    }
+    if ([body isKindOfClass:MFBWebServiceSvc_CommitPendingFlightResponse.class]) {
+        retVal = YES;
+    }
+    if ([body isKindOfClass:MFBWebServiceSvc_UpdatePendingFlightResponse.class]) {
+        MFBWebServiceSvc_UpdatePendingFlightResponse * resp = (MFBWebServiceSvc_UpdatePendingFlightResponse *) body;
+        NSMutableArray<MFBWebServiceSvc_PendingFlight *> * arr = resp.UpdatePendingFlightResult.PendingFlight;
+        NSString * szPending = ((MFBWebServiceSvc_PendingFlight *) entryData).PendingID;
+        for (MFBWebServiceSvc_PendingFlight * pf in arr) {
+            if ([pf.PendingID compare:szPending] == NSOrderedSame) {
+                self.entryData = pf;
+                break;
+            }
+        }
+        retVal = YES;
+    }
+    if ([body isKindOfClass:MFBWebServiceSvc_CreatePendingFlightResponse.class]) {
+        // Nothing to do here, really; flights will be picked up in a subsequent call
         retVal = YES;
     }
 }
@@ -293,7 +386,7 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
 {
 	NSLog(@"getFlightPath called");
 	
-	if ([self.entryData isNewOrPending])
+	if ([self.entryData isNewOrAwaitingUpload])
     {
         [self getPathFromInProgressTelemetry:(self.entryData.isNewFlight) ? MFBAppDelegate.threadSafeAppDelegate.mfbloc.flightDataAsString : self.entryData.FlightData];
         [self operationCompleted:nil];
@@ -345,6 +438,7 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
     self.entryData.Date = dtTemp;
 	[encoder encodeObject:self.rgPicsForFlight forKey:_szkeyImages];
     [encoder encodeBool:self.fIsPaused forKey:_szkeyIsPaused];
+    [encoder encodeBool:self.fShuntPending forKey:_szkeyShuntPending];
     [encoder encodeDouble:self.dtTotalPauseTime forKey:_szkeyPausedTime];
     [encoder encodeDouble:self.dtTimeOfLastPause forKey:_szkeyLastPauseTime];
     [encoder encodeDouble:self.accumulatedNightTime forKey:_szkeyAccumulatedNightTime];
@@ -362,10 +456,11 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
     @try
     {
         self.accumulatedNightTime = [decoder decodeDoubleForKey:_szkeyAccumulatedNightTime];
+        self.fShuntPending = [decoder decodeBoolForKey:_szkeyShuntPending];
     }
     @catch (NSException * ex) { }
     @finally { }
-	
+    
 	return self;
 }
 
@@ -507,6 +602,19 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
 }
 @end
 
+@implementation MFBWebServiceSvc_PendingFlight (MFBIPhone)
+- (void)encodeWithCoderMFB:(NSCoder *)encoder {
+    [super encodeWithCoder:encoder];
+    [encoder encodeObject:self.PendingID forKey:_szKeyPendingID];
+}
+
+- (instancetype)initWithCoderMFB:(NSCoder *)decoder {
+    self = [super initWithCoder:decoder];
+    self.PendingID = [decoder decodeObjectOfClass:NSString.class forKey:_szKeyPendingID];
+    return self;
+}
+@end
+
 @implementation MFBWebServiceSvc_LogbookEntry (MFBIPhone)
 + (MFBWebServiceSvc_LogbookEntry *) getNewLogbookEntry
 {
@@ -547,12 +655,12 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
 	return (self.FlightID == nil || [self.FlightID intValue] == -1);
 }
 
-- (BOOL) isPending
+- (BOOL) isAwaitingUpload
 {
 	return (self.FlightID != nil && [self.FlightID intValue] < -1);
 }
 
-- (BOOL) isNewOrPending
+- (BOOL) isNewOrAwaitingUpload
 {
 	return (self.FlightID != nil && [self.FlightID intValue] < 0);
 }

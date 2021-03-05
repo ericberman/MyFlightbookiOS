@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2019 MyFlightbook, LLC
+ Copyright (C) 2017-2021 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 11/28/09.
-//  Copyright-2009-2017 MyFlightbook LLC. All rights reserved.
+//  Copyright-2009-2021 MyFlightbook LLC. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -81,7 +81,9 @@ void SwizzleArchivedClasses()
         
         Swizzle([MFBWebServiceSvc_LogbookEntry class], @selector(initWithCoder:), @selector(initWithCoderMFB:));
         Swizzle([MFBWebServiceSvc_LogbookEntry class], @selector(encodeWithCoder:), @selector(encodeWithCoderMFB:));
-        
+        Swizzle([MFBWebServiceSvc_PendingFlight class], @selector(initWithCoder:), @selector(initWithCoderMFB:));
+        Swizzle([MFBWebServiceSvc_PendingFlight class], @selector(encodeWithCoder:), @selector(encodeWithCoderMFB:));
+
         Swizzle([MFBWebServiceSvc_PropertyTemplate class], @selector(initWithCoder:), @selector(initWithCoderMFB:));
         Swizzle([MFBWebServiceSvc_PropertyTemplate class], @selector(encodeWithCoder:), @selector(encodeWithCoderMFB:));
     });

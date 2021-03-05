@@ -190,7 +190,7 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
     [self initFormFromLE];
 }
 
-- (void) submitFlight:(id) sender {
+- (void) submitFlightInternal:(BOOL) asPending {
     [self.tableView endEditing:YES];
     // Basic validation
     // make sure we have the latest of everything - this should be unnecessary
@@ -216,13 +216,16 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
     self.le.szAuthToken = app.userProfile.AuthToken;
     self.le.entryData.User = app.userProfile.UserName;
     
+    // Determine if this is going to logbook or to pending flights
+    self.le.fShuntPending = asPending;
+    
     BOOL fIsNew = [self.le.entryData isNewFlight];
     
     // get flight telemetry
     [app.mfbloc stopRecordingFlightData];
     if (fIsNew)
         self.le.entryData.FlightData = [app.mfbloc flightDataAsString];
-    else if (![self.le.entryData isNewOrPending]) // for existing flights, don't send up flighttrackdata
+    else if (![self.le.entryData isNewOrAwaitingUpload]) // for existing flights, don't send up flighttrackdata
         self.le.entryData.FlightData = nil;
     
     // remove any non-default properties from the list.
@@ -231,13 +234,21 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
     self.le.errorString = @""; // assume no error
     
     // if it's a new flight, queue it.  We set the id to -2 to distinguish it from a new flight.
-    // If it's pending, we just no-op and tell the user it's still queued.
-    if (self.le.entryData.isNewOrPending)
+    // If it's unsubmitted, we just no-op and tell the user it's still queued.
+    if (self.le.entryData.isNewOrAwaitingUpload)
         self.le.entryData.FlightID = PENDING_FLIGHT_ID;
     
     // add it to the pending flight queue - it will start submitting when recent flights are viewed
     [app queueFlightForLater:self.le];
     [self submitFlightSuccessful];
+}
+
+- (void) submitFlight:(id) sender {
+    [self submitFlightInternal:NO];
+}
+
+- (void) submitPending:(id) sender {
+    [self submitFlightInternal:YES];
 }
 
 #pragma mark - Binding data to UI
@@ -362,30 +373,43 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
 - (void) sendFlight:(id) sender {
     UIAlertController * uac = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"flightActionMenuPrompt", @"Actions for this flight") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    [uac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"flightActionRepeatFlight", @"Flight Action - repeat a flight") style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        [self repeatFlight:NO];
-    }]];
-    
-    [uac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"flightActionReverseFlight", @"Flight Action - repeat and reverse flight") style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        [self repeatFlight:YES];
-    }]];
-    
-    if (self.le.entryData.SendFlightLink.length > 0) {
-        [uac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"flightActionSend", @"Flight Action - Send") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self sendFlightToPilot];
+    // New flights
+    if (self.le.entryData.isNewFlight || self.le.entryData.isAwaitingUpload || [self.le.entryData isKindOfClass:MFBWebServiceSvc_PendingFlight.class]) {
+        [uac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"flightActionSavePending", @"Flight Action - Save Pending") style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            [self submitPending:sender];
         }]];
-    }
-    
-    if (self.le.entryData.SocialMediaLink.length > 0) {
-        [uac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"flightActionShare", @"Flight Action - Share") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self shareFlight:sender];
+        
+        if (self.le.entryData.isNewFlight) {
+            [uac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Reset", @"Reset button on flight entry") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self resetFlightWithConfirmation];
+            }]];
+        }
+    } else {
+        [uac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"flightActionRepeatFlight", @"Flight Action - repeat a flight") style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            [self repeatFlight:NO];
         }]];
+        
+        [uac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"flightActionReverseFlight", @"Flight Action - repeat and reverse flight") style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            [self repeatFlight:YES];
+        }]];
+        
+        if (self.le.entryData.SendFlightLink.length > 0) {
+            [uac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"flightActionSend", @"Flight Action - Send") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self sendFlightToPilot];
+            }]];
+        }
+        
+        if (self.le.entryData.SocialMediaLink.length > 0) {
+            [uac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"flightActionShare", @"Flight Action - Share") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self shareFlight:sender];
+            }]];
+        }
     }
-    
+
     [uac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel (button)") style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
         [uac dismissViewControllerAnimated:YES completion:nil];
     }]];
-    
+
     UIBarButtonItem * bbi = (UIBarButtonItem *) sender;
     UIView * bbiView = [bbi valueForKey:@"view"];
     uac.popoverPresentationController.sourceView = bbiView;
@@ -549,7 +573,7 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
 
 #pragma mark - UIPopoverPresentationController functions
 - (void) refreshProperties {
-    if (self.le.entryData.isNewOrPending && self.le.entryData.CustomProperties == nil)
+    if (self.le.entryData.isNewOrAwaitingUpload && self.le.entryData.CustomProperties == nil)
         self.le.entryData.CustomProperties = [[MFBWebServiceSvc_ArrayOfCustomFlightProperty alloc] init];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

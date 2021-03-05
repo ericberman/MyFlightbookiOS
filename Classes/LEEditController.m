@@ -128,6 +128,9 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 	if (self.le == nil)
         [self restoreFlightInProgress];
     
+    // Check to see if this is a pending flight
+    BOOL fIsPendingFlight = [self.le.entryData isKindOfClass:[MFBWebServiceSvc_PendingFlight class]];
+    
     // If we have an unknown aircraft and just popped from creating one, then reset preferred aircraft
     if ([self.le.entryData.AircraftID intValue] <= 0)
         [self setCurrentAircraft:[[Aircraft sharedAircraft] preferredAircraft]];
@@ -163,11 +166,6 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     
     UIBarButtonItem * biSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     
-    UIBarButtonItem * biReset = [[UIBarButtonItem alloc] 
-                                  initWithTitle:NSLocalizedString(@"Reset", @"Reset button on flight entry") 
-                                  style:UIBarButtonItemStylePlain
-                                  target:self 
-                                  action:@selector(resetFlightWithConfirmation)];
     UIBarButtonItem * biOptions = [[UIBarButtonItem alloc]
                                     initWithTitle:NSLocalizedString(@"Options", @"Options button for autodetect, etc.")
                                     style:UIBarButtonItemStylePlain
@@ -183,24 +181,28 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     bbGallery.style = bbCamera.style = bbSend.style = UIBarButtonItemStylePlain;
     
     NSMutableArray * ar = [[NSMutableArray alloc] init];
-    if ([self.le.entryData isNewFlight]) {
-        [ar addObject:biOptions];
-        [ar addObject:biReset];
-    }
-    if (![self.le.entryData isNewOrPending] && self.le.entryData.CFISignatureState != MFBWebServiceSvc_SignatureState_Valid)
-        [ar addObject:biSign];
-    if (![self.le.entryData isNewOrPending])
+    if (fIsPendingFlight) {
+        // Pending flight: Only option other than "Add" is "Add Pending"
         [ar addObject:bbSend];
-    [ar addObject:biSpacer];
-    [ar addObject:bbGallery];
-    [ar addObject:bbCamera];
+    }
+    else {
+        if ([self.le.entryData isNewFlight])
+            [ar addObject:biOptions];
+
+        if (![self.le.entryData isNewOrAwaitingUpload] && self.le.entryData.CFISignatureState != MFBWebServiceSvc_SignatureState_Valid)
+            [ar addObject:biSign];
+        [ar addObject:bbSend];
+        [ar addObject:biSpacer];
+        [ar addObject:bbGallery];
+        [ar addObject:bbCamera];
+    }
     
     self.navigationController.toolbarHidden = NO;
     self.toolbarItems = ar;
     
     // Submit button
     UIBarButtonItem * bbSubmit = [[UIBarButtonItem alloc]
-                                   initWithTitle:[self.le.entryData isNewOrPending] ? NSLocalizedString(@"Add", @"Generic Add") : NSLocalizedString(@"Update", @"Update")
+                                   initWithTitle:[self.le.entryData isNewOrAwaitingUpload] ? NSLocalizedString(@"Add", @"Generic Add") : NSLocalizedString(@"Update", @"Update")
                                    style:UIBarButtonItemStylePlain
                                    target:self
                                    action:@selector(submitFlight:)];
@@ -537,7 +539,7 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
             return [ExpandHeaderCell getHeaderCell:tableView withTitle:NSLocalizedString(@"Images", @"Images Header") forSection:sectImages initialState:[self isExpanded:sectImages]];
         case rowPropertiesHeader: {
             ExpandHeaderCell * cell = [ExpandHeaderCell getHeaderCell:tableView withTitle:NSLocalizedString(@"Properties", @"Properties Header") forSection:sectProperties initialState:[self isExpanded:sectProperties]];
-            if (FlightProps.sharedTemplates.count > 0 && self.le.entryData.isNewOrPending) {
+            if (FlightProps.sharedTemplates.count > 0 && self.le.entryData.isNewOrAwaitingUpload) {
                 cell.DisclosureButton.hidden = NO;
                 [cell.DisclosureButton addTarget:self action:@selector(pickTemplates:) forControlEvents:UIControlEventTouchDown];
             }

@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 11/28/09.
-//  Copyright 2009-2019 MyFlightbook LLC. All rights reserved.
+//  Copyright 2009-2021 MyFlightbook LLC. All rights reserved.
 //
 
 #import "MFBAppDelegate.h"
@@ -500,7 +500,7 @@ static MFBAppDelegate * _mainApp = nil;
     NSData * ar = (NSData *) [NSUserDefaults.standardUserDefaults objectForKey:_szKeyPrefUnsubmittedFlights];
     NSError * err = nil;
     if (ar != nil)
-        self.rgUnsubmittedFlights = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchivedObjectOfClasses:[NSSet setWithArray:@[NSArray.class, LogbookEntry.class, MFBWebServiceSvc_LogbookEntry.class]] fromData:ar error:&err]];
+        self.rgUnsubmittedFlights = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchivedObjectOfClasses:[NSSet setWithArray:@[NSArray.class, NSString.class, NSNumber.class, NSMutableString.class, LogbookEntry.class, MFBWebServiceSvc_PendingFlight.class, MFBWebServiceSvc_LogbookEntry.class]] fromData:ar error:&err]];
     else
         self.rgUnsubmittedFlights = [[NSMutableArray alloc] init];
     // set a badge for the # of unsubmitted flights.
