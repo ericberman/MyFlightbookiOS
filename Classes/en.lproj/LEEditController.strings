@@ -1,0 +1,90 @@
+
+/* Class = "UILabel"; text = "Comments:"; ObjectID = "330"; */
+"330.text" = "Comments:";
+
+/* Class = "UILabel"; text = "Route:"; ObjectID = "336"; */
+"336.text" = "Route:";
+
+/* Class = "UILabel"; text = "(unknown)"; ObjectID = "345"; */
+"345.text" = "(unknown)";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "347"; */
+"347.text" = "--";
+
+/* Class = "UILabel"; text = "GPS quality:"; ObjectID = "348"; */
+"348.text" = "GPS quality:";
+
+/* Class = "UILabel"; text = "(unknown)"; ObjectID = "349"; */
+"349.text" = "(unknown)";
+
+/* Class = "UILabel"; text = "Elapsed:"; ObjectID = "350"; */
+"350.text" = "Elapsed:";
+
+/* Class = "UILabel"; text = "00:00:00"; ObjectID = "351"; */
+"351.text" = "00:00:00";
+
+/* Class = "UILabel"; text = "(Longitude)"; ObjectID = "352"; */
+"352.text" = "(Longitude)";
+
+/* Class = "UILabel"; text = "(Latitude)"; ObjectID = "353"; */
+"353.text" = "(Latitude)";
+
+/* Class = "UILabel"; text = "(Sunrise)"; ObjectID = "354"; */
+"354.text" = "(Sunrise)";
+
+/* Class = "UILabel"; text = "(Sunset)"; ObjectID = "355"; */
+"355.text" = "(Sunset)";
+
+/* Class = "UILabel"; text = "Approaches:"; ObjectID = "360"; */
+"360.text" = "Approaches:";
+
+/* Class = "UILabel"; text = "Landings:"; ObjectID = "361"; */
+"361.text" = "Landings:";
+
+/* Class = "UILabel"; text = "Day Full-stop:"; ObjectID = "362"; */
+"362.text" = "Day Full-stop:";
+
+/* Class = "UILabel"; text = "Night Full-stop:"; ObjectID = "363"; */
+"363.text" = "Night Full-stop:";
+
+/* Class = "UIButton"; normalTitle = "Holding"; ObjectID = "365"; */
+"365.normalTitle" = "Holding";
+
+/* Class = "UILabel"; text = "Total:"; ObjectID = "419"; */
+"419.text" = "Total:";
+
+/* Class = "UILabel"; text = "X-Country:"; ObjectID = "420"; */
+"420.text" = "X-Country:";
+
+/* Class = "UILabel"; text = "Night:"; ObjectID = "421"; */
+"421.text" = "Night:";
+
+/* Class = "UILabel"; text = "IMC:"; ObjectID = "422"; */
+"422.text" = "IMC:";
+
+/* Class = "UILabel"; text = "Sim. IMC:"; ObjectID = "423"; */
+"423.text" = "Sim. IMC:";
+
+/* Class = "UILabel"; text = "Dual Rcvd:"; ObjectID = "424"; */
+"424.text" = "Dual Rcvd:";
+
+/* Class = "UILabel"; text = "Instructor:"; ObjectID = "425"; */
+"425.text" = "Instructor:";
+
+/* Class = "UILabel"; text = "SIC:"; ObjectID = "426"; */
+"426.text" = "SIC:";
+
+/* Class = "UILabel"; text = "PIC:"; ObjectID = "427"; */
+"427.text" = "PIC:";
+
+/* Class = "UILabel"; text = "Ground Sim:"; ObjectID = "439"; */
+"439.text" = "Ground Sim:";
+
+/* Class = "UIButton"; normalTitle = "Share flight on MyFlightbook"; ObjectID = "466"; */
+"466.normalTitle" = "Share flight on MyFlightbook";
+
+/* Class = "UILabel"; text = "Flight Status:"; ObjectID = "5qP-LJ-KVB"; */
+"5qP-LJ-KVB.text" = "Flight Status:";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "LYI-vh-GeJ"; */
+"LYI-vh-GeJ.text" = "--";

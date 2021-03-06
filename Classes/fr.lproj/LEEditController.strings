@@ -75,7 +75,7 @@
 "423.text" = "Sim. VSV:";
 
 /* Class = "UILabel"; text = "Double:"; ObjectID = "424"; */
-"424.text" = "Double:";
+"424.text" = "Double reçu:";
 
 /* Class = "UILabel"; text = "Instruction:"; ObjectID = "425"; */
 "425.text" = "Instruction:";

@@ -546,6 +546,8 @@
 		9A085CAB20F3EF5500DDA442 /* tower@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tower@2x.png"; sourceTree = "<group>"; };
 		9A085CAC20F3EF5500DDA442 /* tower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tower.png; sourceTree = "<group>"; };
 		9A085CAD20F3EF5500DDA442 /* tower@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tower@3x.png"; sourceTree = "<group>"; };
+		9A0B1C3525F3ED3B00E583A8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "en.lproj/LEEditController-iPad.strings"; sourceTree = "<group>"; };
+		9A0B1C3C25F3EDE300E583A8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LEEditController.strings; sourceTree = "<group>"; };
 		9A0BF18024743D5E003C2172 /* PackAndGo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PackAndGo.m; sourceTree = "<group>"; };
 		9A0BF18224743D72003C2172 /* PackAndGo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PackAndGo.h; sourceTree = "<group>"; };
 		9A0C938211E63A850062AF27 /* FlightProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlightProperties.h; sourceTree = "<group>"; };
@@ -2595,6 +2597,7 @@
 			children = (
 				9AC6AF151BD01580004AB2E3 /* Base */,
 				9A87F51A1BD2AF5100F9479D /* fr */,
+				9A0B1C3525F3ED3B00E583A8 /* en */,
 			);
 			name = "LEEditController-iPad.xib";
 			sourceTree = "<group>";
@@ -2604,6 +2607,7 @@
 			children = (
 				9AC6AF161BD01581004AB2E3 /* Base */,
 				9A50B5901BD73623004F04AF /* fr */,
+				9A0B1C3C25F3EDE300E583A8 /* en */,
 			);
 			name = LEEditController.xib;
 			sourceTree = "<group>";
