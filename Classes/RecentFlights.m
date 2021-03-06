@@ -43,6 +43,9 @@
 @property (readwrite, strong) NSMutableArray<MFBWebServiceSvc_LogbookEntry *> * rgFlights;
 @property (readwrite, strong) NSMutableArray<MFBWebServiceSvc_PendingFlight *> * rgPendingFlights;
 @property (readwrite, strong) NSString * errorString;
+@property (readwrite, atomic) NSInteger callsAwaitingCompletion;
+@property (readwrite, atomic) BOOL refreshOnResultsComplete;
+@property (atomic, strong) NSMutableArray<NSNumber *> * activeSections;
 
 - (BOOL) hasUnsubmittedFlights;
 @end
@@ -54,7 +57,7 @@ static const int cFlightsPageSize=15;   // number of flights to download at a ti
 NSInteger iFlightInProgress, cFlightsToSubmit;
 BOOL fCouldBeMoreFlights;
 
-@synthesize rgFlights, errorString, fq, cellProgress, uploadInProgress, dictImages, ipSelectedCell, JSONObjToImport, urlTelemetry, rgPendingFlights;
+@synthesize rgFlights, errorString, fq, cellProgress, uploadInProgress, dictImages, ipSelectedCell, JSONObjToImport, urlTelemetry, rgPendingFlights, callsAwaitingCompletion, refreshOnResultsComplete, activeSections;
 
 - (void) asyncLoadThumbnailsForFlights:(NSArray *) flights {
     if (flights == nil || ![AutodetectOptions showFlightImages])
@@ -92,11 +95,14 @@ BOOL fCouldBeMoreFlights;
     [super viewDidLoad];
     
     fCouldBeMoreFlights = YES;
+    self.callsAwaitingCompletion = 0;
+    self.refreshOnResultsComplete = NO;
     
     self.cellProgress = [ProgressCell getProgressCell:self.tableView];
 	
 	self.rgFlights = [NSMutableArray new];
     self.rgPendingFlights = [NSMutableArray new];
+    self.activeSections = [NSMutableArray new];
 	self.errorString = @"";
     if (self.fq == nil)
         self.fq = [MFBWebServiceSvc_FlightQuery getNewFlightQuery];
@@ -195,7 +201,7 @@ BOOL fCouldBeMoreFlights;
         [self submitUnsubmittedFlights];
     }
     else
-        [self loadFlightsForUser];
+        [self.tableView reloadData];    // this should trigger refresh simply by displaying the trigger row.
 }
 
 - (void) refresh
@@ -252,6 +258,41 @@ BOOL fCouldBeMoreFlights;
     return leView;
 }
 
+#pragma mark Managing simultaneous calls
+/*
+ This is a bit of a hack, but because of committing flights and simultenous outstanding calls to pendingflights and flightswithquery, we can have multiple calls awaiting results.
+ This can also lead to two race conditions.
+ 
+ The first is just general badness where the pending flights call returns quickly and resets callInProgress, so the table reloads and because callInProgress is NO,
+ it triggers a second (or third or fourth) call to flightsWithQuery.  ouch!
+ 
+ The second is a race condition:
+  - View appears, which causes reload, which causes flightsWithQuery call
+  - Also needs to submit an unsubmittedflight, so it submits this
+  - Submission returns quickly, so it calls refresh, but refresh no-ops because it already has a call outstanding.
+ 
+ The fix for this is to count the number of outstanding requests.  For the latter, we'll also allow a flag saying "hey, when all requests finish, do one more refresh.  (That's the hack).
+ */
+
+- (void) addPendingCall {
+    @synchronized (self) {
+        self.callInProgress = YES;
+        self.callsAwaitingCompletion++;
+    }
+}
+
+- (void) removePendingCall {
+    @synchronized (self) {
+        self.callInProgress = (--self.callsAwaitingCompletion != 0);
+        if (self.callsAwaitingCompletion < 0)
+            @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"negative calls pending completion!" userInfo:nil];
+    }
+    if (!self.callInProgress && self.refreshOnResultsComplete) {
+        self.refreshOnResultsComplete = NO;
+        [self refresh:NO];
+    }
+}
+
 #pragma mark Loading recent flights / infinite scroll
 - (void) loadFlightsForUser
 {
@@ -275,7 +316,7 @@ BOOL fCouldBeMoreFlights;
     }
 	else
     {
-        [self startCall];
+        [self addPendingCall];
 
         MFBWebServiceSvc_FlightsWithQueryAndOffset * fbdSVC = [MFBWebServiceSvc_FlightsWithQueryAndOffset new];
         
@@ -293,7 +334,8 @@ BOOL fCouldBeMoreFlights;
         }];
         
         // Get pending flights as well, but only on first refresh because we already have all of the pending flights from the previous (offset=0) call
-        if (fbdSVC.offset.intValue == 0) {
+        if (fbdSVC.offset.intValue == 0 && self.fq.isUnrestricted) {
+            [self addPendingCall];
             MFBWebServiceSvc_PendingFlightsForUser * pfu = [MFBWebServiceSvc_PendingFlightsForUser new];
             pfu.szAuthUserToken = authtoken;
             [sc makeCallAsync:^(MFBWebServiceSoapBinding *b, MFBSoapCall *sc) {
@@ -320,7 +362,7 @@ BOOL fCouldBeMoreFlights;
     }
     else
     {
-        [self startCall];
+        [self addPendingCall];
         
         MFBWebServiceSvc_DeletePendingFlight * dpfSvc = [MFBWebServiceSvc_DeletePendingFlight new];
         dpfSvc.szAuthUserToken = authtoken;
@@ -380,7 +422,7 @@ BOOL fCouldBeMoreFlights;
         [self showError:self.errorString withTitle:NSLocalizedString(@"Error loading recent flights", @"Title for error message on recent flights")];
         fCouldBeMoreFlights = NO;
     }
-    [self endCall];
+    [self removePendingCall];
     
 	self.fIsValid = YES;
     
@@ -413,8 +455,10 @@ BOOL fCouldBeMoreFlights;
     if (iFlightInProgress >= cFlightsToSubmit) {
         NSLog(@"No more flights to submit");
         self.uploadInProgress = NO;
-        [self endCall];
-        [self refresh:NO];
+        if (self.callInProgress)
+            self.refreshOnResultsComplete = YES;
+        else
+            [self refresh:NO];
     }
     else
         [self submitUnsubmittedFlight];
@@ -444,8 +488,10 @@ BOOL fCouldBeMoreFlights;
         le.szAuthToken = app.userProfile.AuthToken;
         le.progressLabel = self.cellProgress.progressDetailLabel;
         [le setDelegate:self completionBlock:^(MFBSoapCall * sc, MFBAsyncOperation * ao) {
+            [self removePendingCall];
             [self submitUnsubmittedFlightsCompleted:sc fromCaller:(LogbookEntry *) ao];
         }];
+        [self addPendingCall];
         [le commitFlight];
     }
     else // skip the commit on this; it needs to be fixed - just go on to the next one.
@@ -472,6 +518,10 @@ BOOL fCouldBeMoreFlights;
 typedef enum {sectFlightQuery, sectUploadInProgress, sectUnsubmittedFlights, sectPendingFlights, sectExistingFlights} RecentSection;
 
 - (RecentSection) sectionFromIndexPathSection:(NSInteger) section {
+    return self.activeSections[section].intValue;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     /*
      Layout is:
             FlightQuery  - always visible
@@ -479,25 +529,22 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectUnsubmittedFlights, sec
             (unsubmittedflights)
             (pendingflights)
             Existing flights
+     
+     We refresh this and cache in self.activeSessions because unsubmittedflihts or uploadinprogress can change between calls to numberofsectionsintableview and sectionfromindexpathsection.
      */
 
-    NSMutableArray<NSNumber *> * arr = [NSMutableArray new];
-    [arr addObject:@(sectFlightQuery)]; // Query - always visible
+    [self.activeSections removeAllObjects];
+    [self.activeSections addObject:@(sectFlightQuery)]; // Query - always visible
     
     if (self.uploadInProgress)
-        [arr addObject:@(sectUploadInProgress)];
+        [self.activeSections addObject:@(sectUploadInProgress)];
     if (self.hasUnsubmittedFlights)
-        [arr addObject:@(sectUnsubmittedFlights)];
+        [self.activeSections addObject:@(sectUnsubmittedFlights)];
     if (self.rgPendingFlights.count > 0 && self.fq.isUnrestricted)  // don't show pending flights if we have an active query.
-        [arr addObject:@(sectPendingFlights)];
-    [arr addObject:@(sectExistingFlights)];
+        [self.activeSections addObject:@(sectPendingFlights)];
+    [self.activeSections addObject:@(sectExistingFlights)];
 
-    return arr[section].intValue;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // ALWAYS has existing flights + query.  MAY have progress, unsubmitted, or pending
-    return 2 + (self.uploadInProgress ? 1 : 0) + (self.hasUnsubmittedFlights ? 1 : 0) + (self.rgPendingFlights.count > 0 && self.fq.isUnrestricted ? 1 : 0);
+    return self.activeSections.count;
 }
 
 // Customize the number of rows in the table view.
