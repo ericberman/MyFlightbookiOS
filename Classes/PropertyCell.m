@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2013-2020 MyFlightbook, LLC
+ Copyright (C) 2013-2021 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -99,6 +99,7 @@
     
     UILongPressGestureRecognizer * lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(autoFill:)];
     lpgr.minimumPressDuration = 0.7; // in seconds
+    lpgr.cancelsTouchesInView = YES;
     lpgr.delegate = self;
     [self.txt addGestureRecognizer:lpgr];
 }
@@ -110,8 +111,7 @@
 
 - (void) toggleLock:(UILongPressGestureRecognizer *)sender
 {
-    if (sender.state == UIGestureRecognizerStateBegan && self.cpt != nil)
-    {
+    if (sender.state == UIGestureRecognizerStateBegan && self.cpt != nil) {
         self.cpt.isLocked = !self.cpt.isLocked;
         if (self.flightPropDelegate != nil)
             [self.flightPropDelegate setPropLock:self.cpt.isLocked forPropTypeID:self.cpt.PropTypeID.intValue];
