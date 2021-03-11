@@ -590,7 +590,8 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectUnsubmittedFlights, sec
     CommentedImage * ci = nil;
     NSString * errString = @"";
     
-    switch ([self sectionFromIndexPathSection:indexPath.section]) {
+    int section = [self sectionFromIndexPathSection:indexPath.section];
+    switch (section) {
         case sectFlightQuery: {
             static NSString * CellQuerySelector = @"querycell";
             UITableViewCell *cellSelector = [tableView dequeueReusableCellWithIdentifier:CellQuerySelector];
@@ -670,6 +671,10 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectUnsubmittedFlights, sec
         le.TailNumDisplay = [[Aircraft sharedAircraft] AircraftByID:[le.AircraftID intValue]].TailNumber;
     
     [cell setFlight:le withImage:ci withError:errString];
+    if (@available(iOS 13.0, *)) {
+        if (section == sectUnsubmittedFlights || section == sectPendingFlights)
+            cell.backgroundColor = UIColor.systemGray4Color;
+    }
     
     return cell;
 }

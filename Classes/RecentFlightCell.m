@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2020 MyFlightbook, LLC
+ Copyright (C) 2017-2021 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 1/14/12.
-//  Copyright (c) 2012-2018 MyFlightbook LLC. All rights reserved.
+//  Copyright (c) 2012-2021 MyFlightbook LLC. All rights reserved.
 //
 
 #import "RecentFlightCell.h"
@@ -127,14 +127,17 @@
 
 - (void) setFlight:(MFBWebServiceSvc_LogbookEntry *)le withImage:(id)ci withError:(NSString *) szErr
 {
-    UIColor * textColor;;
+    UIColor * textColor;
     UIColor * dimmedColor;
+    UIColor * redColor;
     if (@available(iOS 13.0, *)) {
         textColor = UIColor.labelColor;
         dimmedColor = UIColor.secondaryLabelColor;
+        redColor = UIColor.systemRedColor;
     } else {
         textColor = UIColor.blackColor;
         dimmedColor = UIColor.darkGrayColor;
+        redColor = UIColor.redColor;
     }
     
     NSMutableAttributedString * attrString = [[NSMutableAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName : textColor}];
@@ -146,10 +149,10 @@
     
     NSDateFormatter * df = [[NSDateFormatter alloc] init];
     [df setDateStyle:NSDateFormatterShortStyle];
-    
+        
     szErr = [szErr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (szErr.length != 0)
-        [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", szErr] attributes:@{NSForegroundColorAttributeName : [UIColor redColor]}]];
+        [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", szErr] attributes:@{NSForegroundColorAttributeName : redColor}]];
 
     if (le.Date != nil) // should never happen!
         [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[df stringFromDate:le.Date]  attributes:@{NSFontAttributeName : largeBoldFont, NSForegroundColorAttributeName : textColor}]];

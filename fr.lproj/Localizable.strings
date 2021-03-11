@@ -176,7 +176,7 @@
 "Flights awaiting upload" = "Vols en attente de transfert vers le site";
 
 /* Title for list of pending flights */
-"PendingFlightsHeader" = "Vols en attente (sur le serveur mais pas encore dans votre journal de bord)";
+"PendingFlightsHeader" = "Vols en attente";
 
 /* If a full-stop landing is detected, this is written into the comments for flight telemetry.  the %@ is replaced either with nothing or with 'night' to indicate a night landing */
 "Full-stop %@landing" = "atterrissages complets type :%@";
