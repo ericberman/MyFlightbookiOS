@@ -674,6 +674,8 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectUnsubmittedFlights, sec
     if (@available(iOS 13.0, *)) {
         if (section == sectUnsubmittedFlights || section == sectPendingFlights)
             cell.backgroundColor = UIColor.systemGray4Color;
+        else
+            cell.backgroundColor = UIColor.systemBackgroundColor;
     }
     
     return cell;
