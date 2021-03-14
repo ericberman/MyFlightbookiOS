@@ -350,7 +350,7 @@
 "Release to refresh" = "Relacher pour rafraichir";
 
 /* Reset button on flight entry */
-"Reset" = "Réinitialiser le vol";
+"Reset" = "Réinitialiser";
 
 /* status message while retrieving user aircraft */
 "Retrieving aircraft list..." = "Récupération liste des aéronefs";
