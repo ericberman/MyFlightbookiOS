@@ -287,6 +287,8 @@
             self.txt.placeholder = (self.cpt.Type == MFBWebServiceSvc_CFPPropertyType_cfpDate) ?
             NSLocalizedString(@"Tap for Today", @"Prompt on button to specify a date that is not yet specified") :
             NSLocalizedString(@"Tap for Now", @"Prompt on button to specify a date/time that is not yet specified");
+            dp.timeZone = AutodetectOptions.UseLocalTime ? NSTimeZone.systemTimeZone : [NSTimeZone timeZoneForSecondsFromGMT:0];
+            dp.locale = AutodetectOptions.UseLocalTime ? NSLocale.currentLocale : [NSLocale localeWithLocaleIdentifier:@"en-GB"];
             self.txt.inputView = dp;
             break;
         case MFBWebServiceSvc_CFPPropertyType_cfpCurrency:

@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2010-2019 MyFlightbook, LLC
+ Copyright (C) 2010-2021 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 7/8/10.
-//  Copyright 2010-2019 MyFlightbook LLC. All rights reserved.
+//  Copyright 2010-2021 MyFlightbook LLC. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -35,6 +35,7 @@
 
 @protocol EditPropertyDelegate
 - (void) propertyUpdated:(MFBWebServiceSvc_CustomPropertyType *) cpt;
+- (void) dateOfFlightShouldReset:(NSDate *) dt;
 @end
 
 @interface FlightProperties : PullRefreshTableViewController <UITextFieldDelegate, AccessoryBarDelegate, UISearchBarDelegate> {

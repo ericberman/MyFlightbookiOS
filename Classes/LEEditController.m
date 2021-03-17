@@ -41,6 +41,7 @@
 @property (nonatomic, strong) NSMutableDictionary<NSNumber *, PropertyCell *> * dictPropCells;
 @property (nonatomic, strong) UIImage * digitizedSig;
 @property (nonatomic, strong) NSArray<MFBWebServiceSvc_Aircraft *> * selectibleAircraft;
+@property (nonatomic, strong) UIDatePicker * propDatePicker;
 
 - (void) updatePausePlay;
 - (void) updatePositionReport;
@@ -59,6 +60,7 @@
 @synthesize dictPropCells;
 @synthesize digitizedSig;
 @synthesize selectibleAircraft;
+@synthesize propDatePicker;
 
 NSString * const _szKeyCachedImageArray = @"cachedImageArrayKey";
 NSString * const _szkeyITCCollapseState = @"keyITCCollapseState";
@@ -113,10 +115,14 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     heightSharing = self.cellSharing.frame.size.height;
     heightTimes = self.cellTimeBlock.frame.size.height;
     
+    if (self.propDatePicker == nil)
+        self.propDatePicker = [UIDatePicker new];
+    
     // And set up remaining inputviews/accessory views
     self.idDate.inputView = self.datePicker;
     if (@available(iOS 13.4, *)) {
         self.datePicker.preferredDatePickerStyle = UIDatePickerStyleWheels;
+        self.propDatePicker.preferredDatePickerStyle = UIDatePickerStyleWheels;
     }
     self.idPopAircraft.inputView = self.pickerView;
     self.idComments.inputAccessoryView = self.idRoute.inputAccessoryView = self.idDate.inputAccessoryView = self.idPopAircraft.inputAccessoryView = self.vwAccessory;
@@ -681,7 +687,7 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
                     pc.cfp = cfp;
                 pc.txt.delegate = self;
                 pc.flightPropDelegate = self.flightProps;
-                [pc configureCell:self.vwAccessory andDatePicker:self.datePicker defValue:(cpt.PropTypeID.intValue == PropTypeID_TachStart) ? [[Aircraft sharedAircraft] getHighWaterTachForAircraft:self.le.entryData.AircraftID] : self.le.entryData.TotalFlightTime];
+                [pc configureCell:self.vwAccessory andDatePicker:self.propDatePicker defValue:(cpt.PropTypeID.intValue == PropTypeID_TachStart) ? [[Aircraft sharedAircraft] getHighWaterTachForAircraft:self.le.entryData.AircraftID] : self.le.entryData.TotalFlightTime];
                 return pc;
             }
     }
@@ -934,8 +940,13 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
             if (self.ipActive.section == sectProperties && row >= rowPropertyFirst) {
                 PropertyCell * pc = (PropertyCell *) tc;
                 fShouldEdit = [pc prepForEditing];
-                if (!fShouldEdit && pc.cpt.Type == MFBWebServiceSvc_CFPPropertyType_cfpDateTime)
-                    [self propertyUpdated:pc.cpt];
+                if (!fShouldEdit)
+                {
+                    if (pc.cfp.PropTypeID.intValue == PropTypeID_BlockOut)
+                        [self dateOfFlightShouldReset:pc.cfp.DateValue];
+                    if (pc.cpt.Type == MFBWebServiceSvc_CFPPropertyType_cfpDateTime)
+                        [self propertyUpdated:pc.cpt];
+                }
             }
             break;
     }
@@ -1482,7 +1493,7 @@ static NSDateFormatter * dfSunriseSunset = nil;
     [self updatePositionReport];
 }
 
-#pragma mark View Properties
+#pragma mark EditPropertyDelegate
 - (void) propertyUpdated:(MFBWebServiceSvc_CustomPropertyType *)cpt {
     NSInteger propID = cpt.PropTypeID.integerValue;
     
@@ -1494,6 +1505,12 @@ static NSDateFormatter * dfSunriseSunset = nil;
     }
 }
 
+- (void) dateOfFlightShouldReset:(NSDate *) dt {
+    if (![NSDate isUnknownDate:dt])
+        [self resetDateOfFlight];
+}
+
+#pragma mark View Properties
 - (void) viewProperties:(UIView *) sender
 {
     FlightProperties * vwProps = [[FlightProperties alloc] initWithNibName:@"FlightProperties" bundle:nil];

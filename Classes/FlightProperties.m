@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2010-2019 MyFlightbook, LLC
+ Copyright (C) 2010-2021 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -389,6 +389,9 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
     }
     
     BOOL fShouldEdit = [pc prepForEditing];
+    
+    if (!fShouldEdit && pc.cfp.PropTypeID.intValue == PropTypeID_BlockOut)
+        [self.delegate dateOfFlightShouldReset:pc.cfp.DateValue];
     
     self.ipActive = [self.tableView indexPathForCell:pc];
     
