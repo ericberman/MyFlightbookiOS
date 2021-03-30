@@ -290,6 +290,9 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
 }
 
 - (void) resetDateOfFlight {
+    if (!self.le.entryData.isNewFlight)
+        return;
+    
     NSDate * dt = [NSDate date];
     
     if (self.le.entryData.isKnownEngineStart && [self.le.entryData.EngineStart compare:dt] == NSOrderedAscending)
