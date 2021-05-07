@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2018 MyFlightbook, LLC
+ Copyright (C) 2018-2025 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -37,9 +37,9 @@ static NSNumberFormatter * _nf = nil;
 - (NSString *) formatAsTime:(BOOL) fHHMM useGrouping:(BOOL) fGroup {
     if (fHHMM) {
         double val = self.doubleValue;
-        val = round(val * 60.0) / 60.0; // fix any rounding by getting precise minute
-        int hours = (int) trunc(val);
-        int minutes = (int) round((val - hours) * 60);
+        int totalMinutes = round(val * 60.0);
+        int hours = totalMinutes / 60;
+        int minutes = totalMinutes % 60;
         return [NSString stringWithFormat:@"%d:%02d", hours, minutes];
     } else {
         if (_nf == nil)
