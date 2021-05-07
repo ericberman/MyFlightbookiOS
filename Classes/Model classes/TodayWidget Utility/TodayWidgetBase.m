@@ -56,6 +56,8 @@
     self.szAuthToken = nil;
     self.extensionContext.widgetLargestAvailableDisplayMode = NCWidgetDisplayModeExpanded;
     
+    self.tableView.backgroundColor = UIColor.groupTableViewBackgroundColor;
+    
     if (self.extensionContext.widgetActiveDisplayMode == NCWidgetDisplayModeCompact)
         self.preferredContentSize = self.compactSize;
 }
