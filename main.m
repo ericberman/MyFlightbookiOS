@@ -43,6 +43,8 @@ void Swizzle(Class c, SEL orig, SEL new)
         method_exchangeImplementations(origMethod, newMethod);
 }
 
+void SwizzleArchivedClasses(void);
+
 void SwizzleArchivedClasses()
 {
     /*
