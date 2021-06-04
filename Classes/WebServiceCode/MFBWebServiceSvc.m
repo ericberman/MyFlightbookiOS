@@ -1561,6 +1561,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (id)init
 {
 	if((self = [super init])) {
+		HideFromSelection = 0;
 		InstanceTypeID = 0;
 		InstanceType = 0;
 		InstanceTypeDescription = 0;
@@ -1581,7 +1582,6 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 		ModelID = 0;
 		ModelDescription = 0;
 		ErrorString = 0;
-		HideFromSelection = 0;
 		Version = 0;
 		DefaultImage = 0;
 		RoleForPilot = 0;
@@ -1594,6 +1594,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 		GlassUpgradeDate = 0;
 		AvionicsTechnologyUpgrade = 0;
 		MaintenanceNote = 0;
+		Revision = 0;
 	}
 	
 	return self;
@@ -1601,6 +1602,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)dealloc
 {
 	[soapSigner release];
+	if(HideFromSelection != nil) [HideFromSelection release];
 	if(InstanceTypeID != nil) [InstanceTypeID release];
 	if(InstanceTypeDescription != nil) [InstanceTypeDescription release];
 	if(LastVOR != nil) [LastVOR release];
@@ -1620,7 +1622,6 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	if(ModelID != nil) [ModelID release];
 	if(ModelDescription != nil) [ModelDescription release];
 	if(ErrorString != nil) [ErrorString release];
-	if(HideFromSelection != nil) [HideFromSelection release];
 	if(Version != nil) [Version release];
 	if(DefaultImage != nil) [DefaultImage release];
 	if(CopyPICNameWithCrossfill != nil) [CopyPICNameWithCrossfill release];
@@ -1631,6 +1632,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	if(ICAO != nil) [ICAO release];
 	if(GlassUpgradeDate != nil) [GlassUpgradeDate release];
 	if(MaintenanceNote != nil) [MaintenanceNote release];
+	if(Revision != nil) [Revision release];
 	
 	[super dealloc];
 }
@@ -1664,6 +1666,9 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
+	if(((void *)self.HideFromSelection) != 0) {
+		xmlAddChild(node, [self.HideFromSelection xmlNodeForDoc:node->doc elementName:@"HideFromSelection" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
 	if(((void *)self.InstanceTypeID) != 0) {
 		xmlAddChild(node, [self.InstanceTypeID xmlNodeForDoc:node->doc elementName:@"InstanceTypeID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
@@ -1724,9 +1729,6 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	if(((void *)self.ErrorString) != 0) {
 		xmlAddChild(node, [self.ErrorString xmlNodeForDoc:node->doc elementName:@"ErrorString" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.HideFromSelection) != 0) {
-		xmlAddChild(node, [self.HideFromSelection xmlNodeForDoc:node->doc elementName:@"HideFromSelection" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
 	if(((void *)self.Version) != 0) {
 		xmlAddChild(node, [self.Version xmlNodeForDoc:node->doc elementName:@"Version" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
@@ -1763,8 +1765,12 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	if(((void *)self.MaintenanceNote) != 0) {
 		xmlAddChild(node, [self.MaintenanceNote xmlNodeForDoc:node->doc elementName:@"MaintenanceNote" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
+	if(((void *)self.Revision) != 0) {
+		xmlAddChild(node, [self.Revision xmlNodeForDoc:node->doc elementName:@"Revision" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
 }
 /* elements */
+@synthesize HideFromSelection;
 @synthesize InstanceTypeID;
 @synthesize InstanceType;
 @synthesize InstanceTypeDescription;
@@ -1785,7 +1791,6 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 @synthesize ModelID;
 @synthesize ModelDescription;
 @synthesize ErrorString;
-@synthesize HideFromSelection;
 @synthesize Version;
 @synthesize DefaultImage;
 @synthesize RoleForPilot;
@@ -1798,6 +1803,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 @synthesize GlassUpgradeDate;
 @synthesize AvionicsTechnologyUpgrade;
 @synthesize MaintenanceNote;
+@synthesize Revision;
 /* attributes */
 - (NSDictionary *)attributes
 {
@@ -1830,6 +1836,39 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 				elementString = [NSString stringWithCString:(char*)elementText encoding:NSUTF8StringEncoding];
 				[elementString self]; // avoid compiler warning for unused var
 				xmlFree(elementText);
+			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "HideFromSelection")) {
+				
+				Class elementClass = nil;
+				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if(instanceType == NULL) {
+					elementClass = [USBoolean class];
+				} else {
+					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
+					
+					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
+					
+					NSString *elementClassString = nil;
+					if([elementTypeArray count] > 1) {
+						NSString *prefix = [elementTypeArray objectAtIndex:0];
+						NSString *localName = [elementTypeArray objectAtIndex:1];
+						
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
+						
+						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
+						
+						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
+					} else {
+						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
+					}
+					
+					elementClass = NSClassFromString(elementClassString);
+					xmlFree(instanceType);
+				}
+				
+				id newChild = [elementClass deserializeNode:cur];
+				
+				self.HideFromSelection = newChild;
 			}
 			if(xmlStrEqual(cur->name, (const xmlChar *) "InstanceTypeID")) {
 				
@@ -2463,39 +2502,6 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 				
 				self.ErrorString = newChild;
 			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "HideFromSelection")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [USBoolean class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				self.HideFromSelection = newChild;
-			}
 			if(xmlStrEqual(cur->name, (const xmlChar *) "Version")) {
 				
 				Class elementClass = nil;
@@ -2835,6 +2841,39 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 				id newChild = [elementClass deserializeNode:cur];
 				
 				self.MaintenanceNote = newChild;
+			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "Revision")) {
+				
+				Class elementClass = nil;
+				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if(instanceType == NULL) {
+					elementClass = [NSNumber class];
+				} else {
+					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
+					
+					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
+					
+					NSString *elementClassString = nil;
+					if([elementTypeArray count] > 1) {
+						NSString *prefix = [elementTypeArray objectAtIndex:0];
+						NSString *localName = [elementTypeArray objectAtIndex:1];
+						
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
+						
+						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
+						
+						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
+					} else {
+						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
+					}
+					
+					elementClass = NSClassFromString(elementClassString);
+					xmlFree(instanceType);
+				}
+				
+				id newChild = [elementClass deserializeNode:cur];
+				
+				self.Revision = newChild;
 			}
 		}
 	}

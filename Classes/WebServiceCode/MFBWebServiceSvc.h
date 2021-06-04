@@ -303,6 +303,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 @interface MFBWebServiceSvc_Aircraft : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
+	USBoolean * HideFromSelection;
 	NSNumber * InstanceTypeID;
 	MFBWebServiceSvc_AircraftInstanceTypes InstanceType;
 	NSString * InstanceTypeDescription;
@@ -323,7 +324,6 @@ SOAPSigner *soapSigner;
 	NSNumber * ModelID;
 	NSString * ModelDescription;
 	NSString * ErrorString;
-	USBoolean * HideFromSelection;
 	NSNumber * Version;
 	NSString * DefaultImage;
 	MFBWebServiceSvc_PilotRole RoleForPilot;
@@ -336,6 +336,7 @@ SOAPSigner *soapSigner;
 	NSDate * GlassUpgradeDate;
 	MFBWebServiceSvc_AvionicsTechnologyType AvionicsTechnologyUpgrade;
 	NSString * MaintenanceNote;
+	NSNumber * Revision;
 /* attributes */
 }
 - (NSString *)nsPrefix;
@@ -347,6 +348,7 @@ SOAPSigner *soapSigner;
 - (void)deserializeElementsFromNode:(xmlNodePtr)cur;
 @property (retain) SOAPSigner *soapSigner;
 /* elements */
+@property (nonatomic, retain) USBoolean * HideFromSelection;
 @property (nonatomic, retain) NSNumber * InstanceTypeID;
 @property (nonatomic, assign) MFBWebServiceSvc_AircraftInstanceTypes InstanceType;
 @property (nonatomic, retain) NSString * InstanceTypeDescription;
@@ -367,7 +369,6 @@ SOAPSigner *soapSigner;
 @property (nonatomic, retain) NSNumber * ModelID;
 @property (nonatomic, retain) NSString * ModelDescription;
 @property (nonatomic, retain) NSString * ErrorString;
-@property (nonatomic, retain) USBoolean * HideFromSelection;
 @property (nonatomic, retain) NSNumber * Version;
 @property (nonatomic, retain) NSString * DefaultImage;
 @property (nonatomic, assign) MFBWebServiceSvc_PilotRole RoleForPilot;
@@ -380,6 +381,7 @@ SOAPSigner *soapSigner;
 @property (nonatomic, retain) NSDate * GlassUpgradeDate;
 @property (nonatomic, assign) MFBWebServiceSvc_AvionicsTechnologyType AvionicsTechnologyUpgrade;
 @property (nonatomic, retain) NSString * MaintenanceNote;
+@property (nonatomic, retain) NSNumber * Revision;
 /* attributes */
 - (NSDictionary *)attributes;
 @end

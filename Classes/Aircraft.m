@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2020 MyFlightbook, LLC
+ Copyright (C) 2009-2021 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -593,6 +593,7 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
 	[encoder encodeObject:self.TailNumber forKey:@"TailNumber"];
 	[encoder encodeObject:self.AircraftImages forKey:@"AircraftImages"];
     [encoder encodeBool:self.HideFromSelection.boolValue forKey:@"HideFromSelectionBOOL"];
+    [encoder encodeInt:self.Revision.intValue forKey:@"revisionNumber"];
     [encoder encodeInt:(int) self.RoleForPilot forKey:@"RoleForPilot"];
     [encoder encodeBool:self.CopyPICNameWithCrossfill.boolValue forKey:@"CopyPICName"];
     [encoder encodeObject:self.DefaultImage forKey:@"DefaultImage"];
@@ -637,6 +638,7 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
     self.PrivateNotes = [decoder decodeObjectOfClass:NSString.class forKey:@"PrivateNotes"];
     self.IsGlass = [[USBoolean alloc] initWithBool:[decoder decodeBoolForKey:@"IsGlass"]];
     self.ICAO = [decoder decodeObjectOfClass:NSString.class forKey:@"ICAO"];
+    self.Revision = [NSNumber numberWithInt:[decoder decodeIntForKey:@"revisionNumber"]];
     
 	return self;
 }
