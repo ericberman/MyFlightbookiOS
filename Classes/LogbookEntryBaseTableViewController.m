@@ -378,6 +378,16 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
     
     // New flights
     if (self.le.entryData.isNewFlight || self.le.entryData.isAwaitingUpload || [self.le.entryData isKindOfClass:MFBWebServiceSvc_PendingFlight.class]) {
+        if ([self.le.entryData isKindOfClass:MFBWebServiceSvc_PendingFlight.class]) {
+            [uac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"flightActionRepeatFlight", @"Flight Action - repeat a flight") style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                [self repeatFlight:NO];
+            }]];
+            
+            [uac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"flightActionReverseFlight", @"Flight Action - repeat and reverse flight") style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                [self repeatFlight:YES];
+            }]];
+        }
+        
         [uac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"flightActionSavePending", @"Flight Action - Save Pending") style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
             [self submitPending:sender];
         }]];
