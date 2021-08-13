@@ -90,6 +90,8 @@
 @interface MFBWebServiceSvc_PendingFlight (MFBIPhone)
 - (void)encodeWithCoderMFB:(NSCoder *)encoder;
 - (instancetype)initWithCoderMFB:(NSCoder *)decoder;
+- (MFBWebServiceSvc_LogbookEntry *) clone;
+- (MFBWebServiceSvc_LogbookEntry *) cloneAndReverse;
 @end
 
 @interface MFBWebServiceSvc_LogbookEntry (AutodetectDelegate) <AutoDetectDelegate>

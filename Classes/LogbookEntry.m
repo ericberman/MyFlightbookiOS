@@ -613,6 +613,17 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
     self.PendingID = [decoder decodeObjectOfClass:NSString.class forKey:_szKeyPendingID];
     return self;
 }
+
+- (MFBWebServiceSvc_LogbookEntry *) clone {
+    self.PendingID = nil;
+    return [super clone];
+}
+
+- (MFBWebServiceSvc_LogbookEntry *) cloneAndReverse {
+    self.PendingID = nil;
+    return [super cloneAndReverse];
+}
+
 @end
 
 @implementation MFBWebServiceSvc_LogbookEntry (MFBIPhone)
