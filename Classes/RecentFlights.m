@@ -723,7 +723,9 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectUnsubmittedFlights, sec
         case sectUploadInProgress:
             return NO;
         case sectExistingFlights:
+            return indexPath.row < self.rgFlights.count;    // don't allow delete of the "Getting additional flights" row
         case sectUnsubmittedFlights:
+            return !self.callInProgress;    // Issue #245: don't allow deletion of flight being uploaded
         case sectPendingFlights:
             return YES;
     }
