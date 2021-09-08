@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-2021 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -44,7 +44,6 @@
 - (IBAction) dateChanged:(UIDatePicker *)sender;
 - (IBAction) showDescription:(id)sender;
 - (void) setNoText;
-- (void) setAutoFillValue:(NSNumber *) num;
 + (PropertyCell *) getPropertyCell:(UITableView *) tableView withCPT:(MFBWebServiceSvc_CustomPropertyType *) cpt andFlightProperty:(MFBWebServiceSvc_CustomFlightProperty *) cfp;
 - (void) styleLabelAsDefault:(BOOL) fIsDefault;
 - (void) configureCell:(UIView *) vwAcc andDatePicker:(UIDatePicker *) dp defValue:(NSNumber *) num;

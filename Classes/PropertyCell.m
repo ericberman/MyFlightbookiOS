@@ -39,19 +39,6 @@
 
 @synthesize txt, lbl, lblDescription, lblDescriptionBackground, btnShowDescription, cfp, cpt, imgLocked, flightPropDelegate, autofillValue;
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-    }
-    return self;
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-}
-
 - (IBAction) dateChanged:(UIDatePicker *)sender
 {
     if ([sender isKindOfClass:[UIDatePicker class]])
@@ -104,9 +91,8 @@
     [self.txt addGestureRecognizer:lpgr];
 }
 
-- (void) updateLockStatus
-{
-    self.imgLocked.hidden = !self.cpt.isLocked;
+- (void) updateLockStatus {
+    self.imgLocked.image = self.cpt.isLocked ? [UIImage imageNamed:@"Favorite.png"] : nil;
 }
 
 - (void) toggleLock:(UILongPressGestureRecognizer *)sender
@@ -131,7 +117,8 @@
         else
             cell = topLevelObjects[1];
         
-        [cell addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:cell action:@selector(toggleLock:)]];
+        [cell.imgLocked addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:cell action:@selector(toggleLock:)]];
+        [cell.lbl addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:cell action:@selector(toggleLock:)]];
     }
     cell.firstResponderControl = cell.lastResponderControl = cell.txt;
     cell.cpt = cpt;
@@ -297,11 +284,11 @@
             self.txt.autocorrectionType = UITextAutocorrectionTypeNo;
             break;
         case MFBWebServiceSvc_CFPPropertyType_cfpDecimal:
-            // assume it's a time unless the PlanDecimal flags (0x00200000) is set, in which case force decimal
+            // assume it's a time unless the PlainDecimal flags (0x00200000) is set, in which case force decimal
             self.txt.NumberType = ((self.cpt.Flags.unsignedIntegerValue & 0x00200000) == 0) ? ntTime : ntDecimal;
             self.txt.autocorrectionType = UITextAutocorrectionTypeNo;
             [self.txt setValue:self.cfp.DecValue withDefault:@0.0]; // Fix bug #37. re-assign it; this will respect the number type.
-            if (defVal != nil)
+            if (defVal != nil && (self.txt.NumberType == ntTime || self.cpt.PropTypeID.intValue == PropTypeID_TachStart))
                 [self setAutoFillValue:defVal];
             break;
         case MFBWebServiceSvc_CFPPropertyType_cfpInteger:
