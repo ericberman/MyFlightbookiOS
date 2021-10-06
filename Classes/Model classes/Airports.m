@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 12/25/09.
-//  Copyright 2009-2018, MyFlightbook LLC. All rights reserved.
+//  Copyright 2009-2021, MyFlightbook LLC. All rights reserved.
 //
 
 #import "Airports.h"
@@ -379,7 +379,7 @@ static NSRegularExpression * _reAirports = nil;
 - (NSString *) subtitle
 {
     NSString * szLocale = (Country == nil || Country.length == 0 || [Country hasPrefix:@"--"]) ? @"" :
-        [[NSString stringWithFormat:@"%@%@", Admin1 == nil ? @"" : [NSString stringWithFormat:@"%@, ", Admin1], Country] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+        [[NSString stringWithFormat:@"%@%@", (Admin1 == nil || Admin1.length == 0) ? Country : [NSString stringWithFormat:@"%@, ", Admin1], Country] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
 	
     return szLocale.length == 0 ? self.Name : [NSString stringWithFormat:@"%@ (%@)", self.Name, szLocale];
 }
