@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2018-2019 MyFlightbook, LLC
+ Copyright (C) 2018-2021 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -55,6 +55,17 @@
         UISegmentedControl.appearance.selectedSegmentTintColor = mfbColor;
     } else {
         // Fallback on earlier versions
+    }
+    
+    // Bleah - fucking Apple introducing breaking changes.
+    // With iOS 15, the top is black until you scroll.  Pathetically lame.
+    // https://stackoverflow.com/questions/69111478/ios-15-navigation-bar-transparent
+    if (@available(iOS 15.0, *)) {
+        UINavigationBarAppearance * app = UINavigationBarAppearance.new;
+        [app configureWithOpaqueBackground];
+        UINavigationBar.appearance.standardAppearance = app;
+        UINavigationBar.appearance.scrollEdgeAppearance = app;
+        
     }
     
     UISwitch.appearance.onTintColor = mfbColor;
