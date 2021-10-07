@@ -65,7 +65,10 @@
         [app configureWithOpaqueBackground];
         UINavigationBar.appearance.standardAppearance = app;
         UINavigationBar.appearance.scrollEdgeAppearance = app;
-        
+        UIToolbarAppearance * tba = UIToolbarAppearance.new;
+        [tba configureWithOpaqueBackground];
+        UIToolbar.appearance.standardAppearance = tba;
+        UIToolbar.appearance.scrollEdgeAppearance = tba;
     }
     
     UISwitch.appearance.onTintColor = mfbColor;
