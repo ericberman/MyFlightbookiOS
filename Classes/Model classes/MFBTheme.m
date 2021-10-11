@@ -69,6 +69,10 @@
         [tba configureWithOpaqueBackground];
         UIToolbar.appearance.standardAppearance = tba;
         UIToolbar.appearance.scrollEdgeAppearance = tba;
+        UITabBarAppearance * tabapp = UITabBarAppearance.new;
+        [tabapp configureWithOpaqueBackground];
+        UITabBar.appearance.standardAppearance = tabapp;
+        UITabBar.appearance.scrollEdgeAppearance = tabapp;
     }
     
     UISwitch.appearance.onTintColor = mfbColor;
