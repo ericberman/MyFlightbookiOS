@@ -23,7 +23,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 12/20/09.
-//  Copyright 2009-2019, MyFlightbook LLC. All rights reserved.
+//  Copyright 2009-2021, MyFlightbook LLC. All rights reserved.
 //
 
 #import "Aircraft.h"
@@ -164,7 +164,7 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
 	NSData * rgArrayLastData = [[NSUserDefaults standardUserDefaults] objectForKey:_szKeyCachedAircraft];
     NSError * err = nil;
     if (rgArrayLastData != nil)
-        return [NSKeyedUnarchiver unarchivedObjectOfClasses:[NSSet setWithArray:@[NSArray.class, MFBWebServiceSvc_Aircraft.class]] fromData:rgArrayLastData error:&err];
+        return [NSKeyedUnarchiver unarchivedObjectOfClasses:[NSSet setWithArray:@[NSArray.class, MFBWebServiceSvc_Aircraft.class, NSNumber.class, NSMutableArray.class, MFBWebServiceSvc_ArrayOfInt.class]] fromData:rgArrayLastData error:&err];
     return nil;
 }
 
@@ -633,7 +633,7 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
     if (self.RoleForPilot == MFBWebServiceSvc_PilotRole_none)
         self.RoleForPilot = MFBWebServiceSvc_PilotRole_None;
     self.DefaultImage = [decoder decodeObjectOfClass:NSString.class forKey:@"DefaultImage"];
-    self.DefaultTemplates = [decoder decodeTopLevelObjectOfClasses:[NSSet setWithArray:@[NSMutableArray.class, MFBWebServiceSvc_ArrayOfInt.class]] forKey:@"DefaultTemplates" error:&err];
+    self.DefaultTemplates = [decoder decodeTopLevelObjectOfClasses:[NSSet setWithArray:@[NSMutableArray.class, NSNumber.class, MFBWebServiceSvc_ArrayOfInt.class]] forKey:@"DefaultTemplates" error:&err];
     self.PublicNotes = [decoder decodeObjectOfClass:NSString.class forKey:@"PublicNotes"];
     self.PrivateNotes = [decoder decodeObjectOfClass:NSString.class forKey:@"PrivateNotes"];
     self.IsGlass = [[USBoolean alloc] initWithBool:[decoder decodeBoolForKey:@"IsGlass"]];

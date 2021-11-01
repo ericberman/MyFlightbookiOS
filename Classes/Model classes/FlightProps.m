@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2010-2020 MyFlightbook, LLC
+ Copyright (C) 2010-2021 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 7/7/10.
-//  Copyright 2010-2019 MyFlightbook LLC. All rights reserved.
+//  Copyright 2010-2021 MyFlightbook LLC. All rights reserved.
 //
 
 #import "FlightProps.h"
@@ -79,7 +79,7 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
         NSError * err = nil;
         NSData * data = [NSUserDefaults.standardUserDefaults objectForKey:_szKeyCachedTemplates];
         if (data != nil)
-            shared = [NSKeyedUnarchiver unarchivedObjectOfClasses:[NSSet setWithArray:@[NSArray.class, MFBWebServiceSvc_PropertyTemplate.class, MFBWebServiceSvc_ArrayOfPropertyTemplate.class]] fromData:data error:&err];
+            shared = [NSKeyedUnarchiver unarchivedObjectOfClasses:[NSSet setWithArray:@[NSArray.class, NSNumber.class, MFBWebServiceSvc_PropertyTemplate.class, MFBWebServiceSvc_ArrayOfPropertyTemplate.class]] fromData:data error:&err];
         else
             shared = [NSMutableArray new];
     });
@@ -764,7 +764,7 @@ NSString * const _szKeyTemplatePropTypes = @"keyTemplTypes";
     self.Description = [decoder decodeObjectOfClass:NSString.class forKey:_szKeyTemplateDesc];
     self.GroupAsInt = [decoder decodeObjectOfClass:NSNumber.class forKey:_szKeyTemplateGroup];
     self.IsDefault = [decoder decodeObjectOfClass:USBoolean.class forKey:_szKeyTemplateDefault];
-    self.PropertyTypes = [decoder decodeTopLevelObjectOfClasses:[NSSet setWithArray:@[NSMutableArray.class, MFBWebServiceSvc_ArrayOfInt.class]] forKey:_szKeyTemplatePropTypes error:&err];
+    self.PropertyTypes = [decoder decodeTopLevelObjectOfClasses:[NSSet setWithArray:@[NSMutableArray.class, MFBWebServiceSvc_ArrayOfInt.class, NSNumber.class]] forKey:_szKeyTemplatePropTypes error:&err];
     return self;
 }
 
