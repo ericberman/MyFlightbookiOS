@@ -128,11 +128,11 @@
             </connections>
             <point key="canvasLocation" x="-73.599999999999994" y="464.16791604197903"/>
         </tableViewCell>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="cellComments" rowHeight="45" id="321" customClass="EditCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="cellComments" rowHeight="76" id="321" customClass="EditCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="76"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="321" id="DL7-HT-psE">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="76"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Comments:" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="330">
@@ -141,22 +141,23 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <textField opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="333" userLabel="txtComments">
-                        <rect key="frame" x="15" y="21.5" width="259" height="19"/>
+                    <textView opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="333" userLabel="txtComments">
+                        <rect key="frame" x="12" y="18.5" width="292" height="56.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes"/>
                         <connections>
                             <outlet property="delegate" destination="-1" id="335"/>
                         </connections>
-                    </textField>
+                    </textView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="333" secondAttribute="trailing" constant="20" symbolic="YES" id="CvH-Pe-raq"/>
-                    <constraint firstItem="333" firstAttribute="leading" secondItem="330" secondAttribute="leading" id="OkQ-e5-o6r"/>
-                    <constraint firstItem="333" firstAttribute="width" secondItem="330" secondAttribute="width" id="RYD-7w-0uI"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="333" secondAttribute="trailing" constant="15" id="CvH-Pe-raq"/>
+                    <constraint firstItem="333" firstAttribute="leading" secondItem="330" secondAttribute="leading" constant="-4" id="OkQ-e5-o6r"/>
+                    <constraint firstItem="333" firstAttribute="width" secondItem="330" secondAttribute="width" constant="34" id="RYD-7w-0uI"/>
                     <constraint firstItem="330" firstAttribute="leading" secondItem="DL7-HT-psE" secondAttribute="leadingMargin" id="UBL-tT-F0v"/>
                     <constraint firstItem="330" firstAttribute="top" secondItem="DL7-HT-psE" secondAttribute="topMargin" constant="-6" id="W9N-lQ-eIV"/>
-                    <constraint firstItem="333" firstAttribute="top" secondItem="330" secondAttribute="bottom" constant="2" id="ZLk-FA-gLM"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="333" secondAttribute="bottom" constant="-10" id="XJb-bY-lTV"/>
+                    <constraint firstItem="333" firstAttribute="top" secondItem="330" secondAttribute="bottom" constant="-1" id="ZLk-FA-gLM"/>
                     <constraint firstAttribute="trailing" secondItem="330" secondAttribute="trailing" constant="46" id="fGY-4w-qpD"/>
                 </constraints>
             </tableViewCellContentView>
@@ -164,7 +165,7 @@
                 <outlet property="firstResponderControl" destination="333" id="546"/>
                 <outlet property="lastResponderControl" destination="333" id="547"/>
             </connections>
-            <point key="canvasLocation" x="-73.599999999999994" y="392.65367316341832"/>
+            <point key="canvasLocation" x="-73.599999999999994" y="406.59670164917543"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="cellRoute" rowHeight="45" id="314" customClass="EditCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

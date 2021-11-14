@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) IBOutlet UITextField * idDate;
 @property (nonatomic, strong) IBOutlet UITextField * idRoute;
-@property (nonatomic, strong) IBOutlet UITextField * idComments;
+@property (nonatomic, strong) IBOutlet UITextView * idComments;
 @property (nonatomic, strong) IBOutlet UITextField * idTotalTime;
 @property (nonatomic, strong) IBOutlet UITextField * idPopAircraft;
 @property (nonatomic, strong) IBOutlet UITextField * idApproaches;

@@ -59,7 +59,6 @@
     self.navigationItem.rightBarButtonItem.enabled = NO;
     self.navigationItem.rightBarButtonItem.enabled = YES;
     
-    self.idComments.placeholder = NSLocalizedString(@"Comments", @"Entry field: Comments");
     self.idRoute.placeholder = NSLocalizedString(@"Route", @"Entry field: Route");
     self.idPopAircraft.placeholder = NSLocalizedString(@"Aircraft", @"Entry field: Aircraft");
     
