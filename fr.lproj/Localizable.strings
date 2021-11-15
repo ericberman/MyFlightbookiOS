@@ -43,10 +43,10 @@
 /* Label for number of flights to show - e.g., '30 days of flights' or '2 years of flights'; leave the %@ alone since this gets the timespan at runtime */
 "%@ of flights" = "%@ de vols";
 
-/* For a visited airport, this puts the distance at the first %@, the number of visits at the %d, and the date of the visit at the latter %@; e.g., '(3.2nm) 2 visits on Jan 10 2010', so leave the %d and %@ intact */
+/* For a visited airport, this puts the distance at the first %@, the number of visits at the %d, and the date of the visit at the latter %@; e.g., '(3.2NM) 2 visits on Jan 10 2010', so leave the %d and %@ intact */
 "%@%d visits on %@" = "%1$@%2$d visite(s) au %3$@";
 
-/* For a visited airport, this puts the distance at the first %@, the number of visits at the %d, and the earliest/latest dates at the other %@; e.g., '(3.2nm) 2 visits from Jan 10 2010 to Mar 31, 2011', so leave the %d/%@ intact */
+/* For a visited airport, this puts the distance at the first %@, the number of visits at the %d, and the earliest/latest dates at the other %@; e.g., '(3.2NM) 2 visits from Jan 10 2010 to Mar 31, 2011', so leave the %d/%@ intact */
 "%@%d visites from %@ to %@" = "%1$@%2$d visite(s) du %3$@ au %4$@";
 
 /* Number of days to show recent flights for; leave the %d alone since this is replaced by the number at runtime */
@@ -56,7 +56,7 @@
 "%d years" = "%d dernières années";
 
 /* Distance to an airport; the '%.1f' gets replaced by the numerical value at runtime; leave it there */
-"(%.1fnm) " = "(%.1fnm) ";
+"(%.1fNM) " = "(%.1fNM) ";
 
 /* # of unique visited airports that were found; '%d' gets replaced at runtime; leave it there! */
 "(%d unique airports found)" = "(%d aéroports trouvés)";

@@ -76,7 +76,7 @@
 #define NM_IN_A_METER 0.000539956803
 #define DEG2RAD(degrees) (degrees * 0.0174532925199433) // degrees * pi over 180
 
-// Distance for Cross-country Flight (in nm)
+// Distance for Cross-country Flight (in NM)
 #define CROSS_COUNTRY_THRESHOLD 50.0
 
 // Cached credentials, aircraft durations

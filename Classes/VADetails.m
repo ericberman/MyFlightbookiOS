@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2011-2018 MyFlightbook, LLC
+ Copyright (C) 2011-2021 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -112,7 +112,7 @@
     {
         MFBWebServiceSvc_VisitedAirport * va = (MFBWebServiceSvc_VisitedAirport *) (self.rgVA)[0];
         MKCoordinateRegion mcr;
-        mcr.span.latitudeDelta = mcr.span.longitudeDelta = 0.008; // approximately 1nm delta
+        mcr.span.latitudeDelta = mcr.span.longitudeDelta = 0.008; // approximately 1NM delta
         mcr.center.latitude = [va.Airport.Latitude doubleValue];
         mcr.center.longitude = [va.Airport.Longitude doubleValue];
         [((MKMapView *) self.view) setRegion:mcr animated:YES];

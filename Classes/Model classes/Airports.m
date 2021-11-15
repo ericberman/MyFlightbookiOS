@@ -360,7 +360,7 @@ static NSRegularExpression * _reAirports = nil;
         if (cloc.latitude != 0.0 && cloc.longitude != 0.0)
             dist = NM_IN_A_METER * [app.mfbloc.lastSeenLoc distanceFromLocation:[[CLLocation alloc] initWithLatitude:self.Latitude.doubleValue longitude:self.Longitude.doubleValue]];
     }
-    NSString * szDistance = [NSString localizedStringWithFormat:NSLocalizedString(@" (%.1fnm away)", @"Distance to airport - %.1f is replaced by the distance in nautical miles"), dist];
+    NSString * szDistance = [NSString localizedStringWithFormat:NSLocalizedString(@" (%.1fNM away)", @"Distance to airport - %.1f is replaced by the distance in nautical miles"), dist];
     
     return [NSString stringWithFormat:@"%@%@", self.Code, ((dist == 0.0) ? @"" : szDistance)];
 }
