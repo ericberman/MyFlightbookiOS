@@ -126,7 +126,8 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     }
     self.idPopAircraft.inputView = self.pickerView;
     self.idComments.inputAccessoryView = self.idRoute.inputAccessoryView = self.idDate.inputAccessoryView = self.idPopAircraft.inputAccessoryView = self.vwAccessory;
-    self.idPopAircraft.delegate = self.idComments.delegate = self.idRoute.delegate = self;
+    self.idComments.delegate = self;
+    self.idPopAircraft.delegate = self.idRoute.delegate = self;
 
 	// self.le should be nil on first run, in which case we load up a flight
 	// in progress or start a new one (if no saved state).
@@ -1042,9 +1043,13 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
     }
 }
 
+- (BOOL) textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    return YES;
+}
+
 - (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if ((textField == self.idComments || textField == self.idRoute))
+    if (textField == self.idRoute)
         return YES;
 
     // Hack, but for in-line editing of free-form text properties, need to allow arbitrary text and support autocomplete

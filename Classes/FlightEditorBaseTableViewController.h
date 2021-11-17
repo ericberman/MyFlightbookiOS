@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2019 MyFlightbook, LLC
+ Copyright (C) 2019-2021 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FlightEditorBaseTableViewController : CollapsibleTable<UIGestureRecognizerDelegate, UIContentContainer, UITextFieldDelegate>
+@interface FlightEditorBaseTableViewController : CollapsibleTable<UIGestureRecognizerDelegate, UIContentContainer, UITextFieldDelegate, UITextViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UITextField * idDate;
 @property (nonatomic, strong) IBOutlet UITextField * idRoute;

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,6 +19,7 @@
                 <outlet property="datePicker" destination="560" id="652"/>
                 <outlet property="idApproaches" destination="570" id="653"/>
                 <outlet property="idCFI" destination="592" id="655"/>
+                <outlet property="idComments" destination="f6l-xp-dfB" id="Ogd-nr-HW4"/>
                 <outlet property="idDate" destination="582" id="657"/>
                 <outlet property="idDayLandings" destination="571" id="659"/>
                 <outlet property="idDual" destination="593" id="660"/>
@@ -609,7 +610,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="584" userLabel="btnAddAircraft">
-                        <rect key="frame" x="731" y="10" width="25" height="24"/>
+                        <rect key="frame" x="734" y="12" width="22" height="20"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="22" id="rjm-ZI-ixl"/>
                         </constraints>
@@ -625,7 +626,7 @@
                         </connections>
                     </button>
                     <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="583" userLabel="txtAircraft">
-                        <rect key="frame" x="604" y="5" width="122" height="34"/>
+                        <rect key="frame" x="607" y="5" width="122" height="34"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="122" id="hh5-yI-KNO"/>
                         </constraints>
@@ -636,7 +637,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="(Date goes here)" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="582" userLabel="txtDate">
-                        <rect key="frame" x="15" y="5" width="129" height="34"/>
+                        <rect key="frame" x="16" y="5" width="129" height="34"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="122" id="ABG-nj-VAM"/>
                         </constraints>
@@ -672,7 +673,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Route:" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="581">
-                        <rect key="frame" x="15" y="2" width="683" height="15"/>
+                        <rect key="frame" x="16" y="2" width="682" height="15"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="tdp-0C-p6V"/>
                         </constraints>
@@ -681,7 +682,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="579" userLabel="txtRoute">
-                        <rect key="frame" x="15" y="19" width="683" height="19"/>
+                        <rect key="frame" x="16" y="19" width="682" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no"/>
                         <connections>
@@ -750,7 +751,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Comments:" lineBreakMode="tailTruncation" minimumFontSize="10" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="576">
-                        <rect key="frame" x="15" y="2" width="69.5" height="15"/>
+                        <rect key="frame" x="16" y="2" width="69.5" height="15"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="nY4-PX-6fi"/>
                         </constraints>
@@ -802,7 +803,7 @@
                         </state>
                     </button>
                     <textField opaque="NO" clearsContextBeforeDrawing="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="570" userLabel="txtApproaches">
-                        <rect key="frame" x="508" y="13" width="40" height="18.5"/>
+                        <rect key="frame" x="508" y="14" width="40" height="16"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="okH-dU-xcN"/>
                         </constraints>
@@ -813,7 +814,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clearsContextBeforeDrawing="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="568" userLabel="txtLandings">
-                        <rect key="frame" x="139" y="13" width="40" height="18.5"/>
+                        <rect key="frame" x="140" y="14" width="40" height="16"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="VjD-7I-xts"/>
                         </constraints>
@@ -824,7 +825,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clearsContextBeforeDrawing="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="571" userLabel="txtDayLandings">
-                        <rect key="frame" x="139" y="35" width="40" height="18.5"/>
+                        <rect key="frame" x="140" y="36" width="40" height="16"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="HBz-BL-OaE"/>
                         </constraints>
@@ -835,7 +836,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clearsContextBeforeDrawing="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="572" userLabel="txtNightLandings">
-                        <rect key="frame" x="139" y="57" width="40" height="18.5"/>
+                        <rect key="frame" x="140" y="58" width="40" height="16"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="moO-BY-Jmo"/>
                         </constraints>
@@ -855,7 +856,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" text="Landings:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="569">
-                        <rect key="frame" x="15" y="15" width="120" height="14.5"/>
+                        <rect key="frame" x="16" y="15" width="120" height="14.5"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="8id-vf-eUt"/>
                         </constraints>
@@ -864,7 +865,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" text="Day Full-stop:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="574">
-                        <rect key="frame" x="15" y="37" width="120" height="14.5"/>
+                        <rect key="frame" x="16" y="37" width="120" height="14.5"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="GQ9-U2-Zoi"/>
                         </constraints>
@@ -873,7 +874,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" text="Night Full-stop:" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="573">
-                        <rect key="frame" x="15" y="59" width="120" height="14.5"/>
+                        <rect key="frame" x="16" y="59" width="120" height="14.5"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="PVG-Cd-aok"/>
                         </constraints>
@@ -882,7 +883,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O1X-0d-pEp" userLabel="btnAddApproach">
-                        <rect key="frame" x="553" y="10" width="25" height="24"/>
+                        <rect key="frame" x="553" y="12" width="22" height="20"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="22" id="1Bm-KM-kvT"/>
                         </constraints>
@@ -949,7 +950,7 @@
         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="564">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="-541" y="378"/>
@@ -961,5 +962,11 @@
         <image name="Recording.png" width="10" height="10"/>
         <image name="sunrise.png" width="20" height="20"/>
         <image name="sunset.png" width="20" height="20"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
