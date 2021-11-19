@@ -37,9 +37,6 @@
 /* meters */
 "meters" = "m";
 
-/* Invalid GPS data */
-"--" = "--";
-
 /* Label for number of flights to show - e.g., '30 days of flights' or '2 years of flights'; leave the %@ alone since this gets the timespan at runtime */
 "%@ of flights" = "%@ de vols";
 

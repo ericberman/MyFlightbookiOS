@@ -1487,7 +1487,7 @@ static NSDateFormatter * dfSunriseSunset = nil;
     self.idLblStatus.text = [MFBLocation flightStateDisplay:fs];
     if (fs == fsInFlight)
         [self.le unPauseFlight];
-    NSString * szInvalid = NSLocalizedString(@"--", @"Invalid GPS data");
+    NSString * szInvalid = @"";
     self.idLblSpeed.text = (fValidSpeed && fValidQuality) ? [MFBLocation speedDisplay:s] : szInvalid;
     self.idLblAltitude.text = (fValidSpeed && fValidQuality) ? [MFBLocation altitudeDisplay:newLocation] : szInvalid;
     self.idimgRecording.hidden = !app.mfbloc.fRecordFlightData || ![self flightCouldBeInProgress];
