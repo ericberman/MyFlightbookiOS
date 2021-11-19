@@ -29,6 +29,7 @@
 #import "DecimalEdit.h"
 #import "AutodetectOptions.h"
 #import "Util.h"
+#import "FlightProps.h"
 
 @implementation RecentFlightCell
 
@@ -120,8 +121,12 @@
     if ([NSDate isUnknownDate:dtStart] || [NSDate isUnknownDate:dtEnd])
         return [[NSAttributedString alloc] init];
     
+    NSTimeInterval elapsed = [dtEnd timeIntervalSinceDate:dtStart] / 3600.0;
+    NSString * szInterval = (elapsed <= 0) ? @"" : [NSString stringWithFormat:@" (%@)",
+                                                    [UITextField stringFromNumber:@(elapsed) forType:ntTime inHHMM:AutodetectOptions.HHMMPref]];
+    
     NSMutableAttributedString * attrString = [[NSMutableAttributedString alloc] initWithString:label attributes:@{NSFontAttributeName : font, NSForegroundColorAttributeName : textColor}];
-    [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@ - %@ ", dtStart.utcString, dtEnd.utcString] attributes:@{NSForegroundColorAttributeName : dimmedColor}]];
+    [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@ - %@%@ ", dtStart.utcString, dtEnd.utcString, szInterval] attributes:@{NSForegroundColorAttributeName : dimmedColor}]];
     return attrString;
 }
 
@@ -201,6 +206,18 @@
         if (detail == flightTimeDetailed) {
             [attrString appendAttributedString:[self attributedUTCDateRange:NSLocalizedString(@"Engine Time", @"Auto-fill based on engine time") start:le.EngineStart end:le.EngineEnd withFont:boldFont]];
             [attrString appendAttributedString:[self attributedUTCDateRange:NSLocalizedString(@"Flight Time", @"Auto-fill based on time in the air") start:le.FlightStart end:le.FlightEnd withFont:boldFont]];
+            
+            NSDate * blockOut = nil;
+            NSDate * blockIn = nil;
+            
+            for (MFBWebServiceSvc_CustomFlightProperty * cfp in le.CustomProperties.CustomFlightProperty) {
+                if (cfp.PropTypeID.integerValue == PropTypeID_BlockOut)
+                    blockOut = cfp.DateValue;
+                if (cfp.PropTypeID.integerValue == PropTypeID_BlockIn)
+                    blockIn = cfp.DateValue;
+            }
+            if (blockIn != nil && blockOut != nil)
+                [attrString appendAttributedString:[self attributedUTCDateRange:NSLocalizedString(@"Block Time", @"Auto-fill total based on block time") start:blockOut end:blockIn withFont:boldFont]];
         }
     }
     
