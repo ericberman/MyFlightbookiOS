@@ -833,7 +833,7 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
                     cell.accessoryType = self.fq.IsRetract.boolValue ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
                     break;
                 case afCSProp:
-                    cell.textLabel.text = NSLocalizedString(@"afCSProp", @"Aircraft Feature = Constant Speed Propellor");
+                    cell.textLabel.text = NSLocalizedString(@"afCSProp", @"Aircraft Feature = Controllable Pitch Propellor");
                     cell.accessoryType = self.fq.IsConstantSpeedProp.boolValue ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
                     break;
                 case afFlaps:

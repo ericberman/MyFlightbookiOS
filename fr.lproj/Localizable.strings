@@ -634,7 +634,7 @@
 /* Aircraft Feature = Retractable gear */
 "afRetract" = "Train rentrant";
 
-/* Aircraft Feature = Constant Speed Propellor */
+/* Aircraft Feature = Controllable Pitch Propellor */
 "afCSProp" = "Hélice à pas variable";
 
 /* Aircraft Feature = Flaps */
