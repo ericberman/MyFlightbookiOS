@@ -546,7 +546,7 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
             return [ExpandHeaderCell getHeaderCell:tableView withTitle:NSLocalizedString(@"Images", @"Images Header") forSection:sectImages initialState:[self isExpanded:sectImages]];
         case rowPropertiesHeader: {
             ExpandHeaderCell * cell = [ExpandHeaderCell getHeaderCell:tableView withTitle:NSLocalizedString(@"Properties", @"Properties Header") forSection:sectProperties initialState:[self isExpanded:sectProperties]];
-            if (FlightProps.sharedTemplates.count > 0 && self.le.entryData.isNewOrAwaitingUpload) {
+            if (FlightProps.sharedTemplates.count > 0) {
                 cell.DisclosureButton.hidden = NO;
                 [cell.DisclosureButton addTarget:self action:@selector(pickTemplates:) forControlEvents:UIControlEventTouchDown];
             }
