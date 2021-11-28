@@ -349,20 +349,7 @@ static NSRegularExpression * _reAirports = nil;
 
 - (NSString *) title
 {
-    double dist = [self.DistanceFromPosition doubleValue];
- 
-    MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
-
-    if (dist == 0.0 && app.mfbloc.lastSeenLoc != nil)
-    {
-        // try to compute the distance
-        CLLocationCoordinate2D cloc = app.mfbloc.lastSeenLoc.coordinate;
-        if (cloc.latitude != 0.0 && cloc.longitude != 0.0)
-            dist = NM_IN_A_METER * [app.mfbloc.lastSeenLoc distanceFromLocation:[[CLLocation alloc] initWithLatitude:self.Latitude.doubleValue longitude:self.Longitude.doubleValue]];
-    }
-    NSString * szDistance = [NSString localizedStringWithFormat:NSLocalizedString(@" (%.1fNM away)", @"Distance to airport - %.1f is replaced by the distance in nautical miles"), dist];
-    
-    return [NSString stringWithFormat:@"%@%@", self.Code, ((dist == 0.0) ? @"" : szDistance)];
+    return [NSString stringWithFormat:@"%@ %@", self.Code, self.Name];
 }
 
 - (NSComparisonResult) compareDistance:(MFBWebServiceSvc_airport *) ap
@@ -378,10 +365,23 @@ static NSRegularExpression * _reAirports = nil;
 
 - (NSString *) subtitle
 {
+    double dist = [self.DistanceFromPosition doubleValue];
+ 
+    MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
+
+    if (dist == 0.0 && app.mfbloc.lastSeenLoc != nil)
+    {
+        // try to compute the distance
+        CLLocationCoordinate2D cloc = app.mfbloc.lastSeenLoc.coordinate;
+        if (cloc.latitude != 0.0 && cloc.longitude != 0.0)
+            dist = NM_IN_A_METER * [app.mfbloc.lastSeenLoc distanceFromLocation:[[CLLocation alloc] initWithLatitude:self.Latitude.doubleValue longitude:self.Longitude.doubleValue]];
+    }
+    NSString * szDistance = [NSString localizedStringWithFormat:NSLocalizedString(@" (%.1fNM away)", @"Distance to airport - %.1f is replaced by the distance in nautical miles"), dist];
+    
     NSString * szLocale = (Country == nil || Country.length == 0 || [Country hasPrefix:@"--"]) ? @"" :
-        [[NSString stringWithFormat:@"%@%@", (Admin1 == nil || Admin1.length == 0) ? Country : [NSString stringWithFormat:@"%@, ", Admin1], Country] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+        [[NSString stringWithFormat:@"%@%@", (Admin1 == nil || Admin1.length == 0) ? @"" : [NSString stringWithFormat:@"%@, ", Admin1], Country] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
 	
-    return szLocale.length == 0 ? self.Name : [NSString stringWithFormat:@"%@ (%@)", self.Name, szLocale];
+    return szLocale.length == 0 ? self.Name : [NSString stringWithFormat:@"%@ %@", szLocale, ((dist == 0.0) ? @"" : szDistance)];
 }
 
 + (MFBWebServiceSvc_airport *) getAdHoc:(NSString *) szLatLon;
