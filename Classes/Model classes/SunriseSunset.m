@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2018 MyFlightbook, LLC
+ Copyright (C) 2017-2021 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -348,21 +348,22 @@ static double calcSunDeclination(double t)
 /// <param name="minutes">Minutes into the day (UTC)</param>
 /// <param name="JD">The Julian Date</param>
 /// <returns>Angle of the sun, in degrees</returns>
-static double calcSolarAngle(double lat, double lon, double JD, double minutes)
-{
-    double t = calcTimeJulianCent(JD);
-    double decl = degToRad(calcSunDeclination(t));
-    double latRad = degToRad(lat);
-    double altitudeAngle = 0.0;
-    
-    double solarMinutesAfterMidnight = minutes + (4 * lon);
-    double hourAngle = (solarMinutesAfterMidnight - 12 * 60) / 4 * -1;
-    
-    altitudeAngle = asin(
-                         (cos(latRad) * cos(decl) * cos(degToRad(hourAngle)) +
-                          (sin(latRad) * sin(decl))));
-    
-    return radToDeg(altitudeAngle);
+static double calcSolarAngle(double lat, double lon, double JD, double minutes) {
+        double julianCentury = calcTimeJulianCent(JD + minutes / 1440.0);
+
+        double sunDeclinationRad = degToRad(calcSunDeclination(julianCentury));
+        double latRad = degToRad(lat);
+
+        double eqOfTime = calcEquationOfTime(julianCentury);
+
+        double trueSolarTimeMin =  ((int) (minutes + eqOfTime + 4 *lon)) % 1440;
+        double hourAngleDeg = trueSolarTimeMin / 4 < 0 ? trueSolarTimeMin / 4 + 180 : trueSolarTimeMin / 4 - 180;
+        double zenith = radToDeg(acos(sin(latRad) * sin(sunDeclinationRad) + cos(latRad) * cos(sunDeclinationRad) * cos(degToRad(hourAngleDeg))));
+        double solarElevation = 90 - zenith;
+        double atmRefractionDeg = solarElevation > 85 ? 0 :
+            (solarElevation > 5 ? 58.1 / tan(degToRad(solarElevation)) - 0.07 / pow(tan(degToRad(solarElevation)), 3) + 0.000086 / pow(tan(degToRad(solarElevation)), 5) :
+            solarElevation > -0.575 ? 1735 + solarElevation * (-518.2 + solarElevation * (103.4 + solarElevation * (-12.79 + solarElevation * 0.711))) : -20.772 / tan(degToRad(solarElevation))) / 3600;
+        return solarElevation + atmRefractionDeg;
 }
 
 /// <summary>
