@@ -972,6 +972,11 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
     return fShouldEdit;
 }
 
+- (void) textViewDidChange:(UITextView *)textView {
+    // issue #267 - for inexplicable reasons, textview delegate is not the same as textfield delegate.
+    self.le.entryData.Comment = textView.text;
+}
+
 - (void) textFieldDidEndEditing:(UITextField *)textField
 {
     // to check if total changed
