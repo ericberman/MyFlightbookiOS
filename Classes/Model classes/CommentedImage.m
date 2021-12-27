@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2010-2020 MyFlightbook, LLC
+ Copyright (C) 2010-2021 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 2/5/10.
-//  Copyright 2010-2019 MyFlightbook LLC. All rights reserved.
+//  Copyright 2010-2021 MyFlightbook LLC. All rights reserved.
 //
 
 #import "CommentedImage.h"
@@ -170,7 +170,9 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
         NSError *err = NULL;
         CMTime time = CMTimeMake(1, 2);
         CGImageRef oneRef = [generate1 copyCGImageAtTime:time actualTime:NULL error:&err];
-        return self.imgCached = [[UIImage alloc] initWithCGImage:oneRef];
+        self.imgCached = [[UIImage alloc] initWithCGImage:oneRef];
+        CFRelease(oneRef);  // issue #263
+        return self.imgCached;
     }
 	else
         return self.szCacheFileName.length == 0 ? nil : (self.imgCached = [UIImage imageWithContentsOfFile:[self FullFilePathName]]);
