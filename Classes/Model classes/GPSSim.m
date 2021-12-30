@@ -273,12 +273,14 @@
         le.entryData.NightLandings = @(0);
         [le.entryData removeProperty:@PropTypeID_NightTakeOff];
         
+        NSString * szDataSaved = le.entryData.FlightData;
         NSDate * tsFinal = [GPSSim autoFill:le fromTelemetry:t allowRecording:NO];
         
         // close off engine end if we don't have one that we saved.
         if ([NSDate isUnknownDate:dtEngineSaved])
             dtEngineSaved = tsFinal;
         le.entryData.EngineEnd = dtEngineSaved;   // restore engine end.  If synthetic path, this will be overwritten below anyhow.
+        le.entryData.FlightData = szDataSaved;    // Restore flight data.  If synthetic path, this will be overwritten below anyhow.
     }
     
     if (fSyntheticPath) {

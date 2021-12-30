@@ -692,7 +692,12 @@ enum KMLArrayContext currentContext;
         double Speed = ((NSString *) rgLine[3]).doubleValue / MPS_TO_KNOTS;
         double HError = ((NSString *) rgLine[4]).doubleValue;
         NSDate * dt = [df dateFromString:(NSString *) rgLine[5]];
-        // NSString * Comment = (NSString *) [rgLine objectAtIndex:6];
+        if (rgLine.count >= 7) {
+            int tzOffset = ((NSString *) rgLine[6]).intValue;
+            if (tzOffset > 0)
+                dt = [dt dateByAddingTimeInterval:tzOffset * 60];
+        }
+        // NSString * Comment = (NSString *) [rgLine objectAtIndex:7];
         
         // NSLog(@"%d: Lat=%.8f, Lon=%.8f, Alt=%.1f, Speed=%.1f, Err=%.0f, date=%s\n", ++iSample, Latitude, Longitude, Altitude, Speed, HError, [(NSString *) [rgLine objectAtIndex:5] UTF8String]);
         
