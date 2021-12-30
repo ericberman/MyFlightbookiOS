@@ -1265,6 +1265,9 @@ Quel est le nom de la réception de votre mariage lieu a eu lieu?";
 /* Flight Action Complete Title */
 "flightActionComplete" = "Complet";
 
+/* Flight Action Autofill */
+"flightActionAutoFill" = "Remplissage automatique";
+
 /* Entry field: CFI */
 "fieldCFI" = "Instruction";
 

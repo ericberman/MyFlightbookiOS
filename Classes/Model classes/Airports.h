@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-21 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 12/25/09.
-//  Copyright 2009-2017, MyFlightbook LLC. All rights reserved.
+//  Copyright 2009-2021, MyFlightbook LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -53,11 +53,11 @@
 #define szUSAirportPrefix @"K"
 
 @interface Airports : NSObject {
-	NSMutableArray * rgAirports;
+	NSMutableArray<MFBWebServiceSvc_airport *> * rgAirports;
 	NSString * errorString;
 }
 
-@property (readwrite, strong) NSMutableArray * rgAirports;
+@property (readwrite, strong) NSMutableArray<MFBWebServiceSvc_airport *> * rgAirports;
 @property (readwrite, strong) NSString * errorString;
 
 - (BOOL) loadAirportsNearPosition:(MKCoordinateRegion) loc limit:(NSInteger) max;

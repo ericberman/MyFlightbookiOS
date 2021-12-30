@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2014-2020 MyFlightbook, LLC
+ Copyright (C) 2014-2021 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -221,6 +221,100 @@
         default:
             return nil;
     }
+}
+
+#pragma mark - Synthetic Path
++ (CLLocation *) locationAtLat:(double) lat Lon:(double) lon Time:(NSDate *) dt Speed:(double) speed {
+    CLLocationCoordinate2D coord;
+    coord.latitude = lat;
+    coord.longitude = lon;
+    
+    return [[CLLocation alloc] initWithCoordinate:coord altitude:0 horizontalAccuracy:INFERRED_HERROR verticalAccuracy:0 course:0 speed:speed timestamp:dt];
+}
+
+/*
+ Returns a synthesized path between two points, even spacing, between the two timestamps.
+         ///
+         /// Can be used to estimate night flight, for example, or draw a great-circle path between two points.
+         ///
+         /// From http://www.movable-type.co.uk/scripts/latlong.html
+         /// Formula:
+         ///     a = sin((1−f)⋅δ) / sin δ
+         ///     b = sin(f⋅δ) / sin δ
+         ///     x = a ⋅ cos φ1 ⋅ cos λ1 + b ⋅ cos φ2 ⋅ cos λ2
+         ///     y = a ⋅ cos φ1 ⋅ sin λ1 + b ⋅ cos φ2 ⋅ sin λ2
+         ///     z = a ⋅ sin φ1 + b ⋅ sin φ2
+         ///     φi = atan2(z, √x² + y²)
+         ///     λi = atan2(y, x)
+         /// where f is fraction along great circle route (f=0 is point 1, f=1 is point 2), δ is the angular distance d/R between the two points.
+ */
++ (Telemetry *) synthesizePathFrom:(CLLocationCoordinate2D) fromLoc to:(CLLocationCoordinate2D)toLoc start:(NSDate *) dtStart end:(NSDate *) dtEnd {
+    if ([NSDate isUnknownDate:dtEnd] || [NSDate isUnknownDate:dtStart] || [dtStart compare:dtEnd] != NSOrderedAscending)
+        return nil;
+
+    NSMutableArray<CLLocation *> * lst = [NSMutableArray new];
+
+    double rlat1 = M_PI * (fromLoc.latitude / 180.0);
+    double rlon1 = M_PI * (fromLoc.longitude / 180.0);
+    double rlat2 = M_PI * (toLoc.latitude / 180.0);
+    double rlon2 = M_PI * (toLoc.longitude / 180.0);
+
+    double dLon = rlon2 - rlon1;
+
+    double delta = atan2(sin(dLon) * cos(rlat2), cos(rlat1) * sin(rlat2) - sin(rlat1) * cos(rlat2) * cos(dLon));
+    double sin_delta = sin(delta);
+
+    // Compute path at 1-minute intervals, subtracting off one minute since we'll add a few "full-stop" samples below.
+    NSTimeInterval ts = [dtEnd timeIntervalSinceDate:dtStart];
+    double minutes = (ts / 60.0) - 1;
+
+    if (minutes > 48 * 60 || minutes <= 0)  // don't do paths more than 48 hours, or negative times.
+        return nil;
+
+    CLLocation * clFrom = [[CLLocation alloc] initWithLatitude:fromLoc.latitude longitude:fromLoc.longitude];
+    CLLocation * clTo = [[CLLocation alloc] initWithLatitude:toLoc.latitude longitude:toLoc.longitude];
+    // We need to derive an average speed.  But no need to compute - just assume constant speed.  This is in nm
+    double distanceM = [clFrom distanceFromLocation:clTo];
+    double speedMS = distanceM / ts;    // distance in meters divided by time in seconds.  We know ts > 0 because of check for date order above
+    double distanceNM = NM_IN_A_METER * distanceM;
+
+    // low distance (< 1nm) is probably pattern work - just pick a decent speed.  If you actually go somewhere, then derive a speed.
+    double speedKts = (distanceNM < 1.0) ? 150 : speedMS * MPS_TO_KNOTS;
+        
+    // Add a few stopped fields at the end to make it clear that there's a full-stop.  Separate them by a few seconds each.
+    NSArray<CLLocation *> * rgPadding = @[
+        [Telemetry locationAtLat:toLoc.latitude Lon:toLoc.longitude Time:[dtEnd dateByAddingTimeInterval:3] Speed:0.1],
+        [Telemetry locationAtLat:toLoc.latitude Lon:toLoc.longitude Time:[dtEnd dateByAddingTimeInterval:6] Speed:0.1],
+        [Telemetry locationAtLat:toLoc.latitude Lon:toLoc.longitude Time:[dtEnd dateByAddingTimeInterval:9] Speed:0.1]
+    ];
+
+    [lst addObject:[Telemetry locationAtLat:fromLoc.latitude Lon:fromLoc.longitude Time:dtStart Speed:0]];
+
+    for (long minute = 0; minute <= minutes; minute++)
+    {
+        if (distanceNM < 1.0)
+            [lst addObject:[Telemetry locationAtLat:fromLoc.latitude Lon:fromLoc.longitude Time:[dtStart dateByAddingTimeInterval:60*minute] Speed:speedKts]];
+        else
+        {
+            double f = ((double)minute) / minutes;
+            double a = sin((1.0 - f) * delta) / sin_delta;
+            double b = sin(f * delta) / sin_delta;
+            double x = a * cos(rlat1) * cos(rlon1) + b * cos(rlat2) * cos(rlon2);
+            double y = a * cos(rlat1) * sin(rlon1) + b * cos(rlat2) * sin(rlon2);
+            double z = a * sin(rlat1) + b * sin(rlat2);
+
+            double rlat = atan2(z, sqrt(x * x + y * y));
+            double rlon = atan2(y, x);
+
+            double dlat = 180 * (rlat / M_PI);
+            double dlon = 180 * (rlon / M_PI);
+            [lst addObject:[Telemetry locationAtLat:dlat Lon:dlon Time:[dtStart dateByAddingTimeInterval:60*minute] Speed:speedKts]];
+        }
+    }
+    
+    [lst addObjectsFromArray:rgPadding];
+
+    return [Telemetry telemetryWithString:[CSVTelemetry serializeFromPath:lst]];
 }
 
 #pragma mark - Conversion
@@ -585,7 +679,7 @@ enum KMLArrayContext currentContext;
     for (NSString * sz in rgLines) {
         NSArray * rgLine = [sz componentsSeparatedByString:@","];
         
-        if ([rgLine count] <= 6)
+        if ([rgLine count] < 6)
             continue;
         
         // skip the header line

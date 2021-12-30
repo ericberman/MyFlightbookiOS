@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-2021 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 7/29/11.
-//  Copyright 2011 MyFlightbook LLC. All rights reserved.
+//  Copyright 2011-2021 MyFlightbook LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -35,4 +35,5 @@
 - (instancetype) init NS_DESIGNATED_INITIALIZER;
 + (void) BeginSim;
 + (LogbookEntry *) ImportTelemetry:(NSURL *) url;
++ (void) autoFill:(LogbookEntry *) le;
 @end

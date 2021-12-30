@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 12/2/09.
-//  Copyright 2009-2019, MyFlightbook LLC All rights reserved.
+//  Copyright 2009-2021, MyFlightbook LLC All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -71,6 +71,10 @@
 - (void) pauseFlight;
 - (void) unPauseFlight;
 
+- (BOOL) autoFillHobbs;
+- (BOOL) autoFillTotal;
+- (BOOL) autoCrossCountry:(NSTimeInterval) dtTotal;
+- (BOOL) autoFillFinish;
 
 - (instancetype) init NS_DESIGNATED_INITIALIZER;
 - (void) commitFlight;
@@ -116,6 +120,8 @@
 - (BOOL) isKnownFlightTime;
 - (BOOL) isKnownEngineTime;
 
+- (void) removeProperty:(NSNumber *) idPropType;
+- (MFBWebServiceSvc_CustomFlightProperty *) getExistingProperty:(NSNumber *) idPropType;
 - (MFBWebServiceSvc_CustomFlightProperty *) addProperty:(NSNumber *) idPropType withInteger:(NSNumber *) intVal;
 - (MFBWebServiceSvc_CustomFlightProperty *) addProperty:(NSNumber *) idPropType withDecimal:(NSNumber *) decVal;
 - (MFBWebServiceSvc_CustomFlightProperty *) addProperty:(NSNumber *) idPropType withString:(NSString *) sz;

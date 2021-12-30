@@ -374,9 +374,17 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
 
 - (void) sendFlight:(id) sender {
     UIAlertController * uac = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"flightActionMenuPrompt", @"Actions for this flight") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    
+        
     // New flights
     if (self.le.entryData.isNewFlight || self.le.entryData.isAwaitingUpload || [self.le.entryData isKindOfClass:MFBWebServiceSvc_PendingFlight.class]) {
+        [uac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"flightActionAutoFill", @"Flight Action Autofill") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self initLEFromForm];
+            if (self.le.entryData.isNewFlight && self.le.entryData.FlightData.length == 0)
+                self.le.entryData.FlightData = MFBAppDelegate.threadSafeAppDelegate.mfbloc.flightDataAsString;
+            [GPSSim autoFill:self.le];
+            [self initFormFromLE];
+        }]];
+
         if ([self.le.entryData isKindOfClass:MFBWebServiceSvc_PendingFlight.class]) {
             [uac addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"flightActionRepeatFlight", @"Flight Action - repeat a flight") style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                 [self repeatFlight:NO];

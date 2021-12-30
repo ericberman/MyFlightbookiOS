@@ -45,8 +45,6 @@
 
 - (void) updatePausePlay;
 - (void) updatePositionReport;
-- (BOOL) autoHobbs;
-- (BOOL) autoTotal;
 - (void) startEngine;
 - (void) stopEngine;
 - (void) startFlight;
@@ -1107,170 +1105,40 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
     }
 }
 
-- (void) autoCrossCountry:(NSTimeInterval) dtTotal
-{
-    Airports * ap = [[Airports alloc] init];
-    double maxDist = [ap maxDistanceOnRoute:self.le.entryData.Route];
-    
-    BOOL fIsCC = (maxDist >= CROSS_COUNTRY_THRESHOLD);
-
-    self.idXC.value = self.le.entryData.CrossCountry = @((fIsCC && dtTotal > 0) ? dtTotal : 0.0);
-}
-
-- (BOOL) autoTotal
-{
-    NSTimeInterval dtPauseTime = [self.le totalTimePaused] / 3600.0;  // pause time in hours
-    NSTimeInterval dtTotal = 0;
-    
-    BOOL fIsRealAircraft = YES;
-    
-    MFBWebServiceSvc_Aircraft * ac = [[Aircraft sharedAircraft] AircraftByID:self.le.entryData.AircraftID.intValue];
-    if (ac != nil)
-        fIsRealAircraft = ![ac isSim];
-    
-    // TODO: this autototal stuff should move into logbookentry.
-    switch ([AutodetectOptions autoTotalMode]) {
-        case autoTotalEngine:
-        {
-            if (![NSDate isUnknownDate:self.le.entryData.EngineStart] &&
-                ![NSDate isUnknownDate:self.le.entryData.EngineEnd])
-            {
-                NSTimeInterval engineStart = [self.le.entryData.EngineStart timeIntervalSinceReferenceDate];
-                NSTimeInterval engineEnd = [self.le.entryData.EngineEnd timeIntervalSinceReferenceDate];
-                dtTotal = ((engineEnd - engineStart) / 3600.0) - dtPauseTime;
-            }
-        }
-            break;
-        case autoTotalFlight:
-        {
-            if (![NSDate isUnknownDate:self.le.entryData.FlightStart] &&
-                ![NSDate isUnknownDate:self.le.entryData.FlightEnd])
-            {
-                NSTimeInterval flightStart = [self.le.entryData.FlightStart timeIntervalSinceReferenceDate];
-                NSTimeInterval flightEnd = [self.le.entryData.FlightEnd timeIntervalSinceReferenceDate];
-                dtTotal = ((flightEnd - flightStart) / 3600.0) - dtPauseTime;
-            }
-        }
-            break;
-        case autoTotalHobbs:
-        {
-            double hobbsStart = [self.le.entryData.HobbsStart doubleValue];
-            double hobbsEnd = [self.le.entryData.HobbsEnd doubleValue];
-            // NOTE: we do NOT subtract dtPauseTime here because hobbs should already have subtracted pause time,
-            // whether from being entered by user (hobbs on airplane pauses on ground or with engine stopped)
-            // or from this being called by autohobbs (which has already subtracted it)
-            if (hobbsStart > 0 && hobbsEnd > 0)
-                dtTotal = hobbsEnd - hobbsStart;
-        }
-            break;
-        case autoTotalBlock: {
-            NSDate * blockOut = nil;
-            NSDate * blockIn = nil;
-            
-            for (MFBWebServiceSvc_CustomFlightProperty * cfp in self.le.entryData.CustomProperties.CustomFlightProperty) {
-                if (cfp.PropTypeID.integerValue == PropTypeID_BlockOut)
-                    blockOut = cfp.DateValue;
-                if (cfp.PropTypeID.integerValue == PropTypeID_BlockIn)
-                    blockIn = cfp.DateValue;
-            }
-            
-            if (![NSDate isUnknownDate:blockOut] && ![NSDate isUnknownDate:blockIn])
-                dtTotal = ([blockIn timeIntervalSinceDate:blockOut] / 3600.0) - dtPauseTime;
-
-        }
-            break;
-        case autoTotalFlightStartToEngineEnd: {
-            if (![NSDate isUnknownDate:self.le.entryData.FlightStart] && ![NSDate isUnknownDate:self.le.entryData.EngineEnd])
-                dtTotal = ([self.le.entryData.EngineEnd timeIntervalSinceDate:self.le.entryData.FlightStart] / 3600.0) - dtPauseTime;
-        }
-            break;
-        case autoTotalNone:
-        default:
-            return NO;
-    }
-
-    if (dtTotal > 0)
-    {
-        if ([AutodetectOptions roundTotalToNearestTenth])
-            dtTotal = round(dtTotal * 10.0) / 10.0;
-
-        if (fIsRealAircraft)
-        {
-            self.idTotalTime.value = self.le.entryData.TotalFlightTime = @(dtTotal);
-            [self autoCrossCountry:dtTotal];
-        }
-        else
-            self.idGrndSim.value = self.le.entryData.GroundSim = @(dtTotal);
-        
+- (BOOL) autoTotal {
+    if (self.le.autoFillTotal) {
+        self.idTotalTime.value = self.le.entryData.TotalFlightTime;
+        self.idGrndSim.value = self.le.entryData.GroundSim;
+        self.idXC.value = self.le.entryData.CrossCountry;
         return YES;
     }
-    
     return NO;
 }
 
-- (BOOL) autoHobbs
-{
-	NSTimeInterval dtHobbs = 0;
-	NSTimeInterval dtFlight = 0;
-	NSTimeInterval dtEngine = 0;
-    NSTimeInterval dtPausedTime = [self.le totalTimePaused];
-    double hobbsStart = [self.le.entryData.HobbsStart doubleValue];
-	
-	if (![NSDate isUnknownDate:self.le.entryData.FlightStart] && ![NSDate isUnknownDate:self.le.entryData.FlightEnd])
-		dtFlight = [self.le.entryData.FlightEnd timeIntervalSinceReferenceDate] - [self.le.entryData.FlightStart timeIntervalSinceReferenceDate];
-	
-	if (![NSDate isUnknownDate:self.le.entryData.EngineStart] && ![NSDate isUnknownDate:self.le.entryData.EngineEnd])
-		dtEngine = [self.le.entryData.EngineEnd timeIntervalSinceReferenceDate] - [self.le.entryData.EngineStart timeIntervalSinceReferenceDate];
-	
-	if (hobbsStart > 0)
-	{
-		switch ([AutodetectOptions autoHobbsMode]) 
-		{
-			case autoHobbsFlight:
-				dtHobbs = dtFlight;
-				break;
-			case autoHobbsEngine:
-				dtHobbs = dtEngine;
-				break;
-			case autoHobbsNone:
-			default:
-				break;
-		}
-        
-        dtHobbs -= dtPausedTime;
-		
-		if (dtHobbs > 0)
+- (BOOL) autoHobbs {
+    if (self.le.autoFillHobbs) {
+        // get the index path of the hobbs end cell
+        // this is a bit of a hack, but it's robust to the cell changing position
+        NSInteger iRow = [self tableView:self.tableView numberOfRowsInSection:sectInCockpit];
+        NSIndexPath * ip = nil;
+        while (--iRow >= 0)
         {
-            double hobbsEnd = hobbsStart + (dtHobbs / 3600.0);
-            // Issue #226 - round to nearest 10th of an hour if needed
-            if (AutodetectOptions.roundTotalToNearestTenth)
-                hobbsEnd = round(hobbsEnd * 10.0) / 10.0;
-			self.le.entryData.HobbsEnd = @(hobbsEnd);
-            
-            // get the index path of the hobbs end cell
-            // this is a bit of a hack, but it's robust to the cell changing position
-            NSInteger iRow = [self tableView:self.tableView numberOfRowsInSection:sectInCockpit];
-            NSIndexPath * ip = nil;
-            while (--iRow >= 0)
-            {
-                ip = [NSIndexPath indexPathForRow:iRow inSection:sectInCockpit];
-                if ([self cellIDFromIndexPath:ip] == rowHobbsEnd)
-                    break;
-            }
-            if (ip != nil && iRow >= 0)
-            {
-                EditCell * ec = (EditCell *) [self.tableView cellForRowAtIndexPath:ip];
-                if (ec != nil)
-                    ec.txt.value = self.le.entryData.HobbsEnd;
-            }
-
-            // do the total time too, if appropriate
-            if ([AutodetectOptions autoTotalMode] == autoTotalHobbs)
-                [self autoTotal];
-            return YES;
+            ip = [NSIndexPath indexPathForRow:iRow inSection:sectInCockpit];
+            if ([self cellIDFromIndexPath:ip] == rowHobbsEnd)
+                break;
         }
-	}
-    
+        if (ip != nil && iRow >= 0)
+        {
+            EditCell * ec = (EditCell *) [self.tableView cellForRowAtIndexPath:ip];
+            if (ec != nil)
+                ec.txt.value = self.le.entryData.HobbsEnd;
+        }
+
+        // do the total time too, if appropriate
+        if ([AutodetectOptions autoTotalMode] == autoTotalHobbs)
+            [self autoTotal];
+        return YES;
+    }
     return NO;
 }
 

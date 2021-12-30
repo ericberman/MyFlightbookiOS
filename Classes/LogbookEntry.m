@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 12/2/09.
-//  Copyright 2009-2019, MyFlightbook LLC. All rights reserved.
+//  Copyright 2009-2021, MyFlightbook LLC. All rights reserved.
 //
 
 #import "LogbookEntry.h"
@@ -146,6 +146,224 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
         self.dtTotalPauseTime += [self timeSinceLastPaused];
         self.fIsPaused = NO; // do this AFTER calling [self timeSinceLastPaused]
     }
+}
+
+#pragma mark - Autofill Utilities
+- (BOOL) autoFillHobbs {
+    NSTimeInterval dtHobbs = 0;
+    NSTimeInterval dtFlight = 0;
+    NSTimeInterval dtEngine = 0;
+    NSTimeInterval dtPausedTime = self.totalTimePaused;
+    double hobbsStart = self.entryData.HobbsStart.doubleValue;
+    
+    if (![NSDate isUnknownDate:self.entryData.FlightStart] && ![NSDate isUnknownDate:self.entryData.FlightEnd])
+        dtFlight = [self.entryData.FlightEnd timeIntervalSinceDate:self.entryData.FlightStart];
+    
+    if (![NSDate isUnknownDate:self.entryData.EngineStart] && ![NSDate isUnknownDate:self.entryData.EngineEnd])
+        dtEngine = [self.entryData.EngineEnd timeIntervalSinceDate:self.entryData.EngineStart];
+    
+    if (hobbsStart > 0) {
+        switch (AutodetectOptions.autoHobbsMode)
+        {
+            case autoHobbsFlight:
+                dtHobbs = dtFlight;
+                break;
+            case autoHobbsEngine:
+                dtHobbs = dtEngine;
+                break;
+            case autoHobbsNone:
+            default:
+                break;
+        }
+        
+        dtHobbs -= dtPausedTime;
+        
+        if (dtHobbs > 0)
+        {
+            double hobbsEnd = hobbsStart + (dtHobbs / 3600.0);
+            // Issue #226 - round to nearest 10th of an hour if needed
+            if (AutodetectOptions.roundTotalToNearestTenth)
+                hobbsEnd = round(hobbsEnd * 10.0) / 10.0;
+            self.entryData.HobbsEnd = @(hobbsEnd);
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (BOOL) autoCrossCountry:(NSTimeInterval) dtTotal {
+    Airports * ap = [[Airports alloc] init];
+    double maxDist = [ap maxDistanceOnRoute:self.entryData.Route];
+    
+    BOOL fIsCC = (maxDist >= CROSS_COUNTRY_THRESHOLD);
+
+    self.entryData.CrossCountry = @((fIsCC && dtTotal > 0) ? dtTotal : 0.0);
+    return YES;
+}
+
+- (BOOL) autoFillTotal {
+    NSTimeInterval dtPauseTime = self.totalTimePaused / 3600.0;  // pause time in hours
+    NSTimeInterval dtTotal = 0;
+    
+    BOOL fIsRealAircraft = YES;
+    
+    MFBWebServiceSvc_Aircraft * ac = [[Aircraft sharedAircraft] AircraftByID:self.entryData.AircraftID.intValue];
+    if (ac != nil)
+        fIsRealAircraft = ![ac isSim];
+    
+    switch ([AutodetectOptions autoTotalMode]) {
+        case autoTotalEngine:
+        {
+            if (![NSDate isUnknownDate:self.entryData.EngineStart] &&
+                ![NSDate isUnknownDate:self.entryData.EngineEnd])
+            {
+                NSTimeInterval engineStart = [self.entryData.EngineStart timeIntervalSinceReferenceDate];
+                NSTimeInterval engineEnd = [self.entryData.EngineEnd timeIntervalSinceReferenceDate];
+                dtTotal = ((engineEnd - engineStart) / 3600.0) - dtPauseTime;
+            }
+        }
+            break;
+        case autoTotalFlight:
+        {
+            if (![NSDate isUnknownDate:self.entryData.FlightStart] &&
+                ![NSDate isUnknownDate:self.entryData.FlightEnd])
+            {
+                NSTimeInterval flightStart = [self.entryData.FlightStart timeIntervalSinceReferenceDate];
+                NSTimeInterval flightEnd = [self.entryData.FlightEnd timeIntervalSinceReferenceDate];
+                dtTotal = ((flightEnd - flightStart) / 3600.0) - dtPauseTime;
+            }
+        }
+            break;
+        case autoTotalHobbs:
+        {
+            double hobbsStart = [self.entryData.HobbsStart doubleValue];
+            double hobbsEnd = [self.entryData.HobbsEnd doubleValue];
+            // NOTE: we do NOT subtract dtPauseTime here because hobbs should already have subtracted pause time,
+            // whether from being entered by user (hobbs on airplane pauses on ground or with engine stopped)
+            // or from this being called by autohobbs (which has already subtracted it)
+            if (hobbsStart > 0 && hobbsEnd > 0)
+                dtTotal = hobbsEnd - hobbsStart;
+        }
+            break;
+        case autoTotalBlock: {
+            NSDate * blockOut = nil;
+            NSDate * blockIn = nil;
+            
+            for (MFBWebServiceSvc_CustomFlightProperty * cfp in self.entryData.CustomProperties.CustomFlightProperty) {
+                if (cfp.PropTypeID.integerValue == PropTypeID_BlockOut)
+                    blockOut = cfp.DateValue;
+                if (cfp.PropTypeID.integerValue == PropTypeID_BlockIn)
+                    blockIn = cfp.DateValue;
+            }
+            
+            if (![NSDate isUnknownDate:blockOut] && ![NSDate isUnknownDate:blockIn])
+                dtTotal = ([blockIn timeIntervalSinceDate:blockOut] / 3600.0) - dtPauseTime;
+
+        }
+            break;
+        case autoTotalFlightStartToEngineEnd: {
+            if (![NSDate isUnknownDate:self.entryData.FlightStart] && ![NSDate isUnknownDate:self.entryData.EngineEnd])
+                dtTotal = ([self.entryData.EngineEnd timeIntervalSinceDate:self.entryData.FlightStart] / 3600.0) - dtPauseTime;
+        }
+            break;
+        case autoTotalNone:
+        default:
+            return NO;
+    }
+
+    if (dtTotal > 0)
+    {
+        if ([AutodetectOptions roundTotalToNearestTenth])
+            dtTotal = round(dtTotal * 10.0) / 10.0;
+
+        if (fIsRealAircraft)
+        {
+            self.entryData.TotalFlightTime = @(dtTotal);
+            [self autoCrossCountry:dtTotal];
+        }
+        else
+            self.entryData.GroundSim = @(dtTotal);
+        
+        return YES;
+    }
+    return NO;
+}
+
+- (void) autoFillCostOfFlight {
+    // Fill in cost of flight.
+    MFBWebServiceSvc_Aircraft * ac = [Aircraft.sharedAircraft AircraftByID:self.entryData.AircraftID.intValue];
+    
+    if (ac == nil)
+        return;
+
+    NSError * err = nil;
+    NSRegularExpression * regCost = [NSRegularExpression regularExpressionWithPattern:@"#PPH:(\\d+(?:[.,]\\d+)?)#" options:NSRegularExpressionCaseInsensitive error:&err];
+    NSTextCheckingResult *match = [regCost firstMatchInString:ac.PrivateNotes options:0 range:NSMakeRange(0, ac.PrivateNotes.length)];
+    if (match == nil)
+        return;
+    
+
+    NSRange rValue = [match rangeAtIndex:1];
+    NSString * rCapture = [ac.PrivateNotes substringWithRange:rValue];
+    double rate = [UITextField valueForString:rCapture withType:ntDecimal withHHMM:NO].doubleValue;
+    
+    if (rate == 0)
+        return;
+    
+    double tachStart = [self.entryData getExistingProperty:@(PropTypeID_TachStart)].DecValue.doubleValue;
+    double tachEnd = [self.entryData getExistingProperty:@(PropTypeID_TachEnd)].DecValue.doubleValue;
+    double time = (self.entryData.HobbsEnd.doubleValue > self.entryData.HobbsStart.doubleValue && self.entryData.HobbsStart.doubleValue > 0) ?
+        self.entryData.HobbsEnd.doubleValue - self.entryData.HobbsStart.doubleValue :
+        (tachEnd > tachStart && tachStart > 0) ? tachEnd - tachStart : self.entryData.TotalFlightTime.doubleValue;
+    
+    if (time > 0) {
+        double cost = rate * time;
+        MFBWebServiceSvc_CustomFlightProperty * cfp = [self.entryData getExistingProperty:@(PropTypeID_FlightCost)];
+        if (cfp == nil)
+            cfp = [self.entryData addProperty:@(PropTypeID_FlightCost) withDecimal:@(cost)];
+        else
+            cfp.DecValue = @(cost);
+    }
+}
+
+- (void) autoFillInstruction {
+    // Check for ground instruction given or received
+    double dual = self.entryData.Dual.doubleValue;
+    double cfi = self.entryData.CFI.doubleValue;
+    if ((dual > 0 && cfi == 0) || (cfi > 0 && dual == 0)) {
+        MFBWebServiceSvc_CustomFlightProperty * cfpLessonStart = [self.entryData getExistingProperty:@(PropTypeID_LessonStart)];
+        MFBWebServiceSvc_CustomFlightProperty * cfpLessonEnd = [self.entryData getExistingProperty:@(PropTypeID_LessonEnd)];
+        
+        if (cfpLessonEnd == nil || cfpLessonStart == nil || [cfpLessonEnd.DateValue compare:cfpLessonStart.DateValue] != NSOrderedDescending)
+            return;
+
+        NSTimeInterval tsLesson = [cfpLessonEnd.DateValue timeIntervalSinceDate:cfpLessonStart.DateValue];
+
+        // pull out flight or engine time, whichever is greater
+        NSTimeInterval tsFlight = self.entryData.isKnownFlightEnd && self.entryData.isKnownFlightStart && [self.entryData.FlightEnd compare:self.entryData.FlightStart] == NSOrderedDescending ? [self.entryData.FlightEnd timeIntervalSinceDate:self.entryData.FlightStart] : 0;
+        NSTimeInterval tsEngine = self.entryData.isKnownEngineEnd && self.entryData.isKnownEngineStart && [self.entryData.EngineEnd compare:self.entryData.EngineStart] == NSOrderedDescending ? [self.entryData.EngineEnd timeIntervalSinceDate:self.entryData.EngineStart] : 0;
+        
+        NSTimeInterval tsNonGround = MAX(MAX(tsFlight, tsEngine), 0);
+        
+        double groundHours = (tsLesson - tsNonGround) / 3600.0;
+        
+        int idPropTarget = dual > 0 ? PropTypeID_GroundInstructionReceived : PropTypeID_GroundInstructionGiven;
+        
+        if (groundHours > 0) {
+            MFBWebServiceSvc_CustomFlightProperty * cfp = [self.entryData getExistingProperty:@(idPropTarget)];
+            if (cfp == nil)
+                cfp = [self.entryData addProperty:@(idPropTarget) withDecimal:@(groundHours)];
+            else
+                cfp.DecValue = @(groundHours);
+        }
+    }
+}
+
+- (BOOL) autoFillFinish {
+    [self autoFillCostOfFlight];
+    [self autoFillInstruction];
+    
+    return YES;
 }
 
 #pragma mark Commit/delete/retrieve flight
@@ -879,6 +1097,26 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
     fp.FlightID = self.FlightID;
     fp.PropTypeID = idPropType;
     return fp;
+}
+
+- (MFBWebServiceSvc_CustomFlightProperty *) getExistingProperty:(NSNumber *) idPropType
+{
+    for (MFBWebServiceSvc_CustomFlightProperty * cfp in self.CustomProperties.CustomFlightProperty)
+        if (cfp.PropTypeID.intValue == idPropType.intValue)
+            return cfp;
+    return nil;
+}
+
+- (void) removeProperty:(NSNumber *) idPropType {
+    int idProp = idPropType.intValue;
+    NSArray<MFBWebServiceSvc_CustomFlightProperty *> * r = [self.CustomProperties.CustomFlightProperty filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(MFBWebServiceSvc_CustomFlightProperty *  _Nullable cfp, NSDictionary<NSString *,id> * _Nullable bindings) {
+        return cfp.PropTypeID.intValue == idProp;
+    }]];
+    if (r.count > 1)
+        @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Multiple properties found with the same ID" userInfo:nil];
+    if (r.count == 1 && r[0].PropID.intValue > 0)
+        @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Removing a property with a positive ID will NOT remove the property from the server; delete the property instead" userInfo:nil];
+    [self.CustomProperties.CustomFlightProperty removeObjectsInArray:r];
 }
 
 - (MFBWebServiceSvc_CustomFlightProperty *) addProperty:(NSNumber *) idPropType withInteger:(NSNumber *) intVal

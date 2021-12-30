@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2010-2020 MyFlightbook, LLC
+ Copyright (C) 2010-2021 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 7/7/10.
-//  Copyright 2010-2019 MyFlightbook LLC. All rights reserved.
+//  Copyright 2010-2021 MyFlightbook LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -44,6 +44,11 @@
 #define PropTypeID_ApproachName 267
 #define PropTypeID_BlockOut 187
 #define PropTypeID_BlockIn  186
+#define PropTypeID_FlightCost 415
+#define PropTypeID_LessonStart 668
+#define PropTypeID_LessonEnd 669
+#define PropTypeID_GroundInstructionGiven 198
+#define PropTypeID_GroundInstructionReceived 158
 
 #define NEW_PROP_ID @-1
 

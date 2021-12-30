@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2020 MyFlightbook, LLC
+ Copyright (C) 2017-2021 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 5/17/12.
-//  Copyright (c) 2012-2019 MyFlightbook LLC. All rights reserved.
+//  Copyright (c) 2012-2021 MyFlightbook LLC. All rights reserved.
 //
 
 #import "MFBAppDelegate.h"
@@ -56,6 +56,7 @@
 @synthesize lastSeenLoc, currentLoc, locManager, rgAllSamples;
 @synthesize fUpdatesTheme;
 @synthesize PreviousLoc, fPreviousLocWasNight;
+@synthesize fSuppressAllRecording;
 
 static int vTakeOff = TAKEOFF_SPEED_DEFAULT;
 static int vLanding = LANDING_SPEED_DEFAULT;
@@ -76,6 +77,7 @@ static int vLanding = LANDING_SPEED_DEFAULT;
         self.flightTrackData = [NSMutableString new];
         self.rgAllSamples = [NSMutableArray new];
         self.fIsBlessed = NO;
+        self.fSuppressAllRecording = NO;
         self.fUpdatesTheme = YES;
         [MFBLocation refreshTakeoffSpeed];
     }
@@ -247,7 +249,7 @@ static int vLanding = LANDING_SPEED_DEFAULT;
 - (void) recordLocation:(CLLocation *) loc withEvent:(NSString *) szEvent
 {
 	CLLocationSpeed s = loc.speed * MPS_TO_KNOTS;
-	if (flightTrackData != nil && self.fRecordFlightData && !self.fRecordingIsPaused)
+	if (flightTrackData != nil && self.fRecordFlightData && !self.fRecordingIsPaused && !self.fSuppressAllRecording)
 	{
 		// write a header row if none present
 		if ([self.flightTrackData length] == 0)
@@ -445,7 +447,7 @@ static int vLanding = LANDING_SPEED_DEFAULT;
     else if ((app.fDebugMode))
         [szEvent appendFormat:@"DEBUG - BOGUS SAMPLE: speed %.1f acc=%.1f samples: %ld", s, acc, (long)self.cSamplesSinceWaking];
     
-    BOOL fRecordable = [self.delegate flightCouldBeInProgress] && self.fRecordFlightData;
+    BOOL fRecordable = !self.fSuppressAllRecording && self.delegate.flightCouldBeInProgress && self.fRecordFlightData;
     
     // record this if appropriate - we do the valid time check here to avoid too tightly clustered
     // samples, but any event (landing/takeoff) will set it to be true.
