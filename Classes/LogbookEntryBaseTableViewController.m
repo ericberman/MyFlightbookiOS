@@ -74,8 +74,8 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
 
 #pragma mark - Save State
 - (void) saveState {
-    // don't save anything if we are viewing an existing flight
-    if (self.le.entryData.isNewFlight) {
+    // don't save anything if we are viewing an existing flight or a pending flight.
+    if (self.le.entryData.isNewFlight && ![self.le.entryData isKindOfClass:MFBWebServiceSvc_PendingFlight.class]) {
         // LE should already be in sync with the UI.
         self.le.entryData.FlightData = MFBAppDelegate.threadSafeAppDelegate.mfbloc.flightDataAsString;
         
