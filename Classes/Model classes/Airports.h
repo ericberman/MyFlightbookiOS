@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-21 MyFlightbook, LLC
+ Copyright (C) 2017-2022 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 12/25/09.
-//  Copyright 2009-2021, MyFlightbook LLC. All rights reserved.
+//  Copyright 2009-2022, MyFlightbook LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -72,7 +72,7 @@
 @end
 
 // Add methods to the MFBWebServiceSvc_aiport object (from WSDL) to make it comform to the MKAnnotate protocol, have a few other methods
-@interface MFBWebServiceSvc_airport (Annotatable)
+@interface MFBWebServiceSvc_airport (Annotatable)<MKAnnotation>
     - (instancetype) initFromRow:(sqlite3_stmt *) row;
 	- (CLLocationCoordinate2D) coordinate;
 	- (NSString *) title;
