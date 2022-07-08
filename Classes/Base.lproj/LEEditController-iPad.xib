@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -610,7 +610,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="584" userLabel="btnAddAircraft">
-                        <rect key="frame" x="734" y="12" width="22" height="20"/>
+                        <rect key="frame" x="734" y="11.5" width="22" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="22" id="rjm-ZI-ixl"/>
                         </constraints>
@@ -690,7 +690,7 @@
                         </connections>
                     </textField>
                     <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="580" userLabel="btnViewRoute">
-                        <rect key="frame" x="731" y="10" width="25" height="24"/>
+                        <rect key="frame" x="734" y="11.5" width="22" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="22" id="EGG-KY-LTC"/>
                         </constraints>
@@ -706,7 +706,7 @@
                         </connections>
                     </button>
                     <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="578" userLabel="btnNearest">
-                        <rect key="frame" x="700" y="10" width="25" height="24"/>
+                        <rect key="frame" x="706" y="11.5" width="22" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="22" id="h8E-C0-gOE"/>
                         </constraints>
@@ -793,7 +793,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="567">
-                        <rect key="frame" x="384" y="30.5" width="47" height="27"/>
+                        <rect key="frame" x="384" y="30.5" width="169" height="27"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                         <state key="normal" title="Holding">
                             <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -883,7 +883,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O1X-0d-pEp" userLabel="btnAddApproach">
-                        <rect key="frame" x="553" y="12" width="22" height="20"/>
+                        <rect key="frame" x="553" y="11.5" width="22" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="22" id="1Bm-KM-kvT"/>
                         </constraints>
@@ -908,19 +908,18 @@
                     <constraint firstItem="567" firstAttribute="centerY" secondItem="89m-4V-NRP" secondAttribute="centerY" multiplier="4:4" id="AdE-sG-MLx"/>
                     <constraint firstItem="574" firstAttribute="centerY" secondItem="89m-4V-NRP" secondAttribute="centerY" multiplier="4:4" id="DLt-G5-vek"/>
                     <constraint firstItem="571" firstAttribute="leading" secondItem="574" secondAttribute="trailing" constant="4" id="FNI-Cl-jV7"/>
-                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="567" secondAttribute="trailing" constant="20" symbolic="YES" id="PNh-bC-xcl"/>
                     <constraint firstItem="569" firstAttribute="leading" secondItem="89m-4V-NRP" secondAttribute="leadingMargin" id="QEb-hY-pSI"/>
                     <constraint firstItem="571" firstAttribute="centerY" secondItem="574" secondAttribute="centerY" id="TzW-Ps-uc7"/>
                     <constraint firstItem="568" firstAttribute="centerY" secondItem="569" secondAttribute="centerY" id="VaE-J4-yun"/>
                     <constraint firstItem="573" firstAttribute="leading" secondItem="569" secondAttribute="leading" id="YUU-Ax-TbH"/>
                     <constraint firstItem="567" firstAttribute="leading" secondItem="575" secondAttribute="leading" id="ZZw-VZ-kHy"/>
+                    <constraint firstItem="567" firstAttribute="trailing" secondItem="O1X-0d-pEp" secondAttribute="leading" id="bLv-sj-e40"/>
                     <constraint firstItem="O1X-0d-pEp" firstAttribute="centerY" secondItem="570" secondAttribute="centerY" id="d1k-fH-Ben"/>
                     <constraint firstItem="575" firstAttribute="centerY" secondItem="89m-4V-NRP" secondAttribute="centerY" multiplier="2:4" id="dZT-bv-xFa"/>
                     <constraint firstItem="570" firstAttribute="centerY" secondItem="575" secondAttribute="centerY" id="fdM-LO-Pea"/>
                     <constraint firstItem="572" firstAttribute="leading" secondItem="573" secondAttribute="trailing" constant="4" id="lRs-aU-AXe"/>
                     <constraint firstItem="O1X-0d-pEp" firstAttribute="leading" secondItem="570" secondAttribute="trailing" constant="5" id="pNJ-Bz-alw"/>
                     <constraint firstItem="568" firstAttribute="leading" secondItem="569" secondAttribute="trailing" constant="4" id="pWx-bf-tBD"/>
-                    <constraint firstItem="567" firstAttribute="leading" secondItem="89m-4V-NRP" secondAttribute="centerX" id="rk3-fR-Pgq"/>
                     <constraint firstItem="573" firstAttribute="centerY" secondItem="89m-4V-NRP" secondAttribute="centerY" multiplier="6:4" id="rkg-qs-fsa"/>
                 </constraints>
             </tableViewCellContentView>
