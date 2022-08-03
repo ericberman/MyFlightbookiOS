@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2010-2020 MyFlightbook, LLC
+ Copyright (C) 2010-2022 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@
 @synthesize txtWarnings;
 
 enum prefSections {sectAutoFill, sectTimes, sectGPSWarnings, sectAutoOptions, sectAirports, sectMaps, sectUnits, sectImages, sectOnlineSettings, sectLast};
-enum prefRows {rowWarnings, rowAutoDetect, rowTOSpeed, rowNightFlightOptions, rowAutoHobbs, rowAutoTotal, rowLocal, rowHHMM, rowHeliports, rowMaps, rowUnitsSpeed, rowUnitsAlt, rowShowFlightImages, rowOnlineSettings};
+enum prefRows {rowWarnings, rowAutoDetect, rowTOSpeed, rowNightFlightOptions, rowAutoHobbs, rowAutoTotal, rowLocal, rowHHMM, rowHeliports, rowMaps, rowUnitsSpeed, rowUnitsAlt, rowShowFlightImages, rowOnlineSettings, rowManageAccount};
 
 static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
 
@@ -151,7 +151,7 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
         case sectMaps:
             return rowMaps + ip.row;
         case sectOnlineSettings:
-            return rowOnlineSettings;
+            return rowOnlineSettings + ip.row;
         case sectImages:
             return rowShowFlightImages;
         case sectUnits:
@@ -177,7 +177,7 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
         case sectMaps:
             return 1;
         case sectOnlineSettings:
-            return 1;
+            return 2;
         case sectUnits:
             return 2;
         case sectImages:
@@ -292,12 +292,15 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
         case rowShowFlightImages:
             return self.cellImages;
         case rowOnlineSettings:
+        case rowManageAccount:
         case rowNightFlightOptions: {
             static NSString *CellIdentifier = @"CellNormal";
             UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             if (cell == nil)
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-            cell.textLabel.text = (row == rowOnlineSettings) ? NSLocalizedString(@"AdditionalOptions", @"Link to additional preferences") : NSLocalizedString(@"NightOptions", @"Night Section");
+            cell.textLabel.text = (row == rowOnlineSettings) ? NSLocalizedString(@"AdditionalOptions", @"Link to additional preferences") :
+                (row == rowManageAccount ? NSLocalizedString(@"ManageAccount", @"Link to manage your account") :
+                 NSLocalizedString(@"NightOptions", @"Night Section"));
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             return cell;
         }
@@ -384,6 +387,10 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
             break;
         case rowOnlineSettings:
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[mfbApp().userProfile authRedirForUser:@"d=profile"]] options:@{} completionHandler:nil];
+            break;
+        case rowManageAccount:
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[mfbApp().userProfile authRedirForUser:@"d=account"]] options:@{} completionHandler:nil];
+            break;
             break;
         default:
             break;

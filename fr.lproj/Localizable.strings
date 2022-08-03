@@ -1075,6 +1075,9 @@ Vous pouvez choisir un dans la liste fournie, le modifier, ou faire un de vos pr
 /* Link to additional preferences */
 "AdditionalOptions" = "Aller à MyFlightbook.com";
 
+/* Link to manage your account */
+"ManageAccount" = "Gérer votre compte";
+
 /* Night flight options */
 "NightFlightStarts" = "Le vol de nuit commence:";
 
