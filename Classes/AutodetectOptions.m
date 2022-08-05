@@ -28,6 +28,7 @@
 #import "OptionKeys.h"
 #import "TextCell.h"
 #import "MultiValOptionSelector.h"
+#import "HostedWebViewViewController.h"
 
 @implementation AutodetectOptions
 
@@ -36,7 +37,7 @@
 @synthesize txtWarnings;
 
 enum prefSections {sectAutoFill, sectTimes, sectGPSWarnings, sectAutoOptions, sectAirports, sectMaps, sectUnits, sectImages, sectOnlineSettings, sectLast};
-enum prefRows {rowWarnings, rowAutoDetect, rowTOSpeed, rowNightFlightOptions, rowAutoHobbs, rowAutoTotal, rowLocal, rowHHMM, rowHeliports, rowMaps, rowUnitsSpeed, rowUnitsAlt, rowShowFlightImages, rowOnlineSettings, rowManageAccount};
+enum prefRows {rowWarnings, rowAutoDetect, rowTOSpeed, rowNightFlightOptions, rowAutoHobbs, rowAutoTotal, rowLocal, rowHHMM, rowHeliports, rowMaps, rowUnitsSpeed, rowUnitsAlt, rowShowFlightImages, rowOnlineSettings, rowManageAccount, rowDeleteAccount };
 
 static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
 
@@ -177,7 +178,7 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
         case sectMaps:
             return 1;
         case sectOnlineSettings:
-            return 2;
+            return 3;
         case sectUnits:
             return 2;
         case sectImages:
@@ -293,14 +294,16 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
             return self.cellImages;
         case rowOnlineSettings:
         case rowManageAccount:
+        case rowDeleteAccount:
         case rowNightFlightOptions: {
             static NSString *CellIdentifier = @"CellNormal";
             UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             if (cell == nil)
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             cell.textLabel.text = (row == rowOnlineSettings) ? NSLocalizedString(@"AdditionalOptions", @"Link to additional preferences") :
-                (row == rowManageAccount ? NSLocalizedString(@"ManageAccount", @"Link to manage your account") :
-                 NSLocalizedString(@"NightOptions", @"Night Section"));
+                (row == rowManageAccount) ? NSLocalizedString(@"ManageAccount", @"Link to manage your account") :
+                 (row == rowDeleteAccount) ? NSLocalizedString(@"DeleteAccount", @"Link to delete your account because Apple fucking sucks and requires it ") :
+                  NSLocalizedString(@"NightOptions", @"Night Section");
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             return cell;
         }
@@ -391,6 +394,19 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
         case rowManageAccount:
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[mfbApp().userProfile authRedirForUser:@"d=account"]] options:@{} completionHandler:nil];
             break;
+        case rowDeleteAccount: {
+            // get the sign-out URL while still signed in...
+            HostedWebViewViewController * vwWeb = [[HostedWebViewViewController alloc] initWithURL:[mfbApp().userProfile authRedirForUser:@"d=bigredbuttons"]];
+            
+            // ...and then sign out in anticipation of deletion.
+            MFBAppDelegate * app = mfbApp();
+            app.userProfile.UserName = app.userProfile.Password = app.userProfile.AuthToken = @"";
+            [app.userProfile clearCache];
+            [app.userProfile clearOldUserContent];
+            [app.userProfile SavePrefs];
+
+            [self.navigationController pushViewController:vwWeb animated:YES];
+        }
             break;
         default:
             break;

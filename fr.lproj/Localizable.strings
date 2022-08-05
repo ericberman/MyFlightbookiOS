@@ -1076,7 +1076,10 @@ Vous pouvez choisir un dans la liste fournie, le modifier, ou faire un de vos pr
 "AdditionalOptions" = "Aller à MyFlightbook.com";
 
 /* Link to manage your account */
-"ManageAccount" = "Gérer votre compte";
+"ManageAccount" = "Gérer son compte";
+
+/* Link to delete your account because Apple fucking sucks and requires it */
+"DeleteAccount" = "Supprimer le compte";
 
 /* Night flight options */
 "NightFlightStarts" = "Le vol de nuit commence:";
