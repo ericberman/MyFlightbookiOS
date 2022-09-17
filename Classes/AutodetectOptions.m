@@ -36,8 +36,11 @@
 @synthesize cellAutoOptions, cellHHMM, cellLocalTime, cellHeliports, cellWarnings, cellTOSpeed, cellMapOptions, cellImages;
 @synthesize txtWarnings;
 
-enum prefSections {sectAutoFill, sectTimes, sectGPSWarnings, sectAutoOptions, sectAirports, sectMaps, sectUnits, sectImages, sectOnlineSettings, sectLast};
-enum prefRows {rowWarnings, rowAutoDetect, rowTOSpeed, rowNightFlightOptions, rowAutoHobbs, rowAutoTotal, rowLocal, rowHHMM, rowHeliports, rowMaps, rowUnitsSpeed, rowUnitsAlt, rowShowFlightImages, rowOnlineSettings, rowManageAccount, rowDeleteAccount };
+enum prefSections {sectAutoFill, sectTimes, sectGPSWarnings, sectAutoOptions, sectCockpit, sectAirports, sectMaps, sectUnits, sectImages, sectOnlineSettings, sectLast};
+enum prefRows {rowWarnings,
+    rowAutoDetect, rowTOSpeed, rowNightFlightOptions, rowAutoHobbs, rowAutoTotal, rowLocal, rowHHMM, rowHeliports,
+    rowTach, rowHobbs, rowEngine, rowBlock, rowFlight,
+    rowMaps, rowUnitsSpeed, rowUnitsAlt, rowShowFlightImages, rowOnlineSettings, rowManageAccount, rowDeleteAccount };
 
 static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
 
@@ -149,6 +152,8 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
             return rowLocal + ip.row;
         case sectAirports:
             return rowHeliports;
+        case sectCockpit:
+            return rowTach + ip.row;
         case sectMaps:
             return rowMaps + ip.row;
         case sectOnlineSettings:
@@ -173,6 +178,8 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
             return 2;
         case sectTimes:
             return 2;
+        case sectCockpit:
+            return 5;
         case sectAirports:
             return 1;
         case sectMaps:
@@ -203,6 +210,8 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
             return NSLocalizedString(@"Entering Times", @"Entering Times");
         case sectAirports:
             return NSLocalizedString(@"Nearest Airports", @"Nearest Airports");
+        case sectCockpit:
+            return NSLocalizedString(@"InTheCockpit", @"In-the-cockpit");
         case sectMaps:
             return NSLocalizedString(@"MapOptions", @"Maps");
         case sectOnlineSettings:
@@ -318,9 +327,28 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             return cell;
         }
-            
+        case rowTach:
+            return [self cockpitToggleCell:AutodetectOptions.showTach withLabel:NSLocalizedString(@"InTheCockpitTach", @"Cockpit: Tach")];
+        case rowHobbs:
+            return [self cockpitToggleCell:AutodetectOptions.showHobbs withLabel:NSLocalizedString(@"InTheCockpitHobbs", @"Cockpit: Hobbs")];
+        case rowBlock:
+            return [self cockpitToggleCell:AutodetectOptions.showBlock withLabel:NSLocalizedString(@"InTheCockpitBlock", @"Cockpit: Block")];
+        case rowEngine:
+            return [self cockpitToggleCell:AutodetectOptions.showEngine withLabel:NSLocalizedString(@"InTheCockpitEngine", @"Cockpit: Engine")];
+        case rowFlight:
+            return [self cockpitToggleCell:AutodetectOptions.showFlight withLabel:NSLocalizedString(@"InTheCockpitFlight", @"Cockpit: Flight")];
     }
     @throw [NSException exceptionWithName:@"Invalid indexpath" reason:@"Request for cell in AutodetectOptions with invalid indexpath" userInfo:@{@"indexPath:" : indexPath}];
+}
+
+- (UITableViewCell *) cockpitToggleCell:(BOOL) isChecked withLabel: (NSString *) label {
+    static NSString * CellIdentifier = @"CellCockpit";
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil)
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+    cell.accessoryType = isChecked ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+    cell.textLabel.text = label;
+    return cell;
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -407,6 +435,26 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
 
             [self.navigationController pushViewController:vwWeb animated:YES];
         }
+            break;
+        case rowTach:
+            [NSUserDefaults.standardUserDefaults setBool:!AutodetectOptions.showTach forKey:keyShowTach];
+            [self reload];
+            break;
+        case rowHobbs:
+            [NSUserDefaults.standardUserDefaults setBool:!AutodetectOptions.showHobbs forKey:keyShowHobbs];
+            [self reload];
+            break;
+        case rowBlock:
+            [NSUserDefaults.standardUserDefaults setBool:!AutodetectOptions.showBlock forKey:keyShowBlock];
+            [self reload];
+            break;
+        case rowEngine:
+            [NSUserDefaults.standardUserDefaults setBool:!AutodetectOptions.showEngine forKey:keyShowEngine];
+            [self reload];
+            break;
+        case rowFlight:
+            [NSUserDefaults.standardUserDefaults setBool:!AutodetectOptions.showFlight forKey:keyShowFlight];
+            [self reload];
             break;
         default:
             break;
@@ -558,4 +606,19 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
     return [NSUserDefaults.standardUserDefaults integerForKey:keyAltUnitPref];
 }
 
++ (BOOL) showTach {
+    return [NSUserDefaults.standardUserDefaults integerForKey:keyShowTach];
+}
++ (BOOL) showHobbs {
+    return [NSUserDefaults.standardUserDefaults integerForKey:keyShowHobbs];
+}
++ (BOOL) showBlock {
+    return [NSUserDefaults.standardUserDefaults integerForKey:keyShowBlock];
+}
++ (BOOL) showEngine{
+    return [NSUserDefaults.standardUserDefaults integerForKey:keyShowEngine];
+}
++ (BOOL) showFlight {
+    return [NSUserDefaults.standardUserDefaults integerForKey:keyShowFlight];
+}
 @end

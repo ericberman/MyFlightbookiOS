@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2019 MyFlightbook, LLC
+ Copyright (C) 2019-2022 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -72,6 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Long-press
 - (void) setHighWaterHobbs:(UILongPressGestureRecognizer *) sender;
+- (void) setHighWaterTach:(UILongPressGestureRecognizer *) sender;
 
 // Nearby airports IBActions.
 - (IBAction) viewClosest;

@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2021 MyFlightbook, LLC
+ Copyright (C) 2009-2022 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -29,6 +29,7 @@
 #import "MFBWebServiceSvc.h"
 #import "MFBSoapCall.h"
 #import "MFBAppDelegate.h"
+#import "FlightProps.h"
 
 #define NEW_FLIGHT_ID @-1
 #define PENDING_FLIGHT_ID @-2
@@ -120,6 +121,7 @@
 - (BOOL) isKnownFlightTime;
 - (BOOL) isKnownEngineTime;
 
+- (void) removeProperty:(NSNumber *)idPropType withServerAuth:(NSString *) szAuthToken deleteSvc:(FlightProps *) fp;
 - (void) removeProperty:(NSNumber *) idPropType;
 - (MFBWebServiceSvc_CustomFlightProperty *) getExistingProperty:(NSNumber *) idPropType;
 - (MFBWebServiceSvc_CustomFlightProperty *) addProperty:(NSNumber *) idPropType withInteger:(NSNumber *) intVal;
@@ -127,6 +129,9 @@
 - (MFBWebServiceSvc_CustomFlightProperty *) addProperty:(NSNumber *) idPropType withString:(NSString *) sz;
 - (MFBWebServiceSvc_CustomFlightProperty *) addProperty:(NSNumber *) idPropType withBool:(BOOL) fBool;
 - (MFBWebServiceSvc_CustomFlightProperty *) addProperty:(NSNumber *) idPropType withDate:(NSDate *) dt;
+- (MFBWebServiceSvc_CustomFlightProperty *) setPropertyValue:(NSNumber *) idPropType withDecimal:(NSNumber *) decVal;
+- (MFBWebServiceSvc_CustomFlightProperty *) setPropertyValue:(NSNumber *) idPropType withDate:(NSDate *) dt;
+
 - (void) addApproachDescription:(NSString *) description;
 - (MFBWebServiceSvc_LogbookEntry *) clone;
 - (MFBWebServiceSvc_LogbookEntry *) cloneAndReverse;

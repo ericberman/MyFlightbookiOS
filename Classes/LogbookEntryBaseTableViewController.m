@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2019-2021 MyFlightbook, LLC
+ Copyright (C) 2019-2022 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -298,6 +298,9 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
         dt = self.le.entryData.EngineStart;
     if (self.le.entryData.isKnownFlightStart && [self.le.entryData.FlightStart compare:dt] == NSOrderedAscending)
         dt = self.le.entryData.FlightStart;
+    MFBWebServiceSvc_CustomFlightProperty * cfp = [self.le.entryData getExistingProperty:@(PropTypeID_BlockOut)];
+    if (cfp != nil && [cfp.DateValue compare:dt] == NSOrderedAscending)
+        dt = cfp.DateValue;
     [self setDisplayDate:(le.entryData.Date = dt)];
 }
 
@@ -534,6 +537,15 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
         if (highWaterHobbs != nil && highWaterHobbs.doubleValue > 0) {
             target.value = self.le.entryData.HobbsStart = highWaterHobbs;
         }
+    }
+}
+
+- (void) setHighWaterTach:(UILongPressGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        UITextField * target = (UITextField *) sender.view;
+        NSNumber * highWaterTach = [[Aircraft sharedAircraft] getHighWaterTachForAircraft:self.le.entryData.AircraftID];
+        if (highWaterTach != nil && highWaterTach.doubleValue > 0)
+            [self.le.entryData setPropertyValue:@PropTypeID_TachStart withDecimal:(target.value = highWaterTach)];
     }
 }
 
