@@ -169,7 +169,7 @@
 		9A73C84821AF51F500AE1221 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A73C84721AF51F400AE1221 /* NotificationCenter.framework */; };
 		9A73C84C21AF51F500AE1221 /* TodayCurrencyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A73C84B21AF51F500AE1221 /* TodayCurrencyController.m */; };
 		9A73C84F21AF51F500AE1221 /* CurrencyTodayWidget.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A73C84D21AF51F500AE1221 /* CurrencyTodayWidget.storyboard */; };
-		9A73C85321AF51F500AE1221 /* MyFlightbook - Currency.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9A73C84621AF51F400AE1221 /* MyFlightbook - Currency.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		9A73C85321AF51F500AE1221 /* MyFlightbook - Currency.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9A73C84621AF51F400AE1221 /* MyFlightbook - Currency.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9A73C85E21AFB97B00AE1221 /* CurrencyRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEC4C9513AC56A90044897B /* CurrencyRow.m */; };
 		9A73C86121B04E3B00AE1221 /* MFBWebServiceSvc.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0F0E7313E88781007E54C1 /* MFBWebServiceSvc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9A73C86221B04E4200AE1221 /* NSDate+ISO8601Parsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202110CCBD8900DF1CA6 /* NSDate+ISO8601Parsing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -183,7 +183,7 @@
 		9A73C88821B070B000AE1221 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A73C84721AF51F400AE1221 /* NotificationCenter.framework */; };
 		9A73C88C21B070B000AE1221 /* TodayTotalsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A73C88B21B070B000AE1221 /* TodayTotalsController.m */; };
 		9A73C88F21B070B000AE1221 /* TotalsTodayWidget.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A73C88D21B070B000AE1221 /* TotalsTodayWidget.storyboard */; };
-		9A73C89321B070B000AE1221 /* MyFlightbook - Totals.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9A73C88721B070B000AE1221 /* MyFlightbook - Totals.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		9A73C89321B070B000AE1221 /* MyFlightbook - Totals.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9A73C88721B070B000AE1221 /* MyFlightbook - Totals.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9A73C89921B071CE00AE1221 /* TotalsRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A5A085E147ED35300C05C50 /* TotalsRow.xib */; };
 		9A73C89A21B071E400AE1221 /* TotalsRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEC4C9213ABFCDA0044897B /* TotalsRow.m */; };
 		9A73C89B21B071FA00AE1221 /* TodayWidgetBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A73C86B21B0671900AE1221 /* TodayWidgetBase.m */; };
@@ -380,7 +380,7 @@
 		9ACD18BD11023CEE00B294F7 /* btnForward.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACD18BB11023CEE00B294F7 /* btnForward.png */; };
 		9ACDC8D01BDFEA1300B0A077 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9ACDC8CE1BDFEA1300B0A077 /* Interface.storyboard */; };
 		9ACDC8D21BDFEA1300B0A077 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9ACDC8D11BDFEA1300B0A077 /* Assets.xcassets */; };
-		9ACDC8D91BDFEA1400B0A077 /* MyFlightbookWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9ACDC8D81BDFEA1400B0A077 /* MyFlightbookWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		9ACDC8D91BDFEA1400B0A077 /* MyFlightbookWatch Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9ACDC8D81BDFEA1400B0A077 /* MyFlightbookWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9ACDC8E01BDFEA1400B0A077 /* CockpitInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACDC8DF1BDFEA1400B0A077 /* CockpitInterfaceController.swift */; };
 		9ACDC8E21BDFEA1400B0A077 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACDC8E11BDFEA1400B0A077 /* ExtensionDelegate.swift */; };
 		9ACDC8E41BDFEA1400B0A077 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACDC8E31BDFEA1400B0A077 /* NotificationController.swift */; };
@@ -490,27 +490,27 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		9A73C85821AF51F500AE1221 /* Embed App Extensions */ = {
+		9A73C85821AF51F500AE1221 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				9A73C89321B070B000AE1221 /* MyFlightbook - Totals.appex in Embed App Extensions */,
-				9A73C85321AF51F500AE1221 /* MyFlightbook - Currency.appex in Embed App Extensions */,
+				9A73C89321B070B000AE1221 /* MyFlightbook - Totals.appex in Embed Foundation Extensions */,
+				9A73C85321AF51F500AE1221 /* MyFlightbook - Currency.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9ACDC8F41BDFEA1400B0A077 /* Embed App Extensions */ = {
+		9ACDC8F41BDFEA1400B0A077 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				9ACDC8D91BDFEA1400B0A077 /* MyFlightbookWatch Extension.appex in Embed App Extensions */,
+				9ACDC8D91BDFEA1400B0A077 /* MyFlightbookWatch Extension.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		9ACDC8F61BDFEA1400B0A077 /* Embed Watch Content */ = {
@@ -1908,7 +1908,7 @@
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
 				9ACDC8F61BDFEA1400B0A077 /* Embed Watch Content */,
-				9A73C85821AF51F500AE1221 /* Embed App Extensions */,
+				9A73C85821AF51F500AE1221 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -1961,7 +1961,7 @@
 			buildConfigurationList = 9ACDC8F51BDFEA1400B0A077 /* Build configuration list for PBXNativeTarget "MyFlightbookWatch" */;
 			buildPhases = (
 				9ACDC8CA1BDFEA1300B0A077 /* Resources */,
-				9ACDC8F41BDFEA1400B0A077 /* Embed App Extensions */,
+				9ACDC8F41BDFEA1400B0A077 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -1997,7 +1997,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
 						DevelopmentTeam = 99X7N8Z9WP;
@@ -3851,7 +3851,7 @@
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Debug;
 		};
@@ -3906,7 +3906,7 @@
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Release;
 		};
@@ -3961,7 +3961,7 @@
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Distribution;
 		};
@@ -4019,7 +4019,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Debug;
 		};
@@ -4072,7 +4072,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Release;
 		};
@@ -4125,7 +4125,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Distribution;
 		};
