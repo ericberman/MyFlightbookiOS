@@ -475,7 +475,7 @@ static NSArray * rgAllCockpitRows = nil;
                 return AutodetectOptions.showBlock || [l getExistingProperty:@(PropTypeID_BlockOut)].DecValue.doubleValue > 0 || [l getExistingProperty:@(PropTypeID_BlockIn)].DecValue.doubleValue > 0;
             case rowFlightStart:
             case rowFlightEnd:
-                return AutodetectOptions.showFlight || l.isKnownEngineStart || l.isKnownEngineEnd;
+                return AutodetectOptions.showFlight || l.isKnownFlightStart || l.isKnownFlightEnd;
             case rowGPS:
                 return self.le.entryData.isNewFlight;
             default:
