@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2021 MyFlightbook, LLC
+ Copyright (C) 2009-2022 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -66,7 +66,7 @@ NSString * const _szkeyITCCollapseState = @"keyITCCollapseState";
 enum sections {sectGeneral, sectInCockpit, sectTimes, sectProperties, sectSignature, sectImages, sectSharing, sectLast};
 enum rows {
     rowGeneralFirst, rowDateTail = rowGeneralFirst, rowComments, rowRoute, rowLandings, rowGeneralLast=rowLandings,
-    rowCockpitFirst, rowCockpitHeader = rowCockpitFirst, rowGPS, rowHobbsStart, rowEngineStart, rowFlightStart, rowFlightEnd, rowEngineEnd, rowHobbsEnd, rowCockpitLast = rowHobbsEnd,
+    rowCockpitFirst, rowCockpitHeader = rowCockpitFirst, rowGPS, rowTachStart, rowHobbsStart, rowEngineStart, rowBlockOut, rowFlightStart, rowFlightEnd, rowBlockIn, rowEngineEnd, rowHobbsEnd, rowTachEnd,
     rowTimes,
     rowPropertiesHeader, rowAddProperties,
     rowSigFirst, rowSigHeader, rowSigState, rowSigComment, rowSigValidity, rowSigLast = rowSigValidity,
@@ -436,23 +436,68 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 #pragma mark "Next" button inflation
 enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, timeEngineEnd, timeHobbsEnd, timeNone};
 
-// Return the latest unknown time.
-- (int) nextTimeToHighlight
-{
+#pragma mark - In The Cockpit customization
+- (NSNumber *) propIDFromCockpitRow:(NSInteger) row {
+    switch (row) {
+        case rowBlockIn:
+            return @PropTypeID_BlockIn;
+        case rowBlockOut:
+            return @PropTypeID_BlockOut;
+        case rowTachStart:
+            return @PropTypeID_TachStart;
+        case rowTachEnd:
+            return @PropTypeID_TachEnd;
+        default:
+            @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:[NSString stringWithFormat:@"row %li doesn't correspond to a property row", (long)row] userInfo:nil];
+    }
+}
+
+static NSArray * rgAllCockpitRows = nil;
+
+- (NSArray<NSNumber *> *) cockpitRows {
+    if (rgAllCockpitRows == nil)
+        rgAllCockpitRows = @[@(rowCockpitHeader), @(rowGPS),@(rowTachStart),@(rowHobbsStart),@(rowEngineStart),@(rowBlockOut),@(rowFlightStart),@(rowFlightEnd),@(rowBlockIn),@(rowEngineEnd),@(rowHobbsEnd),@(rowTachEnd)];
+    
     MFBWebServiceSvc_LogbookEntry * l = self.le.entryData;
-    if ([l.HobbsEnd doubleValue] > 0)
-        return timeNone;
-    if ([l isKnownEngineEnd])
-        return timeHobbsEnd;
-    if ([l isKnownFlightEnd])
-        return timeEngineEnd;
-    if ([l isKnownFlightStart])
-        return timeFlightEnd;
-    if ([l isKnownEngineStart])
-        return timeFlightStart;
-    if ([l.HobbsStart doubleValue] > 0)
-        return timeEngineStart;
-    return timeHobbsStart;
+    return [rgAllCockpitRows filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSNumber *  _Nullable row, NSDictionary<NSString *,id> * _Nullable bindings) {
+        switch (row.intValue) {
+            case rowTachStart:
+            case rowTachEnd:
+                return AutodetectOptions.showTach || [l getExistingProperty:@(PropTypeID_TachStart)].DecValue.doubleValue > 0 || [l getExistingProperty:@(PropTypeID_TachEnd)].DecValue.doubleValue > 0;
+            case rowHobbsStart:
+            case rowHobbsEnd:
+                return AutodetectOptions.showHobbs || l.HobbsStart.doubleValue > 0.0 || l.HobbsEnd.doubleValue > 0.0;
+            case rowEngineStart:
+            case rowEngineEnd:
+                return AutodetectOptions.showEngine || l.isKnownEngineStart || l.isKnownEngineEnd;
+            case rowBlockOut:
+            case rowBlockIn:
+                return AutodetectOptions.showBlock || [l getExistingProperty:@(PropTypeID_BlockOut)].DecValue.doubleValue > 0 || [l getExistingProperty:@(PropTypeID_BlockIn)].DecValue.doubleValue > 0;
+            case rowFlightStart:
+            case rowFlightEnd:
+                return AutodetectOptions.showFlight || l.isKnownEngineStart || l.isKnownEngineEnd;
+            case rowGPS:
+                return self.le.entryData.isNewFlight;
+            default:
+                return YES;
+        }
+    }]];
+}
+
+// Return the set of properties that should show in the properties section.  Excludes block times if in-the-cockpit block option is on, excludes tach if tach option is on
+- (NSArray<MFBWebServiceSvc_CustomFlightProperty *> *) propsForPropsSection {
+    return [self.le.entryData.CustomProperties.CustomFlightProperty filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(MFBWebServiceSvc_CustomFlightProperty * _Nullable cfp, NSDictionary<NSString *,id> * _Nullable bindings) {
+        switch (cfp.PropTypeID.intValue) {
+            case PropTypeID_BlockOut:
+            case PropTypeID_BlockIn:
+                return !AutodetectOptions.showBlock;
+            case PropTypeID_TachStart:
+            case PropTypeID_TachEnd:
+                return !AutodetectOptions.showTach;
+            default:
+                return YES;
+        }
+    }]];
 }
 
 #pragma mark - TableViewDatasource
@@ -467,9 +512,10 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
         case sectImages:
             return (row == 0) ? rowImagesHeader : rowImageFirst + row;
         case sectInCockpit:
-            return rowCockpitFirst + row + (([self.le.entryData isNewFlight] || row < (rowGPS - rowCockpitFirst)) ? 0: 1);
+            // cockpit rows should be a complete set of rows, including header.
+            return self.cockpitRows[row].intValue;
         case sectProperties:
-            return (row == 0) ? rowPropertiesHeader : ((row == [self.le.entryData.CustomProperties.CustomFlightProperty count] + 1) ? rowAddProperties : rowPropertyFirst + row);
+            return (row == 0) ? rowPropertiesHeader : ((row == self.propsForPropsSection.count + 1) ? rowAddProperties : rowPropertyFirst + row);
         case sectSharing:
             return (row == 0) ? rowSharingHeader : rowSharing;
         case sectTimes:
@@ -495,9 +541,9 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
         case sectImages:
             return ([self.le.rgPicsForFlight count] == 0) ? 0 : 1 + ([self isExpanded:sectImages] ? ([self.le.rgPicsForFlight count]) : 0);
         case sectInCockpit:
-            return [self isExpanded:sectInCockpit] ? (rowCockpitLast + 1 - rowCockpitFirst - ([self.le.entryData isNewFlight] ? 0 : 1)) : 1;
+            return [self isExpanded:sectInCockpit] ? self.cockpitRows.count : 1;
         case sectProperties:
-            return 1 + ([self isExpanded:sectProperties] ? [self.le.entryData.CustomProperties.CustomFlightProperty count] + 1 : 0);
+            return 1 + ([self isExpanded:sectProperties] ? self.propsForPropsSection.count + 1 : 0);
         case sectSharing:
             return [self isExpanded:sectSharing] ? 2 : 1;
         case sectTimes:
@@ -530,11 +576,19 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
         self.le.entryData.HobbsEnd = sender.value;
 }
 
+- (void) tachChanged:(UITextField *) sender {
+    EditCell * ec = [self owningCell:sender];
+    NSInteger row = [self cellIDFromIndexPath:[self.tableView indexPathForCell:ec]];
+    NSNumber * propTypeID = (row == rowTachStart) ? @(PropTypeID_TachStart) : @(PropTypeID_TachEnd);
+    if (sender.value.intValue == 0)
+        [self.le.entryData removeProperty:propTypeID withServerAuth:mfbApp().userProfile.AuthToken deleteSvc:self.flightProps]; // delete if default value
+    else
+        [self.le.entryData setPropertyValue:propTypeID withDecimal:sender.value];
+}
+
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSInteger row = [self cellIDFromIndexPath:indexPath];
-    
-    int nt = [self nextTimeToHighlight];
     
     switch (row)
     {
@@ -564,20 +618,38 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
             self.cellGPS.accessoryType = self.hasAccessories ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
             return self.cellGPS;
         case rowHobbsStart: {
-            EditCell * dcell = [self decimalCell:tableView withPrompt:NSLocalizedString(@"Hobbs Start:", @"Hobbs Start prompt") andValue:self.le.entryData.HobbsStart selector:@selector(hobbsChanged:) andInflation:(nt == timeHobbsStart)];
+            EditCell * dcell = [self decimalCell:tableView withPrompt:NSLocalizedString(@"Hobbs Start:", @"Hobbs Start prompt") andValue:self.le.entryData.HobbsStart selector:@selector(hobbsChanged:) andInflation:NO];
             [self enableLongPressForField:dcell.txt withSelector:@selector(setHighWaterHobbs:)];
             return dcell;
         }
         case rowHobbsEnd:
-            return [self decimalCell:tableView withPrompt:NSLocalizedString(@"Hobbs End:", @"Hobbs End prompt") andValue:self.le.entryData.HobbsEnd selector:@selector(hobbsChanged:) andInflation:(nt == timeHobbsEnd)];
+            return [self decimalCell:tableView withPrompt:NSLocalizedString(@"Hobbs End:", @"Hobbs End prompt") andValue:self.le.entryData.HobbsEnd selector:@selector(hobbsChanged:) andInflation:NO];
         case rowEngineStart:
-            return [self dateCell:self.le.entryData.EngineStart withPrompt:NSLocalizedString(@"Engine Start:", @"Engine Start prompt") forTableView:self.tableView inflated:(nt == timeEngineStart)];
+            return [self dateCell:self.le.entryData.EngineStart withPrompt:NSLocalizedString(@"Engine Start:", @"Engine Start prompt") forTableView:self.tableView inflated:NO];
         case rowEngineEnd:
-            return [self dateCell:self.le.entryData.EngineEnd withPrompt:NSLocalizedString(@"Engine Stop:", @"Engine Stop prompt") forTableView:self.tableView inflated:(nt == timeEngineEnd)];
+            return [self dateCell:self.le.entryData.EngineEnd withPrompt:NSLocalizedString(@"Engine Stop:", @"Engine Stop prompt") forTableView:self.tableView inflated:NO];
         case rowFlightStart:
-            return [self dateCell:self.le.entryData.FlightStart withPrompt:NSLocalizedString(@"First Takeoff:", @"First Takeoff prompt") forTableView:self.tableView inflated:(nt == timeFlightStart)];
+            return [self dateCell:self.le.entryData.FlightStart withPrompt:NSLocalizedString(@"First Takeoff:", @"First Takeoff prompt") forTableView:self.tableView inflated:NO];
         case rowFlightEnd:
-            return [self dateCell:self.le.entryData.FlightEnd withPrompt:NSLocalizedString(@"Last Landing:", @"Last Landing prompt") forTableView:self.tableView inflated:(nt == timeFlightEnd)];
+            return [self dateCell:self.le.entryData.FlightEnd withPrompt:NSLocalizedString(@"Last Landing:", @"Last Landing prompt") forTableView:self.tableView inflated:NO];
+        case rowTachStart: {
+            MFBWebServiceSvc_CustomFlightProperty * cfp = [self.le.entryData getExistingProperty:@(PropTypeID_TachStart)];
+            EditCell * dcell = [self decimalCell:tableView withPrompt:NSLocalizedString(@"TachStart", @"Tach Start prompt") andValue:(cfp == nil) ? @(0) : cfp.DecValue selector:@selector(tachChanged:) andInflation:NO];
+            [self enableLongPressForField:dcell.txt withSelector:@selector(setHighWaterTach:)];
+            return dcell;
+        }
+        case rowTachEnd: {
+            MFBWebServiceSvc_CustomFlightProperty * cfp = [self.le.entryData getExistingProperty:@(PropTypeID_TachEnd)];
+            return [self decimalCell:tableView withPrompt:NSLocalizedString(@"TachEnd", @"Tach End prompt") andValue:(cfp == nil) ? @(0) : cfp.DecValue selector:@selector(tachChanged:) andInflation:NO];
+        }
+        case rowBlockOut: {
+            MFBWebServiceSvc_CustomFlightProperty * cfp = [self.le.entryData getExistingProperty:@(PropTypeID_BlockOut)];
+            return [self dateCell:cfp.DateValue withPrompt:NSLocalizedString(@"BlockOut", @"Block Out prompt") forTableView:tableView inflated:NO];
+        }
+        case rowBlockIn: {
+            MFBWebServiceSvc_CustomFlightProperty * cfp = [self.le.entryData getExistingProperty:@(PropTypeID_BlockIn)];
+            return [self dateCell:cfp.DateValue withPrompt:NSLocalizedString(@"BlockIn", @"Block In prompt") forTableView:tableView inflated:NO];
+        }
         case rowTimes:
             return self.cellTimeBlock;
         case rowSharingHeader:
@@ -674,7 +746,7 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
             }
             else if (indexPath.section == sectProperties)
             {
-                MFBWebServiceSvc_CustomFlightProperty * cfp = (self.le.entryData.CustomProperties.CustomFlightProperty)[indexPath.row - 1];
+                MFBWebServiceSvc_CustomFlightProperty * cfp = self.propsForPropsSection[indexPath.row - 1];
                 MFBWebServiceSvc_CustomPropertyType * cpt = [self.flightProps PropTypeFromID:cfp.PropTypeID];
                 PropertyCell * pc = (PropertyCell *) (self.dictPropCells)[cpt.PropTypeID];
                 if (pc == nil)
@@ -734,7 +806,7 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
         return YES;
     if (indexPath.section == sectProperties && row >= rowPropertyFirst)
     {
-        MFBWebServiceSvc_CustomFlightProperty * cfp = (MFBWebServiceSvc_CustomFlightProperty *) (self.le.entryData.CustomProperties.CustomFlightProperty)[indexPath.row - 1];
+        MFBWebServiceSvc_CustomFlightProperty * cfp = self.propsForPropsSection[indexPath.row - 1];
         MFBWebServiceSvc_CustomPropertyType * cpt = [self.flightProps PropTypeFromID:cfp.PropTypeID];
         return !cpt.isLocked;
     }
@@ -765,9 +837,7 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
         }
         else if (indexPath.section == sectProperties)
         {
-            MFBWebServiceSvc_CustomFlightProperty * cfp = self.le.entryData.CustomProperties.CustomFlightProperty[indexPath.row - 1];
-            [self.le.entryData.CustomProperties.CustomFlightProperty removeObjectAtIndex:indexPath.row - 1];
-            [self.flightProps deleteProperty:cfp forUser:mfbApp().userProfile.AuthToken];
+            [self.le.entryData removeProperty:self.propsForPropsSection[indexPath.row - 1].PropTypeID withServerAuth:mfbApp().userProfile.AuthToken deleteSvc:self.flightProps];
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         }
 	}
@@ -830,7 +900,7 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
                 {
                     [self.flightProps propValueChanged:pc.cfp];
                     if ([pc.cfp isDefaultForType:pc.cpt] && !pc.cpt.isLocked && ![[MFBWebServiceSvc_PropertyTemplate propListForSets:self.activeTemplates] containsObject:pc.cpt.PropTypeID]) {
-                        [self.le.entryData.CustomProperties.CustomFlightProperty removeObject:pc.cfp];
+                        [self.le.entryData removeProperty:pc.cfp.PropTypeID];
                         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
                     }
                     else
@@ -858,6 +928,7 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
     {
         BOOL fWasUnknownEngineStart = [NSDate isUnknownDate:self.le.entryData.EngineStart];
         BOOL fWasUnknownFlightStart = [NSDate isUnknownDate:self.le.entryData.FlightStart];
+        BOOL fWasUnknownBlockOut = [NSDate isUnknownDate:[self.le.entryData getExistingProperty:@(PropTypeID_BlockOut)].DateValue];
         
         // Since we don't display seconds, truncate them; this prevents odd looking math like
         // an interval from 12:13:59 to 12:15:01, which is a 1:02 but would display as 12:13-12:15 (which looks like 2 minutes)
@@ -887,6 +958,12 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
                 break;
             case rowFlightEnd:
                 [self stopFlight];
+                break;
+            case rowBlockOut:
+                if (fWasUnknownBlockOut)
+                    [self resetDateOfFlight];
+                break;
+            case rowBlockIn:
                 break;
         }
         return NO;
@@ -935,6 +1012,14 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
             [self dateClick:self.le.entryData.FlightEnd onInit:^void (NSDate * d) { self.le.entryData.FlightEnd = d;}];
         }
             break;
+        case rowBlockOut:
+        case rowBlockIn: {
+            MFBWebServiceSvc_CustomFlightProperty * cfp = [self.le.entryData getExistingProperty:[self propIDFromCockpitRow:row]];
+            [self dateClick:cfp == nil ? NSDate.distantPast : cfp.DateValue onInit:^(NSDate * d) {
+                [self.le.entryData setPropertyValue:[self propIDFromCockpitRow:row] withDate:d];
+            }];
+            break;
+        }
         default:
             if (self.ipActive.section == sectProperties && row >= rowPropertyFirst) {
                 PropertyCell * pc = (PropertyCell *) tc;
@@ -1018,7 +1103,7 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
         [self propertyUpdated:pc.cpt];
         [self.flightProps propValueChanged:pc.cfp];
         if ([pc.cfp isDefaultForType:pc.cpt] && !pc.cpt.isLocked && ![[MFBWebServiceSvc_PropertyTemplate propListForSets:self.activeTemplates] containsObject:pc.cpt.PropTypeID]) {
-            [self.le.entryData.CustomProperties.CustomFlightProperty removeObject:pc.cfp];
+            [self.le.entryData removeProperty:pc.cfp.PropTypeID];
             [self.tableView deleteRowsAtIndexPaths:@[ip] withRowAnimation:UITableViewRowAnimationFade];
         }
     }
@@ -1479,6 +1564,17 @@ static NSDateFormatter * dfSunriseSunset = nil;
             case rowFlightEnd:
                 self.le.entryData.FlightEnd = sender.date;
                 break;
+            case rowBlockOut:
+            case rowBlockIn:
+                if ([NSDate isUnknownDate:sender.date])
+                    [self.le.entryData removeProperty:[self propIDFromCockpitRow:row] withServerAuth:mfbApp().userProfile.AuthToken deleteSvc:self.flightProps];
+                else {
+                    [self.le.entryData setPropertyValue:[self propIDFromCockpitRow:row] withDate:sender.date];
+                    if (row == rowBlockOut)
+                        [self resetDateOfFlight];
+                }
+                break;
+
         }
         [self autoHobbs];
         [self autoTotal];
@@ -1495,6 +1591,8 @@ static NSDateFormatter * dfSunriseSunset = nil;
         case rowRoute:
         case rowHobbsEnd:
         case rowHobbsStart:
+        case rowTachStart:
+        case rowTachEnd:
         case rowTimes:
         case rowLandings:
         case rowDateTail:
@@ -1507,13 +1605,16 @@ static NSDateFormatter * dfSunriseSunset = nil;
             return ![NSDate isUnknownDate:self.le.entryData.FlightEnd];
         case rowFlightStart:
             return ![NSDate isUnknownDate:self.le.entryData.FlightStart];
+        case rowBlockOut:
+        case rowBlockIn:
+            return ![NSDate isUnknownDate:[self.le.entryData getExistingProperty:[self propIDFromCockpitRow:row]].DateValue];
         case rowPropertiesHeader:
         case rowAddProperties:
             return NO;
         default:
             if (ip.section == sectProperties && ip.row > 0)
             {
-                MFBWebServiceSvc_CustomFlightProperty * cfp = (MFBWebServiceSvc_CustomFlightProperty *) (self.le.entryData.CustomProperties.CustomFlightProperty)[ip.row - 1];
+                MFBWebServiceSvc_CustomFlightProperty * cfp = self.propsForPropsSection[ip.row - 1];
                 MFBWebServiceSvc_CustomPropertyType * cpt = [self.flightProps PropTypeFromID:cfp.PropTypeID];
                 return cpt.Type != MFBWebServiceSvc_CFPPropertyType_cfpBoolean;
             }
@@ -1550,6 +1651,12 @@ static NSDateFormatter * dfSunriseSunset = nil;
                 break;
             case rowFlightEnd:
                 self.le.entryData.FlightEnd = nil;
+                break;
+            case rowBlockOut:
+            case rowBlockIn:
+            case rowTachStart:
+            case rowTachEnd:
+                [self.le.entryData removeProperty:[self propIDFromCockpitRow:row] withServerAuth:mfbApp().userProfile.AuthToken deleteSvc:self.flightProps];
                 break;
         }
         [self autoHobbs];

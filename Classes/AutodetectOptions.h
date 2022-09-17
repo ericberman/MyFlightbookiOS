@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2020 MyFlightbook, LLC
+ Copyright (C) 2017-2022 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -101,6 +101,11 @@ typedef NS_ENUM(NSInteger, flightTimeDetail) {
 + (BOOL) recordHighRes;
 + (BOOL) includeHeliports;
 + (BOOL) showFlightImages;
++ (BOOL) showTach;
++ (BOOL) showHobbs;
++ (BOOL) showBlock;
++ (BOOL) showEngine;
++ (BOOL) showFlight;
 + (flightTimeDetail) showFlightTimes;
 + (MKMapType) mapType;
 + (NightFlightOptions) nightFlightPref;

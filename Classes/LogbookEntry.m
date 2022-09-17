@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2021 MyFlightbook, LLC
+ Copyright (C) 2009-2022 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 12/2/09.
-//  Copyright 2009-2021, MyFlightbook LLC. All rights reserved.
+//  Copyright 2009-2022, MyFlightbook LLC. All rights reserved.
 //
 
 #import "LogbookEntry.h"
@@ -1107,16 +1107,24 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
     return nil;
 }
 
-- (void) removeProperty:(NSNumber *) idPropType {
+///Like RemoveProperty but deletes from the server if necessary (i.e., if it has a PropID > 0)
+- (void) removeProperty:(NSNumber *)idPropType withServerAuth:(NSString *) szAuthToken deleteSvc:(FlightProps *) fp {
     int idProp = idPropType.intValue;
     NSArray<MFBWebServiceSvc_CustomFlightProperty *> * r = [self.CustomProperties.CustomFlightProperty filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(MFBWebServiceSvc_CustomFlightProperty *  _Nullable cfp, NSDictionary<NSString *,id> * _Nullable bindings) {
         return cfp.PropTypeID.intValue == idProp;
     }]];
     if (r.count > 1)
         @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Multiple properties found with the same ID" userInfo:nil];
-    if (r.count == 1 && r[0].PropID.intValue > 0)
-        @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Removing a property with a positive ID will NOT remove the property from the server; delete the property instead" userInfo:nil];
+    if (r.count == 1 && r[0].PropID.intValue > 0) {
+        if (szAuthToken == nil || szAuthToken.length == 0 || fp == nil)
+            @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Removing a property with a positive ID but no authtoken or flight props service provided; delete the property instead" userInfo:nil];
+        [fp deleteProperty:r[0] forUser:szAuthToken];   // kick off thread to delete on the server
+    }
     [self.CustomProperties.CustomFlightProperty removeObjectsInArray:r];
+}
+
+- (void) removeProperty:(NSNumber *) idPropType {
+    [self removeProperty:idPropType withServerAuth:nil deleteSvc:nil];
 }
 
 - (MFBWebServiceSvc_CustomFlightProperty *) addProperty:(NSNumber *) idPropType withInteger:(NSNumber *) intVal
@@ -1167,6 +1175,24 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
     fp.DateValue = dt;
     [self.CustomProperties.CustomFlightProperty addObject:fp];
     return fp;
+}
+
+- (MFBWebServiceSvc_CustomFlightProperty *) setPropertyValue:(NSNumber *) idPropType withDecimal:(NSNumber *) decVal {
+    MFBWebServiceSvc_CustomFlightProperty * cfp = [self getExistingProperty:idPropType];
+    if (cfp == nil)
+        return [self addProperty:idPropType withDecimal:decVal];
+    else
+        cfp.DecValue = decVal;
+    return cfp;
+}
+
+- (MFBWebServiceSvc_CustomFlightProperty *) setPropertyValue:(NSNumber *) idPropType withDate:(NSDate *) dt {
+    MFBWebServiceSvc_CustomFlightProperty * cfp = [self getExistingProperty:idPropType];
+    if (cfp == nil)
+        return [self addProperty:idPropType withDate:dt];
+    else
+        cfp.DateValue = dt;
+    return cfp;
 }
 
 - (NSNumber *) parseNum:(id) s numType:(int) nt

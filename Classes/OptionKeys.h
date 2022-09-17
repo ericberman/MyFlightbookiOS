@@ -41,5 +41,10 @@
 #define keyNightLandingPref @"keyNightLandingPref"
 #define keySpeedUnitPref @"keySpeedUnitPref"
 #define keyAltUnitPref @"keyAltUnitPref"
+#define keyShowTach @"keyShowTach"
+#define keyShowHobbs @"keyShowHobbs"
+#define keyShowBlock @"keyShowBlock"
+#define keyShowEngine @"keyShowEngine"
+#define keyShowFlight @"keyShowFlight"
 
 #endif /* OptionKeys_h */

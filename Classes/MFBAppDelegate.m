@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2021 MyFlightbook, LLC
+ Copyright (C) 2009-2022 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -39,6 +39,7 @@
 #import "WPSAlertController.h"
 #import "SynchronousCalls.h"
 #import "MFBTheme.h"
+#import "OptionKeys.h"
 #import <UserNotifications/UserNotifications.h>
 
 #ifdef DEBUG
@@ -570,6 +571,9 @@ static MFBAppDelegate * _mainApp = nil;
         }];
         self.progressAlert = nil;
     }
+    
+    // set the default in-the-cockpit values.
+    [NSUserDefaults.standardUserDefaults registerDefaults:@{ keyShowHobbs : @YES, keyShowEngine: @YES, keyShowFlight: @YES }];
 
 	return YES;
 }
