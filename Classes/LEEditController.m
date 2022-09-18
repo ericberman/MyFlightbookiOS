@@ -463,18 +463,21 @@ static NSArray * rgAllCockpitRows = nil;
         switch (row.intValue) {
             case rowTachStart:
             case rowTachEnd:
-                return AutodetectOptions.showTach || [l getExistingProperty:@(PropTypeID_TachStart)].DecValue.doubleValue > 0 || [l getExistingProperty:@(PropTypeID_TachEnd)].DecValue.doubleValue > 0;
+                return AutodetectOptions.showTach;
             case rowHobbsStart:
             case rowHobbsEnd:
+                // Have to show hobbs if present since it won't show in properties
                 return AutodetectOptions.showHobbs || l.HobbsStart.doubleValue > 0.0 || l.HobbsEnd.doubleValue > 0.0;
             case rowEngineStart:
             case rowEngineEnd:
+                // Have to show engine if present since it won't show in properties
                 return AutodetectOptions.showEngine || l.isKnownEngineStart || l.isKnownEngineEnd;
             case rowBlockOut:
             case rowBlockIn:
-                return AutodetectOptions.showBlock || [l getExistingProperty:@(PropTypeID_BlockOut)].DecValue.doubleValue > 0 || [l getExistingProperty:@(PropTypeID_BlockIn)].DecValue.doubleValue > 0;
+                return AutodetectOptions.showBlock;
             case rowFlightStart:
             case rowFlightEnd:
+                // Have to show flight if present since it won't show in properties
                 return AutodetectOptions.showFlight || l.isKnownFlightStart || l.isKnownFlightEnd;
             case rowGPS:
                 return self.le.entryData.isNewFlight;

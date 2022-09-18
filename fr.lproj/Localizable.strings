@@ -1088,7 +1088,7 @@ Vous pouvez choisir un dans la liste fournie, le modifier, ou faire un de vos pr
 "InTheCockpitEngine" = "Afficher le démarrage/l'arrêt du moteur";
 
 /* Cockpit: Block */
-"InTheCockpitBlock" = "Afficher le bloc d'entrée/de sortie";
+"InTheCockpitBlock" = "Afficher le bloc de sortie/d'entrée";
 
 /* Cockpit: Flight */
 "InTheCockpitFlight" = "Afficher le départ/arrêt du vol";
