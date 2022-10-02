@@ -326,6 +326,29 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
     }
 }
 
+- (void) autoFillFuel {
+    MFBWebServiceSvc_CustomFlightProperty * cfpFuelAtStart = [self.entryData getExistingProperty:@(PropTypeID_FuelAtStart)];
+    MFBWebServiceSvc_CustomFlightProperty * cfpFuelAtEnd = [self.entryData getExistingProperty:@(PropTypeID_FuelAtEnd)];
+    
+    double fuelConsumed = MAX(cfpFuelAtStart.DecValue.doubleValue - cfpFuelAtEnd.DecValue.doubleValue, 0);
+    if (fuelConsumed > 0) {
+        MFBWebServiceSvc_CustomFlightProperty * cfp = [self.entryData getExistingProperty:@(PropTypeID_FuelConsumed)];
+        if (cfp == nil)
+            cfp = [self.entryData addProperty:@(PropTypeID_FuelConsumed) withDecimal:@(fuelConsumed)];
+        else
+            cfp.DecValue = @(fuelConsumed);
+        
+        if (self.entryData.TotalFlightTime.doubleValue > 0) {
+            double burnRate = fuelConsumed / self.entryData.TotalFlightTime.doubleValue;
+            cfp = [self.entryData getExistingProperty:@(PropTypeID_FuelBurnRate)];
+            if (cfp == nil)
+                cfp = [self.entryData addProperty:@(PropTypeID_FuelBurnRate) withDecimal:@(burnRate)];
+            else
+                cfp.DecValue = @(burnRate);
+        }
+    }
+}
+
 - (void) autoFillInstruction {
     // Check for ground instruction given or received
     double dual = self.entryData.Dual.doubleValue;
@@ -361,6 +384,7 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
 
 - (BOOL) autoFillFinish {
     [self autoFillCostOfFlight];
+    [self autoFillFuel];
     [self autoFillInstruction];
     
     return YES;
