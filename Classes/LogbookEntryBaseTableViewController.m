@@ -208,6 +208,22 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
         return;
     }
     
+    if (self.le.entryData.isNewFlight || self.le.entryData.CFISignatureState != MFBWebServiceSvc_SignatureState_Valid)
+        [self submitFlightConfirmed:asPending];
+    else {
+        UIAlertController * alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ConfirmEdit", @"Confirm edit")
+                                                                        message:NSLocalizedString(@"ConfirmModifySignedFlight", @"Modify signed flight confirmation")
+                                                                 preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel (button)") style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"OK") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self submitFlightConfirmed:asPending];
+        }]];
+        [self presentViewController:alert animated:YES completion:nil];
+        return;
+    }
+}
+
+- (void) submitFlightConfirmed:(BOOL) asPending {
     MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
     if (![app.userProfile isValid]) // should never happen - app delegate should have prevented this page from showing.
         return;

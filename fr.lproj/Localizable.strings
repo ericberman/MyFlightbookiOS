@@ -106,6 +106,12 @@
 /* Reset Flight confirmation */
 "Are you sure you want to reset this flight?  This CANNOT be undone" = "Enlever ce vol?  Ne peut être annulé";
 
+/* Modify signed flight confirmation */
+"ConfirmModifySignedFlight" = "Vous modifiez un vol signé; cela pourrait invalider la signature. Êtes-vous sûr?";
+
+/* Confirm edit */
+"ConfirmEdit" = "Confirmer Modifier";
+
 /* Error message title */
 "Authentication Issue" = "Problème d'authentication";
 
