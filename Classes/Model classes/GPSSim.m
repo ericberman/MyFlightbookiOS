@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2021 MyFlightbook, LLC
+ Copyright (C) 2017-2022 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -238,6 +238,7 @@
     
     BOOL fSetXC = NO;
     BOOL fSyntheticPath = NO;
+    BOOL fSetNight = NO;
     
     if (le.entryData.FlightData == nil || le.entryData.FlightData.length == 0) {
         if (blockOut != nil && blockIn != nil) {
@@ -272,6 +273,7 @@
         le.entryData.FullStopLandings = @(0);
         le.entryData.NightLandings = @(0);
         [le.entryData removeProperty:@PropTypeID_NightTakeOff];
+        fSetNight = YES;
         
         NSString * szDataSaved = le.entryData.FlightData;
         NSDate * tsFinal = [GPSSim autoFill:le fromTelemetry:t allowRecording:NO];
@@ -295,8 +297,11 @@
         le.entryData.HobbsEnd.doubleValue - le.entryData.HobbsStart.doubleValue :
         ((blockIn != nil && blockOut != nil && [blockIn compare:blockOut] == NSOrderedDescending) ? [blockIn timeIntervalSinceDate:blockOut] / 3600.0 : 0.0);
     
-    if ([AutodetectOptions roundTotalToNearestTenth])
+    if ([AutodetectOptions roundTotalToNearestTenth]) {
         dtTotal = round(dtTotal * 10.0) / 10.0;
+        if (fSetNight)
+            le.entryData.Nighttime = @(round(le.entryData.Nighttime.doubleValue * 10.0) / 10.0);
+    }
 
     if (le.entryData.TotalFlightTime.doubleValue == 0)
         le.entryData.TotalFlightTime = @(dtTotal);
