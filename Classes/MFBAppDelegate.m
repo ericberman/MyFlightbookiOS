@@ -475,7 +475,6 @@ static MFBAppDelegate * _mainApp = nil;
     
     [self createLocManager];
     self.mfbloc.cSamplesSinceWaking = 0;
-    [self.mfbloc setUpLocManager];
     self.mfbloc.fRecordingIsPaused = NO;
 
     // Start reachability notifier

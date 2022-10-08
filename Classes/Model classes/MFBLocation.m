@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2021 MyFlightbook, LLC
+ Copyright (C) 2017-2022 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -208,12 +208,6 @@ static int vLanding = LANDING_SPEED_DEFAULT;
                 [self.locManager requestAlwaysAuthorization];
         }
         
-        if (![self isLocationServicesEnabled])
-        {
-            self.locManager = nil;
-            return;
-        }
-        
         self.locManager.delegate = self;
         self.locManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
         self.locManager.distanceFilter = kCLDistanceFilterNone;
@@ -229,6 +223,10 @@ static int vLanding = LANDING_SPEED_DEFAULT;
                 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
+    if (status == kCLAuthorizationStatusDenied || status == kCLAuthorizationStatusRestricted) {
+        self.locManager = nil;
+        return;
+    }
     [self.locManager startUpdatingLocation];
     if ([self.locManager respondsToSelector:@selector(setAllowsBackgroundLocationUpdates:)])
         self.locManager.allowsBackgroundLocationUpdates = YES;
@@ -236,7 +234,7 @@ static int vLanding = LANDING_SPEED_DEFAULT;
 
 - (BOOL) isLocationServicesEnabled
 {
-    return [CLLocationManager locationServicesEnabled];
+    return CLLocationManager.authorizationStatus == kCLAuthorizationStatusAuthorizedAlways || CLLocationManager.authorizationStatus == kCLAuthorizationStatusAuthorizedWhenInUse;
 }
 
 + (BOOL) isSignificantChangeMonitoringEnabled
