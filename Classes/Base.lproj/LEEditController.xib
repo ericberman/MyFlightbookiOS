@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -91,7 +91,7 @@
                         </connections>
                     </textField>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="326" userLabel="btnAddAircraft">
-                        <rect key="frame" x="279" y="10" width="25" height="24"/>
+                        <rect key="frame" x="278" y="9" width="26" height="26"/>
                         <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                         <state key="normal">
                             <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -101,7 +101,7 @@
                         </connections>
                     </button>
                     <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="329" userLabel="txtAircraft">
-                        <rect key="frame" x="149" y="5" width="120" height="34"/>
+                        <rect key="frame" x="148" y="5" width="120" height="34"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="zbZ-bW-v7i"/>
                         </constraints>
@@ -182,7 +182,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="337" userLabel="txtRoute">
-                        <rect key="frame" x="16" y="22" width="218" height="16"/>
+                        <rect key="frame" x="16" y="22" width="216" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no"/>
                         <connections>
@@ -190,14 +190,14 @@
                         </connections>
                     </textField>
                     <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="338" userLabel="btnViewRoute">
-                        <rect key="frame" x="279" y="10" width="25" height="24"/>
+                        <rect key="frame" x="278" y="9" width="26" height="26"/>
                         <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                         <connections>
                             <action selector="viewClosest" destination="-1" eventType="touchDown" id="340"/>
                         </connections>
                     </button>
                     <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="339" userLabel="btnNearest">
-                        <rect key="frame" x="244" y="10" width="25" height="24"/>
+                        <rect key="frame" x="242" y="9" width="26" height="26"/>
                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
                         <state key="normal">
                             <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -271,7 +271,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="365">
-                        <rect key="frame" x="160" y="41" width="47" height="27"/>
+                        <rect key="frame" x="160" y="41" width="144" height="27"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                         <state key="normal" title="Holding">
                             <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -322,7 +322,7 @@
                         </connections>
                     </textField>
                     <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0al-24-wNt" userLabel="btnAddApproach">
-                        <rect key="frame" x="279" y="15.5" width="25" height="24"/>
+                        <rect key="frame" x="278" y="14.5" width="26" height="26"/>
                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
                         <state key="normal">
                             <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -333,6 +333,7 @@
                     </button>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="365" secondAttribute="trailing" constant="16" id="661-Gf-YPP"/>
                     <constraint firstItem="381" firstAttribute="leading" secondItem="361" secondAttribute="trailing" constant="8" symbolic="YES" id="7Yn-MV-aAI"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="363" secondAttribute="trailing" constant="20" symbolic="YES" id="AMb-rx-pY8"/>
                     <constraint firstItem="387" firstAttribute="leading" secondItem="381" secondAttribute="leading" id="ChP-9Q-Cvy"/>
@@ -343,7 +344,6 @@
                     <constraint firstItem="360" firstAttribute="centerY" secondItem="cvw-td-8w4" secondAttribute="centerY" multiplier="2:4" id="eeE-8n-a5H"/>
                     <constraint firstItem="384" firstAttribute="centerY" secondItem="362" secondAttribute="centerY" id="ehQ-aY-TKl"/>
                     <constraint firstItem="362" firstAttribute="leading" secondItem="361" secondAttribute="leading" id="iq3-mc-tYv"/>
-                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="365" secondAttribute="trailing" constant="20" symbolic="YES" id="lWK-sg-nhg"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="362" secondAttribute="trailing" constant="20" symbolic="YES" id="oPT-uJ-av1"/>
                     <constraint firstItem="0al-24-wNt" firstAttribute="centerY" secondItem="360" secondAttribute="centerY" id="pX5-t2-NMS"/>
                     <constraint firstItem="363" firstAttribute="centerY" secondItem="cvw-td-8w4" secondAttribute="centerY" multiplier="6:4" id="qiq-LR-dk4"/>
