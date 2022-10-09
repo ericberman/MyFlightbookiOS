@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2013-2020 MyFlightbook, LLC
+ Copyright (C) 2013-2022 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -323,6 +323,24 @@ BOOL fSelectFirst = NO;
 {
     EditCell * ec = (EditCell *) [self.tableView cellForRowAtIndexPath:self.ipActive];
     ec.txt.text = ec.txtML.text = @"";
+}
+
+// Issue #284 - trap any physical keyboard tab events.
+- (void) pressesBegan:(NSSet<UIPress *> *)presses withEvent:(UIPressesEvent *)event {
+    for (UIPress * press in presses) {
+        if (press.key != nil && press.key.keyCode == UIKeyboardHIDUsageKeyboardTab) {
+            if (press.key.modifierFlags == UIKeyModifierShift) {
+                if (self.canPrev)
+                    [self prevClicked];
+            }
+            else {
+                if (self.canNext)
+                    [self nextClicked];
+            }
+            return;
+        }
+    }
+    [super pressesBegan:presses withEvent:event];
 }
 
 #pragma mark - Camera support
