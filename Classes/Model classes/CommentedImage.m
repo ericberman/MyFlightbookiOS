@@ -700,6 +700,9 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
 
 + (UIImage*)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize
 {
+    if (image == nil)
+        return nil;
+    
 	// compute the size that preserves the aspect ratio.
 	CGFloat ratioX = newSize.width / image.size.width;
 	CGFloat ratioY = newSize.height / image.size.height;
