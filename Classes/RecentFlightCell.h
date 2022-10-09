@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-2022 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MFBWebServiceSvc.h"
+#import "LogbookEntry.h"
 #import "CommentedImage.h"
 
 @interface RecentFlightCell : UITableViewCell {
@@ -34,7 +34,14 @@
 
 @property (nonatomic, strong) IBOutlet UIImageView * imgHasPics;
 @property (nonatomic, strong) IBOutlet UIImageView * imgSigState;
-@property (nonatomic, strong) IBOutlet UITextView * lblComments;
+@property (nonatomic, strong) IBOutlet UILabel * lblComments;
+@property (nonatomic, strong) IBOutlet NSLayoutConstraint * imgWidthConstraint;
+@property (nonatomic, strong) IBOutlet NSLayoutConstraint * imgHeightConstraint;
+@property (nonatomic, strong) IBOutlet NSLayoutConstraint * sigWidthConstraint;
+@property (nonatomic, strong) IBOutlet NSLayoutConstraint * sigHeightConstraint;
 
-- (void) setFlight:(MFBWebServiceSvc_LogbookEntry *) le withImage:(CommentedImage *)ci withError:(NSString *) szErr;
+typedef enum recentFlightRowType { textOnly, textAndSig, textAndImage, textSigAndImage } recentRowType;
+
+- (void) setFlight:(MFBWebServiceSvc_LogbookEntry *)le withImage:(id)ci forTable:(UITableView *) tableView;
++ (RecentFlightCell *) newRecentFlightCell:(recentRowType) rowType;
 @end

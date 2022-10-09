@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2021 MyFlightbook, LLC
+ Copyright (C) 2017-2022 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 1/14/12.
-//  Copyright (c) 2012-2021 MyFlightbook LLC. All rights reserved.
+//  Copyright (c) 2012-2022 MyFlightbook LLC. All rights reserved.
 //
 
 #import "RecentFlightCell.h"
@@ -33,15 +33,30 @@
 
 @implementation RecentFlightCell
 
-@synthesize imgHasPics, imgSigState, lblComments;
+@synthesize imgHasPics, imgSigState, lblComments, imgWidthConstraint, imgHeightConstraint, sigWidthConstraint, sigHeightConstraint;
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
-    }
-    return self;
++ (RecentFlightCell *) newRecentFlightCell:(recentRowType) rowType {
+    NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"RecentFlightCell" owner:self options:nil];
+    RecentFlightCell * cell;
+    id firstObject = topLevelObjects[0];
+    if ([firstObject isKindOfClass:[RecentFlightCell class]] )
+        cell = firstObject;
+    else
+        cell = (RecentFlightCell *) topLevelObjects[1];
+        
+    if (rowType == textOnly || rowType == textAndImage)
+        cell.sigWidthConstraint.constant = cell.sigHeightConstraint.constant = 0;
+    if (rowType == textOnly || rowType == textAndSig)
+        cell.imgWidthConstraint.constant = cell.imgHeightConstraint.constant = 0;
+    
+    [cell setNeedsLayout];
+    [cell layoutSubviews];
+    
+    return cell;
+}
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    return [super initWithStyle:style reuseIdentifier:reuseIdentifier];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -49,41 +64,6 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
-}
-
-
-#define MARGIN 3.0
-
-- (void) layoutSubviews
-{
-    [super layoutSubviews];
-    CGRect f = self.contentView.frame;
-    // x, y, width, height
-    CGFloat dxWidth = f.size.height * 1.2;
-    CGFloat dxHeight = f.size.height;
-    
-    BOOL fShowImages = [AutodetectOptions showFlightImages];
-    
-    self.imgHasPics.hidden = !fShowImages;
-    
-    if (!fShowImages)
-        dxWidth = MARGIN;
-
-    CGRect rImage = CGRectMake(MARGIN, 1.0, dxWidth - 2 * MARGIN, dxHeight - 1.0);
-    self.imgHasPics.frame = rImage;
-    self.imgHasPics.contentMode = UIViewContentModeScaleAspectFit;
-    
-    CGFloat imageWidth =  fShowImages ? self.imgHasPics.frame.size.width : 0;
-    
-    CGFloat xLabels = rImage.origin.x + imageWidth + MARGIN;
-    CGFloat dxSig =  (self.imgSigState.hidden ? 0 : self.imgSigState.frame.size.width);
-    
-    CGRect rComments = CGRectMake(xLabels, self.lblComments.frame.origin.y, f.size.width - xLabels -2 * MARGIN - dxSig, (dxHeight - MARGIN - self.lblComments.frame.origin.y));
-    self.lblComments.frame = rComments;
-    
-    // remove margins/padding.
-    [self.lblComments setTextContainerInset:UIEdgeInsetsZero];
-    self.lblComments.textContainer.lineFragmentPadding = 0; // to remove left padding
 }
 
 - (NSAttributedString *) attributedLabel:(NSString *) label forValue:(NSNumber *) num withFont:(UIFont *) font inHHMM:(BOOL) useHHMM numType:(int) nt
@@ -130,7 +110,48 @@
     return attrString;
 }
 
-- (void) setFlight:(MFBWebServiceSvc_LogbookEntry *)le withImage:(id)ci withError:(NSString *) szErr
+- (void) layoutForTable:(UITableView *) tableView {
+
+    // Technique here from https://stackoverflow.com/questions/18746929/using-auto-layout-in-uitableview-for-dynamic-cell-layouts-variable-row-heights for
+    // Make sure the constraints have been set up for this cell, since it
+    // may have just been created from scratch. Use the following lines,
+    // assuming you are setting up constraints from within the cell's
+    // updateConstraints method:
+    [self setNeedsUpdateConstraints];
+    [self updateConstraintsIfNeeded];
+
+    // Set the width of the cell to match the width of the table view. This
+    // is important so that we'll get the correct cell height for different
+    // table view widths if the cell's height depends on its width (due to
+    // multi-line UILabels word wrapping, etc). We don't need to do this
+    // above in -[tableView:cellForRowAtIndexPath] because it happens
+    // automatically when the cell is used in the table view. Also note,
+    // the final width of the cell may not be the width of the table view in
+    // some cases, for example when a section index is displayed along
+    // the right side of the table view. You must account for the reduced
+    // cell width.
+    self.bounds = CGRectMake(0.0, 0.0, CGRectGetWidth(tableView.bounds), CGRectGetHeight(self.bounds));
+
+    // Do the layout pass on the cell, which will calculate the frames for
+    // all the views based on the constraints. (Note that you must set the
+    // preferredMaxLayoutWidth on multiline UILabels inside the
+    // -[layoutSubviews] method of the UITableViewCell subclass, or do it
+    // manually at this point before the below 2 lines!)
+    
+    // do it once to figure out the width for the comments...
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
+
+    // Now that we know the width of the comments label, set that width for height adjustment, but be a little narrow to ensure we get full height and account for padding!
+    self.lblComments.preferredMaxLayoutWidth = self.lblComments.frame.size.width - 15;
+    
+    // Now do it again since the preferredMaxLayoutWidth is now known
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
+}
+
+
+- (void) setFlight:(MFBWebServiceSvc_LogbookEntry *)le withImage:(id)ci forTable:(UITableView *) tableView
 {
     UIColor * textColor;
     UIColor * dimmedColor;
@@ -155,7 +176,7 @@
     NSDateFormatter * df = [[NSDateFormatter alloc] init];
     [df setDateStyle:NSDateFormatterShortStyle];
         
-    szErr = [szErr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString * szErr = [le.ErrorString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (szErr.length != 0)
         [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", szErr] attributes:@{NSForegroundColorAttributeName : redColor}]];
 
@@ -204,26 +225,22 @@
         [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldPIC", @"Entry Field: PIC") forValue:le.PIC withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
         
         if (detail == flightTimeDetailed) {
+            MFBWebServiceSvc_CustomFlightProperty * blockOut = [le getExistingProperty:@(PropTypeID_BlockOut)];
+            MFBWebServiceSvc_CustomFlightProperty * blockIn = [le getExistingProperty:@(PropTypeID_BlockIn)];
+            
+            if (blockIn != nil && blockOut != nil)
+                [attrString appendAttributedString:[self attributedUTCDateRange:NSLocalizedString(@"Block Time", @"Auto-fill total based on block time") start:blockOut.DateValue end:blockIn.DateValue withFont:boldFont]];
+            
             [attrString appendAttributedString:[self attributedUTCDateRange:NSLocalizedString(@"Engine Time", @"Auto-fill based on engine time") start:le.EngineStart end:le.EngineEnd withFont:boldFont]];
             [attrString appendAttributedString:[self attributedUTCDateRange:NSLocalizedString(@"Flight Time", @"Auto-fill based on time in the air") start:le.FlightStart end:le.FlightEnd withFont:boldFont]];
-            
-            NSDate * blockOut = nil;
-            NSDate * blockIn = nil;
-            
-            for (MFBWebServiceSvc_CustomFlightProperty * cfp in le.CustomProperties.CustomFlightProperty) {
-                if (cfp.PropTypeID.integerValue == PropTypeID_BlockOut)
-                    blockOut = cfp.DateValue;
-                if (cfp.PropTypeID.integerValue == PropTypeID_BlockIn)
-                    blockIn = cfp.DateValue;
-            }
-            if (blockIn != nil && blockOut != nil)
-                [attrString appendAttributedString:[self attributedUTCDateRange:NSLocalizedString(@"Block Time", @"Auto-fill total based on block time") start:blockOut end:blockIn withFont:boldFont]];
         }
     }
     
+    self.lblComments.lineBreakMode = NSLineBreakByWordWrapping;
+    self.lblComments.numberOfLines = 0;
     self.lblComments.attributedText = attrString;
-    
-    if ([AutodetectOptions showFlightImages]) {
+
+    if (AutodetectOptions.showFlightImages) {
         self.imgHasPics.image = le.FlightImages.MFBImageInfo.count > 0 ? nil : [UIImage imageNamed:@"noimage"];
         
         if (ci != nil && [ci hasThumbnailCache])
@@ -237,5 +254,7 @@
         self.imgSigState.image = [UIImage imageNamed:@"siginvalid"];
     else
         self.imgSigState.image = nil;
+    
+    [self layoutForTable:tableView];
 }
 @end

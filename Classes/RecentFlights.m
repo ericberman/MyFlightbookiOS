@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2010-2021 MyFlightbook, LLC
+ Copyright (C) 2010-2022 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -46,6 +46,7 @@
 @property (readwrite, atomic) NSInteger callsAwaitingCompletion;
 @property (readwrite, atomic) BOOL refreshOnResultsComplete;
 @property (atomic, strong) NSMutableArray<NSNumber *> * activeSections;
+@property (atomic, strong) NSMutableDictionary<NSString *, RecentFlightCell *> * offscreenCells;
 
 - (BOOL) hasUnsubmittedFlights;
 @end
@@ -57,7 +58,7 @@ static const int cFlightsPageSize=15;   // number of flights to download at a ti
 NSInteger iFlightInProgress, cFlightsToSubmit;
 BOOL fCouldBeMoreFlights;
 
-@synthesize rgFlights, errorString, fq, cellProgress, uploadInProgress, dictImages, ipSelectedCell, JSONObjToImport, urlTelemetry, rgPendingFlights, callsAwaitingCompletion, refreshOnResultsComplete, activeSections;
+@synthesize rgFlights, errorString, fq, cellProgress, uploadInProgress, dictImages, ipSelectedCell, JSONObjToImport, urlTelemetry, rgPendingFlights, callsAwaitingCompletion, refreshOnResultsComplete, activeSections, offscreenCells;
 
 - (void) asyncLoadThumbnailsForFlights:(NSArray *) flights {
     if (flights == nil || ![AutodetectOptions showFlightImages])
@@ -118,8 +119,8 @@ BOOL fCouldBeMoreFlights;
     [app registerNotifyDataChanged:self];
     [app registerNotifyResetAll:self];
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        self.tableView.rowHeight = 80;
+    self.tableView.estimatedRowHeight = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 80 : 44;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
     [self.navigationController setToolbarHidden:YES];
 }
 
@@ -584,11 +585,46 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectUnsubmittedFlights, sec
     }
 }
 
+- (MFBWebServiceSvc_LogbookEntry *) flightForIndexPath:(NSIndexPath *) indexPath {
+    int section = [self sectionFromIndexPathSection:indexPath.section];
+    if (section == sectPendingFlights)
+        return self.rgPendingFlights[indexPath.row];
+    else if (section == sectExistingFlights && indexPath.row < self.rgFlights.count)
+        return (MFBWebServiceSvc_LogbookEntry *) (self.rgFlights)[indexPath.row];
+    else
+        return nil;
+}
+
+
+- (recentRowType) rowTypeForFlight:(MFBWebServiceSvc_LogbookEntry *) le {
+    BOOL fShowImages = AutodetectOptions.showFlightImages;
+    BOOL fShowSig = le.CFISignatureState == MFBWebServiceSvc_SignatureState_Valid || le.CFISignatureState == MFBWebServiceSvc_SignatureState_Invalid;
+    return fShowImages ? (fShowSig ? textSigAndImage : textAndImage) : (fShowSig ? textAndSig : textOnly);
+}
+
+- (NSString *) reuseIDForRowType:(recentRowType) rt {
+    static NSString * RFCellIdentifierText = @"recentFlightCellText";
+    static NSString * RFCellIdentifierSig = @"recentFlightCellSig";
+    static NSString * RFCellIdentifierImg = @"recentFlightCellImg";
+    static NSString * RFCellIdentifierImgSig = @"recentflightcellSigAndImg";
+
+    switch (rt) {
+        case textOnly:
+            return RFCellIdentifierText;
+        case textAndSig:
+            return RFCellIdentifierSig;
+        case textAndImage:
+            return RFCellIdentifierImg;
+        case textSigAndImage:
+        default:
+            return RFCellIdentifierImgSig;
+    }
+}
+
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MFBWebServiceSvc_LogbookEntry * le = nil;
     CommentedImage * ci = nil;
-    NSString * errString = @"";
     
     int section = [self sectionFromIndexPathSection:indexPath.section];
     switch (section) {
@@ -612,7 +648,7 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectUnsubmittedFlights, sec
             return self.cellProgress;
         }
         case sectPendingFlights:
-            le = self.rgPendingFlights[indexPath.row];
+            le = [self flightForIndexPath:indexPath];
             break;
         case sectUnsubmittedFlights: {
             // We could have a race condition where we are fetching a flight after it has been submitted.
@@ -626,9 +662,9 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectUnsubmittedFlights, sec
                 l = [[LogbookEntry alloc] init];
                 l.entryData.Date = [NSDate date];
                 l.entryData.TailNumDisplay = @"...";
+                l.errorString = ex.debugDescription;
             }
 
-            errString = l.errorString;
             ci = (l.rgPicsForFlight != nil && l.rgPicsForFlight.count > 0) ? (CommentedImage *) (l.rgPicsForFlight)[0] : nil;
             le = l.entryData;
             NSAssert(le != nil, @"NULL le in unsbmitted flights - we are going to crash!!!");
@@ -642,7 +678,7 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectUnsubmittedFlights, sec
                 return [self waitCellWithText:NSLocalizedString(@"Getting Recent Flights...", @"Progress - getting recent flights")];
             }
             
-            le = (MFBWebServiceSvc_LogbookEntry *) (self.rgFlights)[indexPath.row];
+            le = [self flightForIndexPath:indexPath];
             @synchronized (self) {
                 ci = (le == nil || le.FlightID == nil) ? nil : (CommentedImage *) (self.dictImages)[le.FlightID];
             }
@@ -655,22 +691,19 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectUnsubmittedFlights, sec
     NSAssert(le != nil, @"NULL le - we are going to crash!!!");
     
     // If we are here, we are showing actual flights.
-    static NSString * CellIdentifier = @"recentflightcell";
-    RecentFlightCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"RecentFlightCell" owner:self options:nil];
-        id firstObject = topLevelObjects[0];
-        if ([firstObject isKindOfClass:[RecentFlightCell class]] )
-            cell = firstObject;
-        else
-            cell = topLevelObjects[1];
-    }
+    recentRowType rt = [self rowTypeForFlight:le];
+    NSString * identifier = [self reuseIDForRowType:rt];
+    RecentFlightCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if (cell == nil)
+        cell = [RecentFlightCell newRecentFlightCell:rt];
     NSAssert(cell != nil, @"nil flight cell - we are going to crash!!!");
     
     if (le.TailNumDisplay == nil)
         le.TailNumDisplay = [[Aircraft sharedAircraft] AircraftByID:[le.AircraftID intValue]].TailNumber;
     
-    [cell setFlight:le withImage:ci withError:errString];
+    // this will force a layout
+    [cell setFlight:le withImage:ci forTable:tableView];
+
     if (@available(iOS 13.0, *)) {
         if (section == sectUnsubmittedFlights || section == sectPendingFlights)
             cell.backgroundColor = UIColor.systemGray4Color;
@@ -679,6 +712,52 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectUnsubmittedFlights, sec
     }
     
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // return default heights if it's OTHER than a pending flight or existing flight - which we can tell by nil le
+    MFBWebServiceSvc_LogbookEntry * le = [self flightForIndexPath:indexPath];
+    if (le == nil)
+        return tableView.rowHeight;
+    
+    CommentedImage * ci = nil;
+    @synchronized (self) {
+        ci = (le == nil || le.FlightID == nil || [le.class isKindOfClass:MFBWebServiceSvc_PendingFlight.class]) ? nil : (CommentedImage *) (self.dictImages)[le.FlightID];
+    }
+    
+    // Determine which reuse identifier should be used for the cell at this
+    // index path.
+    recentRowType rt = [self rowTypeForFlight:le];
+    NSString * reuseIdentifier = [self reuseIDForRowType:rt];
+
+    // Use a dictionary of offscreen cells to get a cell for the reuse
+    // identifier, creating a cell and storing it in the dictionary if one
+    // hasn't already been added for the reuse identifier. WARNING: Don't
+    // call the table view's dequeueReusableCellWithIdentifier: method here
+    // because this will result in a memory leak as the cell is created but
+    // never returned from the tableView:cellForRowAtIndexPath: method!
+    if (self.offscreenCells == nil)
+        self.offscreenCells = [NSMutableDictionary new];
+    
+    RecentFlightCell *cell = [self.offscreenCells objectForKey:reuseIdentifier];
+    if (!cell) {
+        cell = [RecentFlightCell newRecentFlightCell:rt];
+        [self.offscreenCells setObject:cell forKey:reuseIdentifier];
+    }
+    
+    // Configure the cell with content for the given indexPath.  This will force a layout
+    [cell setFlight:le withImage:ci forTable:tableView];
+
+    // Get the actual height required for the cell's contentView
+    CGFloat height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingExpandedSize].height;
+
+    // Add an extra point to the height to account for the cell separator,
+    // which is added between the bottom of the cell's contentView and the
+    // bottom of the table view cell.
+    height += 1.0;
+
+    return MAX(height, tableView.estimatedRowHeight);
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
