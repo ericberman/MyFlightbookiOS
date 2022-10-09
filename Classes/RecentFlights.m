@@ -625,6 +625,7 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectUnsubmittedFlights, sec
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MFBWebServiceSvc_LogbookEntry * le = nil;
     CommentedImage * ci = nil;
+    NSString * szErr = @"";
     
     int section = [self sectionFromIndexPathSection:indexPath.section];
     switch (section) {
@@ -664,6 +665,8 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectUnsubmittedFlights, sec
                 l.entryData.TailNumDisplay = @"...";
                 l.errorString = ex.debugDescription;
             }
+            
+            szErr = l.errorString;
 
             ci = (l.rgPicsForFlight != nil && l.rgPicsForFlight.count > 0) ? (CommentedImage *) (l.rgPicsForFlight)[0] : nil;
             le = l.entryData;
@@ -702,7 +705,7 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectUnsubmittedFlights, sec
         le.TailNumDisplay = [[Aircraft sharedAircraft] AircraftByID:[le.AircraftID intValue]].TailNumber;
     
     // this will force a layout
-    [cell setFlight:le withImage:ci forTable:tableView];
+    [cell setFlight:le withImage:ci errorString:szErr forTable:tableView];
 
     if (@available(iOS 13.0, *)) {
         if (section == sectUnsubmittedFlights || section == sectPendingFlights)
@@ -747,7 +750,7 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectUnsubmittedFlights, sec
     }
     
     // Configure the cell with content for the given indexPath.  This will force a layout
-    [cell setFlight:le withImage:ci forTable:tableView];
+    [cell setFlight:le withImage:ci errorString:@"" forTable:tableView];
 
     // Get the actual height required for the cell's contentView
     CGFloat height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingExpandedSize].height;

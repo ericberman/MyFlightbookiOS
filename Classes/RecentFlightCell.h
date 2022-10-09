@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 1/14/12.
-//  Copyright (c) 2012-2018 MyFlightbook LLC. All rights reserved.
+//  Copyright (c) 2012-2022 MyFlightbook LLC. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -42,6 +42,6 @@
 
 typedef enum recentFlightRowType { textOnly, textAndSig, textAndImage, textSigAndImage } recentRowType;
 
-- (void) setFlight:(MFBWebServiceSvc_LogbookEntry *)le withImage:(id)ci forTable:(UITableView *) tableView;
+- (void) setFlight:(MFBWebServiceSvc_LogbookEntry *)le withImage:(id)ci errorString:(NSString *) szErr forTable:(UITableView *) tableView;
 + (RecentFlightCell *) newRecentFlightCell:(recentRowType) rowType;
 @end

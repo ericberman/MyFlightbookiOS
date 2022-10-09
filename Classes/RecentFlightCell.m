@@ -151,7 +151,7 @@
 }
 
 
-- (void) setFlight:(MFBWebServiceSvc_LogbookEntry *)le withImage:(id)ci forTable:(UITableView *) tableView
+- (void) setFlight:(MFBWebServiceSvc_LogbookEntry *)le withImage:(id)ci errorString:(NSString *) szErr forTable:(UITableView *) tableView
 {
     UIColor * textColor;
     UIColor * dimmedColor;
@@ -176,7 +176,7 @@
     NSDateFormatter * df = [[NSDateFormatter alloc] init];
     [df setDateStyle:NSDateFormatterShortStyle];
         
-    NSString * szErr = [le.ErrorString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    szErr = [szErr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (szErr.length != 0)
         [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", szErr] attributes:@{NSForegroundColorAttributeName : redColor}]];
 
