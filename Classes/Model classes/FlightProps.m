@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2010-2021 MyFlightbook, LLC
+ Copyright (C) 2010-2022 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -64,7 +64,7 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
     return shared;
 }
 
-+ (NSMutableArray *) sharedPropTypes
++ (NSMutableArray<MFBWebServiceSvc_CustomPropertyType *> *) sharedPropTypes;
 {
     static dispatch_once_t pred;
     static NSMutableArray * shared = nil;
@@ -339,7 +339,7 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
 	
 	switch (cpt.Type) {
 		case MFBWebServiceSvc_CFPPropertyType_cfpBoolean:
-			szValue = (fp.BoolValue.boolValue) ? NSLocalizedString(@"Yes", @"True for a true/false property (e.g., flight was a checkride: yes/no)") : NSLocalizedString(@"No", @"False for a true/false property (e.g., flight was a checkride: yes/no");
+			szValue = (fp.BoolValue.boolValue) ? @" ✓" : @"";
 			break;
 		case MFBWebServiceSvc_CFPPropertyType_cfpCurrency:
 		case MFBWebServiceSvc_CFPPropertyType_cfpDecimal:
@@ -601,6 +601,28 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
 		default:
 			break;
 	}	
+}
+
+- (NSAttributedString *) formatForDisplay:(UIColor *) labelColor :(UIColor *) valueColor :(UIFont *) labelFont :(UIFont *) valueFont {
+    NSArray<MFBWebServiceSvc_CustomPropertyType *> * rgCpt = FlightProps.sharedPropTypes;
+    NSMutableAttributedString * s = [[NSMutableAttributedString alloc] initWithString:@"" attributes:@{NSFontAttributeName : labelFont, NSForegroundColorAttributeName : labelColor}];
+    for (MFBWebServiceSvc_CustomPropertyType * cpt in rgCpt) {
+        if (cpt.PropTypeID.intValue == self.PropTypeID.intValue) {
+            NSAttributedString * sValue = [[NSAttributedString alloc] initWithString:[FlightProps stringValueForProperty:self withType:cpt] attributes:@{NSFontAttributeName : valueFont, NSForegroundColorAttributeName : valueColor}];
+            [s appendAttributedString:[[NSAttributedString alloc] initWithString:cpt.FormatString attributes:@{NSFontAttributeName : labelFont, NSForegroundColorAttributeName : labelColor}]];
+            
+            NSRange r = [cpt.FormatString rangeOfString:@"{0}"];
+            
+            // Replace {0} with the value.  Booleans don't have a "{0}" so just append the checkmark
+            if (r.location == NSNotFound)
+                [s appendAttributedString:sValue];
+            else
+                [s replaceCharactersInRange:r withAttributedString:sValue];
+            
+            return s;
+        }
+    }
+    return s;
 }
 
 - (void)encodeWithCoderMFB:(NSCoder *)encoder

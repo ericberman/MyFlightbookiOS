@@ -81,8 +81,8 @@
     if (num == nil || num.doubleValue == 0)
         return [[NSAttributedString alloc] init];
     
-    NSMutableAttributedString * attrString = [[NSMutableAttributedString alloc] initWithString:label attributes:@{NSFontAttributeName : font, NSForegroundColorAttributeName : textColor}];
-    [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@": %@ ", [UITextField stringFromNumber:num forType:nt inHHMM:useHHMM]] attributes:@{NSForegroundColorAttributeName : dimmedColor}]];
+    NSMutableAttributedString * attrString = [[NSMutableAttributedString alloc] initWithString:label attributes:@{NSForegroundColorAttributeName : dimmedColor}];
+    [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@": %@ ", [UITextField stringFromNumber:num forType:nt inHHMM:useHHMM]] attributes:@{NSFontAttributeName : font, NSForegroundColorAttributeName : textColor}]];
     return attrString;
 }
 
@@ -105,8 +105,8 @@
     NSString * szInterval = (elapsed <= 0) ? @"" : [NSString stringWithFormat:@" (%@)",
                                                     [UITextField stringFromNumber:@(elapsed) forType:ntTime inHHMM:AutodetectOptions.HHMMPref]];
     
-    NSMutableAttributedString * attrString = [[NSMutableAttributedString alloc] initWithString:label attributes:@{NSFontAttributeName : font, NSForegroundColorAttributeName : textColor}];
-    [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@ - %@%@ ", dtStart.utcString, dtEnd.utcString, szInterval] attributes:@{NSForegroundColorAttributeName : dimmedColor}]];
+    NSMutableAttributedString * attrString = [[NSMutableAttributedString alloc] initWithString:label attributes:@{NSForegroundColorAttributeName : dimmedColor}];
+    [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@ - %@%@ ", dtStart.utcString, dtEnd.utcString, szInterval] attributes:@{NSFontAttributeName : font, NSForegroundColorAttributeName : textColor}]];
     return attrString;
 }
 
@@ -166,13 +166,13 @@
         redColor = UIColor.redColor;
     }
     
-    NSMutableAttributedString * attrString = [[NSMutableAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName : textColor}];
     UIFont * baseFont = [UIFont systemFontOfSize:12];
     BOOL fUseHHMM = [AutodetectOptions HHMMPref];
     UIFont * boldFont = [UIFont fontWithDescriptor:[[baseFont fontDescriptor] fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold] size:baseFont.pointSize];
     UIFont * largeBoldFont = [UIFont fontWithDescriptor:[[baseFont fontDescriptor] fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold] size:baseFont.pointSize * 1.3];
     UIFont * italicFont = [UIFont fontWithDescriptor:[[baseFont fontDescriptor] fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitItalic | UIFontDescriptorTraitBold] size:baseFont.pointSize];
-    
+    NSMutableAttributedString * attrString = [[NSMutableAttributedString alloc] initWithString:@"" attributes:@{NSFontAttributeName : baseFont, NSForegroundColorAttributeName : textColor}];
+
     NSDateFormatter * df = [[NSDateFormatter alloc] init];
     [df setDateStyle:NSDateFormatterShortStyle];
         
@@ -187,14 +187,14 @@
     
     MFBWebServiceSvc_Aircraft * ac = [[Aircraft sharedAircraft] AircraftByID:le.AircraftID.intValue];
     if (ac != nil && ac.ModelDescription.length > 0)
-        [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" (%@)", ac.ModelDescription] attributes:@{ NSForegroundColorAttributeName : textColor}]];
+        [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" (%@)", ac.ModelDescription] attributes:@{ NSForegroundColorAttributeName : dimmedColor}]];
     
     NSString * trimmedRoute = [le.Route stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (trimmedRoute.length == 0) {
         [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@ ", NSLocalizedString(@"(No Route)", @"No Route")] attributes:@{NSFontAttributeName : italicFont, NSForegroundColorAttributeName : dimmedColor }]];
     } else
         [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@ ", le.Route]
-                                                                           attributes:@{NSFontAttributeName : italicFont, NSForegroundColorAttributeName : dimmedColor}]];
+                                                                           attributes:@{NSFontAttributeName : italicFont, NSForegroundColorAttributeName : textColor}]];
     NSString * trimmedComments = [le.Comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (trimmedComments.length == 0) {
         [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"(No Comment)", @"No Comment")
@@ -229,10 +229,18 @@
             MFBWebServiceSvc_CustomFlightProperty * blockIn = [le getExistingProperty:@(PropTypeID_BlockIn)];
             
             if (blockIn != nil && blockOut != nil)
-                [attrString appendAttributedString:[self attributedUTCDateRange:NSLocalizedString(@"Block Time", @"Auto-fill total based on block time") start:blockOut.DateValue end:blockIn.DateValue withFont:boldFont]];
+                [attrString appendAttributedString:[self attributedUTCDateRange:NSLocalizedString(@"Block Time", @"Auto-fill total based on block time") start:blockOut.DateValue end:blockIn.DateValue withFont:baseFont]];
             
-            [attrString appendAttributedString:[self attributedUTCDateRange:NSLocalizedString(@"Engine Time", @"Auto-fill based on engine time") start:le.EngineStart end:le.EngineEnd withFont:boldFont]];
-            [attrString appendAttributedString:[self attributedUTCDateRange:NSLocalizedString(@"Flight Time", @"Auto-fill based on time in the air") start:le.FlightStart end:le.FlightEnd withFont:boldFont]];
+            [attrString appendAttributedString:[self attributedUTCDateRange:NSLocalizedString(@"Engine Time", @"Auto-fill based on engine time") start:le.EngineStart end:le.EngineEnd withFont:baseFont]];
+            [attrString appendAttributedString:[self attributedUTCDateRange:NSLocalizedString(@"Flight Time", @"Auto-fill based on time in the air") start:le.FlightStart end:le.FlightEnd withFont:baseFont]];
+            NSAttributedString * spacer = [[NSAttributedString alloc] initWithString:@" "];
+            
+            for (MFBWebServiceSvc_CustomFlightProperty * fp in le.CustomProperties.CustomFlightProperty) {
+                if (fp.PropTypeID.intValue == PropTypeID_BlockIn || fp.PropTypeID.intValue == PropTypeID_BlockOut)
+                    continue;
+                [attrString appendAttributedString:[fp formatForDisplay:dimmedColor :textColor :baseFont :boldFont]];
+                [attrString appendAttributedString:spacer];
+            }
         }
     }
     

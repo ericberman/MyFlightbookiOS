@@ -86,6 +86,7 @@
 + (NSMutableArray<MFBWebServiceSvc_PropertyTemplate *> *) sharedTemplates;
 + (void) saveTemplates;
 + (void) updateTemplates:(NSMutableSet<MFBWebServiceSvc_PropertyTemplate *> *) templates forAircraft:(MFBWebServiceSvc_Aircraft *) ac;
++ (NSMutableArray<MFBWebServiceSvc_CustomPropertyType *> *) sharedPropTypes;
 
 @property (readwrite, strong) NSMutableArray<MFBWebServiceSvc_CustomPropertyType *> * rgPropTypes;
 @property (readwrite, strong) MFBWebServiceSvc_ArrayOfCustomFlightProperty * rgFlightProps;
@@ -111,6 +112,7 @@
 @interface MFBWebServiceSvc_CustomFlightProperty (Utility)
 - (BOOL) isDefaultForType:(MFBWebServiceSvc_CustomPropertyType *) cpt;
 - (void) setDefaultForType:(MFBWebServiceSvc_CustomPropertyType *) cpt;
+- (NSAttributedString *) formatForDisplay:(UIColor *) labelColor :(UIColor *) valueColor :(UIFont *) labelFont :(UIFont *) valueFont;
 - (void)encodeWithCoderMFB:(NSCoder *)encoder;
 - (instancetype)initWithCoderMFB:(NSCoder *)decoder;
 + (MFBWebServiceSvc_CustomFlightProperty *) getNewFlightProperty;
