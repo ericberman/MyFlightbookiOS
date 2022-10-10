@@ -353,13 +353,30 @@ static BOOL fAppLaunchFinished = NO;
                 self.tabBarController.selectedViewController = self.tabRecents;
                 [[self recentsView] addJSONFlight:szJSON];
             }
-        } else if ([url.host compare:@"totals"] == NSOrderedSame) {
+        } else if ([url.host compare:@"totals"] == NSOrderedSame)
             self.tabBarController.selectedViewController = self.tabTotals;
-        } else if ([url.host compare:@"currency"] == NSOrderedSame) {
+        else if ([url.host compare:@"currency"] == NSOrderedSame)
             self.tabBarController.selectedViewController = self.tabCurrency;
-        } else if ([url.host compare:@"newflight"] == NSOrderedSame) {
+        else if ([url.host compare:@"newflight"] == NSOrderedSame)
             self.tabBarController.selectedViewController = self.tabNewFlight;
-        }
+        else if ([url.host compare:@"app.startEngine"] == NSOrderedSame)
+            [self.leMain startEngineExternal];
+        else if ([url.host compare:@"app.stopEngine"] == NSOrderedSame)
+            [self.leMain stopEngineExternalNoSubmit];
+        else if ([url.host compare:@"app.startFlight"] == NSOrderedSame)
+            [self.leMain startFlightExternal];
+        else if ([url.host compare:@"app.stopFlight"] == NSOrderedSame)
+            [self.leMain stopFlightExternal];
+        else if ([url.host compare:@"app.blockOut"] == NSOrderedSame)
+            [self.leMain blockOutExternal];
+        else if ([url.host compare:@"app.blockIn"] == NSOrderedSame)
+            [self.leMain blockInExternal];
+        else if ([url.host compare:@"app.resume"] == NSOrderedSame)
+            [self.leMain resumeFlightExternal];
+        else if([url.host compare:@"app.pause"] == NSOrderedSame)
+            [self.leMain pauseFlightExternal];
+        else if ([url.host compare:@"app.togglePause"] == NSOrderedSame)
+            [self.leMain toggleFlightPause];
     }
 }
 

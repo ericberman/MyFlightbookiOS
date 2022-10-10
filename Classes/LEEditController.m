@@ -397,6 +397,16 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     [MFBAppDelegate.threadSafeAppDelegate updateWatchContext];
 }
 
+- (void) pauseFlightExternal {
+    if (!self.le.fIsPaused)
+        [self toggleFlightPause];
+}
+
+- (void) resumeFlightExternal {
+    if (self.le.fIsPaused)
+        [self toggleFlightPause];
+}
+
 #pragma mark - Read/Write Form
 
 - (void) initFormFromLE:(BOOL) fReloadTable
@@ -1292,6 +1302,51 @@ static NSArray * rgAllCockpitRows = nil;
     [mfbApp() updateWatchContext];
 }
 
+
+- (void) afterDataModified {
+    [self autoHobbs];
+    [self autoTotal];
+    [self initFormFromLE];
+    [mfbApp() updateWatchContext];
+}
+
+- (void) startFlightExternal {
+    if ([NSDate isUnknownDate:self.le.entryData.FlightStart]) {
+        self.le.entryData.FlightStart = NSDate.date;
+        [self startFlight];
+        [self afterDataModified];
+    }
+}
+
+- (void) stopFlightExternal
+{
+    if ([NSDate isUnknownDate:self.le.entryData.FlightEnd]) {
+        self.le.entryData.FlightEnd = NSDate.date;
+        [self stopFlight];
+    }
+}
+
+- (void) blockOutExternal {
+    MFBWebServiceSvc_CustomFlightProperty * cfp = [self.le.entryData getExistingProperty:@(PropTypeID_BlockOut)];
+    if (cfp != nil && ![NSDate isUnknownDate:cfp.DateValue])
+        return;
+    
+    [self.le.entryData setPropertyValue:@(PropTypeID_BlockOut) withDate:NSDate.date];
+    if (![self.le.entryData isKnownEngineStart] && ![self.le.entryData isKnownFlightStart])
+        [self resetDateOfFlight];
+    
+    [self afterDataModified];
+}
+
+- (void) blockInExternal {
+    MFBWebServiceSvc_CustomFlightProperty * cfp = [self.le.entryData getExistingProperty:@(PropTypeID_BlockIn)];
+    if (cfp != nil && ![NSDate isUnknownDate:cfp.DateValue])
+        return;
+
+    [self.le.entryData setPropertyValue:@(PropTypeID_BlockIn) withDate:NSDate.date];
+
+    [self afterDataModified];
+}
 #pragma mark Autodetection delegates
 - (NSString *) takeoffDetected
 {

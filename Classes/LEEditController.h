@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2019 MyFlightbook, LLC
+ Copyright (C) 2009-2022 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,6 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 11/28/09.
-//  Copyright-2019 MyFlightbook LLC 2009. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -47,6 +46,12 @@
 - (void) startEngineExternal;
 - (void) stopEngineExternal;
 - (void) stopEngineExternalNoSubmit;
+- (void) startFlightExternal;
+- (void) stopFlightExternal;
+- (void) blockOutExternal;
+- (void) blockInExternal;
+- (void) pauseFlightExternal;
+- (void) resumeFlightExternal;
 
 - (BOOL) autoTotal;
 - (BOOL) autoHobbs;
