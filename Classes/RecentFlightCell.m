@@ -195,14 +195,17 @@
     } else
         [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@ ", le.Route]
                                                                            attributes:@{NSFontAttributeName : italicFont, NSForegroundColorAttributeName : textColor}]];
+    
     NSString * trimmedComments = [le.Comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (trimmedComments.length == 0) {
         [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"(No Comment)", @"No Comment")
-                                                                           attributes:@{NSForegroundColorAttributeName : dimmedColor }]];
-        [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName : textColor}]];
+                                                                           attributes:@{NSForegroundColorAttributeName : dimmedColor, NSFontAttributeName : baseFont }]];
+        [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName : textColor, NSFontAttributeName : baseFont }]];
     }
-    else
+    else {
+        [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName : textColor, NSFontAttributeName : baseFont }]];
         [attrString appendAttributedString:[NSAttributedString attributedStringFromMarkDown:trimmedComments size:12.0]];
+    }
     
     flightTimeDetail detail = AutodetectOptions.showFlightTimes;
     if (detail != flightTimeNone) {
