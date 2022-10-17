@@ -43,14 +43,23 @@
                         </attributedString>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cxO-Ju-vFo" userLabel="imgSpacer">
+                        <rect key="frame" x="0.0" y="7" width="0.0" height="48"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="48" id="XQh-G6-Ir9"/>
+                            <constraint firstAttribute="width" id="pce-FF-vOP"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="18" firstAttribute="top" secondItem="sSA-mv-b8d" secondAttribute="top" constant="4" id="BQG-y2-Nbe"/>
                     <constraint firstItem="IDn-oL-Fh8" firstAttribute="top" secondItem="sSA-mv-b8d" secondAttribute="top" constant="4" id="CiX-18-4d0"/>
+                    <constraint firstAttribute="bottom" secondItem="IDn-oL-Fh8" secondAttribute="bottom" priority="500" constant="4" id="Ils-9N-gbg"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="cxO-Ju-vFo" secondAttribute="bottom" id="Jki-5T-ifr"/>
                     <constraint firstItem="18" firstAttribute="leading" secondItem="IDn-oL-Fh8" secondAttribute="trailing" constant="4" id="Nab-bV-8Vt"/>
-                    <constraint firstAttribute="bottom" secondItem="IDn-oL-Fh8" secondAttribute="bottom" constant="4" id="RIo-zo-omC"/>
                     <constraint firstItem="4" firstAttribute="leading" secondItem="sSA-mv-b8d" secondAttribute="leading" constant="3" id="UQr-bd-9NR"/>
                     <constraint firstItem="4" firstAttribute="top" secondItem="sSA-mv-b8d" secondAttribute="top" constant="4" id="Xvl-us-qtb"/>
+                    <constraint firstItem="cxO-Ju-vFo" firstAttribute="top" secondItem="sSA-mv-b8d" secondAttribute="top" constant="7" id="dne-Wx-veF"/>
                     <constraint firstAttribute="trailing" secondItem="18" secondAttribute="trailing" constant="4" id="jc0-xF-2xJ"/>
                     <constraint firstItem="IDn-oL-Fh8" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="3" id="zD5-AW-6MJ"/>
                 </constraints>

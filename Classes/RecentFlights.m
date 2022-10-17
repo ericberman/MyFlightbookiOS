@@ -760,7 +760,7 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectUnsubmittedFlights, sec
     // bottom of the table view cell.
     height += 1.0;
 
-    return MAX(height, tableView.estimatedRowHeight);
+    return height;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
