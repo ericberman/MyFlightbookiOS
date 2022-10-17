@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2019 MyFlightbook, LLC
+ Copyright (C) 2019-2022 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@
 
 @synthesize externalAccessories;
 @synthesize idDate, idRoute, idComments, idTotalTime, idPopAircraft, idApproaches, idHold, idLandings, idDayLandings, idNightLandings;
-@synthesize idNight, idIMC, idSimIMC, idGrndSim, idXC, idDual, idCFI, idSIC, idPIC, idPublic;
+@synthesize idNight, idIMC, idSimIMC, idGrndSim, idXC, idDual, idCFI, idSIC, idPIC, idPublic, btnViewRoute;
 @synthesize datePicker, pickerView;
 @synthesize idLblStatus, idLblSpeed, idLblAltitude, idLblQuality, idimgRecording, idbtnPausePlay, idbtnAppendNearest, idlblElapsedTime;
 @synthesize lblLat, lblLon, lblSunset, lblSunrise;

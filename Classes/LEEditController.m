@@ -1466,7 +1466,10 @@ static NSDateFormatter * dfSunriseSunset = nil;
         }
         self.lblSunrise.text = [dfSunriseSunset stringFromDate:s.Sunrise];
         self.lblSunset.text = [dfSunriseSunset stringFromDate:s.Sunset];
-    }    
+    }
+    // issue #272: show an icon of the world instead of information disclosure.
+    // But let's show Americas if Latitude < -20, otherwise show eastern hemisphere.
+    [self.btnViewRoute setTitle:(lon < -20) ? @"🌎" : @"🌍" forState:UIControlStateNormal];
 }
 
 // Location manager delegates

@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LEEditController">
             <connections>
+                <outlet property="btnViewRoute" destination="580" id="6T9-Sk-Z0C"/>
                 <outlet property="cellComments" destination="563" id="644"/>
                 <outlet property="cellDateAndTail" destination="559" id="645"/>
                 <outlet property="cellGPS" destination="556" id="647"/>
@@ -610,7 +611,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="584" userLabel="btnAddAircraft">
-                        <rect key="frame" x="734" y="11.5" width="22" height="21"/>
+                        <rect key="frame" x="730" y="9" width="26" height="26"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="22" id="rjm-ZI-ixl"/>
                         </constraints>
@@ -626,7 +627,7 @@
                         </connections>
                     </button>
                     <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="583" userLabel="txtAircraft">
-                        <rect key="frame" x="607" y="5" width="122" height="34"/>
+                        <rect key="frame" x="603" y="5" width="122" height="34"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="122" id="hh5-yI-KNO"/>
                         </constraints>
@@ -689,24 +690,19 @@
                             <outlet property="delegate" destination="-1" id="704"/>
                         </connections>
                     </textField>
-                    <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="580" userLabel="btnViewRoute">
-                        <rect key="frame" x="734" y="11.5" width="22" height="21"/>
+                    <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="580" userLabel="btnViewRoute">
+                        <rect key="frame" x="726" y="4" width="30" height="36"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="22" id="EGG-KY-LTC"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <state key="normal">
-                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </state>
-                        <state key="highlighted">
-                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </state>
+                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                        <state key="normal" title="🌎"/>
                         <connections>
                             <action selector="viewClosest" destination="-1" eventType="touchUpInside" id="685"/>
                         </connections>
                     </button>
                     <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="578" userLabel="btnNearest">
-                        <rect key="frame" x="706" y="11.5" width="22" height="21"/>
+                        <rect key="frame" x="694" y="9" width="26" height="26"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="22" id="h8E-C0-gOE"/>
                         </constraints>
@@ -883,7 +879,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O1X-0d-pEp" userLabel="btnAddApproach">
-                        <rect key="frame" x="553" y="11.5" width="22" height="21"/>
+                        <rect key="frame" x="553" y="9" width="26" height="26"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="22" id="1Bm-KM-kvT"/>
                         </constraints>
@@ -962,7 +958,7 @@
         <image name="sunrise.png" width="20" height="20"/>
         <image name="sunset.png" width="20" height="20"/>
         <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

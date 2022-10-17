@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LEEditController">
             <connections>
+                <outlet property="btnViewRoute" destination="338" id="uzg-rP-4RS"/>
                 <outlet property="cellComments" destination="321" id="475"/>
                 <outlet property="cellDateAndTail" destination="316" id="476"/>
                 <outlet property="cellGPS" destination="320" id="477"/>
@@ -182,22 +183,23 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="337" userLabel="txtRoute">
-                        <rect key="frame" x="16" y="22" width="216" height="16"/>
+                        <rect key="frame" x="16" y="22" width="212" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no"/>
                         <connections>
                             <outlet property="delegate" destination="-1" id="343"/>
                         </connections>
                     </textField>
-                    <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="338" userLabel="btnViewRoute">
-                        <rect key="frame" x="278" y="9" width="26" height="26"/>
-                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                    <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="338" userLabel="btnViewRoute">
+                        <rect key="frame" x="274" y="4" width="30" height="36"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                        <state key="normal" title="🌎"/>
                         <connections>
                             <action selector="viewClosest" destination="-1" eventType="touchDown" id="340"/>
                         </connections>
                     </button>
                     <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="339" userLabel="btnNearest">
-                        <rect key="frame" x="242" y="9" width="26" height="26"/>
+                        <rect key="frame" x="238" y="9" width="26" height="26"/>
                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
                         <state key="normal">
                             <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
