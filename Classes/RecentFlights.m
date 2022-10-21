@@ -119,7 +119,7 @@ BOOL fCouldBeMoreFlights;
     [app registerNotifyDataChanged:self];
     [app registerNotifyResetAll:self];
     
-    self.tableView.estimatedRowHeight = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 80 : 44;
+    self.tableView.estimatedRowHeight = UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad ? 80 : 44;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     [self.navigationController setToolbarHidden:YES];
 }
@@ -251,7 +251,7 @@ BOOL fCouldBeMoreFlights;
 - (LEEditController *) pushViewControllerForFlight:(LogbookEntry *) le
 {
     LEEditController * leView = [[LEEditController alloc]
-                                 initWithNibName:(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? @"LEEditController-iPad" : @"LEEditController"
+                                 initWithNibName:(UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad) ? @"LEEditController-iPad" : @"LEEditController"
                                  bundle:nil];
     leView.le = le;
     leView.delegate = self;

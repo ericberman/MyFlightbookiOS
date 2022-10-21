@@ -344,16 +344,6 @@ BOOL fSelectFirst = NO;
 }
 
 #pragma mark - Camera support
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 30200
-- (void)popoverPresentationControllerDidDismissPopover:(UIPopoverPresentationController *)popoverController {
-}
-
-- (BOOL)popoverPresentationControllerShouldDismissPopover:(UIPopoverPresentationController *)popoverController
-{
-	return true;
-}
-#endif
-
 - (BOOL) canUseCamera
 {
     return [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];

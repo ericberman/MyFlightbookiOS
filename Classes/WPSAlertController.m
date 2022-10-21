@@ -71,7 +71,7 @@
         [WPSAlertController alertControllerWithTitle:message message:message preferredStyle:UIAlertControllerStyleAlert] :
         [UIAlertController alertControllerWithTitle:message message:nil preferredStyle:UIAlertControllerStyleAlert];
     
-    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:MFBTheme.isDarkMode ? UIActivityIndicatorViewStyleWhite : UIActivityIndicatorViewStyleGray];
+    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
     [spinner startAnimating];
     
     UIViewController *customVC = [[UIViewController alloc] init];

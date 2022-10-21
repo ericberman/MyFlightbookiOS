@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2013-2020 MyFlightbook, LLC
+ Copyright (C) 2013-2022 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -404,7 +404,7 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
 	NSString * szURL = [NSString stringWithFormat:@"https://%@/logbook/public/ContactMe.aspx?email=%@&subj=%@&noCap=1&naked=1",
 						MFBHOSTNAME,
                         app.userProfile.UserName,
-						[[NSString stringWithFormat:@"Comment from %@ user", (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? @"iPad" : @"iPhone"] stringByURLEncodingString]];
+						[[NSString stringWithFormat:@"Comment from %@ user", (UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad) ? @"iPad" : @"iPhone"] stringByURLEncodingString]];
     [self pushURL:szURL];
 }
 

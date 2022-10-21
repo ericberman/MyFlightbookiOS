@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2010-2021 MyFlightbook, LLC
+ Copyright (C) 2010-2022 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -557,10 +557,6 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
 	if (pageName == nil || [pageName length] == 0)
 		return;
 	
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    });
-    
     for (CommentedImage * ci in rgImages)
 	{
 		// skip if this isn't a commented image
@@ -654,10 +650,6 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
         }
 	}
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    });
-	
 	if (cErrors > 0)
 	{
 		NSString * szText = [NSString stringWithFormat:NSLocalizedString(@"%d of %d images uploaded.  Error: %@", @"Status after uploading images; %d and %@ get replaced by numbers and the error message, respectively; keep them"), (cImages - cErrors), cImages, szLastErr];

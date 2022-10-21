@@ -97,7 +97,6 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
 @interface iRate()
 
 @property (nonatomic, strong) id visibleAlert;
-@property (nonatomic, assign) int previousOrientation;
 @property (nonatomic, assign) BOOL checkingForPrompt;
 @property (nonatomic, assign) BOOL checkingForAppStoreID;
 
@@ -161,13 +160,6 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
                                                          name:UIApplicationWillEnterForegroundNotification
                                                        object:nil];
         }
-        
-        self.previousOrientation = [UIApplication sharedApplication].statusBarOrientation;
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(willRotate)
-                                                     name:UIDeviceOrientationDidChangeNotification
-                                                   object:nil];
-        
 #endif
         
         //get country
@@ -958,19 +950,6 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
         NSLog(@"%@", message);
         NSError *error = [NSError errorWithDomain:iRateErrorDomain code:iRateErrorCouldNotOpenRatingPageURL userInfo:@{NSLocalizedDescriptionKey: message}];
         [self.delegate iRateCouldNotConnectToAppStore:error];
-    }
-}
-
-- (void)willRotate
-{
-    [self performSelectorOnMainThread:@selector(didRotate) withObject:nil waitUntilDone:NO];
-}
-
-- (void)didRotate
-{
-    if (self.previousOrientation != [UIApplication sharedApplication].statusBarOrientation)
-    {
-        self.previousOrientation = [UIApplication sharedApplication].statusBarOrientation;
     }
 }
 #else

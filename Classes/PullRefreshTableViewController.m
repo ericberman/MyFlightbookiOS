@@ -86,7 +86,7 @@
                                     (floorf(REFRESH_HEADER_HEIGHT - 18) / 2),
                                     36, 36);
 
-    refreshSpinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    refreshSpinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
     refreshSpinner.frame = CGRectMake(floorf(floorf(REFRESH_HEADER_HEIGHT - 20) / 2), floorf((REFRESH_HEADER_HEIGHT - 20) / 2), 20, 20);
     refreshSpinner.hidesWhenStopped = YES;
 
@@ -203,11 +203,7 @@
             cell = topLevelObjects[1];
     }
     cell.Prompt.text = s;
-    if (@available(iOS 13.0, *)) {
-        cell.ActivityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleMedium;
-    } else {
-        cell.ActivityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-    }
+    cell.ActivityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleMedium;
     [cell.ActivityIndicator startAnimating];
     return cell;   
 }

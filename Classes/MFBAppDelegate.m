@@ -121,7 +121,7 @@ BOOL gLogging = EXF_LOGGING;
     [def setInteger:((i < 4) ? i : 0) forKey:_szKeySelectedTab];
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 30200
     // if iPad, override the above line - we can store any saved tab
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    if (UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad)
         [def setInteger:i forKey:_szKeySelectedTab];
 #endif
     [def synchronize];

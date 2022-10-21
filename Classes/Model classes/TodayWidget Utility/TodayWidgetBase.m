@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2018-2021 MyFlightbook, LLC
+ Copyright (C) 2018-2022 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -55,8 +55,7 @@
     self.rgData = [[NSMutableArray alloc] init];
     self.szAuthToken = nil;
     self.extensionContext.widgetLargestAvailableDisplayMode = NCWidgetDisplayModeExpanded;
-    
-    self.tableView.backgroundColor = UIColor.groupTableViewBackgroundColor;
+    self.tableView.backgroundColor = UIColor.systemGroupedBackgroundColor;
     
     if (self.extensionContext.widgetActiveDisplayMode == NCWidgetDisplayModeCompact)
         self.preferredContentSize = self.compactSize;

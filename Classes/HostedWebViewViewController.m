@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2017-2019 MyFlightbook, LLC
+ Copyright (C) 2017-2022 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -165,22 +165,9 @@
     [self presentViewController:alertController animated:YES completion:^{}];
 }
 
-- (void) webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation {
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-}
-
-- (void) webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-}
-
-- (void) webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-}
-
 - (void) webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
     if (error.code == NSURLErrorCancelled)
         return;
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [self showErrorAlertWithMessage:error.localizedDescription];
 }
 @end

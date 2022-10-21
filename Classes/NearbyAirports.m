@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2019 MyFlightbook, LLC
+ Copyright (C) 2009-2022 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -346,11 +346,9 @@ CGFloat defaultSearchHeight;
     {
         if (!self.flightPathInProgress && self.associatedFlight != nil)
         {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
             self.flightPathInProgress = YES;
             __block NearbyAirports * blockSelf = self;
             [self.associatedFlight setDelegate:self completionBlock:^(MFBSoapCall * sc, MFBAsyncOperation * ao) {
-                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                 blockSelf.flightPathInProgress = NO;
                 [blockSelf sendTelemetryCompletion];
                 blockSelf = nil;

@@ -153,14 +153,10 @@
 }
 
 #pragma mark - UIPopoverPresentationController functions
-- (void)popoverPresentationControllerDidDismissPopover:(UIPopoverPresentationController *)popoverController {
-    [self.tableView reloadData];
-}
-
-- (BOOL)popoverPresentationControllerShouldDismissPopover:(UIPopoverPresentationController *)popoverController {
+- (void)presentationControllerDidDismiss:(UIPresentationController *)popoverController {
     // let the property display know it is going to go away.
     [popoverController.presentedViewController viewWillDisappear:NO];
-    return true;
+    [self.tableView reloadData];
 }
 
 #pragma mark - CollapsibleTable

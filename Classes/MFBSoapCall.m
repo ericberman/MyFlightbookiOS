@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2009-2019 MyFlightbook, LLC
+ Copyright (C) 2009-2022 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -150,8 +150,6 @@ static NSMutableArray * _rgHackRetain = nil;
 {
     BOOL retVal = YES;
     
-    [self networkIndicatorOn];
-    
 	MFBWebServiceSoapBinding * binding = [self setUpBinding:fSecure];
     if (binding != nil)
     {
@@ -179,34 +177,18 @@ static NSMutableArray * _rgHackRetain = nil;
     return [self makeCallAsync:callToMake asSecure:YES];
 }
 
-- (void) networkIndicatorOn
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UIApplication.sharedApplication.networkActivityIndicatorVisible = YES;
-    });
-}
-
-- (void) networkIndicatorOff
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UIApplication.sharedApplication.networkActivityIndicatorVisible = NO;
-    });
-}
-
-// TODO: We should never be calling this any more.  Call only on background threads.  networkActivityIndicator can't be set from background thread.
+// TODO: We should never be calling this any more.  Call only on background threads. 
 - (BOOL) makeCallSynchronous:(MFBWebServiceSoapBindingResponse * (^)(MFBWebServiceSoapBinding * b)) callToMake asSecure:(BOOL) fSecure
 {
     BOOL retVal = YES;
     
     NSAssert(!NSThread.isMainThread, @"NEVER call makeCallSynchronous on the main thread!");
-    [self networkIndicatorOn];
     
     MFBWebServiceSoapBinding * binding = [self setUpBinding:fSecure];
     if (binding != nil)
     {
         MFBWebServiceSoapBindingResponse *response = callToMake(binding);
         retVal = [self parseResponse:response];
-        [self networkIndicatorOff];
     }
     else
         retVal = NO;
@@ -222,7 +204,6 @@ static NSMutableArray * _rgHackRetain = nil;
         [self parseResponse:response];
         if ([((NSObject *) self.delegate) respondsToSelector:@selector(ResultCompleted:)])
             [self.delegate ResultCompleted:self];
-        [self networkIndicatorOff];
         // since we retained ourselves above.
         [MFBSoapCall hackARCRelease:self];
     });
