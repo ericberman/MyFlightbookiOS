@@ -225,6 +225,10 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     if (self.le.entryData.isSigned && self.le.entryData.HasDigitizedSig)
         [NSThread detachNewThreadSelector:@selector(asyncLoadDigitizedSig) toTarget:self withObject:nil];
     
+    if (@available(iOS 15.0, *)) {
+        self.tableView.sectionHeaderTopPadding = 0;
+    }
+    
     [mfbApp() registerNotifyResetAll:self];
 }
 
