@@ -154,8 +154,6 @@
 
 #pragma mark - UIPopoverPresentationController functions
 - (void)presentationControllerDidDismiss:(UIPresentationController *)popoverController {
-    // let the property display know it is going to go away.
-    [popoverController.presentedViewController viewWillDisappear:NO];
     [self.tableView reloadData];
 }
 
