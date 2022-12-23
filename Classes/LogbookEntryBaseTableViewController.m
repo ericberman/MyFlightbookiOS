@@ -105,6 +105,7 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
 // re-initializes a flight but DOES NOT update any UI.
 - (void) setupForNewFlight {
     NSNumber * endingHobbs = self.le.entryData.HobbsEnd; // remember ending hobbs for last flight...
+    NSNumber * endingTach = [self.le.entryData getExistingProperty:@PropTypeID_TachEnd].DecValue;
     
     self.le    = [[LogbookEntry alloc] init];
     self.le.entryData.Date = [NSDate date];
@@ -129,6 +130,8 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
     
     // ...and start the starting hobbs to be the previous flight's ending hobbs.  If it was nil, we're fine.
     self.le.entryData.HobbsStart = endingHobbs;
+    if (endingTach != nil && endingTach.doubleValue > 0)
+        [self.le.entryData setPropertyValue:@PropTypeID_TachStart withDecimal:endingTach];
     [self saveState]; // clean up any old state
     [MFBAppDelegate.threadSafeAppDelegate updateWatchContext];
 }
