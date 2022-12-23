@@ -246,7 +246,8 @@
             Airports * ap = [Airports new];
             fSetXC = ([ap maxDistanceOnRoute:le.entryData.Route] > CROSS_COUNTRY_THRESHOLD);    // maxDistanceOnRoute will call loadAirports.
             
-            if (ap.rgAirports.count == 2) {
+            // issue #286: don't do a synthetic path if autodetection is off because it will clear a bunch of fields but won't fill them back in.
+            if (ap.rgAirports.count == 2 && AutodetectOptions.autodetectTakeoffs) {
                 t = [Telemetry synthesizePathFrom:ap.rgAirports[0].LatLong.coordinate to:ap.rgAirports[1].LatLong.coordinate start:blockOut end:blockIn];
                 fSyntheticPath = (t != nil);
                 if (fSyntheticPath) {
