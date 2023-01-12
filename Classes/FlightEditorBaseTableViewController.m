@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2019-2022 MyFlightbook, LLC
+ Copyright (C) 2019-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -109,6 +109,11 @@
 - (void) crossFillTotal:(UILongPressGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateBegan)
         [(UITextField *) sender.view crossFillFrom:self.idTotalTime];
+}
+
+- (void) crossFillLanding:(UILongPressGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateBegan)
+        [(UITextField *) sender.view crossFillFrom:self.idLandings];
 }
 
 #pragma mark - External devices
@@ -238,6 +243,8 @@
     [self enableLongPressForField:self.idCFI withSelector:@selector(crossFillTotal:)];
     [self enableLongPressForField:self.idSIC withSelector:@selector(crossFillTotal:)];
     [self enableLongPressForField:self.idPIC withSelector:@selector(crossFillTotal:)];
+    [self enableLongPressForField:self.idDayLandings withSelector:@selector(crossFillLanding:)];
+    [self enableLongPressForField:self.idNightLandings withSelector:@selector(crossFillLanding:)];
     
     // Make the checkboxes checkboxes
     [self.idHold setIsCheckbox];

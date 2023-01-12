@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2013-2021 MyFlightbook, LLC
+ Copyright (C) 2013-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -75,7 +75,7 @@
     return YES;
 }
 
-- (void) setAutoFillValue:(NSNumber *) num
+- (void) setXFill:(NSNumber *) num
 {
     self.autofillValue = num;
     // Disable the existing long-press recognizer
@@ -289,11 +289,13 @@
             self.txt.autocorrectionType = UITextAutocorrectionTypeNo;
             [self.txt setValue:self.cfp.DecValue withDefault:@0.0]; // Fix bug #37. re-assign it; this will respect the number type.
             if (defVal != nil && (self.txt.NumberType == ntTime || self.cpt.PropTypeID.intValue == PropTypeID_TachStart))
-                [self setAutoFillValue:defVal];
+                [self setXFill:defVal];
             break;
         case MFBWebServiceSvc_CFPPropertyType_cfpInteger:
             self.txt.NumberType = ntInteger;
             self.txt.keyboardType = UIKeyboardTypeNumberPad;
+            if (defVal != nil)
+                [self setXFill:defVal];
             break;
         default:
             break;

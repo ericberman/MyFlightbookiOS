@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2022 MyFlightbook, LLC
+ Copyright (C) 2009-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -775,7 +775,7 @@ static NSArray * rgAllCockpitRows = nil;
                     pc.cfp = cfp;
                 pc.txt.delegate = self;
                 pc.flightPropDelegate = self.flightProps;
-                [pc configureCell:self.vwAccessory andDatePicker:self.propDatePicker defValue:(cpt.PropTypeID.intValue == PropTypeID_TachStart) ? [[Aircraft sharedAircraft] getHighWaterTachForAircraft:self.le.entryData.AircraftID] : self.le.entryData.TotalFlightTime];
+                [pc configureCell:self.vwAccessory andDatePicker:self.propDatePicker defValue:[self.le.entryData xfillValueForPropType:cpt]];
                 return pc;
             }
     }

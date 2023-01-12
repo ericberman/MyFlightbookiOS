@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2022 MyFlightbook, LLC
+ Copyright (C) 2009-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,6 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 12/2/09.
-//  Copyright 2009-2022, MyFlightbook LLC. All rights reserved.
 //
 
 #import "LogbookEntry.h"
@@ -1237,6 +1236,25 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
     NSRange r = [sz rangeOfString:@":"];
     BOOL fIsHHMM = r.location != NSNotFound;
     return [UITextField valueForString:sz withType:nt withHHMM:fIsHHMM];
+}
+
+// Return the default (cross-fill) value to use for a long press on a given property, nil if none
+- (NSNumber *) xfillValueForPropType:(MFBWebServiceSvc_CustomPropertyType *) cpt {
+    if (cpt.PropTypeID.integerValue == PropTypeID_TachStart)
+        return [Aircraft.sharedAircraft getHighWaterTachForAircraft:self.AircraftID];
+    
+    // if it's a decimal but not a basic decimal
+    if (cpt.Type == MFBWebServiceSvc_CFPPropertyType_cfpDecimal && (cpt.Flags.intValue & 0x00200000) == 0)
+        return self.TotalFlightTime;
+    
+    if (cpt.Type == MFBWebServiceSvc_CFPPropertyType_cfpInteger) {
+        if ((cpt.Flags.intValue & 0x08000000) == 0x08000000)
+            return self.Landings;
+        if ((cpt.Flags.intValue & 0x00001000) == 0x00001000)
+            return self.Approaches;
+    }
+    
+    return nil;
 }
 
 - (NSDate *) parseDate:(id) szdt withFormatter:(NSDateFormatter *) df

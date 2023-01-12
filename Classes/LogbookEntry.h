@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2022 MyFlightbook, LLC
+ Copyright (C) 2009-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,6 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 12/2/09.
-//  Copyright 2009-2021, MyFlightbook LLC All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -131,6 +130,7 @@
 - (MFBWebServiceSvc_CustomFlightProperty *) addProperty:(NSNumber *) idPropType withDate:(NSDate *) dt;
 - (MFBWebServiceSvc_CustomFlightProperty *) setPropertyValue:(NSNumber *) idPropType withDecimal:(NSNumber *) decVal;
 - (MFBWebServiceSvc_CustomFlightProperty *) setPropertyValue:(NSNumber *) idPropType withDate:(NSDate *) dt;
+- (NSNumber *) xfillValueForPropType:(MFBWebServiceSvc_CustomPropertyType *) cpt;
 
 - (void) addApproachDescription:(NSString *) description;
 - (MFBWebServiceSvc_LogbookEntry *) clone;
