@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,6 +17,8 @@
                 <outlet property="cellMapOptions" destination="82" id="83"/>
                 <outlet property="cellTOSpeed" destination="75" id="79"/>
                 <outlet property="cellWarnings" destination="69" id="73"/>
+                <outlet property="colorPath" destination="18X-I1-8hk" id="f2i-Z8-0ef"/>
+                <outlet property="colorRoute" destination="efB-KH-pWO" id="cCX-OJ-RWK"/>
                 <outlet property="idswAutoDetect" destination="7" id="16"/>
                 <outlet property="idswMapOptions" destination="84" id="86"/>
                 <outlet property="idswRecordFlight" destination="8" id="17"/>
@@ -28,6 +30,8 @@
                 <outlet property="idswUseHHMM" destination="40" id="53"/>
                 <outlet property="idswUseHeliports" destination="65" id="81"/>
                 <outlet property="idswUseLocal" destination="39" id="54"/>
+                <outlet property="lblPathPrompt" destination="1ED-Ma-ti0" id="aPM-ai-kh2"/>
+                <outlet property="lblRoutePrompt" destination="uDa-Ul-ttV" id="juz-kr-EGO"/>
                 <outlet property="txtWarnings" destination="hdR-ja-wFT" id="JCM-Rb-1K5"/>
                 <outlet property="view" destination="43" id="46"/>
             </connections>
@@ -242,7 +246,7 @@
         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="43">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
             <nil key="simulatedStatusBarMetrics"/>
             <connections>
                 <outlet property="dataSource" destination="-1" id="44"/>
@@ -342,15 +346,15 @@
             </tableViewCellContentView>
             <point key="canvasLocation" x="780.79999999999995" y="44.977511244377816"/>
         </tableViewCell>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" id="82" userLabel="cellMaps">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" rowHeight="151" id="82" userLabel="cellMaps">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="151"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="82" id="qWh-Ik-Rrh">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="151"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="84">
-                        <rect key="frame" x="8" y="6.5" width="305" height="32"/>
+                        <rect key="frame" x="8" y="11" width="305" height="32"/>
                         <segments>
                             <segment title="Standard"/>
                             <segment title="Satellite"/>
@@ -360,14 +364,53 @@
                             <action selector="mapTypeChanged:" destination="-1" eventType="valueChanged" id="85"/>
                         </connections>
                     </segmentedControl>
+                    <colorWell contentMode="scaleToFill" restorationIdentifier="colorRte" contentHorizontalAlignment="center" contentVerticalAlignment="center" title="Route Color" translatesAutoresizingMaskIntoConstraints="NO" id="efB-KH-pWO">
+                        <rect key="frame" x="276" y="53.5" width="28" height="28"/>
+                        <connections>
+                            <action selector="routeColorChanged:" destination="-1" eventType="valueChanged" id="NUi-u7-sIo"/>
+                        </connections>
+                    </colorWell>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="RouteColor" text="Route Color" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uDa-Ul-ttV">
+                        <rect key="frame" x="15" y="57" width="90" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="PathColor" text="Path Color" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ED-Ma-ti0">
+                        <rect key="frame" x="15" y="103" width="80" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <colorWell contentMode="scaleToFill" restorationIdentifier="colorPath" contentHorizontalAlignment="center" contentVerticalAlignment="center" title="Path Color" translatesAutoresizingMaskIntoConstraints="NO" id="18X-I1-8hk">
+                        <rect key="frame" x="276" y="99.5" width="28" height="28"/>
+                        <connections>
+                            <action selector="pathColorChanged:" destination="-1" eventType="valueChanged" id="5qG-IJ-g3A"/>
+                        </connections>
+                    </colorWell>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="uDa-Ul-ttV" firstAttribute="top" secondItem="84" secondAttribute="bottom" constant="15" id="Api-zr-FeB"/>
+                    <constraint firstItem="efB-KH-pWO" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="uDa-Ul-ttV" secondAttribute="trailing" id="N2O-HZ-Vqi"/>
+                    <constraint firstItem="uDa-Ul-ttV" firstAttribute="leading" secondItem="qWh-Ik-Rrh" secondAttribute="leading" constant="15" id="NlU-Mz-n1s"/>
+                    <constraint firstAttribute="trailing" secondItem="18X-I1-8hk" secondAttribute="trailing" constant="16" id="RwI-eu-f5V"/>
+                    <constraint firstItem="18X-I1-8hk" firstAttribute="centerY" secondItem="1ED-Ma-ti0" secondAttribute="centerY" id="SdI-bc-4el"/>
                     <constraint firstItem="84" firstAttribute="leading" secondItem="qWh-Ik-Rrh" secondAttribute="leading" constant="8" id="SwO-IH-h5e"/>
+                    <constraint firstItem="efB-KH-pWO" firstAttribute="centerY" secondItem="uDa-Ul-ttV" secondAttribute="centerY" id="e3v-6U-hBo"/>
+                    <constraint firstAttribute="trailing" secondItem="efB-KH-pWO" secondAttribute="trailing" constant="16" id="eBu-wU-kve"/>
                     <constraint firstAttribute="trailing" secondItem="84" secondAttribute="trailing" constant="7" id="eFv-X1-xOC"/>
-                    <constraint firstItem="84" firstAttribute="centerY" secondItem="qWh-Ik-Rrh" secondAttribute="centerY" id="qgc-Kc-eQ7"/>
+                    <constraint firstItem="1ED-Ma-ti0" firstAttribute="top" secondItem="uDa-Ul-ttV" secondAttribute="bottom" constant="25" id="f9P-LO-ek4"/>
+                    <constraint firstItem="1ED-Ma-ti0" firstAttribute="leading" secondItem="uDa-Ul-ttV" secondAttribute="leading" id="j6t-tF-WXL"/>
+                    <constraint firstItem="18X-I1-8hk" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1ED-Ma-ti0" secondAttribute="trailing" id="rbg-XK-9AC"/>
+                    <constraint firstItem="84" firstAttribute="top" secondItem="qWh-Ik-Rrh" secondAttribute="top" constant="11" id="t9T-xD-gs8"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="1115" y="445"/>
+            <point key="canvasLocation" x="1113.5999999999999" y="492.50374812593708"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>

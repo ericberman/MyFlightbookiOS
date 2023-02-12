@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2022 MyFlightbook, LLC
+ Copyright (C) 2009-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -123,7 +123,7 @@ CGFloat defaultSearchHeight;
         MKCoordinateRegion mcr = [self.pathAirports defaultZoomRegionWithPath:self.rgFlightPath];
         FlightRoute * fr = [[FlightRoute alloc] init];
         fr.rgll = self.rgFlightPath;
-        fr.lineColor = [UIColor redColor];
+        fr.lineColor = AutodetectOptions.pathColor;
         fr.center = mcr.center;
         [self.mapView addOverlay:[fr getOverlay]];
     }
@@ -213,7 +213,7 @@ CGFloat defaultSearchHeight;
 				{
                     AirportRoute * ar = [[AirportRoute alloc] init];
                     ar.airports = ap;
-                    ar.lineColor = [UIColor blueColor];
+                    ar.lineColor = AutodetectOptions.routeColor;
                     ar.center = mcr2.center;
 
                     // if displaying route, we already have the individual airports.

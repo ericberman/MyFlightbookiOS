@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2010-2022 MyFlightbook, LLC
+ Copyright (C) 2010-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -34,6 +34,7 @@
 
 @synthesize idswAutoDetect, idswRecordFlight, idswRecordHighRes, idswTakeoffSpeed, idswUseHHMM, idswUseLocal, idswUseHeliports, idswMapOptions, idswRoundNearestTenth;
 @synthesize cellAutoOptions, cellHHMM, cellLocalTime, cellHeliports, cellWarnings, cellTOSpeed, cellMapOptions, cellImages;
+@synthesize colorPath, colorRoute, lblRoutePrompt, lblPathPrompt;
 @synthesize txtWarnings;
 
 enum prefSections {sectAutoFill, sectTimes, sectGPSWarnings, sectAutoOptions, sectCockpit, sectAirports, sectMaps, sectUnits, sectImages, sectOnlineSettings, sectLast};
@@ -50,6 +51,8 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
     [super viewDidLoad];
     [self.cellWarnings makeTransparent];
     self.txtWarnings.text = NSLocalizedString(@"AutodetectWarning", @"Autodetect Warning");
+    self.lblRoutePrompt.text = self.colorRoute.title = NSLocalizedString(@"routeColorPrompt", @"Prompt to pick a color for the route of flight");
+    self.lblPathPrompt.text = self.colorPath.title = NSLocalizedString(@"pathColorPrompt", @"Prompt to pick a color for the path of flight");
 }
 
 - (void)didReceiveMemoryWarning {
@@ -71,6 +74,9 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
     self.idswRoundNearestTenth.on = [AutodetectOptions roundTotalToNearestTenth];
     self.idswShowImages.on = [AutodetectOptions showFlightImages];
     self.idswShowFlightTimes.selectedSegmentIndex = [AutodetectOptions showFlightTimes];
+    
+    self.colorRoute.selectedColor = AutodetectOptions.routeColor;
+    self.colorPath.selectedColor = AutodetectOptions.pathColor;
     
     self.idswTakeoffSpeed.selectedSegmentIndex = 0;
     int toCurrent = [AutodetectOptions TakeoffSpeed];
@@ -511,6 +517,16 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
     [[NSUserDefaults standardUserDefaults] setInteger:sender.selectedSegmentIndex + 1 forKey:keyMapMode];
 }
 
+- (IBAction) routeColorChanged:(UIColorWell *)sender {
+    NSError * err = nil;
+    [NSUserDefaults.standardUserDefaults setObject:[NSKeyedArchiver archivedDataWithRootObject:sender.selectedColor requiringSecureCoding:YES error:&err] forKey:keyRouteColor];
+}
+
+- (IBAction) pathColorChanged:(UIColorWell *)sender {
+    NSError * err = nil;
+    [NSUserDefaults.standardUserDefaults setObject:[NSKeyedArchiver archivedDataWithRootObject:sender.selectedColor requiringSecureCoding:YES error:&err] forKey:keyPathColor];
+}
+
 - (IBAction) showImagesClicked:(UISwitch *) sender
 {
     [[NSUserDefaults standardUserDefaults] setBool:!sender.on forKey:keyShowImages];
@@ -620,5 +636,17 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
 }
 + (BOOL) showFlight {
     return [NSUserDefaults.standardUserDefaults integerForKey:keyShowFlight];
+}
+
++ (UIColor *) routeColor {
+    NSError * err = nil;
+    NSData * d = [NSUserDefaults.standardUserDefaults objectForKey:keyRouteColor];
+    return (d == nil) ? UIColor.blueColor : [NSKeyedUnarchiver unarchivedObjectOfClass:UIColor.class fromData:d error:&err];
+}
+
++ (UIColor *) pathColor {
+    NSError * err = nil;
+    NSData * d = [NSUserDefaults.standardUserDefaults objectForKey:keyPathColor];
+    return (d == nil) ? UIColor.redColor : [NSKeyedUnarchiver unarchivedObjectOfClass:UIColor.class fromData:d error:&err];
 }
 @end

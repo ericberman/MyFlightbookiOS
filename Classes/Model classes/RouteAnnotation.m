@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2021 MyFlightbook, LLC
+ Copyright (C) 2017-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,10 +22,11 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 1/18/10.
-//  Copyright 2010-2021 MyFlightbook LLC. All rights reserved.
+//  Copyright 2010-2023 MyFlightbook LLC. All rights reserved.
 //
 
 #import "RouteAnnotation.h"
+#import "AutodetectOptions.h"
 
 
 @implementation RouteAnnotation
@@ -85,7 +86,7 @@
 
 + (UIColor *) colorForPolyline
 {
-    return [UIColor blueColor];
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Called abstract function colorForPolyline; only use in subclasses" userInfo:nil];
 }
 @end
 
@@ -111,6 +112,9 @@
         return [super polylineWithCoordinates:rgCoords count:cPoints];
 }
 
++ (UIColor *) colorForPolyline {
+    return AutodetectOptions.routeColor;
+}
 @end
 
 
@@ -133,8 +137,7 @@
 }
 
 
-+ (UIColor *) colorForPolyline
-{
-    return UIColor.systemRedColor;
++ (UIColor *) colorForPolyline {
+    return AutodetectOptions.pathColor;
 }
 @end

@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2022 MyFlightbook, LLC
+ Copyright (C) 2017-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 2/7/10.
-//  Copyright 2010-2018 MyFlightbook LLC. All rights reserved.
+//  Copyright 2010-2023 MyFlightbook LLC. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -77,6 +77,10 @@ typedef NS_ENUM(NSInteger, flightTimeDetail) {
 @property (nonatomic, strong) IBOutlet UITableViewCell * cellMapOptions;
 @property (nonatomic, strong) IBOutlet UITableViewCell * cellImages;
 @property (nonatomic, strong) IBOutlet UILabel * txtWarnings;
+@property (nonatomic, strong) IBOutlet UIColorWell * colorRoute;
+@property (nonatomic, strong) IBOutlet UIColorWell * colorPath;
+@property (nonatomic, strong) IBOutlet UILabel * lblPathPrompt;
+@property (nonatomic, strong) IBOutlet UILabel * lblRoutePrompt;
 
 - (IBAction) autoDetectClicked:(UISwitch *)sender;
 - (IBAction) recordFlightClicked:(UISwitch *)sender;
@@ -89,6 +93,8 @@ typedef NS_ENUM(NSInteger, flightTimeDetail) {
 - (IBAction) mapTypeChanged:(UISegmentedControl *)sender;
 - (IBAction) showImagesClicked:(UISwitch *) sender;
 - (IBAction) showFlightTimesClicked:(UISegmentedControl *)sender;
+- (IBAction) routeColorChanged:(UIColorWell *)sender;
+- (IBAction) pathColorChanged:(UIColorWell *)sender;
 
 + (int) autoTotalMode;
 + (BOOL) roundTotalToNearestTenth;
@@ -106,6 +112,9 @@ typedef NS_ENUM(NSInteger, flightTimeDetail) {
 + (BOOL) showBlock;
 + (BOOL) showEngine;
 + (BOOL) showFlight;
++ (UIColor *) routeColor;
++ (UIColor *) pathColor;
+
 + (flightTimeDetail) showFlightTimes;
 + (MKMapType) mapType;
 + (NightFlightOptions) nightFlightPref;
