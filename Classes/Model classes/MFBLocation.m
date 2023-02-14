@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2022 MyFlightbook, LLC
+ Copyright (C) 2017-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 5/17/12.
-//  Copyright (c) 2012-2021 MyFlightbook LLC. All rights reserved.
+//  Copyright (c) 2012-2023 MyFlightbook LLC. All rights reserved.
 //
 
 #import "MFBAppDelegate.h"
@@ -204,7 +204,7 @@ static int vLanding = LANDING_SPEED_DEFAULT;
         self.locManager = [[CLLocationManager alloc] init];
         if ([self.locManager respondsToSelector:@selector(requestAlwaysAuthorization)])
         {
-            if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined)
+            if (self.locManager.authorizationStatus == kCLAuthorizationStatusNotDetermined)
                 [self.locManager requestAlwaysAuthorization];
         }
         
@@ -221,9 +221,9 @@ static int vLanding = LANDING_SPEED_DEFAULT;
         self.locManager.allowsBackgroundLocationUpdates = YES;
 }
                 
-- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+- (void)locationManagerDidChangeAuthorization:(CLLocationManager *)manager
 {
-    if (status == kCLAuthorizationStatusDenied || status == kCLAuthorizationStatusRestricted) {
+    if (manager.authorizationStatus == kCLAuthorizationStatusDenied || manager.authorizationStatus == kCLAuthorizationStatusRestricted) {
         self.locManager = nil;
         return;
     }
@@ -234,7 +234,10 @@ static int vLanding = LANDING_SPEED_DEFAULT;
 
 - (BOOL) isLocationServicesEnabled
 {
-    return CLLocationManager.authorizationStatus == kCLAuthorizationStatusAuthorizedAlways || CLLocationManager.authorizationStatus == kCLAuthorizationStatusAuthorizedWhenInUse;
+    if (self.locManager == nil)
+        self.locManager = [CLLocationManager new];
+    
+    return self.locManager.authorizationStatus == kCLAuthorizationStatusAuthorizedAlways || self.locManager.authorizationStatus == kCLAuthorizationStatusAuthorizedWhenInUse;
 }
 
 + (BOOL) isSignificantChangeMonitoringEnabled

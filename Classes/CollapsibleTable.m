@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2013-2022 MyFlightbook, LLC
+ Copyright (C) 2013-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -30,6 +30,7 @@
 #import "PropertyCell.h"
 #import "NavigableCell.h"
 #import "Airports.h"
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 @import Photos;
 
@@ -420,8 +421,8 @@ BOOL fSelectFirst = NO;
 {
     NSString * szType = info[UIImagePickerControllerMediaType];
 
-    BOOL fImage = (CFStringCompare((CFStringRef) szType, kUTTypeImage, 0) == kCFCompareEqualTo);
-    BOOL fVideo = (CFStringCompare((CFStringRef) szType, kUTTypeMovie, 0) == kCFCompareEqualTo);
+    BOOL fImage = [szType compare:UTTypeImage.identifier] == NSOrderedSame;
+    BOOL fVideo = [szType compare:UTTypeMovie.identifier] == NSOrderedSame;
     BOOL fCamera = (picker.sourceType == UIImagePickerControllerSourceTypeCamera);
     if (fImage || fVideo)
     {

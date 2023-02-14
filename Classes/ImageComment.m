@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2010-2020 MyFlightbook, LLC
+ Copyright (C) 2010-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -42,7 +42,6 @@
     self.txtComment.placeholder = NSLocalizedString(@"Add a comment for this image", @"Add a comment for this image");
 
     WKWebViewConfiguration *conf = [[WKWebViewConfiguration alloc] init];
-    conf.preferences.javaScriptEnabled = YES;
     conf.allowsInlineMediaPlayback = YES;
     conf.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeAll;
     
