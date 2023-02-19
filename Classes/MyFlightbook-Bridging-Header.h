@@ -37,5 +37,9 @@
 #import <UIKit/UIKit.h>
 #import "MFBWebServiceSvc.h"
 #import "SharedWatch.h"
+#import "HostName.h"
+#import "NSNumberCategories.h"
+#import "TotalsCategories.h"
+#import "CurrencyCategories.h"
 
 #endif /* MyFlightbook_Bridging_Header_h */

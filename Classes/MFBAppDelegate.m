@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2022 MyFlightbook, LLC
+ Copyright (C) 2009-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -41,6 +41,7 @@
 #import "MFBTheme.h"
 #import "OptionKeys.h"
 #import <UserNotifications/UserNotifications.h>
+#import <MyFlightbook-Swift.h>
 
 #ifdef DEBUG
 #warning DEBUG BUILD!!.
@@ -694,6 +695,7 @@ static MFBAppDelegate * _mainApp = nil;
 {
 	[self saveState];
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] saveToUserDefaults];     // save any cookies.
+    [ObjCWidgetUtil forceRefreshWidget];    // in case anything changed, force the widgets to reload.
 }
 
 - (UIInterfaceOrientationMask) application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window  // iOS 6
@@ -783,6 +785,7 @@ static MFBAppDelegate * _mainApp = nil;
 {
     for (id<Invalidatable> vc in self.notifyResetAll)
         [vc invalidateViewController];
+
 }
 
 - (void) invalidateCachedTotals
