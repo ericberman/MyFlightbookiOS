@@ -104,7 +104,7 @@ struct currencyRow : View {
                 VStack {
                     Spacer()
                     Text(curr.attribute)
-                        .font(.system(size: 17))
+                        .font(.system(size: 12))
                         .padding([Edge.Set.trailing, Edge.Set.leading], 10)
                         .frame(maxWidth: .infinity, alignment: .topLeading)
                     Spacer()
@@ -112,7 +112,7 @@ struct currencyRow : View {
                 .frame(height: 40)
                 VStack(spacing:0) {
                     Text(curr.value)
-                        .font(.system(size: 17, weight: .bold))
+                        .font(.system(size: 12, weight: .bold))
                         .padding([Edge.Set.trailing], 10)
                         .padding([Edge.Set.top, Edge.Set.bottom], 0)
                         .foregroundColor(MyFlightbookCurrencyWidgetsEntryView.colorForState(state: curr.state))
