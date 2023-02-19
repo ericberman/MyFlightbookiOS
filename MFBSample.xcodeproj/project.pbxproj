@@ -194,44 +194,9 @@
 		9A6DFCF6224302230061FE86 /* Default-Landscape-2436x1125.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DFCF2224302230061FE86 /* Default-Landscape-2436x1125.png */; };
 		9A6DFCF8224306B30061FE86 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DFCF7224306B30061FE86 /* Launch Screen.storyboard */; };
 		9A70B18722C07A8500CA7E21 /* FlightEditorBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A70B18622C07A8500CA7E21 /* FlightEditorBaseTableViewController.m */; };
-		9A73C84821AF51F500AE1221 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A73C84721AF51F400AE1221 /* NotificationCenter.framework */; };
-		9A73C84C21AF51F500AE1221 /* TodayCurrencyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A73C84B21AF51F500AE1221 /* TodayCurrencyController.m */; };
-		9A73C84F21AF51F500AE1221 /* CurrencyTodayWidget.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A73C84D21AF51F500AE1221 /* CurrencyTodayWidget.storyboard */; };
-		9A73C85321AF51F500AE1221 /* MyFlightbook - Currency.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9A73C84621AF51F400AE1221 /* MyFlightbook - Currency.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		9A73C85E21AFB97B00AE1221 /* CurrencyRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEC4C9513AC56A90044897B /* CurrencyRow.m */; };
-		9A73C86121B04E3B00AE1221 /* MFBWebServiceSvc.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0F0E7313E88781007E54C1 /* MFBWebServiceSvc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A73C86221B04E4200AE1221 /* NSDate+ISO8601Parsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202110CCBD8900DF1CA6 /* NSDate+ISO8601Parsing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A73C86321B04E4200AE1221 /* NSDate+ISO8601Unparsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202310CCBD8900DF1CA6 /* NSDate+ISO8601Unparsing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A73C86421B04E4200AE1221 /* USAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202510CCBD8A00DF1CA6 /* USAdditions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A73C86521B04E4200AE1221 /* USGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202710CCBD8A00DF1CA6 /* USGlobals.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A73C86621B04E4200AE1221 /* xsd.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202910CCBD8B00DF1CA6 /* xsd.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A73C86721B05A3A00AE1221 /* CurrencyRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A5A0836147ED35300C05C50 /* CurrencyRow.xib */; };
-		9A73C86C21B0671900AE1221 /* TodayWidgetBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A73C86B21B0671900AE1221 /* TodayWidgetBase.m */; };
-		9A73C86D21B0674B00AE1221 /* TodayWidgetBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A73C86B21B0671900AE1221 /* TodayWidgetBase.m */; };
-		9A73C88821B070B000AE1221 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A73C84721AF51F400AE1221 /* NotificationCenter.framework */; };
-		9A73C88C21B070B000AE1221 /* TodayTotalsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A73C88B21B070B000AE1221 /* TodayTotalsController.m */; };
-		9A73C88F21B070B000AE1221 /* TotalsTodayWidget.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A73C88D21B070B000AE1221 /* TotalsTodayWidget.storyboard */; };
-		9A73C89321B070B000AE1221 /* MyFlightbook - Totals.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9A73C88721B070B000AE1221 /* MyFlightbook - Totals.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		9A73C89921B071CE00AE1221 /* TotalsRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A5A085E147ED35300C05C50 /* TotalsRow.xib */; };
-		9A73C89A21B071E400AE1221 /* TotalsRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEC4C9213ABFCDA0044897B /* TotalsRow.m */; };
-		9A73C89B21B071FA00AE1221 /* TodayWidgetBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A73C86B21B0671900AE1221 /* TodayWidgetBase.m */; };
-		9A73C89C21B0720900AE1221 /* MFBWebServiceSvc.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0F0E7313E88781007E54C1 /* MFBWebServiceSvc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A73C89D21B0720900AE1221 /* NSDate+ISO8601Parsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202110CCBD8900DF1CA6 /* NSDate+ISO8601Parsing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A73C89E21B0720900AE1221 /* NSDate+ISO8601Unparsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202310CCBD8900DF1CA6 /* NSDate+ISO8601Unparsing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A73C89F21B0720900AE1221 /* USAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202510CCBD8A00DF1CA6 /* USAdditions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A73C8A021B0720900AE1221 /* USGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202710CCBD8A00DF1CA6 /* USGlobals.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A73C8A121B0727300AE1221 /* xsd.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202910CCBD8B00DF1CA6 /* xsd.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9A73C8A521B0764F00AE1221 /* NSNumberCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A73C8A421B0764F00AE1221 /* NSNumberCategories.m */; };
-		9A73C8A621B07A9400AE1221 /* NSNumberCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A73C8A421B0764F00AE1221 /* NSNumberCategories.m */; };
 		9A73C8A821B07BE900AE1221 /* TotalsCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A73C8A721B07BE900AE1221 /* TotalsCategories.m */; };
-		9A73C8AA21B0819400AE1221 /* TotalsCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A73C8A721B07BE900AE1221 /* TotalsCategories.m */; };
-		9A73C8AB21B08F0A00AE1221 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9A7A7D98147F4DD0003A6912 /* Localizable.strings */; };
-		9A73C8AC21B08F0B00AE1221 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9A7A7D98147F4DD0003A6912 /* Localizable.strings */; };
 		9A73C8B021B1A9A500AE1221 /* CurrencyCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A73C8AF21B1A9A500AE1221 /* CurrencyCategories.m */; };
-		9A73C8B121B1A9A500AE1221 /* CurrencyCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A73C8AF21B1A9A500AE1221 /* CurrencyCategories.m */; };
-		9A73C8B221B1A9A500AE1221 /* CurrencyCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A73C8AF21B1A9A500AE1221 /* CurrencyCategories.m */; };
-		9A73C8B321B1AC0200AE1221 /* TotalsCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A73C8A721B07BE900AE1221 /* TotalsCategories.m */; };
-		9A73C8B421B1AC0700AE1221 /* NSNumberCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A73C8A421B0764F00AE1221 /* NSNumberCategories.m */; };
 		9A77CDA011050421006E7531 /* RouteAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A77CD9F11050421006E7531 /* RouteAnnotation.m */; };
 		9A77CF97110569D0006E7531 /* airport.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A77CF96110569D0006E7531 /* airport.png */; };
 		9A78376E13E8AB99007CD501 /* VADetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A78376C13E8AB98007CD501 /* VADetails.m */; };
@@ -494,20 +459,6 @@
 			remoteGlobalIDString = 9A48E26429A1685E00511D99;
 			remoteInfo = MyFlightbookWidgetsExtension;
 		};
-		9A73C85121AF51F500AE1221 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9A73C84521AF51F400AE1221;
-			remoteInfo = "MyFlightbook - Currency";
-		};
-		9A73C89121B070B000AE1221 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9A73C88621B070B000AE1221;
-			remoteInfo = "MyFlightbook - Totals";
-		};
 		9ACDC8DA1BDFEA1400B0A077 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -540,8 +491,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				9A73C89321B070B000AE1221 /* MyFlightbook - Totals.appex in Embed Foundation Extensions */,
-				9A73C85321AF51F500AE1221 /* MyFlightbook - Currency.appex in Embed Foundation Extensions */,
 				9A48E27729A1686000511D99 /* MyFlightbookWidgetsExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
@@ -792,21 +741,7 @@
 		9A73C83F21AF51C200AE1221 /* MyFlightbook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = MyFlightbook.entitlements; path = MyFlightbook/MyFlightbook.entitlements; sourceTree = "<group>"; };
 		9A73C84021AF51C900AE1221 /* MyFlightbookWatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyFlightbookWatch.entitlements; sourceTree = "<group>"; };
 		9A73C84121AF51CF00AE1221 /* MyFlightbookWatch Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MyFlightbookWatch Extension.entitlements"; sourceTree = "<group>"; };
-		9A73C84621AF51F400AE1221 /* MyFlightbook - Currency.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "MyFlightbook - Currency.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A73C84721AF51F400AE1221 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
-		9A73C84A21AF51F500AE1221 /* TodayCurrencyController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayCurrencyController.h; sourceTree = "<group>"; };
-		9A73C84B21AF51F500AE1221 /* TodayCurrencyController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodayCurrencyController.m; sourceTree = "<group>"; };
-		9A73C84E21AF51F500AE1221 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/CurrencyTodayWidget.storyboard; sourceTree = "<group>"; };
-		9A73C85021AF51F500AE1221 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9A73C85921AF51FD00AE1221 /* MyFlightbook - Currency.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MyFlightbook - Currency.entitlements"; sourceTree = "<group>"; };
-		9A73C86A21B0671900AE1221 /* TodayWidgetBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayWidgetBase.h; sourceTree = "<group>"; };
-		9A73C86B21B0671900AE1221 /* TodayWidgetBase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodayWidgetBase.m; sourceTree = "<group>"; };
-		9A73C88721B070B000AE1221 /* MyFlightbook - Totals.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "MyFlightbook - Totals.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9A73C88A21B070B000AE1221 /* TodayTotalsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayTotalsController.h; sourceTree = "<group>"; };
-		9A73C88B21B070B000AE1221 /* TodayTotalsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodayTotalsController.m; sourceTree = "<group>"; };
-		9A73C88E21B070B000AE1221 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/TotalsTodayWidget.storyboard; sourceTree = "<group>"; };
-		9A73C89021B070B000AE1221 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9A73C89821B070CD00AE1221 /* MyFlightbook - Totals.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MyFlightbook - Totals.entitlements"; sourceTree = "<group>"; };
 		9A73C8A321B0764F00AE1221 /* NSNumberCategories.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSNumberCategories.h; sourceTree = "<group>"; };
 		9A73C8A421B0764F00AE1221 /* NSNumberCategories.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSNumberCategories.m; sourceTree = "<group>"; };
 		9A73C8A721B07BE900AE1221 /* TotalsCategories.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TotalsCategories.m; sourceTree = "<group>"; };
@@ -1155,22 +1090,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9A73C84321AF51F400AE1221 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9A73C84821AF51F500AE1221 /* NotificationCenter.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9A73C88421B070B000AE1221 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9A73C88821B070B000AE1221 /* NotificationCenter.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9ACDC8D51BDFEA1400B0A077 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1201,8 +1120,6 @@
 				9AFAC12E10E5CC9400225E90 /* MyFlightbook.app */,
 				9ACDC8CC1BDFEA1300B0A077 /* MyFlightbookWatch.app */,
 				9ACDC8D81BDFEA1400B0A077 /* MyFlightbookWatch Extension.appex */,
-				9A73C84621AF51F400AE1221 /* MyFlightbook - Currency.appex */,
-				9A73C88721B070B000AE1221 /* MyFlightbook - Totals.appex */,
 				9A48E26529A1685E00511D99 /* MyFlightbookWidgetsExtension.appex */,
 				9A48E28D29A16EE400511D99 /* MFBSoapCallLibrary.a */,
 			);
@@ -1223,8 +1140,6 @@
 				9AB7775711A84AFC0059F47B /* Resources-iPad */,
 				9ACDC8CD1BDFEA1300B0A077 /* MyFlightbookWatch */,
 				9ACDC8DC1BDFEA1400B0A077 /* MyFlightbookWatch Extension */,
-				9A73C84921AF51F500AE1221 /* MyFlightbook - Currency */,
-				9A73C88921B070B000AE1221 /* MyFlightbook - Totals */,
 				9A48E26A29A1685F00511D99 /* MyFlightbookWidgets */,
 				9A48E28E29A16EE400511D99 /* MFBSoapCallLibrary */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -1489,39 +1404,6 @@
 				9A69202910CCBD8B00DF1CA6 /* xsd.m */,
 			);
 			path = WebServiceCode;
-			sourceTree = "<group>";
-		};
-		9A73C84921AF51F500AE1221 /* MyFlightbook - Currency */ = {
-			isa = PBXGroup;
-			children = (
-				9A73C85921AF51FD00AE1221 /* MyFlightbook - Currency.entitlements */,
-				9A73C84A21AF51F500AE1221 /* TodayCurrencyController.h */,
-				9A73C84B21AF51F500AE1221 /* TodayCurrencyController.m */,
-				9A73C84D21AF51F500AE1221 /* CurrencyTodayWidget.storyboard */,
-				9A73C85021AF51F500AE1221 /* Info.plist */,
-			);
-			path = "MyFlightbook - Currency";
-			sourceTree = "<group>";
-		};
-		9A73C85A21AF6C0900AE1221 /* TodayWidget Utility */ = {
-			isa = PBXGroup;
-			children = (
-				9A73C86A21B0671900AE1221 /* TodayWidgetBase.h */,
-				9A73C86B21B0671900AE1221 /* TodayWidgetBase.m */,
-			);
-			path = "TodayWidget Utility";
-			sourceTree = "<group>";
-		};
-		9A73C88921B070B000AE1221 /* MyFlightbook - Totals */ = {
-			isa = PBXGroup;
-			children = (
-				9A73C89821B070CD00AE1221 /* MyFlightbook - Totals.entitlements */,
-				9A73C88A21B070B000AE1221 /* TodayTotalsController.h */,
-				9A73C88B21B070B000AE1221 /* TodayTotalsController.m */,
-				9A73C88D21B070B000AE1221 /* TotalsTodayWidget.storyboard */,
-				9A73C89021B070B000AE1221 /* Info.plist */,
-			);
-			path = "MyFlightbook - Totals";
 			sourceTree = "<group>";
 		};
 		9A73C8AD21B1A94500AE1221 /* Category Extensions */ = {
@@ -1809,7 +1691,6 @@
 			isa = PBXGroup;
 			children = (
 				9A73C8AD21B1A94500AE1221 /* Category Extensions */,
-				9A73C85A21AF6C0900AE1221 /* TodayWidget Utility */,
 				9AD2FFF61BE4060000A9B21B /* Watchkit Utility */,
 				9A8BF93B10E1846E002F01ED /* Aircraft.h */,
 				9A8BF93C10E1846E002F01ED /* Aircraft.m */,
@@ -2016,8 +1897,6 @@
 			);
 			dependencies = (
 				9ACDC8EB1BDFEA1400B0A077 /* PBXTargetDependency */,
-				9A73C85221AF51F500AE1221 /* PBXTargetDependency */,
-				9A73C89221B070B000AE1221 /* PBXTargetDependency */,
 				9A48E27629A1686000511D99 /* PBXTargetDependency */,
 			);
 			name = MyFlightbook;
@@ -2058,40 +1937,6 @@
 			productName = MFBSoapCallLibrary;
 			productReference = 9A48E28D29A16EE400511D99 /* MFBSoapCallLibrary.a */;
 			productType = "com.apple.product-type.library.static";
-		};
-		9A73C84521AF51F400AE1221 /* MyFlightbook - Currency */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9A73C85421AF51F500AE1221 /* Build configuration list for PBXNativeTarget "MyFlightbook - Currency" */;
-			buildPhases = (
-				9A73C84221AF51F400AE1221 /* Sources */,
-				9A73C84321AF51F400AE1221 /* Frameworks */,
-				9A73C84421AF51F400AE1221 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "MyFlightbook - Currency";
-			productName = "MyFlightbook - Currency";
-			productReference = 9A73C84621AF51F400AE1221 /* MyFlightbook - Currency.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
-		9A73C88621B070B000AE1221 /* MyFlightbook - Totals */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9A73C89421B070B100AE1221 /* Build configuration list for PBXNativeTarget "MyFlightbook - Totals" */;
-			buildPhases = (
-				9A73C88321B070B000AE1221 /* Sources */,
-				9A73C88421B070B000AE1221 /* Frameworks */,
-				9A73C88521B070B000AE1221 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "MyFlightbook - Totals";
-			productName = "MyFlightbook - Totals";
-			productReference = 9A73C88721B070B000AE1221 /* MyFlightbook - Totals.appex */;
-			productType = "com.apple.product-type.app-extension";
 		};
 		9ACDC8CB1BDFEA1300B0A077 /* MyFlightbookWatch */ = {
 			isa = PBXNativeTarget;
@@ -2159,26 +2004,6 @@
 						DevelopmentTeam = 99X7N8Z9WP;
 						ProvisioningStyle = Automatic;
 					};
-					9A73C84521AF51F400AE1221 = {
-						CreatedOnToolsVersion = 10.1;
-						DevelopmentTeam = 99X7N8Z9WP;
-						ProvisioningStyle = Automatic;
-						SystemCapabilities = {
-							com.apple.ApplicationGroups.iOS = {
-								enabled = 1;
-							};
-						};
-					};
-					9A73C88621B070B000AE1221 = {
-						CreatedOnToolsVersion = 10.1;
-						DevelopmentTeam = 99X7N8Z9WP;
-						ProvisioningStyle = Automatic;
-						SystemCapabilities = {
-							com.apple.ApplicationGroups.iOS = {
-								enabled = 1;
-							};
-						};
-					};
 					9ACDC8CB1BDFEA1300B0A077 = {
 						CreatedOnToolsVersion = 7.1;
 						DevelopmentTeam = 99X7N8Z9WP;
@@ -2219,8 +2044,6 @@
 				1D6058900D05DD3D006BFB54 /* MyFlightbook */,
 				9ACDC8CB1BDFEA1300B0A077 /* MyFlightbookWatch */,
 				9ACDC8D71BDFEA1400B0A077 /* MyFlightbookWatch Extension */,
-				9A73C84521AF51F400AE1221 /* MyFlightbook - Currency */,
-				9A73C88621B070B000AE1221 /* MyFlightbook - Totals */,
 				9A48E26429A1685E00511D99 /* MyFlightbookWidgetsExtension */,
 				9A48E28C29A16EE400511D99 /* MFBSoapCallLibrary */,
 			);
@@ -2499,26 +2322,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9A73C84421AF51F400AE1221 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9A73C84F21AF51F500AE1221 /* CurrencyTodayWidget.storyboard in Resources */,
-				9A73C8AB21B08F0A00AE1221 /* Localizable.strings in Resources */,
-				9A73C86721B05A3A00AE1221 /* CurrencyRow.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9A73C88521B070B000AE1221 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9A73C88F21B070B000AE1221 /* TotalsTodayWidget.storyboard in Resources */,
-				9A73C8AC21B08F0B00AE1221 /* Localizable.strings in Resources */,
-				9A73C89921B071CE00AE1221 /* TotalsRow.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9ACDC8CA1BDFEA1300B0A077 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2583,7 +2386,6 @@
 				9A5F990529A1CCB500692E27 /* WidgetKitBridge.swift in Sources */,
 				9A8005A022CEBCCF00EC487E /* LogbookEntryBaseTableViewController.m in Sources */,
 				9A73C8B021B1A9A500AE1221 /* CurrencyCategories.m in Sources */,
-				9A73C86C21B0671900AE1221 /* TodayWidgetBase.m in Sources */,
 				9A69202B10CCBD8B00DF1CA6 /* NSDate+ISO8601Parsing.m in Sources */,
 				9A69202C10CCBD8B00DF1CA6 /* NSDate+ISO8601Unparsing.m in Sources */,
 				9A69202D10CCBD8B00DF1CA6 /* USAdditions.m in Sources */,
@@ -2707,44 +2509,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9A73C84221AF51F400AE1221 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9A73C86321B04E4200AE1221 /* NSDate+ISO8601Unparsing.m in Sources */,
-				9A73C86521B04E4200AE1221 /* USGlobals.m in Sources */,
-				9A73C8B121B1A9A500AE1221 /* CurrencyCategories.m in Sources */,
-				9A73C8B421B1AC0700AE1221 /* NSNumberCategories.m in Sources */,
-				9A73C86221B04E4200AE1221 /* NSDate+ISO8601Parsing.m in Sources */,
-				9A73C86621B04E4200AE1221 /* xsd.m in Sources */,
-				9A73C84C21AF51F500AE1221 /* TodayCurrencyController.m in Sources */,
-				9A73C86D21B0674B00AE1221 /* TodayWidgetBase.m in Sources */,
-				9A73C86121B04E3B00AE1221 /* MFBWebServiceSvc.m in Sources */,
-				9A73C85E21AFB97B00AE1221 /* CurrencyRow.m in Sources */,
-				9A73C86421B04E4200AE1221 /* USAdditions.m in Sources */,
-				9A73C8B321B1AC0200AE1221 /* TotalsCategories.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9A73C88321B070B000AE1221 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9A73C8A121B0727300AE1221 /* xsd.m in Sources */,
-				9A73C8A621B07A9400AE1221 /* NSNumberCategories.m in Sources */,
-				9A73C89D21B0720900AE1221 /* NSDate+ISO8601Parsing.m in Sources */,
-				9A73C89E21B0720900AE1221 /* NSDate+ISO8601Unparsing.m in Sources */,
-				9A73C8B221B1A9A500AE1221 /* CurrencyCategories.m in Sources */,
-				9A73C8A021B0720900AE1221 /* USGlobals.m in Sources */,
-				9A73C88C21B070B000AE1221 /* TodayTotalsController.m in Sources */,
-				9A73C89C21B0720900AE1221 /* MFBWebServiceSvc.m in Sources */,
-				9A73C89B21B071FA00AE1221 /* TodayWidgetBase.m in Sources */,
-				9A73C89A21B071E400AE1221 /* TotalsRow.m in Sources */,
-				9A73C89F21B0720900AE1221 /* USAdditions.m in Sources */,
-				9A73C8AA21B0819400AE1221 /* TotalsCategories.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9ACDC8D41BDFEA1400B0A077 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2770,16 +2534,6 @@
 			isa = PBXTargetDependency;
 			target = 9A48E26429A1685E00511D99 /* MyFlightbookWidgetsExtension */;
 			targetProxy = 9A48E27529A1686000511D99 /* PBXContainerItemProxy */;
-		};
-		9A73C85221AF51F500AE1221 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9A73C84521AF51F400AE1221 /* MyFlightbook - Currency */;
-			targetProxy = 9A73C85121AF51F500AE1221 /* PBXContainerItemProxy */;
-		};
-		9A73C89221B070B000AE1221 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9A73C88621B070B000AE1221 /* MyFlightbook - Totals */;
-			targetProxy = 9A73C89121B070B000AE1221 /* PBXContainerItemProxy */;
 		};
 		9ACDC8DB1BDFEA1400B0A077 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2954,22 +2708,6 @@
 				9AC6AF261BD01591004AB2E3 /* Base */,
 			);
 			name = VisitedAirports.xib;
-			sourceTree = "<group>";
-		};
-		9A73C84D21AF51F500AE1221 /* CurrencyTodayWidget.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9A73C84E21AF51F500AE1221 /* Base */,
-			);
-			name = CurrencyTodayWidget.storyboard;
-			sourceTree = "<group>";
-		};
-		9A73C88D21B070B000AE1221 /* TotalsTodayWidget.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9A73C88E21B070B000AE1221 /* Base */,
-			);
-			name = TotalsTodayWidget.storyboard;
 			sourceTree = "<group>";
 		};
 		9A7A7D98147F4DD0003A6912 /* Localizable.strings */ = {
@@ -3999,263 +3737,6 @@
 			};
 			name = Distribution;
 		};
-		9A73C85521AF51F500AE1221 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "MyFlightbook - Currency/MyFlightbook - Currency.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2023.01.11.2;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 99X7N8Z9WP;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = "MyFlightbook - Currency/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 2023.01.11;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.myflightbook.myflightbookiphone.MyFlightbook---Currency";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		9A73C85621AF51F500AE1221 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "MyFlightbook - Currency/MyFlightbook - Currency.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2023.01.11.2;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 99X7N8Z9WP;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = "MyFlightbook - Currency/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 2023.01.11;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.myflightbook.myflightbookiphone.MyFlightbook---Currency";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		9A73C85721AF51F500AE1221 /* Distribution */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "MyFlightbook - Currency/MyFlightbook - Currency.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2023.01.11.2;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 99X7N8Z9WP;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = "MyFlightbook - Currency/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 2023.01.11;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.myflightbook.myflightbookiphone.MyFlightbook---Currency";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Distribution;
-		};
-		9A73C89521B070B100AE1221 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "MyFlightbook - Totals/MyFlightbook - Totals.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2023.01.11.2;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 99X7N8Z9WP;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = "MyFlightbook - Totals/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 2023.01.11;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.myflightbook.myflightbookiphone.MyFlightbook---Totals";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		9A73C89621B070B100AE1221 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "MyFlightbook - Totals/MyFlightbook - Totals.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2023.01.11.2;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 99X7N8Z9WP;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = "MyFlightbook - Totals/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 2023.01.11;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.myflightbook.myflightbookiphone.MyFlightbook---Totals";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		9A73C89721B070B100AE1221 /* Distribution */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "MyFlightbook - Totals/MyFlightbook - Totals.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2023.01.11.2;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 99X7N8Z9WP;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = "MyFlightbook - Totals/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 2023.01.11;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.myflightbook.myflightbookiphone.MyFlightbook---Totals";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Distribution;
-		};
 		9ACDC8ED1BDFEA1400B0A077 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4720,26 +4201,6 @@
 				9A48E29429A16EE400511D99 /* Debug */,
 				9A48E29529A16EE400511D99 /* Release */,
 				9A48E29629A16EE400511D99 /* Distribution */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		9A73C85421AF51F500AE1221 /* Build configuration list for PBXNativeTarget "MyFlightbook - Currency" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9A73C85521AF51F500AE1221 /* Debug */,
-				9A73C85621AF51F500AE1221 /* Release */,
-				9A73C85721AF51F500AE1221 /* Distribution */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		9A73C89421B070B100AE1221 /* Build configuration list for PBXNativeTarget "MyFlightbook - Totals" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9A73C89521B070B100AE1221 /* Debug */,
-				9A73C89621B070B100AE1221 /* Release */,
-				9A73C89721B070B100AE1221 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
