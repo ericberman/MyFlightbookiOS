@@ -26,6 +26,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MyFlightbook-Swift.h>
 #import <CoreLocation/CoreLocation.h>
 #import <SystemConfiguration/SystemConfiguration.h>
 #import "MFBProfile.h"

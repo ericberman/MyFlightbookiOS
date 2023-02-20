@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2019 MyFlightbook, LLC
+ Copyright (C) 2017-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,10 +22,10 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 7/31/11.
-//  Copyright 2011-2019 MyFlightbook LLC. All rights reserved.
 //
 
 #import "DecimalEdit.h"
+#import <MyFlightbook-Swift.h>
 #import <objc/runtime.h>
 #import <QuartzCore/QuartzCore.h>
 #import "AutodetectOptions.h"

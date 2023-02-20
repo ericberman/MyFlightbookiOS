@@ -24,6 +24,7 @@
 //
 
 #import "FlightEditorBaseTableViewController.h"
+#import <MyFlightbook-Swift.h>
 #import "GPSDeviceViewTableViewController.h"
 #import <ExternalAccessory/EAAccessory.h>
 #import <ExternalAccessory/EAAccessoryManager.h>

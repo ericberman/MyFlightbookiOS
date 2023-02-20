@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2020 MyFlightbook, LLC
+ Copyright (C) 2009-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -25,7 +25,6 @@
 //
 
 #import "Totals.h"
-#import "TotalsCategories.h"
 #import "MFBAppDelegate.h"
 #import "DecimalEdit.h"
 #import "util.h"
@@ -114,7 +113,7 @@
         if (dtLastPack != nil) {
             NSDateFormatter * df = NSDateFormatter.new;
             df.dateStyle = NSDateFormatterShortStyle;
-            self.rgTotalsGroups = [MFBWebServiceSvc_TotalsItem GroupItems:PackAndGo.cachedTotals];
+            self.rgTotalsGroups = [MFBWebServiceSvc_TotalsItem GroupWithItems:PackAndGo.cachedTotals];
             [self.tableView reloadData];
             self.fIsValid = YES;
             self.tableView.allowsSelection = NO;
@@ -154,7 +153,7 @@
 		MFBWebServiceSvc_TotalsForUserWithQueryResponse * resp = (MFBWebServiceSvc_TotalsForUserWithQueryResponse *) body;
         if (self.fq.isUnrestricted)
             [PackAndGo updateTotals:resp.TotalsForUserWithQueryResult.TotalsItem];
-        self.rgTotalsGroups = [MFBWebServiceSvc_TotalsItem GroupItems:resp.TotalsForUserWithQueryResult.TotalsItem];
+        self.rgTotalsGroups = [MFBWebServiceSvc_TotalsItem GroupWithItems:resp.TotalsForUserWithQueryResult.TotalsItem];
         self.fIsValid = YES;
 	}
 }

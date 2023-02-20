@@ -128,25 +128,6 @@ public class TotalsCall : WidgetSoapCall {
         binding.totalsForUserWithQueryAsync(usingParameters: totalsForUser, delegate: self)
     }
     
-    private func valueDisplay(ti : MFBWebServiceSvc_TotalsItem) -> String {
-        switch (ti.numericType)
-        {
-            case MFBWebServiceSvc_NumType_Integer:
-                return "\(ti.value.intValue)"
-            case MFBWebServiceSvc_NumType_Currency:
-                let nsf = NumberFormatter()
-                nsf.numberStyle = NumberFormatter.Style.currency
-                return nsf.string(from: ti.value)!
-            case MFBWebServiceSvc_NumType_Decimal:
-               let nsf = NumberFormatter()
-               return nsf.string(from: ti.value)!
-            case MFBWebServiceSvc_NumType_Time:
-            return ti.value.format(asType: 2, inHHMM: fUseHHMM, useGrouping: true);
-            default:
-                return "\(ti.value.intValue)"
-        }
-    }
-    
     override func dataReceived(data: AnyObject) {
         totalsList = []
         let resp = data as? MFBWebServiceSvc_TotalsForUserWithQueryResponse
@@ -157,7 +138,7 @@ public class TotalsCall : WidgetSoapCall {
                         // Have to effectively re-implement "toSimpleItem" here because we can't easily pull in util (pulls in too many other things)
                         sti.title = ti.description
                         sti.subDesc = ti.subDescription
-                        sti.valueDisplay = valueDisplay(ti: ti)
+                        sti.valueDisplay = ti.formattedValue(fHHMM: fUseHHMM) as String
                         totalsList.append(sti)
                     }
                 }

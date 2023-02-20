@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2013-2022 MyFlightbook, LLC
+ Copyright (C) 2013-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -28,7 +28,6 @@
 #import "Util.h"
 #import "MFBAppDelegate.h"
 #import "DecimalEdit.h"
-#import "TotalsCategories.h"
 #import <QuartzCore/QuartzCore.h>
 #import "MFBTheme.h"
 
@@ -355,7 +354,7 @@
     SimpleTotalItem * sti = [SimpleTotalItem new];
     sti.title = self.Description;
     sti.subDesc = self.SubDescription;
-    sti.valueDisplay = [self formattedValue:[AutodetectOptions HHMMPref]];
+    sti.valueDisplay = [self formattedValueWithFHHMM:AutodetectOptions.HHMMPref];
     return sti;
 }
 

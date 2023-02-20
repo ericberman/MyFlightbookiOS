@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -25,9 +25,8 @@
 //  Copyright 2011-2017 MyFlightbook LLC. All rights reserved.
 //
 
+#import <MyFlightbook-Swift.h>
 #import "TotalsRow.h"
-#import "NSNumberCategories.h"
-#import "TotalsCategories.h"
 
 @implementation TotalsRow
 
@@ -80,7 +79,7 @@
     
     cell.txtLabel.text = ti.Description;
     cell.txtSubDesc.text = ti.SubDescription;
-    cell.txtValue.text = [ti formattedValue: fHHMM];
+    cell.txtValue.text = [ti formattedValueWithFHHMM:fHHMM];
     cell.accessoryType = (ti.Query == nil) ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
     
     [cell AdjustLayoutForValues];
