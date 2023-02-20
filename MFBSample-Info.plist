@@ -151,27 +151,6 @@
 	<string>MyFlightbook saves pictures that you take into your library so that you have your own copy of it.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>MyFlightbook allows you to attach pictures or videos to your flights or to aircraft that you fly.</string>
-	<key>UIApplicationShortcutItems</key>
-	<array>
-		<dict>
-			<key>UIApplicationShortcutItemIconFile</key>
-			<string>currency</string>
-			<key>UIApplicationShortcutItemTitle</key>
-			<string>CURRENCY_SHORTCUT_TITLE</string>
-			<key>UIApplicationShortcutItemType</key>
-			<string>app.currency</string>
-		</dict>
-		<dict>
-			<key>UIApplicationShortcutItemIconFile</key>
-			<string>totals</string>
-			<key>UIApplicationShortcutItemTitle</key>
-			<string>TOTALS_SHORTCUT_TITLE</string>
-			<key>UIApplicationShortcutItemType</key>
-			<string>app.totals</string>
-		</dict>
-	</array>
-	<key>UIApplicationShortcutWidget</key>
-	<string>com.myflightbook.myflightbookiphone.MyFlightbook---Currency</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
