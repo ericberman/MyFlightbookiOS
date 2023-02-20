@@ -200,20 +200,23 @@ struct TotalsEntry: TimelineEntry {
     static func defaultTotals() -> [SimpleTotalItem] {
         let nf = NumberFormatter()
         nf.numberStyle = .decimal
+        var value = 832.6
         let sti1 = SimpleTotalItem()!
         sti1.title = "ASEL"
         sti1.subDesc = "(67 landings, 32 day 12 night), 18 approaches"
-        sti1.valueDisplay = "\(nf.string(for: 832.6)!)"
+        sti1.valueDisplay = "\(nf.string(for: value)!)"
 
         let sti2 = SimpleTotalItem()!
         sti2.title = "Glider"
         sti2.subDesc = "(1 landing)"
-        sti2.valueDisplay = "\(nf.string(for: 1.6)!)"
+        value = 1.6
+        sti2.valueDisplay = "\(nf.string(for: value)!)"
 
         let sti3 = SimpleTotalItem()!
         sti3.title = "Retract"
         sti3.subDesc = ""
-        sti3.valueDisplay = "\(nf.string(for: 350.1)!)"
+        value = 350.1
+        sti3.valueDisplay = "\(nf.string(for: value)!)"
 
         return [sti1, sti2, sti3]
     }
