@@ -37,7 +37,6 @@
 #import "Telemetry.h"
 #import "WPSAlertController.h"
 #import "SynchronousCalls.h"
-#import "MFBTheme.h"
 #import "OptionKeys.h"
 #import <UserNotifications/UserNotifications.h>
 

@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2013-2019 MyFlightbook, LLC
+ Copyright (C) 2013-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -46,7 +46,6 @@
 @end
 
 @interface NSDate(MFBAdditions)
-+ (NSDate *) nowInUTC;
 - (NSString *) utcString;
 - (NSString *) dateString;
 // This we keep as a class function specifically so that dt=nil can return true.
@@ -62,27 +61,6 @@
 @interface NSString (MFBAdditions)
 - (NSString *) stringByURLEncodingString;
 + (NSString *) stringFromCharsThatCouldBeNull:(char *) pch;
-@end
-
-@interface MFBWebServiceSvc_CategoryClass (MFBAdditions)
-- (instancetype) initWithID:(MFBWebServiceSvc_CatClassID) ccID;
-- (NSString *) localizedDescription;
-- (BOOL)isEqual:(id)anObject;
-@end
-
-@interface MFBWebServiceSvc_TotalsItem (MFBAdditions)
-- (SimpleTotalItem *) toSimpleItem;
-+ (NSMutableArray *) toSimpleItems:(NSArray *) ar;
-@end
-
-@interface MFBWebServiceSvc_CurrencyStatusItem (MFBAdditions)
-- (SimpleCurrencyItem *) toSimpleItem;
-+ (NSMutableArray *) toSimpleItems:(NSArray *) ar;
-@end
-
-@interface MFBWebServiceSvc_LogbookEntry (MFBAdditions)
-- (SimpleLogbookEntry *) toSimpleItem;
-+ (NSMutableArray *) toSimpleItems:(NSArray *) ar;
 @end
 
 @interface NSHTTPCookieStorage (Persistence)

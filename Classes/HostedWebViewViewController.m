@@ -25,8 +25,8 @@
 //
 
 #import "HostedWebViewViewController.h"
+#import <MyFlightbook-Swift.h>
 #import "Util.h"
-#import "MFBTheme.h"
 
 @interface HostedWebViewViewController ()
 

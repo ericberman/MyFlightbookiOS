@@ -29,7 +29,6 @@
 #import "MFBAppDelegate.h"
 #import "DecimalEdit.h"
 #import <QuartzCore/QuartzCore.h>
-#import "MFBTheme.h"
 
 @implementation UIViewController(MFBAdditions)
 - (void) showAlertWithTitle:(NSString *) title message:(NSString *) msg {
@@ -109,11 +108,6 @@
 @implementation NSDate(MFBAdditions)
 
 #pragma mark Date handling
-+ (NSDate *) nowInUTC
-{
-	return [NSDate date];
-}
-
 - (NSString *) utcString
 {
     BOOL fSuppressUTC = [AutodetectOptions UseLocalTime];
@@ -288,123 +282,6 @@
     return (pch == NULL) ? @"" : @(pch);
 }
 @end
-
-@implementation MFBWebServiceSvc_CategoryClass (MFBAdditions)
-- (instancetype) initWithID:(MFBWebServiceSvc_CatClassID) ccID
-{
-    if (self = [super init])
-    {
-        self.IdCatClass = ccID;
-    }
-    return self;
-}
-
-- (NSString *) localizedDescription
-{
-    switch (self.IdCatClass) {
-        default:
-        case MFBWebServiceSvc_CatClassID_none:
-            return NSLocalizedString(@"ccAny", @"Any category-class");
-        case MFBWebServiceSvc_CatClassID_ASEL:
-            return NSLocalizedString(@"ccASEL", @"ASEL");
-        case MFBWebServiceSvc_CatClassID_AMEL:
-            return NSLocalizedString(@"ccAMEL", @"AMEL");
-        case MFBWebServiceSvc_CatClassID_ASES:
-            return NSLocalizedString(@"ccASES", @"ASES");
-        case MFBWebServiceSvc_CatClassID_AMES:
-            return NSLocalizedString(@"ccAMES", @"AMES");
-        case MFBWebServiceSvc_CatClassID_Glider:
-            return NSLocalizedString(@"ccGlider", @"Glider");
-        case MFBWebServiceSvc_CatClassID_Helicopter:
-            return NSLocalizedString(@"ccHelicopter", @"Helicopter");
-        case MFBWebServiceSvc_CatClassID_Gyroplane:
-            return NSLocalizedString(@"ccGyroplane", @"Gyroplane");
-        case MFBWebServiceSvc_CatClassID_PoweredLift:
-            return NSLocalizedString(@"ccPoweredLift", @"Powered Lift");
-        case MFBWebServiceSvc_CatClassID_Airship:
-            return NSLocalizedString(@"ccAirship", @"Airship");
-        case MFBWebServiceSvc_CatClassID_HotAirBalloon:
-            return NSLocalizedString(@"ccHotAirBalloon", @"Hot Air Balloon");
-        case MFBWebServiceSvc_CatClassID_GasBalloon:
-            return NSLocalizedString(@"ccGasBalloon", @"Gas Balloon");
-        case MFBWebServiceSvc_CatClassID_PoweredParachuteLand:
-            return NSLocalizedString(@"ccPoweredParachuteLand", @"Powered Parachute Land");
-        case MFBWebServiceSvc_CatClassID_PoweredParachuteSea:
-            return NSLocalizedString(@"ccPoweredParachuteSea", @"Powered Parachute Sea");
-        case MFBWebServiceSvc_CatClassID_WeightShiftControlLand:
-            return NSLocalizedString(@"ccWeightShiftControlLand", @"WeightShiftControlLand");
-        case MFBWebServiceSvc_CatClassID_WeightShiftControlSea:
-            return NSLocalizedString(@"ccWeightShiftControlSea", @"WeightShiftControlSea");
-        case MFBWebServiceSvc_CatClassID_UnmannedAerialSystem:
-            return NSLocalizedString(@"ccUAS", @"UAS");
-        case MFBWebServiceSvc_CatClassID_PoweredParaglider:
-            return NSLocalizedString(@"ccPoweredParaglider", @"Powered Paraglider");
-    }
-    return self.description;
-}
-
-- (BOOL)isEqual:(id)anObject
-{
-    return (anObject != nil) && [anObject isKindOfClass:[MFBWebServiceSvc_CategoryClass class]] && self.IdCatClass == ((MFBWebServiceSvc_CategoryClass *) anObject).IdCatClass;
-}
-@end
-
-@implementation MFBWebServiceSvc_TotalsItem (MFBAdditions)
-- (SimpleTotalItem *) toSimpleItem {
-    SimpleTotalItem * sti = [SimpleTotalItem new];
-    sti.title = self.Description;
-    sti.subDesc = self.SubDescription;
-    sti.valueDisplay = [self formattedValueWithFHHMM:AutodetectOptions.HHMMPref];
-    return sti;
-}
-
-+ (NSMutableArray *) toSimpleItems:(NSArray *) ar
-{
-    NSMutableArray * rgNew = [NSMutableArray new];
-    for (MFBWebServiceSvc_TotalsItem * csi in ar)
-        [rgNew addObject:[csi toSimpleItem]];
-    return rgNew;
-}
-@end
-
-@implementation MFBWebServiceSvc_CurrencyStatusItem (MFBAdditions)
-- (SimpleCurrencyItem *) toSimpleItem {
-    SimpleCurrencyItem * sci = [SimpleCurrencyItem new];
-    sci.attribute = self.Attribute;
-    sci.value = self.Value;
-    sci.discrepancy = self.Discrepancy;
-    sci.state = self.Status;
-    return sci;
-}
-
-+ (NSMutableArray *) toSimpleItems:(NSArray *) ar
-{
-    NSMutableArray * rgNew = [NSMutableArray new];
-    for (MFBWebServiceSvc_CurrencyStatusItem * csi in ar)
-        [rgNew addObject:csi.toSimpleItem];
-    return rgNew;
-}
-@end
-
-@implementation MFBWebServiceSvc_LogbookEntry (MFBAdditions)
-- (SimpleLogbookEntry *) toSimpleItem {
-    SimpleLogbookEntry * sle = [SimpleLogbookEntry new];
-    sle.Comment = self.Comment;
-    sle.Route = self.Route;
-    sle.Date = self.Date;
-    sle.TotalTimeDisplay = [UITextField stringFromNumber:self.TotalFlightTime forType:ntTime inHHMM:[AutodetectOptions HHMMPref]];
-    sle.TailNumDisplay = self.TailNumDisplay;
-    return sle;
-}
-
-+ (NSMutableArray *) toSimpleItems:(NSArray *) ar  {
-    NSMutableArray * rgNew = [NSMutableArray new];
-    for (MFBWebServiceSvc_LogbookEntry * le in ar)
-        [rgNew addObject:le.toSimpleItem];
-    return rgNew;
-}
-@end
-
 
 // From http://stackoverflow.com/questions/26005641/are-cookies-in-uiwebview-accepted for cookie storage.
 #define kCookiesKey @"cookies"

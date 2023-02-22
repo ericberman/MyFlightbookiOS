@@ -25,7 +25,6 @@
 //
 
 #import "WPSAlertController.h"
-#import "MFBTheme.h"
 
 @interface WPSAlertController ()
 @property (nonatomic, strong) UIWindow *alertWindow;

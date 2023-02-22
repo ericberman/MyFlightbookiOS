@@ -102,18 +102,8 @@ public class CurrencyCall : WidgetSoapCall {
     override func dataReceived(data: AnyObject) {
         currencyList = []
         let resp = data as? MFBWebServiceSvc_GetCurrencyForUserResponse
-        if let rg = resp?.getCurrencyForUserResult?.currencyStatusItem as? NSMutableArray {
-            for o in rg {
-                if  let csi = o as? MFBWebServiceSvc_CurrencyStatusItem  {
-                    if let sci = SimpleCurrencyItem() {
-                        sci.value = csi.value
-                        sci.discrepancy = csi.discrepancy
-                        sci.state = csi.status
-                        sci.attribute = csi.formattedTitle()
-                        currencyList.append(sci)
-                    }
-                }
-            }
+        if let rg = resp?.getCurrencyForUserResult?.currencyStatusItem as? [MFBWebServiceSvc_CurrencyStatusItem] {
+            currencyList = MFBWebServiceSvc_CurrencyStatusItem.toSimpleItems(items: rg)
         }
     }
 }
@@ -131,18 +121,8 @@ public class TotalsCall : WidgetSoapCall {
     override func dataReceived(data: AnyObject) {
         totalsList = []
         let resp = data as? MFBWebServiceSvc_TotalsForUserWithQueryResponse
-        if let rg = resp?.totalsForUserWithQueryResult?.totalsItem as? NSMutableArray {
-            for o in rg {
-                if let ti = o as? MFBWebServiceSvc_TotalsItem {
-                    if let sti = SimpleTotalItem() {
-                        // Have to effectively re-implement "toSimpleItem" here because we can't easily pull in util (pulls in too many other things)
-                        sti.title = ti.description
-                        sti.subDesc = ti.subDescription
-                        sti.valueDisplay = ti.formattedValue(fHHMM: fUseHHMM) as String
-                        totalsList.append(sti)
-                    }
-                }
-            }
+        if let rg = resp?.totalsForUserWithQueryResult?.totalsItem as? [MFBWebServiceSvc_TotalsItem] {
+            totalsList = MFBWebServiceSvc_TotalsItem.toSimpleItems(items: rg, fHHMM: fUseHHMM)
         }
     }
 }

@@ -29,7 +29,6 @@
 #import <objc/runtime.h>
 #import <QuartzCore/QuartzCore.h>
 #import "AutodetectOptions.h"
-#import "MFBTheme.h"
 
 @implementation UIButton(DecimalEdit)
 

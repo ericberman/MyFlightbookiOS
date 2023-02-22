@@ -67,55 +67,8 @@ extension NSNumber {
     }
 }
 
-extension MFBWebServiceSvc_TotalsItem {
-    @objc public func formattedValue(fHHMM : Bool) -> NSString {
-        let nt = numericType as MFBWebServiceSvc_NumType
-        switch (nt) {
-            case MFBWebServiceSvc_NumType_Integer:
-                return value.formatAsInteger()
-            case MFBWebServiceSvc_NumType_Currency:
-                let nsf = NumberFormatter()
-                nsf.numberStyle = .currency
-                return nsf.string(from: value)! as NSString
-            case MFBWebServiceSvc_NumType_Decimal:
-                return self.value.formatAs(Type: .Decimal, inHHMM: fHHMM, useGrouping: true)
-            case MFBWebServiceSvc_NumType_Time:
-                return self.value.formatAs(Type: .Time, inHHMM: fHHMM, useGrouping: true)
-            default:
-                return value.formatAsInteger()
-            }
-    }
-    
-    @objc public static func Group(items : Array<MFBWebServiceSvc_TotalsItem>) -> NSMutableArray {
-        let d = NSMutableDictionary()
-        for ti in items {
-            let key = Int(ti.group.rawValue)
-            if (d[key] == nil) {
-                d[key] = NSMutableArray()
-            }
-            if let arr = d[key] as? NSMutableArray {
-                arr.add(ti)
-            }
-        }
-        
-        let result = NSMutableArray()
-        for group in MFBWebServiceSvc_TotalsGroup_none.rawValue ... MFBWebServiceSvc_TotalsGroup_Total.rawValue {
-            let key = Int(group)
-            if let arr = d[key] {
-                result.add(arr)
-            }
-        }
-        return result
-    }
-}
-
-extension MFBWebServiceSvc_CurrencyStatusItem {
-    @objc public func formattedTitle() -> String {
-        if (attribute.range(of:"<a href", options: .caseInsensitive) != nil) {
-            let csHtmlTag = CharacterSet(charactersIn: "<>")
-            let a = attribute.components(separatedBy: csHtmlTag)
-            return "\(a[2])\(a[4])"
-        }
-        return attribute
+extension NSDate {
+    @objc public static func nowInUTC() -> Date {
+        return Date()
     }
 }

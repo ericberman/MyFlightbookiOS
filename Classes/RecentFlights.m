@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2010-2022 MyFlightbook, LLC
+ Copyright (C) 2010-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -434,7 +434,7 @@ BOOL fCouldBeMoreFlights;
     
     // update the glance.
     if (self.fq.isUnrestricted && self.rgFlights.count > 0)
-        mfbApp().watchData.latestFlight = [((MFBWebServiceSvc_LogbookEntry *) self.rgFlights[0]) toSimpleItem];
+        mfbApp().watchData.latestFlight = [((MFBWebServiceSvc_LogbookEntry *) self.rgFlights[0]) toSimpleItem:AutodetectOptions.HHMMPref];
 }
 
 #pragma unsubmittedFlights

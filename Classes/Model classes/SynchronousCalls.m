@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -29,6 +29,7 @@
 #import "Util.h"
 #import "AutodetectOptions.h"
 #import "LogbookEntry.h"
+#import <MyFlightbook-Swift.h>
 
 @implementation SynchronousCalls
 
@@ -56,13 +57,13 @@
     {
         MFBWebServiceSvc_TotalsForUserResponse * resp = (MFBWebServiceSvc_TotalsForUserResponse *) self.returnedBody;
         MFBWebServiceSvc_ArrayOfTotalsItem * rgti = resp.TotalsForUserResult;
-        return [MFBWebServiceSvc_TotalsItem toSimpleItems:rgti.TotalsItem];
+        return [MFBWebServiceSvc_TotalsItem toSimpleItems:rgti.TotalsItem inHHMM:AutodetectOptions.HHMMPref];
     }
     else if ([self.returnedBody isKindOfClass:[MFBWebServiceSvc_FlightsWithQueryAndOffsetResponse class]])
     {
         MFBWebServiceSvc_FlightsWithQueryAndOffsetResponse * resp = (MFBWebServiceSvc_FlightsWithQueryAndOffsetResponse *) self.returnedBody;
         MFBWebServiceSvc_ArrayOfLogbookEntry * rgle = resp.FlightsWithQueryAndOffsetResult;
-        return [MFBWebServiceSvc_LogbookEntry toSimpleItems:rgle.LogbookEntry];
+        return [MFBWebServiceSvc_LogbookEntry toSimpleItems:rgle.LogbookEntry inHHMM:AutodetectOptions.HHMMPref];
     }
     return nil;
 }

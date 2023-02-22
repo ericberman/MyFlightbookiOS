@@ -38,5 +38,5 @@
 #import "MFBWebServiceSvc.h"
 #import "SharedWatch.h"
 #import "HostName.h"
-
+#import "DecimalEdit.h"
 #endif /* MyFlightbook_Bridging_Header_h */

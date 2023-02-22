@@ -34,6 +34,11 @@
 		9A117D8C221782FC0095CE32 /* BadElfCircle-Vertical-Transparent.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A117D8B221782FB0095CE32 /* BadElfCircle-Vertical-Transparent.png */; };
 		9A121395111D3073001CDDB6 /* ImageComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A121393111D3073001CDDB6 /* ImageComment.m */; };
 		9A1213B3111D3113001CDDB6 /* CommentedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A1213B2111D3113001CDDB6 /* CommentedImage.m */; };
+		9A14334429A52934007129A9 /* MFBTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14334329A52934007129A9 /* MFBTheme.swift */; };
+		9A14334629A54991007129A9 /* MFBWebServiceObjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14334529A54991007129A9 /* MFBWebServiceObjectExtensions.swift */; };
+		9A14334729A54991007129A9 /* MFBWebServiceObjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14334529A54991007129A9 /* MFBWebServiceObjectExtensions.swift */; };
+		9A14334929A576C7007129A9 /* UITextFieldExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14334829A576C7007129A9 /* UITextFieldExtensions.swift */; };
+		9A14334A29A576C7007129A9 /* UITextFieldExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14334829A576C7007129A9 /* UITextFieldExtensions.swift */; };
 		9A16571F14DC59B9004FDC35 /* sunrise.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A16571D14DC59B8004FDC35 /* sunrise.png */; };
 		9A16572014DC59B9004FDC35 /* sunset.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A16571E14DC59B9004FDC35 /* sunset.png */; };
 		9A170C982437FCF600CDECCF /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A170C972437FCF600CDECCF /* CoreServices.framework */; };
@@ -242,7 +247,6 @@
 		9A902D7E1A210E7700698017 /* Recording@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A902D7D1A210E7700698017 /* Recording@3x.png */; };
 		9A902D811A210F2700698017 /* siginvalid@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A902D7F1A210F2700698017 /* siginvalid@3x.png */; };
 		9A902D821A210F2700698017 /* sigok@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A902D801A210F2700698017 /* sigok@3x.png */; };
-		9A91DD0D21BB680700E08FEC /* MFBTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A91DD0C21BB680700E08FEC /* MFBTheme.m */; };
 		9A954D321531FBD6000E00ED /* about.xib.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9A954CF01531FBD6000E00ED /* about.xib.txt */; };
 		9A954D331531FBD6000E00ED /* AutodetectOptions.xib.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9A954CF21531FBD6000E00ED /* AutodetectOptions.xib.txt */; };
 		9A954D341531FBD6000E00ED /* Currency.xib.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9A954CF41531FBD6000E00ED /* Currency.xib.txt */; };
@@ -563,6 +567,9 @@
 		9A121393111D3073001CDDB6 /* ImageComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageComment.m; sourceTree = "<group>"; };
 		9A1213B1111D3113001CDDB6 /* CommentedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentedImage.h; sourceTree = "<group>"; };
 		9A1213B2111D3113001CDDB6 /* CommentedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentedImage.m; sourceTree = "<group>"; };
+		9A14334329A52934007129A9 /* MFBTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFBTheme.swift; sourceTree = "<group>"; };
+		9A14334529A54991007129A9 /* MFBWebServiceObjectExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFBWebServiceObjectExtensions.swift; sourceTree = "<group>"; };
+		9A14334829A576C7007129A9 /* UITextFieldExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtensions.swift; sourceTree = "<group>"; };
 		9A16571D14DC59B8004FDC35 /* sunrise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sunrise.png; sourceTree = "<group>"; };
 		9A16571E14DC59B9004FDC35 /* sunset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sunset.png; sourceTree = "<group>"; };
 		9A170C972437FCF600CDECCF /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
@@ -815,8 +822,6 @@
 		9A902D7D1A210E7700698017 /* Recording@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Recording@3x.png"; sourceTree = "<group>"; };
 		9A902D7F1A210F2700698017 /* siginvalid@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "siginvalid@3x.png"; sourceTree = "<group>"; };
 		9A902D801A210F2700698017 /* sigok@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sigok@3x.png"; sourceTree = "<group>"; };
-		9A91DD0B21BB680700E08FEC /* MFBTheme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MFBTheme.h; sourceTree = "<group>"; };
-		9A91DD0C21BB680700E08FEC /* MFBTheme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MFBTheme.m; sourceTree = "<group>"; };
 		9A954CF11531FBD6000E00ED /* en */ = {isa = PBXFileReference; lastKnownFileType = text; name = en; path = Classes/en.lproj/about.xib.txt; sourceTree = "<group>"; };
 		9A954CF31531FBD6000E00ED /* en */ = {isa = PBXFileReference; lastKnownFileType = text; name = en; path = Classes/en.lproj/AutodetectOptions.xib.txt; sourceTree = "<group>"; };
 		9A954CF51531FBD6000E00ED /* en */ = {isa = PBXFileReference; lastKnownFileType = text; name = en; path = Classes/en.lproj/Currency.xib.txt; sourceTree = "<group>"; };
@@ -1402,6 +1407,8 @@
 			isa = PBXGroup;
 			children = (
 				9AC2C80129A3E3D600A702B2 /* ObjectExtensions.swift */,
+				9A14334529A54991007129A9 /* MFBWebServiceObjectExtensions.swift */,
+				9A14334829A576C7007129A9 /* UITextFieldExtensions.swift */,
 			);
 			path = "Category Extensions";
 			sourceTree = "<group>";
@@ -1720,11 +1727,10 @@
 				9A517E471E2ED68800EC3545 /* ApproachDescription.m */,
 				9A1CCB2220879A3400C2D1E4 /* OptionSelection.m */,
 				9A1CCB2420879A4D00C2D1E4 /* OptionSelection.h */,
-				9A91DD0B21BB680700E08FEC /* MFBTheme.h */,
-				9A91DD0C21BB680700E08FEC /* MFBTheme.m */,
 				9A0BF18024743D5E003C2172 /* PackAndGo.m */,
 				9A0BF18224743D72003C2172 /* PackAndGo.h */,
 				9A5F990429A1CCB500692E27 /* WidgetKitBridge.swift */,
+				9A14334329A52934007129A9 /* MFBTheme.swift */,
 			);
 			path = "Model classes";
 			sourceTree = "<group>";
@@ -2390,6 +2396,7 @@
 				9A017B7722FA46A9007F0210 /* ConjunctionCell.m in Sources */,
 				9A9CB2691E513B28002B2E11 /* TotalsCalculator.m in Sources */,
 				9AF7AD1B10E1D7DC00A7DD43 /* Totals.m in Sources */,
+				9A14334629A54991007129A9 /* MFBWebServiceObjectExtensions.swift in Sources */,
 				9AD832CC10E296C8007817A4 /* Currency.m in Sources */,
 				9AFAC07B10E5968800225E90 /* NearbyAirports.m in Sources */,
 				9AFAC16E10E5DB9E00225E90 /* Airports.m in Sources */,
@@ -2404,11 +2411,11 @@
 				9A897FE011B72A4800E98C93 /* LocalAirports.m in Sources */,
 				9A79504211E56C7F0070A386 /* FlightProps.m in Sources */,
 				9A0C938511E63A850062AF27 /* FlightProperties.m in Sources */,
-				9A91DD0D21BB680700E08FEC /* MFBTheme.m in Sources */,
 				9A7FE95D12494F87001A8722 /* Reachability.m in Sources */,
 				9A3E1375127DE704008D672E /* EXFGPS.m in Sources */,
 				9A3E1376127DE704008D672E /* EXFHandlers.m in Sources */,
 				9A3E1377127DE704008D672E /* EXFJFIF.m in Sources */,
+				9A14334929A576C7007129A9 /* UITextFieldExtensions.swift in Sources */,
 				9A3E1378127DE704008D672E /* EXFJpeg.m in Sources */,
 				9A3E1379127DE704008D672E /* EXFMetaData.m in Sources */,
 				9A8901FF1F9A71160023CE34 /* HostedWebViewViewController.m in Sources */,
@@ -2424,6 +2431,7 @@
 				9A52F0F813E5DE5D00D75504 /* DecimalEdit.m in Sources */,
 				9A0F0E7413E88781007E54C1 /* MFBWebServiceSvc.m in Sources */,
 				9A17C5F513E895CB00C47C82 /* VisitedAirports.m in Sources */,
+				9A14334429A52934007129A9 /* MFBTheme.swift in Sources */,
 				9AD2FFEC1BE2B7B500A9B21B /* SharedWatch.m in Sources */,
 				9A17C5FA13E89B1B00C47C82 /* VisitedAirportRow.m in Sources */,
 				9A78376E13E8AB99007CD501 /* VADetails.m in Sources */,
@@ -2470,6 +2478,8 @@
 				9A48E26E29A1685F00511D99 /* MyFlightbookWidgets.swift in Sources */,
 				9A48E27329A1686000511D99 /* MyFlightbookWidgets.intentdefinition in Sources */,
 				9A48E27E29A1694500511D99 /* WidgetSoapCall.swift in Sources */,
+				9A14334A29A576C7007129A9 /* UITextFieldExtensions.swift in Sources */,
+				9A14334729A54991007129A9 /* MFBWebServiceObjectExtensions.swift in Sources */,
 				9A48E26C29A1685F00511D99 /* MyFlightbookWidgetsBundle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
