@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2022 MyFlightbook, LLC
+ Copyright (C) 2017-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,6 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 1/14/12.
-//  Copyright (c) 2012-2022 MyFlightbook LLC. All rights reserved.
 //
 
 #import "RecentFlightCell.h"
@@ -106,7 +105,10 @@
                                                     [UITextField stringFromNumber:@(elapsed) forType:ntTime inHHMM:AutodetectOptions.HHMMPref]];
     
     NSMutableAttributedString * attrString = [[NSMutableAttributedString alloc] initWithString:label attributes:@{NSForegroundColorAttributeName : dimmedColor}];
-    [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@ - %@%@ ", dtStart.utcString, dtEnd.utcString, szInterval] attributes:@{NSFontAttributeName : font, NSForegroundColorAttributeName : textColor}]];
+    [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@ - %@%@ ",
+                                                                                   [dtStart utcString:AutodetectOptions.UseLocalTime],
+                                                                                   [dtEnd utcString:AutodetectOptions.UseLocalTime], szInterval]
+                                                                       attributes:@{NSFontAttributeName : font, NSForegroundColorAttributeName : textColor}]];
     return attrString;
 }
 

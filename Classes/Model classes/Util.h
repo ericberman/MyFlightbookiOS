@@ -45,15 +45,6 @@
 - (NSData *) pdfData;
 @end
 
-@interface NSDate(MFBAdditions)
-- (NSString *) utcString;
-- (NSString *) dateString;
-// This we keep as a class function specifically so that dt=nil can return true.
-+ (BOOL) isUnknownDate:(NSDate *) dt;
-- (NSDate *) dateByAddingCalendarMonths:(int) cMonths;
-- (NSDate *) dateByTruncatingSeconds;
-@end
-
 @interface UITableViewCell(MFBAdditions)
 - (void) makeTransparent;
 @end

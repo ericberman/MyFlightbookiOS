@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2014-2021 MyFlightbook, LLC
+ Copyright (C) 2014-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -838,7 +838,7 @@ enum KMLArrayContext currentContext;
     int sec = [words[1] substringWithRange:NSMakeRange(4, 2)].intValue;
     
     NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
-    NSDateComponents *compsNow = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate nowInUTC]];
+    NSDateComponents *compsNow = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:NSDate.date];
     [dateComponents setYear:compsNow.year];
     [dateComponents setMonth:compsNow.month];
     [dateComponents setDay:compsNow.day];

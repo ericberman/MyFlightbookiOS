@@ -25,6 +25,7 @@
 
 #import "FlightEditorBaseTableViewController.h"
 #import <MyFlightbook-Swift.h>
+#import "AutodetectOptions.h"
 #import "GPSDeviceViewTableViewController.h"
 #import <ExternalAccessory/EAAccessory.h>
 #import <ExternalAccessory/EAAccessoryManager.h>
@@ -72,7 +73,7 @@
     ec.txt.delegate = self;
     ec.lbl.text = szPrompt;
     ec.txt.clearButtonMode = UITextFieldViewModeNever;
-    ec.txt.text = [NSDate isUnknownDate:dt] ? @"" : [dt utcString];
+    ec.txt.text = [NSDate isUnknownDate:dt] ? @"" : [dt utcString:AutodetectOptions.UseLocalTime];
     [self setLabelInflated:fInflated forEditCell:ec];
     
     return ec;

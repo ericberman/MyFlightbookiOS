@@ -954,7 +954,7 @@ static NSArray * rgAllCockpitRows = nil;
             self.datePicker.date = dt = NSDate.date.dateByTruncatingSeconds;
         
         completionBlock(dt);
-        ec.txt.text = [NSDate isUnknownDate:dt] ? @"" : dt.utcString;
+        ec.txt.text = [NSDate isUnknownDate:dt] ? @"" : [dt utcString:AutodetectOptions.UseLocalTime];
         [self.tableView endEditing:YES];
         
         NSInteger row = [self cellIDFromIndexPath:self.ipActive];
@@ -1610,7 +1610,7 @@ static NSDateFormatter * dfSunriseSunset = nil;
     if (self.ipActive.section == sectInCockpit)
     {
         EditCell * ec = (EditCell *) [self.tableView cellForRowAtIndexPath:self.ipActive];
-        ec.txt.text = [sender.date utcString];
+        ec.txt.text = [sender.date  utcString:AutodetectOptions.UseLocalTime];
         switch (row)
         {
             case rowDateTail:

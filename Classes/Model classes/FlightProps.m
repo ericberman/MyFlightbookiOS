@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2010-2022 MyFlightbook, LLC
+ Copyright (C) 2010-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,6 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 7/7/10.
-//  Copyright 2010-2021 MyFlightbook LLC. All rights reserved.
 //
 
 #import "FlightProps.h"
@@ -361,7 +360,7 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
             szValue = [fp.DateValue dateString];
             break;
 		case MFBWebServiceSvc_CFPPropertyType_cfpDateTime:
-            szValue = [fp.DateValue utcString];
+            szValue = [fp.DateValue utcString:AutodetectOptions.UseLocalTime];
 		default:
 			break;
 	}

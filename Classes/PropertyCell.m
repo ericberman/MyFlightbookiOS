@@ -46,7 +46,7 @@
         self.cfp.DateValue = sender.date;
         
         if (sender.datePickerMode == UIDatePickerModeDateAndTime)
-            self.txt.text = [sender.date utcString];
+            self.txt.text = [sender.date utcString:AutodetectOptions.UseLocalTime];
         else
             self.txt.text = [sender.date dateString];
     }
@@ -167,7 +167,7 @@
             // By truncating the time, we go straight to 12:13:00 and 12:15:00, which will even yield 2 minutes.
             NSTimeInterval time = floor([[NSDate date] timeIntervalSinceReferenceDate] / 60.0) * 60.0;
             self.cfp.DateValue = dp.date = [NSDate dateWithTimeIntervalSinceReferenceDate:time];
-            self.txt.text = (self.cpt.Type == MFBWebServiceSvc_CFPPropertyType_cfpDateTime) ? [self.cfp.DateValue utcString] : [self.cfp.DateValue dateString];
+            self.txt.text = (self.cpt.Type == MFBWebServiceSvc_CFPPropertyType_cfpDateTime) ? [self.cfp.DateValue  utcString:AutodetectOptions.UseLocalTime] : [self.cfp.DateValue dateString];
             fResult = NO;
         }
         else

@@ -67,8 +67,89 @@ extension NSNumber {
     }
 }
 
+// MARK: NSDate Extensions
 extension NSDate {
-    @objc public static func nowInUTC() -> Date {
-        return Date()
+    @objc(utcString:) public func utcString(useLocalTime: Bool) -> String {
+        let df = DateFormatter()
+        if (useLocalTime) {
+            df.dateStyle = .short
+            df.timeStyle = .short
+            return "\(df.string(from: self as Date)) (\(TimeZone.current.abbreviation()!))"
+        }
+        else {
+            df.dateFormat = "yyyy-MM-dd HH:mm"
+            df.timeZone = TimeZone.init(secondsFromGMT: 0)
+            return "\(df.string(from: self as Date)) (UTC)"
+        }
+    }
+        
+    @objc public func dateString() -> String! {
+        let df:DateFormatter! = DateFormatter()
+        df.dateStyle = .medium
+        return df.string(from: self as Date)
+    }
+
+    @objc(isUnknownDate:) static func isUnknownDate(dt : Date!) -> Bool {
+        if dt == nil {
+            return true
+        }
+        
+        let dtOld = Date.distantPast
+        
+        // ASPX and Cocoa have different definitions for distantPast.  ASP.NET uses a year of 0001, so let's test for that.
+        let cal = Calendar.current
+        let comps = cal.dateComponents([.year , .month , .day], from: dt)
+        
+        return (dt.compare(dtOld) == .orderedSame || comps.year == 1)
+    }
+
+    @objc(dateByAddingCalendarMonths:) public func dateByAddingCalendarMonths(cMonths:Int) -> Date! {
+        var cal = Calendar(identifier: .gregorian)
+        let utc = TimeZone(secondsFromGMT: 0)!
+        cal.timeZone = utc
+        var comps = cal.dateComponents(in: utc, from: self as Date)
+        var compsDelta = DateComponents()
+        compsDelta.timeZone = utc
+        
+        // go to the first day of this month
+        comps.day = 1
+        var dt = cal.date(from: comps)
+        
+        if cMonths >= 0
+        {
+            // Proper way to do this is to add an extra month and then back off a day.  E.g., 7/1/2019 + 12 months goes 13 months ahead to 8/1/2020 and then backs up to 7/31/2020
+            // HOWEVER, NSCalendar's math is messed up - adding 13 months to 7/1/2019 yields 7/31/2020 instead of 8/1/2019.  Bizarre - must be using a fixed 365 day year or something.
+            // Why?  Because, as I've said a million times before, FUCK APPLE!
+            // So let's add years before months
+            // we've already backed up to the 1st of the month, so we can instead just add one to the # of months to add.
+            var compNew = DateComponents()
+            var year = comps.year! + (cMonths + 1) / 12
+            var month = comps.month! + (cMonths + 1) % 12
+            while  month > 12 {
+                year += 1   // why doesn't swift support ++?  Becuase FUCK APPLE!!!
+                month -= 12
+            }
+            compNew.day = 1
+            compNew.month = month
+            compNew.year = year
+            // and why doesn't swift support chaining expressions?  Because FUCK APPLE!!!
+            compNew.hour = 0
+            compNew.minute = 0
+            compNew.second = 0
+            compNew.timeZone = utc
+            compNew.calendar = cal
+            dt = cal.date(from: compNew)?.addingTimeInterval(-24*60*60)
+            return dt!
+        }
+        else
+        {
+            compsDelta.month = cMonths
+            return cal.date(byAdding: compsDelta, to: dt!)!
+        }
+    }
+
+    @objc public func dateByTruncatingSeconds() -> Date! {
+        let time = floor(self.timeIntervalSinceReferenceDate / 60.0) * 60.0
+        return Date(timeIntervalSinceReferenceDate: time)
     }
 }
