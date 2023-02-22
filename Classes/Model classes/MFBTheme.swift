@@ -31,42 +31,19 @@ import Foundation
         return UITraitCollection.current.userInterfaceStyle == .dark
     }
     
-/*
- + (BOOL) isDarkMode {
-     if (@available(iOS 13.0, *)) {
-         return UITraitCollection.currentTraitCollection.userInterfaceStyle == UIUserInterfaceStyleDark;
-     } else {
-         return false;
-     }
- }
- */
     static let _mfbColor = UIColor(red: 0, green: 0.73725, blue: 0.831372, alpha: 1)
 
     @objc public static func MFBBrandColor() -> UIColor {
         return _mfbColor
     }
 
-
-/*
- + (UIColor *) MFBBrandColor {
-     return [UIColor colorWithRed:0 green:0.73725 blue:.831372 alpha:1];
- }
- */
     @objc(applyThemedImageNamed: toImageView:) public static func applyThemedImage(name: NSString?, imgView: UIImageView?) -> Void {
         if (name != nil) {
             imgView?.image = UIImage(named: name! as String)?.withRenderingMode(.alwaysTemplate)
             imgView?.tintColor = MFBTheme.MFBBrandColor()
         }
     }
-    
-/*
-
- + (void) applyThemedImageNamed:(NSString *) imageName toImageView:(UIImageView *) imgView {
-     imgView.image = [[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-     imgView.tintColor = MFBTheme.MFBBrandColor;
- }
- */
-    
+        
     @objc public static func setMFBTheme() -> Void {
         UITabBar.appearance().tintColor = _mfbColor
         UIToolbar.appearance().tintColor = _mfbColor
@@ -95,41 +72,4 @@ import Foundation
         
         UISwitch.appearance().onTintColor = _mfbColor
     }
-    
-    /*
-
- + (void) setMFBTheme {
-     UIColor * mfbColor = MFBTheme.MFBBrandColor;
-     UITabBar.appearance.tintColor = UIToolbar.appearance.tintColor = UIButton.appearance.tintColor = UISegmentedControl.appearance.tintColor = mfbColor;
-     [UIButton.appearance setTitleColor:mfbColor forState:UIControlStateNormal];
-     [UIButton.appearance setTitleColor:mfbColor forState:UIControlStateSelected];
-     [UIButton.appearance setTitleColor:mfbColor forState:UIControlStateHighlighted];
-
-     if (@available(iOS 13.0, *)) {
-         UISegmentedControl.appearance.selectedSegmentTintColor = mfbColor;
-     } else {
-         // Fallback on earlier versions
-     }
-     
-     // Bleah - fucking Apple introducing breaking changes.
-     // With iOS 15, the top is black until you scroll.  Pathetically lame.
-     // https://stackoverflow.com/questions/69111478/ios-15-navigation-bar-transparent
-     if (@available(iOS 15.0, *)) {
-         UINavigationBarAppearance * app = UINavigationBarAppearance.new;
-         [app configureWithOpaqueBackground];
-         UINavigationBar.appearance.standardAppearance = app;
-         UINavigationBar.appearance.scrollEdgeAppearance = app;
-         UIToolbarAppearance * tba = UIToolbarAppearance.new;
-         [tba configureWithOpaqueBackground];
-         UIToolbar.appearance.standardAppearance = tba;
-         UIToolbar.appearance.scrollEdgeAppearance = tba;
-         UITabBarAppearance * tabapp = UITabBarAppearance.new;
-         [tabapp configureWithOpaqueBackground];
-         UITabBar.appearance.standardAppearance = tabapp;
-         UITabBar.appearance.scrollEdgeAppearance = tabapp;
-     }
-     
-     UISwitch.appearance.onTintColor = mfbColor;
- }
- */
 }
