@@ -27,7 +27,6 @@
 #import "Totals.h"
 #import "MFBAppDelegate.h"
 #import "DecimalEdit.h"
-#import "util.h"
 #import "RecentFlights.h"
 #import "PackAndGo.h"
 

@@ -28,7 +28,6 @@
 #import "MFBAsyncOperation.h"
 #import "CommentedImage.h"
 #import "FlightProps.h"
-#import "Util.h"
 #import "Airports.h"
 #import "DecimalEdit.h"
 #import "Telemetry.h"

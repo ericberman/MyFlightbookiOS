@@ -28,7 +28,6 @@
 #import <MyFlightbook-Swift.h>
 #import "DateRangeViewController.h"
 #import "EditCell.h"
-#import "Util.h"
 
 @interface DateRangeViewController ()
 @property (strong, readwrite) AccessoryBar * vwAccessory;

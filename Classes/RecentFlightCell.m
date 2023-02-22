@@ -27,7 +27,6 @@
 #import "RecentFlightCell.h"
 #import "DecimalEdit.h"
 #import "AutodetectOptions.h"
-#import "Util.h"
 #import "FlightProps.h"
 
 @implementation RecentFlightCell

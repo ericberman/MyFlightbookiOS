@@ -153,3 +153,176 @@ extension NSDate {
         return Date(timeIntervalSinceReferenceDate: time)
     }
 }
+
+// MARK: UIViewController
+extension UIViewController {    
+    @objc(showAlertWithTitle: message:) public func showAlertWithTitle(title: String, message : String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: String(localized: "Close", comment: "Close button on error message"), style: .cancel))
+        self.present(alert, animated: true)
+    }
+    
+    @objc(showErrorAlertWithMessage:) public func showErrorAlertWithMessage(msg : String) {
+        self.showAlertWithTitle(title: String(localized: "Error", comment: "Title for generic error message"), message: msg)
+    }
+    
+    @objc(pushOrPopView:fromView:withDelegate:) public func pushOrPopView(target : UIViewController, sender :AnyObject, delegate : UIPopoverPresentationControllerDelegate) {
+        if (UIDevice.current.userInterfaceIdiom == .pad) {
+            target.modalPresentationStyle = .popover
+            target.navigationController?.isNavigationBarHidden = false
+            let ppc = target.popoverPresentationController!
+            ppc.sourceView = self.view
+            if let vw = sender as? UIView {
+                ppc.sourceRect = vw.bounds
+                ppc.sourceView = vw
+            }
+            else if let bbi = sender as? UIBarButtonItem {
+                ppc.barButtonItem = bbi
+            }
+            ppc.permittedArrowDirections = .any
+            ppc.delegate = delegate
+            self.present(target, animated: true)
+        }
+        else {
+            self.navigationController?.pushViewController(target, animated: true)
+        }
+    }
+}
+
+// MARK: NSAttributedString extensions
+
+extension NSAttributedString {
+    @objc(attributedStringFromMarkDown: size:) public static func attributedStringFromMarkDown(sz : NSString, size: CGFloat) -> NSAttributedString {
+        let baseFont = UIFont.systemFont(ofSize: size)
+        let boldFont = UIFont(descriptor: baseFont.fontDescriptor.withSymbolicTraits(.traitBold)!, size: baseFont.pointSize)
+        let italicFont = UIFont(descriptor: baseFont.fontDescriptor.withSymbolicTraits(.traitItalic)!, size: baseFont.pointSize)
+        let textColor = UIColor.label
+        var lastPos = Int(0)
+        
+        let attr = NSMutableAttributedString(string: "", attributes: [.foregroundColor  : textColor])
+
+        let reg = try! NSRegularExpression(pattern: "(\\*[^*_\r\n]*\\*)|(_[^*_\r\n]*_)", options: .caseInsensitive)
+        reg.enumerateMatches(in: sz as String, range: NSRange((sz as String).startIndex..., in:sz as String)) { match, flags, stop in
+            let matchRange = match?.range
+            if (matchRange != nil) {
+                let r = matchRange!
+                if (r.location > lastPos) {
+                    let range = NSMakeRange(lastPos, r.location - lastPos)
+                    attr.append(NSAttributedString(string: sz.substring(with: range), attributes: [.foregroundColor : textColor]))
+                }
+                if (r.length >= 2 && sz.length > r.location + r.length) {
+                    let matchText = sz.substring(with: r) as NSString
+                    let matchType = matchText.substring(to: 1)
+                    let matchContent = matchText.substring(with: NSMakeRange(1, matchText.length - 2))
+                    if (matchType == "*") {
+                        attr.append(NSAttributedString(string: matchContent, attributes:[.font : boldFont, .foregroundColor : textColor]))
+                    }
+                    else if (matchType == "_") {
+                        attr.append(NSAttributedString(string: matchContent, attributes:[.font : italicFont, .foregroundColor : textColor]))
+                    }
+                    lastPos = r.location + r.length
+                }
+            }
+        }
+        
+        if (lastPos < sz.length) {
+            attr.append(NSAttributedString(string: sz.substring(with: NSMakeRange(lastPos, sz.length - lastPos)), attributes:[.foregroundColor : textColor]))
+        }
+        return attr
+    }
+}
+
+// MARK: UITableViewController extensions
+extension UITableViewController {
+    
+    @objc(nextCell:) public func nextCell(ipCurrent : NSIndexPath) -> NSIndexPath {
+        let cSections = numberOfSections(in: tableView)
+        let cRowsInSection = self.tableView(tableView, numberOfRowsInSection: ipCurrent.section)
+        
+        // check for last cell
+        if (ipCurrent.section >= cSections - 1 && ipCurrent.row >= cRowsInSection - 1) {
+            return ipCurrent
+        }
+         
+        if (ipCurrent.row < cRowsInSection - 1) {
+            return NSIndexPath(row: ipCurrent.row + 1, section: ipCurrent.section)
+        }
+        else {
+            var sect = ipCurrent.section + 1
+            while (sect < cSections && self.tableView(tableView, numberOfRowsInSection: sect) == 0) {
+                sect += 1
+            }
+            return (sect < cSections) ? NSIndexPath(row: 0, section: ipCurrent.section + 1) : ipCurrent
+        }
+    }
+
+    @objc(prevCell:) public func prevCell(ipCurrent : NSIndexPath) -> NSIndexPath {
+        // check for 1st cell
+        if (ipCurrent.section == 0 && ipCurrent.row == 0) {
+            return ipCurrent
+        }
+         
+        if (ipCurrent.row > 0) {
+            return NSIndexPath(row: ipCurrent.row - 1, section: ipCurrent.section)
+        }
+        else {
+            var sect = ipCurrent.section - 1
+            while (sect >= 0 && self.tableView(tableView, numberOfRowsInSection: sect) == 0) {
+                sect -= 1
+            }
+            
+            return (sect < 0) ? ipCurrent : NSIndexPath(row: self.tableView(tableView, numberOfRowsInSection: sect) - 1, section: sect)
+        }
+    }
+}
+
+// MARK: UITableViewCell extensions
+extension UITableViewCell {
+    @objc public func makeTransparent() {
+        backgroundColor = UIColor.clear
+        backgroundView = UIView(frame: CGRect.zero)
+        selectionStyle = .none
+    }
+}
+
+// MARK: NSString extensions
+extension NSString {
+    @objc public func stringByURLEncodingString() -> String? {
+        return addingPercentEncoding(withAllowedCharacters: .alphanumerics)
+    }
+    
+    @objc(stringFromCharsThatCouldBeNull:) public static func stringFromCharsThatCouldBeNull(pch : UnsafePointer<CChar>?) -> String {
+        return pch == nil ? "" : String(cString: pch!)
+    }
+}
+
+// MARK: NSHTTPCookiesStorage
+// From http://stackoverflow.com/questions/26005641/are-cookies-in-uiwebview-accepted for cookie storage.
+extension HTTPCookieStorage {
+    private func KeyName() -> String {
+        return "cookies"
+    }
+    
+    @objc public func saveToUserDefaults() {
+        let userDefaults = UserDefaults.standard
+        if (cookies?.count ?? 0 > 0) {
+            let cookieData = try! NSKeyedArchiver.archivedData(withRootObject: self.cookies!, requiringSecureCoding: true)
+            userDefaults.set(cookieData, forKey: KeyName())
+        } else {
+            userDefaults.removeObject(forKey: KeyName())
+        }
+    }
+    
+    @objc public func loadFromUserDefaults() {
+        if let cookieData = UserDefaults.standard.object(forKey: KeyName()) as? Data {
+            let cookies = try! NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self, HTTPCookie.self], from: cookieData)
+            
+            if let rgcookies = cookies as? [HTTPCookie] {
+                for cookie in rgcookies {
+                    self.setCookie(cookie)
+                }
+            }
+        }
+    }
+}
+

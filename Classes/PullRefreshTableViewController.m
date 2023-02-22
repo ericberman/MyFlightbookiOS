@@ -28,6 +28,7 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+#import <MyFlightbook-Swift.h>
 #import "PullRefreshTableViewController.h"
 
 #define REFRESH_HEADER_HEIGHT 60.0f

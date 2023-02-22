@@ -26,7 +26,6 @@
 
 #import "FlightProps.h"
 #import "MFBAppDelegate.h"
-#import "Util.h"
 
 @interface FlightProps()
 @property (readwrite, strong) NSMutableDictionary * dictLockedTypes;

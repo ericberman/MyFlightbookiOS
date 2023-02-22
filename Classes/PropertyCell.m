@@ -27,7 +27,6 @@
 
 #import "PropertyCell.h"
 #import "FlightProps.h"
-#import "Util.h"
 #import "DecimalEdit.h"
 #import <QuartzCore/QuartzCore.h>
 
