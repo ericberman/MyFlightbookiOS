@@ -40,6 +40,7 @@
 		9A14334929A576C7007129A9 /* UITextFieldExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14334829A576C7007129A9 /* UITextFieldExtensions.swift */; };
 		9A14334A29A576C7007129A9 /* UITextFieldExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14334829A576C7007129A9 /* UITextFieldExtensions.swift */; };
 		9A14334C29A6B37E007129A9 /* TotalsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14334B29A6B37E007129A9 /* TotalsRow.swift */; };
+		9A14334E29A6D9B7007129A9 /* CurrencyRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14334D29A6D9B7007129A9 /* CurrencyRow.swift */; };
 		9A16571F14DC59B9004FDC35 /* sunrise.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A16571D14DC59B8004FDC35 /* sunrise.png */; };
 		9A16572014DC59B9004FDC35 /* sunset.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A16571E14DC59B9004FDC35 /* sunset.png */; };
 		9A170C982437FCF600CDECCF /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A170C972437FCF600CDECCF /* CoreServices.framework */; };
@@ -439,7 +440,6 @@
 		9AE4B7B216FE80EE0001BD2C /* EditCellDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AE4B7B116FE80EE0001BD2C /* EditCellDetail.xib */; };
 		9AEA025F111F37C700E84958 /* AutodetectOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA025D111F37C700E84958 /* AutodetectOptions.m */; };
 		9AEB4B461A0DE5C200629998 /* CountryCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEB4B451A0DE5C200629998 /* CountryCode.m */; };
-		9AEC4C9613AC56A90044897B /* CurrencyRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEC4C9513AC56A90044897B /* CurrencyRow.m */; };
 		9AEC4CA313AD4B7C0044897B /* Pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AEC4CA113AD4B7C0044897B /* Pause.png */; };
 		9AEC4CA413AD4B7C0044897B /* Play.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AEC4CA213AD4B7C0044897B /* Play.png */; };
 		9AF7AD1B10E1D7DC00A7DD43 /* Totals.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF7AD1910E1D7DC00A7DD43 /* Totals.m */; };
@@ -570,6 +570,7 @@
 		9A14334529A54991007129A9 /* MFBWebServiceObjectExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFBWebServiceObjectExtensions.swift; sourceTree = "<group>"; };
 		9A14334829A576C7007129A9 /* UITextFieldExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtensions.swift; sourceTree = "<group>"; };
 		9A14334B29A6B37E007129A9 /* TotalsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalsRow.swift; sourceTree = "<group>"; };
+		9A14334D29A6D9B7007129A9 /* CurrencyRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRow.swift; sourceTree = "<group>"; };
 		9A16571D14DC59B8004FDC35 /* sunrise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sunrise.png; sourceTree = "<group>"; };
 		9A16571E14DC59B9004FDC35 /* sunset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sunset.png; sourceTree = "<group>"; };
 		9A170C972437FCF600CDECCF /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
@@ -1017,8 +1018,6 @@
 		9AEA025D111F37C700E84958 /* AutodetectOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutodetectOptions.m; sourceTree = "<group>"; };
 		9AEB4B441A0DE5C200629998 /* CountryCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountryCode.h; sourceTree = "<group>"; };
 		9AEB4B451A0DE5C200629998 /* CountryCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountryCode.m; sourceTree = "<group>"; };
-		9AEC4C9413AC56A80044897B /* CurrencyRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyRow.h; sourceTree = "<group>"; };
-		9AEC4C9513AC56A90044897B /* CurrencyRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyRow.m; sourceTree = "<group>"; };
 		9AEC4CA113AD4B7C0044897B /* Pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pause.png; sourceTree = "<group>"; };
 		9AEC4CA213AD4B7C0044897B /* Play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Play.png; sourceTree = "<group>"; };
 		9AEF733D127DE857004A0D6C /* EXFMutableMetaData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXFMutableMetaData.h; sourceTree = "<group>"; };
@@ -1319,11 +1318,10 @@
 			children = (
 				9AD832C910E296C8007817A4 /* Currency.h */,
 				9AD832CA10E296C8007817A4 /* Currency.m */,
-				9AEC4C9413AC56A80044897B /* CurrencyRow.h */,
-				9AEC4C9513AC56A90044897B /* CurrencyRow.m */,
 				9AF7AD1810E1D7DC00A7DD43 /* Totals.h */,
 				9AF7AD1910E1D7DC00A7DD43 /* Totals.m */,
 				9A14334B29A6B37E007129A9 /* TotalsRow.swift */,
+				9A14334D29A6D9B7007129A9 /* CurrencyRow.swift */,
 			);
 			name = "Totals and Currency";
 			sourceTree = "<group>";
@@ -2378,6 +2376,7 @@
 				9A69202E10CCBD8B00DF1CA6 /* USGlobals.m in Sources */,
 				9A7B3B952135A8AA00CD3BEA /* WPSAlertController.m in Sources */,
 				9A6B78A422399DDC0014B0C2 /* AircraftViewControllerBase.m in Sources */,
+				9A14334E29A6D9B7007129A9 /* CurrencyRow.swift in Sources */,
 				9A69202F10CCBD8B00DF1CA6 /* xsd.m in Sources */,
 				9ADFA5081939271B00FF30B7 /* Training.m in Sources */,
 				9AA5E44219DDB9030065810A /* Telemetry.m in Sources */,
@@ -2415,7 +2414,6 @@
 				9A3E137A127DE704008D672E /* EXFTagDefinitionHolder.m in Sources */,
 				9A3E137B127DE704008D672E /* EXFUtils.m in Sources */,
 				9A6137431CF95F840002873E /* SecurityQuestionPicker.m in Sources */,
-				9AEC4C9613AC56A90044897B /* CurrencyRow.m in Sources */,
 				9AEB4B461A0DE5C200629998 /* CountryCode.m in Sources */,
 				9A565B6A13E351C200BEFFA7 /* GPSSim.m in Sources */,
 				9A0BF18124743D5E003C2172 /* PackAndGo.m in Sources */,

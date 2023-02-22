@@ -111,6 +111,21 @@ extension MFBWebServiceSvc_CurrencyStatusItem {
         }
         return arr
     }
+    
+    @objc(colorForState:) public static func colorForState(state : MFBWebServiceSvc_CurrencyState) -> UIColor {
+        switch (state) {
+        case MFBWebServiceSvc_CurrencyState_OK:
+            return UIColor.systemGreen
+        case MFBWebServiceSvc_CurrencyState_GettingClose:
+            return UIColor.systemBlue
+        case MFBWebServiceSvc_CurrencyState_NotCurrent:
+            return UIColor.systemRed
+        case MFBWebServiceSvc_CurrencyState_NoDate:
+            return UIColor.label
+        default:
+            return UIColor.label
+        }
+    }
 }
 
 // MARK: MFBWebServiceSvc_LogbookEntry extensions

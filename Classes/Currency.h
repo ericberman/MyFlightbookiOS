@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -29,7 +29,6 @@
 #import "MFBSoapCall.h"
 #import "MFBAppDelegate.h"
 #import "MFBWebServiceSvc.h"
-#import "CurrencyRow.h"
 #import "PullRefreshTableViewController.h"
 
 @interface Currency : PullRefreshTableViewController <MFBSoapCallDelegate> {

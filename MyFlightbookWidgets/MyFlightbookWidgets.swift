@@ -115,7 +115,7 @@ struct currencyRow : View {
                         .font(.system(size: 12, weight: .bold))
                         .padding([Edge.Set.trailing], 10)
                         .padding([Edge.Set.top, Edge.Set.bottom], 0)
-                        .foregroundColor(MyFlightbookCurrencyWidgetsEntryView.colorForState(state: curr.state))
+                        .foregroundColor(Color(MFBWebServiceSvc_CurrencyStatusItem.colorForState(state: curr.state)))
                         .frame(maxWidth: .infinity, alignment: .topLeading)
                     Text(curr.discrepancy)
                         .font(.system(size: 10))
@@ -133,21 +133,6 @@ struct currencyRow : View {
 
 struct MyFlightbookCurrencyWidgetsEntryView : View {
     var entry : CurrencyProvider.Entry
-    
-    static func colorForState(state : MFBWebServiceSvc_CurrencyState) -> Color? {
-        switch (state) {
-        case MFBWebServiceSvc_CurrencyState_OK:
-            return Color.green
-        case MFBWebServiceSvc_CurrencyState_GettingClose:
-            return Color.blue
-        case MFBWebServiceSvc_CurrencyState_NotCurrent:
-            return Color.red
-        case MFBWebServiceSvc_CurrencyState_NoDate:
-            return nil
-        default:
-            return nil
-        }
-    }
     
     var body: some View {
         if (!(entry.errorDescription ?? "").isEmpty) {
