@@ -30,9 +30,10 @@
 #import "MFBAppDelegate.h"
 #import "FlightProps.h"
 
-#define NEW_FLIGHT_ID @-1
-#define PENDING_FLIGHT_ID @-2
-#define QUEUED_FLIGHT_UNSUBMITTED @-3
+// Conveninence methods to reduce objective-C churn
+#define NEW_FLIGHT_ID MFBWebServiceSvc_LogbookEntry.idNewFlight
+#define PENDING_FLIGHT_ID MFBWebServiceSvc_LogbookEntry.idPendingFlight
+#define QUEUED_FLIGHT_UNSUBMITTED MFBWebServiceSvc_LogbookEntry.idQueuedFlight
 
 @interface LogbookEntry : MFBAsyncOperation <MFBSoapCallDelegate, NSCoding, NSSecureCoding> {
 	@private
@@ -102,23 +103,11 @@
 @end
 
 @interface MFBWebServiceSvc_LogbookEntry (MFBIPhone)
-- (BOOL) isNewFlight;
-- (BOOL) isAwaitingUpload;
-- (BOOL) isNewOrAwaitingUpload;
-- (BOOL) isQueued;
 - (BOOL) isInInitialState;  // checks to see if a flight is empty but for the starting hobbs
 - (BOOL) isEmpty;           // checks to see if a flight is truly empty.
-- (BOOL) isSigned; 
 - (void)encodeWithCoderMFB:(NSCoder *)encoder;
 - (instancetype)initWithCoderMFB:(NSCoder *)decoder;
 + (MFBWebServiceSvc_LogbookEntry *) getNewLogbookEntry;
-
-- (BOOL) isKnownFlightStart;
-- (BOOL) isKnownEngineStart;
-- (BOOL) isKnownFlightEnd;
-- (BOOL) isKnownEngineEnd;
-- (BOOL) isKnownFlightTime;
-- (BOOL) isKnownEngineTime;
 
 - (void) removeProperty:(NSNumber *)idPropType withServerAuth:(NSString *) szAuthToken deleteSvc:(FlightProps *) fp;
 - (void) removeProperty:(NSNumber *) idPropType;

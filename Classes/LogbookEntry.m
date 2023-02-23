@@ -901,25 +901,6 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
     return le;
 }
 
-- (BOOL) isNewFlight
-{
-	return (self.FlightID == nil || [self.FlightID intValue] == -1);
-}
-
-- (BOOL) isAwaitingUpload
-{
-	return (self.FlightID != nil && [self.FlightID intValue] < -1);
-}
-
-- (BOOL) isNewOrAwaitingUpload
-{
-	return (self.FlightID != nil && [self.FlightID intValue] < 0);
-}
-
-- (BOOL) isQueued {
-    return self.FlightID != nil && self.FlightID.intValue == QUEUED_FLIGHT_UNSUBMITTED.intValue;
-}
-
 // isInitialState means a basically empty flight, but it COULD have a pre-initialized hobbs starting time.
 - (BOOL) isInInitialState
 {
@@ -953,11 +934,6 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
 - (BOOL) isEmpty
 {
     return self.HobbsStart.doubleValue == 0.0 && self.isInInitialState;
-}
-
-- (BOOL) isSigned
-{
-    return self.CFISignatureState == MFBWebServiceSvc_SignatureState_Valid || self.CFISignatureState == MFBWebServiceSvc_SignatureState_Invalid;
 }
 
 - (void)encodeWithCoderMFB:(NSCoder *)encoder
@@ -1083,35 +1059,6 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
 }
 
 #pragma mark - Known/Unknown Times
-- (BOOL) isKnownFlightStart
-{
-    return ![NSDate isUnknownDate:self.FlightStart];
-}
-
-- (BOOL) isKnownEngineStart
-{
-    return ![NSDate isUnknownDate:self.EngineStart];
-}
-
-- (BOOL) isKnownFlightEnd
-{
-    return ![NSDate isUnknownDate:self.FlightEnd];
-}
-
-- (BOOL) isKnownEngineEnd
-{
-    return ![NSDate isUnknownDate:self.EngineEnd];
-}
-
-- (BOOL) isKnownFlightTime
-{
-    return [self isKnownFlightStart] && [self isKnownFlightEnd];
-}
-
-- (BOOL) isKnownEngineTime
-{
-    return [self isKnownEngineStart] && [self isKnownEngineEnd];
-}
 
 - (MFBWebServiceSvc_CustomFlightProperty *) getNewProperty:(NSNumber *) idPropType
 {

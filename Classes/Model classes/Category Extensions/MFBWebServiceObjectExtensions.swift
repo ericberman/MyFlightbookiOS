@@ -130,6 +130,19 @@ extension MFBWebServiceSvc_CurrencyStatusItem {
 
 // MARK: MFBWebServiceSvc_LogbookEntry extensions
 extension MFBWebServiceSvc_LogbookEntry {
+
+    @objc public static func idNewFlight() -> NSNumber {
+        return NSNumber(integerLiteral: -1)
+    }
+    
+    @objc public static func idPendingFlight() -> NSNumber {
+        return NSNumber(integerLiteral: -2)
+    }
+    
+    @objc public static func idQueuedFlight() -> NSNumber {
+        return NSNumber(integerLiteral: -3)
+    }
+    
     @objc(toSimpleItem:) public func toSimpleItem(fHHMM : Bool) -> SimpleLogbookEntry {
         let sle = SimpleLogbookEntry()
         sle.comment = comment
@@ -146,7 +159,89 @@ extension MFBWebServiceSvc_LogbookEntry {
             arr.append(le.toSimpleItem(fHHMM: fHHMM))
         }
         return arr
-    }    
+    }
+    
+    @objc public func isKnownFlightStart() -> Bool  {
+        return !NSDate.isUnknownDate(dt: flightStart);
+    }
+
+    @objc public func isKnownEngineStart() -> Bool  {
+        return !NSDate.isUnknownDate(dt: engineStart);
+    }
+
+    @objc public func isKnownFlightEnd() -> Bool  {
+        return !NSDate.isUnknownDate(dt: flightEnd);
+    }
+
+    @objc public func isKnownEngineEnd() -> Bool  {
+        return !NSDate.isUnknownDate(dt: engineEnd);
+    }
+
+    @objc public func isKnownFlightTime() -> Bool {
+        return isKnownFlightStart() && isKnownFlightEnd()
+    }
+
+    @objc public func isKnownEngineTime() -> Bool {
+        return isKnownEngineStart() && isKnownEngineEnd()
+    }
+    
+    @objc public func isNewFlight() -> Bool {
+        return flightID?.intValue == -1
+    }
+
+    @objc public func isAwaitingUpload() -> Bool {
+        return flightID?.intValue ?? 0 < -1
+    }
+
+    @objc public func isNewOrAwaitingUpload() -> Bool {
+        return flightID?.intValue ?? 0 < 0
+    }
+
+    @objc public func isQueued() -> Bool {
+        return flightID?.intValue == MFBWebServiceSvc_LogbookEntry.idQueuedFlight().intValue
+    }
+
+    // Below is not yet tested but can't be implemented here until flightprops are migrated to swift
+    /*
+    // isInitialState means a basically empty flight, but it COULD have a pre-initialized hobbs starting time.
+    @objc public func isInInitialState() -> Bool {
+        if (self.comment?.isEmpty ?? true &&
+            self.route?.isEmpty ?? true &&
+            approaches?.intValue == 0 &&
+            cfi?.doubleValue == 0.0 &&
+            crossCountry?.doubleValue == 0.0 &&
+            dual?.doubleValue == 0.0 &&
+            fullStopLandings?.intValue == 0 &&
+            hobbsEnd?.doubleValue == 0.0 &&
+            imc?.doubleValue == 0.0 &&
+            landings?.intValue == 0 &&
+            nightLandings?.intValue == 0 &&
+            nighttime?.doubleValue == 0.0 &&
+            pic?.doubleValue == 0.0 &&
+            sic?.doubleValue == 0.0 &&
+            simulatedIFR?.doubleValue == 0.0 &&
+            totalFlightTime?.doubleValue == 0.0 &&
+            customProperties?.customFlightProperty?.count == 0) {
+            return true;
+        }
+
+        // see if any properties are empty
+        if ((customProperties?.customFlightProperty?.count ?? 0) > 0) {
+            return (FlightProps.getNoNet().distillList(customProperties.customFlightProperty as? [MFBWebServiceSvc_CustomFlightProperty], includeLockedProps: false, include: nil).count ) == 0
+        }
+        
+        return false
+    }
+    
+    @objc public func isEmpty() -> Bool {
+        return hobbsStart.doubleValue == 0.0 && isInInitialState()
+    }
+     */
+
+
+    @objc public func isSigned() -> Bool {
+        return self.cfiSignatureState == MFBWebServiceSvc_SignatureState_Valid || self.cfiSignatureState == MFBWebServiceSvc_SignatureState_Invalid;
+    }
 }
 
 // MARK: MFBWebServiceSvc_CategoryClass extensions
