@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -52,12 +52,11 @@
 {
     UIFont * fnt = self.lbl.font;
     CGFloat ptSize = fnt.pointSize;
-    NSString * fntName = fnt.fontName;
     CGRect rFrame = self.lbl.frame;
     
     while (ptSize > 0.0)
     {
-        fnt = [UIFont fontWithName:fntName size:ptSize];
+        fnt = [UIFont systemFontOfSize:ptSize];
         CGSize size = [sz boundingRectWithSize:CGSizeMake(rFrame.size.width - 20 - 30, 10000)
                                                         options:NSStringDrawingUsesLineFragmentOrigin
                                                      attributes:@{NSFontAttributeName:fnt}
