@@ -30,7 +30,6 @@
 #import <ExternalAccessory/EAAccessory.h>
 #import <ExternalAccessory/EAAccessoryManager.h>
 #import <ExternalAccessory/ExternalAccessoryDefines.h>
-#import "DecimalEdit.h"
 
 @interface FlightEditorBaseTableViewController ()
 @property (readwrite, strong) NSMutableArray<EAAccessory *> * externalAccessories;
@@ -49,8 +48,8 @@
 @synthesize activeTextField;
 
 #pragma mark - UI / UITableViewCell Helpers
-- (void) setNumericField:(UITextField *) txt toType:(int) nt {
-    txt.NumberType = nt;
+- (void) setNumericField:(UITextField *) txt toType:(NumericType) nt {
+    [txt setNumberType:nt inHHMM:AutodetectOptions.HHMMPref];
     txt.autocorrectionType = UITextAutocorrectionTypeNo;
     txt.inputAccessoryView = self.vwAccessory;
     txt.delegate = self;
@@ -58,7 +57,7 @@
 
 - (EditCell *) decimalCell:(UITableView *) tableView withPrompt:(NSString *)szPrompt andValue:(NSNumber *)val selector:(SEL)sel andInflation:(BOOL) fIsInflated {
     EditCell * ec = [EditCell getEditCell:tableView withAccessory:self.vwAccessory];
-    [self setNumericField:ec.txt toType:ntDecimal];
+    [self setNumericField:ec.txt toType:NumericTypeDecimal];
     [ec.txt addTarget:self action:sel forControlEvents:UIControlEventEditingChanged];
     [ec.txt setValue:val withDefault:@0.0];
     ec.lbl.text = szPrompt;
@@ -204,21 +203,21 @@
     self.externalAccessories = [NSMutableArray<EAAccessory*> new];
     
     // Set numeric fields
-    [self setNumericField:self.idLandings toType:ntInteger];
-    [self setNumericField:self.idDayLandings toType:ntInteger];
-    [self setNumericField:self.idNightLandings toType:ntInteger];
-    [self setNumericField:self.idApproaches toType:ntInteger];
+    [self setNumericField:self.idLandings toType:NumericTypeInteger];
+    [self setNumericField:self.idDayLandings toType:NumericTypeInteger];
+    [self setNumericField:self.idNightLandings toType:NumericTypeInteger];
+    [self setNumericField:self.idApproaches toType:NumericTypeInteger];
     
-    [self setNumericField:self.idXC toType:ntTime];
-    [self setNumericField:self.idSIC toType:ntTime];
-    [self setNumericField:self.idSimIMC toType:ntTime];
-    [self setNumericField:self.idCFI toType:ntTime];
-    [self setNumericField:self.idDual toType:ntTime];
-    [self setNumericField:self.idGrndSim toType:ntTime];
-    [self setNumericField:self.idIMC toType:ntTime];
-    [self setNumericField:self.idNight toType:ntTime];
-    [self setNumericField:self.idPIC toType:ntTime];
-    [self setNumericField:self.idTotalTime toType:ntTime];
+    [self setNumericField:self.idXC toType:NumericTypeTime];
+    [self setNumericField:self.idSIC toType:NumericTypeTime];
+    [self setNumericField:self.idSimIMC toType:NumericTypeTime];
+    [self setNumericField:self.idCFI toType:NumericTypeTime];
+    [self setNumericField:self.idDual toType:NumericTypeTime];
+    [self setNumericField:self.idGrndSim toType:NumericTypeTime];
+    [self setNumericField:self.idIMC toType:NumericTypeTime];
+    [self setNumericField:self.idNight toType:NumericTypeTime];
+    [self setNumericField:self.idPIC toType:NumericTypeTime];
+    [self setNumericField:self.idTotalTime toType:NumericTypeTime];
     
     [self enableLabelClickForField:self.idLandings];
     [self enableLabelClickForField:self.idNightLandings];

@@ -25,6 +25,8 @@
 
 import Foundation
 
+// This file includes extensions for built-in Apple objects
+
 // MARK: NSNumber extensions
 @objc public enum NumericType : Int {
     case Integer
@@ -64,6 +66,186 @@ extension NSNumber {
         case .Decimal:
             return self.formatAsTime(fHHMM: false, fGroup: useGrouping)
         }
+    }
+}
+
+private var UIB_ISHHMM_KEY: UInt8 = 0
+private var UIB_NUMBER_TYPE_KEY: UInt8 = 0
+
+
+// MARK: UITextField Extensions for DecimalEdit
+extension UITextField {
+    @objc(updateKeyboardType: numType:) public func updateKeyboardType(nt : Int, fIsHHMM : Bool) -> Void {
+        updateKeyboardType(numericType: NumericType(rawValue: nt)!, fIsHHMM: fIsHHMM)
+    }
+    
+    @objc(updateKeyboardForNumericType: fIsHHMM:) public func updateKeyboardType(numericType : NumericType, fIsHHMM : Bool) -> Void {
+        switch (numericType) {
+        case .Integer:
+            keyboardType = .numberPad
+            break
+        case .Decimal:
+            keyboardType = .decimalPad
+            break
+        case .Time:
+            keyboardType = fIsHHMM ? .numbersAndPunctuation : .decimalPad
+            break
+        default:
+            break
+        }
+    }
+    
+    @objc(setIsHHMM:) public func setIsHHMM(IsHHMM : Bool) -> Void {
+        objc_setAssociatedObject(self, &UIB_ISHHMM_KEY, IsHHMM ? "Y" : "N", objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        updateKeyboardType(numericType: numberType(), fIsHHMM: IsHHMM)
+    }
+    
+    @objc public func IsHHMM() -> Bool {
+        let val = objc_getAssociatedObject(self, &UIB_ISHHMM_KEY) as? String ?? "N"
+        return val == "Y"
+    }
+    
+    @objc(setNumberType: inHHMM:) public func setType(numericType: NumericType, fHHMM : Bool) -> Void {
+        objc_setAssociatedObject(self, &UIB_NUMBER_TYPE_KEY, numericType, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        setIsHHMM(IsHHMM: fHHMM)
+        updateKeyboardType(numericType: numericType, fIsHHMM: numericType == .Time && fHHMM)
+        placeholder = NSNumber(floatLiteral: 0.0).formatAs(Type: numericType, inHHMM: fHHMM, useGrouping: true) as String
+    }
+    
+    @objc public func NumberType() -> Int {
+        return numberType().rawValue
+    }
+    
+    @objc public func numberType() -> NumericType {
+        return objc_getAssociatedObject(self, &UIB_NUMBER_TYPE_KEY) as? NumericType ?? .Decimal
+    }
+    
+    @objc(valueForString: ofType: withHHMM:) public static func valueForString(sz : String?, numType : NumericType, fHHMM : Bool) -> NSNumber {
+        if sz == nil || sz!.isEmpty {
+            return NSNumber(floatLiteral: 0)
+        }
+        
+        if (numType == .Time && fHHMM) {
+            let rgPieces = sz!.components(separatedBy: ":")
+            let cPieces = rgPieces.count
+            var szH : String
+            var szM : String
+            
+            if (cPieces == 0 || cPieces > 2) {
+                return NSNumber(floatLiteral: 0.0)
+            }
+            szH = rgPieces[0]
+            if (cPieces == 2) {
+                szM = rgPieces[1]
+                // pad or trim szM as appropriate
+                switch (szM.count) {
+                case 0:
+                    szM = "00"
+                    break
+                case 1:
+                    szM += "0"
+                    break
+                case 2:
+                    break
+                default:
+                    szM = String(szM[..<szM.index(szM.startIndex, offsetBy: 2)])
+                }
+            } else {
+                szM = "0"
+            }
+            
+            if szH.isEmpty {
+                szH = "0"
+            }
+            
+            return NSNumber(floatLiteral: Double(szH)! + (Double(szM)! / 60.0))
+        }
+        else if numType == .Integer {
+            return NSNumber(integerLiteral: Int(sz!)!)
+        } else if numType == .Decimal || numType == .Time {
+            // otherwise it is either explicitly a decimal, or it is a time but HHMM is false.
+            let nf = NumberFormatter()
+            nf.numberStyle = .decimal
+            return nf.number(from: sz!)!
+        }
+        
+        return NSNumber()
+    }
+    
+    // Convenience method for integer numeric type from Objective-C
+    @objc(valueForString: withType: withHHMM:) public static func valueForString(sz : String?, nt : Int, fHHMM : Bool) -> NSNumber {
+        return valueForString(sz: sz, numType: NumericType(rawValue: nt)!, fHHMM: fHHMM)
+    }
+    
+    @objc(stringFromNumber: forType: inHHMM: useGrouping:) public static func stringFromNumber(num : NSNumber, nt : Int, inHHMM: Bool, fGroup: Bool) -> NSString {
+        return num.formatAs(Type: NumericType(rawValue: nt)!, inHHMM: inHHMM, useGrouping: fGroup)
+    }
+    
+    @objc(stringFromNumber: forType: inHHMM:) public static func stringFromNumber(num: NSNumber, nt : Int, inHHMM: Bool) -> NSString {
+        return num.formatAs(Type: NumericType(rawValue: nt)!, inHHMM: inHHMM, useGrouping: false)
+    }
+    
+    @objc(value) public func getValue() -> NSNumber {
+        return UITextField.valueForString(sz: text!, numType: numberType(), fHHMM: IsHHMM())
+    }
+    
+    @objc(setValue:) public func setValue(num : NSNumber) -> Void {
+        text = num.formatAs(Type: numberType(), inHHMM: IsHHMM(), useGrouping: false) as String
+    }
+    
+    @objc(setValue: withDefault:) public func setValueWithDefault(num : NSNumber, numDefault : NSNumber) {
+        if num.doubleValue == numDefault.doubleValue {
+            self.text = ""
+        } else {
+            setValue(num: num)
+        }
+    }
+    
+    @objc(isValidNumber:) public func isValidNumber(szProposed : String) -> Bool {
+        let nt = numberType()
+        if (nt == .Integer) {
+            return szProposed.range(of: "^\\d*$", options: .regularExpression) != nil
+        } else if (nt == .Decimal || (nt == .Time && !IsHHMM())) {
+            let nf = NumberFormatter()
+            var szDec = nf.decimalSeparator
+            if (szDec == ".") {
+                szDec = "\\."
+            }
+            return szProposed.range(of: "^\\d*\(szDec!)?\\d*$", options: .regularExpression) != nil
+        } else {
+            // Must be hhmm
+            return szProposed.range(of: "^\\d*:?\\d{0,2}$", options: .regularExpression) != nil
+        }
+    }
+    
+    @objc(crossFillFrom:) public func crossFillFrom(src : UITextField) {
+        // animate the source button onto the target, change the value, then restore the source
+        resignFirstResponder()
+        
+        let rSrc = src.frame;
+        let rDst = frame;
+        
+        let tfTemp = UITextField(frame: rSrc)
+        tfTemp.font = src.font;
+        tfTemp.text = src.text;
+        tfTemp.textAlignment = src.textAlignment;
+        tfTemp.textColor = src.textColor;
+        src.superview?.addSubview(tfTemp)
+        
+        src.translatesAutoresizingMaskIntoConstraints = false;
+        UIView.animate(withDuration: 0.5,
+                       animations: {
+            tfTemp.frame = rDst
+        },
+                       completion: { finished in
+            self.text = src.text
+            UIView.animate(withDuration: 0.5, animations: {
+                tfTemp.frame = rSrc
+            },
+                           completion: { finished in
+                tfTemp.removeFromSuperview()
+            })
+        })
     }
 }
 
@@ -326,3 +508,29 @@ extension HTTPCookieStorage {
     }
 }
 
+// MARK: UIButton (implementation of checkbox functionality)
+extension UIButton {
+    @objc public func setIsCheckbox() -> Void {
+        setImage(UIImage(named: "Checkbox-Sel"), for: .selected)
+        setImage(UIImage(named: "Checkbox"), for: .normal)
+        addTarget(self, action: #selector(UIButton.toggleCheck), for: .touchUpInside)
+        let backColor = UIColor.clear
+        let checkColor = UIColor.label
+        layer.backgroundColor = backColor.cgColor
+        layer.borderColor = backColor.cgColor
+        backgroundColor = backColor
+        
+        setTitleColor(checkColor, for: .normal)
+        setTitleColor(checkColor, for: .focused)
+        setTitleColor(checkColor, for: .selected)
+        setTitleColor(checkColor, for: .highlighted)
+    }
+    
+    @objc(toggleCheck:) @IBAction public func toggleCheck(sender: AnyObject) -> Void {
+        isSelected = !isSelected
+    }
+    
+    @objc(setCheckboxValue:) public func setCheckboxValue(value : Bool) -> Void {
+        isSelected = value
+    }
+}

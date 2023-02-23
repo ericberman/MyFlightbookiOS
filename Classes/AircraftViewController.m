@@ -30,7 +30,6 @@
 #import "EditCell.h"
 #import "ButtonCell.h"
 #import "ExpandHeaderCell.h"
-#import "DecimalEdit.h"
 #import "MakeModel.h"
 #import "ImageComment.h"
 #import "TextCell.h"
@@ -284,7 +283,7 @@ enum aircraftRows {rowInfoStart, rowStaticDesc = rowInfoStart, rowInfoLast,
     EditCell * ec = [EditCell getEditCellDetail:tableView withAccessory:self.vwAccessory];
     ec.txt.autocorrectionType = UITextAutocorrectionTypeNo;
     [ec.txt setValue:num withDefault:@0.0];
-    ec.txt.NumberType = ntDecimal;
+    [ec.txt setNumberType:NumericTypeDecimal inHHMM:AutodetectOptions.HHMMPref];
     ec.txt.delegate = self;
     ec.lbl.text = szPrompt;
     ec.txt.clearButtonMode = UITextFieldViewModeWhileEditing;

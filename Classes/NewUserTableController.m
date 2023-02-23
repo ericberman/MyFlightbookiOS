@@ -29,12 +29,12 @@
 #import "ButtonCell.h"
 #import "TextCell.h"
 #import "EditCell.h"
-#import "DecimalEdit.h"
 #import "MFBAppDelegate.h"
 #import "SecurityQuestionPicker.h"
 #import "FlightProps.h"
 #import "HostedWebViewViewController.h"
 #import "WPSAlertController.h"
+#import <MyFlightbook-Swift.h>
 
 @interface NewUserTableController ()
 

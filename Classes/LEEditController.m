@@ -33,7 +33,6 @@
 #import "PropertyCell.h"
 #import "ButtonCell.h"
 #import "math.h"
-#import "DecimalEdit.h"
 #import "TextCell.h"
 
 @interface LEEditController()

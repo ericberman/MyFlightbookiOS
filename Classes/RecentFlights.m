@@ -28,7 +28,6 @@
 #import "MFBAppDelegate.h"
 #import "MFBSoapCall.h"
 #import "RecentFlightCell.h"
-#import "DecimalEdit.h"
 #import "FlightProps.h"
 #import "iRate.h"
 #import "WPSAlertController.h"

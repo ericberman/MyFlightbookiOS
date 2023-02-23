@@ -25,7 +25,6 @@
 //
 
 #import "RecentFlightCell.h"
-#import "DecimalEdit.h"
 #import "AutodetectOptions.h"
 #import "FlightProps.h"
 
@@ -101,7 +100,7 @@
     
     NSTimeInterval elapsed = [dtEnd timeIntervalSinceDate:dtStart] / 3600.0;
     NSString * szInterval = (elapsed <= 0) ? @"" : [NSString stringWithFormat:@" (%@)",
-                                                    [UITextField stringFromNumber:@(elapsed) forType:ntTime inHHMM:AutodetectOptions.HHMMPref]];
+                                                    [UITextField stringFromNumber:@(elapsed) forType:NumericTypeTime inHHMM:AutodetectOptions.HHMMPref]];
     
     NSMutableAttributedString * attrString = [[NSMutableAttributedString alloc] initWithString:label attributes:@{NSForegroundColorAttributeName : dimmedColor}];
     [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@ - %@%@ ",
@@ -213,20 +212,20 @@
         [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:@{NSForegroundColorAttributeName : textColor}]];
         
         // Add various values
-        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldTotal", @"Entry Field: Total") forValue:le.TotalFlightTime withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
+        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldTotal", @"Entry Field: Total") forValue:le.TotalFlightTime withFont:boldFont inHHMM:fUseHHMM numType:NumericTypeTime]];
 
-        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldLandings", @"Entry Field: Landings") forValue:le.Landings withFont:boldFont inHHMM:fUseHHMM numType:ntInteger]];
-        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldApproaches", @"Entry Field: Approaches") forValue:le.Approaches withFont:boldFont inHHMM:fUseHHMM numType:ntInteger]];
+        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldLandings", @"Entry Field: Landings") forValue:le.Landings withFont:boldFont inHHMM:fUseHHMM numType:NumericTypeInteger]];
+        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldApproaches", @"Entry Field: Approaches") forValue:le.Approaches withFont:boldFont inHHMM:fUseHHMM numType:NumericTypeInteger]];
         
-        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldNight", @"Entry Field: Night") forValue:le.Nighttime withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
-        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldSimIMC", @"Entry Field: Simulated IMC") forValue:le.SimulatedIFR withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
-        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldIMC", @"Entry Field: Actual IMC") forValue:le.IMC withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
-        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldXC", @"Entry Field: XC") forValue:le.CrossCountry withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
-        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldDual", @"Entry Field: Dual") forValue:le.Dual withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
-        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldGround", @"Entry Field: Ground Sim") forValue:le.GroundSim withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
-        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldCFI", @"Entry Field: CFI") forValue:le.CFI withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
-        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldSIC", @"Entry Field: SIC") forValue:le.SIC withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
-        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldPIC", @"Entry Field: PIC") forValue:le.PIC withFont:boldFont inHHMM:fUseHHMM numType:ntTime]];
+        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldNight", @"Entry Field: Night") forValue:le.Nighttime withFont:boldFont inHHMM:fUseHHMM numType:NumericTypeTime]];
+        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldSimIMC", @"Entry Field: Simulated IMC") forValue:le.SimulatedIFR withFont:boldFont inHHMM:fUseHHMM numType:NumericTypeTime]];
+        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldIMC", @"Entry Field: Actual IMC") forValue:le.IMC withFont:boldFont inHHMM:fUseHHMM numType:NumericTypeTime]];
+        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldXC", @"Entry Field: XC") forValue:le.CrossCountry withFont:boldFont inHHMM:fUseHHMM numType:NumericTypeTime]];
+        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldDual", @"Entry Field: Dual") forValue:le.Dual withFont:boldFont inHHMM:fUseHHMM numType:NumericTypeTime]];
+        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldGround", @"Entry Field: Ground Sim") forValue:le.GroundSim withFont:boldFont inHHMM:fUseHHMM numType:NumericTypeTime]];
+        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldCFI", @"Entry Field: CFI") forValue:le.CFI withFont:boldFont inHHMM:fUseHHMM numType:NumericTypeTime]];
+        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldSIC", @"Entry Field: SIC") forValue:le.SIC withFont:boldFont inHHMM:fUseHHMM numType:NumericTypeTime]];
+        [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldPIC", @"Entry Field: PIC") forValue:le.PIC withFont:boldFont inHHMM:fUseHHMM numType:NumericTypeTime]];
         
         if (detail == flightTimeDetailed) {
             MFBWebServiceSvc_CustomFlightProperty * blockOut = [le getExistingProperty:@(PropTypeID_BlockOut)];

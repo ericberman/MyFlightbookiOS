@@ -27,7 +27,6 @@
 
 #import "NewAircraftViewController.h"
 #import "ExpandHeaderCell.h"
-#import "DecimalEdit.h"
 #import "MakeModel.h"
 #import "ImageComment.h"
 #import "CheckboxCell.h"

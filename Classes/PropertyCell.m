@@ -27,7 +27,6 @@
 
 #import "PropertyCell.h"
 #import "FlightProps.h"
-#import "DecimalEdit.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface PropertyCell()
@@ -279,19 +278,19 @@
             break;
         case MFBWebServiceSvc_CFPPropertyType_cfpCurrency:
             self.txt.keyboardType = UIKeyboardTypeDecimalPad;
-            self.txt.NumberType = ntDecimal;
+            [self.txt setNumberType:NumericTypeDecimal inHHMM:AutodetectOptions.HHMMPref];
             self.txt.autocorrectionType = UITextAutocorrectionTypeNo;
             break;
         case MFBWebServiceSvc_CFPPropertyType_cfpDecimal:
             // assume it's a time unless the PlainDecimal flags (0x00200000) is set, in which case force decimal
-            self.txt.NumberType = ((self.cpt.Flags.unsignedIntegerValue & 0x00200000) == 0) ? ntTime : ntDecimal;
+            [self.txt setNumberType:((self.cpt.Flags.unsignedIntegerValue & 0x00200000) == 0) ? NumericTypeTime : NumericTypeDecimal inHHMM:AutodetectOptions.HHMMPref];
             self.txt.autocorrectionType = UITextAutocorrectionTypeNo;
             [self.txt setValue:self.cfp.DecValue withDefault:@0.0]; // Fix bug #37. re-assign it; this will respect the number type.
-            if (defVal != nil && (self.txt.NumberType == ntTime || self.cpt.PropTypeID.intValue == PropTypeID_TachStart))
+            if (defVal != nil && (self.txt.NumberType == NumericTypeTime || self.cpt.PropTypeID.intValue == PropTypeID_TachStart))
                 [self setXFill:defVal];
             break;
         case MFBWebServiceSvc_CFPPropertyType_cfpInteger:
-            self.txt.NumberType = ntInteger;
+            [self.txt setNumberType:NumericTypeInteger inHHMM:AutodetectOptions.HHMMPref];
             self.txt.keyboardType = UIKeyboardTypeNumberPad;
             if (defVal != nil)
                 [self setXFill:defVal];

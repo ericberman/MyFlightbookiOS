@@ -148,7 +148,7 @@ extension MFBWebServiceSvc_LogbookEntry {
         sle.comment = comment
         sle.route = route
         sle.date = date
-        sle.totalTimeDisplay = UITextField.string(from: self.totalFlightTime, forType: Int32(NumericType.Time.rawValue), inHHMM: fHHMM)
+        sle.totalTimeDisplay = self.totalFlightTime.formatAs(Type: .Time, inHHMM: fHHMM, useGrouping: true) as String
         sle.tailNumDisplay = tailNumDisplay
         return sle
     }

@@ -29,7 +29,6 @@
 #import "CommentedImage.h"
 #import "FlightProps.h"
 #import "Airports.h"
-#import "DecimalEdit.h"
 #import "Telemetry.h"
 
 @interface LogbookEntry ()
@@ -303,7 +302,7 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
 
     NSRange rValue = [match rangeAtIndex:1];
     NSString * rCapture = [ac.PrivateNotes substringWithRange:rValue];
-    double rate = [UITextField valueForString:rCapture withType:ntDecimal withHHMM:NO].doubleValue;
+    double rate = [UITextField valueForString:rCapture withType:NumericTypeDecimal withHHMM:NO].doubleValue;
     
     if (rate == 0)
         return;
@@ -1260,38 +1259,38 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
         self.Route = [NSString stringWithFormat:@"%@ %@ %@", szFrom, szRoute, szTo];
         self.Route = [self.Route stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
-        AddNumber(self.HobbsStart, dict[@"flight_hobbsStart"], ntDecimal);
-        AddNumber(self.HobbsEnd, dict[@"flight_hobbsStop"], ntDecimal);
+        AddNumber(self.HobbsStart, dict[@"flight_hobbsStart"], NumericTypeDecimal);
+        AddNumber(self.HobbsEnd, dict[@"flight_hobbsStop"], NumericTypeDecimal);
         
         self.Date = [self parseDate:dict[@"flight_flightDate"] withFormatter:dfDate];
         self.FlightStart = [self parseDate:dict[@"flight_takeoffTime"] withFormatter:dfDateTime];
         self.FlightEnd = [self parseDate:dict[@"flight_landingTime"] withFormatter:dfDateTime];
         
-        AddNumber(self.CrossCountry, dict[@"flight_crossCountry"], ntTime);
-        AddNumber(self.Nighttime, dict[@"flight_night"], ntTime);
-        AddNumber(self.SimulatedIFR, dict[@"flight_simulatedInstrument"], ntTime);
-        AddNumber(self.IMC, dict[@"flight_actualInstrument"], ntTime);
-        AddNumber(self.GroundSim, dict[@"flight_simulator"], ntTime);
-        AddNumber(self.Dual, dict[@"flight_dualReceived"], ntTime);
-        AddNumber(self.CFI, dict[@"flight_dualGiven"], ntTime);
-        AddNumber(self.SIC, dict[@"flight_sic"], ntTime);
-        AddNumber(self.PIC, dict[@"flight_pic"], ntTime);
-        AddNumber(self.TotalFlightTime, dict[@"flight_totalTime"], ntTime);
+        AddNumber(self.CrossCountry, dict[@"flight_crossCountry"], NumericTypeTime);
+        AddNumber(self.Nighttime, dict[@"flight_night"], NumericTypeTime);
+        AddNumber(self.SimulatedIFR, dict[@"flight_simulatedInstrument"], NumericTypeTime);
+        AddNumber(self.IMC, dict[@"flight_actualInstrument"], NumericTypeTime);
+        AddNumber(self.GroundSim, dict[@"flight_simulator"], NumericTypeTime);
+        AddNumber(self.Dual, dict[@"flight_dualReceived"], NumericTypeTime);
+        AddNumber(self.CFI, dict[@"flight_dualGiven"], NumericTypeTime);
+        AddNumber(self.SIC, dict[@"flight_sic"], NumericTypeTime);
+        AddNumber(self.PIC, dict[@"flight_pic"], NumericTypeTime);
+        AddNumber(self.TotalFlightTime, dict[@"flight_totalTime"], NumericTypeTime);
         
-        AddNumber(self.NightLandings, dict[@"flight_nightLandings"], ntInteger);
-        AddNumber(self.FullStopLandings, dict[@"flight_dayLandings"], ntInteger);
-        AddNumber(self.Landings, dict[@"flight_totalLandings"], ntInteger);
+        AddNumber(self.NightLandings, dict[@"flight_nightLandings"], NumericTypeInteger);
+        AddNumber(self.FullStopLandings, dict[@"flight_dayLandings"], NumericTypeInteger);
+        AddNumber(self.Landings, dict[@"flight_totalLandings"], NumericTypeInteger);
         
         if (dict[@"flight_holds"] != nil)
             self.fHoldingProcedures = [[USBoolean alloc] initWithBool:((NSString *) dict[@"flight_holds"]).integerValue > 0];
         self.fIsPublic = [[USBoolean alloc] initWithBool:NO];
-        AddNumber(self.Approaches, dict[@"flight_totalApproaches"], ntInteger);
+        AddNumber(self.Approaches, dict[@"flight_totalApproaches"], NumericTypeInteger);
         
         // Now add a few properties that match to known property types
         [self addProperty:@PropTypeID_IPC withBool:dict[@"flight_instrumentProficiencyCheck"] != nil];
         [self addProperty:@PropTypeID_BFR withBool:dict[@"flight_review"] != nil];
-        [self addProperty:@PropTypeID_NightTakeOff withInteger:[self parseNum:dict[@"flight_nightTakeoffs"] numType:ntInteger]];
-        [self addProperty:@PropTypeID_Solo withDecimal:[self parseNum:dict[@"flight_solo"] numType:ntTime]];
+        [self addProperty:@PropTypeID_NightTakeOff withInteger:[self parseNum:dict[@"flight_nightTakeoffs"] numType:NumericTypeInteger]];
+        [self addProperty:@PropTypeID_Solo withDecimal:[self parseNum:dict[@"flight_solo"] numType:NumericTypeTime]];
         [self addProperty:@PropTypeID_NameOfPIC withString:dict[@"flight_selectedCrewPIC"]];
         [self addProperty:@PropTypeID_NameOfSIC withString:dict[@"flight_selectedCrewSIC"]];
         [self addProperty:@PropTypeID_NameOfCFI withString:dict[@"flight_selectedCrewInstructor"]];

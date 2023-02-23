@@ -26,7 +26,6 @@
 
 #import "FlightProperties.h"
 #import "PropertyCell.h"
-#import "DecimalEdit.h"
 
 @interface FlightProperties ()
 @property (strong) NSArray<MFBWebServiceSvc_CustomPropertyType *> * rgFilteredProps;

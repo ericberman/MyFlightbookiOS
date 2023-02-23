@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2019 MyFlightbook, LLC
+ Copyright (C) 2017-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -29,7 +29,6 @@
 #import "EditCell.h"
 #import "ButtonCell.h"
 #import "AutodetectOptions.h"
-#import "DecimalEdit.h"
 
 @interface TotalsCalculator ()
 
@@ -76,7 +75,7 @@ EditCell * cellToActivateAfterReload = nil;
     ec.txt.inputAccessoryView = self.vwAccessory;
     ec.txt.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
     ec.txt.autocorrectionType = UITextAutocorrectionTypeNo;
-    ec.txt.NumberType = ntTime;
+    [ec.txt setNumberType:NumericTypeTime inHHMM:YES];
     ec.txt.IsHHMM = YES;
     ec.txt.text = @"";
     [ec setLabelToFit:label];
@@ -91,7 +90,7 @@ EditCell * cellToActivateAfterReload = nil;
 #pragma mark - actions
 - (void) copySum {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-    pasteboard.string = [UITextField stringFromNumber:[NSNumber numberWithDouble:self.computedTotal] forType:ntTime inHHMM:[AutodetectOptions HHMMPref]];
+    pasteboard.string = [UITextField stringFromNumber:[NSNumber numberWithDouble:self.computedTotal] forType:NumericTypeTime inHHMM:AutodetectOptions.HHMMPref];
 }
 
 - (void) addSum {
@@ -162,14 +161,14 @@ EditCell * cellToActivateAfterReload = nil;
     BOOL fHHMM = [AutodetectOptions HHMMPref];
     NSMutableString * s = [NSMutableString new];
     for (NSNumber * n in self.values) {
-        NSString * szVal = [UITextField stringFromNumber:n forType:ntTime inHHMM:fHHMM];
+        NSString * szVal = [UITextField stringFromNumber:n forType:NumericTypeTime inHHMM:fHHMM];
         if (s.length > 0)
             [s appendFormat:@" + %@", szVal];
         else
             [s appendString: szVal];
     }
     if (self.values.count > 0)
-        [s appendFormat:@" = %@", [UITextField stringFromNumber:[NSNumber numberWithDouble:self.computedTotal] forType:ntTime inHHMM:fHHMM]];
+        [s appendFormat:@" = %@", [UITextField stringFromNumber:[NSNumber numberWithDouble:self.computedTotal] forType:NumericTypeTime inHHMM:fHHMM]];
     
     return s;
 }
