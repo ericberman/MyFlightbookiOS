@@ -221,7 +221,7 @@
         return [self waitCellWithText:NSLocalizedString(@"Getting Totals...", @"progress indicator")];
 
     MFBWebServiceSvc_TotalsItem * ti = self.rgTotalsGroups[indexPath.section - 1][indexPath.row];
-    return [TotalsRow rowForTotal:ti forTableView:tableView usingHHMM:[AutodetectOptions HHMMPref]];
+    return [TotalsRow rowForTotal:ti forTableView:tableView usingHHMM:UserPreferences.current.HHMMPref];
 }
 
 - (void) queryUpdated:(MFBWebServiceSvc_FlightQuery *) f

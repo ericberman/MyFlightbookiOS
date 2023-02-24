@@ -73,7 +73,7 @@ static int vLanding = LANDING_SPEED_DEFAULT;
         self.cSamplesSinceWaking = 0;
         self.currentFlightState = fsOnGround;
         self.fRecordFlightData = NO;
-        self.fRecordHighRes = [[NSUserDefaults standardUserDefaults] boolForKey:_szKeyPrefRecordHighRes];
+        self.fRecordHighRes = UserPreferences.current.recordHighRes;
         self.flightTrackData = [NSMutableString new];
         self.rgAllSamples = [NSMutableArray new];
         self.fIsBlessed = NO;
@@ -109,7 +109,7 @@ static int vLanding = LANDING_SPEED_DEFAULT;
 + (void) refreshTakeoffSpeed
 {
     // Initialize takeoff/landing speed
-    vTakeOff = [AutodetectOptions TakeoffSpeed];
+    vTakeOff = (int) UserPreferences.current.TakeoffSpeed;
     if (vTakeOff < TAKEOFF_SPEED_MIN || vTakeOff > TAKEOFF_SPEED_MAX)
         vTakeOff = TAKEOFF_SPEED_DEFAULT;
     vLanding = (vTakeOff >= TAKEOFF_SPEED_SPREAD_BREAK) ? vTakeOff - TAKEOFF_LANDING_SPREAD_HIGH : vTakeOff - TAKEOFF_LANDING_SPREAD_LOW;
@@ -127,50 +127,50 @@ static int vLanding = LANDING_SPEED_DEFAULT;
     NSArray * ar = [defs objectForKey:_szKeyPrefFlightSamples];
     self.rgAllSamples = [NSMutableArray arrayWithArray:ar == nil ? @[] : ar];
     
-    self.fRecordHighRes = [defs boolForKey:_szKeyPrefRecordHighRes];
+    self.fRecordHighRes = UserPreferences.current.recordHighRes;
 
     [MFBLocation refreshTakeoffSpeed];
 }
 
 #pragma mark - Night flight options
-+ (NSString *) nightFlightOptionName:(NightFlightOptions)nf {
++ (NSString *) nightFlightOptionName:(nightFlightOptions)nf {
     switch (nf) {
-        case nfoSunset:
+        case nightFlightOptionsSunset:
             return NSLocalizedString(@"NFSunset", @"Night flight starts sunset");
-        case nfoCivilTwilight:
+        case nightFlightOptionsCivilTwilight:
             return NSLocalizedString(@"NFCivilTwighlight", @"Night flight starts End of civil twilight");
-        case nfoSunsetPlus15:
+        case nightFlightOptionsSunsetPlus15:
             return NSLocalizedString(@"NFSunsetPlus15", @"Night flight starts Sunset + 15 minutes");
-        case nfoSunsetPlus30:
+        case nightFlightOptionsSunsetPlus30:
             return NSLocalizedString(@"NFSunsetPlus30", @"Night flight starts Sunset + 30 minutes");
-        case nfoSunsetPlus60:
+        case nightFlightOptionsSunsetPlus60:
             return NSLocalizedString(@"NFSunsetPlus60", @"Night flight starts Sunset + 60 minutes");
         default:
             return @"";
     }
 }
-+ (NSString *) nightLandingOptionName:(NightLandingOptions)nl {
++ (NSString *) nightLandingOptionName:(nightLandingOptions)nl {
     switch (nl) {
         default:
             return @"";
-        case nflNight:
+        case nightLandingOptionsNight:
             return NSLocalizedString(@"NFLNight", @"Night Landings: Night");
-        case nflSunsetPlus60:
+        case nightLandingOptionsSunsetPlus60:
             return NSLocalizedString(@"NFLSunsetPlus1Hour", @"Night Landings: 60 minutes after sunset");
     }
 }
 
 - (int) NightFlightSunsetOffset {
-    switch ([AutodetectOptions nightFlightPref]) {
-        case nfoCivilTwilight:
-        case nfoSunset:
-        case nfoLast:
+    switch (UserPreferences.current.nightFlightPref) {
+        case nightFlightOptionsCivilTwilight:
+        case nightFlightOptionsSunset:
+        case nightFlightOptionsInvalidLast:
             return 0;
-        case nfoSunsetPlus15:
+        case nightFlightOptionsSunsetPlus15:
             return 15;
-        case nfoSunsetPlus30:
+        case nightFlightOptionsSunsetPlus30:
             return 30;
-        case nfoSunsetPlus60:
+        case nightFlightOptionsSunsetPlus60:
             return 60;
     }
 }
@@ -180,16 +180,16 @@ static int vLanding = LANDING_SPEED_DEFAULT;
     if (sst == nil || !sst.isNight)
         return NO;
     
-    switch ([AutodetectOptions nightFlightPref]) {
-        case nfoCivilTwilight:
+    switch (UserPreferences.current.nightFlightPref) {
+        case nightFlightOptionsCivilTwilight:
             return sst.isCivilNight;
-        case nfoSunset:
+        case nightFlightOptionsSunset:
             return true;    // we already verified that isNight is true above.
-        case nfoSunsetPlus15:
-        case nfoSunsetPlus30:
-        case nfoSunsetPlus60:
+        case nightFlightOptionsSunsetPlus15:
+        case nightFlightOptionsSunsetPlus30:
+        case nightFlightOptionsSunsetPlus60:
             return sst.isWithinNightOffset;
-        case nfoLast:
+        case nightFlightOptionsInvalidLast:
             return NO;
     }
 }
@@ -277,7 +277,7 @@ static int vLanding = LANDING_SPEED_DEFAULT;
 
 - (BOOL) recordFlightDataOptionIsOn
 {
-	return [[NSUserDefaults standardUserDefaults] boolForKey:_szKeyPrefRecordFlightData];
+	return UserPreferences.current.recordTelemetry;
 }
 
 - (void) startRecordingFlightData
@@ -388,10 +388,10 @@ static int vLanding = LANDING_SPEED_DEFAULT;
 	if (fValidSample)
 	{
         SunriseSunset * sst = [[SunriseSunset alloc] initWithDate:self.lastSeenLoc.timestamp Latitude:self.lastSeenLoc.coordinate.latitude Longitude:self.lastSeenLoc.coordinate.longitude nightOffset:self.NightFlightSunsetOffset];
-        BOOL fAutodetect = [[NSUserDefaults standardUserDefaults] boolForKey:_szKeyPrefAutoDetect];
+        BOOL fAutodetect = UserPreferences.current.autodetectTakeoffs;
         
         BOOL fIsNightForFlight = [self IsNightForFlight:sst];
-        BOOL fIsNightForLandings = ([AutodetectOptions nightLandingPref] == nflNight) ? fIsNightForFlight : sst.isFAANight;
+        BOOL fIsNightForLandings = (UserPreferences.current.nightLandingPref == nightLandingOptionsNight) ? fIsNightForFlight : sst.isFAANight;
 
         if (self.PreviousLoc != nil && self.fPreviousLocWasNight && fIsNightForFlight && fAutodetect)
         {
@@ -578,11 +578,11 @@ static int vLanding = LANDING_SPEED_DEFAULT;
 #pragma mark Display
 + (NSString *) altitudeDisplay:(CLLocation *) loc
 {
-    switch (AutodetectOptions.altitudeUnits) {
+    switch (UserPreferences.current.altitudeUnits) {
         default:
-        case altUnitFt:
+        case unitsAltFeet:
             return [NSString localizedStringWithFormat:@"%d%@",  (int) round(loc.altitude * METERS_TO_FEET), NSLocalizedString(@"ft", "Feet")];
-        case altUnitMeters:
+        case unitsAltMeters:
             return [NSString localizedStringWithFormat:@"%d%@",  (int) round(loc.altitude), NSLocalizedString(@"meters", "meters")];
     }
 }
@@ -592,13 +592,13 @@ static int vLanding = LANDING_SPEED_DEFAULT;
     // Negative speeds are stupid.
     if (s < 0)
         s = 0;
-    switch (AutodetectOptions.speedUnits) {
+    switch (UserPreferences.current.speedUnits) {
         default:
-        case speedUnitKts:
+        case unitsSpeedKts:
             return [NSString localizedStringWithFormat:NSLocalizedString(@"%.1fkts", @"Speed in knots.  '%.1f' is replaced by the actual speed; leave it there."), s];
-        case speedUnitKph:
+        case unitsSpeedKph:
             return [NSString localizedStringWithFormat:NSLocalizedString(@"%.1fkm/h", @"Speed in kph"), s * KTS_TO_KPH];
-        case speedUnitMph:
+        case unitsSpeedMph:
             return [NSString localizedStringWithFormat:NSLocalizedString(@"%.1fmph", @"Speed in mph"), s * KTS_TO_MPH];
     }
 }
@@ -616,7 +616,7 @@ static int vLanding = LANDING_SPEED_DEFAULT;
 
 + (NSString *) flightStateDisplay: (FlightState) fs
 {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:_szKeyPrefAutoDetect])
+    if (UserPreferences.current.autodetectTakeoffs)
     {
         switch (fs)
         {

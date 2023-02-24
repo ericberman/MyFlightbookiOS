@@ -41,6 +41,7 @@
 		9A14334A29A576C7007129A9 /* UITextFieldExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14334829A576C7007129A9 /* UITextFieldExtensions.swift */; };
 		9A14334C29A6B37E007129A9 /* TotalsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14334B29A6B37E007129A9 /* TotalsRow.swift */; };
 		9A14334E29A6D9B7007129A9 /* CurrencyRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14334D29A6D9B7007129A9 /* CurrencyRow.swift */; };
+		9A14335529A81A1A007129A9 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14335429A81A1A007129A9 /* UserPreferences.swift */; };
 		9A16571F14DC59B9004FDC35 /* sunrise.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A16571D14DC59B8004FDC35 /* sunrise.png */; };
 		9A16572014DC59B9004FDC35 /* sunset.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A16571E14DC59B9004FDC35 /* sunset.png */; };
 		9A170C982437FCF600CDECCF /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A170C972437FCF600CDECCF /* CoreServices.framework */; };
@@ -570,6 +571,7 @@
 		9A14334829A576C7007129A9 /* UITextFieldExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtensions.swift; sourceTree = "<group>"; };
 		9A14334B29A6B37E007129A9 /* TotalsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalsRow.swift; sourceTree = "<group>"; };
 		9A14334D29A6D9B7007129A9 /* CurrencyRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRow.swift; sourceTree = "<group>"; };
+		9A14335429A81A1A007129A9 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		9A16571D14DC59B8004FDC35 /* sunrise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sunrise.png; sourceTree = "<group>"; };
 		9A16571E14DC59B9004FDC35 /* sunset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sunset.png; sourceTree = "<group>"; };
 		9A170C972437FCF600CDECCF /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
@@ -796,7 +798,6 @@
 		9A8FF5A71BD97C1800C78A49 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = "fr.lproj/MainWindow-iPad.strings"; sourceTree = "<group>"; };
 		9A8FF5A81BD97C3300C78A49 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MainWindow.strings; sourceTree = "<group>"; };
 		9A8FF5A91BD97C5500C78A49 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/NearbyAirports.strings; sourceTree = "<group>"; };
-		9A90281A206EB341009A29B6 /* OptionKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OptionKeys.h; sourceTree = "<group>"; };
 		9A902D591A2102E800698017 /* aircraft@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aircraft@3x.png"; sourceTree = "<group>"; };
 		9A902D5A1A2102E800698017 /* twitter@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter@3x.png"; sourceTree = "<group>"; };
 		9A902D5D1A21046600698017 /* profile@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile@3x.png"; sourceTree = "<group>"; };
@@ -1303,7 +1304,6 @@
 				9ADB297716F666BD008D9582 /* NewUserTableController.xib */,
 				9A6137411CF95F840002873E /* SecurityQuestionPicker.h */,
 				9A6137421CF95F840002873E /* SecurityQuestionPicker.m */,
-				9A90281A206EB341009A29B6 /* OptionKeys.h */,
 				9A1CCB2520879C5900C2D1E4 /* MultiValOptionSelector.h */,
 				9A1CCB2620879C5900C2D1E4 /* MultiValOptionSelector.m */,
 			);
@@ -1717,6 +1717,7 @@
 				9A0BF18224743D72003C2172 /* PackAndGo.h */,
 				9A5F990429A1CCB500692E27 /* WidgetKitBridge.swift */,
 				9A14334329A52934007129A9 /* MFBTheme.swift */,
+				9A14335429A81A1A007129A9 /* UserPreferences.swift */,
 			);
 			path = "Model classes";
 			sourceTree = "<group>";
@@ -2421,6 +2422,7 @@
 				9A17C5FA13E89B1B00C47C82 /* VisitedAirportRow.m in Sources */,
 				9A78376E13E8AB99007CD501 /* VADetails.m in Sources */,
 				9A6A602213E91145000CB7A6 /* MakeModel.m in Sources */,
+				9A14335529A81A1A007129A9 /* UserPreferences.swift in Sources */,
 				9A48E27D29A1693B00511D99 /* WidgetSoapCall.swift in Sources */,
 				9A70B18722C07A8500CA7E21 /* FlightEditorBaseTableViewController.m in Sources */,
 				9A1CCB2320879A3400C2D1E4 /* OptionSelection.m in Sources */,

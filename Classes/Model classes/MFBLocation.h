@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2012-2021 MyFlightbook, LLC
+ Copyright (C) 2012-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -27,6 +27,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import <MyFlightbook-Swift.h>
 
 // use low speeds for debug, use high-speeds for fake GPS or release
 #ifdef USE_FAKE_GPS
@@ -64,14 +65,6 @@
 typedef NS_ENUM(NSInteger, FlightState) {
     fsOnGround, fsInFlight, fsJustLanded
 } ;
-
-typedef NS_ENUM(NSInteger, NightFlightOptions) {
-    nfoCivilTwilight, nfoSunset, nfoSunsetPlus15, nfoSunsetPlus30, nfoSunsetPlus60, nfoLast
-};
-
-typedef NS_ENUM(NSInteger, NightLandingOptions) {
-    nflSunsetPlus60, nflNight, nflLast
-};
 
 @protocol AutoDetectDelegate
 - (NSString *) takeoffDetected;
@@ -116,8 +109,8 @@ typedef NS_ENUM(NSInteger, NightLandingOptions) {
 + (void) refreshTakeoffSpeed;
 - (void) startRecordingFlightData;
 - (void) stopRecordingFlightData;
-+ (NSString *) nightFlightOptionName:(NightFlightOptions)nf;
-+ (NSString *) nightLandingOptionName:(NightLandingOptions)nl;
++ (NSString *) nightFlightOptionName:(nightFlightOptions)nf;
++ (NSString *) nightLandingOptionName:(nightLandingOptions)nl;
 
 + (int) TakeOffSpeed;
 + (int) LandingSpeed;

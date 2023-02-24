@@ -29,6 +29,7 @@
 #import "NearbyAirports.h"
 #import "MyAircraft.h"
 #import "RecentFlights.h"
+#import <MyFlightbook-Swift.h>
 
 @interface LogbookEntryBaseTableViewController ()
 
@@ -63,7 +64,7 @@
     
     // pick up any changes in the HHMM setting
     self.idXC.IsHHMM = self.idSIC.IsHHMM = self.idSimIMC.IsHHMM = self.idCFI.IsHHMM = self.idDual.IsHHMM =
-    self.idGrndSim.IsHHMM = self.idIMC.IsHHMM = self.idNight.IsHHMM = self.idPIC.IsHHMM = self.idTotalTime.IsHHMM = [AutodetectOptions HHMMPref];
+    self.idGrndSim.IsHHMM = self.idIMC.IsHHMM = self.idNight.IsHHMM = self.idPIC.IsHHMM = self.idTotalTime.IsHHMM = UserPreferences.current.HHMMPref;
 }
 
 #pragma mark - Table view data source

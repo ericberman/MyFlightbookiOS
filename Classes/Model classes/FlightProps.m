@@ -359,7 +359,7 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
             szValue = [fp.DateValue dateString];
             break;
 		case MFBWebServiceSvc_CFPPropertyType_cfpDateTime:
-            szValue = [fp.DateValue utcString:AutodetectOptions.UseLocalTime];
+            szValue = [fp.DateValue utcString:UserPreferences.current.UseLocalTime];
 		default:
 			break;
 	}

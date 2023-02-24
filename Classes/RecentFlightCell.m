@@ -100,12 +100,12 @@
     
     NSTimeInterval elapsed = [dtEnd timeIntervalSinceDate:dtStart] / 3600.0;
     NSString * szInterval = (elapsed <= 0) ? @"" : [NSString stringWithFormat:@" (%@)",
-                                                    [UITextField stringFromNumber:@(elapsed) forType:NumericTypeTime inHHMM:AutodetectOptions.HHMMPref]];
+                                                    [UITextField stringFromNumber:@(elapsed) forType:NumericTypeTime inHHMM:UserPreferences.current.HHMMPref]];
     
     NSMutableAttributedString * attrString = [[NSMutableAttributedString alloc] initWithString:label attributes:@{NSForegroundColorAttributeName : dimmedColor}];
     [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@ - %@%@ ",
-                                                                                   [dtStart utcString:AutodetectOptions.UseLocalTime],
-                                                                                   [dtEnd utcString:AutodetectOptions.UseLocalTime], szInterval]
+                                                                                   [dtStart utcString:UserPreferences.current.UseLocalTime],
+                                                                                   [dtEnd utcString:UserPreferences.current.UseLocalTime], szInterval]
                                                                        attributes:@{NSFontAttributeName : font, NSForegroundColorAttributeName : textColor}]];
     return attrString;
 }
@@ -167,7 +167,7 @@
     }
     
     UIFont * baseFont = [UIFont systemFontOfSize:12];
-    BOOL fUseHHMM = [AutodetectOptions HHMMPref];
+    BOOL fUseHHMM = UserPreferences.current.HHMMPref;
     UIFont * boldFont = [UIFont fontWithDescriptor:[[baseFont fontDescriptor] fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold] size:baseFont.pointSize];
     UIFont * largeBoldFont = [UIFont fontWithDescriptor:[[baseFont fontDescriptor] fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold] size:baseFont.pointSize * 1.3];
     UIFont * italicFont = [UIFont fontWithDescriptor:[[baseFont fontDescriptor] fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitItalic | UIFontDescriptorTraitBold] size:baseFont.pointSize];
@@ -207,8 +207,8 @@
         [attrString appendAttributedString:[NSAttributedString attributedStringFromMarkDown:trimmedComments size:12.0]];
     }
     
-    flightTimeDetail detail = AutodetectOptions.showFlightTimes;
-    if (detail != flightTimeNone) {
+    flightTimeDetail detail = UserPreferences.current.showFlightTimes;
+    if (detail != flightTimeDetailNone) {
         [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:@{NSForegroundColorAttributeName : textColor}]];
         
         // Add various values
@@ -227,7 +227,7 @@
         [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldSIC", @"Entry Field: SIC") forValue:le.SIC withFont:boldFont inHHMM:fUseHHMM numType:NumericTypeTime]];
         [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldPIC", @"Entry Field: PIC") forValue:le.PIC withFont:boldFont inHHMM:fUseHHMM numType:NumericTypeTime]];
         
-        if (detail == flightTimeDetailed) {
+        if (detail == flightTimeDetailDetailed) {
             MFBWebServiceSvc_CustomFlightProperty * blockOut = [le getExistingProperty:@(PropTypeID_BlockOut)];
             MFBWebServiceSvc_CustomFlightProperty * blockIn = [le getExistingProperty:@(PropTypeID_BlockIn)];
             
@@ -251,7 +251,7 @@
     self.lblComments.numberOfLines = 0;
     self.lblComments.attributedText = attrString;
 
-    if (AutodetectOptions.showFlightImages) {
+    if (UserPreferences.current.showFlightImages) {
         self.imgHasPics.image = le.FlightImages.MFBImageInfo.count > 0 ? nil : [UIImage imageNamed:@"noimage"];
         
         if (ci != nil && [ci hasThumbnailCache])

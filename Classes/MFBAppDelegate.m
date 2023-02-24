@@ -37,7 +37,6 @@
 #import "Telemetry.h"
 #import "WPSAlertController.h"
 #import "SynchronousCalls.h"
-#import "OptionKeys.h"
 #import <UserNotifications/UserNotifications.h>
 
 #ifdef DEBUG
@@ -587,7 +586,8 @@ static MFBAppDelegate * _mainApp = nil;
     }
     
     // set the default in-the-cockpit values.
-    [NSUserDefaults.standardUserDefaults registerDefaults:@{ keyShowHobbs : @YES, keyShowEngine: @YES, keyShowFlight: @YES }];
+    UserPreferences * up = UserPreferences.current;
+    [NSUserDefaults.standardUserDefaults registerDefaults:@{ up.keyShowHobbs : @YES, up.keyShowEngine: @YES, up.keyShowFlight: @YES, up.keyShowImages: @YES }];
 
 	return YES;
 }
@@ -628,9 +628,9 @@ static MFBAppDelegate * _mainApp = nil;
     NSLog(@"Entered Background");
     
     // To save power, stop receiving updates if we don't need them.
-    NSUserDefaults * defs = [NSUserDefaults standardUserDefaults];
-    BOOL fAutoDetect = [defs boolForKey:_szKeyPrefAutoDetect];
-    BOOL fRecord = [defs boolForKey:_szKeyPrefRecordFlightData];
+    UserPreferences * up = UserPreferences.current;
+    BOOL fAutoDetect = up.autodetectTakeoffs;
+    BOOL fRecord = up.recordTelemetry;
     
     if ((!fAutoDetect && !fRecord) || ![self.leMain flightCouldBeInProgress])
     {
@@ -661,6 +661,8 @@ static MFBAppDelegate * _mainApp = nil;
     _mainApp = self;
 	NSLog(@"ApplicationDidBecomeActive\r\n");
     
+    [UserPreferences invalidate];   // reload preferences - they may have changed externally.
+
     // restore the state of recording data.
     [self createLocManager];
     

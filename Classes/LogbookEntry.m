@@ -160,7 +160,7 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
         dtEngine = [self.entryData.EngineEnd timeIntervalSinceDate:self.entryData.EngineStart];
     
     if (hobbsStart > 0) {
-        switch (AutodetectOptions.autoHobbsMode)
+        switch (UserPreferences.current.autoHobbsMode)
         {
             case autoHobbsFlight:
                 dtHobbs = dtFlight;
@@ -179,7 +179,7 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
         {
             double hobbsEnd = hobbsStart + (dtHobbs / 3600.0);
             // Issue #226 - round to nearest 10th of an hour if needed
-            if (AutodetectOptions.roundTotalToNearestTenth)
+            if (UserPreferences.current.roundTotalToNearestTenth)
                 hobbsEnd = round(hobbsEnd * 10.0) / 10.0;
             self.entryData.HobbsEnd = @(hobbsEnd);
             return YES;
@@ -208,7 +208,7 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
     if (ac != nil)
         fIsRealAircraft = ![ac isSim];
     
-    switch ([AutodetectOptions autoTotalMode]) {
+    switch (UserPreferences.current.autoTotalMode) {
         case autoTotalEngine:
         {
             if (![NSDate isUnknownDate:self.entryData.EngineStart] &&
@@ -270,7 +270,7 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
 
     if (dtTotal > 0)
     {
-        if ([AutodetectOptions roundTotalToNearestTenth])
+        if (UserPreferences.current.roundTotalToNearestTenth)
             dtTotal = round(dtTotal * 10.0) / 10.0;
 
         if (fIsRealAircraft)

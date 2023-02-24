@@ -49,7 +49,7 @@
 
 #pragma mark - UI / UITableViewCell Helpers
 - (void) setNumericField:(UITextField *) txt toType:(NumericType) nt {
-    [txt setNumberType:nt inHHMM:AutodetectOptions.HHMMPref];
+    [txt setNumberType:nt inHHMM:UserPreferences.current.HHMMPref];
     txt.autocorrectionType = UITextAutocorrectionTypeNo;
     txt.inputAccessoryView = self.vwAccessory;
     txt.delegate = self;
@@ -72,7 +72,7 @@
     ec.txt.delegate = self;
     ec.lbl.text = szPrompt;
     ec.txt.clearButtonMode = UITextFieldViewModeNever;
-    ec.txt.text = [NSDate isUnknownDate:dt] ? @"" : [dt utcString:AutodetectOptions.UseLocalTime];
+    ec.txt.text = [NSDate isUnknownDate:dt] ? @"" : [dt utcString:UserPreferences.current.UseLocalTime];
     [self setLabelInflated:fInflated forEditCell:ec];
     
     return ec;

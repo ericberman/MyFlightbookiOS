@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2021 MyFlightbook, LLC
+ Copyright (C) 2017-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -77,7 +77,7 @@
 		MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
 		CLLocationCoordinate2D curLoc = (app.mfbloc.lastSeenLoc == nil) ? loc.center : app.mfbloc.lastSeenLoc.coordinate;
         
-		BOOL fHeliports = [AutodetectOptions includeHeliports];
+		BOOL fHeliports = UserPreferences.current.includeHeliports;
 		
 		NSString * szSql = [NSString stringWithFormat:@"SELECT ap.*, %@ FROM airports ap WHERE ap.latitude BETWEEN %.8F AND %.8F AND ap.longitude BETWEEN %.8F AND %.8F AND Type IN %@ ORDER BY ROUND(Distance, 2) ASC, Preferred DESC, length(AirportID) DESC %@",
                             [self distanceColumnFromLoc:curLoc],

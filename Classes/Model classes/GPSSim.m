@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2022 MyFlightbook, LLC
+ Copyright (C) 2017-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -247,7 +247,7 @@
             fSetXC = ([ap maxDistanceOnRoute:le.entryData.Route] > CROSS_COUNTRY_THRESHOLD);    // maxDistanceOnRoute will call loadAirports.
             
             // issue #286: don't do a synthetic path if autodetection is off because it will clear a bunch of fields but won't fill them back in.
-            if (ap.rgAirports.count == 2 && AutodetectOptions.autodetectTakeoffs) {
+            if (ap.rgAirports.count == 2 && UserPreferences.current.autodetectTakeoffs) {
                 t = [Telemetry synthesizePathFrom:ap.rgAirports[0].LatLong.coordinate to:ap.rgAirports[1].LatLong.coordinate start:blockOut end:blockIn];
                 fSyntheticPath = (t != nil);
                 if (fSyntheticPath) {
@@ -298,7 +298,7 @@
         le.entryData.HobbsEnd.doubleValue - le.entryData.HobbsStart.doubleValue :
         ((blockIn != nil && blockOut != nil && [blockIn compare:blockOut] == NSOrderedDescending) ? [blockIn timeIntervalSinceDate:blockOut] / 3600.0 : 0.0);
     
-    if ([AutodetectOptions roundTotalToNearestTenth]) {
+    if (UserPreferences.current.roundTotalToNearestTenth) {
         dtTotal = round(dtTotal * 10.0) / 10.0;
         if (fSetNight)
             le.entryData.Nighttime = @(round(le.entryData.Nighttime.doubleValue * 10.0) / 10.0);

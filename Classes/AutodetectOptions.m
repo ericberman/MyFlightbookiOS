@@ -25,7 +25,6 @@
 //
 
 #import "AutodetectOptions.h"
-#import "OptionKeys.h"
 #import "TextCell.h"
 #import "MultiValOptionSelector.h"
 #import "HostedWebViewViewController.h"
@@ -43,7 +42,6 @@ enum prefRows {rowWarnings,
     rowTach, rowHobbs, rowEngine, rowBlock, rowFlight,
     rowMaps, rowUnitsSpeed, rowUnitsAlt, rowShowFlightImages, rowOnlineSettings, rowManageAccount, rowDeleteAccount };
 
-static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
 
 #pragma mark - View Lifecycle
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -65,32 +63,32 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
 - (void) viewWillAppear:(BOOL)animated
 {
     self.navigationController.toolbarHidden = YES;
-	self.idswAutoDetect.on = [AutodetectOptions autodetectTakeoffs];
-    self.idswRecordFlight.on = [AutodetectOptions recordTelemetry];
-    self.idswRecordHighRes.on = [AutodetectOptions recordHighRes];
-    self.idswUseHeliports.on = [AutodetectOptions includeHeliports];
-    self.idswUseHHMM.on = [AutodetectOptions HHMMPref];
-    self.idswUseLocal.on = [AutodetectOptions UseLocalTime];
-    self.idswRoundNearestTenth.on = [AutodetectOptions roundTotalToNearestTenth];
-    self.idswShowImages.on = [AutodetectOptions showFlightImages];
-    self.idswShowFlightTimes.selectedSegmentIndex = [AutodetectOptions showFlightTimes];
+	self.idswAutoDetect.on = UserPreferences.current.autodetectTakeoffs;
+    self.idswRecordFlight.on = UserPreferences.current.recordTelemetry;
+    self.idswRecordHighRes.on = UserPreferences.current.recordHighRes;
+    self.idswUseHeliports.on = UserPreferences.current.includeHeliports;
+    self.idswUseHHMM.on = UserPreferences.current.HHMMPref;
+    self.idswUseLocal.on = UserPreferences.current.UseLocalTime;
+    self.idswRoundNearestTenth.on = UserPreferences.current.roundTotalToNearestTenth;
+    self.idswShowImages.on = UserPreferences.current.showFlightImages;
+    self.idswShowFlightTimes.selectedSegmentIndex = UserPreferences.current.showFlightTimes;
     
-    self.colorRoute.selectedColor = AutodetectOptions.routeColor;
-    self.colorPath.selectedColor = AutodetectOptions.pathColor;
+    self.colorRoute.selectedColor = UserPreferences.current.routeColor;
+    self.colorPath.selectedColor = UserPreferences.current.pathColor;
     
     self.idswTakeoffSpeed.selectedSegmentIndex = 0;
-    int toCurrent = [AutodetectOptions TakeoffSpeed];
-    for (int i = 0; i < (sizeof(toSpeeds)/sizeof(int)); i++)
-        if (toSpeeds[i] == toCurrent)
+    NSInteger toCurrent = UserPreferences.current.TakeoffSpeed;
+    for (int i = 0; i < UserPreferences.toSpeeds.count; i++)
+        if (UserPreferences.toSpeeds[i].intValue == toCurrent)
             self.idswTakeoffSpeed.selectedSegmentIndex = i;
-    self.idswMapOptions.selectedSegmentIndex = (int) [AutodetectOptions mapType];
+    self.idswMapOptions.selectedSegmentIndex = (int) UserPreferences.current.mapType;
     [super viewWillAppear:animated];
     [self.tableView reloadData];
 }
 
 - (void) viewWillDisappear:(BOOL)animated
 {
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [UserPreferences.current commit];
     [super viewWillDisappear:animated];
 }
 
@@ -103,6 +101,8 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
             return NSLocalizedString(@"Flight Time", @"Auto-fill based on time in the air");
         case autoHobbsEngine:
             return NSLocalizedString(@"Engine Time", @"Auto-fill based on engine time");
+        case autoHobbsInvalidLast:
+            @throw [NSException exceptionWithName:@"Invalid use of autoHobbsInvalidLast" reason:@"invalidLast is reserved for enumerating enums" userInfo:nil];
     }
 }
 
@@ -120,26 +120,32 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
             return NSLocalizedString(@"Block Time", @"Auto-fill total based on block time");
         case autoTotalFlightStartToEngineEnd:
             return NSLocalizedString(@"FlightEngine Time", @"Auto-fill total based on flight start to engine shutdown");
+        case autoTotalInvalidLast:
+            @throw [NSException exceptionWithName:@"Invalid use of autoTotalInvalidLast" reason:@"invalidLast is reserved for enumerating enums" userInfo:nil];
     }
 }
 
 - (NSString *) altUnitName:(unitsAlt) i {
     switch (i) {
-        case altUnitMeters:
+        case unitsAltMeters:
             return NSLocalizedString(@"UnitsMeters", @"Units - Meters");
-        case altUnitFt:
+        case unitsAltFeet:
             return NSLocalizedString(@"UnitsFeet", @"Units - Feet");
+        case unitsAltInvalidLast:
+            @throw [NSException exceptionWithName:@"Invalid use of unitsAltInvalidLast" reason:@"invalidLast is reserved for enumerating enums" userInfo:nil];
     }
 }
 
 - (NSString *) speedUnitName:(unitsSpeed) i {
     switch (i) {
-        case speedUnitKts:
+        case unitsSpeedKts:
             return NSLocalizedString(@"UnitsKnots", @"Units - Knots");
-        case speedUnitKph:
+        case unitsSpeedKph:
             return NSLocalizedString(@"UnitsKph", @"Units - KPH");
-        case speedUnitMph:
+        case unitsSpeedMph:
             return NSLocalizedString(@"UnitsMph", @"Units - MPH");
+        case unitsSpeedInvalidLast:
+            @throw [NSException exceptionWithName:@"Invalid use of unitsSpeedInvalidLast" reason:@"invalidLast is reserved for enumerating enums" userInfo:nil];
     }
 }
 
@@ -291,7 +297,7 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
             if (cell == nil)
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
             cell.textLabel.text = (row == rowAutoHobbs) ? NSLocalizedString(@"Ending Hobbs", @"Option for auto-fill of ending Hobbs") : NSLocalizedString(@"Total Time", @"Option for auto-fill total time");
-            cell.detailTextLabel.text = (row == rowAutoHobbs) ? [self autoFillHobbsName:AutodetectOptions.autoHobbsMode] : [self autoFillTotalName:AutodetectOptions.autoTotalMode];
+            cell.detailTextLabel.text = (row == rowAutoHobbs) ? [self autoFillHobbsName:UserPreferences.current.autoHobbsMode] : [self autoFillTotalName:UserPreferences.current.autoTotalMode];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             return cell;
         }
@@ -329,20 +335,20 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
             if (cell == nil)
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
             cell.textLabel.text = (row == rowUnitsSpeed) ? NSLocalizedString(@"UnitsSpeed", @"Units - Speed Header") : NSLocalizedString(@"UnitsAlt", @"Units - Altitude Header");
-            cell.detailTextLabel.text = (row == rowUnitsSpeed) ? [self speedUnitName:AutodetectOptions.speedUnits] : [self altUnitName:AutodetectOptions.altitudeUnits];
+            cell.detailTextLabel.text = (row == rowUnitsSpeed) ? [self speedUnitName:UserPreferences.current.speedUnits] : [self altUnitName:UserPreferences.current.altitudeUnits];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             return cell;
         }
         case rowTach:
-            return [self cockpitToggleCell:AutodetectOptions.showTach withLabel:NSLocalizedString(@"InTheCockpitTach", @"Cockpit: Tach")];
+            return [self cockpitToggleCell:UserPreferences.current.showTach withLabel:NSLocalizedString(@"InTheCockpitTach", @"Cockpit: Tach")];
         case rowHobbs:
-            return [self cockpitToggleCell:AutodetectOptions.showHobbs withLabel:NSLocalizedString(@"InTheCockpitHobbs", @"Cockpit: Hobbs")];
+            return [self cockpitToggleCell:UserPreferences.current.showHobbs withLabel:NSLocalizedString(@"InTheCockpitHobbs", @"Cockpit: Hobbs")];
         case rowBlock:
-            return [self cockpitToggleCell:AutodetectOptions.showBlock withLabel:NSLocalizedString(@"InTheCockpitBlock", @"Cockpit: Block")];
+            return [self cockpitToggleCell:UserPreferences.current.showBlock withLabel:NSLocalizedString(@"InTheCockpitBlock", @"Cockpit: Block")];
         case rowEngine:
-            return [self cockpitToggleCell:AutodetectOptions.showEngine withLabel:NSLocalizedString(@"InTheCockpitEngine", @"Cockpit: Engine")];
+            return [self cockpitToggleCell:UserPreferences.current.showEngine withLabel:NSLocalizedString(@"InTheCockpitEngine", @"Cockpit: Engine")];
         case rowFlight:
-            return [self cockpitToggleCell:AutodetectOptions.showFlight withLabel:NSLocalizedString(@"InTheCockpitFlight", @"Cockpit: Flight")];
+            return [self cockpitToggleCell:UserPreferences.current.showFlight withLabel:NSLocalizedString(@"InTheCockpitFlight", @"Cockpit: Flight")];
     }
     @throw [NSException exceptionWithName:@"Invalid indexpath" reason:@"Request for cell in AutodetectOptions with invalid indexpath" userInfo:@{@"indexPath:" : indexPath}];
 }
@@ -367,18 +373,17 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
             mvos.title = NSLocalizedString(@"NightOptions", @"Night Section");
             
             NSMutableArray<NSString *> * flightOptionNames = [[NSMutableArray alloc] init];
-            for (int i = nfoCivilTwilight; i < nfoLast; i++)
+            for (int i = 0; i < nightFlightOptionsInvalidLast; i++)
                 [flightOptionNames addObject:[MFBLocation nightFlightOptionName:i]];
             
             NSMutableArray<NSString *> * landingOptionNames = [[NSMutableArray alloc] init];
-            for (int i = nflSunsetPlus60; i < nflLast; i++)
+            for (int i = 0; i < nightLandingOptionsInvalidLast; i++)
                 [landingOptionNames addObject:[MFBLocation nightLandingOptionName:i]];
                         
             mvos.optionGroups = @[
-                                  [[OptionSelection alloc] initWithTitle:NSLocalizedString(@"NightFlightStarts", @"Night flight options") forOptionKey:keyNightFlightPref options:flightOptionNames],
-                                  [[OptionSelection alloc] initWithTitle:NSLocalizedString(@"NightLandingsStart", @"Night Landing options") forOptionKey:keyNightLandingPref options:landingOptionNames]
+                                  [[OptionSelection alloc] initWithTitle:NSLocalizedString(@"NightFlightStarts", @"Night flight options") forOptionKey:UserPreferences.current.keyNightFlightPref options:flightOptionNames],
+                                  [[OptionSelection alloc] initWithTitle:NSLocalizedString(@"NightLandingsStart", @"Night Landing options") forOptionKey:UserPreferences.current.keyNightLandingPref options:landingOptionNames]
                                   ];
-            
             [self.navigationController pushViewController:mvos animated:YES];
         }
             break;
@@ -386,9 +391,9 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
             MultiValOptionSelector * mvos = [[MultiValOptionSelector alloc] init];
             mvos.title = NSLocalizedString(@"Ending Hobbs", @"Option for auto-fill of ending Hobbs");
             NSMutableArray<NSString *> * optionNames = [[NSMutableArray alloc] init];
-            for (int i = 0; i <= autoHobbsLast; i++)
+            for (int i = 0; i < autoHobbsInvalidLast; i++)
                 [optionNames addObject:[self autoFillHobbsName:i]];
-            mvos.optionGroups = @[[[OptionSelection alloc] initWithTitle:@"" forOptionKey:szPrefAutoHobbs options:optionNames]];
+            mvos.optionGroups = @[[[OptionSelection alloc] initWithTitle:@"" forOptionKey:UserPreferences.current.szPrefAutoHobbs options:optionNames]];
             [self.navigationController pushViewController:mvos animated:YES];
         }
             break;
@@ -396,9 +401,9 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
             MultiValOptionSelector * mvos = [[MultiValOptionSelector alloc] init];
             mvos.title = NSLocalizedString(@"Total Time", @"Option for auto-fill total time");
             NSMutableArray<NSString *> * optionNames = [[NSMutableArray alloc] init];
-            for (int i = 0; i <= autoTotalLast; i++)
+            for (int i = 0; i < autoTotalInvalidLast; i++)
                 [optionNames addObject:[self autoFillTotalName:i]];
-            mvos.optionGroups = @[[[OptionSelection alloc] initWithTitle:@"" forOptionKey:szPrefAutoTotal options:optionNames]];
+            mvos.optionGroups = @[[[OptionSelection alloc] initWithTitle:@"" forOptionKey:UserPreferences.current.szPrefAutoTotal options:optionNames]];
             [self.navigationController pushViewController:mvos animated:YES];
         }
             break;
@@ -406,9 +411,9 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
             MultiValOptionSelector * mvos = [[MultiValOptionSelector alloc] init];
             mvos.title = NSLocalizedString(@"UnitsSpeed", @"Units - Speed Header");
             NSMutableArray<NSString *> * optionNames = [[NSMutableArray alloc] init];
-            for (int i = 0; i <= speedUnitLast; i++)
+            for (int i = 0; i < unitsSpeedInvalidLast; i++)
                 [optionNames addObject:[self speedUnitName:i]];
-            mvos.optionGroups = @[[[OptionSelection alloc] initWithTitle:@"" forOptionKey:keySpeedUnitPref options:optionNames]];
+            mvos.optionGroups = @[[[OptionSelection alloc] initWithTitle:@"" forOptionKey:UserPreferences.current.keySpeedUnitPref options:optionNames]];
             [self.navigationController pushViewController:mvos animated:YES];
         }
             break;
@@ -416,9 +421,9 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
             MultiValOptionSelector * mvos = [[MultiValOptionSelector alloc] init];
             mvos.title = NSLocalizedString(@"UnitsAlt", @"Units - Altitude Header");
             NSMutableArray<NSString *> * optionNames = [[NSMutableArray alloc] init];
-            for (int i = 0; i <= altUnitLast; i++)
+            for (int i = 0; i < unitsAltInvalidLast; i++)
                 [optionNames addObject:[self altUnitName:i]];
-            mvos.optionGroups = @[[[OptionSelection alloc] initWithTitle:@"" forOptionKey:keyAltUnitPref options:optionNames]];
+            mvos.optionGroups = @[[[OptionSelection alloc] initWithTitle:@"" forOptionKey:UserPreferences.current.keyAltUnitPref options:optionNames]];
             [self.navigationController pushViewController:mvos animated:YES];
         }
             break;
@@ -443,23 +448,23 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
         }
             break;
         case rowTach:
-            [NSUserDefaults.standardUserDefaults setBool:!AutodetectOptions.showTach forKey:keyShowTach];
+            UserPreferences.current.showTach = !UserPreferences.current.showTach;
             [self reload];
             break;
         case rowHobbs:
-            [NSUserDefaults.standardUserDefaults setBool:!AutodetectOptions.showHobbs forKey:keyShowHobbs];
+            UserPreferences.current.showHobbs = !UserPreferences.current.showHobbs;
             [self reload];
             break;
         case rowBlock:
-            [NSUserDefaults.standardUserDefaults setBool:!AutodetectOptions.showBlock forKey:keyShowBlock];
+            UserPreferences.current.showBlock = !UserPreferences.current.showBlock;
             [self reload];
             break;
         case rowEngine:
-            [NSUserDefaults.standardUserDefaults setBool:!AutodetectOptions.showEngine forKey:keyShowEngine];
+            UserPreferences.current.showEngine = !UserPreferences.current.showEngine;
             [self reload];
             break;
         case rowFlight:
-            [NSUserDefaults.standardUserDefaults setBool:!AutodetectOptions.showFlight forKey:keyShowFlight];
+            UserPreferences.current.showFlight = !UserPreferences.current.showFlight;
             [self reload];
             break;
         default:
@@ -468,185 +473,60 @@ static int toSpeeds[] = {20, 40, 55, 70, 85, 100};
 }
 
 #pragma mark - Received Actions
-- (IBAction) autoDetectClicked:(UISwitch *)sender
-{
-	[[NSUserDefaults standardUserDefaults] setBool:sender.on forKey:_szKeyPrefAutoDetect];
+- (IBAction) autoDetectClicked:(UISwitch *)sender {
+    UserPreferences.current.autodetectTakeoffs = sender.on;
 }
 
-- (IBAction) recordFlightClicked:(UISwitch *)sender
-{
-	[[NSUserDefaults standardUserDefaults] setBool:sender.on forKey:_szKeyPrefRecordFlightData];
+- (IBAction) recordFlightClicked:(UISwitch *)sender {
+    UserPreferences.current.recordTelemetry = sender.on;
 	mfbApp().mfbloc.fRecordFlightData = self.idswRecordFlight.on;
 }
 
-- (IBAction) recordHighResClicked:(UISwitch *)sender
-{
-    [[NSUserDefaults standardUserDefaults] setBool:sender.on forKey:_szKeyPrefRecordHighRes];
+- (IBAction) recordHighResClicked:(UISwitch *)sender{
+    UserPreferences.current.recordHighRes = sender.on;
     mfbApp().mfbloc.fRecordHighRes = sender.on;
 }
 
-- (IBAction) useHHMMClicked:(UISwitch *)sender
-{
-    [[NSUserDefaults standardUserDefaults] setBool:sender.on forKey:szPrefKeyHHMM];
-    [[[NSUserDefaults alloc] initWithSuiteName:@"group.com.myflightbook.mfbapps"] setBool:sender.on forKey:szPrefKeyHHMM];
+- (IBAction) useHHMMClicked:(UISwitch *)sender {
+    UserPreferences.current.HHMMPref = sender.on;
+    [[[NSUserDefaults alloc] initWithSuiteName:@"group.com.myflightbook.mfbapps"] setBool:sender.on forKey:UserPreferences.current.szPrefKeyHHMM];
 }
 
-- (IBAction) roundNearestTenthClicked:(UISwitch *) sender
-{
-    [[NSUserDefaults standardUserDefaults] setBool:sender.on forKey:szPrefKeyRoundNearestTenth];
+- (IBAction) roundNearestTenthClicked:(UISwitch *) sender {
+    UserPreferences.current.roundTotalToNearestTenth = sender.on;
 }
 
-- (IBAction) useLocalClicked:(UISwitch *)sender
-{
-    [[NSUserDefaults standardUserDefaults] setBool:sender.on forKey:keyPrefSuppressUTC];
+- (IBAction) useLocalClicked:(UISwitch *)sender {
+    UserPreferences.current.UseLocalTime = sender.on;
 }
 
-- (IBAction) useHeliportsChanged:(UISwitch *)sender
-{
-    [[NSUserDefaults standardUserDefaults] setBool:sender.on forKey:keyIncludeHeliports];
+- (IBAction) useHeliportsChanged:(UISwitch *)sender {
+    UserPreferences.current.includeHeliports = sender.on;
 }
 
-- (IBAction) takeOffSpeedCanged:(UISegmentedControl *)sender
-{
-    [[NSUserDefaults standardUserDefaults] setInteger:toSpeeds[sender.selectedSegmentIndex] forKey:_szKeyPrefTakeOffSpeed];
+- (IBAction) takeOffSpeedCanged:(UISegmentedControl *)sender {
+    UserPreferences.current.TakeoffSpeed = UserPreferences.toSpeeds[sender.selectedSegmentIndex].intValue;
     [MFBLocation refreshTakeoffSpeed];
 }
 
-- (IBAction) mapTypeChanged:(UISegmentedControl *)sender
-{
-    [[NSUserDefaults standardUserDefaults] setInteger:sender.selectedSegmentIndex + 1 forKey:keyMapMode];
+- (IBAction) mapTypeChanged:(UISegmentedControl *)sender {
+    UserPreferences.current.mapType = sender.selectedSegmentIndex;
 }
 
 - (IBAction) routeColorChanged:(UIColorWell *)sender {
-    NSError * err = nil;
-    [NSUserDefaults.standardUserDefaults setObject:[NSKeyedArchiver archivedDataWithRootObject:sender.selectedColor requiringSecureCoding:YES error:&err] forKey:keyRouteColor];
+    UserPreferences.current.routeColor = sender.selectedColor;
 }
 
 - (IBAction) pathColorChanged:(UIColorWell *)sender {
-    NSError * err = nil;
-    [NSUserDefaults.standardUserDefaults setObject:[NSKeyedArchiver archivedDataWithRootObject:sender.selectedColor requiringSecureCoding:YES error:&err] forKey:keyPathColor];
+    UserPreferences.current.pathColor = sender.selectedColor;
 }
 
-- (IBAction) showImagesClicked:(UISwitch *) sender
-{
-    [[NSUserDefaults standardUserDefaults] setBool:!sender.on forKey:keyShowImages];
+- (IBAction) showImagesClicked:(UISwitch *) sender {
+    UserPreferences.current.showFlightImages = sender.on;
 }
 
 - (IBAction)showFlightTimesClicked:(UISegmentedControl *)sender {
-    [[NSUserDefaults standardUserDefaults] setInteger:sender.selectedSegmentIndex forKey:keyShowFlightTimes];
+    UserPreferences.current.showFlightTimes = sender.selectedSegmentIndex;
 }
 
-#pragma mark - GetCurrentSettings
-+ (BOOL) HHMMPref
-{
-    return [[NSUserDefaults standardUserDefaults] boolForKey:szPrefKeyHHMM];
-}
-
-+ (BOOL) UseLocalTime
-{
-    return [[NSUserDefaults standardUserDefaults] boolForKey:keyPrefSuppressUTC];
-}
-
-+ (int) TakeoffSpeed
-{
-    int i = (int) [[NSUserDefaults standardUserDefaults] integerForKey:_szKeyPrefTakeOffSpeed];
-    return (i == 0) ? toSpeeds[2] : i;
-}
-
-+ (int) autoTotalMode
-{
-    return (int) [[NSUserDefaults standardUserDefaults] integerForKey:szPrefAutoTotal];
-}
-
-+ (int) autoHobbsMode
-{
-    return (int) [[NSUserDefaults standardUserDefaults] integerForKey:szPrefAutoHobbs];
-}
-
-+ (BOOL) roundTotalToNearestTenth
-{
-    return [[NSUserDefaults standardUserDefaults] boolForKey:szPrefKeyRoundNearestTenth];
-}
-
-+ (BOOL) autodetectTakeoffs
-{
-    return [[NSUserDefaults standardUserDefaults] boolForKey:_szKeyPrefAutoDetect];
-}
-
-+ (BOOL) recordTelemetry
-{
-    return [[NSUserDefaults standardUserDefaults] boolForKey:_szKeyPrefRecordFlightData];
-}
-
-+ (BOOL) recordHighRes
-{
-    return [[NSUserDefaults standardUserDefaults] boolForKey:_szKeyPrefRecordHighRes];
-}
-
-+ (BOOL) includeHeliports
-{
-    return [[NSUserDefaults standardUserDefaults] boolForKey:keyIncludeHeliports];
-}
-
-+ (MKMapType) mapType
-{
-    int i = (int) [[NSUserDefaults standardUserDefaults] integerForKey:keyMapMode] - 1;
-    if (i < 0)
-        return MKMapTypeHybrid;
-    else
-        return (MKMapType) i;
-}
-
-+ (BOOL) showFlightImages
-{
-    return ![[NSUserDefaults standardUserDefaults] boolForKey:keyShowImages];
-}
-
-+ (flightTimeDetail) showFlightTimes
-{
-    return (flightTimeDetail) [[NSUserDefaults standardUserDefaults] integerForKey:keyShowFlightTimes];
-}
-
-+ (NightFlightOptions) nightFlightPref {
-    return [[NSUserDefaults standardUserDefaults] integerForKey:keyNightFlightPref];
-}
-
-+ (NightLandingOptions) nightLandingPref {
-    return [[NSUserDefaults standardUserDefaults] integerForKey:keyNightLandingPref];
-}
-
-+ (unitsSpeed) speedUnits {
-    return [NSUserDefaults.standardUserDefaults integerForKey:keySpeedUnitPref];
-}
-+ (unitsAlt) altitudeUnits {
-    return [NSUserDefaults.standardUserDefaults integerForKey:keyAltUnitPref];
-}
-
-+ (BOOL) showTach {
-    return [NSUserDefaults.standardUserDefaults integerForKey:keyShowTach];
-}
-+ (BOOL) showHobbs {
-    return [NSUserDefaults.standardUserDefaults integerForKey:keyShowHobbs];
-}
-+ (BOOL) showBlock {
-    return [NSUserDefaults.standardUserDefaults integerForKey:keyShowBlock];
-}
-+ (BOOL) showEngine{
-    return [NSUserDefaults.standardUserDefaults integerForKey:keyShowEngine];
-}
-+ (BOOL) showFlight {
-    return [NSUserDefaults.standardUserDefaults integerForKey:keyShowFlight];
-}
-
-+ (UIColor *) routeColor {
-    NSError * err = nil;
-    NSData * d = [NSUserDefaults.standardUserDefaults objectForKey:keyRouteColor];
-    return (d == nil) ? UIColor.blueColor : [NSKeyedUnarchiver unarchivedObjectOfClass:UIColor.class fromData:d error:&err];
-}
-
-+ (UIColor *) pathColor {
-    NSError * err = nil;
-    NSData * d = [NSUserDefaults.standardUserDefaults objectForKey:keyPathColor];
-    return (d == nil) ? UIColor.redColor : [NSKeyedUnarchiver unarchivedObjectOfClass:UIColor.class fromData:d error:&err];
-}
 @end

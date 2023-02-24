@@ -283,7 +283,7 @@ enum aircraftRows {rowInfoStart, rowStaticDesc = rowInfoStart, rowInfoLast,
     EditCell * ec = [EditCell getEditCellDetail:tableView withAccessory:self.vwAccessory];
     ec.txt.autocorrectionType = UITextAutocorrectionTypeNo;
     [ec.txt setValue:num withDefault:@0.0];
-    [ec.txt setNumberType:NumericTypeDecimal inHHMM:AutodetectOptions.HHMMPref];
+    [ec.txt setNumberType:NumericTypeDecimal inHHMM:UserPreferences.current.HHMMPref];
     ec.txt.delegate = self;
     ec.lbl.text = szPrompt;
     ec.txt.clearButtonMode = UITextFieldViewModeWhileEditing;

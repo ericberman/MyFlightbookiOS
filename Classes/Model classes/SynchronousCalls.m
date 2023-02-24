@@ -56,13 +56,13 @@
     {
         MFBWebServiceSvc_TotalsForUserResponse * resp = (MFBWebServiceSvc_TotalsForUserResponse *) self.returnedBody;
         MFBWebServiceSvc_ArrayOfTotalsItem * rgti = resp.TotalsForUserResult;
-        return [MFBWebServiceSvc_TotalsItem toSimpleItems:rgti.TotalsItem inHHMM:AutodetectOptions.HHMMPref];
+        return [MFBWebServiceSvc_TotalsItem toSimpleItems:rgti.TotalsItem inHHMM:UserPreferences.current.HHMMPref];
     }
     else if ([self.returnedBody isKindOfClass:[MFBWebServiceSvc_FlightsWithQueryAndOffsetResponse class]])
     {
         MFBWebServiceSvc_FlightsWithQueryAndOffsetResponse * resp = (MFBWebServiceSvc_FlightsWithQueryAndOffsetResponse *) self.returnedBody;
         MFBWebServiceSvc_ArrayOfLogbookEntry * rgle = resp.FlightsWithQueryAndOffsetResult;
-        return [MFBWebServiceSvc_LogbookEntry toSimpleItems:rgle.LogbookEntry inHHMM:AutodetectOptions.HHMMPref];
+        return [MFBWebServiceSvc_LogbookEntry toSimpleItems:rgle.LogbookEntry inHHMM:UserPreferences.current.HHMMPref];
     }
     return nil;
 }

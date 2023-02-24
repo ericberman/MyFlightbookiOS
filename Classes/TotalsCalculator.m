@@ -90,7 +90,7 @@ EditCell * cellToActivateAfterReload = nil;
 #pragma mark - actions
 - (void) copySum {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-    pasteboard.string = [UITextField stringFromNumber:[NSNumber numberWithDouble:self.computedTotal] forType:NumericTypeTime inHHMM:AutodetectOptions.HHMMPref];
+    pasteboard.string = [UITextField stringFromNumber:[NSNumber numberWithDouble:self.computedTotal] forType:NumericTypeTime inHHMM:UserPreferences.current.HHMMPref];
 }
 
 - (void) addSum {
@@ -158,7 +158,7 @@ EditCell * cellToActivateAfterReload = nil;
     if (self.values.count == 0)
         return @"";
     
-    BOOL fHHMM = [AutodetectOptions HHMMPref];
+    BOOL fHHMM = UserPreferences.current.HHMMPref;
     NSMutableString * s = [NSMutableString new];
     for (NSNumber * n in self.values) {
         NSString * szVal = [UITextField stringFromNumber:n forType:NumericTypeTime inHHMM:fHHMM];

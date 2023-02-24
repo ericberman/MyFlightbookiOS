@@ -337,7 +337,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
             dtEngine = [self.le.entryData.EngineEnd timeIntervalSinceReferenceDate] - [self.le.entryData.EngineStart timeIntervalSinceReferenceDate];
     }
     
-    int totalsMode = [AutodetectOptions autoTotalMode];
+    autoTotal totalsMode = UserPreferences.current.autoTotalMode;
     
     // if totals mode is FLIGHT TIME, then elapsed time is based on flight time if/when it is known.
     // OTHERWISE, we use engine time (if known) or else flight time.
@@ -379,7 +379,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 
 - (void) toggleFlightPause
 {
-    int totalsMode = [AutodetectOptions autoTotalMode];
+    autoTotal totalsMode = UserPreferences.current.autoTotalMode;
     
     // don't pause or play if we're not flying/engine started
     if ([self.le.entryData isKnownFlightStart] ||
@@ -476,22 +476,22 @@ static NSArray * rgAllCockpitRows = nil;
         switch (row.intValue) {
             case rowTachStart:
             case rowTachEnd:
-                return AutodetectOptions.showTach;
+                return UserPreferences.current.showTach;
             case rowHobbsStart:
             case rowHobbsEnd:
                 // Have to show hobbs if present since it won't show in properties
-                return AutodetectOptions.showHobbs || l.HobbsStart.doubleValue > 0.0 || l.HobbsEnd.doubleValue > 0.0;
+                return UserPreferences.current.showHobbs || l.HobbsStart.doubleValue > 0.0 || l.HobbsEnd.doubleValue > 0.0;
             case rowEngineStart:
             case rowEngineEnd:
                 // Have to show engine if present since it won't show in properties
-                return AutodetectOptions.showEngine || l.isKnownEngineStart || l.isKnownEngineEnd;
+                return UserPreferences.current.showEngine || l.isKnownEngineStart || l.isKnownEngineEnd;
             case rowBlockOut:
             case rowBlockIn:
-                return AutodetectOptions.showBlock;
+                return UserPreferences.current.showBlock;
             case rowFlightStart:
             case rowFlightEnd:
                 // Have to show flight if present since it won't show in properties
-                return AutodetectOptions.showFlight || l.isKnownFlightStart || l.isKnownFlightEnd;
+                return UserPreferences.current.showFlight || l.isKnownFlightStart || l.isKnownFlightEnd;
             case rowGPS:
                 return self.le.entryData.isNewFlight;
             default:
@@ -506,10 +506,10 @@ static NSArray * rgAllCockpitRows = nil;
         switch (cfp.PropTypeID.intValue) {
             case PropTypeID_BlockOut:
             case PropTypeID_BlockIn:
-                return !AutodetectOptions.showBlock;
+                return !UserPreferences.current.showBlock;
             case PropTypeID_TachStart:
             case PropTypeID_TachEnd:
-                return !AutodetectOptions.showTach;
+                return !UserPreferences.current.showTach;
             default:
                 return YES;
         }
@@ -953,7 +953,7 @@ static NSArray * rgAllCockpitRows = nil;
             self.datePicker.date = dt = NSDate.date.dateByTruncatingSeconds;
         
         completionBlock(dt);
-        ec.txt.text = [NSDate isUnknownDate:dt] ? @"" : [dt utcString:AutodetectOptions.UseLocalTime];
+        ec.txt.text = [NSDate isUnknownDate:dt] ? @"" : [dt utcString:UserPreferences.current.UseLocalTime];
         [self.tableView endEditing:YES];
         
         NSInteger row = [self cellIDFromIndexPath:self.ipActive];
@@ -986,8 +986,8 @@ static NSArray * rgAllCockpitRows = nil;
     }
     
     self.datePicker.date = dt;
-    self.datePicker.timeZone = [AutodetectOptions UseLocalTime] ? [NSTimeZone systemTimeZone] : [NSTimeZone timeZoneForSecondsFromGMT:0];
-    self.datePicker.locale = [AutodetectOptions UseLocalTime] ? [NSLocale currentLocale] : [NSLocale localeWithLocaleIdentifier:@"en-GB"];
+    self.datePicker.timeZone = UserPreferences.current.UseLocalTime ? [NSTimeZone systemTimeZone] : [NSTimeZone timeZoneForSecondsFromGMT:0];
+    self.datePicker.locale = UserPreferences.current.UseLocalTime ? [NSLocale currentLocale] : [NSLocale localeWithLocaleIdentifier:@"en-GB"];
     return YES;
 }
 
@@ -1179,7 +1179,7 @@ static NSArray * rgAllCockpitRows = nil;
     {
         if (!self.le.entryData.isKnownEngineStart)
             [self resetDateOfFlight];
-        if ([AutodetectOptions autodetectTakeoffs])
+        if (UserPreferences.current.autodetectTakeoffs)
             [self autofillClosest];
     }
 	
@@ -1236,7 +1236,7 @@ static NSArray * rgAllCockpitRows = nil;
         }
 
         // do the total time too, if appropriate
-        if ([AutodetectOptions autoTotalMode] == autoTotalHobbs)
+        if (UserPreferences.current.autoTotalMode == autoTotalHobbs)
             [self autoTotal];
         return YES;
     }
@@ -1245,7 +1245,7 @@ static NSArray * rgAllCockpitRows = nil;
 
 - (void) stopEngine
 {
-    if ([AutodetectOptions autodetectTakeoffs])
+    if (UserPreferences.current.autodetectTakeoffs)
         [self autofillClosest];
 
     [self autoHobbs];
@@ -1287,7 +1287,7 @@ static NSArray * rgAllCockpitRows = nil;
         if (![self.le.entryData isKnownEngineStart] && ![self.le.entryData isKnownFlightStart])
             [self resetDateOfFlight];
         
-        if ([AutodetectOptions autodetectTakeoffs])
+        if (UserPreferences.current.autodetectTakeoffs)
             [self autofillClosest];
         
         [mfbApp().mfbloc startRecordingFlightData]; // will ignore recording if not set to do so.
@@ -1434,7 +1434,7 @@ static NSArray * rgAllCockpitRows = nil;
     
     double accumulatedNight = (self.le.accumulatedNightTime += t);
     
-    if ([AutodetectOptions roundTotalToNearestTenth])
+    if (UserPreferences.current.roundTotalToNearestTenth)
         accumulatedNight = round(accumulatedNight * 10.0) / 10.0;
     self.idNight.value = self.le.entryData.Nighttime = @(accumulatedNight);
 }
@@ -1524,7 +1524,7 @@ static NSDateFormatter * dfSunriseSunset = nil;
 - (void) propertyUpdated:(MFBWebServiceSvc_CustomPropertyType *)cpt {
     NSInteger propID = cpt.PropTypeID.integerValue;
     
-    if (AutodetectOptions.autoTotalMode == autoTotalBlock)
+    if (UserPreferences.current.autoTotalMode == autoTotalBlock)
     {
         // Autoblock if editing a block time start or stop
         if (propID == PropTypeID_BlockOut || propID == PropTypeID_BlockIn)
@@ -1609,7 +1609,7 @@ static NSDateFormatter * dfSunriseSunset = nil;
     if (self.ipActive.section == sectInCockpit)
     {
         EditCell * ec = (EditCell *) [self.tableView cellForRowAtIndexPath:self.ipActive];
-        ec.txt.text = [sender.date  utcString:AutodetectOptions.UseLocalTime];
+        ec.txt.text = [sender.date  utcString:UserPreferences.current.UseLocalTime];
         switch (row)
         {
             case rowDateTail:

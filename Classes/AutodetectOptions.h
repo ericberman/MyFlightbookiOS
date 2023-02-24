@@ -37,24 +37,6 @@
 	UISegmentedControl * idswSegmentedTotal;
 }
 
-typedef NS_ENUM(NSInteger, autoHobbs) {
-	autoHobbsNone = 0, autoHobbsFlight, autoHobbsEngine, autoHobbsLast = autoHobbsEngine
-};
-typedef NS_ENUM(NSInteger, autoTotal) {
-    autoTotalNone = 0, autoTotalFlight, autoTotalEngine, autoTotalHobbs, autoTotalBlock, autoTotalFlightStartToEngineEnd, autoTotalLast = autoTotalFlightStartToEngineEnd
-};
-
-typedef NS_ENUM(NSInteger, unitsSpeed) {
-    speedUnitKts = 0, speedUnitMph, speedUnitKph, speedUnitLast = speedUnitKph
-};
-
-typedef NS_ENUM(NSInteger, unitsAlt) {
-    altUnitFt = 0, altUnitMeters, altUnitLast = altUnitMeters
-};
-
-typedef NS_ENUM(NSInteger, flightTimeDetail) {
-    flightTimeNone, flightTimeShort, flightTimeDetailed
-};
 
 @property (nonatomic, strong) IBOutlet UISwitch * idswAutoDetect;
 @property (nonatomic, strong) IBOutlet UISwitch * idswRecordFlight;
@@ -95,30 +77,4 @@ typedef NS_ENUM(NSInteger, flightTimeDetail) {
 - (IBAction) showFlightTimesClicked:(UISegmentedControl *)sender;
 - (IBAction) routeColorChanged:(UIColorWell *)sender;
 - (IBAction) pathColorChanged:(UIColorWell *)sender;
-
-+ (int) autoTotalMode;
-+ (BOOL) roundTotalToNearestTenth;
-+ (int) autoHobbsMode;
-+ (int) TakeoffSpeed;
-+ (BOOL) HHMMPref;
-+ (BOOL) UseLocalTime;
-+ (BOOL) autodetectTakeoffs;
-+ (BOOL) recordTelemetry;
-+ (BOOL) recordHighRes;
-+ (BOOL) includeHeliports;
-+ (BOOL) showFlightImages;
-+ (BOOL) showTach;
-+ (BOOL) showHobbs;
-+ (BOOL) showBlock;
-+ (BOOL) showEngine;
-+ (BOOL) showFlight;
-+ (UIColor *) routeColor;
-+ (UIColor *) pathColor;
-
-+ (flightTimeDetail) showFlightTimes;
-+ (MKMapType) mapType;
-+ (NightFlightOptions) nightFlightPref;
-+ (NightLandingOptions) nightLandingPref;
-+ (unitsSpeed) speedUnits;
-+ (unitsAlt) altitudeUnits;
 @end

@@ -60,7 +60,7 @@ BOOL fCouldBeMoreFlights;
 @synthesize rgFlights, errorString, fq, cellProgress, uploadInProgress, dictImages, ipSelectedCell, JSONObjToImport, urlTelemetry, rgPendingFlights, callsAwaitingCompletion, refreshOnResultsComplete, activeSections, offscreenCells;
 
 - (void) asyncLoadThumbnailsForFlights:(NSArray *) flights {
-    if (flights == nil || ![AutodetectOptions showFlightImages])
+    if (flights == nil || !UserPreferences.current.showFlightImages)
         return;
     
     @autoreleasepool {
@@ -433,7 +433,7 @@ BOOL fCouldBeMoreFlights;
     
     // update the glance.
     if (self.fq.isUnrestricted && self.rgFlights.count > 0)
-        mfbApp().watchData.latestFlight = [((MFBWebServiceSvc_LogbookEntry *) self.rgFlights[0]) toSimpleItem:AutodetectOptions.HHMMPref];
+        mfbApp().watchData.latestFlight = [((MFBWebServiceSvc_LogbookEntry *) self.rgFlights[0]) toSimpleItem:UserPreferences.current.HHMMPref];
 }
 
 #pragma unsubmittedFlights
@@ -596,7 +596,7 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectUnsubmittedFlights, sec
 
 
 - (recentRowType) rowTypeForFlight:(MFBWebServiceSvc_LogbookEntry *) le {
-    BOOL fShowImages = AutodetectOptions.showFlightImages;
+    BOOL fShowImages = UserPreferences.current.showFlightImages;
     BOOL fShowSig = le.CFISignatureState == MFBWebServiceSvc_SignatureState_Valid || le.CFISignatureState == MFBWebServiceSvc_SignatureState_Invalid;
     return fShowImages ? (fShowSig ? textSigAndImage : textAndImage) : (fShowSig ? textAndSig : textOnly);
 }

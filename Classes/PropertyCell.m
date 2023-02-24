@@ -44,7 +44,7 @@
         self.cfp.DateValue = sender.date;
         
         if (sender.datePickerMode == UIDatePickerModeDateAndTime)
-            self.txt.text = [sender.date utcString:AutodetectOptions.UseLocalTime];
+            self.txt.text = [sender.date utcString:UserPreferences.current.UseLocalTime];
         else
             self.txt.text = [sender.date dateString];
     }
@@ -149,8 +149,8 @@
         UIDatePicker * dp = (UIDatePicker *) self.txt.inputView;
         BOOL fDateOnly = (self.cpt.Type == MFBWebServiceSvc_CFPPropertyType_cfpDate);
         dp.datePickerMode = fDateOnly ? UIDatePickerModeDate : UIDatePickerModeDateAndTime;
-        dp.timeZone =  (fDateOnly || [AutodetectOptions UseLocalTime]) ? [NSTimeZone systemTimeZone] : [NSTimeZone timeZoneForSecondsFromGMT:0];
-        dp.locale = (fDateOnly ||[AutodetectOptions UseLocalTime]) ? [NSLocale currentLocale] : [NSLocale localeWithLocaleIdentifier:@"en-GB"];
+        dp.timeZone =  (fDateOnly || UserPreferences.current.UseLocalTime) ? [NSTimeZone systemTimeZone] : [NSTimeZone timeZoneForSecondsFromGMT:0];
+        dp.locale = (fDateOnly ||UserPreferences.current.UseLocalTime) ? [NSLocale currentLocale] : [NSLocale localeWithLocaleIdentifier:@"en-GB"];
         if (@available(iOS 13.4, *)) {
             dp.preferredDatePickerStyle = UIDatePickerStyleWheels;
         }
@@ -165,7 +165,7 @@
             // By truncating the time, we go straight to 12:13:00 and 12:15:00, which will even yield 2 minutes.
             NSTimeInterval time = floor([[NSDate date] timeIntervalSinceReferenceDate] / 60.0) * 60.0;
             self.cfp.DateValue = dp.date = [NSDate dateWithTimeIntervalSinceReferenceDate:time];
-            self.txt.text = (self.cpt.Type == MFBWebServiceSvc_CFPPropertyType_cfpDateTime) ? [self.cfp.DateValue  utcString:AutodetectOptions.UseLocalTime] : [self.cfp.DateValue dateString];
+            self.txt.text = (self.cpt.Type == MFBWebServiceSvc_CFPPropertyType_cfpDateTime) ? [self.cfp.DateValue  utcString:UserPreferences.current.UseLocalTime] : [self.cfp.DateValue dateString];
             fResult = NO;
         }
         else
@@ -272,25 +272,25 @@
             self.txt.placeholder = (self.cpt.Type == MFBWebServiceSvc_CFPPropertyType_cfpDate) ?
             NSLocalizedString(@"Tap for Today", @"Prompt on button to specify a date that is not yet specified") :
             NSLocalizedString(@"Tap for Now", @"Prompt on button to specify a date/time that is not yet specified");
-            dp.timeZone = AutodetectOptions.UseLocalTime ? NSTimeZone.systemTimeZone : [NSTimeZone timeZoneForSecondsFromGMT:0];
-            dp.locale = AutodetectOptions.UseLocalTime ? NSLocale.currentLocale : [NSLocale localeWithLocaleIdentifier:@"en-GB"];
+            dp.timeZone = UserPreferences.current.UseLocalTime ? NSTimeZone.systemTimeZone : [NSTimeZone timeZoneForSecondsFromGMT:0];
+            dp.locale = UserPreferences.current.UseLocalTime ? NSLocale.currentLocale : [NSLocale localeWithLocaleIdentifier:@"en-GB"];
             self.txt.inputView = dp;
             break;
         case MFBWebServiceSvc_CFPPropertyType_cfpCurrency:
             self.txt.keyboardType = UIKeyboardTypeDecimalPad;
-            [self.txt setNumberType:NumericTypeDecimal inHHMM:AutodetectOptions.HHMMPref];
+            [self.txt setNumberType:NumericTypeDecimal inHHMM:UserPreferences.current.HHMMPref];
             self.txt.autocorrectionType = UITextAutocorrectionTypeNo;
             break;
         case MFBWebServiceSvc_CFPPropertyType_cfpDecimal:
             // assume it's a time unless the PlainDecimal flags (0x00200000) is set, in which case force decimal
-            [self.txt setNumberType:((self.cpt.Flags.unsignedIntegerValue & 0x00200000) == 0) ? NumericTypeTime : NumericTypeDecimal inHHMM:AutodetectOptions.HHMMPref];
+            [self.txt setNumberType:((self.cpt.Flags.unsignedIntegerValue & 0x00200000) == 0) ? NumericTypeTime : NumericTypeDecimal inHHMM:UserPreferences.current.HHMMPref];
             self.txt.autocorrectionType = UITextAutocorrectionTypeNo;
             [self.txt setValue:self.cfp.DecValue withDefault:@0.0]; // Fix bug #37. re-assign it; this will respect the number type.
             if (defVal != nil && (self.txt.NumberType == NumericTypeTime || self.cpt.PropTypeID.intValue == PropTypeID_TachStart))
                 [self setXFill:defVal];
             break;
         case MFBWebServiceSvc_CFPPropertyType_cfpInteger:
-            [self.txt setNumberType:NumericTypeInteger inHHMM:AutodetectOptions.HHMMPref];
+            [self.txt setNumberType:NumericTypeInteger inHHMM:UserPreferences.current.HHMMPref];
             self.txt.keyboardType = UIKeyboardTypeNumberPad;
             if (defVal != nil)
                 [self setXFill:defVal];

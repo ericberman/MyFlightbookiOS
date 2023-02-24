@@ -102,7 +102,7 @@ CGFloat defaultSearchHeight;
     [self setUpRoute];
 	[self updateNearbyAirports];
     self.navigationController.toolbarHidden = YES;
-    self.mapView.mapType = [AutodetectOptions mapType];
+    self.mapView.mapType = UserPreferences.current.mapType;
     [self enableSendTelemetry];
     [self.bbAddCurloc setEnabled:self.delegateNearest != nil];
     self.searchBar.placeholder = NSLocalizedString(@"RouteSearchPrompt", @"Airport codes to map");
@@ -123,7 +123,7 @@ CGFloat defaultSearchHeight;
         MKCoordinateRegion mcr = [self.pathAirports defaultZoomRegionWithPath:self.rgFlightPath];
         FlightRoute * fr = [[FlightRoute alloc] init];
         fr.rgll = self.rgFlightPath;
-        fr.lineColor = AutodetectOptions.pathColor;
+        fr.lineColor = UserPreferences.current.pathColor;
         fr.center = mcr.center;
         [self.mapView addOverlay:[fr getOverlay]];
     }
@@ -213,7 +213,7 @@ CGFloat defaultSearchHeight;
 				{
                     AirportRoute * ar = [[AirportRoute alloc] init];
                     ar.airports = ap;
-                    ar.lineColor = AutodetectOptions.routeColor;
+                    ar.lineColor = UserPreferences.current.routeColor;
                     ar.center = mcr2.center;
 
                     // if displaying route, we already have the individual airports.

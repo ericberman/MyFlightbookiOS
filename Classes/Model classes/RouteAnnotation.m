@@ -113,7 +113,7 @@
 }
 
 + (UIColor *) colorForPolyline {
-    return AutodetectOptions.routeColor;
+    return UserPreferences.current.routeColor;
 }
 @end
 
@@ -138,6 +138,6 @@
 
 
 + (UIColor *) colorForPolyline {
-    return AutodetectOptions.pathColor;
+    return UserPreferences.current.pathColor;
 }
 @end
