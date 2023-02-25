@@ -223,10 +223,11 @@
 		9A897FE01666B39800D9019C /* sunrise@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FDF1666B39700D9019C /* sunrise@2x.png */; };
 		9A897FE21666B3A700D9019C /* sunset@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FE11666B3A700D9019C /* sunset@2x.png */; };
 		9A8BF94010E1846E002F01ED /* Aircraft.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A8BF93C10E1846E002F01ED /* Aircraft.m */; };
-		9A8BF94210E1846E002F01ED /* MFBSoapCall.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A8BF93F10E1846E002F01ED /* MFBSoapCall.m */; };
 		9A8BFADF22B00B1000CB79E0 /* SelectTemplates.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A8BFADE22B00B1000CB79E0 /* SelectTemplates.m */; };
 		9A8D628015851392001105F2 /* DateRangeSelector.xib.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9A8D627E15851392001105F2 /* DateRangeSelector.xib.txt */; };
 		9A8D6283158513AB001105F2 /* DateRangeSelector.xib.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9A8D6281158513AB001105F2 /* DateRangeSelector.xib.txt */; };
+		9A8EE98129A9B20200F133CF /* MFBSoap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8EE98029A9B20200F133CF /* MFBSoap.swift */; };
+		9A8EE98329A9B5A800F133CF /* SwiftHackBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A8EE98229A9B5A800F133CF /* SwiftHackBridge.m */; };
 		9A902D5B1A2102E800698017 /* aircraft@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A902D591A2102E800698017 /* aircraft@3x.png */; };
 		9A902D5C1A2102E800698017 /* twitter@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A902D5A1A2102E800698017 /* twitter@3x.png */; };
 		9A902D5E1A21046600698017 /* profile@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A902D5D1A21046600698017 /* profile@3x.png */; };
@@ -788,12 +789,13 @@
 		9A897FE11666B3A700D9019C /* sunset@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sunset@2x.png"; sourceTree = "<group>"; };
 		9A8BF93B10E1846E002F01ED /* Aircraft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Aircraft.h; path = ../Aircraft.h; sourceTree = "<group>"; };
 		9A8BF93C10E1846E002F01ED /* Aircraft.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Aircraft.m; path = ../Aircraft.m; sourceTree = "<group>"; };
-		9A8BF93E10E1846E002F01ED /* MFBSoapCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MFBSoapCall.h; path = ../MFBSoapCall.h; sourceTree = "<group>"; };
-		9A8BF93F10E1846E002F01ED /* MFBSoapCall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MFBSoapCall.m; path = ../MFBSoapCall.m; sourceTree = "<group>"; };
 		9A8BFADD22B00B1000CB79E0 /* SelectTemplates.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectTemplates.h; sourceTree = "<group>"; };
 		9A8BFADE22B00B1000CB79E0 /* SelectTemplates.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectTemplates.m; sourceTree = "<group>"; };
 		9A8D627F15851392001105F2 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text; name = fr; path = Classes/fr.lproj/DateRangeSelector.xib.txt; sourceTree = "<group>"; };
 		9A8D6282158513AB001105F2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text; name = en; path = Classes/en.lproj/DateRangeSelector.xib.txt; sourceTree = "<group>"; };
+		9A8EE98029A9B20200F133CF /* MFBSoap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFBSoap.swift; sourceTree = "<group>"; };
+		9A8EE98229A9B5A800F133CF /* SwiftHackBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwiftHackBridge.m; sourceTree = "<group>"; };
+		9A8EE98429A9B5CA00F133CF /* SwiftHackBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftHackBridge.h; sourceTree = "<group>"; };
 		9A8FF5A71BD97C1800C78A49 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = "fr.lproj/MainWindow-iPad.strings"; sourceTree = "<group>"; };
 		9A8FF5A81BD97C3300C78A49 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MainWindow.strings; sourceTree = "<group>"; };
 		9A8FF5A91BD97C5500C78A49 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/NearbyAirports.strings; sourceTree = "<group>"; };
@@ -1697,8 +1699,6 @@
 				9AE2E2851565F0D600CD26AC /* MFBLocation.m */,
 				9A69215910CDC74A00DF1CA6 /* MFBProfile.h */,
 				9A69215A10CDC74A00DF1CA6 /* MFBProfile.m */,
-				9A8BF93E10E1846E002F01ED /* MFBSoapCall.h */,
-				9A8BF93F10E1846E002F01ED /* MFBSoapCall.m */,
 				9A7FE95B12494F87001A8722 /* Reachability.h */,
 				9A7FE95C12494F87001A8722 /* Reachability.m */,
 				9A77CD9E11050421006E7531 /* RouteAnnotation.h */,
@@ -1716,6 +1716,9 @@
 				9A5F990429A1CCB500692E27 /* WidgetKitBridge.swift */,
 				9A14334329A52934007129A9 /* MFBTheme.swift */,
 				9A14335429A81A1A007129A9 /* UserPreferences.swift */,
+				9A8EE98029A9B20200F133CF /* MFBSoap.swift */,
+				9A8EE98429A9B5CA00F133CF /* SwiftHackBridge.h */,
+				9A8EE98229A9B5A800F133CF /* SwiftHackBridge.m */,
 			);
 			path = "Model classes";
 			sourceTree = "<group>";
@@ -2371,6 +2374,7 @@
 				9A7B3B952135A8AA00CD3BEA /* WPSAlertController.m in Sources */,
 				9A6B78A422399DDC0014B0C2 /* AircraftViewControllerBase.m in Sources */,
 				9A14334E29A6D9B7007129A9 /* CurrencyRow.swift in Sources */,
+				9A8EE98129A9B20200F133CF /* MFBSoap.swift in Sources */,
 				9A69202F10CCBD8B00DF1CA6 /* xsd.m in Sources */,
 				9ADFA5081939271B00FF30B7 /* Training.m in Sources */,
 				9AA5E44219DDB9030065810A /* Telemetry.m in Sources */,
@@ -2378,7 +2382,6 @@
 				9A48E27429A1686000511D99 /* MyFlightbookWidgets.intentdefinition in Sources */,
 				9A69215B10CDC74A00DF1CA6 /* MFBProfile.m in Sources */,
 				9A8BF94010E1846E002F01ED /* Aircraft.m in Sources */,
-				9A8BF94210E1846E002F01ED /* MFBSoapCall.m in Sources */,
 				9A017B7722FA46A9007F0210 /* ConjunctionCell.m in Sources */,
 				9A9CB2691E513B28002B2E11 /* TotalsCalculator.m in Sources */,
 				9AF7AD1B10E1D7DC00A7DD43 /* Totals.m in Sources */,
@@ -2442,6 +2445,7 @@
 				9A804AF616EE445F002F77CA /* DateRangeViewController.m in Sources */,
 				9A20B152192D34D300A8F64F /* iRate.m in Sources */,
 				9A23CFA416F50C57001C9098 /* SignInControllerViewController.m in Sources */,
+				9A8EE98329A9B5A800F133CF /* SwiftHackBridge.m in Sources */,
 				9A23CFA816F53B5E001C9098 /* ButtonCell.m in Sources */,
 				9ADB297216F62344008D9582 /* TextCell.m in Sources */,
 				9ADB297816F666BD008D9582 /* NewUserTableController.m in Sources */,

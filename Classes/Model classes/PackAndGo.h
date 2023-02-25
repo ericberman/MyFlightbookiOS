@@ -1,7 +1,7 @@
 /*
    MyFlightbook for iOS - provides native access to MyFlightbook
    pilot's logbook
-Copyright (C) 2009-2020 MyFlightbook, LLC
+Copyright (C) 2009-2023 MyFlightbook, LLC
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -27,9 +27,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef PackAndGo_h
 #define PackAndGo_h
 
-#import "MFBSoapCall.h"
 #import "MFBAppDelegate.h"
 #import "MFBWebServiceSvc.h"
+#import <MyFlightbook-Swift.h>
 
 @interface PackAndGo : NSObject<MFBSoapCallDelegate> {
 }

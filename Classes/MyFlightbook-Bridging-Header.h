@@ -38,4 +38,5 @@
 #import "MFBWebServiceSvc.h"
 #import "SharedWatch.h"
 #import "HostName.h"
+#import "SwiftHackBridge.h"
 #endif /* MyFlightbook_Bridging_Header_h */

@@ -1,7 +1,7 @@
 /*
-	MyFlightbook for iOS - provides native access to MyFlightbook
-	pilot's logbook
- Copyright (C) 2017-2023 MyFlightbook, LLC
+    MyFlightbook for iOS - provides native access to MyFlightbook
+    pilot's logbook
+ Copyright (C) 2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -16,27 +16,20 @@
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 //
-//  SynchronousCalls.h
+//  SwiftHackBridge.h
 //  MFBSample
 //
-//  Helper synchronous calls to web service.  do NOT call from UI thread.
-//
-//  Created by Eric Berman on 10/30/15.
-//
+//  Created by Eric Berman on 2/24/23.
 //
 
-#import <Foundation/Foundation.h>
-#import <MyFlightbook-Swift.h>
-#import "SharedWatch.h"
+#ifndef SwiftHackBridge_h
+#define SwiftHackBridge_h
 
-@interface SynchronousCalls : NSObject <MFBSoapCallDelegate>
+@interface SwiftHackBridge : NSObject {
+}
 
-@property (strong) id returnedBody;
-
-- (NSArray *) currencyForUserSynchronous:(NSString *) szAuthToken;
-- (NSArray *) totalsForUserSynchronous: (NSString *) szAuthToken;
-- (NSArray *) recentsForUserSynchronous: (NSString *) szAuthToken;
-
+ + (BOOL) isOnline;
 @end
+
+#endif /* SwiftHackBridge_h */

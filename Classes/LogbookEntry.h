@@ -25,8 +25,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MFBWebServiceSvc.h"
-#import "MFBSoapCall.h"
+#import <MyFlightbook-Swift.h>
 #import "MFBAppDelegate.h"
 #import "FlightProps.h"
 

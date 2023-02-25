@@ -22,11 +22,9 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 12/23/09.
-//  Copyright 2009-2017 MyFlightbook LLC. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "MFBSoapCall.h"
 #import "MFBAppDelegate.h"
 #import "MFBWebServiceSvc.h"
 #import "PullRefreshTableViewController.h"

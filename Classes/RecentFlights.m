@@ -26,7 +26,6 @@
 
 #import "RecentFlights.h"
 #import "MFBAppDelegate.h"
-#import "MFBSoapCall.h"
 #import "RecentFlightCell.h"
 #import "FlightProps.h"
 #import "iRate.h"
