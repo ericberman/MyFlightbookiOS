@@ -29,7 +29,9 @@
 @interface SwiftHackBridge : NSObject {
 }
 
- + (BOOL) isOnline;
++ (BOOL) isOnline;
++ (void) invalidateCachedTotals;
++ (void) clearOldUserContent;
 @end
 
 #endif /* SwiftHackBridge_h */

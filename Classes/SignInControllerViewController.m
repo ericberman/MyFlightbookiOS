@@ -116,7 +116,7 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
 	
 	app.userProfile.UserName = self.szUser;
 	app.userProfile.Password = self.szPass;
-    app.userProfile.AuthToken = nil;
+    app.userProfile.AuthToken = @"";
 	
 	[app.userProfile clearCache];
 	

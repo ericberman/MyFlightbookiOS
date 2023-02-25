@@ -32,4 +32,15 @@
 + (BOOL)isOnline {
     return MFBAppDelegate.threadSafeAppDelegate.isOnLine;
 }
++ (void) invalidateCachedTotals {
+    [MFBAppDelegate.threadSafeAppDelegate invalidateCachedTotals];
+}
+
++ (void) clearOldUserContent {
+    Aircraft * ac = [Aircraft sharedAircraft];
+    [ac invalidateCachedAircraft];
+    ac.DefaultAircraftID = -1;
+    [MFBAppDelegate.threadSafeAppDelegate invalidateAll];
+}
+
 @end
