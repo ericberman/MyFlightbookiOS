@@ -25,9 +25,8 @@
 //  Copyright 2010-2023 MyFlightbook LLC. All rights reserved.
 //
 
+#import <MyFlightbook-Swift.h>
 #import "RouteAnnotation.h"
-#import "AutodetectOptions.h"
-
 
 @implementation RouteAnnotation
 

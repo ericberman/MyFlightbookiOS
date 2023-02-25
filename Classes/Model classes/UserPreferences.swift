@@ -26,14 +26,27 @@
 import Foundation
 import MapKit
 
-@objc public enum autoHobbs:Int {
+@objc public enum autoHobbs:Int, CaseIterable {
     case none = 0
     case flight
     case engine
     case invalidLast
+    
+    func localizedName() -> String {
+        switch (self) {
+        case .none:
+            return String(localized:"Off", comment:"No auto-fill")
+        case .flight:
+            return String(localized:"Flight Time", comment:"Auto-fill based on time in the air")
+        case .engine:
+            return String(localized:"Engine Time", comment:"Auto-fill based on engine time")
+        default:
+            return ""
+        }
+    }
 }
 
-@objc public enum autoTotal:Int {
+@objc public enum autoTotal:Int, CaseIterable {
     case none = 0
     case flight
     case engine
@@ -41,41 +54,120 @@ import MapKit
     case block
     case flightStartToEngineEnd
     case invalidLast
+    
+    func localizedName() -> String {
+        switch (self) {
+        case .none:
+            return String(localized:"Off", comment:"No auto-fill")
+        case .flight:
+            return String(localized:"Flight Time", comment:"Auto-fill based on time in the air")
+        case .engine:
+            return String(localized:"Engine Time", comment:"Auto-fill based on engine time")
+        case .hobbs:
+            return String(localized:"Hobbs Time", comment:"Auto-fill total based on hobbs time")
+        case .block:
+            return String(localized:"Block Time", comment:"Auto-fill total based on block time")
+        case .flightStartToEngineEnd:
+            return String(localized:"FlightEngine Time", comment:"Auto-fill total based on flight start to engine shutdown")
+        default:
+            return ""
+        }
+    }
 }
 
-@objc public enum unitsSpeed:Int {
+@objc public enum unitsSpeed:Int, CaseIterable {
     case kts = 0
     case mph
     case kph
     case invalidLast
+    
+    func localizedName() -> String {
+        switch (self) {
+        case .kts:
+            return String(localized:"UnitsKnots", comment:"Units - Knots")
+        case .kph:
+            return String(localized:"UnitsKph", comment:"Units - KPH")
+        case .mph:
+            return String(localized:"UnitsMph", comment:"Units - MPH")
+        default:
+            return ""
+        }
+    }
 }
 
-@objc public enum unitsAlt:Int {
+@objc public enum unitsAlt:Int, CaseIterable {
     case feet = 0
     case meters
     case invalidLast
+    
+    func localizedName() -> String {
+        switch (self) {
+        case .meters:
+            return String(localized:"UnitsMeters", comment:"Units - Meters")
+        case .feet:
+            return String(localized:"UnitsFeet", comment:"Units - Feet")
+        default:
+            return ""
+        }
+    }
 }
 
-@objc public enum flightTimeDetail:Int {
+@objc public enum flightTimeDetail:Int, CaseIterable {
     case none
     case short
     case detailed
     case invalidLast
+    
+    func localizedName() -> String {
+        switch (self) {
+            
+        default:
+            return ""
+        }
+    }
 }
 
-@objc public enum nightFlightOptions : Int {
+@objc public enum nightFlightOptions : Int, CaseIterable {
     case civilTwilight
     case sunset
     case sunsetPlus15
     case sunsetPlus30
     case sunsetPlus60
     case invalidLast
+    
+    func localizedName() -> String {
+        switch (self) {
+        case .sunset:
+            return String(localized: "NFSunset", comment: "Night flight starts sunset")
+        case .civilTwilight:
+            return String(localized: "NFCivilTwighlight", comment: "Night flight starts End of civil twilight")
+        case .sunsetPlus15:
+            return String(localized: "NFSunsetPlus15", comment: "Night flight starts Sunset + 15 minutes")
+        case .sunsetPlus30:
+            return String(localized: "NFSunsetPlus30", comment: "Night flight starts Sunset + 30 minutes")
+        case .sunsetPlus60:
+            return String(localized: "NFSunsetPlus60", comment: "Night flight starts Sunset + 60 minutes")
+        default:
+            return ""
+        }
+    }
 }
 
-@objc public enum nightLandingOptions : Int {
+@objc public enum nightLandingOptions : Int, CaseIterable {
     case sunsetPlus60
     case night
     case invalidLast
+    
+    func localizedName() -> String {
+        switch (self) {
+        case .night:
+            return String(localized: "NFLNight", comment: "Night Landings: Night")
+        case .sunsetPlus60:
+            return String(localized: "NFLSunsetPlus1Hour", comment: "Night Landings: 60 minutes after sunset")
+        default:
+            return ""
+        }
+    }
 }
 
 // Object to set/store user preferences

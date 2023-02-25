@@ -17,26 +17,31 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 //
-//  UITextFieldExtensions.swift
-//  MFBSample
+//  OptionSelection.swift
+//  MyFlightbook
 //
-//  Created by Eric Berman on 2/21/23.
+//  Created by Eric Berman on 2/24/23.
 //
 
 import Foundation
 
-extension UITextField {
-    /*
-     @property (nonatomic, readwrite) BOOL IsHHMM;
-     @property (nonatomic, assign) NSNumber * value;
-     @property (nonatomic, assign) int NumberType;
-
-     + (NSString *) stringFromNumber:(NSNumber *) num forType:(int) nt inHHMM:(BOOL) fHHMM useGrouping:(BOOL) fGroup;
-     + (NSString *) stringFromNumber:(NSNumber *) num forType:(int) nt inHHMM:(BOOL) fHHMM;
-     + (NSNumber *) valueForString:(NSString *) sz withType:(int) numType withHHMM:(BOOL) fIsHHMM;
-     - (BOOL) isValidNumber:(NSString *) szProposed;
-     - (void) setValue:(NSNumber *) num withDefault:(NSNumber *) numDefault;
-     - (void) crossFillFrom:(UITextField *) txtSrc;
-
-     */
+@objc public class OptionSelection : NSObject {
+    @objc public let title : String
+    @objc public let optionKey : String
+    @objc public let rgOptions : [String]
+        
+    @objc(initWithTitle:forOptionKey:options:) init(szTitle : String, key : String, options : [String]) {
+        title = szTitle
+        optionKey = key
+        rgOptions = options
+        super.init()
+    }
+    
+    @objc public func selectedIndex() -> Int {
+        return UserDefaults.standard.integer(forKey: optionKey)
+    }
+    
+    @objc(setOptionToIndex:) public func setOptionToIndex(index : Int) {
+        UserDefaults.standard.setValue(index, forKey: optionKey)
+    }
 }

@@ -32,6 +32,9 @@
 + (BOOL) isOnline;
 + (void) invalidateCachedTotals;
 + (void) clearOldUserContent;
++ (void) refreshTakeoffSpeed;
++ (void) setRecord:(BOOL) f;
++ (void) setRecordHighRes:(BOOL) f;
 @end
 
 #endif /* SwiftHackBridge_h */

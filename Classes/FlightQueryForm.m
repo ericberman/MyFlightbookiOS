@@ -909,7 +909,7 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
             break;
     }
     
-    @throw [NSException exceptionWithName:@"Invalid indexpath" reason:@"Request for cell in AutodetectOptions with invalid indexpath" userInfo:@{@"indexPath:" : indexPath}];
+    @throw [NSException exceptionWithName:@"Invalid indexpath" reason:@"Request for cell in FlightQuery with invalid indexpath" userInfo:@{@"indexPath:" : indexPath}];
 }
 
 #pragma mark - Table view delegate

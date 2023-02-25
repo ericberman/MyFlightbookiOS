@@ -34,7 +34,6 @@
 #import <sqlite3.h>
 #import "Reachability.h"
 #import "MFBLocation.h"
-#import "AutodetectOptions.h"
 #import "CollapsibleTable.h"
 #import "SharedWatch.h"
 #import <WatchConnectivity/WatchConnectivity.h>

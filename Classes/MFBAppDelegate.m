@@ -499,7 +499,7 @@ static MFBAppDelegate * _mainApp = nil;
     fNetworkStateKnown = YES;
     
     // Ensure that a profile object is set up
-    self.userProfile = [MFBProfile new];
+    self.userProfile = MFBProfile.sharedProfile;
 
     // Apple Watch support
     self.watchData = [SharedWatch new];

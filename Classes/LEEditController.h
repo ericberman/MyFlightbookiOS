@@ -28,7 +28,6 @@
 #import "LogbookEntryBaseTableViewController.h"
 #import "LogbookEntry.h"
 #import "CommentedImage.h"
-#import "AutodetectOptions.h"
 #import "GPSSim.h"
 #import "SunriseSunset.h"
 #import "FlightProperties.h"

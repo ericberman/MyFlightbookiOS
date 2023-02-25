@@ -109,8 +109,6 @@ typedef NS_ENUM(NSInteger, FlightState) {
 + (void) refreshTakeoffSpeed;
 - (void) startRecordingFlightData;
 - (void) stopRecordingFlightData;
-+ (NSString *) nightFlightOptionName:(nightFlightOptions)nf;
-+ (NSString *) nightLandingOptionName:(nightLandingOptions)nl;
 
 + (int) TakeOffSpeed;
 + (int) LandingSpeed;

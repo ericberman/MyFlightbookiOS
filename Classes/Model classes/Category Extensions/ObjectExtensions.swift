@@ -98,6 +98,7 @@ extension UITextField {
     @objc(setIsHHMM:) public func setIsHHMM(IsHHMM : Bool) -> Void {
         objc_setAssociatedObject(self, &UIB_ISHHMM_KEY, IsHHMM ? "Y" : "N", objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         updateKeyboardType(numericType: numberType(), fIsHHMM: IsHHMM)
+        placeholder = NSNumber(floatLiteral: 0.0).formatAs(Type: numberType(), inHHMM: IsHHMM, useGrouping: true) as String
     }
     
     @objc public func IsHHMM() -> Bool {

@@ -43,8 +43,14 @@ import Foundation
     private let _szKeyCachedToken = "keyCacheAuthToken"
     private let _szKeyCachedUser = "keyCacheAuthUser"
     private let _szKeyCachedTokenRetrievalDate = "keyCacheTokenDate"
+    
+    private static var _shared : MFBProfile = MFBProfile()
+    
+    @objc public static func sharedProfile() -> MFBProfile {
+        return _shared
+    }
         
-    @objc public override init() {
+    override private init() {
         let ud = UserDefaults.standard
         UserName = ud.string(forKey: _szKeyPrefEmail) ?? ""
         Password = ud.string(forKey: _szKeyPrefPass) ?? ""

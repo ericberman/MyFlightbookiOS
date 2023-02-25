@@ -25,7 +25,6 @@
 //
 
 #import "RecentFlightCell.h"
-#import "AutodetectOptions.h"
 #import "FlightProps.h"
 
 @implementation RecentFlightCell

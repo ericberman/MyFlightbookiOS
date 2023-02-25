@@ -25,6 +25,7 @@
 
 #import <Foundation/Foundation.h>
 #import "MFBAppDelegate.h"
+#import "MFBLocation.h"
 
 // Hack class for now to provide minimal pollution of the bridging header while we slowly migrate stuff to swift
 // TODO: REMOVE THIS OVER TIME 
@@ -42,5 +43,18 @@
     ac.DefaultAircraftID = -1;
     [MFBAppDelegate.threadSafeAppDelegate invalidateAll];
 }
+
++ (void) refreshTakeoffSpeed {
+    [MFBLocation refreshTakeoffSpeed];
+}
+
++ (void) setRecord:(BOOL) f {
+    MFBAppDelegate.threadSafeAppDelegate.mfbloc.fRecordFlightData = f;
+}
+
++ (void) setRecordHighRes:(BOOL) f {
+    MFBAppDelegate.threadSafeAppDelegate.mfbloc.fRecordHighRes = f;
+}
+
 
 @end

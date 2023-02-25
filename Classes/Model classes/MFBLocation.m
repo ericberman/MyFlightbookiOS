@@ -132,34 +132,7 @@ static int vLanding = LANDING_SPEED_DEFAULT;
     [MFBLocation refreshTakeoffSpeed];
 }
 
-#pragma mark - Night flight options
-+ (NSString *) nightFlightOptionName:(nightFlightOptions)nf {
-    switch (nf) {
-        case nightFlightOptionsSunset:
-            return NSLocalizedString(@"NFSunset", @"Night flight starts sunset");
-        case nightFlightOptionsCivilTwilight:
-            return NSLocalizedString(@"NFCivilTwighlight", @"Night flight starts End of civil twilight");
-        case nightFlightOptionsSunsetPlus15:
-            return NSLocalizedString(@"NFSunsetPlus15", @"Night flight starts Sunset + 15 minutes");
-        case nightFlightOptionsSunsetPlus30:
-            return NSLocalizedString(@"NFSunsetPlus30", @"Night flight starts Sunset + 30 minutes");
-        case nightFlightOptionsSunsetPlus60:
-            return NSLocalizedString(@"NFSunsetPlus60", @"Night flight starts Sunset + 60 minutes");
-        default:
-            return @"";
-    }
-}
-+ (NSString *) nightLandingOptionName:(nightLandingOptions)nl {
-    switch (nl) {
-        default:
-            return @"";
-        case nightLandingOptionsNight:
-            return NSLocalizedString(@"NFLNight", @"Night Landings: Night");
-        case nightLandingOptionsSunsetPlus60:
-            return NSLocalizedString(@"NFLSunsetPlus1Hour", @"Night Landings: 60 minutes after sunset");
-    }
-}
-
+#pragma mark - Night flight optionssx
 - (int) NightFlightSunsetOffset {
     switch (UserPreferences.current.nightFlightPref) {
         case nightFlightOptionsCivilTwilight:
