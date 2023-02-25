@@ -8,7 +8,7 @@ You'll need to create an "ApiKeyS.h" file with the following structure:
 #ifndef ApiKeys_h
 #define ApiKeys_h
 
-NSString * const _szKeyAppToken = @"[api key for web service goes here]";
+#define _szKeyAppToken @"[api key for web service goes here]"
 
 #endif /* ApiKeys_h */
 ~~~~
