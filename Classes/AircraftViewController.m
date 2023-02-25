@@ -35,7 +35,6 @@
 #import "TextCell.h"
 #import "CheckboxCell.h"
 #import "CountryCode.h"
-#import "HostedWebViewViewController.h"
 #import "WPSAlertController.h"
 
 @interface AircraftViewController ()
@@ -846,7 +845,7 @@ enum aircraftRows {rowInfoStart, rowStaticDesc = rowInfoStart, rowInfoLast,
 {
     NSString * szURL = [mfbApp().userProfile authRedirForUser:[NSString stringWithFormat:@"d=aircraftschedule&naked=1&ac=%d", self.ac.AircraftID.intValue]];
     
-    HostedWebViewViewController * vwWeb = [[HostedWebViewViewController alloc] initWithURL:szURL];
+    HostedWebViewController * vwWeb = [[HostedWebViewController alloc] initWithUrl:szURL];
     [self.navigationController pushViewController:vwWeb animated:YES];
 }
 

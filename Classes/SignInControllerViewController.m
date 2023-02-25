@@ -28,13 +28,11 @@
 #import "SignInControllerViewController.h"
 #import "EditCell.h"
 #import "MFBAppDelegate.h"
-#import "HostedWebViewViewController.h"
 #import "about.h"
 #import "ButtonCell.h"
 #import "TextCell.h"
 #import "NewUserTableController.h"
 #import "FlightProps.h"
-#import "HostedWebViewViewController.h"
 #import "WPSAlertController.h"
 #import "PackAndGo.h"
 
@@ -393,7 +391,7 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
 #pragma mark - Table view delegate
 - (void) pushURL:(NSString *) szURL
 {
-    HostedWebViewViewController * vwWeb = [[HostedWebViewViewController alloc] initWithURL:szURL];
+    HostedWebViewController * vwWeb = [[HostedWebViewController alloc] initWithUrl:szURL];
 	[self.navigationController pushViewController:vwWeb animated:YES];
 }
 

@@ -42,6 +42,7 @@
 		9A14334C29A6B37E007129A9 /* TotalsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14334B29A6B37E007129A9 /* TotalsRow.swift */; };
 		9A14334E29A6D9B7007129A9 /* CurrencyRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14334D29A6D9B7007129A9 /* CurrencyRow.swift */; };
 		9A14335529A81A1A007129A9 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14335429A81A1A007129A9 /* UserPreferences.swift */; };
+		9A14335F29A99231007129A9 /* HostedWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14335E29A99231007129A9 /* HostedWebViewController.swift */; };
 		9A16571F14DC59B9004FDC35 /* sunrise.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A16571D14DC59B8004FDC35 /* sunrise.png */; };
 		9A16572014DC59B9004FDC35 /* sunset.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A16571E14DC59B9004FDC35 /* sunset.png */; };
 		9A170C982437FCF600CDECCF /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A170C972437FCF600CDECCF /* CoreServices.framework */; };
@@ -216,7 +217,6 @@
 		9A8407A416FBA9E300EA1211 /* Collapsed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A8407A216FBA9E300EA1211 /* Collapsed@2x.png */; };
 		9A84718A11EBE3EE00395608 /* Icon-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A84718911EBE3EE00395608 /* Icon-iPad.png */; };
 		9A87ECCC10FB94A2009D1BEE /* about.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A87ECCA10FB94A2009D1BEE /* about.m */; };
-		9A8901FF1F9A71160023CE34 /* HostedWebViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A8901FD1F9A71160023CE34 /* HostedWebViewViewController.m */; };
 		9A897FC711B7299F00E98C93 /* mfb.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FC611B7299F00E98C93 /* mfb.sqlite */; };
 		9A897FDE1666919100D9019C /* centermap@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FDD1666919000D9019C /* centermap@2x.png */; };
 		9A897FE011B72A4800E98C93 /* LocalAirports.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A897FDF11B72A4800E98C93 /* LocalAirports.m */; };
@@ -572,6 +572,7 @@
 		9A14334B29A6B37E007129A9 /* TotalsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalsRow.swift; sourceTree = "<group>"; };
 		9A14334D29A6D9B7007129A9 /* CurrencyRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRow.swift; sourceTree = "<group>"; };
 		9A14335429A81A1A007129A9 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
+		9A14335E29A99231007129A9 /* HostedWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostedWebViewController.swift; sourceTree = "<group>"; };
 		9A16571D14DC59B8004FDC35 /* sunrise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sunrise.png; sourceTree = "<group>"; };
 		9A16571E14DC59B9004FDC35 /* sunset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sunset.png; sourceTree = "<group>"; };
 		9A170C972437FCF600CDECCF /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
@@ -779,8 +780,6 @@
 		9A87F5121BD172AB00F9479D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AccessoryBar.strings; sourceTree = "<group>"; };
 		9A87F51A1BD2AF5100F9479D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = "fr.lproj/LEEditController-iPad.strings"; sourceTree = "<group>"; };
 		9A8901F91F9A4E800023CE34 /* HostName.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HostName.h; sourceTree = "<group>"; };
-		9A8901FC1F9A71160023CE34 /* HostedWebViewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HostedWebViewViewController.h; sourceTree = "<group>"; };
-		9A8901FD1F9A71160023CE34 /* HostedWebViewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HostedWebViewViewController.m; sourceTree = "<group>"; };
 		9A897FC611B7299F00E98C93 /* mfb.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = mfb.sqlite; sourceTree = "<group>"; };
 		9A897FDD1666919000D9019C /* centermap@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "centermap@2x.png"; sourceTree = "<group>"; };
 		9A897FDE11B72A4800E98C93 /* LocalAirports.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocalAirports.h; path = ../LocalAirports.h; sourceTree = "<group>"; };
@@ -1343,8 +1342,6 @@
 				9A60D6CA16F90BDE00F9DFFF /* CollapsibleTable.m */,
 				9A79E308156E9B7100EBEF48 /* FlightQueryForm.h */,
 				9A79E309156E9B7100EBEF48 /* FlightQueryForm.m */,
-				9A8901FC1F9A71160023CE34 /* HostedWebViewViewController.h */,
-				9A8901FD1F9A71160023CE34 /* HostedWebViewViewController.m */,
 				9A121392111D3073001CDDB6 /* ImageComment.h */,
 				9A121393111D3073001CDDB6 /* ImageComment.m */,
 				9AFAC07810E5968800225E90 /* NearbyAirports.h */,
@@ -1353,6 +1350,7 @@
 				9AC7B8BE14D0ADAB009139BF /* PullRefreshTableViewController.m */,
 				9A7B3B932135A8AA00CD3BEA /* WPSAlertController.h */,
 				9A7B3B942135A8AA00CD3BEA /* WPSAlertController.m */,
+				9A14335E29A99231007129A9 /* HostedWebViewController.swift */,
 			);
 			name = "UI Utility Classes";
 			sourceTree = "<group>";
@@ -2406,7 +2404,6 @@
 				9A14334929A576C7007129A9 /* UITextFieldExtensions.swift in Sources */,
 				9A3E1378127DE704008D672E /* EXFJpeg.m in Sources */,
 				9A3E1379127DE704008D672E /* EXFMetaData.m in Sources */,
-				9A8901FF1F9A71160023CE34 /* HostedWebViewViewController.m in Sources */,
 				9A3E137A127DE704008D672E /* EXFTagDefinitionHolder.m in Sources */,
 				9A3E137B127DE704008D672E /* EXFUtils.m in Sources */,
 				9A6137431CF95F840002873E /* SecurityQuestionPicker.m in Sources */,
@@ -2449,6 +2446,7 @@
 				9ADB297216F62344008D9582 /* TextCell.m in Sources */,
 				9ADB297816F666BD008D9582 /* NewUserTableController.m in Sources */,
 				9ADB297D16F69377008D9582 /* CheckboxCell.m in Sources */,
+				9A14335F29A99231007129A9 /* HostedWebViewController.swift in Sources */,
 				9A517E481E2ED68800EC3545 /* ApproachDescription.m in Sources */,
 				9A60D6CB16F90BDE00F9DFFF /* CollapsibleTable.m in Sources */,
 				9AB8B349170347BA0012E3CE /* NavigableCell.m in Sources */,

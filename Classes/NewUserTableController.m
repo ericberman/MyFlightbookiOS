@@ -32,7 +32,6 @@
 #import "MFBAppDelegate.h"
 #import "SecurityQuestionPicker.h"
 #import "FlightProps.h"
-#import "HostedWebViewViewController.h"
 #import "WPSAlertController.h"
 #import <MyFlightbook-Swift.h>
 
@@ -383,13 +382,13 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
 
 - (void) viewPrivacy
 {
-    HostedWebViewViewController * vwWeb = [[HostedWebViewViewController alloc] initWithURL:[NSString stringWithFormat:@"https://%@/logbook/public/privacy.aspx?naked=1", MFBHOSTNAME]];
+    HostedWebViewController * vwWeb = [[HostedWebViewController alloc] initWithUrl:[NSString stringWithFormat:@"https://%@/logbook/public/privacy.aspx?naked=1", MFBHOSTNAME]];
 	[self.navigationController pushViewController:vwWeb animated:YES];
 }
 
 - (void) viewTAndC
 {
-    HostedWebViewViewController * vwWeb = [[HostedWebViewViewController alloc] initWithURL:[NSString stringWithFormat:@"https://%@/logbook/Public/TandC.aspx?naked=1", MFBHOSTNAME]];
+    HostedWebViewController * vwWeb = [[HostedWebViewController alloc] initWithUrl:[NSString stringWithFormat:@"https://%@/logbook/Public/TandC.aspx?naked=1", MFBHOSTNAME]];
 	[self.navigationController pushViewController:vwWeb animated:YES];
 }
 

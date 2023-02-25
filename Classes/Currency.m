@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2009-2020 MyFlightbook, LLC
+ Copyright (C) 2009-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -25,7 +25,6 @@
 //
 
 #import "Currency.h"
-#import "HostedWebViewViewController.h"
 #import "AircraftViewController.h"
 #import "RecentFlights.h"
 #import "PackAndGo.h"
@@ -232,7 +231,7 @@
 }
 
 - (void) pushWebURL:(NSString *) szPath {
-    HostedWebViewViewController * vwWeb = [[HostedWebViewViewController alloc] initWithURL:szPath];
+    HostedWebViewController * vwWeb = [[HostedWebViewController alloc] initWithUrl:szPath];
     [self.navigationController pushViewController:vwWeb animated:YES];
 }
 

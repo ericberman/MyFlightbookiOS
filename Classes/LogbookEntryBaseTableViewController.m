@@ -25,7 +25,6 @@
 
 #import "LogbookEntryBaseTableViewController.h"
 #import "FlightProperties.h"
-#import "HostedWebViewViewController.h"
 #import "NearbyAirports.h"
 #import "MyAircraft.h"
 #import "RecentFlights.h"
@@ -473,7 +472,7 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
                         [self.le.entryData.FlightID intValue],
                         [(mfbApp()).userProfile.AuthToken stringByURLEncodingString]];
     
-    HostedWebViewViewController * vwWeb = [[HostedWebViewViewController alloc] initWithURL:szURL];
+    HostedWebViewController * vwWeb = [[HostedWebViewController alloc] initWithUrl:szURL];
     [mfbApp() invalidateCachedTotals];   // this flight could now be invalid
     [self.navigationController pushViewController:vwWeb animated:YES];
 }

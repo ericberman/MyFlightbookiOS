@@ -27,7 +27,6 @@
 #import "AutodetectOptions.h"
 #import "TextCell.h"
 #import "MultiValOptionSelector.h"
-#import "HostedWebViewViewController.h"
 
 @implementation AutodetectOptions
 
@@ -435,7 +434,7 @@ enum prefRows {rowWarnings,
             break;
         case rowDeleteAccount: {
             // get the sign-out URL while still signed in...
-            HostedWebViewViewController * vwWeb = [[HostedWebViewViewController alloc] initWithURL:[mfbApp().userProfile authRedirForUser:@"d=bigredbuttons"]];
+            HostedWebViewController * vwWeb = [[HostedWebViewController alloc] initWithUrl:[mfbApp().userProfile authRedirForUser:@"d=bigredbuttons"]];
             
             // ...and then sign out in anticipation of deletion.
             MFBAppDelegate * app = mfbApp();

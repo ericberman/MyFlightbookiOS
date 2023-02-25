@@ -26,7 +26,6 @@
 //
 
 #import "Training.h"
-#import "HostedWebViewViewController.h"
 #import <MyFlightbook-Swift.h>
 
 @interface Training ()
@@ -134,7 +133,7 @@ enum _trainingLinks {cidFirst, cidInstructors = cidFirst, cidStudents, cidReqSig
     }
     NSString * szURL = [mfbApp().userProfile authRedirForUser:[NSString stringWithFormat:@"@&d=%@&naked=1", szDest]];
 
-	HostedWebViewViewController * vwWeb = [[HostedWebViewViewController alloc] initWithURL:szURL];
+    HostedWebViewController * vwWeb = [[HostedWebViewController alloc] initWithUrl:szURL];
 	[self.navigationController pushViewController:vwWeb animated:YES];
 }
 
