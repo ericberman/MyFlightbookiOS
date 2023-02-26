@@ -28,7 +28,6 @@
 #import "MFBAsyncOperation.h"
 #import "CommentedImage.h"
 #import "FlightProps.h"
-#import "Airports.h"
 #import "Telemetry.h"
 
 @interface LogbookEntry ()

@@ -25,6 +25,7 @@
 
 #ifndef SwiftHackBridge_h
 #define SwiftHackBridge_h
+#import "sqlite3.h"
 
 @interface SwiftHackBridge : NSObject {
 }
@@ -35,6 +36,8 @@
 + (void) refreshTakeoffSpeed;
 + (void) setRecord:(BOOL) f;
 + (void) setRecordHighRes:(BOOL) f;
++ (sqlite3 *) getDB;
++ (CLLocation *) lastLoc;
 @end
 
 #endif /* SwiftHackBridge_h */

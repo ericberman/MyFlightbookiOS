@@ -30,7 +30,6 @@
 #import <CoreLocation/CoreLocation.h>
 #import <SystemConfiguration/SystemConfiguration.h>
 #import "Aircraft.h"
-#import "LocalAirports.h"
 #import <sqlite3.h>
 #import "Reachability.h"
 #import "MFBLocation.h"

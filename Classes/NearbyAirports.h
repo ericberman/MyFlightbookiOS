@@ -28,7 +28,6 @@
 #import <MyFlightbook-Swift.h>
 #import "MFBWebServiceSvc.h"
 #import "MFBAppDelegate.h"
-#import "Airports.h"
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "RouteAnnotation.h"

@@ -22,16 +22,14 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 7/29/11.
-//  Copyright 2011-2021 MyFlightbook LLC. All rights reserved.
 //
 
+#import <MyFlightbook-Swift.h>
 #import "GPSSim.h"
 #import "FlightProps.h"
-#import "Airports.h"
 #import "MFBAppDelegate.h"
 #import "Telemetry.h"
 #import "LogbookEntry.h"
-#import "Airports.h"
 
 @interface GPSSim()
 @property (strong) MFBLocation * mfbloc;

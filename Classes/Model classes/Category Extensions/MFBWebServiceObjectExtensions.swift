@@ -201,6 +201,7 @@ extension MFBWebServiceSvc_LogbookEntry {
         return flightID?.intValue == MFBWebServiceSvc_LogbookEntry.idQueuedFlight().intValue
     }
 
+    // TODO:
     // Below is not yet tested but can't be implemented here until flightprops are migrated to swift
     /*
     // isInitialState means a basically empty flight, but it COULD have a pre-initialized hobbs starting time.

@@ -37,8 +37,6 @@
 		9A14334429A52934007129A9 /* MFBTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14334329A52934007129A9 /* MFBTheme.swift */; };
 		9A14334629A54991007129A9 /* MFBWebServiceObjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14334529A54991007129A9 /* MFBWebServiceObjectExtensions.swift */; };
 		9A14334729A54991007129A9 /* MFBWebServiceObjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14334529A54991007129A9 /* MFBWebServiceObjectExtensions.swift */; };
-		9A14334929A576C7007129A9 /* UITextFieldExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14334829A576C7007129A9 /* UITextFieldExtensions.swift */; };
-		9A14334A29A576C7007129A9 /* UITextFieldExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14334829A576C7007129A9 /* UITextFieldExtensions.swift */; };
 		9A14334C29A6B37E007129A9 /* TotalsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14334B29A6B37E007129A9 /* TotalsRow.swift */; };
 		9A14334E29A6D9B7007129A9 /* CurrencyRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14334D29A6D9B7007129A9 /* CurrencyRow.swift */; };
 		9A14335529A81A1A007129A9 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14335429A81A1A007129A9 /* UserPreferences.swift */; };
@@ -55,8 +53,6 @@
 		9A196C30112312EB007A7DD1 /* Recording.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A196C2F112312EB007A7DD1 /* Recording.png */; };
 		9A1A8B951EAA560F008F938B /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 9A1A8B941EAA560F008F938B /* .gitignore */; };
 		9A1C4C3B22639CAC00ED3444 /* Default-Portrait2304x3096.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A1C4C3A22639CAC00ED3444 /* Default-Portrait2304x3096.png */; };
-		9A1CCB2320879A3400C2D1E4 /* OptionSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A1CCB2220879A3400C2D1E4 /* OptionSelection.m */; };
-		9A1CCB2720879C5900C2D1E4 /* MultiValOptionSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A1CCB2620879C5900C2D1E4 /* MultiValOptionSelector.m */; };
 		9A20B152192D34D300A8F64F /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A20B151192D34D300A8F64F /* iRate.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		9A20B155192D34E600A8F64F /* LICENCE.md in Resources */ = {isa = PBXBuildFile; fileRef = 9A20B153192D34E600A8F64F /* LICENCE.md */; };
 		9A20B156192D34E600A8F64F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9A20B154192D34E600A8F64F /* README.md */; };
@@ -218,7 +214,6 @@
 		9A87ECCC10FB94A2009D1BEE /* about.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A87ECCA10FB94A2009D1BEE /* about.m */; };
 		9A897FC711B7299F00E98C93 /* mfb.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FC611B7299F00E98C93 /* mfb.sqlite */; };
 		9A897FDE1666919100D9019C /* centermap@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FDD1666919000D9019C /* centermap@2x.png */; };
-		9A897FE011B72A4800E98C93 /* LocalAirports.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A897FDF11B72A4800E98C93 /* LocalAirports.m */; };
 		9A897FE01666B39800D9019C /* sunrise@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FDF1666B39700D9019C /* sunrise@2x.png */; };
 		9A897FE21666B3A700D9019C /* sunset@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FE11666B3A700D9019C /* sunset@2x.png */; };
 		9A8BF94010E1846E002F01ED /* Aircraft.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A8BF93C10E1846E002F01ED /* Aircraft.m */; };
@@ -438,8 +433,13 @@
 		9ADFA5091939271B00FF30B7 /* Training.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ADFA5071939271B00FF30B7 /* Training.xib */; };
 		9ADFA50B193FB92D00FF30B7 /* Icon-iPad-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ADFA50A193FB92D00FF30B7 /* Icon-iPad-small@2x.png */; };
 		9AE2E2861565F0D600CD26AC /* MFBLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE2E2851565F0D600CD26AC /* MFBLocation.m */; };
+		9AE39A3F29AAA2D0002A6496 /* AutodetectOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE39A3E29AAA2D0002A6496 /* AutodetectOptions.swift */; };
+		9AE39A4129AAA40D002A6496 /* MultiValOptionSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE39A4029AAA40D002A6496 /* MultiValOptionSelector.swift */; };
+		9AE39A4329AAA456002A6496 /* OptionSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE39A4229AAA456002A6496 /* OptionSelection.swift */; };
+		9AE39A4729ABC1C5002A6496 /* Airports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE39A4629ABC1C5002A6496 /* Airports.swift */; };
+		9AE39A4A29ABD008002A6496 /* LatLongBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE39A4929ABD008002A6496 /* LatLongBox.swift */; };
+		9AE39A4C29ABE29D002A6496 /* WebServiceMappingExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE39A4B29ABE29D002A6496 /* WebServiceMappingExtensions.swift */; };
 		9AE4B7B216FE80EE0001BD2C /* EditCellDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AE4B7B116FE80EE0001BD2C /* EditCellDetail.xib */; };
-		9AEA025F111F37C700E84958 /* AutodetectOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA025D111F37C700E84958 /* AutodetectOptions.m */; };
 		9AEB4B461A0DE5C200629998 /* CountryCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEB4B451A0DE5C200629998 /* CountryCode.m */; };
 		9AEC4CA313AD4B7C0044897B /* Pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AEC4CA113AD4B7C0044897B /* Pause.png */; };
 		9AEC4CA413AD4B7C0044897B /* Play.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AEC4CA213AD4B7C0044897B /* Play.png */; };
@@ -448,7 +448,6 @@
 		9AF8B37813FA1445006D1CE9 /* SunriseSunset.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF8B37713FA1445006D1CE9 /* SunriseSunset.m */; };
 		9AFAC07110E594F000225E90 /* runway.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AFAC07010E594F000225E90 /* runway.png */; };
 		9AFAC07B10E5968800225E90 /* NearbyAirports.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AFAC07910E5968800225E90 /* NearbyAirports.m */; };
-		9AFAC16E10E5DB9E00225E90 /* Airports.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AFAC16D10E5DB9E00225E90 /* Airports.m */; };
 		9AFEFF9F1BD02E1E0083043A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AFEFF9E1BD02E1E0083043A /* CoreMedia.framework */; };
 /* End PBXBuildFile section */
 
@@ -569,7 +568,6 @@
 		9A1213B2111D3113001CDDB6 /* CommentedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentedImage.m; sourceTree = "<group>"; };
 		9A14334329A52934007129A9 /* MFBTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFBTheme.swift; sourceTree = "<group>"; };
 		9A14334529A54991007129A9 /* MFBWebServiceObjectExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFBWebServiceObjectExtensions.swift; sourceTree = "<group>"; };
-		9A14334829A576C7007129A9 /* UITextFieldExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtensions.swift; sourceTree = "<group>"; };
 		9A14334B29A6B37E007129A9 /* TotalsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalsRow.swift; sourceTree = "<group>"; };
 		9A14334D29A6D9B7007129A9 /* CurrencyRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRow.swift; sourceTree = "<group>"; };
 		9A14335429A81A1A007129A9 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
@@ -588,10 +586,6 @@
 		9A1A8B941EAA560F008F938B /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		9A1A8B971EAA5E5D008F938B /* ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = "<group>"; };
 		9A1C4C3A22639CAC00ED3444 /* Default-Portrait2304x3096.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait2304x3096.png"; sourceTree = "<group>"; };
-		9A1CCB2220879A3400C2D1E4 /* OptionSelection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OptionSelection.m; sourceTree = "<group>"; };
-		9A1CCB2420879A4D00C2D1E4 /* OptionSelection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OptionSelection.h; sourceTree = "<group>"; };
-		9A1CCB2520879C5900C2D1E4 /* MultiValOptionSelector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiValOptionSelector.h; sourceTree = "<group>"; };
-		9A1CCB2620879C5900C2D1E4 /* MultiValOptionSelector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MultiValOptionSelector.m; sourceTree = "<group>"; };
 		9A20B150192D34D300A8F64F /* iRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iRate.h; sourceTree = "<group>"; };
 		9A20B151192D34D300A8F64F /* iRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iRate.m; sourceTree = "<group>"; };
 		9A20B153192D34E600A8F64F /* LICENCE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE.md; sourceTree = "<group>"; };
@@ -781,8 +775,6 @@
 		9A8901F91F9A4E800023CE34 /* HostName.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HostName.h; sourceTree = "<group>"; };
 		9A897FC611B7299F00E98C93 /* mfb.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = mfb.sqlite; sourceTree = "<group>"; };
 		9A897FDD1666919000D9019C /* centermap@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "centermap@2x.png"; sourceTree = "<group>"; };
-		9A897FDE11B72A4800E98C93 /* LocalAirports.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocalAirports.h; path = ../LocalAirports.h; sourceTree = "<group>"; };
-		9A897FDF11B72A4800E98C93 /* LocalAirports.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocalAirports.m; path = ../LocalAirports.m; sourceTree = "<group>"; };
 		9A897FDF1666B39700D9019C /* sunrise@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sunrise@2x.png"; sourceTree = "<group>"; };
 		9A897FE11666B3A700D9019C /* sunset@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sunset@2x.png"; sourceTree = "<group>"; };
 		9A8BF93B10E1846E002F01ED /* Aircraft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Aircraft.h; path = ../Aircraft.h; sourceTree = "<group>"; };
@@ -1011,9 +1003,13 @@
 		9ADFA50A193FB92D00FF30B7 /* Icon-iPad-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad-small@2x.png"; sourceTree = "<group>"; };
 		9AE2E2841565F0D600CD26AC /* MFBLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFBLocation.h; sourceTree = "<group>"; };
 		9AE2E2851565F0D600CD26AC /* MFBLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFBLocation.m; sourceTree = "<group>"; };
+		9AE39A3E29AAA2D0002A6496 /* AutodetectOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutodetectOptions.swift; sourceTree = "<group>"; };
+		9AE39A4029AAA40D002A6496 /* MultiValOptionSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiValOptionSelector.swift; sourceTree = "<group>"; };
+		9AE39A4229AAA456002A6496 /* OptionSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionSelection.swift; sourceTree = "<group>"; };
+		9AE39A4629ABC1C5002A6496 /* Airports.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Airports.swift; sourceTree = "<group>"; };
+		9AE39A4929ABD008002A6496 /* LatLongBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatLongBox.swift; sourceTree = "<group>"; };
+		9AE39A4B29ABE29D002A6496 /* WebServiceMappingExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceMappingExtensions.swift; sourceTree = "<group>"; };
 		9AE4B7B116FE80EE0001BD2C /* EditCellDetail.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditCellDetail.xib; sourceTree = "<group>"; };
-		9AEA025C111F37C700E84958 /* AutodetectOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutodetectOptions.h; sourceTree = "<group>"; };
-		9AEA025D111F37C700E84958 /* AutodetectOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutodetectOptions.m; sourceTree = "<group>"; };
 		9AEB4B441A0DE5C200629998 /* CountryCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountryCode.h; sourceTree = "<group>"; };
 		9AEB4B451A0DE5C200629998 /* CountryCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountryCode.m; sourceTree = "<group>"; };
 		9AEC4CA113AD4B7C0044897B /* Pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pause.png; sourceTree = "<group>"; };
@@ -1030,8 +1026,6 @@
 		9AFAC0BA10E5B32300225E90 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		9AFAC10010E5C7CD00225E90 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		9AFAC12E10E5CC9400225E90 /* MyFlightbook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFlightbook.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		9AFAC16C10E5DB9E00225E90 /* Airports.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Airports.h; sourceTree = "<group>"; };
-		9AFAC16D10E5DB9E00225E90 /* Airports.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Airports.m; sourceTree = "<group>"; };
 		9AFEFF9E1BD02E1E0083043A /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		9AFEFFA01BD03FE20083043A /* Icon-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1294,8 +1288,6 @@
 			children = (
 				9A87ECC910FB94A2009D1BEE /* about.h */,
 				9A87ECCA10FB94A2009D1BEE /* about.m */,
-				9AEA025C111F37C700E84958 /* AutodetectOptions.h */,
-				9AEA025D111F37C700E84958 /* AutodetectOptions.m */,
 				9A23CFA116F50C57001C9098 /* SignInControllerViewController.h */,
 				9A23CFA216F50C57001C9098 /* SignInControllerViewController.m */,
 				9A23CFA316F50C57001C9098 /* SignInControllerViewController.xib */,
@@ -1304,8 +1296,9 @@
 				9ADB297716F666BD008D9582 /* NewUserTableController.xib */,
 				9A6137411CF95F840002873E /* SecurityQuestionPicker.h */,
 				9A6137421CF95F840002873E /* SecurityQuestionPicker.m */,
-				9A1CCB2520879C5900C2D1E4 /* MultiValOptionSelector.h */,
-				9A1CCB2620879C5900C2D1E4 /* MultiValOptionSelector.m */,
+				9AE39A3E29AAA2D0002A6496 /* AutodetectOptions.swift */,
+				9AE39A4029AAA40D002A6496 /* MultiValOptionSelector.swift */,
+				9AE39A4229AAA456002A6496 /* OptionSelection.swift */,
 			);
 			name = "Profile and options";
 			sourceTree = "<group>";
@@ -1397,7 +1390,6 @@
 			children = (
 				9AC2C80129A3E3D600A702B2 /* ObjectExtensions.swift */,
 				9A14334529A54991007129A9 /* MFBWebServiceObjectExtensions.swift */,
-				9A14334829A576C7007129A9 /* UITextFieldExtensions.swift */,
 			);
 			path = "Category Extensions";
 			sourceTree = "<group>";
@@ -1671,12 +1663,11 @@
 		9AB21C5C10DF27850042AD88 /* Model classes */ = {
 			isa = PBXGroup;
 			children = (
+				9AE39A4829ABC1DA002A6496 /* Places */,
 				9A73C8AD21B1A94500AE1221 /* Category Extensions */,
 				9AD2FFF61BE4060000A9B21B /* Watchkit Utility */,
 				9A8BF93B10E1846E002F01ED /* Aircraft.h */,
 				9A8BF93C10E1846E002F01ED /* Aircraft.m */,
-				9AFAC16C10E5DB9E00225E90 /* Airports.h */,
-				9AFAC16D10E5DB9E00225E90 /* Airports.m */,
 				9A21D5CA2214D1E300961605 /* BadElfSession.swift */,
 				9A1213B1111D3113001CDDB6 /* CommentedImage.h */,
 				9A1213B2111D3113001CDDB6 /* CommentedImage.m */,
@@ -1686,8 +1677,6 @@
 				9A79504111E56C7F0070A386 /* FlightProps.m */,
 				9A565B6813E351C200BEFFA7 /* GPSSim.h */,
 				9A565B6913E351C200BEFFA7 /* GPSSim.m */,
-				9A897FDE11B72A4800E98C93 /* LocalAirports.h */,
-				9A897FDF11B72A4800E98C93 /* LocalAirports.m */,
 				9A691EB810C73E4300DF1CA6 /* LogbookEntry.h */,
 				9A691EB910C73E4300DF1CA6 /* LogbookEntry.m */,
 				1D3623240D0F684500981E51 /* MFBAppDelegate.h */,
@@ -1698,16 +1687,12 @@
 				9AE2E2851565F0D600CD26AC /* MFBLocation.m */,
 				9A7FE95B12494F87001A8722 /* Reachability.h */,
 				9A7FE95C12494F87001A8722 /* Reachability.m */,
-				9A77CD9E11050421006E7531 /* RouteAnnotation.h */,
-				9A77CD9F11050421006E7531 /* RouteAnnotation.m */,
 				9AF8B37613FA1445006D1CE9 /* SunriseSunset.h */,
 				9AF8B37713FA1445006D1CE9 /* SunriseSunset.m */,
 				9AA5E44019DDB9030065810A /* Telemetry.h */,
 				9AA5E44119DDB9030065810A /* Telemetry.m */,
 				9A517E461E2ED5E900EC3545 /* ApproachDescription.h */,
 				9A517E471E2ED68800EC3545 /* ApproachDescription.m */,
-				9A1CCB2220879A3400C2D1E4 /* OptionSelection.m */,
-				9A1CCB2420879A4D00C2D1E4 /* OptionSelection.h */,
 				9A0BF18024743D5E003C2172 /* PackAndGo.m */,
 				9A0BF18224743D72003C2172 /* PackAndGo.h */,
 				9A5F990429A1CCB500692E27 /* WidgetKitBridge.swift */,
@@ -1857,6 +1842,18 @@
 				9ADFA5071939271B00FF30B7 /* Training.xib */,
 			);
 			name = Training;
+			sourceTree = "<group>";
+		};
+		9AE39A4829ABC1DA002A6496 /* Places */ = {
+			isa = PBXGroup;
+			children = (
+				9A77CD9E11050421006E7531 /* RouteAnnotation.h */,
+				9A77CD9F11050421006E7531 /* RouteAnnotation.m */,
+				9AE39A4629ABC1C5002A6496 /* Airports.swift */,
+				9AE39A4929ABD008002A6496 /* LatLongBox.swift */,
+				9AE39A4B29ABE29D002A6496 /* WebServiceMappingExtensions.swift */,
+			);
+			path = Places;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2382,28 +2379,30 @@
 				9A8BF94010E1846E002F01ED /* Aircraft.m in Sources */,
 				9A017B7722FA46A9007F0210 /* ConjunctionCell.m in Sources */,
 				9A9CB2691E513B28002B2E11 /* TotalsCalculator.m in Sources */,
+				9AE39A4C29ABE29D002A6496 /* WebServiceMappingExtensions.swift in Sources */,
 				9AF7AD1B10E1D7DC00A7DD43 /* Totals.m in Sources */,
 				9A14334629A54991007129A9 /* MFBWebServiceObjectExtensions.swift in Sources */,
 				9AD832CC10E296C8007817A4 /* Currency.m in Sources */,
+				9AE39A4729ABC1C5002A6496 /* Airports.swift in Sources */,
 				9AFAC07B10E5968800225E90 /* NearbyAirports.m in Sources */,
-				9AFAC16E10E5DB9E00225E90 /* Airports.m in Sources */,
+				9AE39A4129AAA40D002A6496 /* MultiValOptionSelector.swift in Sources */,
 				9A87ECCC10FB94A2009D1BEE /* about.m in Sources */,
 				9A020B3310FFEF3F00801349 /* RecentFlights.m in Sources */,
 				9A77CDA011050421006E7531 /* RouteAnnotation.m in Sources */,
 				9A121395111D3073001CDDB6 /* ImageComment.m in Sources */,
+				9AE39A4329AAA456002A6496 /* OptionSelection.swift in Sources */,
 				9A1213B3111D3113001CDDB6 /* CommentedImage.m in Sources */,
 				9A517E451E2ED4CC00EC3545 /* ApproachEditor.m in Sources */,
-				9AEA025F111F37C700E84958 /* AutodetectOptions.m in Sources */,
 				9A58E0481131A77C005988FA /* MyAircraft.m in Sources */,
-				9A897FE011B72A4800E98C93 /* LocalAirports.m in Sources */,
 				9A79504211E56C7F0070A386 /* FlightProps.m in Sources */,
 				9A0C938511E63A850062AF27 /* FlightProperties.m in Sources */,
 				9A7FE95D12494F87001A8722 /* Reachability.m in Sources */,
 				9A3E1375127DE704008D672E /* EXFGPS.m in Sources */,
 				9A3E1376127DE704008D672E /* EXFHandlers.m in Sources */,
 				9A3E1377127DE704008D672E /* EXFJFIF.m in Sources */,
-				9A14334929A576C7007129A9 /* UITextFieldExtensions.swift in Sources */,
+				9AE39A3F29AAA2D0002A6496 /* AutodetectOptions.swift in Sources */,
 				9A3E1378127DE704008D672E /* EXFJpeg.m in Sources */,
+				9AE39A4A29ABD008002A6496 /* LatLongBox.swift in Sources */,
 				9A3E1379127DE704008D672E /* EXFMetaData.m in Sources */,
 				9A3E137A127DE704008D672E /* EXFTagDefinitionHolder.m in Sources */,
 				9A3E137B127DE704008D672E /* EXFUtils.m in Sources */,
@@ -2423,12 +2422,10 @@
 				9A14335529A81A1A007129A9 /* UserPreferences.swift in Sources */,
 				9A48E27D29A1693B00511D99 /* WidgetSoapCall.swift in Sources */,
 				9A70B18722C07A8500CA7E21 /* FlightEditorBaseTableViewController.m in Sources */,
-				9A1CCB2320879A3400C2D1E4 /* OptionSelection.m in Sources */,
 				9AF8B37813FA1445006D1CE9 /* SunriseSunset.m in Sources */,
 				9A4587BD14C205500045AF51 /* RecentFlightCell.m in Sources */,
 				9AC7B8BF14D0ADAB009139BF /* PullRefreshTableViewController.m in Sources */,
 				9AE2E2861565F0D600CD26AC /* MFBLocation.m in Sources */,
-				9A1CCB2720879C5900C2D1E4 /* MultiValOptionSelector.m in Sources */,
 				9A55E544156DB1D20031A215 /* MFBAsyncOperation.m in Sources */,
 				9A79E30A156E9B7100EBEF48 /* FlightQueryForm.m in Sources */,
 				9A6BDE0C1570921D00F715E1 /* EditCell.m in Sources */,
@@ -2464,7 +2461,6 @@
 				9A48E26E29A1685F00511D99 /* MyFlightbookWidgets.swift in Sources */,
 				9A48E27329A1686000511D99 /* MyFlightbookWidgets.intentdefinition in Sources */,
 				9A48E27E29A1694500511D99 /* WidgetSoapCall.swift in Sources */,
-				9A14334A29A576C7007129A9 /* UITextFieldExtensions.swift in Sources */,
 				9A14334729A54991007129A9 /* MFBWebServiceObjectExtensions.swift in Sources */,
 				9A48E26C29A1685F00511D99 /* MyFlightbookWidgetsBundle.swift in Sources */,
 			);

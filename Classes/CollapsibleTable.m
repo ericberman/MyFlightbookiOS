@@ -29,7 +29,6 @@
 #import "ExpandHeaderCell.h"
 #import "PropertyCell.h"
 #import "NavigableCell.h"
-#import "Airports.h"
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 @import Photos;

@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2011-2020 MyFlightbook, LLC
+ Copyright (C) 2011-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -24,7 +24,6 @@
 //  Created by Eric Berman on 8/2/11.
 //
 
-#import "Airports.h"
 #import "VisitedAirports.h"
 #import "VisitedAirportRow.h"
 #import "VADetails.h"
