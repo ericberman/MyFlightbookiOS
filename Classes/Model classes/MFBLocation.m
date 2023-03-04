@@ -27,7 +27,6 @@
 
 #import "MFBAppDelegate.h"
 #import "MFBLocation.h"
-#import "SunriseSunset.h"
 #import "Telemetry.h"
 
 @interface MFBLocation()

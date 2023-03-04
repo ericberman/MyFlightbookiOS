@@ -32,7 +32,6 @@
 #import "Currency.h"
 #import "Totals.h"
 #import "VisitedAirports.h"
-#import "SunriseSunset.h"
 #import "iRate.h"
 #import "Telemetry.h"
 #import "WPSAlertController.h"

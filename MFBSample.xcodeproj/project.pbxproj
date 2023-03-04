@@ -193,6 +193,7 @@
 		9A6DFCF5224302230061FE86 /* Default-Landscape-2688x1242.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DFCF1224302230061FE86 /* Default-Landscape-2688x1242.png */; };
 		9A6DFCF6224302230061FE86 /* Default-Landscape-2436x1125.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DFCF2224302230061FE86 /* Default-Landscape-2436x1125.png */; };
 		9A6DFCF8224306B30061FE86 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DFCF7224306B30061FE86 /* Launch Screen.storyboard */; };
+		9A6F1BFC29B3D891004D1F31 /* SunriseSunset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F1BFB29B3D891004D1F31 /* SunriseSunset.swift */; };
 		9A70B18722C07A8500CA7E21 /* FlightEditorBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A70B18622C07A8500CA7E21 /* FlightEditorBaseTableViewController.m */; };
 		9A77CDA011050421006E7531 /* RouteAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A77CD9F11050421006E7531 /* RouteAnnotation.m */; };
 		9A77CF97110569D0006E7531 /* airport.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A77CF96110569D0006E7531 /* airport.png */; };
@@ -445,7 +446,6 @@
 		9AEC4CA413AD4B7C0044897B /* Play.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AEC4CA213AD4B7C0044897B /* Play.png */; };
 		9AF7AD1B10E1D7DC00A7DD43 /* Totals.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF7AD1910E1D7DC00A7DD43 /* Totals.m */; };
 		9AF81C9C1BE6918B001FC0C8 /* RefreshableTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF81C9B1BE6918B001FC0C8 /* RefreshableTableController.swift */; };
-		9AF8B37813FA1445006D1CE9 /* SunriseSunset.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF8B37713FA1445006D1CE9 /* SunriseSunset.m */; };
 		9AFAC07110E594F000225E90 /* runway.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AFAC07010E594F000225E90 /* runway.png */; };
 		9AFAC07B10E5968800225E90 /* NearbyAirports.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AFAC07910E5968800225E90 /* NearbyAirports.m */; };
 		9AFEFF9F1BD02E1E0083043A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AFEFF9E1BD02E1E0083043A /* CoreMedia.framework */; };
@@ -732,6 +732,7 @@
 		9A6DFCF1224302230061FE86 /* Default-Landscape-2688x1242.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape-2688x1242.png"; sourceTree = "<group>"; };
 		9A6DFCF2224302230061FE86 /* Default-Landscape-2436x1125.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape-2436x1125.png"; sourceTree = "<group>"; };
 		9A6DFCF7224306B30061FE86 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		9A6F1BFB29B3D891004D1F31 /* SunriseSunset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunriseSunset.swift; sourceTree = "<group>"; };
 		9A70B18522C07A8500CA7E21 /* FlightEditorBaseTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlightEditorBaseTableViewController.h; sourceTree = "<group>"; };
 		9A70B18622C07A8500CA7E21 /* FlightEditorBaseTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FlightEditorBaseTableViewController.m; sourceTree = "<group>"; };
 		9A73C83F21AF51C200AE1221 /* MyFlightbook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = MyFlightbook.entitlements; path = MyFlightbook/MyFlightbook.entitlements; sourceTree = "<group>"; };
@@ -1018,8 +1019,6 @@
 		9AF7AD1810E1D7DC00A7DD43 /* Totals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Totals.h; sourceTree = "<group>"; };
 		9AF7AD1910E1D7DC00A7DD43 /* Totals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Totals.m; sourceTree = "<group>"; };
 		9AF81C9B1BE6918B001FC0C8 /* RefreshableTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshableTableController.swift; sourceTree = "<group>"; };
-		9AF8B37613FA1445006D1CE9 /* SunriseSunset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SunriseSunset.h; sourceTree = "<group>"; };
-		9AF8B37713FA1445006D1CE9 /* SunriseSunset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SunriseSunset.m; sourceTree = "<group>"; };
 		9AFAC07010E594F000225E90 /* runway.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = runway.png; sourceTree = "<group>"; };
 		9AFAC07810E5968800225E90 /* NearbyAirports.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyAirports.h; sourceTree = "<group>"; };
 		9AFAC07910E5968800225E90 /* NearbyAirports.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearbyAirports.m; sourceTree = "<group>"; };
@@ -1663,7 +1662,7 @@
 		9AB21C5C10DF27850042AD88 /* Model classes */ = {
 			isa = PBXGroup;
 			children = (
-				9AE39A4829ABC1DA002A6496 /* Places */,
+				9AE39A4829ABC1DA002A6496 /* Geography */,
 				9A73C8AD21B1A94500AE1221 /* Category Extensions */,
 				9AD2FFF61BE4060000A9B21B /* Watchkit Utility */,
 				9A8BF93B10E1846E002F01ED /* Aircraft.h */,
@@ -1687,8 +1686,6 @@
 				9AE2E2851565F0D600CD26AC /* MFBLocation.m */,
 				9A7FE95B12494F87001A8722 /* Reachability.h */,
 				9A7FE95C12494F87001A8722 /* Reachability.m */,
-				9AF8B37613FA1445006D1CE9 /* SunriseSunset.h */,
-				9AF8B37713FA1445006D1CE9 /* SunriseSunset.m */,
 				9AA5E44019DDB9030065810A /* Telemetry.h */,
 				9AA5E44119DDB9030065810A /* Telemetry.m */,
 				9A517E461E2ED5E900EC3545 /* ApproachDescription.h */,
@@ -1844,7 +1841,7 @@
 			name = Training;
 			sourceTree = "<group>";
 		};
-		9AE39A4829ABC1DA002A6496 /* Places */ = {
+		9AE39A4829ABC1DA002A6496 /* Geography */ = {
 			isa = PBXGroup;
 			children = (
 				9A77CD9E11050421006E7531 /* RouteAnnotation.h */,
@@ -1852,8 +1849,9 @@
 				9AE39A4629ABC1C5002A6496 /* Airports.swift */,
 				9AE39A4929ABD008002A6496 /* LatLongBox.swift */,
 				9AE39A4B29ABE29D002A6496 /* WebServiceMappingExtensions.swift */,
+				9A6F1BFB29B3D891004D1F31 /* SunriseSunset.swift */,
 			);
-			path = Places;
+			path = Geography;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2354,6 +2352,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
+				9A6F1BFC29B3D891004D1F31 /* SunriseSunset.swift in Sources */,
 				1D3623260D0F684500981E51 /* MFBAppDelegate.m in Sources */,
 				28216C970DB411BC00E5133A /* LEEditController.m in Sources */,
 				9A6B78A122399C8C0014B0C2 /* NewAircraftViewController.m in Sources */,
@@ -2422,7 +2421,6 @@
 				9A14335529A81A1A007129A9 /* UserPreferences.swift in Sources */,
 				9A48E27D29A1693B00511D99 /* WidgetSoapCall.swift in Sources */,
 				9A70B18722C07A8500CA7E21 /* FlightEditorBaseTableViewController.m in Sources */,
-				9AF8B37813FA1445006D1CE9 /* SunriseSunset.m in Sources */,
 				9A4587BD14C205500045AF51 /* RecentFlightCell.m in Sources */,
 				9AC7B8BF14D0ADAB009139BF /* PullRefreshTableViewController.m in Sources */,
 				9AE2E2861565F0D600CD26AC /* MFBLocation.m in Sources */,
