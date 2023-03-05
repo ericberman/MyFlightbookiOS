@@ -57,9 +57,15 @@ import MapKit
     
     @objc public func getOverlay() -> MKPolyline {
         let rgcoord = coordinates
-        let gpl = MKPolyline(coordinates: rgcoord, count: rgcoord.count)
-        gpl.title = title
-        return gpl;
+        if (RouteAnnotation.SupportsGeoDesic) {
+            let gpl = MKGeodesicPolyline(coordinates: rgcoord, count: rgcoord.count)
+            gpl.title = title
+            return gpl
+        } else {
+            let gpl = MKPolyline(coordinates: rgcoord, count: rgcoord.count)
+            gpl.title = title
+            return gpl
+        }
     }
         
     @objc public class func colorForPolyline() -> UIColor  {
@@ -76,14 +82,6 @@ import MapKit
         }
     }
          
-    func polylineWithCoordinates(_ rgCoords: [MKMapPoint], count cPoints: Int) -> MKPolyline {
-        if (RouteAnnotation.SupportsGeoDesic) {
-            return MKGeodesicPolyline(coordinates: rgCoords.map { $0.coordinate }, count: cPoints)
-        } else {
-            return MKPolyline(coordinates: rgCoords.map { $0.coordinate }, count: cPoints)
-        }
-    }
-    
     @objc public override class func colorForPolyline() -> UIColor {
         return UserPreferences.current.routeColor
     }
