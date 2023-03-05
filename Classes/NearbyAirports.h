@@ -30,7 +30,6 @@
 #import "MFBAppDelegate.h"
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
-#import "RouteAnnotation.h"
 #import "CommentedImage.h"
 #import "LogbookEntry.h"
 

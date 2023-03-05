@@ -67,6 +67,7 @@
 		9A23CFA816F53B5E001C9098 /* ButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A23CFA716F53B5D001C9098 /* ButtonCell.m */; };
 		9A23CFAA16F53B7D001C9098 /* ButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A23CFA916F53B7D001C9098 /* ButtonCell.xib */; };
 		9A25F249235A5A3B002B3B48 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A73C84721AF51F400AE1221 /* NotificationCenter.framework */; };
+		9A27222E29B5025C006AE702 /* RouteAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A27222D29B5025C006AE702 /* RouteAnnotation.swift */; };
 		9A2BD09A10E04619001D4043 /* totals.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A2BD09910E04619001D4043 /* totals.png */; };
 		9A2D594214C3485800FD8F05 /* RecentFlightCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A2D594114C3485800FD8F05 /* RecentFlightCell.xib */; };
 		9A30B1C01103D61C002A5029 /* MoreInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A30B1BF1103D61C002A5029 /* MoreInfo.png */; };
@@ -195,7 +196,6 @@
 		9A6DFCF8224306B30061FE86 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DFCF7224306B30061FE86 /* Launch Screen.storyboard */; };
 		9A6F1BFC29B3D891004D1F31 /* SunriseSunset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F1BFB29B3D891004D1F31 /* SunriseSunset.swift */; };
 		9A70B18722C07A8500CA7E21 /* FlightEditorBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A70B18622C07A8500CA7E21 /* FlightEditorBaseTableViewController.m */; };
-		9A77CDA011050421006E7531 /* RouteAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A77CD9F11050421006E7531 /* RouteAnnotation.m */; };
 		9A77CF97110569D0006E7531 /* airport.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A77CF96110569D0006E7531 /* airport.png */; };
 		9A78376E13E8AB99007CD501 /* VADetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A78376C13E8AB98007CD501 /* VADetails.m */; };
 		9A79504211E56C7F0070A386 /* FlightProps.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A79504111E56C7F0070A386 /* FlightProps.m */; };
@@ -602,6 +602,7 @@
 		9A23CFA616F53B5D001C9098 /* ButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonCell.h; sourceTree = "<group>"; };
 		9A23CFA716F53B5D001C9098 /* ButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonCell.m; sourceTree = "<group>"; };
 		9A23CFA916F53B7D001C9098 /* ButtonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonCell.xib; sourceTree = "<group>"; };
+		9A27222D29B5025C006AE702 /* RouteAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteAnnotation.swift; sourceTree = "<group>"; };
 		9A2BD09910E04619001D4043 /* totals.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = totals.png; sourceTree = "<group>"; };
 		9A2D594114C3485800FD8F05 /* RecentFlightCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecentFlightCell.xib; sourceTree = "<group>"; };
 		9A30B1BF1103D61C002A5029 /* MoreInfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MoreInfo.png; sourceTree = "<group>"; };
@@ -739,8 +740,6 @@
 		9A73C84021AF51C900AE1221 /* MyFlightbookWatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyFlightbookWatch.entitlements; sourceTree = "<group>"; };
 		9A73C84121AF51CF00AE1221 /* MyFlightbookWatch Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MyFlightbookWatch Extension.entitlements"; sourceTree = "<group>"; };
 		9A73C84721AF51F400AE1221 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
-		9A77CD9E11050421006E7531 /* RouteAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteAnnotation.h; sourceTree = "<group>"; };
-		9A77CD9F11050421006E7531 /* RouteAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteAnnotation.m; sourceTree = "<group>"; };
 		9A77CF96110569D0006E7531 /* airport.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = airport.png; sourceTree = "<group>"; };
 		9A78376B13E8AB98007CD501 /* VADetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VADetails.h; sourceTree = "<group>"; };
 		9A78376C13E8AB98007CD501 /* VADetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VADetails.m; sourceTree = "<group>"; };
@@ -1844,12 +1843,11 @@
 		9AE39A4829ABC1DA002A6496 /* Geography */ = {
 			isa = PBXGroup;
 			children = (
-				9A77CD9E11050421006E7531 /* RouteAnnotation.h */,
-				9A77CD9F11050421006E7531 /* RouteAnnotation.m */,
 				9AE39A4629ABC1C5002A6496 /* Airports.swift */,
 				9AE39A4929ABD008002A6496 /* LatLongBox.swift */,
 				9AE39A4B29ABE29D002A6496 /* WebServiceMappingExtensions.swift */,
 				9A6F1BFB29B3D891004D1F31 /* SunriseSunset.swift */,
+				9A27222D29B5025C006AE702 /* RouteAnnotation.swift */,
 			);
 			path = Geography;
 			sourceTree = "<group>";
@@ -2387,7 +2385,6 @@
 				9AE39A4129AAA40D002A6496 /* MultiValOptionSelector.swift in Sources */,
 				9A87ECCC10FB94A2009D1BEE /* about.m in Sources */,
 				9A020B3310FFEF3F00801349 /* RecentFlights.m in Sources */,
-				9A77CDA011050421006E7531 /* RouteAnnotation.m in Sources */,
 				9A121395111D3073001CDDB6 /* ImageComment.m in Sources */,
 				9AE39A4329AAA456002A6496 /* OptionSelection.swift in Sources */,
 				9A1213B3111D3113001CDDB6 /* CommentedImage.m in Sources */,
@@ -2446,6 +2443,7 @@
 				9A14335F29A99231007129A9 /* HostedWebViewController.swift in Sources */,
 				9A517E481E2ED68800EC3545 /* ApproachDescription.m in Sources */,
 				9A60D6CB16F90BDE00F9DFFF /* CollapsibleTable.m in Sources */,
+				9A27222E29B5025C006AE702 /* RouteAnnotation.swift in Sources */,
 				9AB8B349170347BA0012E3CE /* NavigableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
