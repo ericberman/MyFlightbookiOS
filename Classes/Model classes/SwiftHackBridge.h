@@ -38,6 +38,8 @@
 + (void) setRecordHighRes:(BOOL) f;
 + (sqlite3 *) getDB;
 + (CLLocation *) lastLoc;
++ (SharedWatch *) watchData;
++ (void) updateWatchContext;
 @end
 
 #endif /* SwiftHackBridge_h */

@@ -37,9 +37,9 @@ extension MFBWebServiceSvc_TotalsItem {
                nsf.numberStyle = .currency
                return nsf.string(from: value)! as NSString
            case MFBWebServiceSvc_NumType_Decimal:
-               return self.value.formatAs(Type: .Decimal, inHHMM: fHHMM, useGrouping: true)
+               return value.formatAs(Type: .Decimal, inHHMM: fHHMM, useGrouping: true)
            case MFBWebServiceSvc_NumType_Time:
-               return self.value.formatAs(Type: .Time, inHHMM: fHHMM, useGrouping: true)
+               return value.formatAs(Type: .Time, inHHMM: fHHMM, useGrouping: true)
            default:
                return value.formatAsInteger()
            }
@@ -148,7 +148,7 @@ extension MFBWebServiceSvc_LogbookEntry {
         sle.comment = comment
         sle.route = route
         sle.date = date
-        sle.totalTimeDisplay = self.totalFlightTime.formatAs(Type: .Time, inHHMM: fHHMM, useGrouping: true) as String
+        sle.totalTimeDisplay = totalFlightTime.formatAs(Type: .Time, inHHMM: fHHMM, useGrouping: true) as String
         sle.tailNumDisplay = tailNumDisplay
         return sle
     }
@@ -206,8 +206,8 @@ extension MFBWebServiceSvc_LogbookEntry {
     /*
     // isInitialState means a basically empty flight, but it COULD have a pre-initialized hobbs starting time.
     @objc public func isInInitialState() -> Bool {
-        if (self.comment?.isEmpty ?? true &&
-            self.route?.isEmpty ?? true &&
+        if (comment?.isEmpty ?? true &&
+            route?.isEmpty ?? true &&
             approaches?.intValue == 0 &&
             cfi?.doubleValue == 0.0 &&
             crossCountry?.doubleValue == 0.0 &&
@@ -241,7 +241,13 @@ extension MFBWebServiceSvc_LogbookEntry {
 
 
     @objc public func isSigned() -> Bool {
-        return self.cfiSignatureState == MFBWebServiceSvc_SignatureState_Valid || self.cfiSignatureState == MFBWebServiceSvc_SignatureState_Invalid;
+        return cfiSignatureState == MFBWebServiceSvc_SignatureState_Valid || cfiSignatureState == MFBWebServiceSvc_SignatureState_Invalid;
+    }
+    
+    public var propArray : [MFBWebServiceSvc_CustomFlightProperty] {
+        get {
+            return (customProperties.customFlightProperty as? [MFBWebServiceSvc_CustomFlightProperty]) ?? []
+        }
     }
 }
 
@@ -249,11 +255,11 @@ extension MFBWebServiceSvc_LogbookEntry {
 extension MFBWebServiceSvc_CategoryClass {    
     @objc(initWithID:) public convenience init(ccid : MFBWebServiceSvc_CatClassID) {
         self.init()
-        self.idCatClass = ccid
+        idCatClass = ccid
     }
     
     @objc public func localizedDescription() -> String {
-        switch (self.idCatClass) {
+        switch (idCatClass) {
             case MFBWebServiceSvc_CatClassID_none:
                 return String(localized: "ccAny", comment: "Any category-class")
             case MFBWebServiceSvc_CatClassID_ASEL:
@@ -291,7 +297,7 @@ extension MFBWebServiceSvc_CategoryClass {
             case MFBWebServiceSvc_CatClassID_PoweredParaglider:
                 return String(localized: "ccPoweredParaglider", comment: "Powered Paraglider")
         default:
-            return self.description;
+            return description;
         }
     }
     
@@ -302,5 +308,173 @@ extension MFBWebServiceSvc_CategoryClass {
             }
         }
         return false
+    }
+}
+
+// MARK: MFBWebServiceSvc MFBWebServiceSvc_FlightQuery extensions
+extension MFBWebServiceSvc_FlightQuery {
+    public var aircraftAsArray : [MFBWebServiceSvc_Aircraft] {
+        get {
+            return (aircraftList.aircraft as? [MFBWebServiceSvc_Aircraft]) ?? []
+        }
+    }
+
+    public var propsAsArray : [MFBWebServiceSvc_CustomPropertyType] {
+        get {
+            return (propertyTypes.customPropertyType as? [MFBWebServiceSvc_CustomPropertyType]) ?? []
+        }
+    }
+    
+    public var airporstAsArray : [String] {
+        get {
+            return (airportList.string as? [String]) ?? []
+        }
+    }
+
+    public var makesAsArray : [MFBWebServiceSvc_MakesAndModels] {
+        get {
+            return (makeList.makeModel as? [MFBWebServiceSvc_MakesAndModels]) ?? []
+        }
+    }
+    
+    public var catclassesAsArray : [MFBWebServiceSvc_CategoryClass] {
+        get {
+            return (catClasses.categoryClass as? [MFBWebServiceSvc_CategoryClass]) ?? []
+        }
+    }
+    
+    @objc static public func getNewFlightQuery() -> MFBWebServiceSvc_FlightQuery {
+        let f = MFBWebServiceSvc_FlightQuery()
+        f.aircraftList = MFBWebServiceSvc_ArrayOfAircraft()
+        f.propertyTypes = MFBWebServiceSvc_ArrayOfCustomPropertyType()
+        f.airportList = MFBWebServiceSvc_ArrayOfString()
+        f.makeList = MFBWebServiceSvc_ArrayOfMakeModel()
+        f.catClasses = MFBWebServiceSvc_ArrayOfCategoryClass()
+        f.dateRange = MFBWebServiceSvc_DateRanges_AllTime
+        f.distance = MFBWebServiceSvc_FlightDistance_AllFlights
+        f.dateMin = NSDate().UTCDateFromLocalDate()
+        f.dateMax = NSDate().UTCDateFromLocalDate()
+        
+        f.hasApproaches = USBoolean(bool: false)
+        f.hasCFI = USBoolean(bool: false)
+        f.hasDual = USBoolean(bool: false)
+        f.hasDual = USBoolean(bool: false)
+        f.hasFlaps = USBoolean(bool: false)
+        f.hasFullStopLandings = USBoolean(bool: false)
+        f.hasLandings = USBoolean(bool: false)
+        f.hasGroundSim = USBoolean(bool: false)
+        f.hasHolds = USBoolean(bool: false)
+        f.hasIMC = USBoolean(bool: false)
+        f.hasAnyInstrument = USBoolean(bool: false)
+        f.hasNight = USBoolean(bool: false)
+        f.hasNightLandings = USBoolean(bool: false)
+        f.hasPIC = USBoolean(bool: false)
+        f.hasSIC = USBoolean(bool: false)
+        f.hasTotalTime = USBoolean(bool: false)
+        f.hasSimIMCTime = USBoolean(bool: false)
+        f.hasTelemetry = USBoolean(bool: false)
+        f.hasImages = USBoolean(bool: false)
+        f.hasXC = USBoolean(bool: false)
+        f.isComplex = USBoolean(bool: false)
+        f.isConstantSpeedProp = USBoolean(bool: false)
+        f.isGlass = USBoolean(bool: false)
+        f.isHighPerformance = USBoolean(bool: false)
+        f.isPublic = USBoolean(bool: false)
+        f.isRetract = USBoolean(bool: false)
+        f.isTailwheel = USBoolean(bool: false)
+        f.isTechnicallyAdvanced = USBoolean(bool: false)
+        f.isTurbine = USBoolean(bool: false)
+        f.isSigned = USBoolean(bool: false)
+        f.isMotorglider = USBoolean(bool: false)
+        f.isMultiEngineHeli = USBoolean(bool: false)
+        f.engineType = MFBWebServiceSvc_EngineTypeRestriction_AllEngines
+        f.aircraftInstanceTypes = MFBWebServiceSvc_AircraftInstanceRestriction_AllAircraft
+        f.modelName = ""
+        f.typeNames = MFBWebServiceSvc_ArrayOfString()
+        
+        f.propertiesConjunction = MFBWebServiceSvc_GroupConjunction_Any
+        f.flightCharacteristicsConjunction = MFBWebServiceSvc_GroupConjunction_All
+        
+        return f
+    }
+    
+    @objc public func hasDate() -> Bool {
+        return dateRange != MFBWebServiceSvc_DateRanges_AllTime && dateRange != MFBWebServiceSvc_DateRanges_none
+    }
+
+    @objc public func hasText() -> Bool {
+        return !(generalText ?? "").isEmpty
+    }
+
+    @objc public func hasFlightCharacteristics() -> Bool {
+        return (hasApproaches.boolValue || hasCFI.boolValue || hasDual.boolValue || hasFullStopLandings.boolValue || hasLandings.boolValue || hasAnyInstrument.boolValue || hasTotalTime.boolValue ||
+                hasGroundSim.boolValue || hasHolds.boolValue || hasIMC.boolValue || hasNight.boolValue || hasNightLandings.boolValue ||
+                hasPIC.boolValue || isPublic.boolValue || hasSIC.boolValue || hasSimIMCTime.boolValue || hasTelemetry.boolValue || hasImages.boolValue || hasXC.boolValue || isSigned.boolValue)
+    }
+
+    @objc public func hasAircraftCharacteristics() -> Bool {
+        return (isComplex.boolValue || isConstantSpeedProp.boolValue || isGlass.boolValue || isHighPerformance.boolValue || isMotorglider.boolValue || isMultiEngineHeli.boolValue ||
+                isTurbine.boolValue || isRetract.boolValue || isTailwheel.boolValue || isTechnicallyAdvanced.boolValue || hasFlaps.boolValue ||
+                aircraftInstanceTypes.rawValue > MFBWebServiceSvc_AircraftInstanceRestriction_AllAircraft.rawValue ||
+                engineType.rawValue > MFBWebServiceSvc_EngineTypeRestriction_AllEngines.rawValue)
+    }
+
+    @objc public func hasAirport() -> Bool {
+        return airportList.string.count > 0 ||
+        (distance != MFBWebServiceSvc_FlightDistance_AllFlights && distance != MFBWebServiceSvc_FlightDistance_none)
+    }
+
+    @objc public func hasProperties() -> Bool {
+        return propertyTypes.customPropertyType.count > 0
+    }
+
+    @objc public func hasPropertyType(_ cpt : MFBWebServiceSvc_CustomPropertyType) -> Bool {
+        for cpt2 in propsAsArray {
+            if (cpt2.propTypeID.intValue == cpt.propTypeID.intValue) {
+                return true
+            }
+        }
+        return false
+    }
+
+    @objc public func togglePropertyType(_ cpt : MFBWebServiceSvc_CustomPropertyType) {
+        var cptFound : MFBWebServiceSvc_CustomPropertyType? = nil
+        for cpt2 in propsAsArray {
+            if (cpt2.propTypeID.intValue == cpt.propTypeID.intValue) {
+                cptFound = cpt2;
+                break;
+            }
+        }
+        
+        if (cptFound == nil) {
+            propertyTypes.customPropertyType.add(cpt)
+        }
+        else {
+            propertyTypes.customPropertyType.remove(cptFound as Any)
+        }
+    }
+
+    @objc public func hasAircraft() -> Bool {
+        return (aircraftList?.aircraft ?? []).count > 0
+    }
+
+    @objc public func hasMakes() -> Bool {
+        return (makeList?.makeModel ?? []).count > 0 || !(modelName ?? "").isEmpty || (typeNames?.string ?? []).count > 0
+    }
+
+    @objc public func hasCatClasses() -> Bool {
+        return (catClasses?.categoryClass ?? []).count > 0
+    }
+
+    @objc public func isUnrestricted() -> Bool {
+        return !(hasDate() ||
+            hasText() ||
+            hasFlightCharacteristics() ||
+            hasAircraftCharacteristics() ||
+            hasAirport() ||
+            hasProperties() ||
+            hasAircraft() ||
+            hasMakes() ||
+            hasCatClasses())
     }
 }

@@ -28,7 +28,6 @@
 #import "GPSSim.h"
 #import "FlightProps.h"
 #import "MFBAppDelegate.h"
-#import "Telemetry.h"
 #import "LogbookEntry.h"
 
 @interface GPSSim()
@@ -40,7 +39,6 @@
 @implementation GPSSim
 @synthesize mfbloc, leDelegate;
 @synthesize noDelayOnBackground;
-
 - (instancetype) init
 {
     if (self = [super init])
@@ -63,7 +61,7 @@
     }
     return self;
 }
-
+ 
 - (void) FeedEvent:(CLLocation *) loc
 {
     [self.mfbloc feedEvent:loc];
@@ -149,22 +147,22 @@
 
 + (void) BeginSim
 {
-    enum ImportedFileType ft = CSV;
+    enum ImportedFileType ft = ImportedFileTypeCSV;
     NSString * szCSVFilePath = @"";
     Telemetry * t = nil;
     switch (ft)
     {
         default:
-        case Unknown:
-        case CSV:
+        case ImportedFileTypeUnknown:
+        case ImportedFileTypeCSV:
             szCSVFilePath = [[NSBundle mainBundle] pathForResource:@"GPSSamples" ofType:@"csv"];
             t = [[CSVTelemetry alloc] initWithString:[NSString stringWithContentsOfFile:szCSVFilePath encoding:NSUTF8StringEncoding error:nil]];
             break;
-        case GPX:
+        case ImportedFileTypeGPX:
             szCSVFilePath = [[NSBundle mainBundle] pathForResource:@"tracklog" ofType:@"gpx"];
             t = [[GPXTelemetry alloc] initWithString:[NSString stringWithContentsOfFile:szCSVFilePath encoding:NSUTF8StringEncoding error:nil]];
             break;
-        case KML:
+        case ImportedFileTypeKML:
             szCSVFilePath = [[NSBundle mainBundle] pathForResource:@"tracklog" ofType:@"kml"];
             t = [[KMLTelemetry alloc] initWithString:[NSString stringWithContentsOfFile:szCSVFilePath encoding:NSUTF8StringEncoding error:nil]];
             break;
@@ -174,9 +172,9 @@
     [NSThread detachNewThreadSelector:@selector(FeedEventsFromTelemetry:) toTarget:sim withObject:t];
 }
 
+
 + (NSDate *) autoFill:(LogbookEntry *) le fromTelemetry: (Telemetry *) t allowRecording:(BOOL) fAllowRecord {
     MFBLocation * loc = [MFBLocation new];
-    loc.fUpdatesTheme = NO;
     if (!fAllowRecord)
         loc.fSuppressAllRecording = YES;
 
@@ -198,9 +196,9 @@
     
     [GPSSim autoFill:le fromTelemetry:t allowRecording:YES];
     
-    if (t.metaData[TELEMETRY_META_AIRCRAFT_TAIL] != nil) {
+    if (t.metaData[Telemetry.TELEMETRY_META_AIRCRAFT_TAIL] != nil) {
         Aircraft * aircraft = [Aircraft sharedAircraft];
-        MFBWebServiceSvc_Aircraft * ac = [aircraft AircraftByTail:(NSString *) t.metaData[TELEMETRY_META_AIRCRAFT_TAIL]];
+        MFBWebServiceSvc_Aircraft * ac = [aircraft AircraftByTail:(NSString *) t.metaData[Telemetry.TELEMETRY_META_AIRCRAFT_TAIL]];
         if (ac != nil)
             le.entryData.AircraftID = ac.AircraftID;
     }

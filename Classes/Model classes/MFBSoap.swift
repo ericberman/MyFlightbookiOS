@@ -70,7 +70,7 @@ import Foundation
             return nil;
         }
         
-        var binding = MFBWebServiceSoapBinding()
+        let binding = MFBWebServiceSoapBinding()
         if (timeOut != 0) {
             binding.timeout = self.timeOut
         }
@@ -190,48 +190,14 @@ import Foundation
     // we can then restore the timezone and return that date.  Note that we will do one timezone switch for each
     // date that is reconfigured, and will
     @objc(UTCDateFromLocalDate:) public static func UTCDateFromLocalDate(dt : Date) -> Date {
-        var cal = Calendar.current
-        var comps = cal.dateComponents([.year , .month , .day], from: dt)
-        
-        let year = comps.year
-        let month = comps.month
-        let day = comps.day
-        comps.day = day
-        comps.month = month
-        comps.year = year
-        comps.hour = 12 // same date everywhere in the world - just be safe!
-        comps.minute = 0
-        comps.second = 0
-       
-        let tzDefault = cal.timeZone
-        cal.timeZone = TimeZone(secondsFromGMT: 0)!
-        let dtReturn = cal.date(from: comps)
-        cal.timeZone = tzDefault
-        
-        return dtReturn!
-        }
+        return (dt as NSDate).UTCDateFromLocalDate()
+    }
 
     // Reverse of UTCDateFromLocalDate.
     // Given a UTC date, produces a local date that looks the same.  E.g., if it is
     // 8/25/2012 02:00 UTC, that is 8/24/2012 19:00 PDT.  We want this date to look
     // like 8/25, though.
     @objc(LocalDateFromUTCDate:) public static func LocalDateFromUTCDate(dt : Date) -> Date {
-        var cal = Calendar.current
-        let tzDefault = cal.timeZone
-        cal.timeZone = TimeZone(secondsFromGMT: 0)!
-        var comps = cal.dateComponents([.year, .month, .day], from: dt)
-        // get the day/month/year
-        let year = comps.year
-        let month = comps.month
-        let day = comps.day
-        cal.timeZone = tzDefault
-        comps.day = day
-        comps.month = month
-        comps.year = year
-        comps.hour = 12 // same date everywhere in the world - just be safe!
-        comps.minute = 0
-        comps.second = 0
-       
-        return cal.date(from: comps)!
+        return (dt as NSDate).LocalDateFromUTCDate()
     }
 }

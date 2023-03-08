@@ -125,7 +125,9 @@ CGFloat defaultSearchHeight;
         fr.rgll = self.rgFlightPath;
         fr.lineColor = UserPreferences.current.pathColor;
         fr.center = mcr.center;
-        [self.mapView addOverlay:[fr getOverlay]];
+        id<MKOverlay> overlay = fr.getOverlay;
+        if (overlay)
+            [self.mapView addOverlay:overlay];
     }
 }
 

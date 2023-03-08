@@ -449,7 +449,7 @@ import Foundation
     }
     
 #if DEBUG
-    private static let m_df = DateFormatter()
+    private let m_df = DateFormatter()
 #endif
     
     // Code below adapted from http://www.srrb.noaa.gov/highlights/sunrise/sunrise.html and http://www.srrb.noaa.gov/highlights/sunrise/calcdetails.html
@@ -545,8 +545,8 @@ import Foundation
             Sunset = MinutesToDateTime(dt, forMinutes: setTimeGMT) as NSDate
         }
         
-#if xDEBUG
-        NSLog("%@: Sunrise=%@, Sunset=%@, solarAngle=%.1f", m_df.string(from: dt), m_df.string(from: Sunrise), m_df.string(from: Sunset), solarAngle);
+#if DEBUG
+        // NSLog("%@: Sunrise=%@, Sunset=%@, solarAngle=%.1f", m_df.string(from: dt), m_df.string(from: (Sunrise ?? NSDate())! as Date), m_df.string(from: (Sunset ?? NSDate())! as Date), solarAngle);
 #endif
         
         // Update daytime/nighttime
@@ -575,7 +575,7 @@ import Foundation
             if (!nextSunrise.isNaN) {
                 let dtNextSunrise = MinutesToDateTime(dtTomorrow, forMinutes: nextSunrise)
 #if DEBUG
-                NSLog("NextSunrise = %@", m_df.string(from: dtNextSunrise))
+                // NSLog("NextSunrise = %@", m_df.string(from: dtNextSunrise))
 #endif
                 isNight = dtNextSunrise.compare(dt) == .orderedDescending   // we've already determined that we're after sunset, we just need to be before sunrise
                 isFAANight = dtNextSunrise.addingTimeInterval(Double(-NightLandingOffset * 60)).compare(dt) == .orderedDescending &&

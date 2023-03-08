@@ -26,7 +26,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MFBLocation.h"
 #import "LogbookEntry.h"
 
 @interface GPSSim : NSObject {

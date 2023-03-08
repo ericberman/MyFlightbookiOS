@@ -272,7 +272,7 @@ extension NSDate {
         return df.string(from: self as Date)
     }
 
-    @objc(isUnknownDate:) static func isUnknownDate(dt : Date!) -> Bool {
+    @objc(isUnknownDate:) static func isUnknownDate(dt : Date?) -> Bool {
         if dt == nil {
             return true
         }
@@ -281,9 +281,9 @@ extension NSDate {
         
         // ASPX and Cocoa have different definitions for distantPast.  ASP.NET uses a year of 0001, so let's test for that.
         let cal = Calendar.current
-        let comps = cal.dateComponents([.year , .month , .day], from: dt)
+        let comps = cal.dateComponents([.year , .month , .day], from: dt!)
         
-        return (dt.compare(dtOld) == .orderedSame || comps.year == 1)
+        return (dt!.compare(dtOld) == .orderedSame || comps.year == 1)
     }
 
     @objc(dateByAddingCalendarMonths:) public func dateByAddingCalendarMonths(cMonths:Int) -> Date! {
@@ -334,6 +334,70 @@ extension NSDate {
     @objc public func dateByTruncatingSeconds() -> Date! {
         let time = floor(self.timeIntervalSinceReferenceDate / 60.0) * 60.0
         return Date(timeIntervalSinceReferenceDate: time)
+    }
+    
+    // Inside a soap call, dates get converted to XML using their UTC equivalent.
+    // If we're dealing with a date in local form, we want to preserve that without regard
+    // to time zone.  E.g., if it is 10pm on March 3 in Seattle, that's 5am March 4 UTC, but
+    // we will want the date to pass as March 3.  So we must provide a UTC version of the date that will survive
+    // this process with the correct day/month/year.
+    // Due to daylight savings time issues, we do this by decomposing the local date into its constituent
+    // month/day/year.  THEN set the timezone to create a new UTC date that looks like that date/time
+    // we can then restore the timezone and return that date.  Note that we will do one timezone switch for each
+    // date that is reconfigured, and will
+    public func UTCDateFromLocalDate() -> Date {
+        var cal = Calendar.current
+        var comps = cal.dateComponents([.year , .month , .day], from: self as Date)
+        
+        let year = comps.year
+        let month = comps.month
+        let day = comps.day
+        comps.day = day
+        comps.month = month
+        comps.year = year
+        comps.hour = 12 // same date everywhere in the world - just be safe!
+        comps.minute = 0
+        comps.second = 0
+       
+        let tzDefault = cal.timeZone
+        cal.timeZone = TimeZone(secondsFromGMT: 0)!
+        let dtReturn = cal.date(from: comps)
+        cal.timeZone = tzDefault
+        
+        return dtReturn!
+        }
+
+    // Reverse of UTCDateFromLocalDate.
+    // Given a UTC date, produces a local date that looks the same.  E.g., if it is
+    // 8/25/2012 02:00 UTC, that is 8/24/2012 19:00 PDT.  We want this date to look
+    // like 8/25, though.
+    public func LocalDateFromUTCDate() -> Date {
+        var cal = Calendar.current
+        let tzDefault = cal.timeZone
+        cal.timeZone = TimeZone(secondsFromGMT: 0)!
+        var comps = cal.dateComponents([.year, .month, .day], from: self as Date)
+        // get the day/month/year
+        let year = comps.year
+        let month = comps.month
+        let day = comps.day
+        cal.timeZone = tzDefault
+        comps.day = day
+        comps.month = month
+        comps.year = year
+        comps.hour = 12 // same date everywhere in the world - just be safe!
+        comps.minute = 0
+        comps.second = 0
+       
+        return cal.date(from: comps)!
+    }
+}
+
+// MARK: Date extensions
+extension Date {
+    public static func getYYYYMMDDFormatter() -> DateFormatter{
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return df
     }
 }
 
@@ -506,6 +570,39 @@ extension HTTPCookieStorage {
                 }
             }
         }
+    }
+}
+
+// MARK: String extensions - because string.index is a fucking nightmare.  Why can't you just use integer *character* (yes, I know they're varying length) positions?
+// this is stolen from https://stackoverflow.com/questions/39677330/how-does-string-substring-work-in-swift#:~:text=Using%20an%20Int%20index%20extension%3F
+extension String {
+  subscript(_ i: Int) -> String {
+    let idx1 = index(startIndex, offsetBy: i)
+    let idx2 = index(idx1, offsetBy: 1)
+    return String(self[idx1..<idx2])
+  }
+
+  subscript (r: Range<Int>) -> String {
+    let start = index(startIndex, offsetBy: r.lowerBound)
+    let end = index(startIndex, offsetBy: r.upperBound)
+    return String(self[start ..< end])
+  }
+
+  subscript (r: CountableClosedRange<Int>) -> String {
+    let startIndex =  self.index(self.startIndex, offsetBy: r.lowerBound)
+    let endIndex = self.index(startIndex, offsetBy: r.upperBound - r.lowerBound)
+    return String(self[startIndex...endIndex])
+  }
+}
+
+// MARK: Double extensions
+extension Double {
+    public func asLatString() -> String {
+        return String(format:"%.3f°%@", abs(self), self > 0 ? "N" : "S")
+    }
+    
+    public func asLonString() -> String {
+        return String(format:"%.3f°%@", abs(self), self > 0 ? "E" : "W")
     }
 }
 

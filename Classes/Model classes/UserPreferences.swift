@@ -93,6 +93,22 @@ import MapKit
             return ""
         }
     }
+    
+    func formatSpeedMpS(_ sIn : Double) -> String {
+        // Negative speeds are stupid.
+        let s = sIn < 0 ? 0 : sIn
+
+        switch (UserPreferences.current.speedUnits) {
+        case .kts:
+            return String.localizedStringWithFormat(String(localized: "%.1fkts", comment: "Speed in knots.  '%.1f' is replaced by the actual speed; leave it there."), s)
+        case .kph:
+            return String.localizedStringWithFormat(String(localized: "%.1fkm/h", comment: "Speed in kph"), s * KTS_TO_KPH)
+        case .mph:
+            return String.localizedStringWithFormat(String(localized: "%.1fmph", comment: "Speed in mph"), s * KTS_TO_MPH)
+        default:
+            return ""
+        }
+    }
 }
 
 @objc public enum unitsAlt:Int, CaseIterable {
@@ -106,6 +122,17 @@ import MapKit
             return String(localized:"UnitsMeters", comment:"Units - Meters")
         case .feet:
             return String(localized:"UnitsFeet", comment:"Units - Feet")
+        default:
+            return ""
+        }
+    }
+    
+    func formatMetersAlt(_ alt : Double ) -> String {
+        switch (self) {
+        case .feet:
+            return String.localizedStringWithFormat("%.1f%@",  round(alt * METERS_TO_FEET), String(localized: "ft", comment: "Feet"))
+        case .meters:
+            return String.localizedStringWithFormat("%.1f%@",  round(alt), String(localized: "meters", comment: "meters"))
         default:
             return ""
         }

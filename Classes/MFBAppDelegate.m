@@ -33,7 +33,6 @@
 #import "Totals.h"
 #import "VisitedAirports.h"
 #import "iRate.h"
-#import "Telemetry.h"
 #import "WPSAlertController.h"
 #import "SynchronousCalls.h"
 #import <UserNotifications/UserNotifications.h>
@@ -420,7 +419,7 @@ static BOOL fAppLaunchFinished = NO;
 - (void) createLocManager
 {
     if (self.mfbloc == nil)
-        self.mfbloc = [[MFBLocation alloc] initWithGPS];
+        self.mfbloc = [[MFBLocation alloc] initWithGPS: YES];
     else
         [self.mfbloc restoreState];
     self.mfbloc.delegate = self.leMain;
@@ -666,6 +665,7 @@ static MFBAppDelegate * _mainApp = nil;
     [self createLocManager];
     
 #ifdef DEBUG
+    // NOTE: WE NEVER SEEM TO USE THIS.
     self.fDebugMode = [[NSUserDefaults standardUserDefaults] boolForKey:_szKeyPrefDebugMode];
 #else
     self.fDebugMode = NO;

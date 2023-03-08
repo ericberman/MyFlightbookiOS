@@ -25,7 +25,6 @@
 
 #import <Foundation/Foundation.h>
 #import "MFBAppDelegate.h"
-#import "MFBLocation.h"
 
 // Hack class for now to provide minimal pollution of the bridging header while we slowly migrate stuff to swift
 // TODO: REMOVE THIS OVER TIME 
@@ -64,4 +63,11 @@
     return MFBAppDelegate.threadSafeAppDelegate.mfbloc.lastSeenLoc;
 }
 
++ (SharedWatch *) watchData {
+    return MFBAppDelegate.threadSafeAppDelegate.watchData;
+}
+
++ (void) updateWatchContext {
+    [MFBAppDelegate.threadSafeAppDelegate updateWatchContext];
+}
 @end

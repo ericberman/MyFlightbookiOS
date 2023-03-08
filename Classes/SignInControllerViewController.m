@@ -28,7 +28,6 @@
 #import "SignInControllerViewController.h"
 #import "EditCell.h"
 #import "MFBAppDelegate.h"
-#import "about.h"
 #import "ButtonCell.h"
 #import "TextCell.h"
 #import "NewUserTableController.h"

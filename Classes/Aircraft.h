@@ -25,7 +25,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <MyFlightbook-Swift.h>
 #import "MFBWebServiceSvc.h"
 #import "MFBAsyncOperation.h"
 

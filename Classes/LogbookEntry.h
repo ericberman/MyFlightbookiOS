@@ -25,7 +25,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <MyFlightbook-Swift.h>
 #import "MFBAppDelegate.h"
 #import "FlightProps.h"
 
@@ -127,20 +126,4 @@
 - (void) shareFlight:(UIBarButtonItem *) sender fromViewController:(UIViewController *) source;
 
 - (NSString *) fromJSONDictionary:(NSDictionary *) dict dateFormatter:(NSDateFormatter *) dfDate dateTimeFormatter:(NSDateFormatter *) dfDateTime;
-@end
-
-@interface MFBWebServiceSvc_FlightQuery (MFBIPhone)
-+ (MFBWebServiceSvc_FlightQuery *) getNewFlightQuery;
-- (BOOL) hasDate;
-- (BOOL) hasText;
-- (BOOL) hasFlightCharacteristics;
-- (BOOL) hasAircraftCharacteristics;
-- (BOOL) hasAirport;
-- (BOOL) hasProperties;
-- (BOOL) hasPropertyType:(MFBWebServiceSvc_CustomPropertyType *) cpt;
-- (void) togglePropertyType:(MFBWebServiceSvc_CustomPropertyType *) cpt;
-- (BOOL) hasAircraft;
-- (BOOL) hasMakes;
-- (BOOL) hasCatClasses;
-- (BOOL) isUnrestricted;
 @end

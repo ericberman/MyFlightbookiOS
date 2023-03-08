@@ -30,7 +30,6 @@
 		9A1014C510DD5ACC00FA37D4 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A1014C410DD5ACC00FA37D4 /* Default.png */; };
 		9A1014C910DD5EB200FA37D4 /* newflight.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A1014C810DD5EB200FA37D4 /* newflight.png */; };
 		9A1014CD10DD5FCA00FA37D4 /* backspace.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A1014CC10DD5FCA00FA37D4 /* backspace.png */; };
-		9A117D8A221780D30095CE32 /* GPSDeviceViewTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A117D89221780D30095CE32 /* GPSDeviceViewTableViewController.m */; };
 		9A117D8C221782FC0095CE32 /* BadElfCircle-Vertical-Transparent.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A117D8B221782FB0095CE32 /* BadElfCircle-Vertical-Transparent.png */; };
 		9A121395111D3073001CDDB6 /* ImageComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A121393111D3073001CDDB6 /* ImageComment.m */; };
 		9A1213B3111D3113001CDDB6 /* CommentedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A1213B2111D3113001CDDB6 /* CommentedImage.m */; };
@@ -68,6 +67,11 @@
 		9A23CFAA16F53B7D001C9098 /* ButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A23CFA916F53B7D001C9098 /* ButtonCell.xib */; };
 		9A25F249235A5A3B002B3B48 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A73C84721AF51F400AE1221 /* NotificationCenter.framework */; };
 		9A27222E29B5025C006AE702 /* RouteAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A27222D29B5025C006AE702 /* RouteAnnotation.swift */; };
+		9A27223029B53861006AE702 /* FlightProps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A27222F29B53861006AE702 /* FlightProps.swift */; };
+		9A27223329B55C67006AE702 /* Telemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A27223229B55C67006AE702 /* Telemetry.swift */; };
+		9A27223529B699C8006AE702 /* GPSSim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A27223429B699C8006AE702 /* GPSSim.swift */; };
+		9A27223729B69AD3006AE702 /* GPSDeviceViewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A27223629B69AD3006AE702 /* GPSDeviceViewTableViewController.swift */; };
+		9A27223929B6CDEE006AE702 /* MFBLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A27223829B6CDEE006AE702 /* MFBLocation.swift */; };
 		9A2BD09A10E04619001D4043 /* totals.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A2BD09910E04619001D4043 /* totals.png */; };
 		9A2D594214C3485800FD8F05 /* RecentFlightCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A2D594114C3485800FD8F05 /* RecentFlightCell.xib */; };
 		9A30B1C01103D61C002A5029 /* MoreInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A30B1BF1103D61C002A5029 /* MoreInfo.png */; };
@@ -212,11 +216,11 @@
 		9A8407A316FBA9E300EA1211 /* Collapsed.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A8407A116FBA9E300EA1211 /* Collapsed.png */; };
 		9A8407A416FBA9E300EA1211 /* Collapsed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A8407A216FBA9E300EA1211 /* Collapsed@2x.png */; };
 		9A84718A11EBE3EE00395608 /* Icon-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A84718911EBE3EE00395608 /* Icon-iPad.png */; };
-		9A87ECCC10FB94A2009D1BEE /* about.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A87ECCA10FB94A2009D1BEE /* about.m */; };
 		9A897FC711B7299F00E98C93 /* mfb.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FC611B7299F00E98C93 /* mfb.sqlite */; };
 		9A897FDE1666919100D9019C /* centermap@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FDD1666919000D9019C /* centermap@2x.png */; };
 		9A897FE01666B39800D9019C /* sunrise@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FDF1666B39700D9019C /* sunrise@2x.png */; };
 		9A897FE21666B3A700D9019C /* sunset@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FE11666B3A700D9019C /* sunset@2x.png */; };
+		9A89C1AF29B8F45300848A6B /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A89C1AE29B8F45300848A6B /* About.swift */; };
 		9A8BF94010E1846E002F01ED /* Aircraft.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A8BF93C10E1846E002F01ED /* Aircraft.m */; };
 		9A8BFADF22B00B1000CB79E0 /* SelectTemplates.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A8BFADE22B00B1000CB79E0 /* SelectTemplates.m */; };
 		9A8D628015851392001105F2 /* DateRangeSelector.xib.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9A8D627E15851392001105F2 /* DateRangeSelector.xib.txt */; };
@@ -333,7 +337,6 @@
 		9AA4030E230746B20043F9CB /* search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA4030B230746B10043F9CB /* search@2x.png */; };
 		9AA4030F230746B20043F9CB /* search@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA4030C230746B20043F9CB /* search@3x.png */; };
 		9AA4EC3410F1A85200322BE0 /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA4EC3310F1A85200322BE0 /* checkmark.png */; };
-		9AA5E44219DDB9030065810A /* Telemetry.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA5E44119DDB9030065810A /* Telemetry.m */; };
 		9AA5E44919DE2AE40065810A /* GPSSamples.csv in Resources */ = {isa = PBXBuildFile; fileRef = 9A565B6E13E3545800BEFFA7 /* GPSSamples.csv */; };
 		9AA77D891618CAC000B36935 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA77D861618CAC000B36935 /* Default-568h@2x.png */; };
 		9AA77D8A1618CAC000B36935 /* Default-Landscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA77D871618CAC000B36935 /* Default-Landscape@2x.png */; };
@@ -433,7 +436,6 @@
 		9ADFA5081939271B00FF30B7 /* Training.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFA5061939271B00FF30B7 /* Training.m */; };
 		9ADFA5091939271B00FF30B7 /* Training.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ADFA5071939271B00FF30B7 /* Training.xib */; };
 		9ADFA50B193FB92D00FF30B7 /* Icon-iPad-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ADFA50A193FB92D00FF30B7 /* Icon-iPad-small@2x.png */; };
-		9AE2E2861565F0D600CD26AC /* MFBLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE2E2851565F0D600CD26AC /* MFBLocation.m */; };
 		9AE39A3F29AAA2D0002A6496 /* AutodetectOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE39A3E29AAA2D0002A6496 /* AutodetectOptions.swift */; };
 		9AE39A4129AAA40D002A6496 /* MultiValOptionSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE39A4029AAA40D002A6496 /* MultiValOptionSelector.swift */; };
 		9AE39A4329AAA456002A6496 /* OptionSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE39A4229AAA456002A6496 /* OptionSelection.swift */; };
@@ -559,8 +561,6 @@
 		9A1014C410DD5ACC00FA37D4 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		9A1014C810DD5EB200FA37D4 /* newflight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newflight.png; sourceTree = "<group>"; };
 		9A1014CC10DD5FCA00FA37D4 /* backspace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backspace.png; sourceTree = "<group>"; };
-		9A117D88221780D30095CE32 /* GPSDeviceViewTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPSDeviceViewTableViewController.h; sourceTree = "<group>"; };
-		9A117D89221780D30095CE32 /* GPSDeviceViewTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPSDeviceViewTableViewController.m; sourceTree = "<group>"; };
 		9A117D8B221782FB0095CE32 /* BadElfCircle-Vertical-Transparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BadElfCircle-Vertical-Transparent.png"; sourceTree = "<group>"; };
 		9A121392111D3073001CDDB6 /* ImageComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageComment.h; sourceTree = "<group>"; };
 		9A121393111D3073001CDDB6 /* ImageComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageComment.m; sourceTree = "<group>"; };
@@ -603,6 +603,11 @@
 		9A23CFA716F53B5D001C9098 /* ButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonCell.m; sourceTree = "<group>"; };
 		9A23CFA916F53B7D001C9098 /* ButtonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonCell.xib; sourceTree = "<group>"; };
 		9A27222D29B5025C006AE702 /* RouteAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteAnnotation.swift; sourceTree = "<group>"; };
+		9A27222F29B53861006AE702 /* FlightProps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightProps.swift; sourceTree = "<group>"; };
+		9A27223229B55C67006AE702 /* Telemetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Telemetry.swift; sourceTree = "<group>"; };
+		9A27223429B699C8006AE702 /* GPSSim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSSim.swift; sourceTree = "<group>"; };
+		9A27223629B69AD3006AE702 /* GPSDeviceViewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSDeviceViewTableViewController.swift; sourceTree = "<group>"; };
+		9A27223829B6CDEE006AE702 /* MFBLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFBLocation.swift; sourceTree = "<group>"; };
 		9A2BD09910E04619001D4043 /* totals.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = totals.png; sourceTree = "<group>"; };
 		9A2D594114C3485800FD8F05 /* RecentFlightCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecentFlightCell.xib; sourceTree = "<group>"; };
 		9A30B1BF1103D61C002A5029 /* MoreInfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MoreInfo.png; sourceTree = "<group>"; };
@@ -767,8 +772,6 @@
 		9A8407A116FBA9E300EA1211 /* Collapsed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Collapsed.png; sourceTree = "<group>"; };
 		9A8407A216FBA9E300EA1211 /* Collapsed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Collapsed@2x.png"; sourceTree = "<group>"; };
 		9A84718911EBE3EE00395608 /* Icon-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad.png"; sourceTree = "<group>"; };
-		9A87ECC910FB94A2009D1BEE /* about.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = about.h; sourceTree = "<group>"; };
-		9A87ECCA10FB94A2009D1BEE /* about.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = about.m; sourceTree = "<group>"; };
 		9A87F50F1BD1627700F9479D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/about.strings; sourceTree = "<group>"; };
 		9A87F5121BD172AB00F9479D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AccessoryBar.strings; sourceTree = "<group>"; };
 		9A87F51A1BD2AF5100F9479D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = "fr.lproj/LEEditController-iPad.strings"; sourceTree = "<group>"; };
@@ -777,6 +780,7 @@
 		9A897FDD1666919000D9019C /* centermap@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "centermap@2x.png"; sourceTree = "<group>"; };
 		9A897FDF1666B39700D9019C /* sunrise@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sunrise@2x.png"; sourceTree = "<group>"; };
 		9A897FE11666B3A700D9019C /* sunset@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sunset@2x.png"; sourceTree = "<group>"; };
+		9A89C1AE29B8F45300848A6B /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = About.swift; sourceTree = "<group>"; };
 		9A8BF93B10E1846E002F01ED /* Aircraft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Aircraft.h; path = ../Aircraft.h; sourceTree = "<group>"; };
 		9A8BF93C10E1846E002F01ED /* Aircraft.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Aircraft.m; path = ../Aircraft.m; sourceTree = "<group>"; };
 		9A8BFADD22B00B1000CB79E0 /* SelectTemplates.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectTemplates.h; sourceTree = "<group>"; };
@@ -894,8 +898,6 @@
 		9AA4030B230746B10043F9CB /* search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search@2x.png"; sourceTree = "<group>"; };
 		9AA4030C230746B20043F9CB /* search@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search@3x.png"; sourceTree = "<group>"; };
 		9AA4EC3310F1A85200322BE0 /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
-		9AA5E44019DDB9030065810A /* Telemetry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Telemetry.h; path = Classes/Telemetry.h; sourceTree = SOURCE_ROOT; };
-		9AA5E44119DDB9030065810A /* Telemetry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Telemetry.m; path = Classes/Telemetry.m; sourceTree = SOURCE_ROOT; };
 		9AA77D861618CAC000B36935 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		9AA77D871618CAC000B36935 /* Default-Landscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x.png"; sourceTree = "<group>"; };
 		9AA77D881618CAC000B36935 /* Default-Portrait@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x.png"; sourceTree = "<group>"; };
@@ -1001,8 +1003,6 @@
 		9ADFA5061939271B00FF30B7 /* Training.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Training.m; sourceTree = "<group>"; };
 		9ADFA5071939271B00FF30B7 /* Training.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Training.xib; sourceTree = "<group>"; };
 		9ADFA50A193FB92D00FF30B7 /* Icon-iPad-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad-small@2x.png"; sourceTree = "<group>"; };
-		9AE2E2841565F0D600CD26AC /* MFBLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFBLocation.h; sourceTree = "<group>"; };
-		9AE2E2851565F0D600CD26AC /* MFBLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFBLocation.m; sourceTree = "<group>"; };
 		9AE39A3E29AAA2D0002A6496 /* AutodetectOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutodetectOptions.swift; sourceTree = "<group>"; };
 		9AE39A4029AAA40D002A6496 /* MultiValOptionSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiValOptionSelector.swift; sourceTree = "<group>"; };
 		9AE39A4229AAA456002A6496 /* OptionSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionSelection.swift; sourceTree = "<group>"; };
@@ -1269,8 +1269,7 @@
 				9A517E441E2ED4CC00EC3545 /* ApproachEditor.m */,
 				9A9CB2671E513B28002B2E11 /* TotalsCalculator.h */,
 				9A9CB2681E513B28002B2E11 /* TotalsCalculator.m */,
-				9A117D88221780D30095CE32 /* GPSDeviceViewTableViewController.h */,
-				9A117D89221780D30095CE32 /* GPSDeviceViewTableViewController.m */,
+				9A27223629B69AD3006AE702 /* GPSDeviceViewTableViewController.swift */,
 				9A8BFADD22B00B1000CB79E0 /* SelectTemplates.h */,
 				9A8BFADE22B00B1000CB79E0 /* SelectTemplates.m */,
 				9A70B18522C07A8500CA7E21 /* FlightEditorBaseTableViewController.h */,
@@ -1284,8 +1283,6 @@
 		9A518E47111F85FC004B4BF6 /* Profile and options */ = {
 			isa = PBXGroup;
 			children = (
-				9A87ECC910FB94A2009D1BEE /* about.h */,
-				9A87ECCA10FB94A2009D1BEE /* about.m */,
 				9A23CFA116F50C57001C9098 /* SignInControllerViewController.h */,
 				9A23CFA216F50C57001C9098 /* SignInControllerViewController.m */,
 				9A23CFA316F50C57001C9098 /* SignInControllerViewController.xib */,
@@ -1297,6 +1294,7 @@
 				9AE39A3E29AAA2D0002A6496 /* AutodetectOptions.swift */,
 				9AE39A4029AAA40D002A6496 /* MultiValOptionSelector.swift */,
 				9AE39A4229AAA456002A6496 /* OptionSelection.swift */,
+				9A89C1AE29B8F45300848A6B /* About.swift */,
 			);
 			name = "Profile and options";
 			sourceTree = "<group>";
@@ -1671,6 +1669,7 @@
 				9A1213B2111D3113001CDDB6 /* CommentedImage.m */,
 				9AEB4B441A0DE5C200629998 /* CountryCode.h */,
 				9AEB4B451A0DE5C200629998 /* CountryCode.m */,
+				9A27222F29B53861006AE702 /* FlightProps.swift */,
 				9A79504011E56C7F0070A386 /* FlightProps.h */,
 				9A79504111E56C7F0070A386 /* FlightProps.m */,
 				9A565B6813E351C200BEFFA7 /* GPSSim.h */,
@@ -1681,12 +1680,8 @@
 				1D3623250D0F684500981E51 /* MFBAppDelegate.m */,
 				9A55E542156DB1CF0031A215 /* MFBAsyncOperation.h */,
 				9A55E543156DB1D10031A215 /* MFBAsyncOperation.m */,
-				9AE2E2841565F0D600CD26AC /* MFBLocation.h */,
-				9AE2E2851565F0D600CD26AC /* MFBLocation.m */,
 				9A7FE95B12494F87001A8722 /* Reachability.h */,
 				9A7FE95C12494F87001A8722 /* Reachability.m */,
-				9AA5E44019DDB9030065810A /* Telemetry.h */,
-				9AA5E44119DDB9030065810A /* Telemetry.m */,
 				9A517E461E2ED5E900EC3545 /* ApproachDescription.h */,
 				9A517E471E2ED68800EC3545 /* ApproachDescription.m */,
 				9A0BF18024743D5E003C2172 /* PackAndGo.m */,
@@ -1848,6 +1843,9 @@
 				9AE39A4B29ABE29D002A6496 /* WebServiceMappingExtensions.swift */,
 				9A6F1BFB29B3D891004D1F31 /* SunriseSunset.swift */,
 				9A27222D29B5025C006AE702 /* RouteAnnotation.swift */,
+				9A27223229B55C67006AE702 /* Telemetry.swift */,
+				9A27223429B699C8006AE702 /* GPSSim.swift */,
+				9A27223829B6CDEE006AE702 /* MFBLocation.swift */,
 			);
 			path = Geography;
 			sourceTree = "<group>";
@@ -2358,10 +2356,12 @@
 				9ACEDB9922388BAB00221A17 /* AircraftViewController.m in Sources */,
 				9A691EBA10C73E4300DF1CA6 /* LogbookEntry.m in Sources */,
 				9A5F990529A1CCB500692E27 /* WidgetKitBridge.swift in Sources */,
+				9A27223729B69AD3006AE702 /* GPSDeviceViewTableViewController.swift in Sources */,
 				9A8005A022CEBCCF00EC487E /* LogbookEntryBaseTableViewController.m in Sources */,
 				9A8EE98629AA676B00F133CF /* UserProfile.swift in Sources */,
 				9A69202B10CCBD8B00DF1CA6 /* NSDate+ISO8601Parsing.m in Sources */,
 				9A69202C10CCBD8B00DF1CA6 /* NSDate+ISO8601Unparsing.m in Sources */,
+				9A27223329B55C67006AE702 /* Telemetry.swift in Sources */,
 				9A69202D10CCBD8B00DF1CA6 /* USAdditions.m in Sources */,
 				9A69202E10CCBD8B00DF1CA6 /* USGlobals.m in Sources */,
 				9A7B3B952135A8AA00CD3BEA /* WPSAlertController.m in Sources */,
@@ -2370,7 +2370,6 @@
 				9A8EE98129A9B20200F133CF /* MFBSoap.swift in Sources */,
 				9A69202F10CCBD8B00DF1CA6 /* xsd.m in Sources */,
 				9ADFA5081939271B00FF30B7 /* Training.m in Sources */,
-				9AA5E44219DDB9030065810A /* Telemetry.m in Sources */,
 				9A8BFADF22B00B1000CB79E0 /* SelectTemplates.m in Sources */,
 				9A48E27429A1686000511D99 /* MyFlightbookWidgets.intentdefinition in Sources */,
 				9A8BF94010E1846E002F01ED /* Aircraft.m in Sources */,
@@ -2383,7 +2382,6 @@
 				9AE39A4729ABC1C5002A6496 /* Airports.swift in Sources */,
 				9AFAC07B10E5968800225E90 /* NearbyAirports.m in Sources */,
 				9AE39A4129AAA40D002A6496 /* MultiValOptionSelector.swift in Sources */,
-				9A87ECCC10FB94A2009D1BEE /* about.m in Sources */,
 				9A020B3310FFEF3F00801349 /* RecentFlights.m in Sources */,
 				9A121395111D3073001CDDB6 /* ImageComment.m in Sources */,
 				9AE39A4329AAA456002A6496 /* OptionSelection.swift in Sources */,
@@ -2396,6 +2394,7 @@
 				9A3E1375127DE704008D672E /* EXFGPS.m in Sources */,
 				9A3E1376127DE704008D672E /* EXFHandlers.m in Sources */,
 				9A3E1377127DE704008D672E /* EXFJFIF.m in Sources */,
+				9A89C1AF29B8F45300848A6B /* About.swift in Sources */,
 				9AE39A3F29AAA2D0002A6496 /* AutodetectOptions.swift in Sources */,
 				9A3E1378127DE704008D672E /* EXFJpeg.m in Sources */,
 				9AE39A4A29ABD008002A6496 /* LatLongBox.swift in Sources */,
@@ -2418,9 +2417,9 @@
 				9A14335529A81A1A007129A9 /* UserPreferences.swift in Sources */,
 				9A48E27D29A1693B00511D99 /* WidgetSoapCall.swift in Sources */,
 				9A70B18722C07A8500CA7E21 /* FlightEditorBaseTableViewController.m in Sources */,
+				9A27223529B699C8006AE702 /* GPSSim.swift in Sources */,
 				9A4587BD14C205500045AF51 /* RecentFlightCell.m in Sources */,
 				9AC7B8BF14D0ADAB009139BF /* PullRefreshTableViewController.m in Sources */,
-				9AE2E2861565F0D600CD26AC /* MFBLocation.m in Sources */,
 				9A55E544156DB1D20031A215 /* MFBAsyncOperation.m in Sources */,
 				9A79E30A156E9B7100EBEF48 /* FlightQueryForm.m in Sources */,
 				9A6BDE0C1570921D00F715E1 /* EditCell.m in Sources */,
@@ -2431,7 +2430,7 @@
 				9A0DD9F8158579BE00FB6DF2 /* FixedImageCell.m in Sources */,
 				9A99506016E3C10200C61594 /* PropertyCell.m in Sources */,
 				9A99507416E694EA00C61594 /* AccessoryBar.m in Sources */,
-				9A117D8A221780D30095CE32 /* GPSDeviceViewTableViewController.m in Sources */,
+				9A27223029B53861006AE702 /* FlightProps.swift in Sources */,
 				9A804AF616EE445F002F77CA /* DateRangeViewController.m in Sources */,
 				9A20B152192D34D300A8F64F /* iRate.m in Sources */,
 				9A23CFA416F50C57001C9098 /* SignInControllerViewController.m in Sources */,
@@ -2445,6 +2444,7 @@
 				9A60D6CB16F90BDE00F9DFFF /* CollapsibleTable.m in Sources */,
 				9A27222E29B5025C006AE702 /* RouteAnnotation.swift in Sources */,
 				9AB8B349170347BA0012E3CE /* NavigableCell.m in Sources */,
+				9A27223929B6CDEE006AE702 /* MFBLocation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3662,7 +3662,7 @@
 				PRODUCT_NAME = MyFlightbook;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
-				SWIFT_OBJC_BRIDGING_HEADER = "MyFlightbookWatch Extension/MyFlightbookWatch-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Classes/MyFlightbook-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 			};
 			name = Distribution;
@@ -3761,6 +3761,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Model Classes/MyFlightbookWatch Extension-Bridging-Header.h\n";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
@@ -3816,6 +3817,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Model Classes/MyFlightbookWatch Extension-Bridging-Header.h\n";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -3871,6 +3873,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Model Classes/MyFlightbookWatch Extension-Bridging-Header.h\n";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -3929,7 +3932,8 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Model classes/MyFlightbookWatch Extension-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Model Classes/MyFlightbookWatch Extension-Bridging-Header.h";
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "Classes/Model Classes/MyFlightbookWatch Extension-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -3982,7 +3986,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Model classes/MyFlightbookWatch Extension-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Model Classes/MyFlightbookWatch Extension-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
@@ -4035,7 +4039,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Model classes/MyFlightbookWatch Extension-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Model Classes/MyFlightbookWatch Extension-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
@@ -4086,11 +4090,12 @@
 					"-lxml2",
 					"-all_load",
 				);
+				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PRODUCT_NAME = MyFlightbook;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
-				SWIFT_OBJC_BRIDGING_HEADER = "MyFlightbookWatch Extension/MyFlightbookWatch-Bridging-Header.h";
-				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "MyFlightbookWatch Extension/MyFlightbookWatch-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Classes/MyFlightbook-Bridging-Header.h";
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "Classes/MyFlightbook-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
@@ -4135,10 +4140,11 @@
 					"-lxml2",
 					"-all_load",
 				);
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_NAME = MyFlightbook;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
-				SWIFT_OBJC_BRIDGING_HEADER = "MyFlightbookWatch Extension/MyFlightbookWatch-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Classes/MyFlightbook-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.2;
 			};

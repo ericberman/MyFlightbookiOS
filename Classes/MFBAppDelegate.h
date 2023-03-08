@@ -32,7 +32,6 @@
 #import "Aircraft.h"
 #import <sqlite3.h>
 #import "Reachability.h"
-#import "MFBLocation.h"
 #import "CollapsibleTable.h"
 #import "SharedWatch.h"
 #import <WatchConnectivity/WatchConnectivity.h>
@@ -40,7 +39,6 @@
 
 #define mfbApp() ((MFBAppDelegate *) [[UIApplication sharedApplication] delegate])
 
-#define _szKeyPrefIsRecording @"keyPrefIsRecording"
 #define _szKeyPrefUnsubmittedFlights @"keyPendingFlights"
 #define _szKeyPrefLastInstalledVersion @"keyLastVersion"
 #define _szKeyPrefDebugMode @"keyDebugMode"

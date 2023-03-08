@@ -359,7 +359,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 
     [self.idbtnPausePlay setImage:[UIImage imageNamed:self.le.fIsPaused ? @"Play.png" : @"Pause.png"] forState:0];
     BOOL fCouldBeFlying = ([self.le.entryData isKnownEngineStart] || [self.le.entryData isKnownFlightStart]) && ![self.le.entryData isKnownEngineEnd];
-    BOOL fShowPausePlay = app.mfbloc.currentFlightState != fsInFlight && fCouldBeFlying;
+    BOOL fShowPausePlay = app.mfbloc.currentFlightState != FlightStateFsInFlight && fCouldBeFlying;
     self.idbtnPausePlay.hidden = !fShowPausePlay;
 
     self.idlblElapsedTime.text = [self elapsedTimeDisplay:self.elapsedTime];
@@ -1188,12 +1188,12 @@ static NSArray * rgAllCockpitRows = nil;
     if (!self.le.entryData.isNewFlight)
         return;
     
-    mfbApp().mfbloc.currentFlightState = fsOnGround;
+    mfbApp().mfbloc.currentFlightState = FlightStateFsOnGround;
     [mfbApp() updateWatchContext];
 
-#ifdef USE_FAKE_GPS
-    [GPSSim BeginSim];
-#endif
+    if (MFBLocation.USE_FAKE_GPS) {
+        [GPSSim BeginSim];
+    }
 }
 
 - (void) startEngineExternal
@@ -1485,29 +1485,29 @@ static NSDateFormatter * dfSunriseSunset = nil;
 
 	if (self.idLblQuality != nil)
 	{
-		if (acc > MIN_ACCURACY || acc < 0) 
+		if (acc > MFBLocation.MIN_ACCURACY || acc < 0) 
 		{
 			self.idLblQuality.text = NSLocalizedString(@"Poor", @"Poor GPS quality");
 			fValidQuality = NO;
 		}
 		else
 		{
-			self.idLblQuality.text = (acc < (MIN_ACCURACY / 2)) ? NSLocalizedString(@"Excellent", @"Excellent GPS quality") : NSLocalizedString(@"Good", @"Good GPS quality");
+			self.idLblQuality.text = (acc < (MFBLocation.MIN_ACCURACY / 2)) ? NSLocalizedString(@"Excellent", @"Excellent GPS quality") : NSLocalizedString(@"Good", @"Good GPS quality");
 			fValidQuality = YES;
 		}
 	}
 	
 	MFBAppDelegate * app = mfbApp();
     
-    if ([self.le.entryData isKnownEngineEnd] && app.mfbloc.currentFlightState != fsOnGround) // can't fly with engine off
+    if ([self.le.entryData isKnownEngineEnd] && app.mfbloc.currentFlightState != FlightStateFsOnGround) // can't fly with engine off
     {
-        app.mfbloc.currentFlightState = fsOnGround;
+        app.mfbloc.currentFlightState = FlightStateFsOnGround;
         NSLog(@"Engine is off so forced currentflightstate to OnGround");
     }
     
     FlightState fs = app.mfbloc.currentFlightState;
     self.idLblStatus.text = [MFBLocation flightStateDisplay:fs];
-    if (fs == fsInFlight)
+    if (fs == FlightStateFsInFlight)
         [self.le unPauseFlight];
     NSString * szInvalid = @"";
     self.idLblSpeed.text = (fValidSpeed && fValidQuality) ? [MFBLocation speedDisplay:s] : szInvalid;
