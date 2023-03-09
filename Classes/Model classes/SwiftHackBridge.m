@@ -55,10 +55,6 @@
     MFBAppDelegate.threadSafeAppDelegate.mfbloc.fRecordHighRes = f;
 }
 
-+ (sqlite3 *) getDB {
-    return MFBAppDelegate.threadSafeAppDelegate.db;
-}
-
 + (CLLocation *) lastLoc {
     return MFBAppDelegate.threadSafeAppDelegate.mfbloc.lastSeenLoc;
 }

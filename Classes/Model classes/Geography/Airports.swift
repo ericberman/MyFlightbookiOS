@@ -69,7 +69,7 @@ import SQLite3
         errorString = ""
         rgAirports = []
         
-        let db = SwiftHackBridge.getDB()
+        let db = MFBSqlLite.current
 
         let la = LocalAirports(loc: loc, db: db, limit: max)
         rgAirports = la.rgAirports
@@ -115,7 +115,7 @@ import SQLite3
         
         let loc = SwiftHackBridge.lastLoc()
         
-        let la = LocalAirports.init(szAirports: szRoute, db: SwiftHackBridge.getDB(), loc: loc?.coordinate)
+        let la = LocalAirports.init(szAirports: szRoute, db: MFBSqlLite.current, loc: loc?.coordinate)
         
         self.rgAirports = la.rgAirports
     }

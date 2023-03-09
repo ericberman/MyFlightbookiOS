@@ -58,7 +58,7 @@ static NSMutableArray<CountryCode *> * rgAllCountryCodes = nil;
         return rgAllCountryCodes;
 
     rgAllCountryCodes = [[NSMutableArray<CountryCode *> alloc] init];
-    sqlite3 * db = mfbApp().getdb;
+    sqlite3 * db = MFBSqlLite.current;
     sqlite3_stmt * sqlCountryCodes = nil;
     if (sqlite3_prepare(db, [@"SELECT * FROM countrycodes ORDER BY Prefix ASC" cStringUsingEncoding:NSASCIIStringEncoding], -1, &sqlCountryCodes, NULL) != SQLITE_OK)
         NSLog(@"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(db));

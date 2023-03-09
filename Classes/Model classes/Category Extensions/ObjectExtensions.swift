@@ -604,6 +604,10 @@ extension Double {
     public func asLonString() -> String {
         return String(format:"%.3f°%@", abs(self), self > 0 ? "E" : "W")
     }
+    
+    public func degreesToRadians() -> Double {
+        return self * (Double.pi / 180.0)
+    }
 }
 
 // MARK: UIButton (implementation of checkbox functionality)

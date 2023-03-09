@@ -216,6 +216,7 @@
 		9A8407A316FBA9E300EA1211 /* Collapsed.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A8407A116FBA9E300EA1211 /* Collapsed.png */; };
 		9A8407A416FBA9E300EA1211 /* Collapsed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A8407A216FBA9E300EA1211 /* Collapsed@2x.png */; };
 		9A84363229B98AA70001012D /* MFBConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A84363129B98AA70001012D /* MFBConstants.swift */; };
+		9A84363429BA926D0001012D /* MFBSqlLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A84363329BA926D0001012D /* MFBSqlLite.swift */; };
 		9A84718A11EBE3EE00395608 /* Icon-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A84718911EBE3EE00395608 /* Icon-iPad.png */; };
 		9A897FC711B7299F00E98C93 /* mfb.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FC611B7299F00E98C93 /* mfb.sqlite */; };
 		9A897FDE1666919100D9019C /* centermap@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FDD1666919000D9019C /* centermap@2x.png */; };
@@ -773,6 +774,7 @@
 		9A8407A116FBA9E300EA1211 /* Collapsed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Collapsed.png; sourceTree = "<group>"; };
 		9A8407A216FBA9E300EA1211 /* Collapsed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Collapsed@2x.png"; sourceTree = "<group>"; };
 		9A84363129B98AA70001012D /* MFBConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFBConstants.swift; sourceTree = "<group>"; };
+		9A84363329BA926D0001012D /* MFBSqlLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFBSqlLite.swift; sourceTree = "<group>"; };
 		9A84718911EBE3EE00395608 /* Icon-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad.png"; sourceTree = "<group>"; };
 		9A87F50F1BD1627700F9479D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/about.strings; sourceTree = "<group>"; };
 		9A87F5121BD172AB00F9479D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AccessoryBar.strings; sourceTree = "<group>"; };
@@ -1696,6 +1698,7 @@
 				9A8EE98229A9B5A800F133CF /* SwiftHackBridge.m */,
 				9A8EE98529AA676B00F133CF /* UserProfile.swift */,
 				9A84363129B98AA70001012D /* MFBConstants.swift */,
+				9A84363329BA926D0001012D /* MFBSqlLite.swift */,
 			);
 			path = "Model classes";
 			sourceTree = "<group>";
@@ -2408,6 +2411,7 @@
 				9AEB4B461A0DE5C200629998 /* CountryCode.m in Sources */,
 				9A565B6A13E351C200BEFFA7 /* GPSSim.m in Sources */,
 				9A0BF18124743D5E003C2172 /* PackAndGo.m in Sources */,
+				9A84363429BA926D0001012D /* MFBSqlLite.swift in Sources */,
 				9A14334C29A6B37E007129A9 /* TotalsRow.swift in Sources */,
 				9A21D5CB2214D1E300961605 /* BadElfSession.swift in Sources */,
 				9A0F0E7413E88781007E54C1 /* MFBWebServiceSvc.m in Sources */,

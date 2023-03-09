@@ -182,14 +182,12 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
 {
     NSMutableArray * rgcpt = [[NSMutableArray alloc] init];
     
-    MFBAppDelegate * app = [MFBAppDelegate threadSafeAppDelegate];
-        
     sqlite3_stmt * sqlCpt = nil;
     
     NSString * szSql = @"SELECT * FROM custompropertytypes ORDER BY title ASC";
     
-    if (sqlite3_prepare(app.db, [szSql cStringUsingEncoding:NSASCIIStringEncoding], -1, &sqlCpt, NULL) != SQLITE_OK)
-        NSLog(@"Error: failed to prepare CPT query statement with message '%s'.", sqlite3_errmsg(app.db));
+    if (sqlite3_prepare(MFBSqlLite.current, [szSql cStringUsingEncoding:NSASCIIStringEncoding], -1, &sqlCpt, NULL) != SQLITE_OK)
+        NSLog(@"Error: failed to prepare CPT query statement with message '%s'.", sqlite3_errmsg(MFBSqlLite.current));
     
     while (sqlite3_step(sqlCpt) == SQLITE_ROW)
     {

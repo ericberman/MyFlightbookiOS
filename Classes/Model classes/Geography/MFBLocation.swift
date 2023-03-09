@@ -58,10 +58,10 @@ import Foundation
 #if targetEnvironment(simulator)
 #warning("GPS SIM IS ON!!!")
 #else
-#warning("Debug, but GPS SIM is NOT on (using real GPS)")
+#warning("Debug, but using HARDWARE GPS")
 #endif
 #else
-#warning("Not DEBUG - Retail - GPS sim is NOT on")
+#warning("RELEASE BUILD - HARDWARE GPS")
 #endif // if debug
 
     // if debug and on the simulator, use fake GPS when starting engine otherwise, use the real thing.
