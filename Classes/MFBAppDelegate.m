@@ -43,6 +43,20 @@
 #warning RELEASE BUILD!
 #endif
 
+#ifdef DEBUG
+#define EXF_LOGGING NO
+
+// iRATE values:
+#define MIN_IRATE_EVENTS    2
+#define MIN_IRATE_DAYS  0.01
+#define MIN_IRATE_USES  4
+#else
+#define EXF_LOGGING NO
+#define MIN_IRATE_EVENTS    5
+#define MIN_IRATE_DAYS      10
+#define MIN_IRATE_USES      10
+#endif
+
 @interface MFBAppDelegate ()
 @property (nonatomic, strong) NSTimer * timerSyncState;
 @property (strong) IBOutlet UITabBarItem * tbiRecent;
@@ -142,6 +156,10 @@ BOOL gLogging = EXF_LOGGING;
 }
 
 #pragma mark database functions
+
+// degrees * pi over 180
+#define DEG2RAD(degrees) (degrees * 0.0174532925199433)
+
 static void distanceFunc(sqlite3_context * context, int argc, sqlite3_value **argv)
 {
 	// thanks to http://www.thismuchiknow.co.uk/?p=71 for this code & instructions.
@@ -650,7 +668,7 @@ static MFBAppDelegate * _mainApp = nil;
     
     // Launch any refresh tasks, but don't wait for response
     Aircraft * aircraft = Aircraft.sharedAircraft;
-    if ([aircraft cacheStatus:self.userProfile.AuthToken] != cacheValid && [self isOnLine])
+    if ([aircraft cacheStatus:self.userProfile.AuthToken] != CacheStatusValid && [self isOnLine])
         [NSThread detachNewThreadSelector:@selector(refreshIfNeeded) toTarget:aircraft withObject:nil];
 }
 

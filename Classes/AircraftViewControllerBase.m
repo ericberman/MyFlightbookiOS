@@ -70,10 +70,10 @@
 - (void) submitImagesWorker:(NSArray *) ar {
     @autoreleasepool {
         BOOL fIsNew = self.ac.isNew;
-        NSString * targetURL = fIsNew ? MFBAIRCRAFTIMAGEUPLOADPAGENEW : MFBAIRCRAFTIMAGEUPLOADPAGE;
+        NSString * targetURL = fIsNew ? MFBConstants.MFBAIRCRAFTIMAGEUPLOADPAGENEW : MFBConstants.MFBAIRCRAFTIMAGEUPLOADPAGE;
         NSString * key = fIsNew ? ac.TailNumber : ac.AircraftID.stringValue;
         [CommentedImage uploadImages:self.rgImages progressUpdate:^(NSString * sz) { self.progress.title = sz; }
-                              toPage:targetURL authString:[MFBAppDelegate threadSafeAppDelegate].userProfile.AuthToken keyName:MFB_KEYAIRCRAFTIMAGE keyValue:key];
+                              toPage:targetURL authString:[MFBAppDelegate threadSafeAppDelegate].userProfile.AuthToken keyName:MFBConstants.MFB_KEYAIRCRAFTIMAGE keyValue:key];
         [self performSelectorOnMainThread:@selector(imagesComplete:) withObject:ar waitUntilDone:NO];
     }
 }

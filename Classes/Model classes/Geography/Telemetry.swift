@@ -263,10 +263,10 @@ import Foundation
         // We need to derive an average speed.  But no need to compute - just assume constant speed.  This is in nm
         let distanceM = clFrom.distance(from: clTo)
         let speedMS = distanceM / ts    // distance in meters divided by time in seconds.  We know ts > 0 because of check for date order above
-        let distanceNM = NM_IN_A_METER * distanceM
+        let distanceNM = MFBConstants.NM_IN_A_METER * distanceM
         
         // low distance (< 1nm) is probably pattern work - just pick a decent speed.  If you actually go somewhere, then derive a speed.
-        let speedKts = (distanceNM < 1.0) ? 150 : speedMS * MPS_TO_KNOTS;
+        let speedKts = (distanceNM < 1.0) ? 150 : speedMS * MFBConstants.MPS_TO_KNOTS;
         
         // Add a few stopped fields at the end to make it clear that there's a full-stop.  Separate them by a few seconds each.
         
@@ -514,7 +514,7 @@ internal enum KMLArrayContext : Int {
                     cml.horizontalAccuracy = acc
                 case .Speed:
                     if let speedInKts = numberFormatter.number(from: elementInProgress)?.doubleValue {
-                        cml.addSpeed(speedInKts / MPS_TO_KNOTS)
+                        cml.addSpeed(speedInKts / MFBConstants.MPS_TO_KNOTS)
                         self.hasSpeed = true
                     }
                 default:
@@ -656,7 +656,7 @@ internal enum KMLArrayContext : Int {
             let Latitude = Double(rgLine[0])!
             let Longitude = Double(rgLine[1])!
             let Altitude = Double(rgLine[2])!
-            let Speed = Double(rgLine[3])! / MPS_TO_KNOTS
+            let Speed = Double(rgLine[3])! / MFBConstants.MPS_TO_KNOTS
             let HError = Double(rgLine[4])!
             var dt = df.date(from: rgLine[5])!
             if (rgLine.count > 7) {
@@ -693,7 +693,7 @@ internal enum KMLArrayContext : Int {
             sz.append(String(format: "%.8F,%.8F,%d,%.1F,%.1F,%@\r\n",
                              cl.coordinate.latitude,
                              cl.coordinate.longitude,
-                             Int(cl.altitude * METERS_TO_FEET),
+                             Int(cl.altitude * MFBConstants.METERS_TO_FEET),
                              cl.speed,
                              cl.horizontalAccuracy,
                              df.string(from: cl.timestamp)))

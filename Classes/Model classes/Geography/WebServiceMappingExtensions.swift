@@ -76,7 +76,7 @@ extension MFBWebServiceSvc_airport : MKAnnotation {
             // try to compute the distance
             let cloc = lastLoc!.coordinate
             if (cloc.latitude != 0.0 && cloc.longitude != 0.0) {
-                dist = NM_IN_A_METER * lastLoc!.distance(from: CLLocation(latitude: Double(latitude) ?? 0.0, longitude: Double(longitude) ?? 0.0))
+                dist = MFBConstants.NM_IN_A_METER * lastLoc!.distance(from: CLLocation(latitude: Double(latitude) ?? 0.0, longitude: Double(longitude) ?? 0.0))
             }
         }
         let szDistance = String(format: String(localized: " (%.1fNM away)", comment: "Distance to airport - %.1f is replaced by the distance in nautical miles"), dist)
@@ -100,7 +100,7 @@ extension MFBWebServiceSvc_airport : MKAnnotation {
         ap.facilityType = "FX"
         ap.facilityTypeCode = "FX"
         
-        ap.distanceFromPosition = NSNumber(floatLiteral: NM_IN_A_METER * (loc == nil ? 0 : loc!.distance(from: CLLocation(latitude: ll!.latitude.doubleValue, longitude: ll!.longitude.doubleValue))))
+        ap.distanceFromPosition = NSNumber(floatLiteral: MFBConstants.NM_IN_A_METER * (loc == nil ? 0 : loc!.distance(from: CLLocation(latitude: ll!.latitude.doubleValue, longitude: ll!.longitude.doubleValue))))
         ap.name = ll!.description
         ap.code = szLatLon
         ap.userName = ""

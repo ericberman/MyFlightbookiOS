@@ -190,7 +190,7 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
     Airports * ap = [[Airports alloc] init];
     double maxDist = [ap maxDistanceOnRoute:self.entryData.Route];
     
-    BOOL fIsCC = (maxDist >= CROSS_COUNTRY_THRESHOLD);
+    BOOL fIsCC = (maxDist >= MFBConstants.CROSS_COUNTRY_THRESHOLD);
 
     self.entryData.CrossCountry = @((fIsCC && dtTotal > 0) ? dtTotal : 0.0);
     return YES;
@@ -547,7 +547,7 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
         {
             [CommentedImage uploadImages:self.rgPicsForFlight progressUpdate:^(NSString * sz) {
                 self.progressLabel.text = sz;
-            } toPage:MFBFLIGHTIMAGEUPLOADPAGE authString:self.szAuthToken keyName:MFB_KEYFLIGHTIMAGE keyValue:[self.entryData.FlightID stringValue]];
+            } toPage:MFBConstants.MFBFLIGHTIMAGEUPLOADPAGE authString:self.szAuthToken keyName:MFBConstants.MFB_KEYFLIGHTIMAGE keyValue:[self.entryData.FlightID stringValue]];
 
             // If this was a pending flight, it will be in the pending flight list.  Remove it, if so.
             [[MFBAppDelegate threadSafeAppDelegate] dequeueUnsubmittedFlight:self];

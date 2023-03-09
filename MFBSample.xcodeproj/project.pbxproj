@@ -215,6 +215,7 @@
 		9A825DF7193677EA00967DF9 /* ProgressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A825DF6193677EA00967DF9 /* ProgressCell.xib */; };
 		9A8407A316FBA9E300EA1211 /* Collapsed.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A8407A116FBA9E300EA1211 /* Collapsed.png */; };
 		9A8407A416FBA9E300EA1211 /* Collapsed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A8407A216FBA9E300EA1211 /* Collapsed@2x.png */; };
+		9A84363229B98AA70001012D /* MFBConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A84363129B98AA70001012D /* MFBConstants.swift */; };
 		9A84718A11EBE3EE00395608 /* Icon-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A84718911EBE3EE00395608 /* Icon-iPad.png */; };
 		9A897FC711B7299F00E98C93 /* mfb.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FC611B7299F00E98C93 /* mfb.sqlite */; };
 		9A897FDE1666919100D9019C /* centermap@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FDD1666919000D9019C /* centermap@2x.png */; };
@@ -771,6 +772,7 @@
 		9A825DF6193677EA00967DF9 /* ProgressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProgressCell.xib; sourceTree = "<group>"; };
 		9A8407A116FBA9E300EA1211 /* Collapsed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Collapsed.png; sourceTree = "<group>"; };
 		9A8407A216FBA9E300EA1211 /* Collapsed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Collapsed@2x.png"; sourceTree = "<group>"; };
+		9A84363129B98AA70001012D /* MFBConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFBConstants.swift; sourceTree = "<group>"; };
 		9A84718911EBE3EE00395608 /* Icon-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad.png"; sourceTree = "<group>"; };
 		9A87F50F1BD1627700F9479D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/about.strings; sourceTree = "<group>"; };
 		9A87F5121BD172AB00F9479D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AccessoryBar.strings; sourceTree = "<group>"; };
@@ -1693,6 +1695,7 @@
 				9A8EE98429A9B5CA00F133CF /* SwiftHackBridge.h */,
 				9A8EE98229A9B5A800F133CF /* SwiftHackBridge.m */,
 				9A8EE98529AA676B00F133CF /* UserProfile.swift */,
+				9A84363129B98AA70001012D /* MFBConstants.swift */,
 			);
 			path = "Model classes";
 			sourceTree = "<group>";
@@ -2437,6 +2440,7 @@
 				9A8EE98329A9B5A800F133CF /* SwiftHackBridge.m in Sources */,
 				9A23CFA816F53B5E001C9098 /* ButtonCell.m in Sources */,
 				9ADB297216F62344008D9582 /* TextCell.m in Sources */,
+				9A84363229B98AA70001012D /* MFBConstants.swift in Sources */,
 				9ADB297816F666BD008D9582 /* NewUserTableController.m in Sources */,
 				9ADB297D16F69377008D9582 /* CheckboxCell.m in Sources */,
 				9A14335F29A99231007129A9 /* HostedWebViewController.swift in Sources */,

@@ -258,7 +258,7 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
                 CLLocation * locVA = [[CLLocation alloc] initWithLatitude:[va.Airport.Latitude doubleValue] longitude:[va.Airport.Longitude doubleValue]];
 
                 if ([app.mfbloc.lastSeenLoc respondsToSelector:@selector(distanceFromLocation:)])
-                    va.Airport.DistanceFromPosition = @([app.mfbloc.lastSeenLoc distanceFromLocation:locVA] * NM_IN_A_METER);
+                    va.Airport.DistanceFromPosition = @([app.mfbloc.lastSeenLoc distanceFromLocation:locVA] * MFBConstants.NM_IN_A_METER);
                 else
                     va.Airport.DistanceFromPosition = @0.0;
             }

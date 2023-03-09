@@ -102,9 +102,9 @@ import MapKit
         case .kts:
             return String.localizedStringWithFormat(String(localized: "%.1fkts", comment: "Speed in knots.  '%.1f' is replaced by the actual speed; leave it there."), s)
         case .kph:
-            return String.localizedStringWithFormat(String(localized: "%.1fkm/h", comment: "Speed in kph"), s * KTS_TO_KPH)
+            return String.localizedStringWithFormat(String(localized: "%.1fkm/h", comment: "Speed in kph"), s * MFBConstants.KTS_TO_KPH)
         case .mph:
-            return String.localizedStringWithFormat(String(localized: "%.1fmph", comment: "Speed in mph"), s * KTS_TO_MPH)
+            return String.localizedStringWithFormat(String(localized: "%.1fmph", comment: "Speed in mph"), s * MFBConstants.KTS_TO_MPH)
         default:
             return ""
         }
@@ -130,7 +130,7 @@ import MapKit
     func formatMetersAlt(_ alt : Double ) -> String {
         switch (self) {
         case .feet:
-            return String.localizedStringWithFormat("%.1f%@",  round(alt * METERS_TO_FEET), String(localized: "ft", comment: "Feet"))
+            return String.localizedStringWithFormat("%.1f%@",  round(alt * MFBConstants.METERS_TO_FEET), String(localized: "ft", comment: "Feet"))
         case .meters:
             return String.localizedStringWithFormat("%.1f%@",  round(alt), String(localized: "meters", comment: "meters"))
         default:

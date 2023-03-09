@@ -104,7 +104,7 @@ import Foundation
             Password.isEmpty ||
             !self.isValid() ||
             szUserCached != UserName) {
-            return cacheInvalid
+            return .invalid
         }
          
         let timestampAuthCache = ud.double(forKey: _szKeyCachedTokenRetrievalDate) as TimeInterval
@@ -113,18 +113,18 @@ import Foundation
         // credentials are valid if
         // (a) we have a cached auth token,
         // (b) it is still valid.
-        if (!AuthToken.isEmpty && timeSinceLastAuth < Double(CACHE_LIFETIME)) {
-            return (timeSinceLastAuth < Double(CACHE_REFRESH) || !SwiftHackBridge.isOnline()) ? cacheValid : cacheValidButRefresh
+        if (!AuthToken.isEmpty && timeSinceLastAuth < Double(MFBConstants.CACHE_LIFETIME)) {
+            return (timeSinceLastAuth < Double(MFBConstants.CACHE_REFRESH) || !SwiftHackBridge.isOnline()) ? .valid : .validButRefresh
         }
         
-        return cacheInvalid;
+        return .invalid;
 
     }
     
     @discardableResult @objc public func RefreshAuthToken() -> Bool {
         let cacheStat = cacheStatus()
         
-        if (cacheStat == cacheValid) {    // nothing to do
+        if (cacheStat == .valid) {    // nothing to do
             return true
         }
             

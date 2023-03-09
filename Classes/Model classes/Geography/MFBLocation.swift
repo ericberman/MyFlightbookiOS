@@ -259,7 +259,7 @@ import Foundation
      */
     
     func recordLocation(_ loc : CLLocation, withEvent szEvent : String) {
-        let s = loc.speed * MPS_TO_KNOTS
+        let s = loc.speed * MFBConstants.MPS_TO_KNOTS
         if (fRecordFlightData && !fRecordingIsPaused && !fSuppressAllRecording) {
             // write a header row if none present
             if (flightTrackData.isEmpty) {
@@ -273,7 +273,7 @@ import Foundation
                                locale: locNeutral,
                                loc.coordinate.latitude,
                                loc.coordinate.longitude,
-                               Int(loc.altitude * METERS_TO_FEET),
+                               Int(loc.altitude * MFBConstants.METERS_TO_FEET),
                                s,
                                loc.horizontalAccuracy,
                                df.string(from: loc.timestamp),
@@ -334,7 +334,7 @@ import Foundation
     }
     
     func newLocation(_ newLocation : CLLocation) {
-        let s = newLocation.speed * MPS_TO_KNOTS
+        let s = newLocation.speed * MFBConstants.MPS_TO_KNOTS
         let acc = newLocation.horizontalAccuracy
         var szEvent = ""
         let fValidSpeed = (s >= 0)
@@ -458,7 +458,7 @@ import Foundation
             sw.latDisplay = lastSeenLoc?.coordinate.latitude.asLatString()
             sw.lonDisplay = lastSeenLoc?.coordinate.longitude.asLonString()
             sw.flightstatus = currentFlightState.localizedName()
-            sw.speedDisplay = UserPreferences.current.speedUnits.formatSpeedMpS((lastSeenLoc?.speed ?? 0) * MPS_TO_KNOTS)
+            sw.speedDisplay = UserPreferences.current.speedUnits.formatSpeedMpS((lastSeenLoc?.speed ?? 0))
             sw.altDisplay = UserPreferences.current.altitudeUnits.formatMetersAlt(lastSeenLoc?.altitude ?? 0)
             SwiftHackBridge.updateWatchContext()
         }

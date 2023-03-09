@@ -184,7 +184,7 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
     NSArray * rgAircraftCached = [self cachedAircraft];
     
     if (rgAircraftCached == nil)
-        return cacheInvalid;
+        return CacheStatusInvalid;
     
     // ensure that the aircraft array is at least initialized
     if (self.rgAircraftForUser == nil)
@@ -200,15 +200,15 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
 	// (c) less than the cache lifetime has passed.
 	if (rgAircraftCached != nil && self.rgAircraftForUser != nil &&
 		szCachedToken != nil && [szCachedToken compare:szAuthToken] == NSOrderedSame &&
-		timeSinceLastRefresh < CACHE_LIFETIME)
+		timeSinceLastRefresh < MFBConstants.CACHE_LIFETIME)
     {
-        if (timeSinceLastRefresh < CACHE_REFRESH || ![[MFBAppDelegate threadSafeAppDelegate] isOnLine])
-            return cacheValid;
+        if (timeSinceLastRefresh < MFBConstants.CACHE_REFRESH || ![[MFBAppDelegate threadSafeAppDelegate] isOnLine])
+            return CacheStatusValid;
         else
-            return cacheValidButRefresh;
+            return CacheStatusValidButRefresh;
     }
 
-    return cacheInvalid;
+    return CacheStatusInvalid;
 }
 
 - (void) loadAircraftForUser:(BOOL) forceRefresh
@@ -219,7 +219,7 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
 
     switch ([self cacheStatus:szAuthToken])
     {
-        case cacheValid:
+        case CacheStatusValid:
             NSLog(@"Cached aircraft are valid; using cached aircraft");
             if (!forceRefresh)
             {
@@ -227,11 +227,11 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
                 return;
             }
             break;
-        case cacheValidButRefresh:
+        case CacheStatusValidButRefresh:
             NSLog(@"Cached aircraft list is valid, but a refresh attempt will be made.");
             break;
         default:
-        case cacheInvalid:
+        case CacheStatusInvalid:
             NSLog(@"loadAircraftForUser - cache not valid");
             break;
     }
@@ -336,7 +336,7 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
         {
             // see if this was a refresh attempt.  If so, and if we have a set of aircraft to fall back upon, then we can fall
             // back on the cache and treat it as a non-error
-            if ([self cacheStatus:MFBAppDelegate.threadSafeAppDelegate.userProfile.AuthToken] != cacheInvalid && self.rgAircraftForUser != nil)
+            if ([self cacheStatus:MFBAppDelegate.threadSafeAppDelegate.userProfile.AuthToken] != CacheStatusInvalid && self.rgAircraftForUser != nil)
                 self.errorString = @"";
         }
     }

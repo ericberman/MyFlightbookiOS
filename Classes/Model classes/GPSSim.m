@@ -240,7 +240,7 @@
         if (blockOut != nil && blockIn != nil) {
             // generate synthetic path IF we have exactly two airports
             Airports * ap = [Airports new];
-            fSetXC = ([ap maxDistanceOnRoute:le.entryData.Route] > CROSS_COUNTRY_THRESHOLD);    // maxDistanceOnRoute will call loadAirports.
+            fSetXC = ([ap maxDistanceOnRoute:le.entryData.Route] > MFBConstants.CROSS_COUNTRY_THRESHOLD);    // maxDistanceOnRoute will call loadAirports.
             
             // issue #286: don't do a synthetic path if autodetection is off because it will clear a bunch of fields but won't fill them back in.
             if (ap.rgAirports.count == 2 && UserPreferences.current.autodetectTakeoffs) {

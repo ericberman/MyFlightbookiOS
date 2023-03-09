@@ -1478,7 +1478,7 @@ static NSDateFormatter * dfSunriseSunset = nil;
 // Location manager delegates
 - (void) newLocation:(CLLocation *)newLocation
 {	
-	CLLocationSpeed s = newLocation.speed * MPS_TO_KNOTS;
+	CLLocationSpeed s = newLocation.speed * MFBConstants.MPS_TO_KNOTS;
 	BOOL fValidSpeed = (s >= 0);
 	BOOL fValidQuality = NO;
 	CLLocationAccuracy acc = newLocation.horizontalAccuracy;

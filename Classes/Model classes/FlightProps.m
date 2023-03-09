@@ -173,9 +173,9 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
 - (int) cacheStatus
 {
     if (self.rgPropTypes == nil || [self.rgPropTypes count] == 0)
-        return cacheInvalid;
+        return CacheStatusInvalid;
     
-    return (hasLoadedThisSession ? cacheValid : cacheValidButRefresh);
+    return (hasLoadedThisSession ? CacheStatusValid : CacheStatusValidButRefresh);
 }
 
 - (NSMutableArray *) propertiesFromDB
@@ -227,15 +227,15 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
     CacheStatus cs = self.cacheStatus;
     switch (cs)
     {
-        case cacheValid:
+        case CacheStatusValid:
             NSLog(@"loadCustomPropertyTypes - Using cached properties");
             return;
-        case cacheValidButRefresh:
+        case CacheStatusValidButRefresh:
             if (!fNetworkAvail)
                 return;
             NSLog(@"loadCustomPropertyTypes - cache is valid, but going to refresh");
             break;
-        case cacheInvalid:
+        case CacheStatusInvalid:
             // Use from DB by default - in case we are off-line, or there is some other failure
             if (self.rgPropTypes == nil || self.rgPropTypes.count == 0) {
                 [self setPropTypeArray:[self propertiesFromDB]];
@@ -453,7 +453,7 @@ NSString * const _szKeyPrefsLockedTypes = @"keyPrefsLockedTypes";
 + (FlightProps *) getFlightPropsNoNet
 {
     FlightProps * fp = [[FlightProps alloc] init];
-    if ([fp cacheStatus] == cacheInvalid)
+    if ([fp cacheStatus] == CacheStatusInvalid)
         [fp setPropTypeArray:[fp propertiesFromDB]];
     else
         [fp setPropTypeArray:[fp cachedProps]];
