@@ -18,12 +18,9 @@ import SQLite3
     
     private init(_ row: OpaquePointer!) {
         ID = Int(sqlite3_column_int(row, 0))
-        var sz = sqlite3_column_text(row, 1)
-        Prefix = sz == nil ? "" : String(cString: sz!)
-        sz = sqlite3_column_text(row, 2)
-        LocaleCode = sz == nil ? "" : String(cString: sz!)
-        sz = sqlite3_column_text(row, 3)
-        CountryName = sz == nil ? "" : String(cString: sz!)
+        Prefix = String.stringFromCharsThatCouldBeNull(sqlite3_column_text(row, 1))
+        LocaleCode = String.stringFromCharsThatCouldBeNull(sqlite3_column_text(row, 2))
+        CountryName = String.stringFromCharsThatCouldBeNull(sqlite3_column_text(row, 3))
         super.init()
     }
     

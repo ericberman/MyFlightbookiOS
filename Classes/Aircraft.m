@@ -28,7 +28,6 @@
 #import "Aircraft.h"
 #import "MFBAppDelegate.h"
 #import "WPSAlertController.h"
-#import "CountryCode.h"
 
 @interface Aircraft ()
 @property (assign) int aircraftIDPreferred;

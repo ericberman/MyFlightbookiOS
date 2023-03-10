@@ -1397,6 +1397,7 @@
 			isa = PBXGroup;
 			children = (
 				9A84363629BAB0540001012D /* CountryCode.swift */,
+				9A27222F29B53861006AE702 /* FlightProps.swift */,
 			);
 			path = "Logbook Model";
 			sourceTree = "<group>";
@@ -1679,7 +1680,6 @@
 				9A21D5CA2214D1E300961605 /* BadElfSession.swift */,
 				9A1213B1111D3113001CDDB6 /* CommentedImage.h */,
 				9A1213B2111D3113001CDDB6 /* CommentedImage.m */,
-				9A27222F29B53861006AE702 /* FlightProps.swift */,
 				9A79504011E56C7F0070A386 /* FlightProps.h */,
 				9A79504111E56C7F0070A386 /* FlightProps.m */,
 				9A565B6813E351C200BEFFA7 /* GPSSim.h */,

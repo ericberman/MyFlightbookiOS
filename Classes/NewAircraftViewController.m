@@ -30,7 +30,6 @@
 #import "MakeModel.h"
 #import "ImageComment.h"
 #import "CheckboxCell.h"
-#import "CountryCode.h"
 #import "WPSAlertController.h"
 
 @interface NewAircraftViewController ()

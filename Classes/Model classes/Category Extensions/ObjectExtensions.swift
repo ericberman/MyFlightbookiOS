@@ -593,6 +593,10 @@ extension String {
     let endIndex = self.index(startIndex, offsetBy: r.upperBound - r.lowerBound)
     return String(self[startIndex...endIndex])
   }
+    
+    public static func stringFromCharsThatCouldBeNull(_ pch : UnsafePointer<UInt8>?) -> String {
+        return pch == nil ? "" : String(cString: pch!)
+    }
 }
 
 // MARK: Double extensions
