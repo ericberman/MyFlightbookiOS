@@ -21,6 +21,7 @@
 		9A0C938511E63A850062AF27 /* FlightProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C938311E63A850062AF27 /* FlightProperties.m */; };
 		9A0DD9F8158579BE00FB6DF2 /* FixedImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0DD9F7158579BE00FB6DF2 /* FixedImageCell.m */; };
 		9A0E793D29BD76F4005EF4D6 /* ApproachDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0E793C29BD76F4005EF4D6 /* ApproachDescription.swift */; };
+		9A0E794029BE2F4F005EF4D6 /* MFBWebService LogbookEntry Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0E793F29BE2F4F005EF4D6 /* MFBWebService LogbookEntry Extensions.swift */; };
 		9A0EDBC31288FD9C00153C6E /* Default-Landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A0EDBC01288FD9C00153C6E /* Default-Landscape.png */; };
 		9A0EDBC41288FD9C00153C6E /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A0EDBC11288FD9C00153C6E /* Default-Portrait.png */; };
 		9A0EDBDF1289021100153C6E /* Default-PortraitUpsideDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A0EDBDE1289021100153C6E /* Default-PortraitUpsideDown.png */; };
@@ -553,6 +554,7 @@
 		9A0DD9F6158579BE00FB6DF2 /* FixedImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixedImageCell.h; sourceTree = "<group>"; };
 		9A0DD9F7158579BE00FB6DF2 /* FixedImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FixedImageCell.m; sourceTree = "<group>"; };
 		9A0E793C29BD76F4005EF4D6 /* ApproachDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApproachDescription.swift; sourceTree = "<group>"; };
+		9A0E793F29BE2F4F005EF4D6 /* MFBWebService LogbookEntry Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MFBWebService LogbookEntry Extensions.swift"; sourceTree = "<group>"; };
 		9A0EDBC01288FD9C00153C6E /* Default-Landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape.png"; sourceTree = "<group>"; };
 		9A0EDBC11288FD9C00153C6E /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = "<group>"; };
 		9A0EDBDE1289021100153C6E /* Default-PortraitUpsideDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-PortraitUpsideDown.png"; sourceTree = "<group>"; };
@@ -1388,6 +1390,7 @@
 				9AC2C80129A3E3D600A702B2 /* ObjectExtensions.swift */,
 				9A14334529A54991007129A9 /* MFBWebServiceObjectExtensions.swift */,
 				9AEFF6E229BD2A4600B07B13 /* MFBWebService PropertyExtensions.swift */,
+				9A0E793F29BE2F4F005EF4D6 /* MFBWebService LogbookEntry Extensions.swift */,
 			);
 			path = "Category Extensions";
 			sourceTree = "<group>";
@@ -2445,6 +2448,7 @@
 				9AEFF6E329BD2A4600B07B13 /* MFBWebService PropertyExtensions.swift in Sources */,
 				9A23CFA416F50C57001C9098 /* SignInControllerViewController.m in Sources */,
 				9A8EE98329A9B5A800F133CF /* SwiftHackBridge.m in Sources */,
+				9A0E794029BE2F4F005EF4D6 /* MFBWebService LogbookEntry Extensions.swift in Sources */,
 				9A23CFA816F53B5E001C9098 /* ButtonCell.m in Sources */,
 				9ADB297216F62344008D9582 /* TextCell.m in Sources */,
 				9A84363229B98AA70001012D /* MFBConstants.swift in Sources */,

@@ -595,8 +595,10 @@ static NSArray * rgAllCockpitRows = nil;
     EditCell * ec = [self owningCell:sender];
     NSInteger row = [self cellIDFromIndexPath:[self.tableView indexPathForCell:ec]];
     NSNumber * propTypeID = (row == rowTachStart) ? @(PropTypeIDTachStart) : @(PropTypeIDTachEnd);
-    if (sender.value.intValue == 0)
-        [self.le.entryData removeProperty:propTypeID withServerAuth:mfbApp().userProfile.AuthToken deleteSvc:self.flightProps]; // delete if default value
+    if (sender.value.intValue == 0) {
+        NSError * err = nil;
+        [self.le.entryData removeProperty:propTypeID withServerAuth:mfbApp().userProfile.AuthToken deleteSvc:self.flightProps error:&err]; // delete if default value
+    }
     else
         [self.le.entryData setPropertyValue:propTypeID withDecimal:sender.value];
 }
@@ -852,7 +854,8 @@ static NSArray * rgAllCockpitRows = nil;
         }
         else if (indexPath.section == sectProperties)
         {
-            [self.le.entryData removeProperty:self.propsForPropsSection[indexPath.row - 1].PropTypeID withServerAuth:mfbApp().userProfile.AuthToken deleteSvc:self.flightProps];
+            NSError * err = nil;
+            [self.le.entryData removeProperty:self.propsForPropsSection[indexPath.row - 1].PropTypeID withServerAuth:mfbApp().userProfile.AuthToken deleteSvc:self.flightProps error:&err];
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         }
 	}
@@ -1629,8 +1632,10 @@ static NSDateFormatter * dfSunriseSunset = nil;
                 break;
             case rowBlockOut:
             case rowBlockIn:
-                if ([NSDate isUnknownDate:sender.date])
-                    [self.le.entryData removeProperty:[self propIDFromCockpitRow:row] withServerAuth:mfbApp().userProfile.AuthToken deleteSvc:self.flightProps];
+                if ([NSDate isUnknownDate:sender.date]) {
+                    NSError * err = nil;
+                    [self.le.entryData removeProperty:[self propIDFromCockpitRow:row] withServerAuth:mfbApp().userProfile.AuthToken deleteSvc:self.flightProps error: &err];
+                }
                 else {
                     [self.le.entryData setPropertyValue:[self propIDFromCockpitRow:row] withDate:sender.date];
                     if (row == rowBlockOut)
@@ -1718,8 +1723,10 @@ static NSDateFormatter * dfSunriseSunset = nil;
             case rowBlockOut:
             case rowBlockIn:
             case rowTachStart:
-            case rowTachEnd:
-                [self.le.entryData removeProperty:[self propIDFromCockpitRow:row] withServerAuth:mfbApp().userProfile.AuthToken deleteSvc:self.flightProps];
+            case rowTachEnd: {
+                NSError * err = nil;
+                [self.le.entryData removeProperty:[self propIDFromCockpitRow:row] withServerAuth:mfbApp().userProfile.AuthToken deleteSvc:self.flightProps error:&err];
+            }
                 break;
         }
         [self autoHobbs];

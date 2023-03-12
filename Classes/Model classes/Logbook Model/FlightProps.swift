@@ -343,6 +343,12 @@ import SQLite3
         return result
     }
     
+    public static func propTypeFromID(_ id : Int) -> MFBWebServiceSvc_CustomPropertyType? {
+        return sharedPropTypes.first { cpt in
+            cpt.propTypeID.intValue == id
+        }
+    }
+    
     @objc public static func stringValueForProperty(_ fp : MFBWebServiceSvc_CustomFlightProperty, withType cpt : MFBWebServiceSvc_CustomPropertyType) -> String {
         var szValue = ""
         

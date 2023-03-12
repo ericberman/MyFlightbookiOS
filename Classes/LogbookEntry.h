@@ -89,40 +89,7 @@
 
 @end
 
-@interface MFBWebServiceSvc_PendingFlight (MFBIPhone)
-- (void)encodeWithCoderMFB:(NSCoder *)encoder;
-- (instancetype)initWithCoderMFB:(NSCoder *)decoder;
-- (MFBWebServiceSvc_LogbookEntry *) clone;
-- (MFBWebServiceSvc_LogbookEntry *) cloneAndReverse;
-@end
-
-@interface MFBWebServiceSvc_LogbookEntry (AutodetectDelegate) <AutoDetectDelegate>
-@end
-
 @interface MFBWebServiceSvc_LogbookEntry (MFBIPhone)
-- (BOOL) isInInitialState;  // checks to see if a flight is empty but for the starting hobbs
-- (BOOL) isEmpty;           // checks to see if a flight is truly empty.
-- (void)encodeWithCoderMFB:(NSCoder *)encoder;
-- (instancetype)initWithCoderMFB:(NSCoder *)decoder;
-+ (MFBWebServiceSvc_LogbookEntry *) getNewLogbookEntry;
-
-- (void) removeProperty:(NSNumber *)idPropType withServerAuth:(NSString *) szAuthToken deleteSvc:(FlightProps *) fp;
-- (void) removeProperty:(NSNumber *) idPropType;
-- (MFBWebServiceSvc_CustomFlightProperty *) getExistingProperty:(NSNumber *) idPropType;
-- (MFBWebServiceSvc_CustomFlightProperty *) addProperty:(NSNumber *) idPropType withInteger:(NSNumber *) intVal;
-- (MFBWebServiceSvc_CustomFlightProperty *) addProperty:(NSNumber *) idPropType withDecimal:(NSNumber *) decVal;
-- (MFBWebServiceSvc_CustomFlightProperty *) addProperty:(NSNumber *) idPropType withString:(NSString *) sz;
-- (MFBWebServiceSvc_CustomFlightProperty *) addProperty:(NSNumber *) idPropType withBool:(BOOL) fBool;
-- (MFBWebServiceSvc_CustomFlightProperty *) addProperty:(NSNumber *) idPropType withDate:(NSDate *) dt;
-- (MFBWebServiceSvc_CustomFlightProperty *) setPropertyValue:(NSNumber *) idPropType withDecimal:(NSNumber *) decVal;
-- (MFBWebServiceSvc_CustomFlightProperty *) setPropertyValue:(NSNumber *) idPropType withDate:(NSDate *) dt;
 - (NSNumber *) xfillValueForPropType:(MFBWebServiceSvc_CustomPropertyType *) cpt;
-
-- (void) addApproachDescription:(NSString *) description;
-- (MFBWebServiceSvc_LogbookEntry *) clone;
-- (MFBWebServiceSvc_LogbookEntry *) cloneAndReverse;
-- (void) sendFlight;
-- (void) shareFlight:(UIBarButtonItem *) sender fromViewController:(UIViewController *) source;
-
 - (NSString *) fromJSONDictionary:(NSDictionary *) dict dateFormatter:(NSDateFormatter *) dfDate dateTimeFormatter:(NSDateFormatter *) dfDateTime;
 @end
