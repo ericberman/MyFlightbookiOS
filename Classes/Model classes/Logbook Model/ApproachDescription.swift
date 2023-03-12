@@ -90,7 +90,7 @@ import Foundation
     
     @objc public override var description: String {
         get {
-            return self.approachCount == 0 ? "" : "\(approachCount)\(approachName.isEmpty ? "" : "-" + approachName)\(runwayName.isEmpty ? "" :"-RWY")\(self.runwayName)\(airportName.isEmpty ? "" : airportName)"
+            return self.approachCount == 0 ? "" : "\(approachCount)\(approachName.isEmpty ? "" : "-" + approachName)\(runwayName.isEmpty ? "" :"-RWY")\(self.runwayName)@\(airportName.isEmpty ? "" : airportName)"
         }
     }
 }
