@@ -20,6 +20,7 @@
 		9A0BF18124743D5E003C2172 /* PackAndGo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0BF18024743D5E003C2172 /* PackAndGo.m */; };
 		9A0C938511E63A850062AF27 /* FlightProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C938311E63A850062AF27 /* FlightProperties.m */; };
 		9A0DD9F8158579BE00FB6DF2 /* FixedImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0DD9F7158579BE00FB6DF2 /* FixedImageCell.m */; };
+		9A0E793D29BD76F4005EF4D6 /* ApproachDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0E793C29BD76F4005EF4D6 /* ApproachDescription.swift */; };
 		9A0EDBC31288FD9C00153C6E /* Default-Landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A0EDBC01288FD9C00153C6E /* Default-Landscape.png */; };
 		9A0EDBC41288FD9C00153C6E /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A0EDBC11288FD9C00153C6E /* Default-Portrait.png */; };
 		9A0EDBDF1289021100153C6E /* Default-PortraitUpsideDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A0EDBDE1289021100153C6E /* Default-PortraitUpsideDown.png */; };
@@ -129,7 +130,6 @@
 		9A4F3B6618177E61009E575C /* Default-Portrait768x1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4F3B6218177E61009E575C /* Default-Portrait768x1024.png */; };
 		9A4F3B6718177E61009E575C /* Default-Portrait1536x2048.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4F3B6318177E61009E575C /* Default-Portrait1536x2048.png */; };
 		9A517E451E2ED4CC00EC3545 /* ApproachEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A517E441E2ED4CC00EC3545 /* ApproachEditor.m */; };
-		9A517E481E2ED68800EC3545 /* ApproachDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A517E471E2ED68800EC3545 /* ApproachDescription.m */; };
 		9A52ECB21B6574D000DE8A83 /* schedule.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A52ECAF1B6574D000DE8A83 /* schedule.png */; };
 		9A52ECB31B6574D000DE8A83 /* schedule@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A52ECB01B6574D000DE8A83 /* schedule@2x.png */; };
 		9A52ECB41B6574D000DE8A83 /* schedule@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A52ECB11B6574D000DE8A83 /* schedule@3x.png */; };
@@ -552,6 +552,7 @@
 		9A0C938311E63A850062AF27 /* FlightProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlightProperties.m; sourceTree = "<group>"; };
 		9A0DD9F6158579BE00FB6DF2 /* FixedImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixedImageCell.h; sourceTree = "<group>"; };
 		9A0DD9F7158579BE00FB6DF2 /* FixedImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FixedImageCell.m; sourceTree = "<group>"; };
+		9A0E793C29BD76F4005EF4D6 /* ApproachDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApproachDescription.swift; sourceTree = "<group>"; };
 		9A0EDBC01288FD9C00153C6E /* Default-Landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape.png"; sourceTree = "<group>"; };
 		9A0EDBC11288FD9C00153C6E /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = "<group>"; };
 		9A0EDBDE1289021100153C6E /* Default-PortraitUpsideDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-PortraitUpsideDown.png"; sourceTree = "<group>"; };
@@ -671,8 +672,6 @@
 		9A50B5901BD73623004F04AF /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LEEditController.strings; sourceTree = "<group>"; };
 		9A517E431E2ED4CC00EC3545 /* ApproachEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApproachEditor.h; sourceTree = "<group>"; };
 		9A517E441E2ED4CC00EC3545 /* ApproachEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApproachEditor.m; sourceTree = "<group>"; };
-		9A517E461E2ED5E900EC3545 /* ApproachDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApproachDescription.h; sourceTree = "<group>"; };
-		9A517E471E2ED68800EC3545 /* ApproachDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApproachDescription.m; sourceTree = "<group>"; };
 		9A52ECAF1B6574D000DE8A83 /* schedule.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = schedule.png; sourceTree = "<group>"; };
 		9A52ECB01B6574D000DE8A83 /* schedule@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "schedule@2x.png"; sourceTree = "<group>"; };
 		9A52ECB11B6574D000DE8A83 /* schedule@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "schedule@3x.png"; sourceTree = "<group>"; };
@@ -1398,6 +1397,7 @@
 			children = (
 				9A84363629BAB0540001012D /* CountryCode.swift */,
 				9A27222F29B53861006AE702 /* FlightProps.swift */,
+				9A0E793C29BD76F4005EF4D6 /* ApproachDescription.swift */,
 			);
 			path = "Logbook Model";
 			sourceTree = "<group>";
@@ -1690,8 +1690,6 @@
 				9A55E543156DB1D10031A215 /* MFBAsyncOperation.m */,
 				9A7FE95B12494F87001A8722 /* Reachability.h */,
 				9A7FE95C12494F87001A8722 /* Reachability.m */,
-				9A517E461E2ED5E900EC3545 /* ApproachDescription.h */,
-				9A517E471E2ED68800EC3545 /* ApproachDescription.m */,
 				9A0BF18024743D5E003C2172 /* PackAndGo.m */,
 				9A0BF18224743D72003C2172 /* PackAndGo.h */,
 				9A5F990429A1CCB500692E27 /* WidgetKitBridge.swift */,
@@ -2388,6 +2386,7 @@
 				9AE39A4C29ABE29D002A6496 /* WebServiceMappingExtensions.swift in Sources */,
 				9AF7AD1B10E1D7DC00A7DD43 /* Totals.m in Sources */,
 				9A14334629A54991007129A9 /* MFBWebServiceObjectExtensions.swift in Sources */,
+				9A0E793D29BD76F4005EF4D6 /* ApproachDescription.swift in Sources */,
 				9AD832CC10E296C8007817A4 /* Currency.m in Sources */,
 				9AE39A4729ABC1C5002A6496 /* Airports.swift in Sources */,
 				9AFAC07B10E5968800225E90 /* NearbyAirports.m in Sources */,
@@ -2452,7 +2451,6 @@
 				9ADB297816F666BD008D9582 /* NewUserTableController.m in Sources */,
 				9ADB297D16F69377008D9582 /* CheckboxCell.m in Sources */,
 				9A14335F29A99231007129A9 /* HostedWebViewController.swift in Sources */,
-				9A517E481E2ED68800EC3545 /* ApproachDescription.m in Sources */,
 				9A60D6CB16F90BDE00F9DFFF /* CollapsibleTable.m in Sources */,
 				9A27222E29B5025C006AE702 /* RouteAnnotation.swift in Sources */,
 				9AB8B349170347BA0012E3CE /* NavigableCell.m in Sources */,
