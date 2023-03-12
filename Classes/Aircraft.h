@@ -42,7 +42,6 @@
 
 + (Aircraft *) sharedAircraft;
 + (NSString *) PrefixSIM;
-+ (NSString *) PrefixAnonymous;
 + (NSString *) aircraftInstanceTypeDisplay:(MFBWebServiceSvc_AircraftInstanceTypes) instanceType;
 
 - (void) setHighWaterTach:(NSNumber *) tach forAircraft:(NSNumber *) aircraftID;
@@ -84,9 +83,6 @@
 - (instancetype)initWithCoderMFB:(NSCoder *)decoder;
 - (NSString *) modelFullDescription;
 + (MFBWebServiceSvc_Aircraft *) getNewAircraft;
-- (BOOL) isNew;
-- (BOOL) isSim;
-- (BOOL) isAnonymous;
 - (BOOL) hasMaintenance;
 - (NSString *) displayTailNumber;
 - (NSDate *) nextVOR;

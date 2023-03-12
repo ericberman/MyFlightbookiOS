@@ -28,7 +28,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "ImageComment.h"
-#import "FlightProps.h"
 #import "FlightProperties.h"
 #import "PropertyCell.h"
 #import "ButtonCell.h"
@@ -453,13 +452,13 @@ enum nextTime {timeHobbsStart, timeEngineStart, timeFlightStart, timeFlightEnd, 
 - (NSNumber *) propIDFromCockpitRow:(NSInteger) row {
     switch (row) {
         case rowBlockIn:
-            return @PropTypeID_BlockIn;
+            return @(PropTypeIDBlockIn);
         case rowBlockOut:
-            return @PropTypeID_BlockOut;
+            return @(PropTypeIDBlockOut);
         case rowTachStart:
-            return @PropTypeID_TachStart;
+            return @(PropTypeIDTachStart);
         case rowTachEnd:
-            return @PropTypeID_TachEnd;
+            return @(PropTypeIDTachEnd);
         default:
             @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:[NSString stringWithFormat:@"row %li doesn't correspond to a property row", (long)row] userInfo:nil];
     }
@@ -504,11 +503,11 @@ static NSArray * rgAllCockpitRows = nil;
 - (NSArray<MFBWebServiceSvc_CustomFlightProperty *> *) propsForPropsSection {
     return [self.le.entryData.CustomProperties.CustomFlightProperty filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(MFBWebServiceSvc_CustomFlightProperty * _Nullable cfp, NSDictionary<NSString *,id> * _Nullable bindings) {
         switch (cfp.PropTypeID.intValue) {
-            case PropTypeID_BlockOut:
-            case PropTypeID_BlockIn:
+            case PropTypeIDBlockOut:
+            case PropTypeIDBlockIn:
                 return !UserPreferences.current.showBlock;
-            case PropTypeID_TachStart:
-            case PropTypeID_TachEnd:
+            case PropTypeIDTachStart:
+            case PropTypeIDTachEnd:
                 return !UserPreferences.current.showTach;
             default:
                 return YES;
@@ -595,7 +594,7 @@ static NSArray * rgAllCockpitRows = nil;
 - (void) tachChanged:(UITextField *) sender {
     EditCell * ec = [self owningCell:sender];
     NSInteger row = [self cellIDFromIndexPath:[self.tableView indexPathForCell:ec]];
-    NSNumber * propTypeID = (row == rowTachStart) ? @(PropTypeID_TachStart) : @(PropTypeID_TachEnd);
+    NSNumber * propTypeID = (row == rowTachStart) ? @(PropTypeIDTachStart) : @(PropTypeIDTachEnd);
     if (sender.value.intValue == 0)
         [self.le.entryData removeProperty:propTypeID withServerAuth:mfbApp().userProfile.AuthToken deleteSvc:self.flightProps]; // delete if default value
     else
@@ -649,21 +648,21 @@ static NSArray * rgAllCockpitRows = nil;
         case rowFlightEnd:
             return [self dateCell:self.le.entryData.FlightEnd withPrompt:NSLocalizedString(@"Last Landing:", @"Last Landing prompt") forTableView:self.tableView inflated:NO];
         case rowTachStart: {
-            MFBWebServiceSvc_CustomFlightProperty * cfp = [self.le.entryData getExistingProperty:@(PropTypeID_TachStart)];
+            MFBWebServiceSvc_CustomFlightProperty * cfp = [self.le.entryData getExistingProperty:@(PropTypeIDTachStart)];
             EditCell * dcell = [self decimalCell:tableView withPrompt:NSLocalizedString(@"TachStart", @"Tach Start prompt") andValue:(cfp == nil) ? @(0) : cfp.DecValue selector:@selector(tachChanged:) andInflation:NO];
             [self enableLongPressForField:dcell.txt withSelector:@selector(setHighWaterTach:)];
             return dcell;
         }
         case rowTachEnd: {
-            MFBWebServiceSvc_CustomFlightProperty * cfp = [self.le.entryData getExistingProperty:@(PropTypeID_TachEnd)];
+            MFBWebServiceSvc_CustomFlightProperty * cfp = [self.le.entryData getExistingProperty:@(PropTypeIDTachEnd)];
             return [self decimalCell:tableView withPrompt:NSLocalizedString(@"TachEnd", @"Tach End prompt") andValue:(cfp == nil) ? @(0) : cfp.DecValue selector:@selector(tachChanged:) andInflation:NO];
         }
         case rowBlockOut: {
-            MFBWebServiceSvc_CustomFlightProperty * cfp = [self.le.entryData getExistingProperty:@(PropTypeID_BlockOut)];
+            MFBWebServiceSvc_CustomFlightProperty * cfp = [self.le.entryData getExistingProperty:@(PropTypeIDBlockOut)];
             return [self dateCell:cfp.DateValue withPrompt:NSLocalizedString(@"BlockOut", @"Block Out prompt") forTableView:tableView inflated:NO];
         }
         case rowBlockIn: {
-            MFBWebServiceSvc_CustomFlightProperty * cfp = [self.le.entryData getExistingProperty:@(PropTypeID_BlockIn)];
+            MFBWebServiceSvc_CustomFlightProperty * cfp = [self.le.entryData getExistingProperty:@(PropTypeIDBlockIn)];
             return [self dateCell:cfp.DateValue withPrompt:NSLocalizedString(@"BlockIn", @"Block In prompt") forTableView:tableView inflated:NO];
         }
         case rowTimes:
@@ -763,7 +762,7 @@ static NSArray * rgAllCockpitRows = nil;
             else if (indexPath.section == sectProperties)
             {
                 MFBWebServiceSvc_CustomFlightProperty * cfp = self.propsForPropsSection[indexPath.row - 1];
-                MFBWebServiceSvc_CustomPropertyType * cpt = [self.flightProps PropTypeFromID:cfp.PropTypeID];
+                MFBWebServiceSvc_CustomPropertyType * cpt = [self.flightProps propTypeFromID:cfp.PropTypeID];
                 PropertyCell * pc = (PropertyCell *) (self.dictPropCells)[cpt.PropTypeID];
                 if (pc == nil)
                 {
@@ -823,7 +822,7 @@ static NSArray * rgAllCockpitRows = nil;
     if (indexPath.section == sectProperties && row >= rowPropertyFirst)
     {
         MFBWebServiceSvc_CustomFlightProperty * cfp = self.propsForPropsSection[indexPath.row - 1];
-        MFBWebServiceSvc_CustomPropertyType * cpt = [self.flightProps PropTypeFromID:cfp.PropTypeID];
+        MFBWebServiceSvc_CustomPropertyType * cpt = [self.flightProps propTypeFromID:cfp.PropTypeID];
         return !cpt.isLocked;
     }
     return NO;
@@ -944,7 +943,7 @@ static NSArray * rgAllCockpitRows = nil;
     {
         BOOL fWasUnknownEngineStart = [NSDate isUnknownDate:self.le.entryData.EngineStart];
         BOOL fWasUnknownFlightStart = [NSDate isUnknownDate:self.le.entryData.FlightStart];
-        BOOL fWasUnknownBlockOut = [NSDate isUnknownDate:[self.le.entryData getExistingProperty:@(PropTypeID_BlockOut)].DateValue];
+        BOOL fWasUnknownBlockOut = [NSDate isUnknownDate:[self.le.entryData getExistingProperty:@(PropTypeIDBlockOut)].DateValue];
         
         // Since we don't display seconds, truncate them; this prevents odd looking math like
         // an interval from 12:13:59 to 12:15:01, which is a 1:02 but would display as 12:13-12:15 (which looks like 2 minutes)
@@ -1042,7 +1041,7 @@ static NSArray * rgAllCockpitRows = nil;
                 fShouldEdit = [pc prepForEditing];
                 if (!fShouldEdit)
                 {
-                    if (pc.cfp.PropTypeID.intValue == PropTypeID_BlockOut)
+                    if (pc.cfp.PropTypeID.intValue == PropTypeIDBlockOut)
                         [self dateOfFlightShouldReset:pc.cfp.DateValue];
                     if (pc.cpt.Type == MFBWebServiceSvc_CFPPropertyType_cfpDateTime)
                         [self propertyUpdated:pc.cpt];
@@ -1330,11 +1329,11 @@ static NSArray * rgAllCockpitRows = nil;
 }
 
 - (void) blockOutExternal {
-    MFBWebServiceSvc_CustomFlightProperty * cfp = [self.le.entryData getExistingProperty:@(PropTypeID_BlockOut)];
+    MFBWebServiceSvc_CustomFlightProperty * cfp = [self.le.entryData getExistingProperty:@(PropTypeIDBlockOut)];
     if (cfp != nil && ![NSDate isUnknownDate:cfp.DateValue])
         return;
     
-    [self.le.entryData setPropertyValue:@(PropTypeID_BlockOut) withDate:NSDate.date];
+    [self.le.entryData setPropertyValue:@(PropTypeIDBlockOut) withDate:NSDate.date];
     if (![self.le.entryData isKnownEngineStart] && ![self.le.entryData isKnownFlightStart])
         [self resetDateOfFlight];
     
@@ -1342,11 +1341,11 @@ static NSArray * rgAllCockpitRows = nil;
 }
 
 - (void) blockInExternal {
-    MFBWebServiceSvc_CustomFlightProperty * cfp = [self.le.entryData getExistingProperty:@(PropTypeID_BlockIn)];
+    MFBWebServiceSvc_CustomFlightProperty * cfp = [self.le.entryData getExistingProperty:@(PropTypeIDBlockIn)];
     if (cfp != nil && ![NSDate isUnknownDate:cfp.DateValue])
         return;
 
-    [self.le.entryData setPropertyValue:@(PropTypeID_BlockIn) withDate:NSDate.date];
+    [self.le.entryData setPropertyValue:@(PropTypeIDBlockIn) withDate:NSDate.date];
 
     [self afterDataModified];
 }
@@ -1527,7 +1526,7 @@ static NSDateFormatter * dfSunriseSunset = nil;
     if (UserPreferences.current.autoTotalMode == autoTotalBlock)
     {
         // Autoblock if editing a block time start or stop
-        if (propID == PropTypeID_BlockOut || propID == PropTypeID_BlockIn)
+        if (propID == PropTypeIDBlockOut || propID == PropTypeIDBlockIn)
             [self autoTotal];
     }
 }
@@ -1679,7 +1678,7 @@ static NSDateFormatter * dfSunriseSunset = nil;
             if (ip.section == sectProperties && ip.row > 0)
             {
                 MFBWebServiceSvc_CustomFlightProperty * cfp = self.propsForPropsSection[ip.row - 1];
-                MFBWebServiceSvc_CustomPropertyType * cpt = [self.flightProps PropTypeFromID:cfp.PropTypeID];
+                MFBWebServiceSvc_CustomPropertyType * cpt = [self.flightProps propTypeFromID:cfp.PropTypeID];
                 return cpt.Type != MFBWebServiceSvc_CFPPropertyType_cfpBoolean;
             }
             return NO;

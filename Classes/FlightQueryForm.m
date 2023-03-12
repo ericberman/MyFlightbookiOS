@@ -25,7 +25,6 @@
 //
 
 #import "FlightQueryForm.h"
-#import "FlightProps.h"
 #import "LogbookEntry.h"
 #import "ExpandHeaderCell.h"
 #import "ConjunctionCell.h"

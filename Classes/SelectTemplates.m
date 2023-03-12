@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2019-2020 MyFlightbook, LLC
+ Copyright (C) 2019-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -25,8 +25,8 @@
 //
 
 #import "SelectTemplates.h"
-#import "FlightProps.h"
 #import "MFBAppDelegate.h"
+#import <MyFlightbook-Swift.h>
 
 @interface SelectTemplates ()
 @property (nonatomic, strong) NSArray<NSDictionary<NSString *, id> *> * templateGroups;
@@ -48,7 +48,7 @@
 }
 
 - (NSArray<MFBWebServiceSvc_PropertyTemplate *> *) propsForSection:(NSInteger) section {
-    return (NSArray<MFBWebServiceSvc_PropertyTemplate *> *) ([self groupDictionaryForSection:section][KEY_PROPSFORGROUP]);
+    return (NSArray<MFBWebServiceSvc_PropertyTemplate *> *) ([self groupDictionaryForSection:section][MFBWebServiceSvc_PropertyTemplate.KEY_PROPSFORGROUP]);
 }
 
 #pragma mark - Table view data source
@@ -62,7 +62,7 @@
 }
 
 - (NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return (NSString *) [self groupDictionaryForSection:section][KEY_GROUPNAME];
+    return (NSString *) [self groupDictionaryForSection:section][MFBWebServiceSvc_PropertyTemplate.KEY_GROUPNAME];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -122,8 +122,7 @@
         if (resp.PropertiesAndTemplatesForUserResult.UserProperties.CustomPropertyType == nil || resp.PropertiesAndTemplatesForUserResult.UserProperties.CustomPropertyType.count == 0)
             return;
         
-        [FlightProps.sharedTemplates removeAllObjects];
-        [FlightProps.sharedTemplates addObjectsFromArray:resp.PropertiesAndTemplatesForUserResult.UserTemplates.PropertyTemplate];
+        [FlightProps replaceTemplates:resp.PropertiesAndTemplatesForUserResult.UserTemplates.PropertyTemplate];
         [FlightProps saveTemplates];
         [self.templateSet removeAllObjects];
         for (MFBWebServiceSvc_PropertyTemplate * pt in FlightProps.sharedTemplates)

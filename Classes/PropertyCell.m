@@ -26,7 +26,6 @@
 //
 
 #import "PropertyCell.h"
-#import "FlightProps.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface PropertyCell()
@@ -286,7 +285,7 @@
             [self.txt setNumberType:((self.cpt.Flags.unsignedIntegerValue & 0x00200000) == 0) ? NumericTypeTime : NumericTypeDecimal inHHMM:UserPreferences.current.HHMMPref];
             self.txt.autocorrectionType = UITextAutocorrectionTypeNo;
             [self.txt setValue:self.cfp.DecValue withDefault:@0.0]; // Fix bug #37. re-assign it; this will respect the number type.
-            if (defVal != nil && (self.txt.NumberType == NumericTypeTime || self.cpt.PropTypeID.intValue == PropTypeID_TachStart))
+            if (defVal != nil && (self.txt.NumberType == NumericTypeTime || self.cpt.PropTypeID.intValue == PropTypeIDTachStart))
                 [self setXFill:defVal];
             break;
         case MFBWebServiceSvc_CFPPropertyType_cfpInteger:

@@ -102,11 +102,6 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
     return @"SIM";
 }
 
-+ (NSString *) PrefixAnonymous
-{
-    return @"#";
-}
-
 #pragma mark State Management
 -(void) setDefaultAircraftID:(int) idAircraft
 {
@@ -649,28 +644,6 @@ NSString * const _szKeyCachedAircraftAuthToken = @"keyCacheAircraftAuthToken";
     return [NSString stringWithFormat:@"%@ (%@)",
         [self.ModelCommonName stringByReplacingOccurrencesOfString:@"  " withString:@" "],
         [self.ModelDescription stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
-}
-
-- (BOOL) isNew
-{
-    return self.AircraftID == nil || [self.AircraftID intValue] < 0;
-}
-
-- (BOOL) isSim
-{
-    switch (self.InstanceType) {
-        case MFBWebServiceSvc_AircraftInstanceTypes_none:
-        case MFBWebServiceSvc_AircraftInstanceTypes_RealAircraft:
-        case MFBWebServiceSvc_AircraftInstanceTypes_Mintype:
-            return NO;
-        default:
-            return YES;
-    }
-}
-
-- (BOOL) isAnonymous
-{
-    return [self.TailNumber hasPrefix:[Aircraft PrefixAnonymous]];
 }
 
 - (NSString *) displayTailNumber

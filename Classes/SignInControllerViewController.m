@@ -31,7 +31,6 @@
 #import "ButtonCell.h"
 #import "TextCell.h"
 #import "NewUserTableController.h"
-#import "FlightProps.h"
 #import "WPSAlertController.h"
 #import "PackAndGo.h"
 
@@ -161,8 +160,9 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
     [app.userProfile clearCache];
     [app.userProfile clearOldUserContent];
     [app.userProfile SavePrefs];
-    [FlightProps.sharedTemplates removeAllObjects];
+    [FlightProps clearTemplates];
     [FlightProps saveTemplates];
+    [FlightProps clearAllLocked];
     [PackAndGo clearPackedData];
     [self.tableView reloadData];
 }

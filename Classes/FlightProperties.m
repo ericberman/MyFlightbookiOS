@@ -26,6 +26,7 @@
 
 #import "FlightProperties.h"
 #import "PropertyCell.h"
+#import <MyFlightbook-Swift.h>
 
 @interface FlightProperties ()
 @property (strong) NSArray<MFBWebServiceSvc_CustomPropertyType *> * rgFilteredProps;
@@ -65,7 +66,7 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
     self.content = [[NSMutableArray alloc] init];
     NSString * szKey = @"";
     
-    for (MFBWebServiceSvc_CustomPropertyType * cpt in self.flightProps.syncrhonizedProps)
+    for (MFBWebServiceSvc_CustomPropertyType * cpt in self.flightProps.synchronizedProps)
     {
         NSString * szNewKey;
         NSMutableDictionary * dictForKey;
@@ -388,7 +389,7 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
     
     BOOL fShouldEdit = [pc prepForEditing];
     
-    if (!fShouldEdit && pc.cfp.PropTypeID.intValue == PropTypeID_BlockOut)
+    if (!fShouldEdit && pc.cfp.PropTypeID.intValue == PropTypeIDBlockOut)
         [self.delegate dateOfFlightShouldReset:pc.cfp.DateValue];
     
     self.ipActive = [self.tableView indexPathForCell:pc];

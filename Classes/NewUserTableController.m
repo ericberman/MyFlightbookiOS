@@ -31,7 +31,6 @@
 #import "EditCell.h"
 #import "MFBAppDelegate.h"
 #import "SecurityQuestionPicker.h"
-#import "FlightProps.h"
 #import "WPSAlertController.h"
 #import <MyFlightbook-Swift.h>
 

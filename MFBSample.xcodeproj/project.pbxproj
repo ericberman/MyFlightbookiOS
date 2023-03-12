@@ -202,7 +202,6 @@
 		9A70B18722C07A8500CA7E21 /* FlightEditorBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A70B18622C07A8500CA7E21 /* FlightEditorBaseTableViewController.m */; };
 		9A77CF97110569D0006E7531 /* airport.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A77CF96110569D0006E7531 /* airport.png */; };
 		9A78376E13E8AB99007CD501 /* VADetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A78376C13E8AB98007CD501 /* VADetails.m */; };
-		9A79504211E56C7F0070A386 /* FlightProps.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A79504111E56C7F0070A386 /* FlightProps.m */; };
 		9A79E30A156E9B7100EBEF48 /* FlightQueryForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A79E309156E9B7100EBEF48 /* FlightQueryForm.m */; };
 		9A7A7D96147F4DD0003A6912 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9A7A7D98147F4DD0003A6912 /* Localizable.strings */; };
 		9A7B3B952135A8AA00CD3BEA /* WPSAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7B3B942135A8AA00CD3BEA /* WPSAlertController.m */; };
@@ -448,6 +447,7 @@
 		9AE4B7B216FE80EE0001BD2C /* EditCellDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AE4B7B116FE80EE0001BD2C /* EditCellDetail.xib */; };
 		9AEC4CA313AD4B7C0044897B /* Pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AEC4CA113AD4B7C0044897B /* Pause.png */; };
 		9AEC4CA413AD4B7C0044897B /* Play.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AEC4CA213AD4B7C0044897B /* Play.png */; };
+		9AEFF6E329BD2A4600B07B13 /* MFBWebService PropertyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEFF6E229BD2A4600B07B13 /* MFBWebService PropertyExtensions.swift */; };
 		9AF7AD1B10E1D7DC00A7DD43 /* Totals.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF7AD1910E1D7DC00A7DD43 /* Totals.m */; };
 		9AF81C9C1BE6918B001FC0C8 /* RefreshableTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF81C9B1BE6918B001FC0C8 /* RefreshableTableController.swift */; };
 		9AFAC07110E594F000225E90 /* runway.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AFAC07010E594F000225E90 /* runway.png */; };
@@ -750,8 +750,6 @@
 		9A77CF96110569D0006E7531 /* airport.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = airport.png; sourceTree = "<group>"; };
 		9A78376B13E8AB98007CD501 /* VADetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VADetails.h; sourceTree = "<group>"; };
 		9A78376C13E8AB98007CD501 /* VADetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VADetails.m; sourceTree = "<group>"; };
-		9A79504011E56C7F0070A386 /* FlightProps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlightProps.h; sourceTree = "<group>"; };
-		9A79504111E56C7F0070A386 /* FlightProps.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlightProps.m; sourceTree = "<group>"; };
 		9A79E308156E9B7100EBEF48 /* FlightQueryForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlightQueryForm.h; sourceTree = "<group>"; };
 		9A79E309156E9B7100EBEF48 /* FlightQueryForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlightQueryForm.m; sourceTree = "<group>"; };
 		9A7A7D97147F4DD0003A6912 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1018,6 +1016,7 @@
 		9AEC4CA113AD4B7C0044897B /* Pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pause.png; sourceTree = "<group>"; };
 		9AEC4CA213AD4B7C0044897B /* Play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Play.png; sourceTree = "<group>"; };
 		9AEF733D127DE857004A0D6C /* EXFMutableMetaData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXFMutableMetaData.h; sourceTree = "<group>"; };
+		9AEFF6E229BD2A4600B07B13 /* MFBWebService PropertyExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MFBWebService PropertyExtensions.swift"; sourceTree = "<group>"; };
 		9AF7AD1810E1D7DC00A7DD43 /* Totals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Totals.h; sourceTree = "<group>"; };
 		9AF7AD1910E1D7DC00A7DD43 /* Totals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Totals.m; sourceTree = "<group>"; };
 		9AF81C9B1BE6918B001FC0C8 /* RefreshableTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshableTableController.swift; sourceTree = "<group>"; };
@@ -1389,6 +1388,7 @@
 			children = (
 				9AC2C80129A3E3D600A702B2 /* ObjectExtensions.swift */,
 				9A14334529A54991007129A9 /* MFBWebServiceObjectExtensions.swift */,
+				9AEFF6E229BD2A4600B07B13 /* MFBWebService PropertyExtensions.swift */,
 			);
 			path = "Category Extensions";
 			sourceTree = "<group>";
@@ -1680,8 +1680,6 @@
 				9A21D5CA2214D1E300961605 /* BadElfSession.swift */,
 				9A1213B1111D3113001CDDB6 /* CommentedImage.h */,
 				9A1213B2111D3113001CDDB6 /* CommentedImage.m */,
-				9A79504011E56C7F0070A386 /* FlightProps.h */,
-				9A79504111E56C7F0070A386 /* FlightProps.m */,
 				9A565B6813E351C200BEFFA7 /* GPSSim.h */,
 				9A565B6913E351C200BEFFA7 /* GPSSim.m */,
 				9A691EB810C73E4300DF1CA6 /* LogbookEntry.h */,
@@ -2400,7 +2398,6 @@
 				9A1213B3111D3113001CDDB6 /* CommentedImage.m in Sources */,
 				9A517E451E2ED4CC00EC3545 /* ApproachEditor.m in Sources */,
 				9A58E0481131A77C005988FA /* MyAircraft.m in Sources */,
-				9A79504211E56C7F0070A386 /* FlightProps.m in Sources */,
 				9A0C938511E63A850062AF27 /* FlightProperties.m in Sources */,
 				9A7FE95D12494F87001A8722 /* Reachability.m in Sources */,
 				9A3E1375127DE704008D672E /* EXFGPS.m in Sources */,
@@ -2446,6 +2443,7 @@
 				9A27223029B53861006AE702 /* FlightProps.swift in Sources */,
 				9A804AF616EE445F002F77CA /* DateRangeViewController.m in Sources */,
 				9A20B152192D34D300A8F64F /* iRate.m in Sources */,
+				9AEFF6E329BD2A4600B07B13 /* MFBWebService PropertyExtensions.swift in Sources */,
 				9A23CFA416F50C57001C9098 /* SignInControllerViewController.m in Sources */,
 				9A8EE98329A9B5A800F133CF /* SwiftHackBridge.m in Sources */,
 				9A23CFA816F53B5E001C9098 /* ButtonCell.m in Sources */,

@@ -26,7 +26,6 @@
 
 #import <Foundation/Foundation.h>
 #import "MFBAppDelegate.h"
-#import "FlightProps.h"
 
 // Conveninence methods to reduce objective-C churn
 #define NEW_FLIGHT_ID MFBWebServiceSvc_LogbookEntry.idNewFlight

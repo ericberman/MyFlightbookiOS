@@ -104,7 +104,7 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
 // re-initializes a flight but DOES NOT update any UI.
 - (void) setupForNewFlight {
     NSNumber * endingHobbs = self.le.entryData.HobbsEnd; // remember ending hobbs for last flight...
-    NSNumber * endingTach = [self.le.entryData getExistingProperty:@PropTypeID_TachEnd].DecValue;
+    NSNumber * endingTach = [self.le.entryData getExistingProperty:@(PropTypeIDTachEnd)].DecValue;
     
     self.le    = [[LogbookEntry alloc] init];
     self.le.entryData.Date = [NSDate date];
@@ -130,7 +130,7 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
     // ...and start the starting hobbs to be the previous flight's ending hobbs.  If it was nil, we're fine.
     self.le.entryData.HobbsStart = endingHobbs;
     if (endingTach != nil && endingTach.doubleValue > 0)
-        [self.le.entryData setPropertyValue:@PropTypeID_TachStart withDecimal:endingTach];
+        [self.le.entryData setPropertyValue:@(PropTypeIDTachStart) withDecimal:endingTach];
     [self saveState]; // clean up any old state
     [MFBAppDelegate.threadSafeAppDelegate updateWatchContext];
 }
@@ -316,7 +316,7 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
         dt = self.le.entryData.EngineStart;
     if (self.le.entryData.isKnownFlightStart && [self.le.entryData.FlightStart compare:dt] == NSOrderedAscending)
         dt = self.le.entryData.FlightStart;
-    MFBWebServiceSvc_CustomFlightProperty * cfp = [self.le.entryData getExistingProperty:@(PropTypeID_BlockOut)];
+    MFBWebServiceSvc_CustomFlightProperty * cfp = [self.le.entryData getExistingProperty:@(PropTypeIDBlockOut)];
     if (cfp != nil && [cfp.DateValue compare:dt] == NSOrderedAscending)
         dt = cfp.DateValue;
     [self setDisplayDate:(le.entryData.Date = dt)];
@@ -563,7 +563,7 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
         UITextField * target = (UITextField *) sender.view;
         NSNumber * highWaterTach = [[Aircraft sharedAircraft] getHighWaterTachForAircraft:self.le.entryData.AircraftID];
         if (highWaterTach != nil && highWaterTach.doubleValue > 0)
-            [self.le.entryData setPropertyValue:@PropTypeID_TachStart withDecimal:(target.value = highWaterTach)];
+            [self.le.entryData setPropertyValue:@(PropTypeIDTachStart) withDecimal:(target.value = highWaterTach)];
     }
 }
 

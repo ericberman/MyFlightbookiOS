@@ -30,7 +30,6 @@
 #import "MFBAppDelegate.h"
 #import "Aircraft.h"
 #import "CommentedImage.h"
-#import "FlightProps.h"
 #import "LogbookEntry.h"
 
 void Swizzle(Class c, SEL orig, SEL new)

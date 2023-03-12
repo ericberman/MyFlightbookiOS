@@ -27,7 +27,6 @@
 #import "RecentFlights.h"
 #import "MFBAppDelegate.h"
 #import "RecentFlightCell.h"
-#import "FlightProps.h"
 #import "iRate.h"
 #import "WPSAlertController.h"
 #import "PackAndGo.h"
@@ -395,7 +394,7 @@ BOOL fCouldBeMoreFlights;
             [aircraft setHighWaterHobbs:le.HobbsEnd forAircraft:le.AircraftID];
             if (le.CustomProperties != nil && le.CustomProperties.CustomFlightProperty != nil) {
                 for(MFBWebServiceSvc_CustomFlightProperty * cfp in le.CustomProperties.CustomFlightProperty) {
-                    if (cfp.PropTypeID.intValue == PropTypeID_TachEnd) {
+                    if (cfp.PropTypeID.intValue == PropTypeIDTachEnd) {
                         [aircraft setHighWaterTach:cfp.DecValue forAircraft:le.AircraftID];
                         break;
                     }

@@ -46,8 +46,10 @@ import Foundation
     
     private static var _shared : MFBProfile = MFBProfile()
     
-    @objc public static func sharedProfile() -> MFBProfile {
-        return _shared
+    @objc public static var sharedProfile : MFBProfile {
+        get {
+            return _shared
+        }
     }
         
     override private init() {

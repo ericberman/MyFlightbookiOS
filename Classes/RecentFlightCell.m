@@ -25,7 +25,6 @@
 //
 
 #import "RecentFlightCell.h"
-#import "FlightProps.h"
 
 @implementation RecentFlightCell
 
@@ -227,8 +226,8 @@
         [attrString appendAttributedString:[self attributedLabel:NSLocalizedString(@"fieldPIC", @"Entry Field: PIC") forValue:le.PIC withFont:boldFont inHHMM:fUseHHMM numType:NumericTypeTime]];
         
         if (detail == flightTimeDetailDetailed) {
-            MFBWebServiceSvc_CustomFlightProperty * blockOut = [le getExistingProperty:@(PropTypeID_BlockOut)];
-            MFBWebServiceSvc_CustomFlightProperty * blockIn = [le getExistingProperty:@(PropTypeID_BlockIn)];
+            MFBWebServiceSvc_CustomFlightProperty * blockOut = [le getExistingProperty:@(PropTypeIDBlockOut)];
+            MFBWebServiceSvc_CustomFlightProperty * blockIn = [le getExistingProperty:@(PropTypeIDBlockIn)];
             
             if (blockIn != nil && blockOut != nil)
                 [attrString appendAttributedString:[self attributedUTCDateRange:NSLocalizedString(@"Block Time", @"Auto-fill total based on block time") start:blockOut.DateValue end:blockIn.DateValue withFont:baseFont]];
@@ -238,7 +237,7 @@
             NSAttributedString * spacer = [[NSAttributedString alloc] initWithString:@" "];
             
             for (MFBWebServiceSvc_CustomFlightProperty * fp in le.CustomProperties.CustomFlightProperty) {
-                if (fp.PropTypeID.intValue == PropTypeID_BlockIn || fp.PropTypeID.intValue == PropTypeID_BlockOut)
+                if (fp.PropTypeID.intValue == PropTypeIDBlockIn || fp.PropTypeID.intValue == PropTypeIDBlockOut)
                     continue;
                 [attrString appendAttributedString:[fp formatForDisplay:dimmedColor :textColor :baseFont :boldFont]];
                 [attrString appendAttributedString:spacer];

@@ -27,7 +27,6 @@
 #import "LogbookEntry.h"
 #import "MFBAsyncOperation.h"
 #import "CommentedImage.h"
-#import "FlightProps.h"
 
 @interface LogbookEntry ()
 @property (strong) NSDate * stashedDate;
@@ -245,9 +244,9 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
             NSDate * blockIn = nil;
             
             for (MFBWebServiceSvc_CustomFlightProperty * cfp in self.entryData.CustomProperties.CustomFlightProperty) {
-                if (cfp.PropTypeID.integerValue == PropTypeID_BlockOut)
+                if (cfp.PropTypeID.integerValue == PropTypeIDBlockOut)
                     blockOut = cfp.DateValue;
-                if (cfp.PropTypeID.integerValue == PropTypeID_BlockIn)
+                if (cfp.PropTypeID.integerValue == PropTypeIDBlockIn)
                     blockIn = cfp.DateValue;
             }
             
@@ -305,39 +304,39 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
     if (rate == 0)
         return;
     
-    double tachStart = [self.entryData getExistingProperty:@(PropTypeID_TachStart)].DecValue.doubleValue;
-    double tachEnd = [self.entryData getExistingProperty:@(PropTypeID_TachEnd)].DecValue.doubleValue;
+    double tachStart = [self.entryData getExistingProperty:@(PropTypeIDTachStart)].DecValue.doubleValue;
+    double tachEnd = [self.entryData getExistingProperty:@(PropTypeIDTachEnd)].DecValue.doubleValue;
     double time = (self.entryData.HobbsEnd.doubleValue > self.entryData.HobbsStart.doubleValue && self.entryData.HobbsStart.doubleValue > 0) ?
         self.entryData.HobbsEnd.doubleValue - self.entryData.HobbsStart.doubleValue :
         (tachEnd > tachStart && tachStart > 0) ? tachEnd - tachStart : self.entryData.TotalFlightTime.doubleValue;
     
     if (time > 0) {
         double cost = rate * time;
-        MFBWebServiceSvc_CustomFlightProperty * cfp = [self.entryData getExistingProperty:@(PropTypeID_FlightCost)];
+        MFBWebServiceSvc_CustomFlightProperty * cfp = [self.entryData getExistingProperty:@(PropTypeIDFlightCost)];
         if (cfp == nil)
-            cfp = [self.entryData addProperty:@(PropTypeID_FlightCost) withDecimal:@(cost)];
+            cfp = [self.entryData addProperty:@(PropTypeIDFlightCost) withDecimal:@(cost)];
         else
             cfp.DecValue = @(cost);
     }
 }
 
 - (void) autoFillFuel {
-    MFBWebServiceSvc_CustomFlightProperty * cfpFuelAtStart = [self.entryData getExistingProperty:@(PropTypeID_FuelAtStart)];
-    MFBWebServiceSvc_CustomFlightProperty * cfpFuelAtEnd = [self.entryData getExistingProperty:@(PropTypeID_FuelAtEnd)];
+    MFBWebServiceSvc_CustomFlightProperty * cfpFuelAtStart = [self.entryData getExistingProperty:@(PropTypeIDFuelAtStart)];
+    MFBWebServiceSvc_CustomFlightProperty * cfpFuelAtEnd = [self.entryData getExistingProperty:@(PropTypeIDFuelAtEnd)];
     
     double fuelConsumed = MAX(cfpFuelAtStart.DecValue.doubleValue - cfpFuelAtEnd.DecValue.doubleValue, 0);
     if (fuelConsumed > 0) {
-        MFBWebServiceSvc_CustomFlightProperty * cfp = [self.entryData getExistingProperty:@(PropTypeID_FuelConsumed)];
+        MFBWebServiceSvc_CustomFlightProperty * cfp = [self.entryData getExistingProperty:@(PropTypeIDFuelConsumed)];
         if (cfp == nil)
-            cfp = [self.entryData addProperty:@(PropTypeID_FuelConsumed) withDecimal:@(fuelConsumed)];
+            cfp = [self.entryData addProperty:@(PropTypeIDFuelConsumed) withDecimal:@(fuelConsumed)];
         else
             cfp.DecValue = @(fuelConsumed);
         
         if (self.entryData.TotalFlightTime.doubleValue > 0) {
             double burnRate = fuelConsumed / self.entryData.TotalFlightTime.doubleValue;
-            cfp = [self.entryData getExistingProperty:@(PropTypeID_FuelBurnRate)];
+            cfp = [self.entryData getExistingProperty:@(PropTypeIDFuelBurnRate)];
             if (cfp == nil)
-                cfp = [self.entryData addProperty:@(PropTypeID_FuelBurnRate) withDecimal:@(burnRate)];
+                cfp = [self.entryData addProperty:@(PropTypeIDFuelBurnRate) withDecimal:@(burnRate)];
             else
                 cfp.DecValue = @(burnRate);
         }
@@ -349,8 +348,8 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
     double dual = self.entryData.Dual.doubleValue;
     double cfi = self.entryData.CFI.doubleValue;
     if ((dual > 0 && cfi == 0) || (cfi > 0 && dual == 0)) {
-        MFBWebServiceSvc_CustomFlightProperty * cfpLessonStart = [self.entryData getExistingProperty:@(PropTypeID_LessonStart)];
-        MFBWebServiceSvc_CustomFlightProperty * cfpLessonEnd = [self.entryData getExistingProperty:@(PropTypeID_LessonEnd)];
+        MFBWebServiceSvc_CustomFlightProperty * cfpLessonStart = [self.entryData getExistingProperty:@(PropTypeIDLessonStart)];
+        MFBWebServiceSvc_CustomFlightProperty * cfpLessonEnd = [self.entryData getExistingProperty:@(PropTypeIDLessonEnd)];
         
         if (cfpLessonEnd == nil || cfpLessonStart == nil || [cfpLessonEnd.DateValue compare:cfpLessonStart.DateValue] != NSOrderedDescending)
             return;
@@ -365,7 +364,7 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
         
         double groundHours = (tsLesson - tsNonGround) / 3600.0;
         
-        int idPropTarget = dual > 0 ? PropTypeID_GroundInstructionReceived : PropTypeID_GroundInstructionGiven;
+        int idPropTarget = dual > 0 ? PropTypeIDGroundInstructionReceived : PropTypeIDGroundInstructionGiven;
         
         if (groundHours > 0) {
             MFBWebServiceSvc_CustomFlightProperty * cfp = [self.entryData getExistingProperty:@(idPropTarget)];
@@ -782,14 +781,14 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
     // See if the flight has a night-time take-off property attached.  If not, add it.
     MFBWebServiceSvc_CustomFlightProperty * fpTakeoff = nil;
     for (MFBWebServiceSvc_CustomFlightProperty * cfp in self.CustomProperties.CustomFlightProperty)
-        if ([cfp.PropTypeID intValue] == PropTypeID_NightTakeOff)
+        if ([cfp.PropTypeID intValue] == PropTypeIDNightTakeOff)
         {
             fpTakeoff = cfp;
             break;
         }
     
     if (fpTakeoff == nil)
-        [self addProperty:@PropTypeID_NightTakeOff withInteger:@1];
+        [self addProperty:@(PropTypeIDNightTakeOff) withInteger:@1];
     else
         fpTakeoff.IntValue = @([fpTakeoff.IntValue intValue] + 1);
     return @"";
@@ -1029,7 +1028,7 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
     if (leNew.CustomProperties != nil)
         for (MFBWebServiceSvc_CustomFlightProperty * cfp in leNew.CustomProperties.CustomFlightProperty) {
             cfp.FlightID = NEW_FLIGHT_ID;
-            cfp.PropID = NEW_PROP_ID;
+            cfp.PropID = @(PropTypeIDNEW_PROP_ID);
         }
     
     leNew.Date = [NSDate new];
@@ -1183,7 +1182,7 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
 
 // Return the default (cross-fill) value to use for a long press on a given property, nil if none
 - (NSNumber *) xfillValueForPropType:(MFBWebServiceSvc_CustomPropertyType *) cpt {
-    if (cpt.PropTypeID.integerValue == PropTypeID_TachStart)
+    if (cpt.PropTypeID.integerValue == PropTypeIDTachStart)
         return [Aircraft.sharedAircraft getHighWaterTachForAircraft:self.AircraftID];
     
     // if it's a decimal but not a basic decimal
@@ -1228,14 +1227,14 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
     // See if the flight has an approach description attached.  If not, add it.
     MFBWebServiceSvc_CustomFlightProperty * fpDescription = nil;
     for (MFBWebServiceSvc_CustomFlightProperty * cfp in self.CustomProperties.CustomFlightProperty)
-        if ([cfp.PropTypeID intValue] == PropTypeID_ApproachName)
+        if ([cfp.PropTypeID intValue] == PropTypeIDApproachName)
         {
             fpDescription = cfp;
             break;
         }
     
     if (fpDescription == nil)
-        [self addProperty:@PropTypeID_ApproachName withString:description];
+        [self addProperty:@(PropTypeIDApproachName) withString:description];
     else
         fpDescription.TextValue = [[NSString stringWithFormat:@"%@ %@", fpDescription.TextValue, description] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
@@ -1285,14 +1284,14 @@ NSString * const _szkeyAccumulatedNightTime = @"_accumulatedNightTime";
         AddNumber(self.Approaches, dict[@"flight_totalApproaches"], NumericTypeInteger);
         
         // Now add a few properties that match to known property types
-        [self addProperty:@PropTypeID_IPC withBool:dict[@"flight_instrumentProficiencyCheck"] != nil];
-        [self addProperty:@PropTypeID_BFR withBool:dict[@"flight_review"] != nil];
-        [self addProperty:@PropTypeID_NightTakeOff withInteger:[self parseNum:dict[@"flight_nightTakeoffs"] numType:NumericTypeInteger]];
-        [self addProperty:@PropTypeID_Solo withDecimal:[self parseNum:dict[@"flight_solo"] numType:NumericTypeTime]];
-        [self addProperty:@PropTypeID_NameOfPIC withString:dict[@"flight_selectedCrewPIC"]];
-        [self addProperty:@PropTypeID_NameOfSIC withString:dict[@"flight_selectedCrewSIC"]];
-        [self addProperty:@PropTypeID_NameOfCFI withString:dict[@"flight_selectedCrewInstructor"]];
-        [self addProperty:@PropTypeID_NameOfStudent withString:dict[@"flight_selectedCrewStudent"]];
+        [self addProperty:@(PropTypeIDIPC) withBool:dict[@"flight_instrumentProficiencyCheck"] != nil];
+        [self addProperty:@(PropTypeIDBFR) withBool:dict[@"flight_review"] != nil];
+        [self addProperty:@(PropTypeIDNightTakeOff) withInteger:[self parseNum:dict[@"flight_nightTakeoffs"] numType:NumericTypeInteger]];
+        [self addProperty:@(PropTypeIDSolo) withDecimal:[self parseNum:dict[@"flight_solo"] numType:NumericTypeTime]];
+        [self addProperty:@(PropTypeIDNameOfPIC) withString:dict[@"flight_selectedCrewPIC"]];
+        [self addProperty:@(PropTypeIDNameOfSIC) withString:dict[@"flight_selectedCrewSIC"]];
+        [self addProperty:@(PropTypeIDNameOfCFI) withString:dict[@"flight_selectedCrewInstructor"]];
+        [self addProperty:@(PropTypeIDNameOfStudent) withString:dict[@"flight_selectedCrewStudent"]];
 
         self.AircraftID = @-1;
         MFBWebServiceSvc_Aircraft * ac;

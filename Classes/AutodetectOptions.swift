@@ -429,14 +429,14 @@ import MapKit
                 mvos.optionGroups = [OptionSelection(szTitle: "", key: UserPreferences.current.keyAltUnitPref, options: optionNames)]
                 navigationController?.pushViewController(mvos, animated: true)
             case .rowOnlineSettings:
-                UIApplication.shared.open(URL(string: MFBProfile.sharedProfile().authRedirForUser(params: "d=profile"))!, options:[:], completionHandler:nil)
+                UIApplication.shared.open(URL(string: MFBProfile.sharedProfile.authRedirForUser(params: "d=profile"))!, options:[:], completionHandler:nil)
             case .rowManageAccount:
-                UIApplication.shared.open(URL(string: MFBProfile.sharedProfile().authRedirForUser(params: "d=account"))!, options:[:], completionHandler:nil)
+                UIApplication.shared.open(URL(string: MFBProfile.sharedProfile.authRedirForUser(params: "d=account"))!, options:[:], completionHandler:nil)
             case .rowDeleteAccount:
-                let vwWeb = HostedWebViewController(url: MFBProfile.sharedProfile().authRedirForUser(params: "d=bigredbuttons"))
+                let vwWeb = HostedWebViewController(url: MFBProfile.sharedProfile.authRedirForUser(params: "d=bigredbuttons"))
                                                  
          // ...and then sign out in anticipation of deletion.
-                let prof = MFBProfile.sharedProfile()
+                let prof = MFBProfile.sharedProfile
                 prof.UserName = ""
                 prof.Password = ""
                 prof.AuthToken = ""

@@ -26,7 +26,6 @@
 
 #import <MyFlightbook-Swift.h>
 #import "GPSSim.h"
-#import "FlightProps.h"
 #import "MFBAppDelegate.h"
 #import "LogbookEntry.h"
 
@@ -219,9 +218,9 @@
     NSDate * blockIn = nil;
     
     for (MFBWebServiceSvc_CustomFlightProperty * cfp in le.entryData.CustomProperties.CustomFlightProperty) {
-        if (cfp.PropTypeID.integerValue == PropTypeID_BlockOut)
+        if (cfp.PropTypeID.integerValue == PropTypeIDBlockOut)
             blockOut = cfp.DateValue;
-        if (cfp.PropTypeID.integerValue == PropTypeID_BlockIn)
+        if (cfp.PropTypeID.integerValue == PropTypeIDBlockIn)
             blockIn = cfp.DateValue;
     }
     
@@ -269,7 +268,7 @@
         le.entryData.Landings = @(0);
         le.entryData.FullStopLandings = @(0);
         le.entryData.NightLandings = @(0);
-        [le.entryData removeProperty:@PropTypeID_NightTakeOff];
+        [le.entryData removeProperty: @(PropTypeIDNightTakeOff)];
         fSetNight = YES;
         
         NSString * szDataSaved = le.entryData.FlightData;
