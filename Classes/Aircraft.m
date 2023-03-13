@@ -27,7 +27,6 @@
 
 #import "Aircraft.h"
 #import "MFBAppDelegate.h"
-#import "WPSAlertController.h"
 
 @interface Aircraft ()
 @property (assign) int aircraftIDPreferred;

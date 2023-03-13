@@ -31,7 +31,6 @@
 #import "ButtonCell.h"
 #import "TextCell.h"
 #import "NewUserTableController.h"
-#import "WPSAlertController.h"
 #import "PackAndGo.h"
 
 @interface SignInControllerViewController ()

@@ -27,7 +27,7 @@ The structure of this file is this:
 #define MFBHOSTNAME @"[the production server name - typically myflightbook.com]"
 #endif
 
-#define _appStoreID @"xyz"
+#define _appStoreID xyz
 
 #endif /* HostName_h */
 ~~~~

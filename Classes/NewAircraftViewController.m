@@ -30,7 +30,6 @@
 #import "MakeModel.h"
 #import "ImageComment.h"
 #import "CheckboxCell.h"
-#import "WPSAlertController.h"
 
 @interface NewAircraftViewController ()
 @property (nonatomic, strong) NSString * szTailnumberLast;

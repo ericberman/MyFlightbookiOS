@@ -31,7 +31,6 @@
 #import "EXFUtils.h"
 #import "Reachability.h"
 #import <Photos/Photos.h>
-#import "WPSAlertController.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import <AVFoundation/AVFoundation.h>
 #import <CoreMedia/CoreMedia.h>

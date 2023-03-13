@@ -31,7 +31,6 @@
 #import "EditCell.h"
 #import "MFBAppDelegate.h"
 #import "SecurityQuestionPicker.h"
-#import "WPSAlertController.h"
 #import <MyFlightbook-Swift.h>
 
 @interface NewUserTableController ()

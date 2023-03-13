@@ -28,7 +28,6 @@
 #import "MFBAppDelegate.h"
 #import "RecentFlightCell.h"
 #import "iRate.h"
-#import "WPSAlertController.h"
 #import "PackAndGo.h"
 
 @interface RecentFlights()

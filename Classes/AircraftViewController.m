@@ -34,7 +34,6 @@
 #import "ImageComment.h"
 #import "TextCell.h"
 #import "CheckboxCell.h"
-#import "WPSAlertController.h"
 
 @interface AircraftViewController ()
 - (void) findFlights:(id)sender;

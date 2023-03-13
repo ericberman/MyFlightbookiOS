@@ -29,10 +29,11 @@
 //
 //  3. This notice may not be removed or altered from any source distribution.
 //
+// THIS HAS BEEN MODIFIED FOR USE IN MYFLIGHTBOOK
 
 
 #import "iRate.h"
-#import "WPSAlertController.h"
+#import <MyFlightbook-Swift.h>
 
 
 #import <Availability.h>
@@ -311,7 +312,7 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
 
 - (NSUInteger)appStoreID
 {
-    return _appStoreID ?: [[[NSUserDefaults standardUserDefaults] objectForKey:iRateAppStoreIDKey] unsignedIntegerValue];
+    return _appStoreID;
 }
 
 - (NSDate *)firstUsed
@@ -581,8 +582,8 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
 
 - (void)setAppStoreIDOnMainThread:(NSString *)appStoreIDString
 {
-    _appStoreID = [appStoreIDString integerValue];
-    [[NSUserDefaults standardUserDefaults] setInteger:_appStoreID forKey:iRateAppStoreIDKey];
+    NSInteger appStoreID = [appStoreIDString integerValue];
+    [[NSUserDefaults standardUserDefaults] setInteger:appStoreID forKey:iRateAppStoreIDKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -779,7 +780,7 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
         }
         
         //handle errors (ignoring sandbox issues)
-        if (error && !(error.code == EPERM && [error.domain isEqualToString:NSPOSIXErrorDomain] && _appStoreID))
+        if (error && !(error.code == EPERM && [error.domain isEqualToString:NSPOSIXErrorDomain]))
         {
             [self performSelectorOnMainThread:@selector(connectionError:) withObject:error waitUntilDone:YES];
         }

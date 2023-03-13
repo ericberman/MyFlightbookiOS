@@ -33,7 +33,6 @@
 #import "Totals.h"
 #import "VisitedAirports.h"
 #import "iRate.h"
-#import "WPSAlertController.h"
 #import "SynchronousCalls.h"
 #import <UserNotifications/UserNotifications.h>
 
@@ -366,7 +365,7 @@ static BOOL fAppLaunchFinished = NO;
     [iRate sharedInstance].usesUntilPrompt = MIN_IRATE_USES;
     [iRate sharedInstance].daysUntilPrompt = MIN_IRATE_DAYS;
     [iRate sharedInstance].verboseLogging = YES;
-    [iRate sharedInstance].ratingsURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/us/app/myflightbook/id%@?mt=8&action=write-review", _appStoreID]];
+    [iRate sharedInstance].ratingsURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/us/app/myflightbook/id%d?mt=8&action=write-review", _appStoreID]];
 }
 
 static MFBAppDelegate * _mainApp = nil;
