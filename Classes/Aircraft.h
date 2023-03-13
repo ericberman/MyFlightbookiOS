@@ -71,24 +71,3 @@
 - (NSArray *) AircraftForSelection:(NSNumber *) acIDToInclude;
 @end
 
-@interface MFBWebServiceSvc_SimpleMakeModel (MFBExtensions)
-- (NSString *) manufacturerName;
-- (NSString *) subDesc;
-@end
-
-// Add methods to the MFBWebServiceSvc_Aircraft object (from WSDL) to make it comform to the NSCoding protocol
-@interface MFBWebServiceSvc_Aircraft (NSCodingSupport)
-- (NSNumber *) instanceTypeIDFromInstanceType:(MFBWebServiceSvc_AircraftInstanceTypes) instanceType;
-- (void)encodeWithCoderMFB:(NSCoder *)encoder;
-- (instancetype)initWithCoderMFB:(NSCoder *)decoder;
-- (NSString *) modelFullDescription;
-+ (MFBWebServiceSvc_Aircraft *) getNewAircraft;
-- (BOOL) hasMaintenance;
-- (NSString *) displayTailNumber;
-- (NSDate *) nextVOR;
-- (NSDate *) nextAnnual;
-- (NSDate *) nextELT;
-- (NSDate *) nextAltimeter;
-- (NSDate *) nextPitotStatic;
-- (NSDate *) nextTransponder;
-@end

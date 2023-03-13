@@ -356,29 +356,3 @@ extension MFBWebServiceSvc_FlightQuery {
     }
 }
 
-// MARK: MFBWebServiceSvc_Aircraft extensions; many more to come
-extension MFBWebServiceSvc_Aircraft {
-    @objc public func isNew() -> Bool  {
-        return aircraftID == nil || aircraftID.intValue < 0
-    }
-
-    @objc public func isSim() -> Bool {
-        switch (instanceType) {
-            case MFBWebServiceSvc_AircraftInstanceTypes_none, MFBWebServiceSvc_AircraftInstanceTypes_RealAircraft, MFBWebServiceSvc_AircraftInstanceTypes_Mintype:
-                return false
-            default:
-                return true
-        }
-    }
-
-    @objc public func isAnonymous() -> Bool {
-        return tailNumber.hasPrefix(MFBWebServiceSvc_Aircraft.PrefixAnonymous)
-    }
-    
-    @objc public static var PrefixAnonymous : String {
-        get {
-            return "#"
-        }
-    }
-
-}

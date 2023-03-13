@@ -66,4 +66,13 @@
 + (void) updateWatchContext {
     [MFBAppDelegate.threadSafeAppDelegate updateWatchContext];
 }
+
+// Because fucking swift fucking renames every fucking variable because of their fucking anal retentiveness about capitalization,
+// "Description" on the simple make/model conflicts with "description" that gets bridging assigned.
+// I could use the NS_SWIFT_NAME macro to define an alternate name, but alas THAT has to be done in the auto-generated MFBWebServiceSvc.h
+// file, which means that whenever I update that file I'd break if I forget to edit it, which I don't want to do
+// So the hack here is to come back to objective-c where variables keep the fucking names I give them
++ (NSString *) getDescriptionForSimpleMakeModel:(MFBWebServiceSvc_SimpleMakeModel *) smm {
+    return smm.Description;
+}
 @end

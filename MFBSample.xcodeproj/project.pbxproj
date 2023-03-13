@@ -373,6 +373,7 @@
 		9AC7B8C314D0AEF0009139BF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AC7B8C214D0AEF0009139BF /* QuartzCore.framework */; };
 		9AC83AD119E440260092C7BB /* tracklog.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 9AC83ACF19E440260092C7BB /* tracklog.gpx */; };
 		9AC83AD219E440260092C7BB /* tracklog.kml in Resources */ = {isa = PBXBuildFile; fileRef = 9AC83AD019E440260092C7BB /* tracklog.kml */; };
+		9AC88C0729BE96FE00841C0A /* MFBWebService Aircraft Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC88C0629BE96FE00841C0A /* MFBWebService Aircraft Extensions.swift */; };
 		9ACC119119E232FF00AA4E3C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9ACC118F19E232FF00AA4E3C /* InfoPlist.strings */; };
 		9ACD18BC11023CEE00B294F7 /* btnBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACD18BA11023CEE00B294F7 /* btnBack.png */; };
 		9ACD18BD11023CEE00B294F7 /* btnForward.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACD18BB11023CEE00B294F7 /* btnForward.png */; };
@@ -952,6 +953,7 @@
 		9AC7B8C214D0AEF0009139BF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9AC83ACF19E440260092C7BB /* tracklog.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tracklog.gpx; sourceTree = "<group>"; };
 		9AC83AD019E440260092C7BB /* tracklog.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tracklog.kml; sourceTree = "<group>"; };
+		9AC88C0629BE96FE00841C0A /* MFBWebService Aircraft Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MFBWebService Aircraft Extensions.swift"; sourceTree = "<group>"; };
 		9ACC119019E232FF00AA4E3C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9ACC119219E2331700AA4E3C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9ACD18BA11023CEE00B294F7 /* btnBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btnBack.png; sourceTree = "<group>"; };
@@ -1391,6 +1393,7 @@
 				9A14334529A54991007129A9 /* MFBWebServiceObjectExtensions.swift */,
 				9AEFF6E229BD2A4600B07B13 /* MFBWebService PropertyExtensions.swift */,
 				9A0E793F29BE2F4F005EF4D6 /* MFBWebService LogbookEntry Extensions.swift */,
+				9AC88C0629BE96FE00841C0A /* MFBWebService Aircraft Extensions.swift */,
 			);
 			path = "Category Extensions";
 			sourceTree = "<group>";
@@ -2442,6 +2445,7 @@
 				9A0DD9F8158579BE00FB6DF2 /* FixedImageCell.m in Sources */,
 				9A99506016E3C10200C61594 /* PropertyCell.m in Sources */,
 				9A99507416E694EA00C61594 /* AccessoryBar.m in Sources */,
+				9AC88C0729BE96FE00841C0A /* MFBWebService Aircraft Extensions.swift in Sources */,
 				9A27223029B53861006AE702 /* FlightProps.swift in Sources */,
 				9A804AF616EE445F002F77CA /* DateRangeViewController.m in Sources */,
 				9A20B152192D34D300A8F64F /* iRate.m in Sources */,

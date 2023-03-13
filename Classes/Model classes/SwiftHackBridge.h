@@ -38,6 +38,7 @@
 + (CLLocation *) lastLoc;
 + (SharedWatch *) watchData;
 + (void) updateWatchContext;
++ (NSString *) getDescriptionForSimpleMakeModel:(MFBWebServiceSvc_SimpleMakeModel *) smm;
 @end
 
 #endif /* SwiftHackBridge_h */
