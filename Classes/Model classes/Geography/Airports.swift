@@ -85,11 +85,11 @@ import SQLite3
         
         if (!(ap?.code ?? "").isEmpty) {
             // check that this airport is not already at the end of the list
-            let szCurrent = szReturn    // guaranteed non-nil
-            let r = szCurrent.range(of: ap!.code!, options: [.backwards, .caseInsensitive])
+            let szCurrent = szReturn.trimmingCharacters(in: .whitespaces).uppercased()   // guaranteed non-nil
+            
  
             // if it's not at the end of the list OR szCurrent is still nil, append it.
-            if (r == nil) {
+            if !szCurrent.hasSuffix(ap!.code!) {
                 szReturn = "\(szReturn.trimmingCharacters(in: .whitespaces)) \(ap!.code!)".uppercased().trimmingCharacters(in: .whitespaces)
             }
         }
