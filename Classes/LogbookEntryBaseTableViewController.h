@@ -24,7 +24,6 @@
 //
 
 #import "FlightEditorBaseTableViewController.h"
-#import "LogbookEntry.h"
 #import "SelectTemplates.h"
 #import "ApproachEditor.h"
 #import "TotalsCalculator.h"

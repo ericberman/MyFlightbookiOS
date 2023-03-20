@@ -29,7 +29,6 @@
 #import "MFBWebServiceSvc.h"
 #import "PullRefreshTableViewController.h"
 #import "FlightQueryForm.h"
-#import "LogbookEntry.h"
 
 @interface Totals : PullRefreshTableViewController <MFBSoapCallDelegate, QueryDelegate> {
 }

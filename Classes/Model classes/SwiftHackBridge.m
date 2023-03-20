@@ -75,4 +75,17 @@
 + (NSString *) getDescriptionForSimpleMakeModel:(MFBWebServiceSvc_SimpleMakeModel *) smm {
     return smm.Description;
 }
+
++ (void) dequeueUnsubmittedFlight:(id) l {
+    [MFBAppDelegate.threadSafeAppDelegate dequeueUnsubmittedFlight:(LogbookEntry *) l];
+}
+
++ (NSString *) flightDataAsString {
+    return MFBAppDelegate.threadSafeAppDelegate.mfbloc.flightDataAsString;
+}
+
++ (void) queueFlightForLater:(id) l {
+    [MFBAppDelegate.threadSafeAppDelegate queueFlightForLater:(LogbookEntry *) l];
+}
+
 @end

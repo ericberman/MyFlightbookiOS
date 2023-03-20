@@ -25,6 +25,7 @@
 //
 
 #import "RecentFlightCell.h"
+#import <MyFlightbook-Swift.h>
 
 @implementation RecentFlightCell
 

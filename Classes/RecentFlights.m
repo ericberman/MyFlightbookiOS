@@ -489,7 +489,8 @@ BOOL fCouldBeMoreFlights;
             [self submitUnsubmittedFlightsCompleted:sc fromCaller:(LogbookEntry *) ao];
         }];
         [self addPendingCall];
-        [le commitFlight];
+        NSError * err;
+        [le commitFlightAndReturnError:&err];
     }
     else // skip the commit on this; it needs to be fixed - just go on to the next one.
         [self submitUnsubmittedFlightsCompleted:nil fromCaller:le];

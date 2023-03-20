@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #import <Foundation/Foundation.h>
 #import "PackAndGo.h"
-#import "LogbookEntry.h"
 #import <MyFlightbook-Swift.h>
 
 @implementation PackAndGo

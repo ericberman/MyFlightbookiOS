@@ -27,7 +27,6 @@
 #import <MyFlightbook-Swift.h>
 #import "GPSSim.h"
 #import "MFBAppDelegate.h"
-#import "LogbookEntry.h"
 
 @interface GPSSim()
 @property (strong) MFBLocation * mfbloc;
@@ -202,7 +201,7 @@
             le.entryData.AircraftID = ac.AircraftID;
     }
 
-    le.entryData.FlightID = QUEUED_FLIGHT_UNSUBMITTED;   // don't auto-submit this flight!
+    le.entryData.FlightID = LogbookEntry.QUEUED_FLIGHT_UNSUBMITTED;   // don't auto-submit this flight!
     [MFBAppDelegate.threadSafeAppDelegate performSelectorOnMainThread:@selector(queueFlightForLater:) withObject:le waitUntilDone:NO];
 
     return le;

@@ -134,7 +134,6 @@
 		9A52ECB21B6574D000DE8A83 /* schedule.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A52ECAF1B6574D000DE8A83 /* schedule.png */; };
 		9A52ECB31B6574D000DE8A83 /* schedule@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A52ECB01B6574D000DE8A83 /* schedule@2x.png */; };
 		9A52ECB41B6574D000DE8A83 /* schedule@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A52ECB11B6574D000DE8A83 /* schedule@3x.png */; };
-		9A55E544156DB1D20031A215 /* MFBAsyncOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A55E543156DB1D10031A215 /* MFBAsyncOperation.m */; };
 		9A565B6A13E351C200BEFFA7 /* GPSSim.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A565B6913E351C200BEFFA7 /* GPSSim.m */; };
 		9A58E0481131A77C005988FA /* MyAircraft.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A58E0461131A77C005988FA /* MyAircraft.m */; };
 		9A58E0541131AC4C005988FA /* aircraft.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A58E0531131AC4C005988FA /* aircraft.png */; };
@@ -175,7 +174,6 @@
 		9A61876C1711DFC5007C7754 /* twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A61876A1711DFC4007C7754 /* twitter.png */; };
 		9A61876D1711DFC5007C7754 /* twitter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A61876B1711DFC4007C7754 /* twitter@2x.png */; };
 		9A6247A31AA509A3002A8E0B /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A6247A21AA509A3002A8E0B /* MediaPlayer.framework */; };
-		9A691EBA10C73E4300DF1CA6 /* LogbookEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A691EB910C73E4300DF1CA6 /* LogbookEntry.m */; };
 		9A69202B10CCBD8B00DF1CA6 /* NSDate+ISO8601Parsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202110CCBD8900DF1CA6 /* NSDate+ISO8601Parsing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9A69202C10CCBD8B00DF1CA6 /* NSDate+ISO8601Unparsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202310CCBD8900DF1CA6 /* NSDate+ISO8601Unparsing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9A69202D10CCBD8B00DF1CA6 /* USAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202510CCBD8A00DF1CA6 /* USAdditions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -223,7 +221,6 @@
 		9A897FE01666B39800D9019C /* sunrise@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FDF1666B39700D9019C /* sunrise@2x.png */; };
 		9A897FE21666B3A700D9019C /* sunset@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FE11666B3A700D9019C /* sunset@2x.png */; };
 		9A89C1AF29B8F45300848A6B /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A89C1AE29B8F45300848A6B /* About.swift */; };
-		9A8BF94010E1846E002F01ED /* Aircraft.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A8BF93C10E1846E002F01ED /* Aircraft.m */; };
 		9A8BFADF22B00B1000CB79E0 /* SelectTemplates.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A8BFADE22B00B1000CB79E0 /* SelectTemplates.m */; };
 		9A8D628015851392001105F2 /* DateRangeSelector.xib.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9A8D627E15851392001105F2 /* DateRangeSelector.xib.txt */; };
 		9A8D6283158513AB001105F2 /* DateRangeSelector.xib.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9A8D6281158513AB001105F2 /* DateRangeSelector.xib.txt */; };
@@ -373,6 +370,9 @@
 		9AC83AD119E440260092C7BB /* tracklog.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 9AC83ACF19E440260092C7BB /* tracklog.gpx */; };
 		9AC83AD219E440260092C7BB /* tracklog.kml in Resources */ = {isa = PBXBuildFile; fileRef = 9AC83AD019E440260092C7BB /* tracklog.kml */; };
 		9AC88C0729BE96FE00841C0A /* MFBWebService Aircraft Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC88C0629BE96FE00841C0A /* MFBWebService Aircraft Extensions.swift */; };
+		9AC88C0B29BFAD6800841C0A /* MFBAsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC88C0A29BFAD6800841C0A /* MFBAsyncOperation.swift */; };
+		9AC88C0D29BFAD8300841C0A /* Logbook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC88C0C29BFAD8300841C0A /* Logbook.swift */; };
+		9AC88C0F29BFAD8B00841C0A /* Aircraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC88C0E29BFAD8B00841C0A /* Aircraft.swift */; };
 		9AC88C1129BFD54600841C0A /* WPSAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC88C1029BFD54600841C0A /* WPSAlertController.swift */; };
 		9ACC119119E232FF00AA4E3C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9ACC118F19E232FF00AA4E3C /* InfoPlist.strings */; };
 		9ACD18BC11023CEE00B294F7 /* btnBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACD18BA11023CEE00B294F7 /* btnBack.png */; };
@@ -678,8 +678,6 @@
 		9A52ECAF1B6574D000DE8A83 /* schedule.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = schedule.png; sourceTree = "<group>"; };
 		9A52ECB01B6574D000DE8A83 /* schedule@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "schedule@2x.png"; sourceTree = "<group>"; };
 		9A52ECB11B6574D000DE8A83 /* schedule@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "schedule@3x.png"; sourceTree = "<group>"; };
-		9A55E542156DB1CF0031A215 /* MFBAsyncOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFBAsyncOperation.h; sourceTree = "<group>"; };
-		9A55E543156DB1D10031A215 /* MFBAsyncOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFBAsyncOperation.m; sourceTree = "<group>"; };
 		9A565B6813E351C200BEFFA7 /* GPSSim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPSSim.h; sourceTree = "<group>"; };
 		9A565B6913E351C200BEFFA7 /* GPSSim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPSSim.m; sourceTree = "<group>"; };
 		9A565B6E13E3545800BEFFA7 /* GPSSamples.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GPSSamples.csv; sourceTree = "<group>"; };
@@ -706,8 +704,6 @@
 		9A61876A1711DFC4007C7754 /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter.png; sourceTree = "<group>"; };
 		9A61876B1711DFC4007C7754 /* twitter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter@2x.png"; sourceTree = "<group>"; };
 		9A6247A21AA509A3002A8E0B /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		9A691EB810C73E4300DF1CA6 /* LogbookEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogbookEntry.h; path = ../LogbookEntry.h; sourceTree = "<group>"; };
-		9A691EB910C73E4300DF1CA6 /* LogbookEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogbookEntry.m; path = ../LogbookEntry.m; sourceTree = "<group>"; };
 		9A69202010CCBD8800DF1CA6 /* NSDate+ISO8601Parsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+ISO8601Parsing.h"; sourceTree = "<group>"; };
 		9A69202110CCBD8900DF1CA6 /* NSDate+ISO8601Parsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+ISO8601Parsing.m"; sourceTree = "<group>"; };
 		9A69202210CCBD8900DF1CA6 /* NSDate+ISO8601Unparsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+ISO8601Unparsing.h"; sourceTree = "<group>"; };
@@ -784,8 +780,6 @@
 		9A897FDF1666B39700D9019C /* sunrise@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sunrise@2x.png"; sourceTree = "<group>"; };
 		9A897FE11666B3A700D9019C /* sunset@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sunset@2x.png"; sourceTree = "<group>"; };
 		9A89C1AE29B8F45300848A6B /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = About.swift; sourceTree = "<group>"; };
-		9A8BF93B10E1846E002F01ED /* Aircraft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Aircraft.h; path = ../Aircraft.h; sourceTree = "<group>"; };
-		9A8BF93C10E1846E002F01ED /* Aircraft.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Aircraft.m; path = ../Aircraft.m; sourceTree = "<group>"; };
 		9A8BFADD22B00B1000CB79E0 /* SelectTemplates.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectTemplates.h; sourceTree = "<group>"; };
 		9A8BFADE22B00B1000CB79E0 /* SelectTemplates.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectTemplates.m; sourceTree = "<group>"; };
 		9A8D627F15851392001105F2 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text; name = fr; path = Classes/fr.lproj/DateRangeSelector.xib.txt; sourceTree = "<group>"; };
@@ -952,6 +946,9 @@
 		9AC83ACF19E440260092C7BB /* tracklog.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tracklog.gpx; sourceTree = "<group>"; };
 		9AC83AD019E440260092C7BB /* tracklog.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tracklog.kml; sourceTree = "<group>"; };
 		9AC88C0629BE96FE00841C0A /* MFBWebService Aircraft Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MFBWebService Aircraft Extensions.swift"; sourceTree = "<group>"; };
+		9AC88C0A29BFAD6800841C0A /* MFBAsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFBAsyncOperation.swift; sourceTree = "<group>"; };
+		9AC88C0C29BFAD8300841C0A /* Logbook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logbook.swift; sourceTree = "<group>"; };
+		9AC88C0E29BFAD8B00841C0A /* Aircraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Aircraft.swift; sourceTree = "<group>"; };
 		9AC88C1029BFD54600841C0A /* WPSAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WPSAlertController.swift; sourceTree = "<group>"; };
 		9ACC119019E232FF00AA4E3C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9ACC119219E2331700AA4E3C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1402,6 +1399,8 @@
 				9A84363629BAB0540001012D /* CountryCode.swift */,
 				9A27222F29B53861006AE702 /* FlightProps.swift */,
 				9A0E793C29BD76F4005EF4D6 /* ApproachDescription.swift */,
+				9AC88C0C29BFAD8300841C0A /* Logbook.swift */,
+				9AC88C0E29BFAD8B00841C0A /* Aircraft.swift */,
 			);
 			path = "Logbook Model";
 			sourceTree = "<group>";
@@ -1679,19 +1678,13 @@
 				9AE39A4829ABC1DA002A6496 /* Geography */,
 				9A73C8AD21B1A94500AE1221 /* Category Extensions */,
 				9AD2FFF61BE4060000A9B21B /* Watchkit Utility */,
-				9A8BF93B10E1846E002F01ED /* Aircraft.h */,
-				9A8BF93C10E1846E002F01ED /* Aircraft.m */,
 				9A21D5CA2214D1E300961605 /* BadElfSession.swift */,
 				9A1213B1111D3113001CDDB6 /* CommentedImage.h */,
 				9A1213B2111D3113001CDDB6 /* CommentedImage.m */,
 				9A565B6813E351C200BEFFA7 /* GPSSim.h */,
 				9A565B6913E351C200BEFFA7 /* GPSSim.m */,
-				9A691EB810C73E4300DF1CA6 /* LogbookEntry.h */,
-				9A691EB910C73E4300DF1CA6 /* LogbookEntry.m */,
 				1D3623240D0F684500981E51 /* MFBAppDelegate.h */,
 				1D3623250D0F684500981E51 /* MFBAppDelegate.m */,
-				9A55E542156DB1CF0031A215 /* MFBAsyncOperation.h */,
-				9A55E543156DB1D10031A215 /* MFBAsyncOperation.m */,
 				9A7FE95B12494F87001A8722 /* Reachability.h */,
 				9A7FE95C12494F87001A8722 /* Reachability.m */,
 				9A0BF18024743D5E003C2172 /* PackAndGo.m */,
@@ -1705,6 +1698,7 @@
 				9A8EE98529AA676B00F133CF /* UserProfile.swift */,
 				9A84363129B98AA70001012D /* MFBConstants.swift */,
 				9A84363329BA926D0001012D /* MFBSqlLite.swift */,
+				9AC88C0A29BFAD6800841C0A /* MFBAsyncOperation.swift */,
 			);
 			path = "Model classes";
 			sourceTree = "<group>";
@@ -2366,7 +2360,6 @@
 				9A6B78A122399C8C0014B0C2 /* NewAircraftViewController.m in Sources */,
 				9AC2C80229A3E3D600A702B2 /* ObjectExtensions.swift in Sources */,
 				9ACEDB9922388BAB00221A17 /* AircraftViewController.m in Sources */,
-				9A691EBA10C73E4300DF1CA6 /* LogbookEntry.m in Sources */,
 				9A5F990529A1CCB500692E27 /* WidgetKitBridge.swift in Sources */,
 				9A27223729B69AD3006AE702 /* GPSDeviceViewTableViewController.swift in Sources */,
 				9A8005A022CEBCCF00EC487E /* LogbookEntryBaseTableViewController.m in Sources */,
@@ -2383,7 +2376,6 @@
 				9ADFA5081939271B00FF30B7 /* Training.m in Sources */,
 				9A8BFADF22B00B1000CB79E0 /* SelectTemplates.m in Sources */,
 				9A48E27429A1686000511D99 /* MyFlightbookWidgets.intentdefinition in Sources */,
-				9A8BF94010E1846E002F01ED /* Aircraft.m in Sources */,
 				9A017B7722FA46A9007F0210 /* ConjunctionCell.m in Sources */,
 				9A9CB2691E513B28002B2E11 /* TotalsCalculator.m in Sources */,
 				9AE39A4C29ABE29D002A6496 /* WebServiceMappingExtensions.swift in Sources */,
@@ -2409,6 +2401,7 @@
 				9AE39A3F29AAA2D0002A6496 /* AutodetectOptions.swift in Sources */,
 				9A3E1378127DE704008D672E /* EXFJpeg.m in Sources */,
 				9AE39A4A29ABD008002A6496 /* LatLongBox.swift in Sources */,
+				9AC88C0B29BFAD6800841C0A /* MFBAsyncOperation.swift in Sources */,
 				9A3E1379127DE704008D672E /* EXFMetaData.m in Sources */,
 				9A3E137A127DE704008D672E /* EXFTagDefinitionHolder.m in Sources */,
 				9A3E137B127DE704008D672E /* EXFUtils.m in Sources */,
@@ -2432,8 +2425,8 @@
 				9A27223529B699C8006AE702 /* GPSSim.swift in Sources */,
 				9A4587BD14C205500045AF51 /* RecentFlightCell.m in Sources */,
 				9AC7B8BF14D0ADAB009139BF /* PullRefreshTableViewController.m in Sources */,
-				9A55E544156DB1D20031A215 /* MFBAsyncOperation.m in Sources */,
 				9A79E30A156E9B7100EBEF48 /* FlightQueryForm.m in Sources */,
+				9AC88C0F29BFAD8B00841C0A /* Aircraft.swift in Sources */,
 				9A6BDE0C1570921D00F715E1 /* EditCell.m in Sources */,
 				9A6C3B4115728E10004EB8FA /* ExpandHeaderCell.m in Sources */,
 				9A3A27311573F002009AE0F6 /* WaitCell.m in Sources */,
@@ -2451,6 +2444,7 @@
 				9A23CFA416F50C57001C9098 /* SignInControllerViewController.m in Sources */,
 				9A8EE98329A9B5A800F133CF /* SwiftHackBridge.m in Sources */,
 				9A0E794029BE2F4F005EF4D6 /* MFBWebService LogbookEntry Extensions.swift in Sources */,
+				9AC88C0D29BFAD8300841C0A /* Logbook.swift in Sources */,
 				9A23CFA816F53B5E001C9098 /* ButtonCell.m in Sources */,
 				9ADB297216F62344008D9582 /* TextCell.m in Sources */,
 				9A84363229B98AA70001012D /* MFBConstants.swift in Sources */,

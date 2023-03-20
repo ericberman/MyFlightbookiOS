@@ -381,8 +381,7 @@ extension MFBWebServiceSvc_LogbookEntry : AutoDetectDelegate {
         case runtimeError(String)
     }
     
-    @objc public func getExistingProperty(_ idPropType : NSNumber) -> MFBWebServiceSvc_CustomFlightProperty? {
-        let propVal = idPropType.intValue
+    public func getExistingProperty(_ propVal : Int) -> MFBWebServiceSvc_CustomFlightProperty? {
         for c in customProperties.customFlightProperty {
             let cfp = c as! MFBWebServiceSvc_CustomFlightProperty
             if (cfp.propTypeID.intValue == propVal) {
@@ -390,6 +389,16 @@ extension MFBWebServiceSvc_LogbookEntry : AutoDetectDelegate {
             }
         }
         return nil
+    }
+    
+    // Convenience method for objc
+    @objc public func getExistingProperty(_ idPropType : NSNumber) -> MFBWebServiceSvc_CustomFlightProperty? {
+        return getExistingProperty(idPropType.intValue)
+    }
+    
+    // Convenience method - work with known properties in the enum
+    public func getExistingProperty(_ idPropType : PropTypeID) -> MFBWebServiceSvc_CustomFlightProperty? {
+        return getExistingProperty(idPropType.rawValue)
     }
     
     ///Like RemoveProperty but deletes from the server if necessary (i.e., if it has a PropID > 0)
@@ -406,7 +415,7 @@ extension MFBWebServiceSvc_LogbookEntry : AutoDetectDelegate {
         
         if (r.count == 1) {
             if let fpDelete = r[0] as? MFBWebServiceSvc_CustomFlightProperty {
-                if fpDelete.propID.intValue > 0 {
+                if (fpDelete.propID?.intValue ?? 0) > 0 {
                     if (szAuthToken == nil || szAuthToken!.length == 0 || fp == nil) {
                         throw PropertyError.runtimeError("Removing a property with a positive ID but no authtoken or flight props service provided; delete the property instead")
                     }
@@ -504,9 +513,38 @@ extension MFBWebServiceSvc_LogbookEntry : AutoDetectDelegate {
         }
     }
     
+    // convenience methods for add property/setpropertyvalue
+    @discardableResult public func addProperty(_ idPropType : PropTypeID, withInteger intVal : Int) -> MFBWebServiceSvc_CustomFlightProperty? {
+        return addProperty(NSNumber(integerLiteral: idPropType.rawValue), withInteger: NSNumber(integerLiteral: intVal))
+    }
+
+    @discardableResult public func addProperty(_ idPropType : PropTypeID, withDecimal decVal : Double) -> MFBWebServiceSvc_CustomFlightProperty? {
+        return addProperty(NSNumber(integerLiteral: idPropType.rawValue), withDecimal: NSNumber(floatLiteral: decVal))
+    }
+    
+    @discardableResult public func addProperty(_ idPropType : PropTypeID, withString sz : String) -> MFBWebServiceSvc_CustomFlightProperty? {
+        return addProperty(NSNumber(integerLiteral: idPropType.rawValue), withString: sz)
+    }
+    
+    @discardableResult public func addProperty(_ idPropType : PropTypeID, withBool fBool : Bool) -> MFBWebServiceSvc_CustomFlightProperty? {
+        return addProperty(NSNumber(integerLiteral: idPropType.rawValue), withBool: fBool)
+    }
+    
+    @discardableResult public func addProperty(_ idPropType : PropTypeID, withDate dt : Date) -> MFBWebServiceSvc_CustomFlightProperty? {
+        return addProperty(NSNumber(integerLiteral: idPropType.rawValue), withDate: dt)
+    }
+    
+    @discardableResult public func setPropertyValue(_ idPropType : PropTypeID, withDecimal decVal : Double) -> MFBWebServiceSvc_CustomFlightProperty {
+        return setPropertyValue(NSNumber(integerLiteral: idPropType.rawValue), withDecimal: NSNumber(floatLiteral: decVal))
+    }
+    
+    @discardableResult public func setPropertyValue(_ idPropType : PropTypeID, withDate dt : Date) -> MFBWebServiceSvc_CustomFlightProperty {
+        return setPropertyValue(NSNumber(integerLiteral: idPropType.rawValue), withDate: dt)
+    }
+    
+
     // MARK: Parsing (for JSON/LogTen)
-    // TODO: Make these internal when we convert fromJSONDictionary
-    @objc public func parseNum(_ s: Any?, numType nt : NumericType) -> NSNumber {
+    internal func parseNum(_ s: Any?, numType nt : NumericType) -> NSNumber {
         let result = NSNumber(integerLiteral: 0)
         if s == nil {
             return result
@@ -528,7 +566,7 @@ extension MFBWebServiceSvc_LogbookEntry : AutoDetectDelegate {
         return result
     }
     
-    @objc public func parseDate(_ szDt: Any?, withFormatter df : DateFormatter) -> Date? {
+    internal func parseDate(_ szDt: Any?, withFormatter df : DateFormatter) -> Date? {
         if let dtIn = szDt as? Date {
             return dtIn
         }
@@ -544,70 +582,62 @@ extension MFBWebServiceSvc_LogbookEntry : AutoDetectDelegate {
         return nil
     }
     
-    /*
-     TODO: Can't complete this until we migrate aircraft
-    @objc public func fromJSONDictionary(_ dict : [String : String], dateFormatter dfDate : DateFormatter, dateTimeFormatter dfDateTime : DateFormatter) -> String {
+    @objc public func fromJSONDictionary(_ dict : [NSString : AnyObject], dateFormatter dfDate : DateFormatter, dateTimeFormatter dfDateTime : DateFormatter) -> String {
         var szResult = ""
         
-        do {
-            comment = dict["flight_remarks"] ?? ""
-            let szFrom = dict["flight_from"] ?? ""
-            let szTo = dict["flight_to"] ?? ""
-            let szRoute = dict["flight_route"] ?? ""
-            
-            route = "\(szFrom) \(szRoute) \(szTo)".trimmingCharacters(in: .whitespaces)
-            
-            hobbsStart = parseNum(dict["flight_hobbsStart"], numType: .Decimal)
-            hobbsEnd = parseNum(dict["flight_hobbsStop"], numType: .Decimal)
-            
-            date = parseDate(dict["flight_flightDate"], withFormatter:dfDate)
-            flightStart = parseDate(dict["flight_takeoffTime"], withFormatter:dfDateTime)
-            flightEnd = parseDate(dict["flight_landingTime"], withFormatter:dfDateTime)
-            
-            crossCountry = parseNum(dict["flight_crossCountry"], numType: .Time)
-            nighttime = parseNum(dict["flight_night"], numType: .Time)
-            simulatedIFR = parseNum(dict["flight_simulatedInstrument"], numType: .Time)
-            imc = parseNum(dict["flight_actualInstrument"], numType: .Time)
-            groundSim = parseNum(dict["flight_simulator"], numType: .Time)
-            dual = parseNum(dict["flight_dualReceived"], numType: .Time)
-            cfi = parseNum(dict["flight_dualGiven"], numType: .Time)
-            sic = parseNum(dict["flight_sic"], numType: .Time)
-            pic = parseNum(dict["flight_pic"], numType: .Time)
-            totalFlightTime = parseNum(dict["flight_totalTime"], numType: .Time)
-            
-            nightLandings = parseNum(dict["flight_nightLandings"], numType: .Integer)
-            fullStopLandings = parseNum(dict["flight_dayLandings"], numType: .Integer)
-            landings = parseNum(dict["flight_totalLandings"], numType: .Integer)
-            
-            let flight_holds = parseNum(dict["flight_holds"], numType: .Integer)
-            fHoldingProcedures = USBoolean(bool: flight_holds.intValue > 0)
-            fIsPublic = USBoolean(bool: false)
-            approaches = parseNum(dict["flight_totalApproaches"], numType: .Integer)
-            
-            // Now add a few properties that match to known property types
-            addProperty(NSNumber(integerLiteral: PropTypeID.IPC.rawValue), withBool:dict["flight_instrumentProficiencyCheck"] != nil)
-            addProperty(NSNumber(integerLiteral: PropTypeID.BFR.rawValue), withBool:dict["flight_review"] != nil)
-            addProperty(NSNumber(integerLiteral: PropTypeID.nightTakeOff.rawValue), withInteger:parseNum(dict["flight_nightTakeoffs"], numType: .Integer))
-            addProperty(NSNumber(integerLiteral: PropTypeID.solo.rawValue), withDecimal:parseNum(dict["flight_solo"], numType: .Time))
-            addProperty(NSNumber(integerLiteral: PropTypeID.nameOfPIC.rawValue), withString:dict["flight_selectedCrewPIC"])
-            addProperty(NSNumber(integerLiteral: PropTypeID.nameOfSIC.rawValue), withString:dict["flight_selectedCrewSIC"])
-            addProperty(NSNumber(integerLiteral: PropTypeID.nameOfCFI.rawValue), withString:dict["flight_selectedCrewInstructor"])
-            addProperty(NSNumber(integerLiteral: PropTypeID.nameOfStudent.rawValue), withString:dict["flight_selectedCrewStudent"])
-
-            aircraftID = NSNumber(integerLiteral: -1)
-            MFBWebServiceSvc_Aircraft * ac;
-            if (dict[@"flight_selectedAircraftID"] == nil || (ac = [[Aircraft sharedAircraft] AircraftByTail:dict[@"flight_selectedAircraftID"]]) == nil)
-                szResult = NSLocalizedString(@"No Aircraft", @"Title for No Aircraft error");
-            else
-                self.AircraftID = ac.AircraftID;
-        }
-        catch {
-            szResult = error.localizedDescription
+        comment = dict["flight_remarks"] as? String
+        let szFrom = (dict["flight_from"] as? String) ?? ""
+        let szTo = (dict["flight_to"] as? String) ?? ""
+        let szRoute = (dict["flight_route"] as? String) ?? ""
+        
+        route = "\(szFrom) \(szRoute) \(szTo)".trimmingCharacters(in: .whitespaces)
+        
+        hobbsStart = parseNum(dict["flight_hobbsStart"], numType: .Decimal)
+        hobbsEnd = parseNum(dict["flight_hobbsStop"], numType: .Decimal)
+        
+        date = parseDate(dict["flight_flightDate"], withFormatter:dfDate)
+        flightStart = parseDate(dict["flight_takeoffTime"], withFormatter:dfDateTime)
+        flightEnd = parseDate(dict["flight_landingTime"], withFormatter:dfDateTime)
+        
+        crossCountry = parseNum(dict["flight_crossCountry"], numType: .Time)
+        nighttime = parseNum(dict["flight_night"], numType: .Time)
+        simulatedIFR = parseNum(dict["flight_simulatedInstrument"], numType: .Time)
+        imc = parseNum(dict["flight_actualInstrument"], numType: .Time)
+        groundSim = parseNum(dict["flight_simulator"], numType: .Time)
+        dual = parseNum(dict["flight_dualReceived"], numType: .Time)
+        cfi = parseNum(dict["flight_dualGiven"], numType: .Time)
+        sic = parseNum(dict["flight_sic"], numType: .Time)
+        pic = parseNum(dict["flight_pic"], numType: .Time)
+        totalFlightTime = parseNum(dict["flight_totalTime"], numType: .Time)
+        
+        nightLandings = parseNum(dict["flight_nightLandings"], numType: .Integer)
+        fullStopLandings = parseNum(dict["flight_dayLandings"], numType: .Integer)
+        landings = parseNum(dict["flight_totalLandings"], numType: .Integer)
+        
+        let flight_holds = parseNum(dict["flight_holds"], numType: .Integer)
+        fHoldingProcedures = USBoolean(bool: flight_holds.intValue > 0)
+        fIsPublic = USBoolean(bool: false)
+        approaches = parseNum(dict["flight_totalApproaches"], numType: .Integer)
+        
+        // Now add a few properties that match to known property types
+        addProperty(NSNumber(integerLiteral: PropTypeID.IPC.rawValue), withBool:dict["flight_instrumentProficiencyCheck"] != nil)
+        addProperty(NSNumber(integerLiteral: PropTypeID.BFR.rawValue), withBool:dict["flight_review"] != nil)
+        addProperty(NSNumber(integerLiteral: PropTypeID.nightTakeOff.rawValue), withInteger:parseNum(dict["flight_nightTakeoffs"], numType: .Integer))
+        addProperty(NSNumber(integerLiteral: PropTypeID.solo.rawValue), withDecimal:parseNum(dict["flight_solo"], numType: .Time))
+        addProperty(NSNumber(integerLiteral: PropTypeID.nameOfPIC.rawValue), withString:dict["flight_selectedCrewPIC"] as? String)
+        addProperty(NSNumber(integerLiteral: PropTypeID.nameOfSIC.rawValue), withString:dict["flight_selectedCrewSIC"] as? String)
+        addProperty(NSNumber(integerLiteral: PropTypeID.nameOfCFI.rawValue), withString:dict["flight_selectedCrewInstructor"] as? String)
+        addProperty(NSNumber(integerLiteral: PropTypeID.nameOfStudent.rawValue), withString:dict["flight_selectedCrewStudent"] as? String)
+        
+        aircraftID = NSNumber(integerLiteral: -1)
+        if let ac = Aircraft.sharedAircraft.AircraftByTail((dict["flight_selectedAircraftID"] as? String) ?? "") {
+            aircraftID = ac.aircraftID
+        } else {
+            szResult = String(localized: "No Aircraft", comment: "Title for No Aircraft error")
         }
         
         return szResult
     }
-     */
     
     // MARK: Autodetect Delegate
     @objc public func autofillClosest() {
@@ -707,26 +737,29 @@ extension MFBWebServiceSvc_LogbookEntry : AutoDetectDelegate {
         }
     }
     
-    /*
-     TODO: Can't complete this until we have Aircraft migrated
-     - (NSNumber *) xfillValueForPropType:(MFBWebServiceSvc_CustomPropertyType *) cpt {
-         if (cpt.PropTypeID.integerValue == PropTypeIDTachStart)
-             return [Aircraft.sharedAircraft getHighWaterTachForAircraft:self.AircraftID];
-         
-         // if it's a decimal but not a basic decimal
-         if (cpt.Type == MFBWebServiceSvc_CFPPropertyType_cfpDecimal && (cpt.Flags.intValue & 0x00200000) == 0)
-             return self.TotalFlightTime;
-         
-         if (cpt.Type == MFBWebServiceSvc_CFPPropertyType_cfpInteger) {
-             if ((cpt.Flags.intValue & 0x08000000) == 0x08000000)
-                 return self.Landings;
-             if ((cpt.Flags.intValue & 0x00001000) == 0x00001000)
-                 return self.Approaches;
-         }
-         
-         return nil;
-     }
-     */
+    // Return the default (cross-fill) value to use for a long press on a given property, nil if none
+    @objc public func xfillValueForPropType(_ cpt : MFBWebServiceSvc_CustomPropertyType) -> NSNumber? {
+        if cpt.propTypeID.intValue == PropTypeID.tachStart.rawValue {
+            return Aircraft.sharedAircraft.getHighWaterTachForAircraft(aircraftID)
+        }
+        
+        // if it's a decimal but not a basic decimal
+        if cpt.type == MFBWebServiceSvc_CFPPropertyType_cfpDecimal && (cpt.flags.intValue & 0x00200000) == 0 {
+            return totalFlightTime
+        }
+        
+        if cpt.type == MFBWebServiceSvc_CFPPropertyType_cfpInteger {
+            if ((cpt.flags.intValue & 0x08000000) == 0x08000000) {
+                return self.landings;
+            }
+            if ((cpt.flags.intValue & 0x00001000) == 0x00001000) {
+                return self.approaches;
+            }
+        }
+        
+        return nil;
+
+    }
     
     @objc public func sendFlight() {
         if (sendFlightLink ?? "").isEmpty {

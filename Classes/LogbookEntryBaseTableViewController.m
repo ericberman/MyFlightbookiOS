@@ -108,7 +108,7 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
     
     self.le    = [[LogbookEntry alloc] init];
     self.le.entryData.Date = [NSDate date];
-    self.le.entryData.FlightID = NEW_FLIGHT_ID;
+    self.le.entryData.FlightID = LogbookEntry.NEW_FLIGHT_ID;
     // Add in any locked properties - but don't hit the web.
     FlightProps * fp = [FlightProps getFlightPropsNoNet];
     [self.le.entryData.CustomProperties setProperties:[fp defaultPropList]];
@@ -253,7 +253,7 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
     // if it's a new flight, queue it.  We set the id to -2 to distinguish it from a new flight.
     // If it's unsubmitted, we just no-op and tell the user it's still queued.
     if (self.le.entryData.isNewOrAwaitingUpload)
-        self.le.entryData.FlightID = PENDING_FLIGHT_ID;
+        self.le.entryData.FlightID = LogbookEntry.PENDING_FLIGHT_ID;
     
     // add it to the pending flight queue - it will start submitting when recent flights are viewed
     [app queueFlightForLater:self.le];
@@ -373,7 +373,7 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
     LogbookEntry * leNew = [[LogbookEntry alloc] init];
     
     leNew.entryData  = fReverse ? [self.le.entryData cloneAndReverse] : [self.le.entryData clone];
-    leNew.entryData.FlightID = QUEUED_FLIGHT_UNSUBMITTED;   // don't auto-submit this flight!
+    leNew.entryData.FlightID = LogbookEntry.QUEUED_FLIGHT_UNSUBMITTED;   // don't auto-submit this flight!
     MFBAppDelegate * app = [MFBAppDelegate threadSafeAppDelegate];
     [app queueFlightForLater:leNew];
     

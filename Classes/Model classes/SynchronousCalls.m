@@ -26,7 +26,6 @@
 //
 
 #import "SynchronousCalls.h"
-#import "LogbookEntry.h"
 #import <MyFlightbook-Swift.h>
 
 @implementation SynchronousCalls

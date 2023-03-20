@@ -27,7 +27,6 @@
 #import <UIKit/UIKit.h>
 #import <MyFlightbook-Swift.h>
 #import "LogbookEntryBaseTableViewController.h"
-#import "LogbookEntry.h"
 #import "CommentedImage.h"
 #import "GPSSim.h"
 #import "FlightProperties.h"

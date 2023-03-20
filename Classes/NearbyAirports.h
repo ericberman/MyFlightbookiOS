@@ -31,7 +31,6 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "CommentedImage.h"
-#import "LogbookEntry.h"
 
 @protocol NearbyAirportsDelegate
 

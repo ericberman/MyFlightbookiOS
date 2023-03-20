@@ -39,6 +39,9 @@
 + (SharedWatch *) watchData;
 + (void) updateWatchContext;
 + (NSString *) getDescriptionForSimpleMakeModel:(MFBWebServiceSvc_SimpleMakeModel *) smm;
++ (void) dequeueUnsubmittedFlight:(id) l;
++ (void) queueFlightForLater:(id) l;
++ (NSString *) flightDataAsString;
 @end
 
 #endif /* SwiftHackBridge_h */

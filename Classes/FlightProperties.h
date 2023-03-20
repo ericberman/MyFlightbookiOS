@@ -26,7 +26,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LogbookEntry.h"
 #import "MFBWebServiceSvc.h"
 #import "MFBAppDelegate.h"
 #import "PullRefreshTableViewController.h"

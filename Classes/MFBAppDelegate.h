@@ -29,7 +29,6 @@
 #import <MyFlightbook-Swift.h>
 #import <CoreLocation/CoreLocation.h>
 #import <SystemConfiguration/SystemConfiguration.h>
-#import "Aircraft.h"
 #import <sqlite3.h>
 #import "Reachability.h"
 #import "CollapsibleTable.h"

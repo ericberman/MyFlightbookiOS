@@ -1267,7 +1267,7 @@ static NSArray * rgAllCockpitRows = nil;
     if (!self.le.entryData.isKnownEngineEnd) {
         self.le.entryData.EngineEnd = [NSDate date];
         [self stopEngine];
-        self.le.entryData.FlightID = QUEUED_FLIGHT_UNSUBMITTED;   // don't auto-submit this flight!
+        self.le.entryData.FlightID = LogbookEntry.QUEUED_FLIGHT_UNSUBMITTED;   // don't auto-submit this flight!
         [MFBAppDelegate.threadSafeAppDelegate queueFlightForLater:self.le];
         [self resetFlight];
         [self updatePausePlay];

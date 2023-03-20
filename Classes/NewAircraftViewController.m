@@ -25,6 +25,7 @@
 //
 //
 
+#import <MyFlightbook-Swift.h>
 #import "NewAircraftViewController.h"
 #import "ExpandHeaderCell.h"
 #import "MakeModel.h"
@@ -528,7 +529,7 @@ enum aircraftRows {rowMainFirst, rowInstanceTypeReal = rowMainFirst, rowInstance
         }
     }
     else
-        self.ac.TailNumber = Aircraft.PrefixSIM;
+        self.ac.TailNumber = Aircraft.PrefixSim;
     
     
     if ([szError length] > 0) {

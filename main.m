@@ -28,9 +28,7 @@
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
 #import "MFBAppDelegate.h"
-#import "Aircraft.h"
 #import "CommentedImage.h"
-#import "LogbookEntry.h"
 
 void Swizzle(Class c, SEL orig, SEL new)
 {

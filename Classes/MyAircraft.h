@@ -26,7 +26,6 @@
 
 #import <UIKit/UIKit.h>
 #import "MFBAppDelegate.h"
-#import "Aircraft.h"
 #import "MFBWebServiceSvc.h"
 #import "PullRefreshTableViewController.h"
 #import "AircraftViewController.h"

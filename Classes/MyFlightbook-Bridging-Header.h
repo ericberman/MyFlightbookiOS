@@ -38,6 +38,7 @@
 #import "MFBWebServiceSvc.h"
 #import "NSDate+ISO8601Unparsing.h"
 #import "NSDate+ISO8601Parsing.h"
+#import "CommentedImage.h"
 #import "SharedWatch.h"
 #import "HostName.h"
 #import "SwiftHackBridge.h"
