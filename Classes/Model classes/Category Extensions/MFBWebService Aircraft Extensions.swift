@@ -236,7 +236,7 @@ extension MFBWebServiceSvc_SimpleMakeModel {
     // These are kind of a hack on the syntax of the simple make/model Description, which is "Manufacturer (model and other info)"
     private func getDescriptionPiece(_ index : Int) -> String {
         let d = SwiftHackBridge.getDescriptionFor(self)!
-        let regex = try! NSRegularExpression(pattern: #"(.*) \((.*)\).*"#)
+        let regex = try! NSRegularExpression(pattern: #"([^(]+) (\(.*\) -.*)"#)
         if let m = regex.firstMatch(in: d, range: NSRange(location: 0, length: d.count)) {
             if (m.numberOfRanges == 3) {    // should always be true!!!
                 return d[Range(m.range(at: index))!]
