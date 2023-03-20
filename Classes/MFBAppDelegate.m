@@ -72,7 +72,6 @@
 
 @implementation MFBAppDelegate
 
-sqlite3 * _db;
 BOOL fNetworkStateKnown;
 
 @synthesize window, tabBarController, userProfile;
@@ -528,8 +527,7 @@ static MFBAppDelegate * _mainApp = nil;
 {
     NSLog(@"MyFlightbook terminating");
 	[self saveState];
-	if (_db != nil)
-		sqlite3_close(_db);
+    [MFBSqlLite closeDB];
     _mainApp = nil;
 }
 

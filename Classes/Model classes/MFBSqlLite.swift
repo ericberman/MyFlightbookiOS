@@ -39,6 +39,13 @@ import SQLite3
             return _db!
         }
     }
+
+    @objc public static func closeDB() {
+        if (_db != nil) {
+            sqlite3_close(_db)
+            _db = nil
+        }
+    }
     
     private static func createCopyOfDatabaseIfNeeded() {
         // commented code below copies the database to the user's document directory.
