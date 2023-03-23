@@ -71,7 +71,7 @@ extension MFBWebServiceSvc_airport : MKAnnotation {
     
     @objc public var subtitle : String? {
         var dist = distanceFromPosition.doubleValue
-        let lastLoc = SwiftHackBridge.lastLoc()
+        let lastLoc = MFBAppDelegate.threadSafeAppDelegate.mfbloc.lastSeenLoc
         if (dist == 0.0 && lastLoc != nil) {
             // try to compute the distance
             let cloc = lastLoc!.coordinate
@@ -93,7 +93,7 @@ extension MFBWebServiceSvc_airport : MKAnnotation {
         if (ll == nil) {
             return nil
         }
-        let loc = SwiftHackBridge.lastLoc()
+        let loc = MFBAppDelegate.threadSafeAppDelegate.mfbloc.lastSeenLoc
         ap.latLong = ll!
         ap.latitude = ll!.latitude.stringValue
         ap.longitude = ll!.longitude.stringValue

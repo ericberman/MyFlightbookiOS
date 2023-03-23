@@ -646,7 +646,7 @@ extension MFBWebServiceSvc_LogbookEntry : AutoDetectDelegate {
     
     @objc @discardableResult public func takeoffDetected() -> NSString {
         if !isKnownFlightTime() {
-            flightStart = SwiftHackBridge.lastLoc().timestamp
+            flightStart = MFBAppDelegate.threadSafeAppDelegate.mfbloc.lastSeenLoc?.timestamp
         }
         autofillClosest()
         return ""
@@ -680,7 +680,7 @@ extension MFBWebServiceSvc_LogbookEntry : AutoDetectDelegate {
             return ""
         }
         if !NSDate.isUnknownDate(dt: flightStart) {
-            flightEnd = SwiftHackBridge.lastLoc().timestamp
+            flightEnd = MFBAppDelegate.threadSafeAppDelegate.mfbloc.lastSeenLoc?.timestamp
             landings = NSNumber(integerLiteral: landings.intValue + 1)
             autofillClosest()
         }

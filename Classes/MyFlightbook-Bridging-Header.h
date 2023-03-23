@@ -42,6 +42,5 @@
 #import "Reachability.h"
 #import "iRate.h"
 #import "HostName.h"
-#import "SwiftHackBridge.h"
 #import "ApiKeys.h"
 #endif /* MyFlightbook_Bridging_Header_h */

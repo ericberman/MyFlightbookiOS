@@ -169,7 +169,7 @@ import Foundation
         if (rgAircraftCached != nil && self.rgAircraftForUser != nil &&
             szCachedToken != nil && szCachedToken!.compare(szAuthToken) == .orderedSame &&
             timeSinceLastRefresh < Double(MFBConstants.CACHE_LIFETIME)) {
-            return (timeSinceLastRefresh < Double(MFBConstants.CACHE_REFRESH) || !SwiftHackBridge.isOnline()) ? .valid : .validButRefresh
+            return (timeSinceLastRefresh < Double(MFBConstants.CACHE_REFRESH) || !MFBAppDelegate.threadSafeAppDelegate.isOnLine) ? .valid : .validButRefresh
         }
 
         return .invalid
@@ -378,7 +378,12 @@ import Foundation
     @objc public func descriptionOfModelId(_ idModel : Int) -> String {
         for smm in (rgMakeModels ?? [])  {
             if smm.modelID.intValue == idModel {
-                return SwiftHackBridge.getDescriptionFor(smm)
+                // Because fucking swift fucking renames every fucking objective-c variable because of their fucking anal retentiveness about capitalization,
+                // "Description" on the simple make/model conflicts with "description" that gets bridging assigned.
+                // I could use the NS_SWIFT_NAME macro to define an alternate name, but alas THAT has to be done in the auto-generated MFBWebServiceSvc.h
+                // file, which means that whenever I update that file I'd break if I forget to edit it, which I don't want to do
+                // But alas, it seems that using description! seems to do the trick of getting the correct property.
+                return smm.description!
             }
         }
         return ""
@@ -418,7 +423,12 @@ import Foundation
         
         // now return an array from that
         return dictMakesUsed.values.sorted { smm1, smm2 in
-            SwiftHackBridge.getDescriptionFor(smm1).compare(SwiftHackBridge.getDescriptionFor(smm2)) != .orderedDescending
+            // Because fucking swift fucking renames every fucking objective-c variable because of their fucking anal retentiveness about capitalization,
+            // "Description" on the simple make/model conflicts with "description" that gets bridging assigned.
+            // I could use the NS_SWIFT_NAME macro to define an alternate name, but alas THAT has to be done in the auto-generated MFBWebServiceSvc.h
+            // file, which means that whenever I update that file I'd break if I forget to edit it, which I don't want to do
+            // But alas, it seems that using description! seems to do the trick of getting the correct property.
+            smm1.description!.compare(smm2.description!) != .orderedDescending
         }
     }
     

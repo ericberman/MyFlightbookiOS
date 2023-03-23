@@ -98,7 +98,7 @@ import SQLite3
     
     @objc public static func appendNearestAirport(_ szRouteSoFar : String) -> String {
         let ap = Airports()
-        let lastLoc = SwiftHackBridge.lastLoc()
+        let lastLoc = MFBAppDelegate.threadSafeAppDelegate.mfbloc.lastSeenLoc
         if (lastLoc == nil) {
             return szRouteSoFar
         }
@@ -113,7 +113,7 @@ import SQLite3
         
         rgAirports = []
         
-        let loc = SwiftHackBridge.lastLoc()
+        let loc = MFBAppDelegate.threadSafeAppDelegate.mfbloc.lastSeenLoc
         
         let la = LocalAirports.init(szAirports: szRoute, db: MFBSqlLite.current, loc: loc?.coordinate)
         
@@ -234,7 +234,7 @@ import SQLite3
         let maxLong = lon + (loc.span.longitudeDelta / 2.0);
 
         // we don't bother correcting lon's below -180 or above +180 for reason above
-        let lastLoc = SwiftHackBridge.lastLoc()
+        let lastLoc = MFBAppDelegate.threadSafeAppDelegate.mfbloc.lastSeenLoc
         let curLoc = (lastLoc == nil) ? loc.center : lastLoc!.coordinate
         
         let fHeliports = UserPreferences.current.includeHeliports

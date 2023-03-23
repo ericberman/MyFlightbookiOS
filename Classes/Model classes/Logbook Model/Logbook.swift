@@ -496,7 +496,7 @@ import Foundation
                 }, toPage: MFBConstants.MFBFLIGHTIMAGEUPLOADPAGE, authString: szAuthToken ?? MFBProfile.sharedProfile.AuthToken, keyName: MFBConstants.MFB_KEYFLIGHTIMAGE, keyValue: entryData.flightID.stringValue)
                 
                 // If this was a pending flight, it will be in the pending flight list.  Remove it, if so.
-                SwiftHackBridge.dequeueUnsubmittedFlight(self)
+                MFBAppDelegate.threadSafeAppDelegate.dequeueUnsubmittedFlight(self)
             }
             perform(#selector(operationCompleted(_:)), on: .main, with: sc, waitUntilDone: false)
         }
@@ -549,7 +549,7 @@ import Foundation
         NSLog("getFlightPath called")
         
         if entryData.isNewOrAwaitingUpload() {
-            getPathFromInProgressTelemetry(entryData.isNewFlight() ? SwiftHackBridge.flightDataAsString() : entryData.flightData)
+            getPathFromInProgressTelemetry(entryData.isNewFlight() ? MFBAppDelegate.threadSafeAppDelegate.mfbloc.flightDataAsString() : entryData.flightData)
             operationCompleted(nil)
             return
         }
@@ -670,7 +670,7 @@ import Foundation
                 
                 le.errorString = le.entryData.fromJSONDictionary(d, dateFormatter: dfDate, dateTimeFormatter: dfDateTime)
 
-                SwiftHackBridge.queueFlight(forLater: le)
+                MFBAppDelegate.threadSafeAppDelegate.queueFlightForLater(le)
             }
         }
     }

@@ -523,7 +523,7 @@ import WidgetKit
         MFBAppDelegate._mainApp = nil
     }
     
-    public func updateShortCutItems() {
+    @objc public func updateShortCutItems() {
         // Update 3D touch actions
         var rgShortcuts : [UIApplicationShortcutItem] = []
         
@@ -913,7 +913,7 @@ import WidgetKit
             }
             self.fSuppressWatchNotification = false
             
-            updateShortCutItems()
+            performSelector(onMainThread: #selector(updateShortCutItems), with: nil, waitUntilDone: false)
         }
         
         return dictResponse

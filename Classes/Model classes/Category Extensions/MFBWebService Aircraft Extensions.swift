@@ -235,7 +235,12 @@ extension MFBWebServiceSvc_Aircraft {
 extension MFBWebServiceSvc_SimpleMakeModel {
     // These are kind of a hack on the syntax of the simple make/model Description, which is "Manufacturer (model and other info)"
     private func getDescriptionPiece(_ index : Int) -> String {
-        let d = SwiftHackBridge.getDescriptionFor(self)!
+        // Because fucking swift fucking renames every fucking variable because of their fucking anal retentiveness about capitalization,
+        // "Description" on the simple make/model conflicts with "description" that gets bridging assigned.
+        // I could use the NS_SWIFT_NAME macro to define an alternate name, but alas THAT has to be done in the auto-generated MFBWebServiceSvc.h
+        // file, which means that whenever I update that file I'd break if I forget to edit it, which I don't want to do
+        // But it seems that using "description!" instead of "description" does the right thing...I don't know if I can count on that.
+        let d = self.description!
         let regex = try! NSRegularExpression(pattern: #"([^(]+) (\(.*\) -.*)"#)
         if let m = regex.firstMatch(in: d, range: NSRange(location: 0, length: d.count)) {
             if (m.numberOfRanges == 3) {    // should always be true!!!

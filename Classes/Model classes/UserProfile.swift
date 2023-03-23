@@ -86,11 +86,14 @@ import Foundation
         ud.removeObject(forKey: _szKeyCachedToken)
         
         UserDefaults(suiteName: "group.com.myflightbook.mfbapps")?.removeObject(forKey: _szKeyCachedToken)
-        SwiftHackBridge.invalidateCachedTotals()
+        MFBAppDelegate.threadSafeAppDelegate.invalidateCachedTotals()
     }
     
     @objc public func clearOldUserContent() {
-        SwiftHackBridge.clearOldUserContent()
+        let ac = Aircraft.sharedAircraft
+        ac.invalidateCachedAircraft()
+        ac.DefaultAircraftID = -1
+        MFBAppDelegate.threadSafeAppDelegate.invalidateAll()
     }
     
     @objc public func cacheStatus() -> CacheStatus {
@@ -116,7 +119,7 @@ import Foundation
         // (a) we have a cached auth token,
         // (b) it is still valid.
         if (!AuthToken.isEmpty && timeSinceLastAuth < Double(MFBConstants.CACHE_LIFETIME)) {
-            return (timeSinceLastAuth < Double(MFBConstants.CACHE_REFRESH) || !SwiftHackBridge.isOnline()) ? .valid : .validButRefresh
+            return (timeSinceLastAuth < Double(MFBConstants.CACHE_REFRESH) || !MFBAppDelegate.threadSafeAppDelegate.isOnLine) ? .valid : .validButRefresh
         }
         
         return .invalid;
@@ -131,7 +134,7 @@ import Foundation
         }
             
         // Cache is either invalid or valid but want to refresh.  Either way, we'll try a refresh, but only if we can do so
-        if (UserName.isEmpty || Password.isEmpty || AuthToken.isEmpty || !SwiftHackBridge.isOnline()) {
+        if (UserName.isEmpty || Password.isEmpty || AuthToken.isEmpty || !MFBAppDelegate.threadSafeAppDelegate.isOnLine) {
             return false
         }
         

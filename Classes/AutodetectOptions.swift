@@ -471,12 +471,12 @@ import MapKit
     
     @IBAction public func recordFlightClicked(_ sender : UISwitch) {
         UserPreferences.current.recordTelemetry = sender.isOn
-        SwiftHackBridge.setRecord(sender.isOn)
+        MFBAppDelegate.threadSafeAppDelegate.mfbloc.fRecordFlightData = sender.isOn
     }
     
     @IBAction public func recordHighResClicked(_ sender : UISwitch) {
         UserPreferences.current.recordHighRes = sender.isOn
-        SwiftHackBridge.setRecordHighRes(sender.isOn)
+        MFBAppDelegate.threadSafeAppDelegate.mfbloc.fRecordHighRes = sender.isOn
     }
     
     @IBAction public func roundNearestTenthClicked(_ sender : UISwitch) {
@@ -498,7 +498,7 @@ import MapKit
     
     @IBAction public func takeOffSpeedCanged(_ sender : UISegmentedControl) {
         UserPreferences.current.TakeoffSpeed = UserPreferences.toSpeeds[sender.selectedSegmentIndex]
-        SwiftHackBridge.refreshTakeoffSpeed()
+        MFBLocation.refreshTakeoffSpeed()
     }
     
     @IBAction public func mapTypeChanged(_ sender : UISegmentedControl) {

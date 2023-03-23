@@ -460,7 +460,7 @@ import Foundation
             sw.flightstatus = currentFlightState.localizedName()
             sw.speedDisplay = UserPreferences.current.speedUnits.formatSpeedMpS((lastSeenLoc?.speed ?? 0))
             sw.altDisplay = UserPreferences.current.altitudeUnits.formatMetersAlt(lastSeenLoc?.altitude ?? 0)
-            SwiftHackBridge.updateWatchContext()
+            MFBAppDelegate.threadSafeAppDelegate.updateWatchContext()
         }
     }
     

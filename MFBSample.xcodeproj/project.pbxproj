@@ -229,7 +229,6 @@
 		9A8D628015851392001105F2 /* DateRangeSelector.xib.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9A8D627E15851392001105F2 /* DateRangeSelector.xib.txt */; };
 		9A8D6283158513AB001105F2 /* DateRangeSelector.xib.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9A8D6281158513AB001105F2 /* DateRangeSelector.xib.txt */; };
 		9A8EE98129A9B20200F133CF /* MFBSoap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8EE98029A9B20200F133CF /* MFBSoap.swift */; };
-		9A8EE98329A9B5A800F133CF /* SwiftHackBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A8EE98229A9B5A800F133CF /* SwiftHackBridge.m */; };
 		9A8EE98629AA676B00F133CF /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8EE98529AA676B00F133CF /* UserProfile.swift */; };
 		9A902D5B1A2102E800698017 /* aircraft@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A902D591A2102E800698017 /* aircraft@3x.png */; };
 		9A902D5C1A2102E800698017 /* twitter@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A902D5A1A2102E800698017 /* twitter@3x.png */; };
@@ -787,8 +786,6 @@
 		9A8D627F15851392001105F2 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text; name = fr; path = Classes/fr.lproj/DateRangeSelector.xib.txt; sourceTree = "<group>"; };
 		9A8D6282158513AB001105F2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text; name = en; path = Classes/en.lproj/DateRangeSelector.xib.txt; sourceTree = "<group>"; };
 		9A8EE98029A9B20200F133CF /* MFBSoap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFBSoap.swift; sourceTree = "<group>"; };
-		9A8EE98229A9B5A800F133CF /* SwiftHackBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwiftHackBridge.m; sourceTree = "<group>"; };
-		9A8EE98429A9B5CA00F133CF /* SwiftHackBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftHackBridge.h; sourceTree = "<group>"; };
 		9A8EE98529AA676B00F133CF /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		9A8FF5A71BD97C1800C78A49 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = "fr.lproj/MainWindow-iPad.strings"; sourceTree = "<group>"; };
 		9A8FF5A81BD97C3300C78A49 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MainWindow.strings; sourceTree = "<group>"; };
@@ -1698,8 +1695,6 @@
 				9A14334329A52934007129A9 /* MFBTheme.swift */,
 				9A14335429A81A1A007129A9 /* UserPreferences.swift */,
 				9A8EE98029A9B20200F133CF /* MFBSoap.swift */,
-				9A8EE98429A9B5CA00F133CF /* SwiftHackBridge.h */,
-				9A8EE98229A9B5A800F133CF /* SwiftHackBridge.m */,
 				9A8EE98529AA676B00F133CF /* UserProfile.swift */,
 				9A84363129B98AA70001012D /* MFBConstants.swift */,
 				9A84363329BA926D0001012D /* MFBSqlLite.swift */,
@@ -2444,7 +2439,6 @@
 				9A20B152192D34D300A8F64F /* iRate.m in Sources */,
 				9AEFF6E329BD2A4600B07B13 /* MFBWebService PropertyExtensions.swift in Sources */,
 				9A23CFA416F50C57001C9098 /* SignInControllerViewController.m in Sources */,
-				9A8EE98329A9B5A800F133CF /* SwiftHackBridge.m in Sources */,
 				9A0E794029BE2F4F005EF4D6 /* MFBWebService LogbookEntry Extensions.swift in Sources */,
 				9AC88C0D29BFAD8300841C0A /* Logbook.swift in Sources */,
 				9A23CFA816F53B5E001C9098 /* ButtonCell.m in Sources */,
