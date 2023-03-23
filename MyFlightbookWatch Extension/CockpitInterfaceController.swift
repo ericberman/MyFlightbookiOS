@@ -114,7 +114,7 @@ class CockpitInterfaceController: WKInterfaceController, WCSessionDelegate, Sess
     
     @objc func updateTime(_:Timer) {
         if let wd = latestData {
-            if (!wd.isPaused && wd.flightStage == flightStageInProgress) {
+            if (!wd.isPaused && wd.flightStage == .inprogress) {
                 if let dtLast = self.latestUpdate {
                     let offset = Date().timeIntervalSince(dtLast)
                     updateElapsedDisplay(wd.elapsedSeconds + Double(offset))
@@ -136,9 +136,9 @@ class CockpitInterfaceController: WKInterfaceController, WCSessionDelegate, Sess
         lblAlt.setText(watchData.altDisplay)
         imgPausePlay.setImageNamed(watchData.isPaused ? "Play.png" : "Pause.png" )
         updateElapsedDisplay(watchData.elapsedSeconds)
-        grpFinished.setHidden(watchData.flightStage != flightStageDone)
-        grpInProgress.setHidden(watchData.flightStage != flightStageInProgress)
-        grpUnstarted.setHidden(watchData.flightStage != flightStageUnstarted)
+        grpFinished.setHidden(watchData.flightStage != .done)
+        grpInProgress.setHidden(watchData.flightStage != .inprogress)
+        grpUnstarted.setHidden(watchData.flightStage != .unstarted)
         imgRecording.setHidden(!watchData.isRecording)
     }
     

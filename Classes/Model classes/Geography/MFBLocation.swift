@@ -454,9 +454,9 @@ import Foundation
         
         // TODO: We should call watch data directly rather than going through the app delegate
         // Update watch data
-        if let sw = SwiftHackBridge.watchData() {
-            sw.latDisplay = lastSeenLoc?.coordinate.latitude.asLatString()
-            sw.lonDisplay = lastSeenLoc?.coordinate.longitude.asLonString()
+        if let sw = MFBAppDelegate.threadSafeAppDelegate.watchData {
+            sw.latDisplay = lastSeenLoc?.coordinate.latitude.asLatString() ?? ""
+            sw.lonDisplay = lastSeenLoc?.coordinate.longitude.asLonString() ?? ""
             sw.flightstatus = currentFlightState.localizedName()
             sw.speedDisplay = UserPreferences.current.speedUnits.formatSpeedMpS((lastSeenLoc?.speed ?? 0))
             sw.altDisplay = UserPreferences.current.altitudeUnits.formatMetersAlt(lastSeenLoc?.altitude ?? 0)

@@ -41,7 +41,7 @@ struct CurrencyEntry: TimelineEntry {
         var d : Date
         
         // #1: Simple passenger currency, expires in 40 days
-        let sci1 = SimpleCurrencyItem()!
+        let sci1 = SimpleCurrencyItem()
         d = Calendar.current.date(byAdding: .day, value: 40, to: Date())!
         sci1.attribute = "ASEL - Passengers"
         sci1.discrepancy = ""
@@ -49,7 +49,7 @@ struct CurrencyEntry: TimelineEntry {
         sci1.state = MFBWebServiceSvc_CurrencyState_OK
         
         // #2: Simple night currency, expired
-        let sci2 = SimpleCurrencyItem()!
+        let sci2 = SimpleCurrencyItem()
         d = Calendar.current.date(byAdding: .day, value: -4, to: Date())!
         sci2.attribute = "ASEL - Night"
         sci2.discrepancy = "(Short by 3 landings)"
@@ -57,7 +57,7 @@ struct CurrencyEntry: TimelineEntry {
         sci2.state = MFBWebServiceSvc_CurrencyState_NotCurrent
 
         // #3: IFR currency, getting close
-        let sci3 = SimpleCurrencyItem()!
+        let sci3 = SimpleCurrencyItem()
         d = Calendar.current.date(byAdding: .day, value: 10, to: Date())!
         sci3.attribute = "IFR - Airplane"
         sci3.discrepancy = ""
@@ -186,18 +186,18 @@ struct TotalsEntry: TimelineEntry {
         let nf = NumberFormatter()
         nf.numberStyle = .decimal
         var value = 832.6
-        let sti1 = SimpleTotalItem()!
+        let sti1 = SimpleTotalItem()
         sti1.title = "ASEL"
         sti1.subDesc = "(67 landings, 32 day 12 night), 18 approaches"
         sti1.valueDisplay = "\(nf.string(for: value)!)"
 
-        let sti2 = SimpleTotalItem()!
+        let sti2 = SimpleTotalItem()
         sti2.title = "Glider"
         sti2.subDesc = "(1 landing)"
         value = 1.6
         sti2.valueDisplay = "\(nf.string(for: value)!)"
 
-        let sti3 = SimpleTotalItem()!
+        let sti3 = SimpleTotalItem()
         sti3.title = "Retract"
         sti3.subDesc = ""
         value = 350.1

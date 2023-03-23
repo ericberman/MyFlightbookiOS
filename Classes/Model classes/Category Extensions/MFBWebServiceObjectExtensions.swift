@@ -68,8 +68,8 @@ extension MFBWebServiceSvc_TotalsItem {
    }
     
     @objc(toSimpleItem:) public func toSimpleItem(fHHMM : Bool) -> SimpleTotalItem {
-        let sti = SimpleTotalItem()!
-        sti.title = description
+        let sti = SimpleTotalItem()
+        sti.title = description!
         sti.subDesc = subDescription
         sti.valueDisplay = formattedValue(fHHMM: fHHMM) as String
         return sti
@@ -96,7 +96,7 @@ extension MFBWebServiceSvc_CurrencyStatusItem {
    }
 
     @objc public func toSimpleItem() -> SimpleCurrencyItem {
-        let sci = SimpleCurrencyItem()!
+        let sci = SimpleCurrencyItem()
         sci.attribute = formattedTitle()
         sci.value = value
         sci.discrepancy = discrepancy

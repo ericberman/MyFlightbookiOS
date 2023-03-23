@@ -370,11 +370,11 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     app.watchData.elapsedSeconds = self.elapsedTime;
     app.watchData.isPaused = self.le.fIsPaused;
     if (self.le.entryData.isKnownEngineEnd)
-        app.watchData.flightStage = flightStageDone;
+        app.watchData.flightStage = NewFlightStagesDone;
     else if (fCouldBeFlying)
-        app.watchData.flightStage = flightStageInProgress;
+        app.watchData.flightStage = NewFlightStagesInprogress;
     else
-        app.watchData.flightStage = flightStageUnstarted;
+        app.watchData.flightStage = NewFlightStagesUnstarted;
 }
 
 - (void) toggleFlightPause

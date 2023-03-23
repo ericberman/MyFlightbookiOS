@@ -76,6 +76,11 @@
 		9A27223929B6CDEE006AE702 /* MFBLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A27223829B6CDEE006AE702 /* MFBLocation.swift */; };
 		9A2BD09A10E04619001D4043 /* totals.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A2BD09910E04619001D4043 /* totals.png */; };
 		9A2D594214C3485800FD8F05 /* RecentFlightCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A2D594114C3485800FD8F05 /* RecentFlightCell.xib */; };
+		9A30201429CBDAB000115538 /* SharedWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A30201329CBDAB000115538 /* SharedWatch.swift */; };
+		9A30201629CBDAFC00115538 /* SimpleItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A30201529CBDAFC00115538 /* SimpleItems.swift */; };
+		9A30201729CBE31400115538 /* SharedWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A30201329CBDAB000115538 /* SharedWatch.swift */; };
+		9A30201829CBE32A00115538 /* SimpleItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A30201529CBDAFC00115538 /* SimpleItems.swift */; };
+		9A30201929CBE32D00115538 /* SimpleItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A30201529CBDAFC00115538 /* SimpleItems.swift */; };
 		9A30B1C01103D61C002A5029 /* MoreInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A30B1BF1103D61C002A5029 /* MoreInfo.png */; };
 		9A3A27311573F002009AE0F6 /* WaitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3A27301573F002009AE0F6 /* WaitCell.m */; };
 		9A3A27331573F062009AE0F6 /* WaitCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A3A27321573F062009AE0F6 /* WaitCell.xib */; };
@@ -120,7 +125,6 @@
 		9A48E2A129A16F0400511D99 /* xsd.h in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202810CCBD8A00DF1CA6 /* xsd.h */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9A48E2A229A16F0400511D99 /* xsd.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202910CCBD8B00DF1CA6 /* xsd.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9A48E2A329A16F4700511D99 /* MFBSoapCallLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A48E28D29A16EE400511D99 /* MFBSoapCallLibrary.a */; };
-		9A48E2A429A16F8000511D99 /* SharedWatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD2FFEA1BE2AEE200A9B21B /* SharedWatch.m */; };
 		9A4F3B5918177BA1009E575C /* Icon-iPad76x76.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4F3B5618177BA1009E575C /* Icon-iPad76x76.png */; };
 		9A4F3B5A18177BA1009E575C /* Icon-iPadRetina152x152.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4F3B5718177BA1009E575C /* Icon-iPadRetina152x152.png */; };
 		9A4F3B5B18177BA1009E575C /* Icon-iPhoneRetina120x120.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4F3B5818177BA1009E575C /* Icon-iPhoneRetina120x120.png */; };
@@ -413,8 +417,6 @@
 		9AD2FFE41BE1AF5400A9B21B /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AAA7CDC1715E4CA00429F78 /* Icon@2x.png */; };
 		9AD2FFE61BE2AB4C00A9B21B /* CurrencyTableRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD2FFE51BE2AB4C00A9B21B /* CurrencyTableRowController.swift */; };
 		9AD2FFE81BE2AB5B00A9B21B /* TotalsTableRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD2FFE71BE2AB5B00A9B21B /* TotalsTableRowController.swift */; };
-		9AD2FFEB1BE2AEE200A9B21B /* SharedWatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD2FFEA1BE2AEE200A9B21B /* SharedWatch.m */; };
-		9AD2FFEC1BE2B7B500A9B21B /* SharedWatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD2FFEA1BE2AEE200A9B21B /* SharedWatch.m */; };
 		9AD2FFEE1BE2C33D00A9B21B /* CurrencyInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD2FFED1BE2C33D00A9B21B /* CurrencyInterfaceController.swift */; };
 		9AD2FFF01BE2C34F00A9B21B /* TotalsInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD2FFEF1BE2C34F00A9B21B /* TotalsInterfaceController.swift */; };
 		9AD541BD1A17CB2400BD3850 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9AD541BC1A17CB2400BD3850 /* Images.xcassets */; };
@@ -614,6 +616,9 @@
 		9A27223829B6CDEE006AE702 /* MFBLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFBLocation.swift; sourceTree = "<group>"; };
 		9A2BD09910E04619001D4043 /* totals.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = totals.png; sourceTree = "<group>"; };
 		9A2D594114C3485800FD8F05 /* RecentFlightCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecentFlightCell.xib; sourceTree = "<group>"; };
+		9A30201329CBDAB000115538 /* SharedWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedWatch.swift; sourceTree = "<group>"; };
+		9A30201529CBDAFC00115538 /* SimpleItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleItems.swift; sourceTree = "<group>"; };
+		9A30201B29CCB5C200115538 /* MyFlightbookWatch Extension-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MyFlightbookWatch Extension-Bridging-Header.h"; path = "Model classes/MyFlightbookWatch Extension-Bridging-Header.h"; sourceTree = "<group>"; };
 		9A30B1BF1103D61C002A5029 /* MoreInfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MoreInfo.png; sourceTree = "<group>"; };
 		9A3A272F1573F002009AE0F6 /* WaitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaitCell.h; sourceTree = "<group>"; };
 		9A3A27301573F002009AE0F6 /* WaitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaitCell.m; sourceTree = "<group>"; };
@@ -656,7 +661,6 @@
 		9A48E27029A1686000511D99 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9A48E27229A1686000511D99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A48E27C29A1693B00511D99 /* WidgetSoapCall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetSoapCall.swift; sourceTree = "<group>"; };
-		9A48E27F29A16B0C00511D99 /* MyFlightbookWatch Extension-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MyFlightbookWatch Extension-Bridging-Header.h"; path = "Model classes/MyFlightbookWatch Extension-Bridging-Header.h"; sourceTree = "<group>"; };
 		9A48E28D29A16EE400511D99 /* MFBSoapCallLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = MFBSoapCallLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A48E2A529A1797900511D99 /* MyFlightbookWidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyFlightbookWidgetsExtension.entitlements; sourceTree = "<group>"; };
 		9A49D7172065AD9E0095D8B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AutodetectOptions.strings; sourceTree = "<group>"; };
@@ -968,10 +972,8 @@
 		9ACE9E8B1D075299004274F9 /* MyFlightbook-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MyFlightbook-Bridging-Header.h"; sourceTree = "<group>"; };
 		9ACED2961337C66F00E3DC8F /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		9ACEDB9722388BAB00221A17 /* AircraftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AircraftViewController.m; sourceTree = "<group>"; };
-		9AD2FFC01BE1922A00A9B21B /* SharedWatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SharedWatch.h; path = "Model classes/SharedWatch.h"; sourceTree = "<group>"; };
 		9AD2FFE51BE2AB4C00A9B21B /* CurrencyTableRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyTableRowController.swift; sourceTree = "<group>"; };
 		9AD2FFE71BE2AB5B00A9B21B /* TotalsTableRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalsTableRowController.swift; sourceTree = "<group>"; };
-		9AD2FFEA1BE2AEE200A9B21B /* SharedWatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SharedWatch.m; path = "Model classes/SharedWatch.m"; sourceTree = "<group>"; };
 		9AD2FFED1BE2C33D00A9B21B /* CurrencyInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyInterfaceController.swift; sourceTree = "<group>"; };
 		9AD2FFEF1BE2C34F00A9B21B /* TotalsInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalsInterfaceController.swift; sourceTree = "<group>"; };
 		9AD541BC1A17CB2400BD3850 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MyFlightbook/Images.xcassets; sourceTree = "<group>"; };
@@ -1405,6 +1407,7 @@
 				9A0E793C29BD76F4005EF4D6 /* ApproachDescription.swift */,
 				9AC88C0C29BFAD8300841C0A /* Logbook.swift */,
 				9AC88C0E29BFAD8B00841C0A /* Aircraft.swift */,
+				9A30201529CBDAFC00115538 /* SimpleItems.swift */,
 			);
 			path = "Logbook Model";
 			sourceTree = "<group>";
@@ -1782,10 +1785,9 @@
 		9AD2FFF61BE4060000A9B21B /* Watchkit Utility */ = {
 			isa = PBXGroup;
 			children = (
-				9A48E27F29A16B0C00511D99 /* MyFlightbookWatch Extension-Bridging-Header.h */,
-				9AD2FFC01BE1922A00A9B21B /* SharedWatch.h */,
-				9AD2FFEA1BE2AEE200A9B21B /* SharedWatch.m */,
+				9A30201B29CCB5C200115538 /* MyFlightbookWatch Extension-Bridging-Header.h */,
 				9A503AA729CB702200D201C5 /* SynchronousCalls.swift */,
+				9A30201329CBDAB000115538 /* SharedWatch.swift */,
 			);
 			name = "Watchkit Utility";
 			path = ..;
@@ -2358,6 +2360,7 @@
 				9A6F1BFC29B3D891004D1F31 /* SunriseSunset.swift in Sources */,
 				28216C970DB411BC00E5133A /* LEEditController.m in Sources */,
 				9A6B78A122399C8C0014B0C2 /* NewAircraftViewController.m in Sources */,
+				9A30201629CBDAFC00115538 /* SimpleItems.swift in Sources */,
 				9AC2C80229A3E3D600A702B2 /* ObjectExtensions.swift in Sources */,
 				9ACEDB9922388BAB00221A17 /* AircraftViewController.m in Sources */,
 				9A27223729B69AD3006AE702 /* GPSDeviceViewTableViewController.swift in Sources */,
@@ -2376,6 +2379,7 @@
 				9A8BFADF22B00B1000CB79E0 /* SelectTemplates.m in Sources */,
 				9A48E27429A1686000511D99 /* MyFlightbookWidgets.intentdefinition in Sources */,
 				9A017B7722FA46A9007F0210 /* ConjunctionCell.m in Sources */,
+				9A30201429CBDAB000115538 /* SharedWatch.swift in Sources */,
 				9A9CB2691E513B28002B2E11 /* TotalsCalculator.m in Sources */,
 				9AE39A4C29ABE29D002A6496 /* WebServiceMappingExtensions.swift in Sources */,
 				9AF7AD1B10E1D7DC00A7DD43 /* Totals.m in Sources */,
@@ -2414,7 +2418,6 @@
 				9A0F0E7413E88781007E54C1 /* MFBWebServiceSvc.m in Sources */,
 				9A17C5F513E895CB00C47C82 /* VisitedAirports.m in Sources */,
 				9A14334429A52934007129A9 /* MFBTheme.swift in Sources */,
-				9AD2FFEC1BE2B7B500A9B21B /* SharedWatch.m in Sources */,
 				9A17C5FA13E89B1B00C47C82 /* VisitedAirportRow.m in Sources */,
 				9A84363729BAB0540001012D /* CountryCode.swift in Sources */,
 				9A78376E13E8AB99007CD501 /* VADetails.m in Sources */,
@@ -2462,8 +2465,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A30201929CBE32D00115538 /* SimpleItems.swift in Sources */,
 				9AC2C80329A3E3D600A702B2 /* ObjectExtensions.swift in Sources */,
-				9A48E2A429A16F8000511D99 /* SharedWatch.m in Sources */,
 				9A48E26E29A1685F00511D99 /* MyFlightbookWidgets.swift in Sources */,
 				9A48E27329A1686000511D99 /* MyFlightbookWidgets.intentdefinition in Sources */,
 				9A48E27E29A1694500511D99 /* WidgetSoapCall.swift in Sources */,
@@ -2497,6 +2500,7 @@
 			files = (
 				9ACDC8E41BDFEA1400B0A077 /* NotificationController.swift in Sources */,
 				9AD2FFE61BE2AB4C00A9B21B /* CurrencyTableRowController.swift in Sources */,
+				9A30201829CBE32A00115538 /* SimpleItems.swift in Sources */,
 				9AD2FFE81BE2AB5B00A9B21B /* TotalsTableRowController.swift in Sources */,
 				9ACDC8E21BDFEA1400B0A077 /* ExtensionDelegate.swift in Sources */,
 				9AD2FFEE1BE2C33D00A9B21B /* CurrencyInterfaceController.swift in Sources */,
@@ -2505,7 +2509,7 @@
 				9ACDC8E01BDFEA1400B0A077 /* CockpitInterfaceController.swift in Sources */,
 				9AF81C9C1BE6918B001FC0C8 /* RefreshableTableController.swift in Sources */,
 				9A1860101BE7D56700E88A26 /* RecentsInterfaceController.swift in Sources */,
-				9AD2FFEB1BE2AEE200A9B21B /* SharedWatch.m in Sources */,
+				9A30201729CBE31400115538 /* SharedWatch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

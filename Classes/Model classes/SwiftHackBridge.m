@@ -59,10 +59,6 @@
     return MFBAppDelegate.threadSafeAppDelegate.mfbloc.lastSeenLoc;
 }
 
-+ (SharedWatch *) watchData {
-    return MFBAppDelegate.threadSafeAppDelegate.watchData;
-}
-
 + (void) updateWatchContext {
     [MFBAppDelegate.threadSafeAppDelegate updateWatchContext];
 }

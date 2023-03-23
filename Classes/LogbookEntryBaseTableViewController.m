@@ -145,7 +145,7 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel (button)") style:UIAlertActionStyleCancel handler:nil]];
     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"OK") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [self resetFlight];
-        MFBAppDelegate.threadSafeAppDelegate.watchData.flightStage = flightStageUnstarted;
+        MFBAppDelegate.threadSafeAppDelegate.watchData.flightStage = NewFlightStagesUnstarted;
         [MFBAppDelegate.threadSafeAppDelegate updateWatchContext];
     }]];
     [self presentViewController:alert animated:YES completion:nil];

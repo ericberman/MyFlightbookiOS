@@ -41,7 +41,6 @@
 #import "CommentedImage.h"
 #import "Reachability.h"
 #import "iRate.h"
-#import "SharedWatch.h"
 #import "HostName.h"
 #import "SwiftHackBridge.h"
 #import "ApiKeys.h"

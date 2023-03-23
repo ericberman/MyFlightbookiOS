@@ -36,7 +36,6 @@
 + (void) setRecord:(BOOL) f;
 + (void) setRecordHighRes:(BOOL) f;
 + (CLLocation *) lastLoc;
-+ (SharedWatch *) watchData;
 + (void) updateWatchContext;
 + (NSString *) getDescriptionForSimpleMakeModel:(MFBWebServiceSvc_SimpleMakeModel *) smm;
 + (void) dequeueUnsubmittedFlight:(id) l;
