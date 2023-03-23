@@ -26,7 +26,6 @@
 
 #import <MyFlightbook-Swift.h>
 #import "GPSSim.h"
-#import "MFBAppDelegate.h"
 
 @interface GPSSim()
 @property (strong) MFBLocation * mfbloc;

@@ -25,7 +25,7 @@
 //
 
 #import "Totals.h"
-#import "MFBAppDelegate.h"
+#import <MyFlightbook-Swift.h>
 #import "RecentFlights.h"
 #import "PackAndGo.h"
 
@@ -51,7 +51,7 @@
     self.fq = [MFBWebServiceSvc_FlightQuery getNewFlightQuery];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)];
     
-    MFBAppDelegate * app = mfbApp();
+    MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
     [app registerNotifyDataChanged:self];
     [app registerNotifyResetAll:self];
 }
@@ -88,7 +88,7 @@
 	
 	// Release any cached data, images, etc that aren't in use.
     self.rgTotalsGroups = nil;
-	[mfbApp() invalidateCachedTotals];
+	[MFBAppDelegate.threadSafeAppDelegate invalidateCachedTotals];
 }
 
 #pragma mark DateRangeDelegate
@@ -99,13 +99,13 @@
     
     self.tableView.allowsSelection = YES;
 	
-    NSString * authToken = mfbApp().userProfile.AuthToken;
+    NSString * authToken = MFBProfile.sharedProfile.AuthToken;
 	if ([authToken length] == 0)
     {
 		self.errorString = NSLocalizedString(@"You must be signed in to view totals.",nil);
         [self showError:self.errorString withTitle:NSLocalizedString(@"Error loading totals", @"Title for error message")];
     }
-    else if (![mfbApp() isOnLine])
+    else if (![MFBAppDelegate.threadSafeAppDelegate isOnLine])
     {
         NSDate * dtLastPack = PackAndGo.lastTotalsPackDate;
         if (dtLastPack != nil) {
@@ -178,7 +178,7 @@
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0)
-        return mfbApp().isOnLine ? 1 : 0;
+        return MFBAppDelegate.threadSafeAppDelegate.isOnLine ? 1 : 0;
     else
     {
         if (self.callInProgress)

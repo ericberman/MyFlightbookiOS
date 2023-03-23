@@ -84,7 +84,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) restoreFlightInProgress;
 
 // Reset flight
-- (void) resetFlight;
+- (IBAction) resetFlight;
 - (void) resetFlightWithConfirmation;
 
 // actions on a flight

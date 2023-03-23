@@ -25,7 +25,7 @@
 //
 
 #import "RecentFlights.h"
-#import "MFBAppDelegate.h"
+#import <MyFlightbook-Swift.h>
 #import "RecentFlightCell.h"
 #import "iRate.h"
 #import "PackAndGo.h"
@@ -108,7 +108,7 @@ BOOL fCouldBeMoreFlights;
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     	
     // get notifications when the network is acquired.
-    MFBAppDelegate * app = mfbApp();
+    MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
     app.reachabilityDelegate = self;
     
     // get notifications when data is changed OR when user signs out
@@ -132,11 +132,11 @@ BOOL fCouldBeMoreFlights;
     if (self.dictImages == nil)
     {
         self.dictImages = [NSMutableDictionary new];
-        if (mfbApp().isOnLine)
+        if (MFBAppDelegate.threadSafeAppDelegate.isOnLine)
             [NSThread detachNewThreadSelector:@selector(asyncLoadThumbnailsForFlights:) toTarget:self withObject:self.rgFlights];
     }
     
-    if (!mfbApp().isOnLine && (self.rgFlights == nil || self.rgFlights.count == 0) && PackAndGo.lastFlightsPackDate != nil) {
+    if (!MFBAppDelegate.threadSafeAppDelegate.isOnLine && (self.rgFlights == nil || self.rgFlights.count == 0) && PackAndGo.lastFlightsPackDate != nil) {
         self.rgFlights = [NSMutableArray arrayWithArray:PackAndGo.cachedFlights];
         [self warnPackedData:PackAndGo.lastVisitedPackDate];
     }
@@ -159,7 +159,7 @@ BOOL fCouldBeMoreFlights;
 - (void) refresh:(BOOL) fSubmitUnsubmittedFlights
 {
     NSDate * dtLastPack = PackAndGo.lastFlightsPackDate;
-    if (!mfbApp().isOnLine) {
+    if (!MFBAppDelegate.threadSafeAppDelegate.isOnLine) {
         if (dtLastPack != nil) {
             self.rgFlights = [NSMutableArray arrayWithArray:PackAndGo.cachedFlights];
             self.rgPendingFlights = [NSMutableArray new];   // no pending flights with pack-and-go
@@ -184,7 +184,7 @@ BOOL fCouldBeMoreFlights;
     self.rgPendingFlights = [NSMutableArray new];
     
     fCouldBeMoreFlights = YES;
-	MFBAppDelegate * app = mfbApp();
+	MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
 	[app invalidateCachedTotals];
     
     // if we are forcing a resubmit, clear any errors and resubmit; this will cause 
@@ -223,7 +223,7 @@ BOOL fCouldBeMoreFlights;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
-	MFBAppDelegate * app = mfbApp();
+	MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
     if ([app isOnLine] && ([self hasUnsubmittedFlights] || !self.fIsValid || self.rgFlights == nil))
         [self refresh];
     else
@@ -298,14 +298,14 @@ BOOL fCouldBeMoreFlights;
     if (!fCouldBeMoreFlights || self.callInProgress)
         return;
     
-    NSString * authtoken = mfbApp().userProfile.AuthToken;
+    NSString * authtoken = MFBProfile.sharedProfile.AuthToken;
 	if ([authtoken length] == 0)
     {
 		self.errorString = NSLocalizedString(@"You must be signed in to view recent flights.", @"Error - must be signed in to view flights");
         [self showError:self.errorString withTitle:NSLocalizedString(@"Error loading recent flights", @"Title for error message on recent flights")];
         fCouldBeMoreFlights = NO;
     }
-    else if (![mfbApp() isOnLine])
+    else if (![MFBAppDelegate.threadSafeAppDelegate isOnLine])
     {
         self.errorString = NSLocalizedString(@"No connection to the Internet is available", @"Error: Offline");
         [self showError:self.errorString withTitle:NSLocalizedString(@"Error loading recent flights", @"Title for error message on recent flights")];
@@ -346,13 +346,13 @@ BOOL fCouldBeMoreFlights;
     if (self.callInProgress)
         return;
     
-    NSString * authtoken = mfbApp().userProfile.AuthToken;
+    NSString * authtoken = MFBProfile.sharedProfile.AuthToken;
     if ([authtoken length] == 0)
     {
         self.errorString = NSLocalizedString(@"You must be signed in to perform this action", @"Error - must be signed in");
         [self showError:self.errorString withTitle:NSLocalizedString(@"Error loading recent flights", @"Title for error message on recent flights")];
     }
-    else if (![mfbApp() isOnLine])
+    else if (![MFBAppDelegate.threadSafeAppDelegate isOnLine])
     {
         self.errorString = NSLocalizedString(@"No connection to the Internet is available", @"Error: Offline");
         [self showError:self.errorString withTitle:NSLocalizedString(@"Error deleting flight", @"Title for error message when flight delete fails")];
@@ -430,16 +430,16 @@ BOOL fCouldBeMoreFlights;
     
     // update the glance.
     if (self.fq.isUnrestricted && self.rgFlights.count > 0)
-        mfbApp().watchData.latestFlight = [((MFBWebServiceSvc_LogbookEntry *) self.rgFlights[0]) toSimpleItem:UserPreferences.current.HHMMPref];
+        MFBAppDelegate.threadSafeAppDelegate.watchData.latestFlight = [((MFBWebServiceSvc_LogbookEntry *) self.rgFlights[0]) toSimpleItem:UserPreferences.current.HHMMPref];
 }
 
 #pragma unsubmittedFlights
 - (BOOL) hasUnsubmittedFlights {
-	return [mfbApp().rgUnsubmittedFlights count] > 0;
+	return [MFBAppDelegate.threadSafeAppDelegate.rgUnsubmittedFlights count] > 0;
 }
 
 - (void) submitUnsubmittedFlightsCompleted:(MFBSoapCall *) sc fromCaller:(LogbookEntry *) le {
-    MFBAppDelegate * app = mfbApp();
+    MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
     if ([le.errorString length] == 0 && !le.entryData.isQueued) { // success
         [app dequeueUnsubmittedFlight:le];
         [[iRate sharedInstance] logEvent:NO];   // ask user to rate the app if they have saved the requesite # of flights
@@ -473,7 +473,7 @@ BOOL fCouldBeMoreFlights;
 
     // Take this off of the BACK of the array, since we're going to remove it if successful and don't want to screw up
     // the other indices.
-    MFBAppDelegate * app = mfbApp();
+    MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
     NSInteger index = cFlightsToSubmit - iFlightInProgress - 1;
     NSLog(@"iFlight=%ld, cFlights=%ld, rgCount=%lu, index=%ld", (long) iFlightInProgress, (long) cFlightsToSubmit, (long) app.rgUnsubmittedFlights.count, (long) index);
     if (app.rgUnsubmittedFlights == nil || index >= app.rgUnsubmittedFlights.count) // should never happen.
@@ -482,7 +482,7 @@ BOOL fCouldBeMoreFlights;
     LogbookEntry * le = (LogbookEntry *) (app.rgUnsubmittedFlights)[index];
     
     if (!le.entryData.isQueued && le.errorString.length == 0) { // no holdover error
-        le.szAuthToken = app.userProfile.AuthToken;
+        le.szAuthToken = MFBProfile.sharedProfile.AuthToken;
         le.progressLabel = self.cellProgress.progressDetailLabel;
         [le setDelegate:self completionBlock:^(MFBSoapCall * sc, MFBAsyncOperation * ao) {
             [self removePendingCall];
@@ -497,10 +497,10 @@ BOOL fCouldBeMoreFlights;
 }
 
 - (void) submitUnsubmittedFlights {
-    if (![self hasUnsubmittedFlights] || ![mfbApp() isOnLine])
+    if (![self hasUnsubmittedFlights] || !MFBAppDelegate.threadSafeAppDelegate.isOnLine)
         return;
     
-    cFlightsToSubmit = mfbApp().rgUnsubmittedFlights.count;
+    cFlightsToSubmit = MFBAppDelegate.threadSafeAppDelegate.rgUnsubmittedFlights.count;
     
     if (cFlightsToSubmit == 0)
         return;
@@ -549,15 +549,15 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectUnsubmittedFlights, sec
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch ([self sectionFromIndexPathSection:section]) {
         case sectFlightQuery:
-            return mfbApp().isOnLine ? 1 : 0;
+            return MFBAppDelegate.threadSafeAppDelegate.isOnLine ? 1 : 0;
         case sectUploadInProgress:
             return self.uploadInProgress ? 1 : 0;
         case sectUnsubmittedFlights:
-            return mfbApp().rgUnsubmittedFlights.count;
+            return MFBAppDelegate.threadSafeAppDelegate.rgUnsubmittedFlights.count;
         case sectPendingFlights:
             return self.fq.isUnrestricted ? self.rgPendingFlights.count : 0;
         case sectExistingFlights:
-            return self.rgFlights.count + (mfbApp().isOnLine && ((self.callInProgress || fCouldBeMoreFlights)) ? 1 : 0);
+            return self.rgFlights.count + (MFBAppDelegate.threadSafeAppDelegate.isOnLine && ((self.callInProgress || fCouldBeMoreFlights)) ? 1 : 0);
         default:
             NSAssert(NO, @"Unknown section requested");
             return 0;
@@ -653,7 +653,7 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectUnsubmittedFlights, sec
             LogbookEntry * l;
             
             @try {
-                l = (LogbookEntry *) (mfbApp().rgUnsubmittedFlights)[indexPath.row];
+                l = (LogbookEntry *) (MFBAppDelegate.threadSafeAppDelegate.rgUnsubmittedFlights)[indexPath.row];
             }
             @catch (NSException * ex) {
                 // shouldn't happen, but if it does, just create a dummy entry
@@ -788,7 +788,7 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectUnsubmittedFlights, sec
             le.entryData = self.rgPendingFlights[indexPath.row];
             break;
         case sectUnsubmittedFlights:
-            le = (mfbApp().rgUnsubmittedFlights)[indexPath.row];
+            le = (MFBAppDelegate.threadSafeAppDelegate.rgUnsubmittedFlights)[indexPath.row];
             break;
     }
 
@@ -826,7 +826,7 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectUnsubmittedFlights, sec
             
             if (rs == sectExistingFlights) {
                 // deleting an existing flight
-                le.szAuthToken = app.userProfile.AuthToken;
+                le.szAuthToken = MFBProfile.sharedProfile.AuthToken;
                 MFBWebServiceSvc_LogbookEntry * leToDelete = (MFBWebServiceSvc_LogbookEntry *) (self.rgFlights)[ip.row];
                 int idFlightToDelete = [leToDelete.FlightID intValue];
                 @synchronized (self) {
@@ -885,7 +885,7 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectUnsubmittedFlights, sec
     
     // Check for an existing new flight in-progress.
     // If the new flight screen is sitting with an initial hobbs but otherwise empty, then use its starting hobbs and then reset it.
-    MFBWebServiceSvc_LogbookEntry * leActiveNew = mfbApp().leMain.le.entryData;
+    MFBWebServiceSvc_LogbookEntry * leActiveNew = ((LEEditController *) MFBAppDelegate.threadSafeAppDelegate.leMain).le.entryData;
     BOOL fIsInInitialState = leActiveNew.isInInitialState;
     NSNumber * initHobbs = fIsInInitialState ? leActiveNew.HobbsStart : @0.0;
     
@@ -895,7 +895,7 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectUnsubmittedFlights, sec
     
     /// Carry over the ending hobbs as the new starting hobbs for the flight.
     if (fIsInInitialState)
-        mfbApp().leMain.le.entryData.HobbsStart = lev.le.entryData.HobbsEnd;
+        ((LEEditController *) MFBAppDelegate.threadSafeAppDelegate.leMain).le.entryData.HobbsStart = lev.le.entryData.HobbsEnd;
     
     self.urlTelemetry = nil;
     [self.tableView reloadData];

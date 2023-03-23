@@ -62,7 +62,7 @@ enum _trainingLinks {cidFirst, cidInstructors = cidFirst, cidStudents, cidReqSig
 
 - (BOOL) canViewTraining
 {
-    return mfbApp().isOnLine && mfbApp().userProfile.isValid;
+    return MFBAppDelegate.threadSafeAppDelegate.isOnLine && MFBProfile.sharedProfile.isValid;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -131,7 +131,7 @@ enum _trainingLinks {cidFirst, cidInstructors = cidFirst, cidStudents, cidReqSig
         [self showErrorAlertWithMessage:NSLocalizedString(@"TrainingNotAvailable", @"Error message for training if offline or not signed in")];
         return;
     }
-    NSString * szURL = [mfbApp().userProfile authRedirForUser:[NSString stringWithFormat:@"d=%@&naked=1", szDest]];
+    NSString * szURL = [MFBProfile.sharedProfile authRedirForUser:[NSString stringWithFormat:@"d=%@&naked=1", szDest]];
 
     HostedWebViewController * vwWeb = [[HostedWebViewController alloc] initWithUrl:szURL];
 	[self.navigationController pushViewController:vwWeb animated:YES];

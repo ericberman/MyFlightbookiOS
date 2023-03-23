@@ -25,13 +25,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <MyFlightbook-Swift.h>
 #import "LogbookEntryBaseTableViewController.h"
 #import "CommentedImage.h"
 #import "GPSSim.h"
 #import "FlightProperties.h"
 
-@interface LEEditController : LogbookEntryBaseTableViewController <EditPropertyDelegate, AutoDetectDelegate, UIAlertViewDelegate, UIPickerViewDataSource> {
+@interface LEEditController : LogbookEntryBaseTableViewController <EditPropertyDelegate, AutoDetectDelegate, UIAlertViewDelegate, UIPickerViewDataSource, LEControllerProtocol> {
 }
 
 // Cockpit view IBActions

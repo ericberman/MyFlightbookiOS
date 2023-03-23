@@ -158,7 +158,7 @@
 
 - (void) refresh
 {
-    if (self.fDisableRefresh || ![mfbApp() isOnLine])
+    if (self.fDisableRefresh || ![MFBAppDelegate.threadSafeAppDelegate isOnLine])
     {
         if (isLoading)
             [self stopLoading];

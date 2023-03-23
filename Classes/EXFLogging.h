@@ -8,6 +8,6 @@
  */
 
 // Logging.h
-extern BOOL gLogging;
+#define gLogging NO
 #define Debug(FMT,...)  if(!gLogging) ; else  NSLog(@"DEBUG: " FMT, ##__VA_ARGS__)
 #define Warn(FMT,...)   NSLog(@"WARNING: " FMT, ##__VA_ARGS__)

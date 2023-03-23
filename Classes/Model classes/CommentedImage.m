@@ -24,8 +24,8 @@
 //  Created by Eric Berman on 2/5/10.
 //
 
+#import <MyFlightbook-Swift.h>
 #import "CommentedImage.h"
-#import "MFBAppDelegate.h"
 #import <Security/SecRandom.h>
 #import "EXF.h"
 #import "EXFUtils.h"
@@ -133,7 +133,7 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
 
 - (UIImage *) loadImageFromMFBInfo
 {
-	if (![[MFBAppDelegate threadSafeAppDelegate] isOnLine])
+	if (!MFBAppDelegate.threadSafeAppDelegate.isOnLine)
 		return nil;
 	
 	NSURL * url = [self.imgInfo urlForImage];
@@ -532,7 +532,7 @@ NSString * const szTmpVidExtension = @"tmp-vid.mov";
 + (BOOL) canSubmitImages:(NSArray *) rg
 {
     // if we are on wifi, no restrictions
-    if (mfbApp().lastKnownNetworkStatus == ReachableViaWiFi)
+    if (MFBAppDelegate.threadSafeAppDelegate.lastKnownNetworkStatus == ReachableViaWiFi)
         return true;
 
     // else, we can't submit if any videos are found.

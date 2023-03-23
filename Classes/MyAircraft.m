@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2010-2021 MyFlightbook, LLC
+ Copyright (C) 2010-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -86,7 +86,7 @@ BOOL fNeedsRefresh = NO;
         }
         
         // Cache the images
-        [a cacheAircraft:rgAc forUser:MFBAppDelegate.threadSafeAppDelegate.userProfile.AuthToken];
+        [a cacheAircraft:rgAc forUser:MFBProfile.sharedProfile.AuthToken];
     }
 }
 
@@ -117,7 +117,7 @@ BOOL fNeedsRefresh = NO;
 	self.navigationItem.leftBarButtonItem = btnRefresh;
     [self initAircraftLists];
     
-    [mfbApp() registerNotifyResetAll:self];
+    [MFBAppDelegate.threadSafeAppDelegate registerNotifyResetAll:self];
     
     self.tableView.rowHeight = 80;
 }
@@ -130,7 +130,7 @@ BOOL fNeedsRefresh = NO;
     if (self.dictImagesForAircraft.count == 0)
         [NSThread detachNewThreadSelector:@selector(asyncLoadThumbnails) toTarget:self withObject:nil];
     
-    if (fNeedsRefresh && mfbApp().userProfile.AuthToken.length > 0)
+    if (fNeedsRefresh && MFBProfile.sharedProfile.AuthToken.length > 0)
         [self refresh];
 }
 
@@ -190,7 +190,7 @@ BOOL fNeedsRefresh = NO;
 
 - (void) refresh
 {   
-    if (![mfbApp() isOnLine])
+    if (![MFBAppDelegate.threadSafeAppDelegate isOnLine])
     {
         if (isLoading)
             [self stopLoading];
@@ -300,9 +300,7 @@ BOOL fNeedsRefresh = NO;
 
 + (void) viewAircraft:(MFBWebServiceSvc_Aircraft *) ac onNavigationController:(UINavigationController *) nav withDelegate:(id<AircraftViewControllerDelegate>)delegate
 {
-	MFBAppDelegate * app = mfbApp();
-    
-    if (![app.userProfile isValid])
+    if (!MFBProfile.sharedProfile.isValid)
     {
         [nav showErrorAlertWithMessage:NSLocalizedString(@"You must be signed in to create an aircraft", @"Must be signed in to create an aircraft")];
         return;
@@ -320,7 +318,7 @@ BOOL fNeedsRefresh = NO;
 }
 
 - (void) newAircraft {
-    if (mfbApp().isOnLine)
+    if (MFBAppDelegate.threadSafeAppDelegate.isOnLine)
         [MyAircraft viewAircraft:[MFBWebServiceSvc_Aircraft getNewAircraft] onNavigationController:self.navigationController withDelegate:self];
 }
 
@@ -330,14 +328,14 @@ BOOL fNeedsRefresh = NO;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [mfbApp() isOnLine];
+    return [MFBAppDelegate.threadSafeAppDelegate isOnLine];
 }
 
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        if (![mfbApp() isOnLine])
+        if (![MFBAppDelegate.threadSafeAppDelegate isOnLine])
             return;
         
         if (self.callInProgress)
@@ -350,7 +348,7 @@ BOOL fNeedsRefresh = NO;
             [self refreshCompleted:sc];
         }];
         
-        [ac deleteAircraft:[self aircraftAtIndexPath:indexPath].AircraftID forUser:mfbApp().userProfile.AuthToken];
+        [ac deleteAircraft:[self aircraftAtIndexPath:indexPath].AircraftID forUser:MFBProfile.sharedProfile.AuthToken];
     }
 }
 

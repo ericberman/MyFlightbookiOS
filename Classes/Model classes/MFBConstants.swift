@@ -67,6 +67,20 @@ import Foundation
     @objc public static let METERS_IN_A_NM = 1852.0
     @objc public static let NM_IN_A_METER = 0.000539956803
     
-    // Distance for Cross-country Flight (in NM)
+    // Minimum threshold distance for Cross-country Flight (in NM)
     @objc public static let CROSS_COUNTRY_THRESHOLD = 50.0
+    
+    // IRATE initializers
+#if DEBUG
+    @objc public static let MIN_IRATE_EVENTS = 2
+    @objc public static let MIN_IRATE_DAYS = 0.01
+    @objc public static let MIN_IRATE_USES = 4
+#else
+    @objc public static let MIN_IRATE_EVENTS = 5
+    @objc public static let MIN_IRATE_DAYS = 10.0
+    @objc public static let MIN_IRATE_USES = 10
+#endif
+    
+    @objc public static let IRATE_URL = URL(string: String(format: "https://itunes.apple.com/us/app/myflightbook/id%d?mt=8&action=write-review",
+                                                           _appStoreID))
 }

@@ -243,7 +243,7 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
 		MFBWebServiceSvc_CustomFlightProperty * cfp = [self FlightPropertyForIndexPath:indexPath forTable:tableView];
 		if (cfp != nil)
 		{
-            [self.flightProps deleteProperty:cfp forUser:mfbApp().userProfile.AuthToken];
+            [self.flightProps deleteProperty:cfp forUser:MFBProfile.sharedProfile.AuthToken];
             MFBWebServiceSvc_CustomPropertyType * cpt = [self cptForIndexPath:indexPath forTable:tableView];
             [cfp setDefaultForType:cpt];
             [self commitChanges];

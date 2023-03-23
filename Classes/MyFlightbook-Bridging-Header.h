@@ -39,6 +39,8 @@
 #import "NSDate+ISO8601Unparsing.h"
 #import "NSDate+ISO8601Parsing.h"
 #import "CommentedImage.h"
+#import "Reachability.h"
+#import "iRate.h"
 #import "SharedWatch.h"
 #import "HostName.h"
 #import "SwiftHackBridge.h"

@@ -191,18 +191,20 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
         //bundle id
         self.applicationBundleID = [[NSBundle mainBundle] bundleIdentifier];
         
+        
         //default settings
         self.useAllAvailableLanguages = YES;
         self.promptForNewVersionIfUserRated = NO;
         self.onlyPromptIfLatestVersion = YES;
         self.onlyPromptIfMainWindowIsAvailable = YES;
         self.promptAtLaunch = YES;
-        self.usesUntilPrompt = 10;
-        self.eventsUntilPrompt = 10;
-        self.daysUntilPrompt = 10.0f;
+        self.usesUntilPrompt = MFBConstants.MIN_IRATE_USES;
+        self.eventsUntilPrompt = MFBConstants.MIN_IRATE_EVENTS;
+        self.daysUntilPrompt = MFBConstants.MIN_IRATE_DAYS;
         self.usesPerWeekForPrompt = 0.0f;
         self.remindPeriod = 1.0f;
-        self.verboseLogging = NO;
+        self.verboseLogging = YES;
+        self.ratingsURL = MFBConstants.IRATE_URL;
         self.previewMode = NO;
         
 #if DEBUG

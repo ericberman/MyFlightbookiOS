@@ -27,7 +27,7 @@
 
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
-#import "MFBAppDelegate.h"
+#import <MyFlightbook-Swift.h>
 #import "CommentedImage.h"
 
 void Swizzle(Class c, SEL orig, SEL new)

@@ -27,7 +27,6 @@
 #import <UIKit/UIKit.h>
 #import <MyFlightbook-Swift.h>
 #import "MFBWebServiceSvc.h"
-#import "MFBAppDelegate.h"
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "CommentedImage.h"

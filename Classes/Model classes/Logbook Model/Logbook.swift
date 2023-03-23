@@ -25,6 +25,30 @@
 
 import Foundation
 
+@objc public protocol LEControllerProtocol : AutoDetectDelegate {
+    @objc func saveState()
+    @objc func startEngineExternal()
+    @objc func stopEngineExternal()
+    @objc func stopEngineExternalNoSubmit()
+    @objc func startFlightExternal()
+    @objc func stopFlightExternal()
+    @objc func blockOutExternal()
+    @objc func blockInExternal()
+    @objc func resumeFlightExternal()
+    @objc func pauseFlightExternal()
+    @objc func toggleFlightPause()
+    @objc func flightCouldBeInProgress() -> Bool
+    @objc var fIsPaused : Bool { get }
+    @objc var rgPicsForFlight : [CommentedImage] { get }
+    @objc var le : LogbookEntry { get }
+    @objc var view : UIView { get }
+}
+
+@objc public protocol RecentFlightsProtocol {
+    @objc func addJSONFlight(_ szJSON : String)
+    @objc func addTelemetryFlight(_ url : URL)
+}
+
 @objc(LogbookEntry) public class LogbookEntry : MFBAsyncOperation, MFBSoapCallDelegate, NSCoding, NSSecureCoding {
     // TODO: Can any of these be made private
     @objc public var entryData : MFBWebServiceSvc_LogbookEntry

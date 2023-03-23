@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2013-2019 MyFlightbook, LLC
+ Copyright (C) 2013-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -73,7 +73,7 @@
         NSString * targetURL = fIsNew ? MFBConstants.MFBAIRCRAFTIMAGEUPLOADPAGENEW : MFBConstants.MFBAIRCRAFTIMAGEUPLOADPAGE;
         NSString * key = fIsNew ? ac.TailNumber : ac.AircraftID.stringValue;
         [CommentedImage uploadImages:self.rgImages progressUpdate:^(NSString * sz) { self.progress.title = sz; }
-                              toPage:targetURL authString:[MFBAppDelegate threadSafeAppDelegate].userProfile.AuthToken keyName:MFBConstants.MFB_KEYAIRCRAFTIMAGE keyValue:key];
+                              toPage:targetURL authString:MFBProfile.sharedProfile.AuthToken keyName:MFBConstants.MFB_KEYAIRCRAFTIMAGE keyValue:key];
         [self performSelectorOnMainThread:@selector(imagesComplete:) withObject:ar waitUntilDone:NO];
     }
 }
@@ -86,7 +86,7 @@
 }
 
 - (void) commitAircraft {
-    if (!mfbApp().isOnLine) {
+    if (!MFBAppDelegate.threadSafeAppDelegate.isOnLine) {
         MFBSoapCall * sc = MFBSoapCall.new;
         sc.errorString = NSLocalizedString(@"No access to the Internet", @"Error message if app cannot connect to the Internet");
         [self aircraftRefreshComplete:sc withCaller:Aircraft.sharedAircraft];
@@ -106,7 +106,7 @@
         [self aircraftWorkerComplete:sc withCaller:(Aircraft *) ao];
     }];
     a.rgAircraftForUser = nil;
-    NSString * szAuthToken = mfbApp().userProfile.AuthToken;
+    NSString * szAuthToken = MFBProfile.sharedProfile.AuthToken;
     
     if (self.ac.isNew)
         [a addAircraft:self.ac ForUser:szAuthToken];

@@ -78,7 +78,7 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(updateVisitedAirports)];
 
-    MFBAppDelegate * app = mfbApp();
+    MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
     [app registerNotifyDataChanged:self];
     [app registerNotifyResetAll:self];
 
@@ -126,13 +126,13 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
     self.errorString = @"";
 	
     self.tableView.allowsSelection = YES;
-    NSString * authToken = mfbApp().userProfile.AuthToken;
+    NSString * authToken = MFBProfile.sharedProfile.AuthToken;
 	if ([authToken length] == 0)
     {
 		self.errorString = NSLocalizedString(@"You must sign in to view visited airports.", @"Can't see visited airports if not signed in.");
         [self showError:self.errorString withTitle:NSLocalizedString(@"Error loading visited airports", @"Title when an error occurs loading visited airports")];
     }
-    else if (![mfbApp() isOnLine])
+    else if (![MFBAppDelegate.threadSafeAppDelegate isOnLine])
     {
         NSDate * dtLastPack = PackAndGo.lastVisitedPackDate;
         if (dtLastPack != nil) {
@@ -247,7 +247,7 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
 	{
 		MFBWebServiceSvc_VisitedAirportsResponse * resp = (MFBWebServiceSvc_VisitedAirportsResponse *) body;
         MFBWebServiceSvc_ArrayOfVisitedAirport * rg = resp.VisitedAirportsResult;
-        MFBAppDelegate * app = mfbApp();
+        MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
         		
         self.rgVA = rg.VisitedAirport;
         self.searchBar.text = @"";
@@ -452,7 +452,7 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
     if (isLoading)
         return;
     
-    if (!mfbApp().isOnLine)
+    if (!MFBAppDelegate.threadSafeAppDelegate.isOnLine)
         return;
     
     if (self.vaDetails == nil)

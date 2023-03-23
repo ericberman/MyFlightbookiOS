@@ -24,7 +24,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MFBAppDelegate.h"
+#import <MyFlightbook-Swift.h>
 
 // Hack class for now to provide minimal pollution of the bridging header while we slowly migrate stuff to swift
 // TODO: REMOVE THIS OVER TIME 

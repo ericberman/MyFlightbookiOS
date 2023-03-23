@@ -507,7 +507,7 @@ enum aircraftRows {rowInfoStart, rowStaticDesc = rowInfoStart, rowInfoLast,
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
         CommentedImage * ci = (CommentedImage *) (self.rgImages)[indexPath.row - 1];
-        [ci deleteImage:(mfbApp()).userProfile.AuthToken];
+        [ci deleteImage:MFBProfile.sharedProfile.AuthToken];
         
         // then remove it from the array
         [self.rgImages removeObjectAtIndex:indexPath.row - 1];
@@ -825,7 +825,7 @@ enum aircraftRows {rowInfoStart, rowStaticDesc = rowInfoStart, rowInfoLast,
 #pragma mark - Find Flights
 - (void) findFlights:(id)sender
 {
-    if (self.ac == nil || self.navigationController == nil || !mfbApp().isOnLine)
+    if (self.ac == nil || self.navigationController == nil || MFBAppDelegate.threadSafeAppDelegate.isOnLine)
         return;
     
     MFBWebServiceSvc_FlightQuery * fq = [MFBWebServiceSvc_FlightQuery getNewFlightQuery];
@@ -841,7 +841,7 @@ enum aircraftRows {rowInfoStart, rowStaticDesc = rowInfoStart, rowInfoLast,
 #pragma mark - View Schedule
 - (void) viewSchedule:(id) sender
 {
-    NSString * szURL = [mfbApp().userProfile authRedirForUser:[NSString stringWithFormat:@"d=aircraftschedule&naked=1&ac=%d", self.ac.AircraftID.intValue]];
+    NSString * szURL = [MFBProfile.sharedProfile authRedirForUser:[NSString stringWithFormat:@"d=aircraftschedule&naked=1&ac=%d", self.ac.AircraftID.intValue]];
     
     HostedWebViewController * vwWeb = [[HostedWebViewController alloc] initWithUrl:szURL];
     [self.navigationController pushViewController:vwWeb animated:YES];
@@ -851,7 +851,7 @@ enum aircraftRows {rowInfoStart, rowStaticDesc = rowInfoStart, rowInfoLast,
 - (void) imagesComplete:(NSArray *) ar
 {
     // Invalidate totals, since this could affect currency (e.g., vor checks)
-    [mfbApp() invalidateCachedTotals];
+    [MFBAppDelegate.threadSafeAppDelegate invalidateCachedTotals];
     
     Aircraft * aircraft = [Aircraft sharedAircraft];
     // And reload user aircraft to pick up the changes, if necessary

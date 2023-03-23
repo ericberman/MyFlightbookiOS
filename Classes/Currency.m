@@ -58,7 +58,7 @@
 	self.rgCurrency = [NSMutableArray new];
 	self.errorString = [NSString new];
 
-    MFBAppDelegate * app = mfbApp();
+    MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
     [app registerNotifyDataChanged:self];
     [app registerNotifyResetAll:self];
 
@@ -103,7 +103,7 @@
 {
 	NSLog(@"LoadCurrencyForUser");
 	self.errorString = @"";
-    NSString * szAuthToken = mfbApp().userProfile.AuthToken;
+    NSString * szAuthToken = MFBProfile.sharedProfile.AuthToken;
 	
     self.tableView.allowsSelection = YES;
 	if ([szAuthToken length] == 0)
@@ -111,7 +111,7 @@
 		self.errorString = NSLocalizedString(@"You must be signed in to view currency", @"Must be signed in to view currency");
         [self showError:self.errorString withTitle:NSLocalizedString(@"Error loading currency", @"Title Error message when loading currency")];
     }
-    else if (![mfbApp() isOnLine])
+    else if (!MFBAppDelegate.threadSafeAppDelegate.isOnLine)
     {
         NSDate * dtLastPack = PackAndGo.lastCurrencyPackDate;
         if (dtLastPack != nil) {
@@ -236,7 +236,7 @@
 }
 
 - (void) pushAuthURL:(NSString *) target {
-    [self pushWebURL:[mfbApp().userProfile authRedirForUser:[NSString stringWithFormat:@"d=%@&naked=1", target]]];
+    [self pushWebURL:[MFBProfile.sharedProfile authRedirForUser:[NSString stringWithFormat:@"d=%@&naked=1", target]]];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

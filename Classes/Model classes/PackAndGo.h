@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef PackAndGo_h
 #define PackAndGo_h
 
-#import "MFBAppDelegate.h"
 #import "MFBWebServiceSvc.h"
 #import <MyFlightbook-Swift.h>
 

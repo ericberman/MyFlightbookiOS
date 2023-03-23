@@ -190,7 +190,7 @@ CGFloat defaultSearchHeight;
         self.fHasAnnotations = NO;
 
 		ap = self.nearbyAirports;
-		MFBAppDelegate * app = mfbApp();
+		MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
 			
 		if (app.mfbloc.lastSeenLoc != nil)
 			[ap loadAirportsNearPosition:mcr limit:-1];
@@ -248,7 +248,7 @@ CGFloat defaultSearchHeight;
 {
 	[self resizeForFrame];
 
-	MFBAppDelegate * app = mfbApp();
+	MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
 	
 	// center the map
 	if ([self showNearbyAirports])
@@ -274,10 +274,10 @@ CGFloat defaultSearchHeight;
 
 - (IBAction) appendCurloc:(id)sender
 {
-    if (mfbApp().mfbloc.lastSeenLoc == nil || self.delegateNearest == nil)
+    if (MFBAppDelegate.threadSafeAppDelegate.mfbloc.lastSeenLoc == nil || self.delegateNearest == nil)
         return;
     
-    NSString * szLatLong = [[[MFBWebServiceSvc_LatLong alloc] initWithCoord:mfbApp().mfbloc.lastSeenLoc.coordinate] toAdhocString];
+    NSString * szLatLong = [[[MFBWebServiceSvc_LatLong alloc] initWithCoord:MFBAppDelegate.threadSafeAppDelegate.mfbloc.lastSeenLoc.coordinate] toAdhocString];
     [self.delegateNearest airportClicked:[MFBWebServiceSvc_airport getAdHoc:szLatLong]];
     if (self.navigationController != nil)
         [self.navigationController popViewControllerAnimated:YES];
@@ -333,7 +333,7 @@ CGFloat defaultSearchHeight;
     }
 		
     
-    self.docController = [UIDocumentInteractionController interactionControllerWithURL:[NSURL fileURLWithPath:[mfbApp().mfbloc writeToFile:self.associatedFlight.gpxPath]]];
+    self.docController = [UIDocumentInteractionController interactionControllerWithURL:[NSURL fileURLWithPath:[MFBAppDelegate.threadSafeAppDelegate.mfbloc writeToFile:self.associatedFlight.gpxPath]]];
     self.docController.delegate = nil;
     bool fResult = [self.docController presentOptionsMenuFromBarButtonItem:self.bbAction animated:YES];
     if (!fResult)

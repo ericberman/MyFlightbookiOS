@@ -32,13 +32,11 @@
 #import "ProgressCell.h"
 
 @interface RecentFlights : PullRefreshTableViewController <LEEditDelegate, UITableViewDelegate, 
-UIAlertViewDelegate, MFBSoapCallDelegate, QueryDelegate, ReachabilityDelegate> {
+UIAlertViewDelegate, MFBSoapCallDelegate, QueryDelegate, ReachabilityDelegate, RecentFlightsProtocol> {
 }
 
 @property (nonatomic, strong) IBOutlet ProgressCell * cellProgress;
 @property (nonatomic, strong) MFBWebServiceSvc_FlightQuery * fq;
 
 - (void) loadFlightsForUser;
-- (void) addJSONFlight:(NSString *) szJSON;
-- (void) addTelemetryFlight:(NSURL *) url;
 @end

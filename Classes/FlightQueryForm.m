@@ -233,10 +233,10 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
 
 #pragma mark - canned query management
 - (void) refreshCannedQueries {
-    if (!mfbApp().isOnLine)
+    if (!MFBAppDelegate.threadSafeAppDelegate.isOnLine)
         return;
     
-    NSString * authtoken = mfbApp().userProfile.AuthToken;
+    NSString * authtoken = MFBProfile.sharedProfile.AuthToken;
     if ([authtoken length] == 0)
         return;
 
@@ -253,10 +253,10 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
 }
 
 - (void) deleteCannedQuery:(MFBWebServiceSvc_CannedQuery *) fq {
-    if (!mfbApp().isOnLine)
+    if (!MFBAppDelegate.threadSafeAppDelegate.isOnLine)
         return;
 
-    NSString * authtoken = mfbApp().userProfile.AuthToken;
+    NSString * authtoken = MFBProfile.sharedProfile.AuthToken;
     if ([authtoken length] == 0)
         return;
     
@@ -273,10 +273,10 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
 }
 
 - (void) AddCannedQuery:(MFBWebServiceSvc_FlightQuery *) fq withName:(NSString *) szName {
-    if (!mfbApp().isOnLine)
+    if (!MFBAppDelegate.threadSafeAppDelegate.isOnLine)
         return;
     
-    NSString * authtoken = mfbApp().userProfile.AuthToken;
+    NSString * authtoken = MFBProfile.sharedProfile.AuthToken;
     if ([authtoken length] == 0)
         return;
     
@@ -912,7 +912,7 @@ static NSMutableArray<MFBWebServiceSvc_CannedQuery *> * _rgCannedQueries;
 
 #pragma mark - Table view delegate
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return  ([mfbApp() isOnLine] && indexPath.section == fqsNamedQueries && indexPath.row >= 2);
+    return  (MFBAppDelegate.threadSafeAppDelegate.isOnLine && indexPath.section == fqsNamedQueries && indexPath.row >= 2);
 }
 
 

@@ -29,7 +29,6 @@
 #import "ButtonCell.h"
 #import "TextCell.h"
 #import "EditCell.h"
-#import "MFBAppDelegate.h"
 #import "SecurityQuestionPicker.h"
 #import <MyFlightbook-Swift.h>
 
@@ -322,15 +321,13 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
 
 #pragma mark - Create User
 - (void) createUserFinishedFailure {
-    [self showErrorAlertWithMessage:mfbApp().userProfile.ErrorString];
+    [self showErrorAlertWithMessage:MFBProfile.sharedProfile.ErrorString];
 }
 
 - (void) createUserFinishedSuccess
 {
-	MFBAppDelegate * app = mfbApp();
-    
     // cache the relevant credentials, load any aircraft, and go to the default page for the user!
-    [app.userProfile SavePrefs];
+    [MFBProfile.sharedProfile SavePrefs];
     [[Aircraft sharedAircraft] refreshIfNeeded];
     
     // Refresh properties on a background thread.
@@ -348,8 +345,7 @@ enum rowNewUser {rowEmail, rowEmail2, rowPass, rowPass2, rowFirstName, rowLastNa
 - (void) createUserWorker
 {
     @autoreleasepool {
-        MFBAppDelegate * app = [MFBAppDelegate threadSafeAppDelegate];
-        BOOL fSuccess = [app.userProfile createUser:self.nuo] && [app.userProfile isValid];
+        BOOL fSuccess = [MFBProfile.sharedProfile createUser:self.nuo] && MFBProfile.sharedProfile.isValid;
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self dismissViewControllerAnimated:YES completion:^{

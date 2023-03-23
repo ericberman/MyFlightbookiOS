@@ -27,11 +27,11 @@
 
 #import "SignInControllerViewController.h"
 #import "EditCell.h"
-#import "MFBAppDelegate.h"
 #import "ButtonCell.h"
 #import "TextCell.h"
 #import "NewUserTableController.h"
 #import "PackAndGo.h"
+#import <MyFlightbook-Swift.h>
 
 @interface SignInControllerViewController ()
 @property (nonatomic, strong) NSString * szUser;
@@ -59,19 +59,17 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
     [super viewDidLoad];
     self.vwAccessory = [AccessoryBar getAccessoryBar:self];
     
-    MFBAppDelegate * app = mfbApp();
-    self.szUser = app.userProfile.UserName;
-    self.szPass = app.userProfile.Password;
+    self.szUser = MFBProfile.sharedProfile.UserName;
+    self.szPass = MFBProfile.sharedProfile.Password;
     self.defSectionFooterHeight = self.defSectionHeaderHeight = 5.0;
 }
 
 - (void) viewWillAppear:(BOOL)animated
 {
     [self.navigationController setToolbarHidden:YES];
-    MFBAppDelegate * app = mfbApp();
 
-    self.szUser = app.userProfile.UserName;
-    self.szPass = app.userProfile.Password;
+    self.szUser = MFBProfile.sharedProfile.UserName;
+    self.szPass = MFBProfile.sharedProfile.Password;
     [self.tableView reloadData];
     [super viewWillAppear:animated];
 }
@@ -108,19 +106,18 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
 
 - (IBAction) UpdateProfile
 {
-	MFBAppDelegate * app = mfbApp();
     [self.tableView endEditing:YES];
 	
-	app.userProfile.UserName = self.szUser;
-	app.userProfile.Password = self.szPass;
-    app.userProfile.AuthToken = @"";
+    MFBProfile.sharedProfile.UserName = self.szUser;
+    MFBProfile.sharedProfile.Password = self.szPass;
+    MFBProfile.sharedProfile.AuthToken = @"";
 	
-	[app.userProfile clearCache];
+	[MFBProfile.sharedProfile clearCache];
 	
     [WPSAlertController presentProgressAlertWithTitle:NSLocalizedString(@"Signing in...", @"Progress: Signing In") onViewController:self];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        MFBWebServiceSvc_AuthStatus result = [app.userProfile GetAuthToken:self.sz2fa];
+        MFBWebServiceSvc_AuthStatus result = [MFBProfile.sharedProfile GetAuthToken:self.sz2fa];
         
         // if successful, refresh flight properties.
         if (result == MFBWebServiceSvc_AuthStatus_Success) {
@@ -132,11 +129,11 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
         dispatch_async(dispatch_get_main_queue(), ^{
             [self dismissViewControllerAnimated:YES completion:^{
                 if (result == MFBWebServiceSvc_AuthStatus_Success) {
-                    MFBAppDelegate * app = mfbApp();
+                    MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
                     self.sz2fa = nil;
                     
                     [app ensureWarningShownForUser];
-                    [app.userProfile SavePrefs];
+                    [MFBProfile.sharedProfile SavePrefs];
                     [self.tableView reloadData];
                     
                     [[Aircraft sharedAircraft] refreshIfNeeded];
@@ -146,7 +143,7 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
                     [self get2FA];
                 }
                 else
-                    [self showError:app.userProfile.ErrorString];
+                    [self showError:MFBProfile.sharedProfile.ErrorString];
             }];
         });
     });
@@ -154,11 +151,10 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
 
 - (IBAction) signOut:(id)sender
 {
-    MFBAppDelegate * app = mfbApp();
-    app.userProfile.UserName = app.userProfile.Password = app.userProfile.AuthToken = self.szPass = self.szUser = @"";
-    [app.userProfile clearCache];
-    [app.userProfile clearOldUserContent];
-    [app.userProfile SavePrefs];
+    MFBProfile.sharedProfile.UserName = MFBProfile.sharedProfile.Password = MFBProfile.sharedProfile.AuthToken = self.szPass = self.szUser = @"";
+    [MFBProfile.sharedProfile clearCache];
+    [MFBProfile.sharedProfile clearOldUserContent];
+    [MFBProfile.sharedProfile SavePrefs];
     [FlightProps clearTemplates];
     [FlightProps saveTemplates];
     [FlightProps clearAllLocked];
@@ -215,18 +211,18 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
 - (NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if (section == sectCredentials) {
-        if (mfbApp().userProfile.isValid)
-            return [NSString stringWithFormat:NSLocalizedString(@"You are signed in.", @"Prompt if you are signed in."), mfbApp().userProfile.UserName];
+        if (MFBProfile.sharedProfile.isValid)
+            return [NSString stringWithFormat:NSLocalizedString(@"You are signed in.", @"Prompt if you are signed in."), MFBProfile.sharedProfile.UserName];
         else
             return NSLocalizedString(@"You are not signed in.  Please sign in or create an account.", @"Prompt if you are not signed in.");
-    } else if (section == sectPackAndGo && mfbApp().userProfile.isValid)
+    } else if (section == sectPackAndGo && MFBProfile.sharedProfile.isValid)
         return NSLocalizedString(@"PackAndGoDesc", @"Pack and go description");
 
     return nil;
 }
 
 - (NSString *) tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-    if (section == sectPackAndGo && mfbApp().userProfile.isValid) {
+    if (section == sectPackAndGo && MFBProfile.sharedProfile.isValid) {
         NSDate * dtPacked = PackAndGo.lastPackDate;
         if (dtPacked == nil)
             return NSLocalizedString(@"PackAndGoStatusNone", @"Pack and go not packed");
@@ -250,17 +246,17 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
     switch (section)
     {
         case sectWhySignIn:
-            return mfbApp().userProfile.isValid ? 0 : 1; // just the explanation text
+            return MFBProfile.sharedProfile.isValid ? 0 : 1; // just the explanation text
         case sectCredentials:
-            return mfbApp().userProfile.isValid ? 0 : 2; // email + password
+            return MFBProfile.sharedProfile.isValid ? 0 : 2; // email + password
         case sectSignIn:
             return 1;
         case sectForgotPW:
             return 1; // just the "Forgot password" cell
         case sectPackAndGo:
-            return mfbApp().userProfile.isValid ? 1 : 0;
+            return MFBProfile.sharedProfile.isValid ? 1 : 0;
         case sectCreateAccount:
-            return mfbApp().userProfile.isValid ? 0 : 1; // just the "Create account" cell, but only if not signed in
+            return MFBProfile.sharedProfile.isValid ? 0 : 1; // just the "Create account" cell, but only if not signed in
         case sectLinks:
             return cidLinksLast - cidLinksFirst + 1;
         case sectAbout:
@@ -297,7 +293,7 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
         case cidSignInOut:
         {
             ButtonCell * cell = [ButtonCell getButtonCell:self.tableView];
-            if (mfbApp().userProfile.isValid)
+            if (MFBProfile.sharedProfile.isValid)
             {
                 [cell.btn setTitle:NSLocalizedString(@"Sign-out", @"Sign-out") forState:0];
                 [cell.btn addTarget:self action:@selector(signOut:) forControlEvents:UIControlEventTouchUpInside];
@@ -359,7 +355,7 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
             cell.textLabel.text = NSLocalizedString(@"SupportPrompt", @"Support");
             cell.imageView.image = [UIImage imageNamed:@"MFBLogo"];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.textLabel.textColor = ([mfbApp().userProfile isValid]) ? [UILabel appearance].textColor : [UIColor grayColor];
+            cell.textLabel.textColor = ([MFBProfile.sharedProfile isValid]) ? [UILabel appearance].textColor : [UIColor grayColor];
             return cell;
         }
         case cidContact:
@@ -395,10 +391,9 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
 
 - (void) contactUs
 {
-    MFBAppDelegate * app = mfbApp();
 	NSString * szURL = [NSString stringWithFormat:@"https://%@/logbook/public/ContactMe.aspx?email=%@&subj=%@&noCap=1&naked=1",
 						MFBHOSTNAME,
-                        app.userProfile.UserName,
+                        MFBProfile.sharedProfile.UserName,
 						[[NSString stringWithFormat:@"Comment from %@ user", (UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad) ? @"iPad" : @"iPhone"] stringByURLEncodingString]];
     [self pushURL:szURL];
 }
@@ -433,10 +428,8 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
 }
 
 - (void) packAndGo {
-    MFBAppDelegate * app = mfbApp();
-    
     PackAndGo * p = [PackAndGo new];
-    p.authToken = app.userProfile.AuthToken;
+    p.authToken = MFBProfile.sharedProfile.AuthToken;
     
     [self.tableView endEditing:YES];
 
@@ -494,15 +487,15 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
             break;
         case cidFAQ:
             [self.tableView endEditing:YES];
-            [self pushURL:[mfbApp().userProfile authRedirForUser:@"d=faq&naked=1"]];
+            [self pushURL:[MFBProfile.sharedProfile authRedirForUser:@"d=faq&naked=1"]];
             break;
         case cidSupport:
             [self.tableView endEditing:YES];
             
-            if (!mfbApp().userProfile.isValid)
+            if (!MFBProfile.sharedProfile.isValid)
                 return;
             
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[mfbApp().userProfile authRedirForUser:@"d=donate"]] options:@{} completionHandler:nil];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[MFBProfile.sharedProfile authRedirForUser:@"d=donate"]] options:@{} completionHandler:nil];
             break;
         case cidCreateAcct:
             [self.tableView endEditing:YES];

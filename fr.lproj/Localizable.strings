@@ -1463,3 +1463,8 @@ Quel est le nom de la réception de votre mariage lieu a eu lieu?";
 /* Widgets-TotalsDescription */
 "TotalsWidgetDesc" = "Vos totaux de vol en un coup d'œil";
 
+/* Shortcut Currency */
+"Currency" = "Statut des compétences";
+
+/* Shortcut Totals */
+"Totals" = "Totaux";

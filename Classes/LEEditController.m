@@ -57,6 +57,7 @@
 @synthesize digitizedSig;
 @synthesize selectibleAircraft;
 @synthesize propDatePicker;
+@synthesize rgPicsForFlight, fIsPaused;
 
 NSString * const _szKeyCachedImageArray = @"cachedImageArrayKey";
 NSString * const _szkeyITCCollapseState = @"keyITCCollapseState";
@@ -227,7 +228,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
         self.tableView.sectionHeaderTopPadding = 0;
     }
     
-    [mfbApp() registerNotifyResetAll:self];
+    [MFBAppDelegate.threadSafeAppDelegate registerNotifyResetAll:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -260,7 +261,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
 {
 	[super viewWillAppear:animated];
     
-    MFBAppDelegate * app = mfbApp();
+    MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
     
     // Pick up an aircraft if one was added and none had been selected
     if ([self.idPopAircraft.text length] == 0)
@@ -289,7 +290,7 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     }
     
     // enable/disable the add/update button based on sign-in state
-    self.navigationItem.rightBarButtonItem.enabled = mfbApp().userProfile.isValid;
+    self.navigationItem.rightBarButtonItem.enabled = MFBProfile.sharedProfile.isValid;
     
     // Initialize the list of selectibleAircraft and hold on to it
     // We do this on each view-will-appear so that we can pick up any aircraft that have been shown/hidden.
@@ -434,8 +435,8 @@ CGFloat heightDateTail, heightComments, heightRoute, heightLandings, heightGPS, 
     
     [self updatePausePlay];
     
-    self.idimgRecording.hidden = !mfbApp().mfbloc.fRecordFlightData || ![self flightCouldBeInProgress];
-    mfbApp().watchData.isRecording = !self.idimgRecording.hidden;
+    self.idimgRecording.hidden = !MFBAppDelegate.threadSafeAppDelegate.mfbloc.fRecordFlightData || ![self flightCouldBeInProgress];
+    MFBAppDelegate.threadSafeAppDelegate.watchData.isRecording = !self.idimgRecording.hidden;
     
     if (fReloadTable)
         [self.tableView reloadData];
@@ -597,7 +598,7 @@ static NSArray * rgAllCockpitRows = nil;
     NSNumber * propTypeID = (row == rowTachStart) ? @(PropTypeIDTachStart) : @(PropTypeIDTachEnd);
     if (sender.value.intValue == 0) {
         NSError * err = nil;
-        [self.le.entryData removeProperty:propTypeID withServerAuth:mfbApp().userProfile.AuthToken deleteSvc:self.flightProps error:&err]; // delete if default value
+        [self.le.entryData removeProperty:propTypeID withServerAuth:MFBProfile.sharedProfile.AuthToken deleteSvc:self.flightProps error:&err]; // delete if default value
     }
     else
         [self.le.entryData setPropertyValue:propTypeID withDecimal:sender.value];
@@ -842,7 +843,7 @@ static NSArray * rgAllCockpitRows = nil;
         if (indexPath.section == sectImages)
         {
             CommentedImage * ci = (CommentedImage *) (self.le.rgPicsForFlight)[indexPath.row - 1];
-            [ci deleteImage:(mfbApp()).userProfile.AuthToken];
+            [ci deleteImage:MFBProfile.sharedProfile.AuthToken];
             
             // then remove it from the array
             [self.le.rgPicsForFlight removeObjectAtIndex:indexPath.row - 1];
@@ -855,7 +856,7 @@ static NSArray * rgAllCockpitRows = nil;
         else if (indexPath.section == sectProperties)
         {
             NSError * err = nil;
-            [self.le.entryData removeProperty:self.propsForPropsSection[indexPath.row - 1].PropTypeID withServerAuth:mfbApp().userProfile.AuthToken deleteSvc:self.flightProps error:&err];
+            [self.le.entryData removeProperty:self.propsForPropsSection[indexPath.row - 1].PropTypeID withServerAuth:MFBProfile.sharedProfile.AuthToken deleteSvc:self.flightProps error:&err];
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         }
 	}
@@ -1190,8 +1191,8 @@ static NSArray * rgAllCockpitRows = nil;
     if (!self.le.entryData.isNewFlight)
         return;
     
-    mfbApp().mfbloc.currentFlightState = FlightStateFsOnGround;
-    [mfbApp() updateWatchContext];
+    MFBAppDelegate.threadSafeAppDelegate.mfbloc.currentFlightState = FlightStateFsOnGround;
+    [MFBAppDelegate.threadSafeAppDelegate updateWatchContext];
 
     if (MFBLocation.USE_FAKE_GPS) {
         [GPSSim BeginSim];
@@ -1256,7 +1257,7 @@ static NSArray * rgAllCockpitRows = nil;
     if (!self.le.entryData.isNewFlight)
         return;
 
-	[mfbApp().mfbloc stopRecordingFlightData];
+	[MFBAppDelegate.threadSafeAppDelegate.mfbloc stopRecordingFlightData];
 	self.idimgRecording.hidden = YES;
 	[self initFormFromLE];
     [self.le unPauseFlight];
@@ -1292,8 +1293,8 @@ static NSArray * rgAllCockpitRows = nil;
         if (UserPreferences.current.autodetectTakeoffs)
             [self autofillClosest];
         
-        [mfbApp().mfbloc startRecordingFlightData]; // will ignore recording if not set to do so.
-        [mfbApp() updateWatchContext];
+        [MFBAppDelegate.threadSafeAppDelegate.mfbloc startRecordingFlightData]; // will ignore recording if not set to do so.
+        [MFBAppDelegate.threadSafeAppDelegate updateWatchContext];
     }
 
 	[self initFormFromLE];
@@ -1304,7 +1305,7 @@ static NSArray * rgAllCockpitRows = nil;
     [self initFormFromLE];
     [self autoHobbs];
     [self autoTotal];
-    [mfbApp() updateWatchContext];
+    [MFBAppDelegate.threadSafeAppDelegate updateWatchContext];
 }
 
 
@@ -1312,7 +1313,7 @@ static NSArray * rgAllCockpitRows = nil;
     [self autoHobbs];
     [self autoTotal];
     [self initFormFromLE];
-    [mfbApp() updateWatchContext];
+    [MFBAppDelegate.threadSafeAppDelegate updateWatchContext];
 }
 
 - (void) startFlightExternal {
@@ -1362,7 +1363,7 @@ static NSArray * rgAllCockpitRows = nil;
     
     [self saveState];
     // in case cockpit view is visible, have it update
-    return mfbApp().fDebugMode ? [NSString stringWithFormat:@"Route is %@ landings=%d FS Landings=%d",
+    return MFBAppDelegate.threadSafeAppDelegate.fDebugMode ? [NSString stringWithFormat:@"Route is %@ landings=%d FS Landings=%d",
                                   self.le.entryData.Route,
                                   self.le.entryData.Landings.intValue,
                                   self.le.entryData.FullStopLandings.intValue] : @"";
@@ -1400,7 +1401,7 @@ static NSArray * rgAllCockpitRows = nil;
     
     [self saveState];
     
-    return mfbApp().fDebugMode ? [NSString stringWithFormat:@"Route was: %@ Now: %@; landings were: %d Now: %d",
+    return MFBAppDelegate.threadSafeAppDelegate.fDebugMode ? [NSString stringWithFormat:@"Route was: %@ Now: %@; landings were: %d Now: %d",
                                   szRouteOrigin,
                                   self.le.entryData.Route,
                                   landingsOrigin, 
@@ -1423,7 +1424,7 @@ static NSArray * rgAllCockpitRows = nil;
     
     // NOTE: we don't pass this on to the sub-view because otherwise we would double count!
     // Also note that above already has updated this form.
-    return mfbApp().fDebugMode ? [NSString stringWithFormat:@" FS %@ Landing: was: %d now: %d",
+    return MFBAppDelegate.threadSafeAppDelegate.fDebugMode ? [NSString stringWithFormat:@" FS %@ Landing: was: %d now: %d",
                                   fIsNight ? @"Night" : @"", 
                                   fsLandingsOrigin,
                                   fIsNight ? self.le.entryData.NightLandings.intValue : self.le.entryData.FullStopLandings.intValue] : @"";
@@ -1447,7 +1448,7 @@ static NSDateFormatter * dfSunriseSunset = nil;
 
 - (void) updatePositionReport
 {
-    MFBAppDelegate * app = mfbApp();
+    MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
     
     CLLocation * loc = app.mfbloc.lastSeenLoc;
     if (loc == nil)
@@ -1499,7 +1500,7 @@ static NSDateFormatter * dfSunriseSunset = nil;
 		}
 	}
 	
-	MFBAppDelegate * app = mfbApp();
+	MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
     
     if ([self.le.entryData isKnownEngineEnd] && app.mfbloc.currentFlightState != FlightStateFsOnGround) // can't fly with engine off
     {
@@ -1634,7 +1635,7 @@ static NSDateFormatter * dfSunriseSunset = nil;
             case rowBlockIn:
                 if ([NSDate isUnknownDate:sender.date]) {
                     NSError * err = nil;
-                    [self.le.entryData removeProperty:[self propIDFromCockpitRow:row] withServerAuth:mfbApp().userProfile.AuthToken deleteSvc:self.flightProps error: &err];
+                    [self.le.entryData removeProperty:[self propIDFromCockpitRow:row] withServerAuth:MFBProfile.sharedProfile.AuthToken deleteSvc:self.flightProps error: &err];
                 }
                 else {
                     [self.le.entryData setPropertyValue:[self propIDFromCockpitRow:row] withDate:sender.date];
@@ -1725,7 +1726,7 @@ static NSDateFormatter * dfSunriseSunset = nil;
             case rowTachStart:
             case rowTachEnd: {
                 NSError * err = nil;
-                [self.le.entryData removeProperty:[self propIDFromCockpitRow:row] withServerAuth:mfbApp().userProfile.AuthToken deleteSvc:self.flightProps error:&err];
+                [self.le.entryData removeProperty:[self propIDFromCockpitRow:row] withServerAuth:MFBProfile.sharedProfile.AuthToken deleteSvc:self.flightProps error:&err];
             }
                 break;
         }

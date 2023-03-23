@@ -25,7 +25,7 @@
 //
 
 #import "ImageComment.h"
-#import "MFBAppDelegate.h"
+#import <MyFlightbook-Swift.h>
 #import <MediaPlayer/MediaPlayer.h>
 
 @interface ImageComment()
@@ -99,7 +99,7 @@
 	if ([self.txtComment.text compare:self.ci.imgInfo.Comment] != NSOrderedSame)
 	{
 		self.ci.imgInfo.Comment = self.txtComment.text;
-		[self.ci updateAnnotation:mfbApp().userProfile.AuthToken];
+		[self.ci updateAnnotation:MFBProfile.sharedProfile.AuthToken];
 	}
 	[super viewWillDisappear:animated];
 }

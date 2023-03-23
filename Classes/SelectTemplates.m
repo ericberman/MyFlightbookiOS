@@ -25,7 +25,6 @@
 //
 
 #import "SelectTemplates.h"
-#import "MFBAppDelegate.h"
 #import <MyFlightbook-Swift.h>
 
 @interface SelectTemplates ()
@@ -101,7 +100,7 @@
         return;
     }
 
-    cptSvc.szAuthUserToken = app.userProfile.AuthToken;
+    cptSvc.szAuthUserToken = MFBProfile.sharedProfile.AuthToken;
     
     MFBSoapCall * sc = [MFBSoapCall new];
     sc.logCallData = NO;

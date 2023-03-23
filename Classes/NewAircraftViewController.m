@@ -330,7 +330,7 @@ enum aircraftRows {rowMainFirst, rowInstanceTypeReal = rowMainFirst, rowInstance
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         CommentedImage * ci = (CommentedImage *) (self.rgImages)[indexPath.row - 1];
-        [ci deleteImage:(mfbApp()).userProfile.AuthToken];
+        [ci deleteImage:MFBProfile.sharedProfile.AuthToken];
         
         // then remove it from the array
         [self.rgImages removeObjectAtIndex:indexPath.row - 1];
@@ -442,7 +442,7 @@ enum aircraftRows {rowMainFirst, rowInstanceTypeReal = rowMainFirst, rowInstance
             [self removeSuggestedAircraft];
             MFBWebServiceSvc_AircraftMatchingPrefix * autocomplete = [MFBWebServiceSvc_AircraftMatchingPrefix new];
             autocomplete.szPrefix = self.ac.TailNumber;
-            autocomplete.szAuthToken = mfbApp().userProfile.AuthToken;
+            autocomplete.szAuthToken = MFBProfile.sharedProfile.AuthToken;
             
             MFBSoapCall * sc = [[MFBSoapCall alloc] init];
             sc.logCallData = NO;
@@ -499,13 +499,13 @@ enum aircraftRows {rowMainFirst, rowInstanceTypeReal = rowMainFirst, rowInstance
     Aircraft * a = (Aircraft *) ar[1];
     
     // Invalidate totals, since this could affect currency (e.g., vor checks)
-    [mfbApp() invalidateCachedTotals];
+    [MFBAppDelegate.threadSafeAppDelegate invalidateCachedTotals];
     
     Aircraft * aircraft = [Aircraft sharedAircraft];
     // And reload user aircraft to pick up the changes, if necessary
     if (a.rgAircraftForUser != nil && [a.rgAircraftForUser count] > 0) {
         aircraft.rgAircraftForUser = a.rgAircraftForUser;
-        [aircraft cacheAircraft:a.rgAircraftForUser forUser:mfbApp().userProfile.AuthToken];
+        [aircraft cacheAircraft:a.rgAircraftForUser forUser:MFBProfile.sharedProfile.AuthToken];
         [self aircraftRefreshComplete:sc withCaller:a];
     }
 }

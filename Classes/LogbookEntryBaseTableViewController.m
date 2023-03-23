@@ -121,7 +121,7 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
     
     [self setCurrentAircraft:ac];
     
-    MFBLocation * mfbloc = mfbApp().mfbloc;
+    MFBLocation * mfbloc = MFBAppDelegate.threadSafeAppDelegate.mfbloc;
     [mfbloc stopRecordingFlightData];
     [mfbloc resetFlightData]; // clean up any old flight-tracking data
     
@@ -145,8 +145,8 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel (button)") style:UIAlertActionStyleCancel handler:nil]];
     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"OK") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [self resetFlight];
-        mfbApp().watchData.flightStage = flightStageUnstarted;
-        [mfbApp() updateWatchContext];
+        MFBAppDelegate.threadSafeAppDelegate.watchData.flightStage = flightStageUnstarted;
+        [MFBAppDelegate.threadSafeAppDelegate updateWatchContext];
     }]];
     [self presentViewController:alert animated:YES completion:nil];
 }
@@ -159,13 +159,13 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
 // Called after a flight is EITHER successfully posted to the site OR successfully queued for later.
 - (void) submitFlightSuccessful
 {
-    MFBAppDelegate * app = mfbApp();
+    MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
     // set the preferred aircraft
     [Aircraft sharedAircraft].DefaultAircraftID = self.le.entryData.AircraftID.intValue;
     
     // invalidate any cached totals and currency, since the newly entered flight renders them obsolete
     [app invalidateCachedTotals];
-    UIView * targetView = [app recentsView].view;
+    UIView * targetView = app.tabRecents.viewControllers[0].view;
     
     // and let any delegate know that the flight has updated
     if (self.delegate != nil)
@@ -180,7 +180,7 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
              if (finished)
              {
                  // Could this be where the recents view isn't loaded?
-                 mfbApp().tabBarController.selectedViewController = mfbApp().tabRecents;
+                 MFBAppDelegate.threadSafeAppDelegate.tabBarController.selectedViewController = MFBAppDelegate.threadSafeAppDelegate.tabRecents;
                  [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
              }
          }];
@@ -227,11 +227,12 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
 
 - (void) submitFlightConfirmed:(BOOL) asPending {
     MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
-    if (![app.userProfile isValid]) // should never happen - app delegate should have prevented this page from showing.
+    MFBProfile * pf = MFBProfile.sharedProfile;
+    if (!pf.isValid) // should never happen - app delegate should have prevented this page from showing.
         return;
     
-    self.le.szAuthToken = app.userProfile.AuthToken;
-    self.le.entryData.User = app.userProfile.UserName;
+    self.le.szAuthToken = pf.AuthToken;
+    self.le.entryData.User = pf.UserName;
     
     // Determine if this is going to logbook or to pending flights
     self.le.fShuntPending = asPending;
@@ -470,10 +471,10 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
     NSString * szURL = [NSString stringWithFormat:@"https://%@/logbook/public/SignEntry.aspx?idFlight=%d&auth=%@&naked=1",
                         MFBHOSTNAME,
                         [self.le.entryData.FlightID intValue],
-                        [(mfbApp()).userProfile.AuthToken stringByURLEncodingString]];
+                        MFBProfile.sharedProfile.AuthToken.stringByURLEncodingString];
     
     HostedWebViewController * vwWeb = [[HostedWebViewController alloc] initWithUrl:szURL];
-    [mfbApp() invalidateCachedTotals];   // this flight could now be invalid
+    [MFBAppDelegate.threadSafeAppDelegate invalidateCachedTotals];   // this flight could now be invalid
     [self.navigationController pushViewController:vwWeb animated:YES];
 }
 
@@ -587,7 +588,7 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
 }
 
 - (void) appendAdHoc:(id) sender {
-    NSString * szLatLong = [[[MFBWebServiceSvc_LatLong alloc] initWithCoord:mfbApp().mfbloc.lastSeenLoc.coordinate] toAdhocString];
+    NSString * szLatLong = [[[MFBWebServiceSvc_LatLong alloc] initWithCoord:MFBAppDelegate.threadSafeAppDelegate.mfbloc.lastSeenLoc.coordinate] toAdhocString];
     self.le.entryData.Route = self.idRoute.text = [Airports appendAirport:[MFBWebServiceSvc_airport getAdHoc:szLatLong] ToRoute:self.idRoute.text];
 }
 
@@ -608,7 +609,7 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
         vwNearbyAirports.rgImages = [[NSMutableArray alloc] init];
         
         if (self.le.entryData.isNewFlight)
-            self.le.gpxPath = mfbApp().mfbloc.gpxData;
+            self.le.gpxPath = MFBAppDelegate.threadSafeAppDelegate.mfbloc.gpxData;
         
         for (CommentedImage * ci in self.le.rgPicsForFlight)
         {

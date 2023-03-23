@@ -26,7 +26,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MFBAppDelegate.h"
+#import <MyFlightbook-Swift.h>
 #import "NavigableCell.h"
 
 @interface PropertyCell : NavigableCell <UITextFieldDelegate, CAAnimationDelegate>
