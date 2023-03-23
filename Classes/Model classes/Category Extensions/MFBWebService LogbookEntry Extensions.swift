@@ -435,6 +435,10 @@ extension MFBWebServiceSvc_LogbookEntry : AutoDetectDelegate {
         }
     }
     
+    public func removeProperty(_ idPropType : PropTypeID) {
+        removeProperty(NSNumber(integerLiteral: idPropType.rawValue))
+    }
+    
     private func getNewProperty(_ idPropType : NSNumber) -> MFBWebServiceSvc_CustomFlightProperty {
         let fp = MFBWebServiceSvc_CustomFlightProperty.getNewFlightProperty()
         fp.flightID = flightID

@@ -121,9 +121,14 @@ import Foundation
         super.init()
     }
     
-    @objc(initWithURL:) public convenience init(url : URL) {
+    private convenience init(url : URL) {
         self.init()
-        szRawData = try! String(contentsOf: url)
+        do {
+            szRawData = try String(contentsOf: url)
+        }
+        catch {
+            szRawData = ""
+        }
     }
     
     @objc(initWithString:) public convenience init(sz : String) {

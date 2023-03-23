@@ -27,7 +27,6 @@
 #import <UIKit/UIKit.h>
 #import "LogbookEntryBaseTableViewController.h"
 #import "CommentedImage.h"
-#import "GPSSim.h"
 #import "FlightProperties.h"
 
 @interface LEEditController : LogbookEntryBaseTableViewController <EditPropertyDelegate, AutoDetectDelegate, UIAlertViewDelegate, UIPickerViewDataSource, LEControllerProtocol> {
