@@ -356,3 +356,88 @@ extension MFBWebServiceSvc_FlightQuery {
     }
 }
 
+extension MFBWebServiceSvc_ArrayOfMFBImageInfo {
+    static let imgKey = "RGMFBImages"
+    
+    @objc public func encodeWithCoderMFB(_ encoder : NSCoder) {
+        encoder.encode(mfbImageInfo, forKey: MFBWebServiceSvc_ArrayOfMFBImageInfo.imgKey)
+    }
+    
+    @objc(initWithCoderMFB:) convenience init(_ decoder : NSCoder) {
+        var rgImages : [MFBWebServiceSvc_MFBImageInfo] = []
+        do {
+            let x = try decoder.decodeTopLevelObject(of: [NSArray.self, MFBWebServiceSvc_MFBImageInfo.self], forKey: MFBWebServiceSvc_ArrayOfMFBImageInfo.imgKey)
+            rgImages = x as? [MFBWebServiceSvc_MFBImageInfo] ?? []
+        }
+        catch {
+            rgImages = []
+        }
+        self.init()
+        setImages(rgImages)
+    }
+    
+    func setImages(_ rgImages : [MFBWebServiceSvc_MFBImageInfo]) {
+        mfbImageInfo.addObjects(from: rgImages)
+    }
+}
+
+private var UIB_CACHEDTHUMB_KEY: UInt8 = 0
+
+extension MFBWebServiceSvc_MFBImageInfo {
+    private static let keyComment = "MFBIIComment"
+    private static let keyThumbnailFile = "MFBIIThumbFile"
+    private static let keyVirtualPath = "MFBIIVirtPath"
+    private static let keyURLFullImage = "MFBIIFullImageURL"
+    private static let keyImageType = "MFBIIImageType"
+    private static let keycachedThumb = "MFBIICachedThumb"
+    private static let keyURLThumbnail = "MFBIIURLThumb"
+    
+    @objc public var cachedThumb : UIImage? {
+        get {
+            return objc_getAssociatedObject(self, &UIB_CACHEDTHUMB_KEY) as? UIImage
+        }
+        set (img) {
+            objc_setAssociatedObject(self, &UIB_CACHEDTHUMB_KEY, img, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
+    @objc public func encodeWithCoderMFB(_ encoder : NSCoder) {
+        encoder.encode(comment, forKey: MFBWebServiceSvc_MFBImageInfo.keyComment)
+        encoder.encode(thumbnailFile, forKey: MFBWebServiceSvc_MFBImageInfo.keyThumbnailFile)
+        encoder.encode(virtualPath, forKey: MFBWebServiceSvc_MFBImageInfo.keyVirtualPath)
+        encoder.encode(urlFullImage, forKey: MFBWebServiceSvc_MFBImageInfo.keyURLFullImage)
+        encoder.encode(imageType.rawValue, forKey: MFBWebServiceSvc_MFBImageInfo.keyImageType)
+        encoder.encode(cachedThumb, forKey: MFBWebServiceSvc_MFBImageInfo.keycachedThumb)
+        encoder.encode(urlThumbnail, forKey: MFBWebServiceSvc_MFBImageInfo.keyURLThumbnail)
+    }
+    
+    @objc(initWithCoderMFB:) convenience init(_ decoder : NSCoder) {
+        self.init()
+        comment = decoder.decodeObject(of: NSString.self, forKey: MFBWebServiceSvc_MFBImageInfo.keyComment) as? String
+        thumbnailFile = decoder.decodeObject(of: NSString.self, forKey: MFBWebServiceSvc_MFBImageInfo.keyThumbnailFile) as? String
+        virtualPath = decoder.decodeObject(of: NSString.self, forKey: MFBWebServiceSvc_MFBImageInfo.keyVirtualPath) as? String
+        urlFullImage = decoder.decodeObject(of: NSString.self, forKey: MFBWebServiceSvc_MFBImageInfo.keyURLFullImage) as? String
+        urlThumbnail = decoder.decodeObject(of: NSString.self, forKey: MFBWebServiceSvc_MFBImageInfo.keyURLThumbnail) as? String
+        if let raw = decoder.decodeObject(forKey: MFBWebServiceSvc_MFBImageInfo.keyImageType) as? Int {
+            imageType = MFBWebServiceSvc_ImageFileType(rawValue: UInt32(raw))
+        } else {
+            imageType = MFBWebServiceSvc_ImageFileType_JPEG
+        }
+  
+        cachedThumb = decoder.decodeObject(of: UIImage.self, forKey: MFBWebServiceSvc_MFBImageInfo.keycachedThumb)
+    }
+    
+    @objc var urlForImage : URL {
+        get {
+            let szURLImage = urlThumbnail.hasPrefix("/") ? String(format: "https://%@%@", MFBHOSTNAME, urlThumbnail) : urlThumbnail ?? ""
+            return URL(string: szURLImage)!
+        }
+    }
+    
+    @objc var livesOnServer : Bool {
+        get {
+            return !(virtualPath ?? "").isEmpty
+        }
+    }
+}
+
