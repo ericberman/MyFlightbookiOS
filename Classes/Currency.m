@@ -27,7 +27,6 @@
 #import "Currency.h"
 #import "AircraftViewController.h"
 #import "RecentFlights.h"
-#import "PackAndGo.h"
 
 @interface Currency()
 @property (readwrite, strong) NSArray<MFBWebServiceSvc_CurrencyStatusItem *> * rgCurrency;

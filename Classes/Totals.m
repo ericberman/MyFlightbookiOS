@@ -27,7 +27,6 @@
 #import "Totals.h"
 #import <MyFlightbook-Swift.h>
 #import "RecentFlights.h"
-#import "PackAndGo.h"
 
 @interface Totals()
 @property (nonatomic, strong) NSArray<NSArray<MFBWebServiceSvc_TotalsItem *> *> * rgTotalsGroups;

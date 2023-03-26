@@ -12,11 +12,11 @@
 		9A017B7722FA46A9007F0210 /* ConjunctionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A017B7522FA46A9007F0210 /* ConjunctionCell.m */; };
 		9A020B3310FFEF3F00801349 /* RecentFlights.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A020B3110FFEF3F00801349 /* RecentFlights.m */; };
 		9A050D292138790100B3F794 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A050D282138790000B3F794 /* Photos.framework */; };
+		9A06E7AA29D0C41A0093A384 /* PackAndGo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A06E7A929D0C41A0093A384 /* PackAndGo.swift */; };
 		9A073B4820F65AD6007A4470 /* MFBLogo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A073B4720F65AD5007A4470 /* MFBLogo@3x.png */; };
 		9A085CAE20F3EF5500DDA442 /* tower@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A085CAB20F3EF5500DDA442 /* tower@2x.png */; };
 		9A085CAF20F3EF5500DDA442 /* tower.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A085CAC20F3EF5500DDA442 /* tower.png */; };
 		9A085CB020F3EF5500DDA442 /* tower@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A085CAD20F3EF5500DDA442 /* tower@3x.png */; };
-		9A0BF18124743D5E003C2172 /* PackAndGo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0BF18024743D5E003C2172 /* PackAndGo.m */; };
 		9A0C938511E63A850062AF27 /* FlightProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C938311E63A850062AF27 /* FlightProperties.m */; };
 		9A0DD9F8158579BE00FB6DF2 /* FixedImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0DD9F7158579BE00FB6DF2 /* FixedImageCell.m */; };
 		9A0E793D29BD76F4005EF4D6 /* ApproachDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0E793C29BD76F4005EF4D6 /* ApproachDescription.swift */; };
@@ -539,14 +539,13 @@
 		9A020B3010FFEF3F00801349 /* RecentFlights.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentFlights.h; sourceTree = "<group>"; };
 		9A020B3110FFEF3F00801349 /* RecentFlights.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentFlights.m; sourceTree = "<group>"; };
 		9A050D282138790000B3F794 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		9A06E7A929D0C41A0093A384 /* PackAndGo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackAndGo.swift; sourceTree = "<group>"; };
 		9A073B4720F65AD5007A4470 /* MFBLogo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MFBLogo@3x.png"; sourceTree = "<group>"; };
 		9A085CAB20F3EF5500DDA442 /* tower@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tower@2x.png"; sourceTree = "<group>"; };
 		9A085CAC20F3EF5500DDA442 /* tower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tower.png; sourceTree = "<group>"; };
 		9A085CAD20F3EF5500DDA442 /* tower@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tower@3x.png"; sourceTree = "<group>"; };
 		9A0B1C3525F3ED3B00E583A8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "en.lproj/LEEditController-iPad.strings"; sourceTree = "<group>"; };
 		9A0B1C3C25F3EDE300E583A8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LEEditController.strings; sourceTree = "<group>"; };
-		9A0BF18024743D5E003C2172 /* PackAndGo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PackAndGo.m; sourceTree = "<group>"; };
-		9A0BF18224743D72003C2172 /* PackAndGo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PackAndGo.h; sourceTree = "<group>"; };
 		9A0C938211E63A850062AF27 /* FlightProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlightProperties.h; sourceTree = "<group>"; };
 		9A0C938311E63A850062AF27 /* FlightProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlightProperties.m; sourceTree = "<group>"; };
 		9A0DD9F6158579BE00FB6DF2 /* FixedImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixedImageCell.h; sourceTree = "<group>"; };
@@ -1183,6 +1182,7 @@
 			children = (
 				9A0EA69629C947C00031A10D /* MFBAppDelegate.swift */,
 				9A41A36829D0ACB9005E0A7B /* NetworkManagment.swift */,
+				9A06E7A929D0C41A0093A384 /* PackAndGo.swift */,
 			);
 			path = "App Management";
 			sourceTree = "<group>";
@@ -1690,8 +1690,6 @@
 				9A73C8AD21B1A94500AE1221 /* Category Extensions */,
 				9AD2FFF61BE4060000A9B21B /* Watchkit Utility */,
 				9A21D5CA2214D1E300961605 /* BadElfSession.swift */,
-				9A0BF18024743D5E003C2172 /* PackAndGo.m */,
-				9A0BF18224743D72003C2172 /* PackAndGo.h */,
 				9A14334329A52934007129A9 /* MFBTheme.swift */,
 				9A14335429A81A1A007129A9 /* UserPreferences.swift */,
 				9A8EE98029A9B20200F133CF /* MFBSoap.swift */,
@@ -2398,13 +2396,13 @@
 				9A89C1AF29B8F45300848A6B /* About.swift in Sources */,
 				9AE39A3F29AAA2D0002A6496 /* AutodetectOptions.swift in Sources */,
 				9A3E1378127DE704008D672E /* EXFJpeg.m in Sources */,
+				9A06E7AA29D0C41A0093A384 /* PackAndGo.swift in Sources */,
 				9AE39A4A29ABD008002A6496 /* LatLongBox.swift in Sources */,
 				9AC88C0B29BFAD6800841C0A /* MFBAsyncOperation.swift in Sources */,
 				9A3E1379127DE704008D672E /* EXFMetaData.m in Sources */,
 				9A3E137A127DE704008D672E /* EXFTagDefinitionHolder.m in Sources */,
 				9A3E137B127DE704008D672E /* EXFUtils.m in Sources */,
 				9A6137431CF95F840002873E /* SecurityQuestionPicker.m in Sources */,
-				9A0BF18124743D5E003C2172 /* PackAndGo.m in Sources */,
 				9A84363429BA926D0001012D /* MFBSqlLite.swift in Sources */,
 				9A14334C29A6B37E007129A9 /* TotalsRow.swift in Sources */,
 				9A21D5CB2214D1E300961605 /* BadElfSession.swift in Sources */,

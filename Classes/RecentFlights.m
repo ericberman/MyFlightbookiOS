@@ -27,8 +27,6 @@
 #import "RecentFlights.h"
 #import <MyFlightbook-Swift.h>
 #import "RecentFlightCell.h"
-#import "iRate.h"
-#import "PackAndGo.h"
 
 @interface RecentFlights()
 @property (atomic, strong) NSMutableDictionary * dictImages;

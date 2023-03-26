@@ -27,7 +27,6 @@
 #import "VisitedAirports.h"
 #import "VisitedAirportRow.h"
 #import "VADetails.h"
-#import "PackAndGo.h"
 
 @interface VisitedAirports()
 @property (strong) NSMutableArray<MFBWebServiceSvc_VisitedAirport *> * rgVAFiltered;

@@ -30,7 +30,6 @@
 #import "ButtonCell.h"
 #import "TextCell.h"
 #import "NewUserTableController.h"
-#import "PackAndGo.h"
 #import <MyFlightbook-Swift.h>
 
 @interface SignInControllerViewController ()
@@ -428,34 +427,22 @@ enum signinCellIDs {cidWhySignIn, cidEmail, cidPass, cidSignInOut, cidForgotPW, 
 }
 
 - (void) packAndGo {
-    PackAndGo * p = [PackAndGo new];
-    p.authToken = MFBProfile.sharedProfile.AuthToken;
-    
     [self.tableView endEditing:YES];
 
     UIAlertController * uac = [WPSAlertController presentProgressAlertWithTitle:NSLocalizedString(@"PackAndGoInProgress", @"Pack and go - downloaded") onViewController:self];
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        // pack the various things, stopping on an error.
-        BOOL fResult =
-        [self runBlock:^{ return p.packAircraft; } withMessage:NSLocalizedString(@"Updating aircraft...", @"Progress: updating aircraft") onAlert:uac] &&
-        [self runBlock:^{ return p.packProps; } withMessage:NSLocalizedString(@"PackAndGoProgProps", @"Pack progress - properties") onAlert:uac] &&
-        [self runBlock:^{ return p.packCurrency; } withMessage:NSLocalizedString(@"Getting Currency...", @"Progress indicator for currency") onAlert:uac] &&
-        [self runBlock:^{ return p.packTotals; } withMessage:NSLocalizedString(@"Getting Totals...", @"progress indicator") onAlert:uac] &&
-        [self runBlock:^{ return p.packVisited; } withMessage:NSLocalizedString(@"Getting Visited Airports...", @"Progress indicator while getting visited airports") onAlert:uac] &&
-        [self runBlock:^{ return p.packFlights; } withMessage:NSLocalizedString(@"Getting Recent Flights...", @"Progress - getting recent flights") onAlert:uac];
-        
-        if (fResult)
-            PackAndGo.lastPackDate = NSDate.new;
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self dismissViewControllerAnimated:YES completion:^{
-                if (!fResult)
-                    [self showError:p.errorString];
-            }];
-            [self.tableView reloadData];
-        });
-    });
+    PackAndGo * p = [PackAndGo new];
+    p.authToken = MFBProfile.sharedProfile.AuthToken;
+
+    [p packAllWithProgressUpdate:^(NSString * _Nonnull sz) {
+        uac.title = sz;
+    } completionHandler:^{
+        [self dismissViewControllerAnimated:YES completion:^{
+            if (p.errorString.length > 0)
+                [self showError:p.errorString];
+        }];
+        [self.tableView reloadData];
+    }];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
