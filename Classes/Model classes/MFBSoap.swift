@@ -156,7 +156,7 @@ import Foundation
         return makeCallAsync(callToMake: calltoMake, asSecure: true)
     }
     
-    // TODO: We should never be calling this any more.  Call only on background threads.
+    // Call only on background threads.
     @discardableResult @objc(makeCallSynchronous: asSecure:) public func makeCallSynchronous(calltoMake : (MFBWebServiceSoapBinding) -> MFBWebServiceSoapBindingResponse, asSecure : Bool) -> Bool {
         var retVal = true
         assert(!Thread.isMainThread, "NEVER call makeCallSynchronous on the main thread!")

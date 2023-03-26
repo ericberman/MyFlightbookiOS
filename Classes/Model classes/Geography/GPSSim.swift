@@ -25,7 +25,6 @@
 
 import Foundation
 
-// TODO: Migrate GPSSim here; depends on LogbookEntry, though.
 @objc public class GPSSim : NSObject {
     var mfbloc : MFBLocation? = nil
     var leDelegate : MFBWebServiceSvc_LogbookEntry? = nil
