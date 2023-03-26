@@ -105,7 +105,7 @@
 		self.errorString = NSLocalizedString(@"You must be signed in to view totals.",nil);
         [self showError:self.errorString withTitle:NSLocalizedString(@"Error loading totals", @"Title for error message")];
     }
-    else if (![MFBAppDelegate.threadSafeAppDelegate isOnLine])
+    else if (!MFBNetworkManager.shared.isOnLine)
     {
         NSDate * dtLastPack = PackAndGo.lastTotalsPackDate;
         if (dtLastPack != nil) {
@@ -178,7 +178,7 @@
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0)
-        return MFBAppDelegate.threadSafeAppDelegate.isOnLine ? 1 : 0;
+        return MFBNetworkManager.shared.isOnLine ? 1 : 0;
     else
     {
         if (self.callInProgress)

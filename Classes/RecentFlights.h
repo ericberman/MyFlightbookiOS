@@ -32,7 +32,7 @@
 #import "ProgressCell.h"
 
 @interface RecentFlights : PullRefreshTableViewController <LEEditDelegate, UITableViewDelegate, 
-UIAlertViewDelegate, MFBSoapCallDelegate, QueryDelegate, ReachabilityDelegate, RecentFlightsProtocol> {
+UIAlertViewDelegate, MFBSoapCallDelegate, QueryDelegate, NetworkManagementListener, RecentFlightsProtocol> {
 }
 
 @property (nonatomic, strong) IBOutlet ProgressCell * cellProgress;

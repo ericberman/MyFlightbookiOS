@@ -85,7 +85,7 @@
 }
 
 - (void) commitAircraft {
-    if (!MFBAppDelegate.threadSafeAppDelegate.isOnLine) {
+    if (!MFBNetworkManager.shared.isOnLine) {
         MFBSoapCall * sc = MFBSoapCall.new;
         sc.errorString = NSLocalizedString(@"No access to the Internet", @"Error message if app cannot connect to the Internet");
         [self aircraftRefreshComplete:sc withCaller:Aircraft.sharedAircraft];

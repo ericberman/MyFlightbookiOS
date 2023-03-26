@@ -189,7 +189,7 @@ BOOL fNeedsRefresh = NO;
 
 - (void) refresh
 {   
-    if (![MFBAppDelegate.threadSafeAppDelegate isOnLine])
+    if (!MFBNetworkManager.shared.isOnLine)
     {
         if (isLoading)
             [self stopLoading];
@@ -317,7 +317,7 @@ BOOL fNeedsRefresh = NO;
 }
 
 - (void) newAircraft {
-    if (MFBAppDelegate.threadSafeAppDelegate.isOnLine)
+    if (MFBNetworkManager.shared.isOnLine)
         [MyAircraft viewAircraft:[MFBWebServiceSvc_Aircraft getNewAircraft] onNavigationController:self.navigationController withDelegate:self];
 }
 
@@ -327,14 +327,14 @@ BOOL fNeedsRefresh = NO;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [MFBAppDelegate.threadSafeAppDelegate isOnLine];
+    return MFBNetworkManager.shared.isOnLine;
 }
 
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        if (![MFBAppDelegate.threadSafeAppDelegate isOnLine])
+        if (!MFBNetworkManager.shared.isOnLine)
             return;
         
         if (self.callInProgress)

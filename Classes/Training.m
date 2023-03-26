@@ -62,7 +62,7 @@ enum _trainingLinks {cidFirst, cidInstructors = cidFirst, cidStudents, cidReqSig
 
 - (BOOL) canViewTraining
 {
-    return MFBAppDelegate.threadSafeAppDelegate.isOnLine && MFBProfile.sharedProfile.isValid;
+    return MFBNetworkManager.shared.isOnLine && MFBProfile.sharedProfile.isValid;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

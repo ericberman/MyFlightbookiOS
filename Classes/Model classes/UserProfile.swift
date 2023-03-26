@@ -119,7 +119,7 @@ import Foundation
         // (a) we have a cached auth token,
         // (b) it is still valid.
         if (!AuthToken.isEmpty && timeSinceLastAuth < Double(MFBConstants.CACHE_LIFETIME)) {
-            return (timeSinceLastAuth < Double(MFBConstants.CACHE_REFRESH) || !MFBAppDelegate.threadSafeAppDelegate.isOnLine) ? .valid : .validButRefresh
+            return (timeSinceLastAuth < Double(MFBConstants.CACHE_REFRESH) || !MFBNetworkManager.shared.isOnLine) ? .valid : .validButRefresh
         }
         
         return .invalid;
@@ -134,7 +134,7 @@ import Foundation
         }
             
         // Cache is either invalid or valid but want to refresh.  Either way, we'll try a refresh, but only if we can do so
-        if (UserName.isEmpty || Password.isEmpty || AuthToken.isEmpty || !MFBAppDelegate.threadSafeAppDelegate.isOnLine) {
+        if (UserName.isEmpty || Password.isEmpty || AuthToken.isEmpty || !MFBNetworkManager.shared.isOnLine) {
             return false
         }
         

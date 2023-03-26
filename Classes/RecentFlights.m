@@ -43,6 +43,7 @@
 @property (readwrite, atomic) BOOL refreshOnResultsComplete;
 @property (atomic, strong) NSMutableArray<NSNumber *> * activeSections;
 @property (atomic, strong) NSMutableDictionary<NSString *, RecentFlightCell *> * offscreenCells;
+@property (atomic, strong) MFBNetworkManager * networkMgr;
 
 - (BOOL) hasUnsubmittedFlights;
 @end
@@ -54,7 +55,7 @@ static const int cFlightsPageSize=15;   // number of flights to download at a ti
 NSInteger iFlightInProgress, cFlightsToSubmit;
 BOOL fCouldBeMoreFlights;
 
-@synthesize rgFlights, errorString, fq, cellProgress, uploadInProgress, dictImages, ipSelectedCell, JSONObjToImport, urlTelemetry, rgPendingFlights, callsAwaitingCompletion, refreshOnResultsComplete, activeSections, offscreenCells;
+@synthesize rgFlights, errorString, fq, cellProgress, uploadInProgress, dictImages, ipSelectedCell, JSONObjToImport, urlTelemetry, rgPendingFlights, callsAwaitingCompletion, refreshOnResultsComplete, activeSections, offscreenCells, networkMgr;
 
 - (void) asyncLoadThumbnailsForFlights:(NSArray *) flights {
     if (flights == nil || !UserPreferences.current.showFlightImages)
@@ -107,9 +108,10 @@ BOOL fCouldBeMoreFlights;
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     	
-    // get notifications when the network is acquired.
+    // get notifications when the network is acquired or lost
+    self.networkMgr = [[MFBNetworkManager alloc] initWithDelegate:self];
+    
     MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
-    app.reachabilityDelegate = self;
     
     // get notifications when data is changed OR when user signs out
     [app registerNotifyDataChanged:self];
@@ -132,11 +134,11 @@ BOOL fCouldBeMoreFlights;
     if (self.dictImages == nil)
     {
         self.dictImages = [NSMutableDictionary new];
-        if (MFBAppDelegate.threadSafeAppDelegate.isOnLine)
+        if (MFBNetworkManager.shared.isOnLine)
             [NSThread detachNewThreadSelector:@selector(asyncLoadThumbnailsForFlights:) toTarget:self withObject:self.rgFlights];
     }
     
-    if (!MFBAppDelegate.threadSafeAppDelegate.isOnLine && (self.rgFlights == nil || self.rgFlights.count == 0) && PackAndGo.lastFlightsPackDate != nil) {
+    if (!MFBNetworkManager.shared.isOnLine && (self.rgFlights == nil || self.rgFlights.count == 0) && PackAndGo.lastFlightsPackDate != nil) {
         self.rgFlights = [NSMutableArray arrayWithArray:PackAndGo.cachedFlights];
         [self warnPackedData:PackAndGo.lastVisitedPackDate];
     }
@@ -159,7 +161,7 @@ BOOL fCouldBeMoreFlights;
 - (void) refresh:(BOOL) fSubmitUnsubmittedFlights
 {
     NSDate * dtLastPack = PackAndGo.lastFlightsPackDate;
-    if (!MFBAppDelegate.threadSafeAppDelegate.isOnLine) {
+    if (!MFBNetworkManager.shared.isOnLine) {
         if (dtLastPack != nil) {
             self.rgFlights = [NSMutableArray arrayWithArray:PackAndGo.cachedFlights];
             self.rgPendingFlights = [NSMutableArray new];   // no pending flights with pack-and-go
@@ -223,8 +225,7 @@ BOOL fCouldBeMoreFlights;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
-	MFBAppDelegate * app = MFBAppDelegate.threadSafeAppDelegate;
-    if ([app isOnLine] && ([self hasUnsubmittedFlights] || !self.fIsValid || self.rgFlights == nil))
+    if (MFBNetworkManager.shared.isOnLine && ([self hasUnsubmittedFlights] || !self.fIsValid || self.rgFlights == nil))
         [self refresh];
     else
         [self.tableView reloadData];
@@ -305,7 +306,7 @@ BOOL fCouldBeMoreFlights;
         [self showError:self.errorString withTitle:NSLocalizedString(@"Error loading recent flights", @"Title for error message on recent flights")];
         fCouldBeMoreFlights = NO;
     }
-    else if (![MFBAppDelegate.threadSafeAppDelegate isOnLine])
+    else if (!MFBNetworkManager.shared.isOnLine)
     {
         self.errorString = NSLocalizedString(@"No connection to the Internet is available", @"Error: Offline");
         [self showError:self.errorString withTitle:NSLocalizedString(@"Error loading recent flights", @"Title for error message on recent flights")];
@@ -352,7 +353,7 @@ BOOL fCouldBeMoreFlights;
         self.errorString = NSLocalizedString(@"You must be signed in to perform this action", @"Error - must be signed in");
         [self showError:self.errorString withTitle:NSLocalizedString(@"Error loading recent flights", @"Title for error message on recent flights")];
     }
-    else if (![MFBAppDelegate.threadSafeAppDelegate isOnLine])
+    else if (!MFBNetworkManager.shared.isOnLine)
     {
         self.errorString = NSLocalizedString(@"No connection to the Internet is available", @"Error: Offline");
         [self showError:self.errorString withTitle:NSLocalizedString(@"Error deleting flight", @"Title for error message when flight delete fails")];
@@ -497,7 +498,7 @@ BOOL fCouldBeMoreFlights;
 }
 
 - (void) submitUnsubmittedFlights {
-    if (![self hasUnsubmittedFlights] || !MFBAppDelegate.threadSafeAppDelegate.isOnLine)
+    if (![self hasUnsubmittedFlights] || !MFBNetworkManager.shared.isOnLine)
         return;
     
     cFlightsToSubmit = MFBAppDelegate.threadSafeAppDelegate.rgUnsubmittedFlights.count;
@@ -549,7 +550,7 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectUnsubmittedFlights, sec
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch ([self sectionFromIndexPathSection:section]) {
         case sectFlightQuery:
-            return MFBAppDelegate.threadSafeAppDelegate.isOnLine ? 1 : 0;
+            return MFBNetworkManager.shared.isOnLine ? 1 : 0;
         case sectUploadInProgress:
             return self.uploadInProgress ? 1 : 0;
         case sectUnsubmittedFlights:
@@ -557,7 +558,7 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectUnsubmittedFlights, sec
         case sectPendingFlights:
             return self.fq.isUnrestricted ? self.rgPendingFlights.count : 0;
         case sectExistingFlights:
-            return self.rgFlights.count + (MFBAppDelegate.threadSafeAppDelegate.isOnLine && ((self.callInProgress || fCouldBeMoreFlights)) ? 1 : 0);
+            return self.rgFlights.count + (MFBNetworkManager.shared.isOnLine && ((self.callInProgress || fCouldBeMoreFlights)) ? 1 : 0);
         default:
             NSAssert(NO, @"Unknown section requested");
             return 0;
@@ -862,9 +863,8 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectUnsubmittedFlights, sec
     [self refresh];
 }
 
-#pragma mark Reachability Delegate
-- (void) networkAcquired
-{
+#pragma mark NetworkManagementListener Delegate
+- (void) newState:(enum NetworkStatus)newState {
     if (self.uploadInProgress)
         return;
     

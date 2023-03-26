@@ -121,7 +121,7 @@ import Security
     }
     
     func loadImageFromMFBInfo() -> UIImage? {
-        if !MFBAppDelegate.threadSafeAppDelegate.isOnLine {
+        if !MFBNetworkManager.shared.isOnLine {
             return nil
         }
         
@@ -474,7 +474,7 @@ import Security
     // We can submit if on WiFi OR if no videos.
     @objc public static func canSubmitImages(_ rg : [CommentedImage]?) -> Bool {
         // if we are on wifi, no restrictions
-        if MFBAppDelegate.threadSafeAppDelegate.lastKnownNetworkStatus == .ReachableViaWiFi {
+        if MFBNetworkManager.shared.lastKnownNetworkStatus == .reachableViaWifi {
             return true
         }
         

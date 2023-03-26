@@ -169,7 +169,7 @@ import Foundation
         if (rgAircraftCached != nil && self.rgAircraftForUser != nil &&
             szCachedToken != nil && szCachedToken!.compare(szAuthToken) == .orderedSame &&
             timeSinceLastRefresh < Double(MFBConstants.CACHE_LIFETIME)) {
-            return (timeSinceLastRefresh < Double(MFBConstants.CACHE_REFRESH) || !MFBAppDelegate.threadSafeAppDelegate.isOnLine) ? .valid : .validButRefresh
+            return (timeSinceLastRefresh < Double(MFBConstants.CACHE_REFRESH) || !MFBNetworkManager.shared.isOnLine) ? .valid : .validButRefresh
         }
 
         return .invalid

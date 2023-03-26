@@ -92,9 +92,8 @@
 #pragma - mark Refresh
 - (void) refresh {
     MFBWebServiceSvc_PropertiesAndTemplatesForUser * cptSvc = [MFBWebServiceSvc_PropertiesAndTemplatesForUser new];
-    MFBAppDelegate * app = [MFBAppDelegate threadSafeAppDelegate];
     
-    if (!app.isOnLine)
+    if (!MFBNetworkManager.shared.isOnLine)
     {
         [self endCall];
         return;

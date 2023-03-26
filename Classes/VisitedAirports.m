@@ -132,7 +132,7 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
 		self.errorString = NSLocalizedString(@"You must sign in to view visited airports.", @"Can't see visited airports if not signed in.");
         [self showError:self.errorString withTitle:NSLocalizedString(@"Error loading visited airports", @"Title when an error occurs loading visited airports")];
     }
-    else if (![MFBAppDelegate.threadSafeAppDelegate isOnLine])
+    else if (!MFBNetworkManager.shared.isOnLine)
     {
         NSDate * dtLastPack = PackAndGo.lastVisitedPackDate;
         if (dtLastPack != nil) {
@@ -452,7 +452,7 @@ static NSString * szKeyHeaderTitle = @"headerTitle";
     if (isLoading)
         return;
     
-    if (!MFBAppDelegate.threadSafeAppDelegate.isOnLine)
+    if (!MFBNetworkManager.shared.isOnLine)
         return;
     
     if (self.vaDetails == nil)

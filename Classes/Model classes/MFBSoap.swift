@@ -65,7 +65,7 @@ import Foundation
     // MARK: Actual functionality
     func setUpBinding(fSecure : Bool) -> MFBWebServiceSoapBinding? {
         var secure = fSecure
-        if (!MFBAppDelegate.threadSafeAppDelegate.isOnLine) {
+        if (!MFBNetworkManager.shared.isOnLine) {
             self.errorString = String(localized: "No access to the Internet", comment: "Error message if app cannot connect to the Internet")
             return nil;
         }

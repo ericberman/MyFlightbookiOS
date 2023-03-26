@@ -34,17 +34,12 @@ import WidgetKit
 #warning("RELEASE BUILD")
 #endif
 
-@objc public protocol ReachabilityDelegate {
-    func networkAcquired()
-}
 
 @objc public protocol Invalidatable {
     @objc func invalidateViewController()
 }
 
 @objc public class MFBAppDelegate : NSObject, UIApplicationDelegate, UITabBarControllerDelegate, WCSessionDelegate {    
-    var fNetworkStateKnown = false
-    
     private static let _szKeySelectedTab = "_prefSelectedTab"
     private static let _szKeyTabOrder = "keyTabOrder2"
     private static let _szNewFlightTitle = "newFlight"
@@ -74,12 +69,9 @@ import WidgetKit
     @IBOutlet weak var tabCurrency : UINavigationController!
     @IBOutlet weak var tbiRecent : UITabBarItem!
 
-    @objc public var reachabilityDelegate : ReachabilityDelegate? = nil
-    @objc public var lastKnownNetworkStatus : NetworkStatus = .NotReachable
     @objc public var watchData : SharedWatch? = nil
     
     @objc public var timerSyncState : Timer? = nil
-    @objc public var reachability : Reachability? = nil
 
     @objc public var notifyDataChanged : [Invalidatable] = []
     @objc public var notifyResetAll : [Invalidatable] = []
@@ -95,6 +87,9 @@ import WidgetKit
         rgUnsubmittedFlights = NSMutableArray()
         super.init()
         MFBAppDelegate._mainApp = self
+        
+        // Make sure that Network Management is started
+        let _ = MFBNetworkManager.shared
     }
             
     // MARK: Tab management
@@ -151,78 +146,7 @@ import WidgetKit
         def.synchronize()
         NSLog("saveState - done and synchronized")
     }
-    
-    // MARK: Network status
-    @objc public var isOnLine : Bool {
-        get {
-            // There is a lag between when the reachability object is initialized and we get our first notification
-            // So as a hack, we use a flag (fNetworkStateKnown) to indicate that we have not yet received a notification
-            // and we optimistically assume we are ONLINE if we get that.  Once the app is running, we assume reachability
-            // is valid.
-            return lastKnownNetworkStatus != .NotReachable || !fNetworkStateKnown
-        }
-    }
-    
-    @objc public func notifyNetworkAcquired() {
-        if (isOnLine) {
-            reachabilityDelegate?.networkAcquired()
-        }
-    }
-    
-    @objc public func asyncResolveDNS() {
-        let ns = lastKnownNetworkStatus
-        if (ns == .NotReachable || ns == .ReachableViaWiFi) {
-            // Reachability just returns a theoretical reachability.
-            // We don't trust reachability for Wifi or for None (switching between Internet and Stratus, for example), so do a 2nd check.
-            // Here, we do a DNS check to see if we can resolve.  This can force a recheck of reachability
-            // If we are on a private WiFi network (such as Appareo Stratus), this will fail.
-            NSLog("asyncResolveDNS: We don't trust the network change, so we'll do our own DNS check")
-            let hostRef = CFHostCreateWithName(kCFAllocatorDefault, MFBHOSTNAME as CFString).takeRetainedValue()
-            
-            var fDNSSucceeded = CFHostStartInfoResolution(hostRef, .addresses, nil)  // pass an error instead of NULL here to find out why it failed
-            if fDNSSucceeded {
-                var result : DarwinBoolean = false
-                CFHostGetAddressing(hostRef, &result)
-                fDNSSucceeded = result.boolValue
-            }
-            // CFRelease(hostRef as! CFHost)
-            
-            if fDNSSucceeded {
-                if ns == .NotReachable {
-                    fNetworkStateKnown = false    // we don't know what the state is so can't set wifi or WWan, but can say that we just don't know.
-                    NSLog("asyncResolveDNS: Reachability resported no network, but we found one!")
-                }
-                else {
-                    NSLog("asyncResolveDNS: WiFi connectivity confirmed")
-                }
-            }
-            else
-            {
-                if ns == .ReachableViaWiFi {
-                    NSLog("asyncResolveDNS: wifi, but DNS failed")
-                    lastKnownNetworkStatus = .NotReachable
-                }
-                else {
-                    NSLog("asyncResolveDNS: not-reachable confirmed")
-                }
-            }
-        }
-        
-        performSelector(onMainThread: #selector(notifyNetworkAcquired), with: nil, waitUntilDone: false)
-    }
-    
-    // This is called whenever the system changes network state - this is the result of the observer call.
-    @objc public func handleNetworkChange(_ notice: NSNotification) {
-        let nsOld = lastKnownNetworkStatus
-        let nsNew = reachability?.currentReachabilityStatus() ?? NetworkStatus.NotReachable
-        lastKnownNetworkStatus = nsNew
-        fNetworkStateKnown = true
-        
-        NSLog("Network status change: %@==>%@", Reachability.reachabilityDesc(nsOld), Reachability.reachabilityDesc(nsNew))
-        
-        Thread.detachNewThreadSelector(#selector(asyncResolveDNS), toTarget: self, with: nil)
-    }
-    
+                
     // MARK: App life cycle
     @objc public func ensureWarningShownForUser() {
         let defs = UserDefaults.standard
@@ -411,14 +335,7 @@ import WidgetKit
         
         mfbloc.cSamplesSinceWaking = 0
         mfbloc.fRecordingIsPaused = false
-        
-        // Start reachability notifier
-        reachability = Reachability(hostName: MFBHOSTNAME)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleNetworkChange), name: .reachabilityChanged, object: nil)
-        reachability!.startNotifier()
-        lastKnownNetworkStatus = reachability!.currentReachabilityStatus()
-        fNetworkStateKnown = true
-        
+                
         // Ensure that a profile object is set up
         let _ = MFBProfile.sharedProfile;
         
@@ -597,7 +514,7 @@ import WidgetKit
         
         // Launch any refresh tasks, but don't wait for response
         let aircraft = Aircraft.sharedAircraft
-        if aircraft.cacheStatus(MFBProfile.sharedProfile.AuthToken) != .valid && isOnLine {
+        if aircraft.cacheStatus(MFBProfile.sharedProfile.AuthToken) != .valid && MFBNetworkManager.shared.isOnLine {
             Thread.detachNewThread {
                 aircraft.refreshIfNeeded()
             }
@@ -632,7 +549,7 @@ import WidgetKit
         HTTPCookieStorage.shared.loadFromUserDefaults()   // sync any cookies.
 
         // refreah authtoken if needed and if online with a valid profile
-        if !MFBProfile.sharedProfile.UserName.isEmpty && isOnLine {
+        if !MFBProfile.sharedProfile.UserName.isEmpty && MFBNetworkManager.shared.isOnLine {
             MFBProfile.sharedProfile.RefreshAuthToken()
         }
     }

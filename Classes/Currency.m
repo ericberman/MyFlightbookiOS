@@ -111,7 +111,7 @@
 		self.errorString = NSLocalizedString(@"You must be signed in to view currency", @"Must be signed in to view currency");
         [self showError:self.errorString withTitle:NSLocalizedString(@"Error loading currency", @"Title Error message when loading currency")];
     }
-    else if (!MFBAppDelegate.threadSafeAppDelegate.isOnLine)
+    else if (!MFBNetworkManager.shared.isOnLine)
     {
         NSDate * dtLastPack = PackAndGo.lastCurrencyPackDate;
         if (dtLastPack != nil) {

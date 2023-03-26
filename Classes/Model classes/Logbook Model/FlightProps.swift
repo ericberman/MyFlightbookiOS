@@ -230,7 +230,7 @@ import SQLite3
         NSLog("loadCustomPropertyTypes")
         errorString = ""
         
-        let fNetworkAvail = MFBAppDelegate.threadSafeAppDelegate.isOnLine
+        let fNetworkAvail = MFBNetworkManager.shared.isOnLine
 
         
         // checking cache above will initialize self.rgPropTypes
@@ -282,7 +282,7 @@ import SQLite3
             return
         }
         
-        let fNetworkAvail = MFBAppDelegate.threadSafeAppDelegate.isOnLine
+        let fNetworkAvail = MFBNetworkManager.shared.isOnLine
         
         if !fNetworkAvail {
             errorString = String(localized: "No connection to the Internet is available", comment: "No connection to the Internet is available")
