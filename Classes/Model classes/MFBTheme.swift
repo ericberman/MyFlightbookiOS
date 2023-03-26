@@ -43,6 +43,11 @@ import Foundation
             imgView?.tintColor = MFBTheme.MFBBrandColor()
         }
     }
+    
+    public static func addThemedImageToCellConfig(name: String, config: inout UIListContentConfiguration) {
+        config.image = UIImage(named: name)?.withRenderingMode(.alwaysTemplate)
+        config.imageProperties.tintColor = MFBBrandColor()
+    }
         
     @objc public static func setMFBTheme() -> Void {
         UITabBar.appearance().tintColor = _mfbColor

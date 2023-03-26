@@ -196,7 +196,7 @@
                         <color key="tintColor" red="0.0" green="0.73725490199999999" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <viewControllers>
-                        <viewController title="Training" nibName="Training" id="Hms-9L-6cC" customClass="Training">
+                        <viewController title="Training" nibName="Training" id="Hms-9L-6cC" customClass="Training" customModule="MyFlightbook" customModuleProvider="target">
                             <extendedEdge key="edgesForExtendedLayout"/>
                             <navigationItem key="navigationItem" title="Training" id="qd5-BK-PEr"/>
                         </viewController>

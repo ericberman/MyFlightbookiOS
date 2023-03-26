@@ -13,6 +13,7 @@
 		9A020B3310FFEF3F00801349 /* RecentFlights.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A020B3110FFEF3F00801349 /* RecentFlights.m */; };
 		9A050D292138790100B3F794 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A050D282138790000B3F794 /* Photos.framework */; };
 		9A06E7AA29D0C41A0093A384 /* PackAndGo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A06E7A929D0C41A0093A384 /* PackAndGo.swift */; };
+		9A06E7AC29D0E2EA0093A384 /* Training.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A06E7AB29D0E2EA0093A384 /* Training.swift */; };
 		9A073B4820F65AD6007A4470 /* MFBLogo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A073B4720F65AD5007A4470 /* MFBLogo@3x.png */; };
 		9A085CAE20F3EF5500DDA442 /* tower@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A085CAB20F3EF5500DDA442 /* tower@2x.png */; };
 		9A085CAF20F3EF5500DDA442 /* tower.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A085CAC20F3EF5500DDA442 /* tower.png */; };
@@ -436,7 +437,6 @@
 		9ADFA4FC193921ED00FF30B7 /* totals@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ADFA4FB193921ED00FF30B7 /* totals@2x.png */; };
 		9ADFA4FE193921F400FF30B7 /* training.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ADFA4FD193921F400FF30B7 /* training.png */; };
 		9ADFA5001939220200FF30B7 /* training@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ADFA4FF1939220200FF30B7 /* training@2x.png */; };
-		9ADFA5081939271B00FF30B7 /* Training.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFA5061939271B00FF30B7 /* Training.m */; };
 		9ADFA5091939271B00FF30B7 /* Training.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ADFA5071939271B00FF30B7 /* Training.xib */; };
 		9ADFA50B193FB92D00FF30B7 /* Icon-iPad-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ADFA50A193FB92D00FF30B7 /* Icon-iPad-small@2x.png */; };
 		9AE39A3F29AAA2D0002A6496 /* AutodetectOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE39A3E29AAA2D0002A6496 /* AutodetectOptions.swift */; };
@@ -540,6 +540,7 @@
 		9A020B3110FFEF3F00801349 /* RecentFlights.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentFlights.m; sourceTree = "<group>"; };
 		9A050D282138790000B3F794 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		9A06E7A929D0C41A0093A384 /* PackAndGo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackAndGo.swift; sourceTree = "<group>"; };
+		9A06E7AB29D0E2EA0093A384 /* Training.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Training.swift; sourceTree = "<group>"; };
 		9A073B4720F65AD5007A4470 /* MFBLogo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MFBLogo@3x.png"; sourceTree = "<group>"; };
 		9A085CAB20F3EF5500DDA442 /* tower@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tower@2x.png"; sourceTree = "<group>"; };
 		9A085CAC20F3EF5500DDA442 /* tower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tower.png; sourceTree = "<group>"; };
@@ -990,8 +991,6 @@
 		9ADFA4FB193921ED00FF30B7 /* totals@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "totals@2x.png"; sourceTree = "<group>"; };
 		9ADFA4FD193921F400FF30B7 /* training.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = training.png; sourceTree = "<group>"; };
 		9ADFA4FF1939220200FF30B7 /* training@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "training@2x.png"; sourceTree = "<group>"; };
-		9ADFA5051939271B00FF30B7 /* Training.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Training.h; sourceTree = "<group>"; };
-		9ADFA5061939271B00FF30B7 /* Training.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Training.m; sourceTree = "<group>"; };
 		9ADFA5071939271B00FF30B7 /* Training.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Training.xib; sourceTree = "<group>"; };
 		9ADFA50A193FB92D00FF30B7 /* Icon-iPad-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad-small@2x.png"; sourceTree = "<group>"; };
 		9AE39A3E29AAA2D0002A6496 /* AutodetectOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutodetectOptions.swift; sourceTree = "<group>"; };
@@ -1830,9 +1829,8 @@
 		9ADFA501193925C400FF30B7 /* Training */ = {
 			isa = PBXGroup;
 			children = (
-				9ADFA5051939271B00FF30B7 /* Training.h */,
-				9ADFA5061939271B00FF30B7 /* Training.m */,
 				9ADFA5071939271B00FF30B7 /* Training.xib */,
+				9A06E7AB29D0E2EA0093A384 /* Training.swift */,
 			);
 			name = Training;
 			sourceTree = "<group>";
@@ -2369,7 +2367,6 @@
 				9A14334E29A6D9B7007129A9 /* CurrencyRow.swift in Sources */,
 				9A8EE98129A9B20200F133CF /* MFBSoap.swift in Sources */,
 				9A69202F10CCBD8B00DF1CA6 /* xsd.m in Sources */,
-				9ADFA5081939271B00FF30B7 /* Training.m in Sources */,
 				9A8BFADF22B00B1000CB79E0 /* SelectTemplates.m in Sources */,
 				9A48E27429A1686000511D99 /* MyFlightbookWidgets.intentdefinition in Sources */,
 				9A017B7722FA46A9007F0210 /* ConjunctionCell.m in Sources */,
@@ -2414,6 +2411,7 @@
 				9A78376E13E8AB99007CD501 /* VADetails.m in Sources */,
 				9A6A602213E91145000CB7A6 /* MakeModel.m in Sources */,
 				9A14335529A81A1A007129A9 /* UserPreferences.swift in Sources */,
+				9A06E7AC29D0E2EA0093A384 /* Training.swift in Sources */,
 				9A48E27D29A1693B00511D99 /* WidgetSoapCall.swift in Sources */,
 				9A70B18722C07A8500CA7E21 /* FlightEditorBaseTableViewController.m in Sources */,
 				9A27223529B699C8006AE702 /* GPSSim.swift in Sources */,
