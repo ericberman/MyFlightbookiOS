@@ -755,7 +755,10 @@
 "QueryDeleteConfirm" = "Êtes-vous sûr de vouloir supprimer cette requête? Ça ne peut pas être annulé.";
 
 /* Progress message when uploading an image; the %d is replaced by numbers (e.g. '2 of 4') */ 
-"Uploading Image %d of %lu" = "Téléchargement de  %d image(s) sur  %d";
+"Uploading Image %d of %lu" = "Téléchargé de  %d image(s) sur  %d";
+
+/* Progress message when starting upload of images */
+"UploadingImagesStart" = "Téléchargement d'images...";
 
 /* Status after uploading images; %d and %@ get replaced by numbers and the error message, respectively; keep them */ 
 "%d of %d images uploaded.  Error: %@" = "%d image(s) sur  %d image(s) téléchargée(s). Erreur : %@";

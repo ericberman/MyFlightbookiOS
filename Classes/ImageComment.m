@@ -82,7 +82,7 @@
 		szURL = [NSString stringWithFormat:@"https://%@%@", MFBHOSTNAME, self.ci.imgInfo.URLFullImage];
         [self.vwWebImage loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:szURL]]];
     }
-    else if (self.ci.IsVideo)
+    else if (self.ci.isVideo)
         [self.vwWebImage loadRequest:[NSURLRequest requestWithURL:self.ci.LocalFileURL]];
     else
     {

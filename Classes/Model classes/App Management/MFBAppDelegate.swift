@@ -469,7 +469,7 @@ import WidgetKit
         for lbe in self.rgUnsubmittedFlights as! [LogbookEntry] {
             rgImages.append(contentsOf: lbe.rgPicsForFlight)
         }
-        CommentedImage.cleanupObsoleteFiles(rgImages)
+        CommentedImage.cleanupObsoleteFiles(rgImages as! [CommentedImage])
         
         // set a timer to save state every 5 minutes or so
         timerSyncState = Timer(fireAt: Date.init(timeIntervalSinceNow: 300),

@@ -25,7 +25,6 @@
 //
 
 #import "MyAircraft.h"
-#import "CommentedImage.h"
 #import "FixedImageCell.h"
 #import "AircraftViewController.h"
 #import "NewAircraftViewController.h"

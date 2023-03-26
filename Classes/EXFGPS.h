@@ -37,6 +37,9 @@
 
 -(double) descriptionAsDecimal;
 
++(NSMutableArray*) createLocArray:(double) val;
++(void) populateGPS: (EXFGPSLoc*)gpsLoc :(NSArray*) locArray;
+
 @end
 
 /*!
@@ -58,5 +61,4 @@
 @property (nonatomic, retain) EXFraction* hours;
 @property (nonatomic, retain) EXFraction* minutes;
 @property (nonatomic, retain) EXFraction* seconds;
-
 @end

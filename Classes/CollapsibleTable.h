@@ -28,7 +28,6 @@
 #import <UIKit/UIKit.h>
 #import <MyFlightbook-Swift.h>
 #import "EditCell.h"
-#import "CommentedImage.h"
 #import <QuartzCore/QuartzCore.h>
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "AccessoryBar.h"

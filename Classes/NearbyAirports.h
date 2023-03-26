@@ -29,7 +29,6 @@
 #import "MFBWebServiceSvc.h"
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
-#import "CommentedImage.h"
 
 @protocol NearbyAirportsDelegate
 

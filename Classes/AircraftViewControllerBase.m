@@ -67,20 +67,19 @@
     self.progress = nil;
 }
 
-- (void) submitImagesWorker:(NSArray *) ar {
-    @autoreleasepool {
+- (void) aircraftWorkerComplete:(MFBSoapCall *)sc withCaller:(Aircraft *) a {
+    if ([sc.errorString length] == 0) {
         BOOL fIsNew = self.ac.isNew;
         NSString * targetURL = fIsNew ? MFBConstants.MFBAIRCRAFTIMAGEUPLOADPAGENEW : MFBConstants.MFBAIRCRAFTIMAGEUPLOADPAGE;
         NSString * key = fIsNew ? ac.TailNumber : ac.AircraftID.stringValue;
-        [CommentedImage uploadImages:self.rgImages progressUpdate:^(NSString * sz) { self.progress.title = sz; }
-                              toPage:targetURL authString:MFBProfile.sharedProfile.AuthToken keyName:MFBConstants.MFB_KEYAIRCRAFTIMAGE keyValue:key];
-        [self performSelectorOnMainThread:@selector(imagesComplete:) withObject:ar waitUntilDone:NO];
+        [CommentedImage uploadImages:self.rgImages
+                      progressUpdate:^(NSString * sz) { self.progress.title = sz; }
+                              toPage:targetURL
+                          authString:MFBProfile.sharedProfile.AuthToken
+                             keyName:MFBConstants.MFB_KEYAIRCRAFTIMAGE
+                            keyValue:key
+                   completionHandler:^{ [self imagesComplete:@[sc, a]]; } ];
     }
-}
-
-- (void) aircraftWorkerComplete:(MFBSoapCall *)sc withCaller:(Aircraft *) a {
-    if ([sc.errorString length] == 0)
-        [NSThread detachNewThreadSelector:@selector(submitImagesWorker:) toTarget:self withObject:@[sc, a]];
     else
         [self aircraftRefreshComplete:sc withCaller:a];
 }

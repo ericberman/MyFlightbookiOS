@@ -431,7 +431,7 @@ import Foundation
                 }
             } else {
                 // check for videos without WiFi
-                if !CommentedImage.canSubmitImages(rgPicsForFlight as! [CommentedImage]) {
+                if !CommentedImage.canSubmitImages((rgPicsForFlight as! [CommentedImage])) {
                     errorString = String(localized: "ErrorNeedWifiForVids", comment: "Can't upload with videos unless on wifi")
                     operationCompleted(sc)
                     return
@@ -487,21 +487,7 @@ import Foundation
             retVal = true
         }
     }
-    
-    @objc public func submitImagesWorker(_ sc : MFBSoapCall) {
-        autoreleasepool {
-            if sc.errorString.isEmpty {
-                CommentedImage.uploadImages(rgPicsForFlight as! [CommentedImage], progressUpdate: { sz in
-                    self.progressLabel?.text = sz
-                }, toPage: MFBConstants.MFBFLIGHTIMAGEUPLOADPAGE, authString: szAuthToken ?? MFBProfile.sharedProfile.AuthToken, keyName: MFBConstants.MFB_KEYFLIGHTIMAGE, keyValue: entryData.flightID.stringValue)
-                
-                // If this was a pending flight, it will be in the pending flight list.  Remove it, if so.
-                MFBAppDelegate.threadSafeAppDelegate.dequeueUnsubmittedFlight(self)
-            }
-            perform(#selector(operationCompleted(_:)), on: .main, with: sc, waitUntilDone: false)
-        }
-    }
-    
+        
     @objc public func ResultCompleted(sc: MFBSoapCall) {
         errorString = sc.errorString
         
@@ -511,7 +497,19 @@ import Foundation
         }
         
         if sc.contextFlag == CONTEXT_FLAG_COMMIT {
-            Thread.detachNewThreadSelector(#selector(submitImagesWorker(_:)), toTarget: self, with: sc)
+            if sc.errorString.isEmpty {
+                CommentedImage.uploadImages(rgPicsForFlight as! [CommentedImage], progressUpdate: { sz in
+                    self.progressLabel?.text = sz
+                },
+                toPage: MFBConstants.MFBFLIGHTIMAGEUPLOADPAGE,
+                authString: szAuthToken ?? MFBProfile.sharedProfile.AuthToken,
+                keyName: MFBConstants.MFB_KEYFLIGHTIMAGE,
+                keyValue: entryData.flightID.stringValue) {
+                    self.operationCompleted(sc)
+                    // If this was a pending flight, it will be in the pending flight list.  Remove it, if so.
+                    MFBAppDelegate.threadSafeAppDelegate.dequeueUnsubmittedFlight(self)
+                }
+            }
         } else {
             operationCompleted(sc)
         }

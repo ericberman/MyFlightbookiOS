@@ -34,7 +34,6 @@
 		9A1014CD10DD5FCA00FA37D4 /* backspace.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A1014CC10DD5FCA00FA37D4 /* backspace.png */; };
 		9A117D8C221782FC0095CE32 /* BadElfCircle-Vertical-Transparent.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A117D8B221782FB0095CE32 /* BadElfCircle-Vertical-Transparent.png */; };
 		9A121395111D3073001CDDB6 /* ImageComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A121393111D3073001CDDB6 /* ImageComment.m */; };
-		9A1213B3111D3113001CDDB6 /* CommentedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A1213B2111D3113001CDDB6 /* CommentedImage.m */; };
 		9A14334429A52934007129A9 /* MFBTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14334329A52934007129A9 /* MFBTheme.swift */; };
 		9A14334629A54991007129A9 /* MFBWebServiceObjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14334529A54991007129A9 /* MFBWebServiceObjectExtensions.swift */; };
 		9A14334729A54991007129A9 /* MFBWebServiceObjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14334529A54991007129A9 /* MFBWebServiceObjectExtensions.swift */; };
@@ -321,6 +320,7 @@
 		9A99506216E3C17F00C61594 /* PropertyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A99506116E3C17F00C61594 /* PropertyCell.xib */; };
 		9A99507416E694EA00C61594 /* AccessoryBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A99507316E694EA00C61594 /* AccessoryBar.m */; };
 		9A99507716E69D5C00C61594 /* AccessoryBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A99507516E69D5C00C61594 /* AccessoryBar.xib */; };
+		9A9A56F929CE25B300C5D006 /* CommentedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9A56F829CE25B300C5D006 /* CommentedImage.swift */; };
 		9A9CB2691E513B28002B2E11 /* TotalsCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CB2681E513B28002B2E11 /* TotalsCalculator.m */; };
 		9AA09D6A14684DDA00192184 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		9AA09D6B14684DE600192184 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -568,8 +568,6 @@
 		9A117D8B221782FB0095CE32 /* BadElfCircle-Vertical-Transparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BadElfCircle-Vertical-Transparent.png"; sourceTree = "<group>"; };
 		9A121392111D3073001CDDB6 /* ImageComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageComment.h; sourceTree = "<group>"; };
 		9A121393111D3073001CDDB6 /* ImageComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageComment.m; sourceTree = "<group>"; };
-		9A1213B1111D3113001CDDB6 /* CommentedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentedImage.h; sourceTree = "<group>"; };
-		9A1213B2111D3113001CDDB6 /* CommentedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentedImage.m; sourceTree = "<group>"; };
 		9A14334329A52934007129A9 /* MFBTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFBTheme.swift; sourceTree = "<group>"; };
 		9A14334529A54991007129A9 /* MFBWebServiceObjectExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFBWebServiceObjectExtensions.swift; sourceTree = "<group>"; };
 		9A14334B29A6B37E007129A9 /* TotalsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalsRow.swift; sourceTree = "<group>"; };
@@ -880,6 +878,7 @@
 		9A99506116E3C17F00C61594 /* PropertyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PropertyCell.xib; sourceTree = "<group>"; };
 		9A99507216E694EA00C61594 /* AccessoryBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessoryBar.h; sourceTree = "<group>"; };
 		9A99507316E694EA00C61594 /* AccessoryBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessoryBar.m; sourceTree = "<group>"; };
+		9A9A56F829CE25B300C5D006 /* CommentedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentedImage.swift; sourceTree = "<group>"; };
 		9A9CB2671E513B28002B2E11 /* TotalsCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TotalsCalculator.h; sourceTree = "<group>"; };
 		9A9CB2681E513B28002B2E11 /* TotalsCalculator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TotalsCalculator.m; sourceTree = "<group>"; };
 		9AA06CB810F3C27E00D635C1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -1079,7 +1078,6 @@
 			isa = PBXGroup;
 			children = (
 				9ACE9E8B1D075299004274F9 /* MyFlightbook-Bridging-Header.h */,
-				9A3E12F0127DD606008D672E /* Exif */,
 				9AB21C5C10DF27850042AD88 /* Model classes */,
 				9A69201D10CCBD8800DF1CA6 /* WebServiceCode */,
 				9AB3C2961115F540001401C8 /* UIClasses */,
@@ -1237,6 +1235,7 @@
 				9A3E1374127DE704008D672E /* EXFUtils.m */,
 			);
 			name = Exif;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 		9A48E26A29A1685F00511D99 /* MyFlightbookWidgets */ = {
@@ -1672,17 +1671,25 @@
 			name = DataEntry;
 			sourceTree = "<group>";
 		};
+		9A9A56F729CE259600C5D006 /* Image Management */ = {
+			isa = PBXGroup;
+			children = (
+				9A3E12F0127DD606008D672E /* Exif */,
+				9A9A56F829CE25B300C5D006 /* CommentedImage.swift */,
+			);
+			path = "Image Management";
+			sourceTree = "<group>";
+		};
 		9AB21C5C10DF27850042AD88 /* Model classes */ = {
 			isa = PBXGroup;
 			children = (
+				9A9A56F729CE259600C5D006 /* Image Management */,
 				9A0EA69529C947AF0031A10D /* App Management */,
 				9A84363529BAB03C0001012D /* Logbook Model */,
 				9AE39A4829ABC1DA002A6496 /* Geography */,
 				9A73C8AD21B1A94500AE1221 /* Category Extensions */,
 				9AD2FFF61BE4060000A9B21B /* Watchkit Utility */,
 				9A21D5CA2214D1E300961605 /* BadElfSession.swift */,
-				9A1213B1111D3113001CDDB6 /* CommentedImage.h */,
-				9A1213B2111D3113001CDDB6 /* CommentedImage.m */,
 				9A7FE95B12494F87001A8722 /* Reachability.h */,
 				9A7FE95C12494F87001A8722 /* Reachability.m */,
 				9A0BF18024743D5E003C2172 /* PackAndGo.m */,
@@ -2382,7 +2389,6 @@
 				9A020B3310FFEF3F00801349 /* RecentFlights.m in Sources */,
 				9A121395111D3073001CDDB6 /* ImageComment.m in Sources */,
 				9AE39A4329AAA456002A6496 /* OptionSelection.swift in Sources */,
-				9A1213B3111D3113001CDDB6 /* CommentedImage.m in Sources */,
 				9A517E451E2ED4CC00EC3545 /* ApproachEditor.m in Sources */,
 				9A58E0481131A77C005988FA /* MyAircraft.m in Sources */,
 				9A0C938511E63A850062AF27 /* FlightProperties.m in Sources */,
@@ -2445,6 +2451,7 @@
 				9A60D6CB16F90BDE00F9DFFF /* CollapsibleTable.m in Sources */,
 				9A27222E29B5025C006AE702 /* RouteAnnotation.swift in Sources */,
 				9AB8B349170347BA0012E3CE /* NavigableCell.m in Sources */,
+				9A9A56F929CE25B300C5D006 /* CommentedImage.swift in Sources */,
 				9A27223929B6CDEE006AE702 /* MFBLocation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

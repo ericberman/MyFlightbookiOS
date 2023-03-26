@@ -138,7 +138,7 @@ import Foundation
             MFBSoapCall.hackARCRetain(sc: self)
 
             // We do this on a background thread because even though the call is async, it can hit a semaphore.
-            DispatchQueue.main.async() {
+            DispatchQueue.global(qos:.background).async() {
                 callToMake(binding!, self)
             }
         }

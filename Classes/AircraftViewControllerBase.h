@@ -27,7 +27,6 @@
 
 #import <UIKit/UIKit.h>
 #import <MyFlightbook-Swift.h>
-#import "CommentedImage.h"
 #import "AccessoryBar.h"
 #import "CollapsibleTable.h"
 

@@ -26,7 +26,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CommentedImage.h"
+#import <MyFlightbook-Swift.h>
 
 @interface RecentFlightCell : UITableViewCell {
 }

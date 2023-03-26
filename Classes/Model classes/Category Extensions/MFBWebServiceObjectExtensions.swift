@@ -418,7 +418,7 @@ extension MFBWebServiceSvc_MFBImageInfo {
         virtualPath = decoder.decodeObject(of: NSString.self, forKey: MFBWebServiceSvc_MFBImageInfo.keyVirtualPath) as? String
         urlFullImage = decoder.decodeObject(of: NSString.self, forKey: MFBWebServiceSvc_MFBImageInfo.keyURLFullImage) as? String
         urlThumbnail = decoder.decodeObject(of: NSString.self, forKey: MFBWebServiceSvc_MFBImageInfo.keyURLThumbnail) as? String
-        if let raw = decoder.decodeObject(forKey: MFBWebServiceSvc_MFBImageInfo.keyImageType) as? Int {
+        if let raw = decoder.decodeObject(of: NSNumber.self, forKey: MFBWebServiceSvc_MFBImageInfo.keyImageType) as? Int {
             imageType = MFBWebServiceSvc_ImageFileType(rawValue: UInt32(raw))
         } else {
             imageType = MFBWebServiceSvc_ImageFileType_JPEG

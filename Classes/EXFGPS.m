@@ -16,6 +16,7 @@
 */
 
 #import "EXFGPS.h"
+#import "EXFUtils.h"
 
 @implementation EXFGPSLoc
 
@@ -39,6 +40,40 @@
     
     [super dealloc];
 }
+
+
+// EXIF helper utilities, from http://iphone-land.blogspot.com
+// Helper methods for location conversion
++(NSMutableArray*) createLocArray:(double) val{
+    val = fabs(val);
+    NSMutableArray* array = [[NSMutableArray alloc] init];
+    double deg = (int)val;
+    [array addObject:@(deg)];
+    val = val - deg;
+    val = val*60;
+    double minutes = (int) val;
+    [array addObject:@(minutes)];
+    val = val - minutes;
+    val = val *60;
+    double seconds = val;
+    [array addObject:@(seconds)];
+    return array;
+}
+
++(void) populateGPS: (EXFGPSLoc*)gpsLoc :(NSArray*) locArray{
+    long numDenumArray[2];
+    long* arrPtr = numDenumArray;
+    [EXFUtils convertRationalToFraction:&arrPtr :locArray[0]];
+    EXFraction* fract = [[EXFraction alloc] initWith:numDenumArray[0] :numDenumArray[1]];
+    gpsLoc.degrees = fract;
+    [EXFUtils convertRationalToFraction:&arrPtr :locArray[1]];
+    fract = [[EXFraction alloc] initWith:numDenumArray[0] :numDenumArray[1]];
+    gpsLoc.minutes = fract;
+    [EXFUtils convertRationalToFraction:&arrPtr :locArray[2]];
+    fract = [[EXFraction alloc] initWith:numDenumArray[0] :numDenumArray[1]];
+    gpsLoc.seconds = fract;
+}
+// end of helper methods
 @end
 
 @implementation EXFGPSTimeStamp
