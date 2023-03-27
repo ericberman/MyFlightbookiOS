@@ -27,8 +27,6 @@
 
 #import <UIKit/UIKit.h>
 #import <MyFlightbook-Swift.h>
-#import "DateRangeViewController.h"
-#import "EditCell.h"
 #import "CollapsibleTable.h"
 
 @protocol QueryDelegate

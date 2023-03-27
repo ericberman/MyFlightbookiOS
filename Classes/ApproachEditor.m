@@ -27,7 +27,6 @@
 
 #import <MyFlightbook-Swift.h>
 #import "ApproachEditor.h"
-#import "EditCell.h"
 
 @interface ApproachEditor ()
 @property (strong) NSArray<NSString *> * airportList;

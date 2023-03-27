@@ -29,7 +29,6 @@
 #import "MFBWebServiceSvc.h"
 #import <MyFlightbook-Swift.h>
 #import "PullRefreshTableViewController.h"
-#import "AccessoryBar.h"
 
 @protocol EditPropertyDelegate
 - (void) propertyUpdated:(MFBWebServiceSvc_CustomPropertyType *) cpt;

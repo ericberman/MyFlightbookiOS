@@ -26,7 +26,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AccessoryBar.h"
 #import "CollapsibleTable.h"
 
 @interface NewUserTableController : CollapsibleTable<UITextFieldDelegate, AccessoryBarDelegate>

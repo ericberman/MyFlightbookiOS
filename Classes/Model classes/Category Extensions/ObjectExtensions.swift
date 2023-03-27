@@ -482,7 +482,7 @@ extension NSAttributedString {
 // MARK: UITableViewController extensions
 extension UITableViewController {
     
-    @objc(nextCell:) public func nextCell(ipCurrent : NSIndexPath) -> NSIndexPath {
+    public func nextCell(ipCurrent : IndexPath) -> IndexPath {
         let cSections = numberOfSections(in: tableView)
         let cRowsInSection = self.tableView(tableView, numberOfRowsInSection: ipCurrent.section)
         
@@ -492,25 +492,29 @@ extension UITableViewController {
         }
          
         if (ipCurrent.row < cRowsInSection - 1) {
-            return NSIndexPath(row: ipCurrent.row + 1, section: ipCurrent.section)
+            return IndexPath(row: ipCurrent.row + 1, section: ipCurrent.section)
         }
         else {
             var sect = ipCurrent.section + 1
             while (sect < cSections && self.tableView(tableView, numberOfRowsInSection: sect) == 0) {
                 sect += 1
             }
-            return (sect < cSections) ? NSIndexPath(row: 0, section: ipCurrent.section + 1) : ipCurrent
+            return (sect < cSections) ? IndexPath(row: 0, section: ipCurrent.section + 1) : ipCurrent
         }
     }
+    
+    @objc(nextCell:) public func nextCell(ipCurrent : NSIndexPath) -> NSIndexPath {
+        return nextCell(ipCurrent: ipCurrent as IndexPath) as NSIndexPath
+    }
 
-    @objc(prevCell:) public func prevCell(ipCurrent : NSIndexPath) -> NSIndexPath {
+    public func prevCell(ipCurrent : IndexPath) -> IndexPath {
         // check for 1st cell
         if (ipCurrent.section == 0 && ipCurrent.row == 0) {
             return ipCurrent
         }
          
         if (ipCurrent.row > 0) {
-            return NSIndexPath(row: ipCurrent.row - 1, section: ipCurrent.section)
+            return IndexPath(row: ipCurrent.row - 1, section: ipCurrent.section)
         }
         else {
             var sect = ipCurrent.section - 1
@@ -518,8 +522,12 @@ extension UITableViewController {
                 sect -= 1
             }
             
-            return (sect < 0) ? ipCurrent : NSIndexPath(row: self.tableView(tableView, numberOfRowsInSection: sect) - 1, section: sect)
+            return (sect < 0) ? ipCurrent : IndexPath(row: self.tableView(tableView, numberOfRowsInSection: sect) - 1, section: sect)
         }
+    }
+    
+    @objc(prevCell:) public func prevCell(ipCurrent : NSIndexPath) -> NSIndexPath {
+        return prevCell(ipCurrent: ipCurrent as IndexPath) as NSIndexPath
     }
 }
 

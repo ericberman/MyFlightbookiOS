@@ -68,6 +68,12 @@
 		9A23CFA816F53B5E001C9098 /* ButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A23CFA716F53B5D001C9098 /* ButtonCell.m */; };
 		9A23CFAA16F53B7D001C9098 /* ButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A23CFA916F53B7D001C9098 /* ButtonCell.xib */; };
 		9A25F249235A5A3B002B3B48 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A73C84721AF51F400AE1221 /* NotificationCenter.framework */; };
+		9A2649F229D0FAE500C0D176 /* CollapsibleTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2649F129D0FAE500C0D176 /* CollapsibleTable.swift */; };
+		9A2649F429D0FC3900C0D176 /* AccessoryBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2649F329D0FC3900C0D176 /* AccessoryBar.swift */; };
+		9A2649F629D0FE4E00C0D176 /* DateRangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2649F529D0FE4E00C0D176 /* DateRangeViewController.swift */; };
+		9A2649F829D106B000C0D176 /* EditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2649F729D106B000C0D176 /* EditCell.swift */; };
+		9A2649FA29D106FB00C0D176 /* NavigableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2649F929D106FB00C0D176 /* NavigableCell.swift */; };
+		9A2649FC29D1120700C0D176 /* PropertyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2649FB29D1120700C0D176 /* PropertyCell.swift */; };
 		9A27222E29B5025C006AE702 /* RouteAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A27222D29B5025C006AE702 /* RouteAnnotation.swift */; };
 		9A27223029B53861006AE702 /* FlightProps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A27222F29B53861006AE702 /* FlightProps.swift */; };
 		9A27223329B55C67006AE702 /* Telemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A27223229B55C67006AE702 /* Telemetry.swift */; };
@@ -186,7 +192,6 @@
 		9A6A602213E91145000CB7A6 /* MakeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6A602013E91145000CB7A6 /* MakeModel.m */; };
 		9A6B78A122399C8C0014B0C2 /* NewAircraftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6B78A022399C8C0014B0C2 /* NewAircraftViewController.m */; };
 		9A6B78A422399DDC0014B0C2 /* AircraftViewControllerBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6B78A322399DDC0014B0C2 /* AircraftViewControllerBase.m */; };
-		9A6BDE0C1570921D00F715E1 /* EditCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6BDE0B1570921D00F715E1 /* EditCell.m */; };
 		9A6BDE10157092D600F715E1 /* EditCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A6BDE0F157092D600F715E1 /* EditCell.xib */; };
 		9A6C3B4115728E10004EB8FA /* ExpandHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6C3B4015728E10004EB8FA /* ExpandHeaderCell.m */; };
 		9A6C3B4315728F27004EB8FA /* ExpandHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A6C3B4215728F27004EB8FA /* ExpandHeaderCell.xib */; };
@@ -209,7 +214,6 @@
 		9A7A7D96147F4DD0003A6912 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9A7A7D98147F4DD0003A6912 /* Localizable.strings */; };
 		9A7C143C1533D660007EB69A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9A7C143B1533D660007EB69A /* Settings.bundle */; };
 		9A8005A022CEBCCF00EC487E /* LogbookEntryBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A80059F22CEBCCF00EC487E /* LogbookEntryBaseTableViewController.m */; };
-		9A804AF616EE445F002F77CA /* DateRangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A804AF416EE445F002F77CA /* DateRangeViewController.m */; };
 		9A804AF716EE445F002F77CA /* DateRangeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A804AF516EE445F002F77CA /* DateRangeViewController.xib */; };
 		9A820A991D970359001EDEDF /* MakeModel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A820A971D970359001EDEDF /* MakeModel.xib */; };
 		9A825DF7193677EA00967DF9 /* ProgressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A825DF6193677EA00967DF9 /* ProgressCell.xib */; };
@@ -317,9 +321,7 @@
 		9A954DB71531FBFC000E00ED /* VisitedAirportRow.xib.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9A954D921531FBFC000E00ED /* VisitedAirportRow.xib.txt */; };
 		9A954DB81531FBFC000E00ED /* VisitedAirports.xib.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9A954D941531FBFC000E00ED /* VisitedAirports.xib.txt */; };
 		9A960C9C10DE9B1C00843113 /* profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A960C9B10DE9B1C00843113 /* profile.png */; };
-		9A99506016E3C10200C61594 /* PropertyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A99505F16E3C10200C61594 /* PropertyCell.m */; };
 		9A99506216E3C17F00C61594 /* PropertyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A99506116E3C17F00C61594 /* PropertyCell.xib */; };
-		9A99507416E694EA00C61594 /* AccessoryBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A99507316E694EA00C61594 /* AccessoryBar.m */; };
 		9A99507716E69D5C00C61594 /* AccessoryBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A99507516E69D5C00C61594 /* AccessoryBar.xib */; };
 		9A9A56F929CE25B300C5D006 /* CommentedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9A56F829CE25B300C5D006 /* CommentedImage.swift */; };
 		9A9CB2691E513B28002B2E11 /* TotalsCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CB2681E513B28002B2E11 /* TotalsCalculator.m */; };
@@ -350,7 +352,6 @@
 		9AAA7CDF1715E4CA00429F78 /* Icon-iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AAA7CDA1715E4CA00429F78 /* Icon-iPad@2x.png */; };
 		9AAA7CE01715E4CA00429F78 /* Icon-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AAA7CDB1715E4CA00429F78 /* Icon-small@2x.png */; };
 		9AAA7CE11715E4CA00429F78 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AAA7CDC1715E4CA00429F78 /* Icon@2x.png */; };
-		9AB8B349170347BA0012E3CE /* NavigableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AB8B348170347BA0012E3CE /* NavigableCell.m */; };
 		9ABC6B391EBCD96C00EE9C97 /* cameramarker.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ABC6B371EBCD96C00EE9C97 /* cameramarker.png */; };
 		9ABC6B3A1EBCD96C00EE9C97 /* cameramarker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ABC6B381EBCD96C00EE9C97 /* cameramarker@2x.png */; };
 		9ABC6B3F1EBCD9E100EE9C97 /* siginvalid.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ABC6B3B1EBCD9E100EE9C97 /* siginvalid.png */; };
@@ -604,6 +605,12 @@
 		9A23CFA616F53B5D001C9098 /* ButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonCell.h; sourceTree = "<group>"; };
 		9A23CFA716F53B5D001C9098 /* ButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonCell.m; sourceTree = "<group>"; };
 		9A23CFA916F53B7D001C9098 /* ButtonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonCell.xib; sourceTree = "<group>"; };
+		9A2649F129D0FAE500C0D176 /* CollapsibleTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleTable.swift; sourceTree = "<group>"; };
+		9A2649F329D0FC3900C0D176 /* AccessoryBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessoryBar.swift; sourceTree = "<group>"; };
+		9A2649F529D0FE4E00C0D176 /* DateRangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRangeViewController.swift; sourceTree = "<group>"; };
+		9A2649F729D106B000C0D176 /* EditCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCell.swift; sourceTree = "<group>"; };
+		9A2649F929D106FB00C0D176 /* NavigableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigableCell.swift; sourceTree = "<group>"; };
+		9A2649FB29D1120700C0D176 /* PropertyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyCell.swift; sourceTree = "<group>"; };
 		9A27222D29B5025C006AE702 /* RouteAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteAnnotation.swift; sourceTree = "<group>"; };
 		9A27222F29B53861006AE702 /* FlightProps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightProps.swift; sourceTree = "<group>"; };
 		9A27223229B55C67006AE702 /* Telemetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Telemetry.swift; sourceTree = "<group>"; };
@@ -718,8 +725,6 @@
 		9A6B78A022399C8C0014B0C2 /* NewAircraftViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewAircraftViewController.m; sourceTree = "<group>"; };
 		9A6B78A222399DDC0014B0C2 /* AircraftViewControllerBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AircraftViewControllerBase.h; sourceTree = "<group>"; };
 		9A6B78A322399DDC0014B0C2 /* AircraftViewControllerBase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AircraftViewControllerBase.m; sourceTree = "<group>"; };
-		9A6BDE0A1570921D00F715E1 /* EditCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCell.h; sourceTree = "<group>"; };
-		9A6BDE0B1570921D00F715E1 /* EditCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCell.m; sourceTree = "<group>"; };
 		9A6BDE0F157092D600F715E1 /* EditCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditCell.xib; sourceTree = "<group>"; };
 		9A6C3B3F15728E10004EB8FA /* ExpandHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpandHeaderCell.h; sourceTree = "<group>"; };
 		9A6C3B4015728E10004EB8FA /* ExpandHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpandHeaderCell.m; sourceTree = "<group>"; };
@@ -753,8 +758,6 @@
 		9A7E42B611810DBF002000A4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9A80059E22CEBCCF00EC487E /* LogbookEntryBaseTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogbookEntryBaseTableViewController.h; sourceTree = "<group>"; };
 		9A80059F22CEBCCF00EC487E /* LogbookEntryBaseTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogbookEntryBaseTableViewController.m; sourceTree = "<group>"; };
-		9A804AF316EE445F002F77CA /* DateRangeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateRangeViewController.h; sourceTree = "<group>"; };
-		9A804AF416EE445F002F77CA /* DateRangeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateRangeViewController.m; sourceTree = "<group>"; };
 		9A804AF516EE445F002F77CA /* DateRangeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DateRangeViewController.xib; sourceTree = "<group>"; };
 		9A820A981D970359001EDEDF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MakeModel.xib; sourceTree = "<group>"; };
 		9A820A9B1D970927001EDEDF /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MakeModel.strings; sourceTree = "<group>"; };
@@ -872,11 +875,7 @@
 		9A954D931531FBFC000E00ED /* fr */ = {isa = PBXFileReference; lastKnownFileType = text; name = fr; path = Classes/fr.lproj/VisitedAirportRow.xib.txt; sourceTree = "<group>"; };
 		9A954D951531FBFC000E00ED /* fr */ = {isa = PBXFileReference; lastKnownFileType = text; name = fr; path = Classes/fr.lproj/VisitedAirports.xib.txt; sourceTree = "<group>"; };
 		9A960C9B10DE9B1C00843113 /* profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile.png; sourceTree = "<group>"; };
-		9A99505E16E3C10200C61594 /* PropertyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropertyCell.h; sourceTree = "<group>"; };
-		9A99505F16E3C10200C61594 /* PropertyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PropertyCell.m; sourceTree = "<group>"; };
 		9A99506116E3C17F00C61594 /* PropertyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PropertyCell.xib; sourceTree = "<group>"; };
-		9A99507216E694EA00C61594 /* AccessoryBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessoryBar.h; sourceTree = "<group>"; };
-		9A99507316E694EA00C61594 /* AccessoryBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessoryBar.m; sourceTree = "<group>"; };
 		9A9A56F829CE25B300C5D006 /* CommentedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentedImage.swift; sourceTree = "<group>"; };
 		9A9CB2671E513B28002B2E11 /* TotalsCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TotalsCalculator.h; sourceTree = "<group>"; };
 		9A9CB2681E513B28002B2E11 /* TotalsCalculator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TotalsCalculator.m; sourceTree = "<group>"; };
@@ -900,8 +899,6 @@
 		9AAA7CDB1715E4CA00429F78 /* Icon-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-small@2x.png"; sourceTree = "<group>"; };
 		9AAA7CDC1715E4CA00429F78 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		9AB4F3D71EF86693001915E0 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		9AB8B347170347BA0012E3CE /* NavigableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigableCell.h; sourceTree = "<group>"; };
-		9AB8B348170347BA0012E3CE /* NavigableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigableCell.m; sourceTree = "<group>"; };
 		9ABC6B361EBCD74300EE9C97 /* ApiKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApiKeys.h; sourceTree = "<group>"; };
 		9ABC6B371EBCD96C00EE9C97 /* cameramarker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cameramarker.png; sourceTree = "<group>"; };
 		9ABC6B381EBCD96C00EE9C97 /* cameramarker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cameramarker@2x.png"; sourceTree = "<group>"; };
@@ -1339,6 +1336,7 @@
 				9AC7B8BE14D0ADAB009139BF /* PullRefreshTableViewController.m */,
 				9A14335E29A99231007129A9 /* HostedWebViewController.swift */,
 				9AC88C1029BFD54600841C0A /* WPSAlertController.swift */,
+				9A2649F129D0FAE500C0D176 /* CollapsibleTable.swift */,
 			);
 			name = "UI Utility Classes";
 			sourceTree = "<group>";
@@ -1662,10 +1660,8 @@
 		9A99507116E6944000C61594 /* DataEntry */ = {
 			isa = PBXGroup;
 			children = (
-				9A99507216E694EA00C61594 /* AccessoryBar.h */,
-				9A99507316E694EA00C61594 /* AccessoryBar.m */,
-				9A804AF316EE445F002F77CA /* DateRangeViewController.h */,
-				9A804AF416EE445F002F77CA /* DateRangeViewController.m */,
+				9A2649F329D0FC3900C0D176 /* AccessoryBar.swift */,
+				9A2649F529D0FE4E00C0D176 /* DateRangeViewController.swift */,
 			);
 			name = DataEntry;
 			sourceTree = "<group>";
@@ -1795,8 +1791,6 @@
 				9ADB297B16F69377008D9582 /* CheckboxCell.h */,
 				9ADB297C16F69377008D9582 /* CheckboxCell.m */,
 				9ADB297E16F6938A008D9582 /* CheckboxCell.xib */,
-				9A6BDE0A1570921D00F715E1 /* EditCell.h */,
-				9A6BDE0B1570921D00F715E1 /* EditCell.m */,
 				9A6BDE0F157092D600F715E1 /* EditCell.xib */,
 				9AE4B7B116FE80EE0001BD2C /* EditCellDetail.xib */,
 				9A60CAE1180DFCFF00BE813A /* EditCellNoLabel.xib */,
@@ -1806,13 +1800,9 @@
 				9A6C3B4215728F27004EB8FA /* ExpandHeaderCell.xib */,
 				9A0DD9F6158579BE00FB6DF2 /* FixedImageCell.h */,
 				9A0DD9F7158579BE00FB6DF2 /* FixedImageCell.m */,
-				9AB8B347170347BA0012E3CE /* NavigableCell.h */,
-				9AB8B348170347BA0012E3CE /* NavigableCell.m */,
 				9A42300A157B953F00FF99D4 /* ProgressCell.h */,
 				9A42300B157B953F00FF99D4 /* ProgressCell.m */,
 				9A825DF6193677EA00967DF9 /* ProgressCell.xib */,
-				9A99505E16E3C10200C61594 /* PropertyCell.h */,
-				9A99505F16E3C10200C61594 /* PropertyCell.m */,
 				9A99506116E3C17F00C61594 /* PropertyCell.xib */,
 				9ADB297016F62344008D9582 /* TextCell.h */,
 				9ADB297116F62344008D9582 /* TextCell.m */,
@@ -1822,6 +1812,9 @@
 				9A3A27321573F062009AE0F6 /* WaitCell.xib */,
 				9A017B7422FA46A9007F0210 /* ConjunctionCell.h */,
 				9A017B7522FA46A9007F0210 /* ConjunctionCell.m */,
+				9A2649F729D106B000C0D176 /* EditCell.swift */,
+				9A2649F929D106FB00C0D176 /* NavigableCell.swift */,
+				9A2649FB29D1120700C0D176 /* PropertyCell.swift */,
 			);
 			name = CustomTableCells;
 			sourceTree = "<group>";
@@ -2347,7 +2340,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A2649FC29D1120700C0D176 /* PropertyCell.swift in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
+				9A2649F629D0FE4E00C0D176 /* DateRangeViewController.swift in Sources */,
 				9A6F1BFC29B3D891004D1F31 /* SunriseSunset.swift in Sources */,
 				28216C970DB411BC00E5133A /* LEEditController.m in Sources */,
 				9A6B78A122399C8C0014B0C2 /* NewAircraftViewController.m in Sources */,
@@ -2389,6 +2384,7 @@
 				9A3E1375127DE704008D672E /* EXFGPS.m in Sources */,
 				9A3E1376127DE704008D672E /* EXFHandlers.m in Sources */,
 				9A3E1377127DE704008D672E /* EXFJFIF.m in Sources */,
+				9A2649F429D0FC3900C0D176 /* AccessoryBar.swift in Sources */,
 				9A0EA69729C947C00031A10D /* MFBAppDelegate.swift in Sources */,
 				9A89C1AF29B8F45300848A6B /* About.swift in Sources */,
 				9AE39A3F29AAA2D0002A6496 /* AutodetectOptions.swift in Sources */,
@@ -2408,6 +2404,7 @@
 				9A14334429A52934007129A9 /* MFBTheme.swift in Sources */,
 				9A17C5FA13E89B1B00C47C82 /* VisitedAirportRow.m in Sources */,
 				9A84363729BAB0540001012D /* CountryCode.swift in Sources */,
+				9A2649F829D106B000C0D176 /* EditCell.swift in Sources */,
 				9A78376E13E8AB99007CD501 /* VADetails.m in Sources */,
 				9A6A602213E91145000CB7A6 /* MakeModel.m in Sources */,
 				9A14335529A81A1A007129A9 /* UserPreferences.swift in Sources */,
@@ -2415,20 +2412,18 @@
 				9A48E27D29A1693B00511D99 /* WidgetSoapCall.swift in Sources */,
 				9A70B18722C07A8500CA7E21 /* FlightEditorBaseTableViewController.m in Sources */,
 				9A27223529B699C8006AE702 /* GPSSim.swift in Sources */,
+				9A2649F229D0FAE500C0D176 /* CollapsibleTable.swift in Sources */,
 				9A4587BD14C205500045AF51 /* RecentFlightCell.m in Sources */,
 				9AC7B8BF14D0ADAB009139BF /* PullRefreshTableViewController.m in Sources */,
 				9A79E30A156E9B7100EBEF48 /* FlightQueryForm.m in Sources */,
 				9AC88C0F29BFAD8B00841C0A /* Aircraft.swift in Sources */,
-				9A6BDE0C1570921D00F715E1 /* EditCell.m in Sources */,
 				9A6C3B4115728E10004EB8FA /* ExpandHeaderCell.m in Sources */,
 				9A3A27311573F002009AE0F6 /* WaitCell.m in Sources */,
 				9A42300C157B953F00FF99D4 /* ProgressCell.m in Sources */,
 				9A0DD9F8158579BE00FB6DF2 /* FixedImageCell.m in Sources */,
-				9A99506016E3C10200C61594 /* PropertyCell.m in Sources */,
-				9A99507416E694EA00C61594 /* AccessoryBar.m in Sources */,
+				9A2649FA29D106FB00C0D176 /* NavigableCell.swift in Sources */,
 				9AC88C0729BE96FE00841C0A /* MFBWebService Aircraft Extensions.swift in Sources */,
 				9A27223029B53861006AE702 /* FlightProps.swift in Sources */,
-				9A804AF616EE445F002F77CA /* DateRangeViewController.m in Sources */,
 				9AC88C1129BFD54600841C0A /* WPSAlertController.swift in Sources */,
 				9A20B152192D34D300A8F64F /* iRate.m in Sources */,
 				9AEFF6E329BD2A4600B07B13 /* MFBWebService PropertyExtensions.swift in Sources */,
@@ -2444,7 +2439,6 @@
 				9A14335F29A99231007129A9 /* HostedWebViewController.swift in Sources */,
 				9A60D6CB16F90BDE00F9DFFF /* CollapsibleTable.m in Sources */,
 				9A27222E29B5025C006AE702 /* RouteAnnotation.swift in Sources */,
-				9AB8B349170347BA0012E3CE /* NavigableCell.m in Sources */,
 				9A9A56F929CE25B300C5D006 /* CommentedImage.swift in Sources */,
 				9A27223929B6CDEE006AE702 /* MFBLocation.swift in Sources */,
 			);

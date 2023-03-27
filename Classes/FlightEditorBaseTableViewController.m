@@ -191,6 +191,12 @@
     return YES;
 }
 
+- (BOOL) textViewShouldBeginEditing:(UITextView *)textView {
+    self.ipActive = [self.tableView indexPathForCell:[self owningCell:textView]];
+    [self enableNextPrev:self.vwAccessory];
+    return YES;
+}
+
 #pragma mark - View lifecyle
 
 - (void)viewDidLoad {

@@ -28,7 +28,6 @@
 #import "NewUserTableController.h"
 #import "ButtonCell.h"
 #import "TextCell.h"
-#import "EditCell.h"
 #import "SecurityQuestionPicker.h"
 #import <MyFlightbook-Swift.h>
 

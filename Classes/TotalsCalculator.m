@@ -27,7 +27,6 @@
 
 #import <MyFlightbook-Swift.h>
 #import "TotalsCalculator.h"
-#import "EditCell.h"
 #import "ButtonCell.h"
 
 @interface TotalsCalculator ()

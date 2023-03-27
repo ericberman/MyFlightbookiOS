@@ -26,7 +26,6 @@
 //
 
 #import "SignInControllerViewController.h"
-#import "EditCell.h"
 #import "ButtonCell.h"
 #import "TextCell.h"
 #import "NewUserTableController.h"

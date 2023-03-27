@@ -26,7 +26,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AccessoryBar.h"
 #import "CollapsibleTable.h"
 
 @interface SignInControllerViewController : CollapsibleTable<UITextFieldDelegate, AccessoryBarDelegate>

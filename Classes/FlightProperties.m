@@ -25,7 +25,6 @@
 //
 
 #import "FlightProperties.h"
-#import "PropertyCell.h"
 #import <MyFlightbook-Swift.h>
 
 @interface FlightProperties ()

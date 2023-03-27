@@ -29,7 +29,6 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "ImageComment.h"
 #import "FlightProperties.h"
-#import "PropertyCell.h"
 #import "ButtonCell.h"
 #import "math.h"
 #import "TextCell.h"

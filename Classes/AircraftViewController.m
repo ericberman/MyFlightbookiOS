@@ -25,9 +25,9 @@
 //
 //
 
+#import <MyFlightbook-Swift.h>
 #import "AircraftViewController.h"
 #import "RecentFlights.h"
-#import "EditCell.h"
 #import "ButtonCell.h"
 #import "ExpandHeaderCell.h"
 #import "MakeModel.h"

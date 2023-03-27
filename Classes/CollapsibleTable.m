@@ -27,8 +27,6 @@
 
 #import "CollapsibleTable.h"
 #import "ExpandHeaderCell.h"
-#import "PropertyCell.h"
-#import "NavigableCell.h"
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 @import Photos;
@@ -257,8 +255,11 @@ BOOL fSelectFirst = NO;
 
 - (void) enableNextPrev:(AccessoryBar *) vwAccessory
 {
-    vwAccessory.btnNext.enabled = [self canNext];
-    vwAccessory.btnPrev.enabled = [self canPrev];
+    // Guard against nil ipActive - should never happen, but sometimes does
+    if (self.ipActive != nil) {
+        vwAccessory.btnNext.enabled = [self canNext];
+        vwAccessory.btnPrev.enabled = [self canPrev];
+    }
 }
 
 - (void) scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView

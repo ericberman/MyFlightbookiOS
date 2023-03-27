@@ -473,7 +473,7 @@ import SQLite3
             // Make a copy of this to delete (so that we don't have a collision in multi-threading
             let cfp = MFBWebServiceSvc_CustomFlightProperty.getNewFlightProperty()
             cfp.propTypeID = NSNumber(integerLiteral: fp.propTypeID.intValue)
-            cfp.propID = NSNumber(integerLiteral: fp.propID.intValue)
+            cfp.propID = NSNumber(integerLiteral: fp.propID?.intValue ?? PropTypeID.NEW_PROP_ID.rawValue)
             cfp.flightID = NSNumber(integerLiteral: fp.flightID.intValue)
             cfp.intValue = NSNumber(integerLiteral: 1)
             cfp.decValue = NSNumber(floatLiteral: 1.0)
