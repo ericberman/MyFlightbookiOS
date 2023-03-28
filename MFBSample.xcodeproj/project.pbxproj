@@ -74,6 +74,10 @@
 		9A2649F829D106B000C0D176 /* EditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2649F729D106B000C0D176 /* EditCell.swift */; };
 		9A2649FA29D106FB00C0D176 /* NavigableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2649F929D106FB00C0D176 /* NavigableCell.swift */; };
 		9A2649FC29D1120700C0D176 /* PropertyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2649FB29D1120700C0D176 /* PropertyCell.swift */; };
+		9A2649FE29D2105300C0D176 /* ExpandHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2649FD29D2105300C0D176 /* ExpandHeaderCell.swift */; };
+		9A264A0029D25B0B00C0D176 /* PullRefreshTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2649FF29D25B0B00C0D176 /* PullRefreshTableViewController.swift */; };
+		9A264A0229D26C6700C0D176 /* WaitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A264A0129D26C6700C0D176 /* WaitCell.swift */; };
+		9A264A0429D33CC400C0D176 /* MakeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A264A0329D33CC400C0D176 /* MakeModel.swift */; };
 		9A27222E29B5025C006AE702 /* RouteAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A27222D29B5025C006AE702 /* RouteAnnotation.swift */; };
 		9A27223029B53861006AE702 /* FlightProps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A27222F29B53861006AE702 /* FlightProps.swift */; };
 		9A27223329B55C67006AE702 /* Telemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A27223229B55C67006AE702 /* Telemetry.swift */; };
@@ -88,7 +92,6 @@
 		9A30201829CBE32A00115538 /* SimpleItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A30201529CBDAFC00115538 /* SimpleItems.swift */; };
 		9A30201929CBE32D00115538 /* SimpleItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A30201529CBDAFC00115538 /* SimpleItems.swift */; };
 		9A30B1C01103D61C002A5029 /* MoreInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A30B1BF1103D61C002A5029 /* MoreInfo.png */; };
-		9A3A27311573F002009AE0F6 /* WaitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3A27301573F002009AE0F6 /* WaitCell.m */; };
 		9A3A27331573F062009AE0F6 /* WaitCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A3A27321573F062009AE0F6 /* WaitCell.xib */; };
 		9A3A694F11B85C72009A5C88 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3A694E11B85C72009A5C88 /* libsqlite3.0.dylib */; };
 		9A3E1375127DE704008D672E /* EXFGPS.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3E136E127DE704008D672E /* EXFGPS.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -189,11 +192,9 @@
 		9A69202D10CCBD8B00DF1CA6 /* USAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202510CCBD8A00DF1CA6 /* USAdditions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9A69202E10CCBD8B00DF1CA6 /* USGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202710CCBD8A00DF1CA6 /* USGlobals.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9A69202F10CCBD8B00DF1CA6 /* xsd.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202910CCBD8B00DF1CA6 /* xsd.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A6A602213E91145000CB7A6 /* MakeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6A602013E91145000CB7A6 /* MakeModel.m */; };
 		9A6B78A122399C8C0014B0C2 /* NewAircraftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6B78A022399C8C0014B0C2 /* NewAircraftViewController.m */; };
 		9A6B78A422399DDC0014B0C2 /* AircraftViewControllerBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6B78A322399DDC0014B0C2 /* AircraftViewControllerBase.m */; };
 		9A6BDE10157092D600F715E1 /* EditCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A6BDE0F157092D600F715E1 /* EditCell.xib */; };
-		9A6C3B4115728E10004EB8FA /* ExpandHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6C3B4015728E10004EB8FA /* ExpandHeaderCell.m */; };
 		9A6C3B4315728F27004EB8FA /* ExpandHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A6C3B4215728F27004EB8FA /* ExpandHeaderCell.xib */; };
 		9A6DDB9511A8547D0053C8AA /* MFBIcon.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DDB9111A8547D0053C8AA /* MFBIcon.gif */; };
 		9A6DFCEA2242FFC90061FE86 /* Default-Portrait1125x2436.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DFCE52242FFC80061FE86 /* Default-Portrait1125x2436.png */; };
@@ -611,6 +612,10 @@
 		9A2649F729D106B000C0D176 /* EditCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCell.swift; sourceTree = "<group>"; };
 		9A2649F929D106FB00C0D176 /* NavigableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigableCell.swift; sourceTree = "<group>"; };
 		9A2649FB29D1120700C0D176 /* PropertyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyCell.swift; sourceTree = "<group>"; };
+		9A2649FD29D2105300C0D176 /* ExpandHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandHeaderCell.swift; sourceTree = "<group>"; };
+		9A2649FF29D25B0B00C0D176 /* PullRefreshTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRefreshTableViewController.swift; sourceTree = "<group>"; };
+		9A264A0129D26C6700C0D176 /* WaitCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitCell.swift; sourceTree = "<group>"; };
+		9A264A0329D33CC400C0D176 /* MakeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeModel.swift; sourceTree = "<group>"; };
 		9A27222D29B5025C006AE702 /* RouteAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteAnnotation.swift; sourceTree = "<group>"; };
 		9A27222F29B53861006AE702 /* FlightProps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightProps.swift; sourceTree = "<group>"; };
 		9A27223229B55C67006AE702 /* Telemetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Telemetry.swift; sourceTree = "<group>"; };
@@ -623,8 +628,6 @@
 		9A30201529CBDAFC00115538 /* SimpleItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleItems.swift; sourceTree = "<group>"; };
 		9A30201B29CCB5C200115538 /* MyFlightbookWatch Extension-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MyFlightbookWatch Extension-Bridging-Header.h"; path = "Model classes/MyFlightbookWatch Extension-Bridging-Header.h"; sourceTree = "<group>"; };
 		9A30B1BF1103D61C002A5029 /* MoreInfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MoreInfo.png; sourceTree = "<group>"; };
-		9A3A272F1573F002009AE0F6 /* WaitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaitCell.h; sourceTree = "<group>"; };
-		9A3A27301573F002009AE0F6 /* WaitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaitCell.m; sourceTree = "<group>"; };
 		9A3A27321573F062009AE0F6 /* WaitCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WaitCell.xib; sourceTree = "<group>"; };
 		9A3A694E11B85C72009A5C88 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		9A3E12F1127DD633008D672E /* EXF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXF.h; sourceTree = "<group>"; };
@@ -719,15 +722,11 @@
 		9A69202810CCBD8A00DF1CA6 /* xsd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xsd.h; sourceTree = "<group>"; };
 		9A69202910CCBD8B00DF1CA6 /* xsd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = xsd.m; sourceTree = "<group>"; };
 		9A69203A10CCC08200DF1CA6 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		9A6A601F13E91145000CB7A6 /* MakeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakeModel.h; sourceTree = "<group>"; };
-		9A6A602013E91145000CB7A6 /* MakeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakeModel.m; sourceTree = "<group>"; };
 		9A6B789F22399C8C0014B0C2 /* NewAircraftViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewAircraftViewController.h; sourceTree = "<group>"; };
 		9A6B78A022399C8C0014B0C2 /* NewAircraftViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewAircraftViewController.m; sourceTree = "<group>"; };
 		9A6B78A222399DDC0014B0C2 /* AircraftViewControllerBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AircraftViewControllerBase.h; sourceTree = "<group>"; };
 		9A6B78A322399DDC0014B0C2 /* AircraftViewControllerBase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AircraftViewControllerBase.m; sourceTree = "<group>"; };
 		9A6BDE0F157092D600F715E1 /* EditCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditCell.xib; sourceTree = "<group>"; };
-		9A6C3B3F15728E10004EB8FA /* ExpandHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpandHeaderCell.h; sourceTree = "<group>"; };
-		9A6C3B4015728E10004EB8FA /* ExpandHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpandHeaderCell.m; sourceTree = "<group>"; };
 		9A6C3B4215728F27004EB8FA /* ExpandHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpandHeaderCell.xib; sourceTree = "<group>"; };
 		9A6DDB9111A8547D0053C8AA /* MFBIcon.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = MFBIcon.gif; sourceTree = "<group>"; };
 		9A6DFCE52242FFC80061FE86 /* Default-Portrait1125x2436.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait1125x2436.png"; sourceTree = "<group>"; };
@@ -1337,6 +1336,7 @@
 				9A14335E29A99231007129A9 /* HostedWebViewController.swift */,
 				9AC88C1029BFD54600841C0A /* WPSAlertController.swift */,
 				9A2649F129D0FAE500C0D176 /* CollapsibleTable.swift */,
+				9A2649FF29D25B0B00C0D176 /* PullRefreshTableViewController.swift */,
 			);
 			name = "UI Utility Classes";
 			sourceTree = "<group>";
@@ -1344,8 +1344,6 @@
 		9A58E0441131A749005988FA /* Aircraft */ = {
 			isa = PBXGroup;
 			children = (
-				9A6A601F13E91145000CB7A6 /* MakeModel.h */,
-				9A6A602013E91145000CB7A6 /* MakeModel.m */,
 				9A58E0451131A77C005988FA /* MyAircraft.h */,
 				9A58E0461131A77C005988FA /* MyAircraft.m */,
 				9A6B78A222399DDC0014B0C2 /* AircraftViewControllerBase.h */,
@@ -1354,6 +1352,7 @@
 				9A6B78A022399C8C0014B0C2 /* NewAircraftViewController.m */,
 				9A60D6C416F8D6A500F9DFFF /* AircraftViewController.h */,
 				9ACEDB9722388BAB00221A17 /* AircraftViewController.m */,
+				9A264A0329D33CC400C0D176 /* MakeModel.swift */,
 			);
 			name = Aircraft;
 			sourceTree = "<group>";
@@ -1795,8 +1794,6 @@
 				9AE4B7B116FE80EE0001BD2C /* EditCellDetail.xib */,
 				9A60CAE1180DFCFF00BE813A /* EditCellNoLabel.xib */,
 				9A5DA32019E847E50016100C /* EditCellML.xib */,
-				9A6C3B3F15728E10004EB8FA /* ExpandHeaderCell.h */,
-				9A6C3B4015728E10004EB8FA /* ExpandHeaderCell.m */,
 				9A6C3B4215728F27004EB8FA /* ExpandHeaderCell.xib */,
 				9A0DD9F6158579BE00FB6DF2 /* FixedImageCell.h */,
 				9A0DD9F7158579BE00FB6DF2 /* FixedImageCell.m */,
@@ -1807,14 +1804,14 @@
 				9ADB297016F62344008D9582 /* TextCell.h */,
 				9ADB297116F62344008D9582 /* TextCell.m */,
 				9ADB297316F62356008D9582 /* TextCell.xib */,
-				9A3A272F1573F002009AE0F6 /* WaitCell.h */,
-				9A3A27301573F002009AE0F6 /* WaitCell.m */,
 				9A3A27321573F062009AE0F6 /* WaitCell.xib */,
 				9A017B7422FA46A9007F0210 /* ConjunctionCell.h */,
 				9A017B7522FA46A9007F0210 /* ConjunctionCell.m */,
 				9A2649F729D106B000C0D176 /* EditCell.swift */,
 				9A2649F929D106FB00C0D176 /* NavigableCell.swift */,
 				9A2649FB29D1120700C0D176 /* PropertyCell.swift */,
+				9A2649FD29D2105300C0D176 /* ExpandHeaderCell.swift */,
+				9A264A0129D26C6700C0D176 /* WaitCell.swift */,
 			);
 			name = CustomTableCells;
 			sourceTree = "<group>";
@@ -2362,6 +2359,7 @@
 				9A14334E29A6D9B7007129A9 /* CurrencyRow.swift in Sources */,
 				9A8EE98129A9B20200F133CF /* MFBSoap.swift in Sources */,
 				9A69202F10CCBD8B00DF1CA6 /* xsd.m in Sources */,
+				9A264A0229D26C6700C0D176 /* WaitCell.swift in Sources */,
 				9A8BFADF22B00B1000CB79E0 /* SelectTemplates.m in Sources */,
 				9A48E27429A1686000511D99 /* MyFlightbookWidgets.intentdefinition in Sources */,
 				9A017B7722FA46A9007F0210 /* ConjunctionCell.m in Sources */,
@@ -2383,6 +2381,7 @@
 				9A0C938511E63A850062AF27 /* FlightProperties.m in Sources */,
 				9A3E1375127DE704008D672E /* EXFGPS.m in Sources */,
 				9A3E1376127DE704008D672E /* EXFHandlers.m in Sources */,
+				9A264A0429D33CC400C0D176 /* MakeModel.swift in Sources */,
 				9A3E1377127DE704008D672E /* EXFJFIF.m in Sources */,
 				9A2649F429D0FC3900C0D176 /* AccessoryBar.swift in Sources */,
 				9A0EA69729C947C00031A10D /* MFBAppDelegate.swift in Sources */,
@@ -2394,6 +2393,7 @@
 				9AC88C0B29BFAD6800841C0A /* MFBAsyncOperation.swift in Sources */,
 				9A3E1379127DE704008D672E /* EXFMetaData.m in Sources */,
 				9A3E137A127DE704008D672E /* EXFTagDefinitionHolder.m in Sources */,
+				9A2649FE29D2105300C0D176 /* ExpandHeaderCell.swift in Sources */,
 				9A3E137B127DE704008D672E /* EXFUtils.m in Sources */,
 				9A6137431CF95F840002873E /* SecurityQuestionPicker.m in Sources */,
 				9A84363429BA926D0001012D /* MFBSqlLite.swift in Sources */,
@@ -2406,7 +2406,6 @@
 				9A84363729BAB0540001012D /* CountryCode.swift in Sources */,
 				9A2649F829D106B000C0D176 /* EditCell.swift in Sources */,
 				9A78376E13E8AB99007CD501 /* VADetails.m in Sources */,
-				9A6A602213E91145000CB7A6 /* MakeModel.m in Sources */,
 				9A14335529A81A1A007129A9 /* UserPreferences.swift in Sources */,
 				9A06E7AC29D0E2EA0093A384 /* Training.swift in Sources */,
 				9A48E27D29A1693B00511D99 /* WidgetSoapCall.swift in Sources */,
@@ -2417,8 +2416,6 @@
 				9AC7B8BF14D0ADAB009139BF /* PullRefreshTableViewController.m in Sources */,
 				9A79E30A156E9B7100EBEF48 /* FlightQueryForm.m in Sources */,
 				9AC88C0F29BFAD8B00841C0A /* Aircraft.swift in Sources */,
-				9A6C3B4115728E10004EB8FA /* ExpandHeaderCell.m in Sources */,
-				9A3A27311573F002009AE0F6 /* WaitCell.m in Sources */,
 				9A42300C157B953F00FF99D4 /* ProgressCell.m in Sources */,
 				9A0DD9F8158579BE00FB6DF2 /* FixedImageCell.m in Sources */,
 				9A2649FA29D106FB00C0D176 /* NavigableCell.swift in Sources */,
@@ -2433,6 +2430,7 @@
 				9A23CFA816F53B5E001C9098 /* ButtonCell.m in Sources */,
 				9A503AA829CB702200D201C5 /* SynchronousCalls.swift in Sources */,
 				9ADB297216F62344008D9582 /* TextCell.m in Sources */,
+				9A264A0029D25B0B00C0D176 /* PullRefreshTableViewController.swift in Sources */,
 				9A84363229B98AA70001012D /* MFBConstants.swift in Sources */,
 				9ADB297816F666BD008D9582 /* NewUserTableController.m in Sources */,
 				9ADB297D16F69377008D9582 /* CheckboxCell.m in Sources */,

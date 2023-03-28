@@ -28,7 +28,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WaitCell.h"
+#import <MyFlightbook-Swift.h>
 #import "CollapsibleTable.h"
 
 @interface PullRefreshTableViewController : CollapsibleTable {

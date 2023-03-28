@@ -29,8 +29,6 @@
 #import "AircraftViewController.h"
 #import "RecentFlights.h"
 #import "ButtonCell.h"
-#import "ExpandHeaderCell.h"
-#import "MakeModel.h"
 #import "ImageComment.h"
 #import "TextCell.h"
 #import "CheckboxCell.h"

@@ -261,4 +261,11 @@ extension MFBWebServiceSvc_SimpleMakeModel {
             return getDescriptionPiece(1)
         }
     }
+    
+    // See comment above - this avoids the conflicting upper/lowercase names on "description"
+    public var unamibiguousDescription : String {
+        get {
+            return description!
+        }
+    }
 }

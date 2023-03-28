@@ -25,7 +25,6 @@
 //
 
 #import "FlightQueryForm.h"
-#import "ExpandHeaderCell.h"
 #import "ConjunctionCell.h"
 
 @interface FlightQueryForm ()

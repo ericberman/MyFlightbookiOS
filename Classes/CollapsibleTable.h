@@ -29,7 +29,6 @@
 #import <MyFlightbook-Swift.h>
 #import <QuartzCore/QuartzCore.h>
 #import <MobileCoreServices/UTCoreTypes.h>
-#import "ExpandHeaderCell.h"
 
 @interface CollapsibleTable : UITableViewController<UIImagePickerControllerDelegate, AccessoryBarDelegate, Invalidatable, UINavigationControllerDelegate, UIPopoverPresentationControllerDelegate>
 

@@ -26,7 +26,6 @@
 //
 
 #import "CollapsibleTable.h"
-#import "ExpandHeaderCell.h"
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 @import Photos;
