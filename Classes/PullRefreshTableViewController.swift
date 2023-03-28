@@ -161,7 +161,7 @@ public class PullRefreshTableViewControllerSW : CollapsibleTableSw {
         refreshSpinner.stopAnimating()
     }
     
-    public func refresh() {
+    @objc public func refresh() {
         // This is just a demo. Override this method with your custom reload action.
         // Don't forget to call stopLoading at the end.
         fatalError("Refresh called in pullRefreshTableViewController - must be implemented in subclass")

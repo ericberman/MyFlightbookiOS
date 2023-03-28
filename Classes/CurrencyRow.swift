@@ -56,31 +56,28 @@ public class CurrencyRow : UITableViewCell {
         }
     }
 
-    @objc(rowForCurrency: forTableView:) public static func rowForCurrency(ci : MFBWebServiceSvc_CurrencyStatusItem, tableView : UITableView) -> CurrencyRow? {
+    @objc(rowForCurrency: forTableView:) public static func rowForCurrency(ci : MFBWebServiceSvc_CurrencyStatusItem, tableView : UITableView) -> CurrencyRow {
         let CellIdentifier = "CurrencyRow"
-        var cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier)
-        if (cell == nil) {
+        var _cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier) as? CurrencyRow
+        if (_cell == nil) {
             let topLevelObjects = Bundle.main.loadNibNamed(CellIdentifier, owner: self)!
             if (topLevelObjects.count > 0) {
                 if let first = topLevelObjects[0] as? CurrencyRow {
-                    cell = first
+                    _cell = first
                 }
                 else if let second = topLevelObjects[1] as? CurrencyRow {
-                    cell = second
+                    _cell = second
                 }
             }
-            cell?.selectionStyle = .none
         }
         
-        if let cr = cell as? CurrencyRow {
-            cr.lblDescription.text = ci.formattedTitle()
-            cr.lblValue.text = ci.value
-            cr.lblValue.textColor = MFBWebServiceSvc_CurrencyStatusItem.colorForState(state: ci.status)
-            cr.lblDiscrepancy.text = ci.discrepancy
-            cr.AdjustLayoutForValues()
-            return cr
-        }
-        
-        return cell as? CurrencyRow // should never happen
+        let cr = _cell!
+        cr.selectionStyle = .none
+        cr.lblDescription.text = ci.formattedTitle()
+        cr.lblValue.text = ci.value
+        cr.lblValue.textColor = MFBWebServiceSvc_CurrencyStatusItem.colorForState(state: ci.status)
+        cr.lblDiscrepancy.text = ci.discrepancy
+        cr.AdjustLayoutForValues()
+        return cr
     }
 }

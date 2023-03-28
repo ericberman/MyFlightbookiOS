@@ -11,6 +11,8 @@
 		28216C970DB411BC00E5133A /* LEEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28216C960DB411BC00E5133A /* LEEditController.m */; };
 		9A017B7722FA46A9007F0210 /* ConjunctionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A017B7522FA46A9007F0210 /* ConjunctionCell.m */; };
 		9A020B3310FFEF3F00801349 /* RecentFlights.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A020B3110FFEF3F00801349 /* RecentFlights.m */; };
+		9A03F50329D396BE0047807E /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A03F50229D396BE0047807E /* Currency.swift */; };
+		9A03F50529D3ABA30047807E /* SwiftConversionHackBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A03F50429D3ABA30047807E /* SwiftConversionHackBridge.m */; };
 		9A050D292138790100B3F794 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A050D282138790000B3F794 /* Photos.framework */; };
 		9A06E7AA29D0C41A0093A384 /* PackAndGo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A06E7A929D0C41A0093A384 /* PackAndGo.swift */; };
 		9A06E7AC29D0E2EA0093A384 /* Training.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A06E7AB29D0E2EA0093A384 /* Training.swift */; };
@@ -421,7 +423,6 @@
 		9AD2FFEE1BE2C33D00A9B21B /* CurrencyInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD2FFED1BE2C33D00A9B21B /* CurrencyInterfaceController.swift */; };
 		9AD2FFF01BE2C34F00A9B21B /* TotalsInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD2FFEF1BE2C34F00A9B21B /* TotalsInterfaceController.swift */; };
 		9AD541BD1A17CB2400BD3850 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9AD541BC1A17CB2400BD3850 /* Images.xcassets */; };
-		9AD832CC10E296C8007817A4 /* Currency.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD832CA10E296C8007817A4 /* Currency.m */; };
 		9AD832F110E29D3F007817A4 /* currency.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AD832F010E29D3F007817A4 /* currency.png */; };
 		9AD92AE71E4CD57600A2FC49 /* noimage.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AD92AE61E4CD57600A2FC49 /* noimage.png */; };
 		9ADB297216F62344008D9582 /* TextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ADB297116F62344008D9582 /* TextCell.m */; };
@@ -540,6 +541,9 @@
 		9A017B7522FA46A9007F0210 /* ConjunctionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConjunctionCell.m; sourceTree = "<group>"; };
 		9A020B3010FFEF3F00801349 /* RecentFlights.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentFlights.h; sourceTree = "<group>"; };
 		9A020B3110FFEF3F00801349 /* RecentFlights.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentFlights.m; sourceTree = "<group>"; };
+		9A03F50229D396BE0047807E /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
+		9A03F50429D3ABA30047807E /* SwiftConversionHackBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwiftConversionHackBridge.m; sourceTree = "<group>"; };
+		9A03F50629D3ABB80047807E /* SwiftConversionHackBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftConversionHackBridge.h; sourceTree = "<group>"; };
 		9A050D282138790000B3F794 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		9A06E7A929D0C41A0093A384 /* PackAndGo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackAndGo.swift; sourceTree = "<group>"; };
 		9A06E7AB29D0E2EA0093A384 /* Training.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Training.swift; sourceTree = "<group>"; };
@@ -965,8 +969,6 @@
 		9AD2FFED1BE2C33D00A9B21B /* CurrencyInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyInterfaceController.swift; sourceTree = "<group>"; };
 		9AD2FFEF1BE2C34F00A9B21B /* TotalsInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalsInterfaceController.swift; sourceTree = "<group>"; };
 		9AD541BC1A17CB2400BD3850 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MyFlightbook/Images.xcassets; sourceTree = "<group>"; };
-		9AD832C910E296C8007817A4 /* Currency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Currency.h; sourceTree = "<group>"; };
-		9AD832CA10E296C8007817A4 /* Currency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Currency.m; sourceTree = "<group>"; };
 		9AD832F010E29D3F007817A4 /* currency.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = currency.png; sourceTree = "<group>"; };
 		9AD92AE61E4CD57600A2FC49 /* noimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noimage.png; sourceTree = "<group>"; };
 		9ADB297016F62344008D9582 /* TextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextCell.h; sourceTree = "<group>"; };
@@ -1297,12 +1299,11 @@
 		9A518E48111F863B004B4BF6 /* Totals and Currency */ = {
 			isa = PBXGroup;
 			children = (
-				9AD832C910E296C8007817A4 /* Currency.h */,
-				9AD832CA10E296C8007817A4 /* Currency.m */,
 				9AF7AD1810E1D7DC00A7DD43 /* Totals.h */,
 				9AF7AD1910E1D7DC00A7DD43 /* Totals.m */,
 				9A14334B29A6B37E007129A9 /* TotalsRow.swift */,
 				9A14334D29A6D9B7007129A9 /* CurrencyRow.swift */,
+				9A03F50229D396BE0047807E /* Currency.swift */,
 			);
 			name = "Totals and Currency";
 			sourceTree = "<group>";
@@ -1708,6 +1709,8 @@
 				9ADFA501193925C400FF30B7 /* Training */,
 				9A518E4A111F864D004B4BF6 /* UI Utility Classes */,
 				9A17C5F713E89AD900C47C82 /* Visited Airports */,
+				9A03F50429D3ABA30047807E /* SwiftConversionHackBridge.m */,
+				9A03F50629D3ABB80047807E /* SwiftConversionHackBridge.h */,
 			);
 			name = UIClasses;
 			sourceTree = "<group>";
@@ -1783,35 +1786,35 @@
 		9ADB297A16F66C4B008D9582 /* CustomTableCells */ = {
 			isa = PBXGroup;
 			children = (
-				9ABC7EFB22FF5EDC00338439 /* ConjunctionCell.xib */,
 				9A23CFA616F53B5D001C9098 /* ButtonCell.h */,
 				9A23CFA716F53B5D001C9098 /* ButtonCell.m */,
 				9A23CFA916F53B7D001C9098 /* ButtonCell.xib */,
 				9ADB297B16F69377008D9582 /* CheckboxCell.h */,
 				9ADB297C16F69377008D9582 /* CheckboxCell.m */,
 				9ADB297E16F6938A008D9582 /* CheckboxCell.xib */,
+				9A017B7422FA46A9007F0210 /* ConjunctionCell.h */,
+				9A017B7522FA46A9007F0210 /* ConjunctionCell.m */,
+				9ABC7EFB22FF5EDC00338439 /* ConjunctionCell.xib */,
+				9A2649F729D106B000C0D176 /* EditCell.swift */,
 				9A6BDE0F157092D600F715E1 /* EditCell.xib */,
 				9AE4B7B116FE80EE0001BD2C /* EditCellDetail.xib */,
-				9A60CAE1180DFCFF00BE813A /* EditCellNoLabel.xib */,
 				9A5DA32019E847E50016100C /* EditCellML.xib */,
+				9A60CAE1180DFCFF00BE813A /* EditCellNoLabel.xib */,
+				9A2649FD29D2105300C0D176 /* ExpandHeaderCell.swift */,
 				9A6C3B4215728F27004EB8FA /* ExpandHeaderCell.xib */,
 				9A0DD9F6158579BE00FB6DF2 /* FixedImageCell.h */,
 				9A0DD9F7158579BE00FB6DF2 /* FixedImageCell.m */,
+				9A2649F929D106FB00C0D176 /* NavigableCell.swift */,
 				9A42300A157B953F00FF99D4 /* ProgressCell.h */,
 				9A42300B157B953F00FF99D4 /* ProgressCell.m */,
 				9A825DF6193677EA00967DF9 /* ProgressCell.xib */,
+				9A2649FB29D1120700C0D176 /* PropertyCell.swift */,
 				9A99506116E3C17F00C61594 /* PropertyCell.xib */,
 				9ADB297016F62344008D9582 /* TextCell.h */,
 				9ADB297116F62344008D9582 /* TextCell.m */,
 				9ADB297316F62356008D9582 /* TextCell.xib */,
-				9A3A27321573F062009AE0F6 /* WaitCell.xib */,
-				9A017B7422FA46A9007F0210 /* ConjunctionCell.h */,
-				9A017B7522FA46A9007F0210 /* ConjunctionCell.m */,
-				9A2649F729D106B000C0D176 /* EditCell.swift */,
-				9A2649F929D106FB00C0D176 /* NavigableCell.swift */,
-				9A2649FB29D1120700C0D176 /* PropertyCell.swift */,
-				9A2649FD29D2105300C0D176 /* ExpandHeaderCell.swift */,
 				9A264A0129D26C6700C0D176 /* WaitCell.swift */,
+				9A3A27321573F062009AE0F6 /* WaitCell.xib */,
 			);
 			name = CustomTableCells;
 			sourceTree = "<group>";
@@ -2340,6 +2343,7 @@
 				9A2649FC29D1120700C0D176 /* PropertyCell.swift in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				9A2649F629D0FE4E00C0D176 /* DateRangeViewController.swift in Sources */,
+				9A03F50329D396BE0047807E /* Currency.swift in Sources */,
 				9A6F1BFC29B3D891004D1F31 /* SunriseSunset.swift in Sources */,
 				28216C970DB411BC00E5133A /* LEEditController.m in Sources */,
 				9A6B78A122399C8C0014B0C2 /* NewAircraftViewController.m in Sources */,
@@ -2369,10 +2373,10 @@
 				9AF7AD1B10E1D7DC00A7DD43 /* Totals.m in Sources */,
 				9A14334629A54991007129A9 /* MFBWebServiceObjectExtensions.swift in Sources */,
 				9A0E793D29BD76F4005EF4D6 /* ApproachDescription.swift in Sources */,
-				9AD832CC10E296C8007817A4 /* Currency.m in Sources */,
 				9AE39A4729ABC1C5002A6496 /* Airports.swift in Sources */,
 				9AFAC07B10E5968800225E90 /* NearbyAirports.m in Sources */,
 				9AE39A4129AAA40D002A6496 /* MultiValOptionSelector.swift in Sources */,
+				9A03F50529D3ABA30047807E /* SwiftConversionHackBridge.m in Sources */,
 				9A020B3310FFEF3F00801349 /* RecentFlights.m in Sources */,
 				9A121395111D3073001CDDB6 /* ImageComment.m in Sources */,
 				9AE39A4329AAA456002A6496 /* OptionSelection.swift in Sources */,

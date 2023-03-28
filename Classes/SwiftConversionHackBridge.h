@@ -1,7 +1,7 @@
 /*
-	MyFlightbook for iOS - provides native access to MyFlightbook
-	pilot's logbook
- Copyright (C) 2017-2023 MyFlightbook, LLC
+    MyFlightbook for iOS - provides native access to MyFlightbook
+    pilot's logbook
+ Copyright (C) 2010-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -18,17 +18,19 @@
  */
 
 //
-//  Currency.h
+//  SwiftConversionHackBridge.h
 //  MFBSample
 //
-//  Created by Eric Berman on 12/23/09.
+//  Created by Eric Berman on 3/28/23.
 //
 
-#import <UIKit/UIKit.h>
-#import <MyFlightbook-Swift.h>
+#ifndef SwiftConversionHackBridge_h
+#define SwiftConversionHackBridge_h
 #import "MFBWebServiceSvc.h"
-#import "PullRefreshTableViewController.h"
 
-@interface Currency : PullRefreshTableViewController <MFBSoapCallDelegate> {
-}
+@interface SwiftConversionHackBridge : NSObject
++ (UIViewController *_Nonnull) recentFlightsWithQuery: ( MFBWebServiceSvc_FlightQuery * _Nonnull ) fq;
++ (UIViewController *_Nonnull) aircraftDetailsWithAircraft: (MFBWebServiceSvc_Aircraft * _Nonnull) ac;
 @end
+
+#endif /* SwiftConversionHackBridge_h */

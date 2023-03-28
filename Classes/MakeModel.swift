@@ -132,7 +132,7 @@ public class ManufacturerCollection : NSObject {
         tableView.reloadData() // in case the static description needs to be updated
     }
     
-    public override func refresh() {
+    @objc public override func refresh() {
         if fDisableRefresh || !MFBNetworkManager.shared.isOnLine {
             if isLoading {
                 stopLoading()

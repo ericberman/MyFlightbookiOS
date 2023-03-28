@@ -154,7 +154,7 @@
                         <color key="tintColor" red="0.0" green="0.73725490199999999" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <viewControllers>
-                        <tableViewController title="Currency" nibName="Currency" id="173" userLabel="currency" customClass="Currency">
+                        <tableViewController title="Currency" nibName="Currency" id="173" userLabel="currency" customClass="Currency" customModule="MyFlightbook" customModuleProvider="target">
                             <extendedEdge key="edgesForExtendedLayout"/>
                             <toolbarItems/>
                             <navigationItem key="navigationItem" title="Flying Currency" id="227"/>
