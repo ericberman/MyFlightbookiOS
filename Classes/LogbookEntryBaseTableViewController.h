@@ -27,7 +27,6 @@
 #import "SelectTemplates.h"
 #import "ApproachEditor.h"
 #import "TotalsCalculator.h"
-#import "NearbyAirports.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

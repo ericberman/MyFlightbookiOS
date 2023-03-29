@@ -166,7 +166,7 @@
                         <color key="tintColor" red="0.0" green="0.73725490199999999" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <viewControllers>
-                        <viewController title="Nearest" nibName="NearbyAirports" id="G1I-UT-bEl" customClass="NearbyAirports">
+                        <viewController title="Nearest" nibName="NearbyAirports" id="G1I-UT-bEl" customClass="NearbyAirports" customModule="MyFlightbook" customModuleProvider="target">
                             <extendedEdge key="edgesForExtendedLayout"/>
                             <navigationItem key="navigationItem" title="Nearest" id="bft-QC-a3e"/>
                         </viewController>

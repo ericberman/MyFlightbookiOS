@@ -25,7 +25,6 @@
 
 #import "LogbookEntryBaseTableViewController.h"
 #import "FlightProperties.h"
-#import "NearbyAirports.h"
 #import "MyAircraft.h"
 #import "RecentFlights.h"
 #import <MyFlightbook-Swift.h>
@@ -569,15 +568,6 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
 }
 
 #pragma mark NearbyAirportsDelegate
-- (void) airportClicked:(MFBWebServiceSvc_airport *) ap {
-    if (ap != nil) {
-        NSString * newRoute = [Airports appendAirport:ap ToRoute:((self.idRoute == nil) ? self.le.entryData.Route : self.idRoute.text)];
-        self.le.entryData.Route = newRoute;
-        if (self.idRoute != nil)
-            self.idRoute.text = newRoute;
-    }
-}
-
 - (void) routeUpdated:(NSString *)newRoute {
     self.idRoute.text = self.le.entryData.Route = newRoute;
 }
@@ -604,7 +594,6 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
         vwNearbyAirports.delegateNearest = ([self.le.entryData isNewFlight] ? self : nil);
         
         vwNearbyAirports.associatedFlight = self.le;
-        [vwNearbyAirports getPathForLogbookEntry];
         
         vwNearbyAirports.rgImages = [[NSMutableArray alloc] init];
         
@@ -614,7 +603,7 @@ NSString * const _szKeyCurrentFlight = @"keyCurrentNewFlight";
         for (CommentedImage * ci in self.le.rgPicsForFlight)
         {
             if (ci.imgInfo.Location != nil && ci.imgInfo.Location.Latitude != nil && ci.imgInfo.Location.Longitude != nil)
-                [vwNearbyAirports.rgImages addObject:ci];
+                [vwNearbyAirports addImage:ci];
         }
         
         if (self.navigationController != nil)
