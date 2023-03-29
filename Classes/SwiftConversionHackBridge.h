@@ -36,7 +36,6 @@
 + (UIViewController *_Nonnull) recentFlightsWithQuery: (MFBWebServiceSvc_FlightQuery * _Nonnull) fq;
 + (UIViewController *_Nonnull) aircraftDetailsWithAircraft: (MFBWebServiceSvc_Aircraft * _Nonnull) ac;
 + (UIViewController *_Nonnull) queryControllerWithQuery: (MFBWebServiceSvc_FlightQuery * _Nonnull) fq withDelegate: (id<QueryDelegate> _Nullable) delegate;
-+ (UIViewController *_Nonnull) imageCommentWithImage: (id _Nonnull) ci;
 @end
 
 #endif /* SwiftConversionHackBridge_h */

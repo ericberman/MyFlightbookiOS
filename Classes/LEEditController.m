@@ -27,7 +27,6 @@
 #import "LEEditController.h"
 #import <QuartzCore/QuartzCore.h>
 #import <MobileCoreServices/UTCoreTypes.h>
-#import "ImageComment.h"
 #import "FlightProperties.h"
 #import "ButtonCell.h"
 #import "math.h"

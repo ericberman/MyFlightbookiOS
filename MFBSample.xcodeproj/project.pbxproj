@@ -15,6 +15,7 @@
 		9A03F50529D3ABA30047807E /* SwiftConversionHackBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A03F50429D3ABA30047807E /* SwiftConversionHackBridge.m */; };
 		9A03F50829D3B51A0047807E /* Totals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A03F50729D3B51A0047807E /* Totals.swift */; };
 		9A03F50A29D489520047807E /* NearbyAirports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A03F50929D489520047807E /* NearbyAirports.swift */; };
+		9A03F50C29D4CBC80047807E /* ImageComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A03F50B29D4CBC80047807E /* ImageComment.swift */; };
 		9A050D292138790100B3F794 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A050D282138790000B3F794 /* Photos.framework */; };
 		9A06E7AA29D0C41A0093A384 /* PackAndGo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A06E7A929D0C41A0093A384 /* PackAndGo.swift */; };
 		9A06E7AC29D0E2EA0093A384 /* Training.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A06E7AB29D0E2EA0093A384 /* Training.swift */; };
@@ -38,7 +39,6 @@
 		9A1014C910DD5EB200FA37D4 /* newflight.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A1014C810DD5EB200FA37D4 /* newflight.png */; };
 		9A1014CD10DD5FCA00FA37D4 /* backspace.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A1014CC10DD5FCA00FA37D4 /* backspace.png */; };
 		9A117D8C221782FC0095CE32 /* BadElfCircle-Vertical-Transparent.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A117D8B221782FB0095CE32 /* BadElfCircle-Vertical-Transparent.png */; };
-		9A121395111D3073001CDDB6 /* ImageComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A121393111D3073001CDDB6 /* ImageComment.m */; };
 		9A14334429A52934007129A9 /* MFBTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14334329A52934007129A9 /* MFBTheme.swift */; };
 		9A14334629A54991007129A9 /* MFBWebServiceObjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14334529A54991007129A9 /* MFBWebServiceObjectExtensions.swift */; };
 		9A14334729A54991007129A9 /* MFBWebServiceObjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A14334529A54991007129A9 /* MFBWebServiceObjectExtensions.swift */; };
@@ -546,6 +546,7 @@
 		9A03F50629D3ABB80047807E /* SwiftConversionHackBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftConversionHackBridge.h; sourceTree = "<group>"; };
 		9A03F50729D3B51A0047807E /* Totals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Totals.swift; sourceTree = "<group>"; };
 		9A03F50929D489520047807E /* NearbyAirports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyAirports.swift; sourceTree = "<group>"; };
+		9A03F50B29D4CBC80047807E /* ImageComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageComment.swift; sourceTree = "<group>"; };
 		9A050D282138790000B3F794 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		9A06E7A929D0C41A0093A384 /* PackAndGo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackAndGo.swift; sourceTree = "<group>"; };
 		9A06E7AB29D0E2EA0093A384 /* Training.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Training.swift; sourceTree = "<group>"; };
@@ -574,8 +575,6 @@
 		9A1014C810DD5EB200FA37D4 /* newflight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newflight.png; sourceTree = "<group>"; };
 		9A1014CC10DD5FCA00FA37D4 /* backspace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backspace.png; sourceTree = "<group>"; };
 		9A117D8B221782FB0095CE32 /* BadElfCircle-Vertical-Transparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BadElfCircle-Vertical-Transparent.png"; sourceTree = "<group>"; };
-		9A121392111D3073001CDDB6 /* ImageComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageComment.h; sourceTree = "<group>"; };
-		9A121393111D3073001CDDB6 /* ImageComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageComment.m; sourceTree = "<group>"; };
 		9A14334329A52934007129A9 /* MFBTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFBTheme.swift; sourceTree = "<group>"; };
 		9A14334529A54991007129A9 /* MFBWebServiceObjectExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFBWebServiceObjectExtensions.swift; sourceTree = "<group>"; };
 		9A14334B29A6B37E007129A9 /* TotalsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalsRow.swift; sourceTree = "<group>"; };
@@ -1325,8 +1324,6 @@
 				9A60D6CA16F90BDE00F9DFFF /* CollapsibleTable.m */,
 				9A79E308156E9B7100EBEF48 /* FlightQueryForm.h */,
 				9A79E309156E9B7100EBEF48 /* FlightQueryForm.m */,
-				9A121392111D3073001CDDB6 /* ImageComment.h */,
-				9A121393111D3073001CDDB6 /* ImageComment.m */,
 				9AC7B8BD14D0ADAB009139BF /* PullRefreshTableViewController.h */,
 				9AC7B8BE14D0ADAB009139BF /* PullRefreshTableViewController.m */,
 				9A14335E29A99231007129A9 /* HostedWebViewController.swift */,
@@ -1334,6 +1331,7 @@
 				9A2649F129D0FAE500C0D176 /* CollapsibleTable.swift */,
 				9A2649FF29D25B0B00C0D176 /* PullRefreshTableViewController.swift */,
 				9A03F50929D489520047807E /* NearbyAirports.swift */,
+				9A03F50B29D4CBC80047807E /* ImageComment.swift */,
 			);
 			name = "UI Utility Classes";
 			sourceTree = "<group>";
@@ -2339,6 +2337,7 @@
 				9A2649FC29D1120700C0D176 /* PropertyCell.swift in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				9A2649F629D0FE4E00C0D176 /* DateRangeViewController.swift in Sources */,
+				9A03F50C29D4CBC80047807E /* ImageComment.swift in Sources */,
 				9A03F50329D396BE0047807E /* Currency.swift in Sources */,
 				9A6F1BFC29B3D891004D1F31 /* SunriseSunset.swift in Sources */,
 				28216C970DB411BC00E5133A /* LEEditController.m in Sources */,
@@ -2373,7 +2372,6 @@
 				9AE39A4129AAA40D002A6496 /* MultiValOptionSelector.swift in Sources */,
 				9A03F50529D3ABA30047807E /* SwiftConversionHackBridge.m in Sources */,
 				9A020B3310FFEF3F00801349 /* RecentFlights.m in Sources */,
-				9A121395111D3073001CDDB6 /* ImageComment.m in Sources */,
 				9AE39A4329AAA456002A6496 /* OptionSelection.swift in Sources */,
 				9A517E451E2ED4CC00EC3545 /* ApproachEditor.m in Sources */,
 				9A58E0481131A77C005988FA /* MyAircraft.m in Sources */,

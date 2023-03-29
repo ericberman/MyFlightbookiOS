@@ -27,7 +27,6 @@
 
 #import <MyFlightbook-Swift.h>
 #import "NewAircraftViewController.h"
-#import "ImageComment.h"
 #import "CheckboxCell.h"
 
 @interface NewAircraftViewController ()

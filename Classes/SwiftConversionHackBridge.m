@@ -30,7 +30,6 @@
 #import "RecentFlights.h"
 #import "AircraftViewController.h"
 #import "FlightQueryForm.h"
-#import "ImageComment.h"
 
 // Below are stubs for things that we can't call from swift (because we'd have to expose them in the bridging header,
 // but they in turn pull in references to swift objects that are defined in swift.h, causing circularity
@@ -53,14 +52,5 @@
     fqv.delegate = delegate;
     [fqv setQuery:fq];
     return fqv;
-}
-
-+ (UIViewController *_Nonnull) imageCommentWithImage: (id) ci {
-    if ([ci isKindOfClass:CommentedImage.class]) {
-        ImageComment * icView = [[ImageComment alloc] init];
-        icView.ci = (CommentedImage *) ci;
-        return icView;
-    }
-    return nil;
 }
 @end

@@ -425,7 +425,9 @@ import CoreLocation
             // and then pop ourselves off of the stack
             navigationController?.popViewController(animated: true)
         } else if let ci = view.annotation as? CommentedImage {
-            navigationController?.pushViewController(SwiftConversionHackBridge.imageComment(withImage: ci), animated: true)
+            let icView = ImageComment()
+            icView.ci = ci
+            navigationController?.pushViewController(icView, animated: true)
         }
     }
     
