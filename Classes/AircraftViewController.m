@@ -28,9 +28,7 @@
 #import <MyFlightbook-Swift.h>
 #import "AircraftViewController.h"
 #import "RecentFlights.h"
-#import "ButtonCell.h"
 #import "TextCell.h"
-#import "CheckboxCell.h"
 
 @interface AircraftViewController ()
 - (void) findFlights:(id)sender;

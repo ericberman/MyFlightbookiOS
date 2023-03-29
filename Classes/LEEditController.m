@@ -28,7 +28,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "FlightProperties.h"
-#import "ButtonCell.h"
 #import "math.h"
 #import "TextCell.h"
 

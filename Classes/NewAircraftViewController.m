@@ -27,7 +27,6 @@
 
 #import <MyFlightbook-Swift.h>
 #import "NewAircraftViewController.h"
-#import "CheckboxCell.h"
 
 @interface NewAircraftViewController ()
 @property (nonatomic, strong) NSString * szTailnumberLast;

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		28216C970DB411BC00E5133A /* LEEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28216C960DB411BC00E5133A /* LEEditController.m */; };
-		9A017B7722FA46A9007F0210 /* ConjunctionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A017B7522FA46A9007F0210 /* ConjunctionCell.m */; };
 		9A020B3310FFEF3F00801349 /* RecentFlights.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A020B3110FFEF3F00801349 /* RecentFlights.m */; };
 		9A03F50329D396BE0047807E /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A03F50229D396BE0047807E /* Currency.swift */; };
 		9A03F50529D3ABA30047807E /* SwiftConversionHackBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A03F50429D3ABA30047807E /* SwiftConversionHackBridge.m */; };
@@ -69,7 +68,6 @@
 		9A23CF9E16F4DE9A001C9098 /* Checkbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A23CF9A16F4DE9A001C9098 /* Checkbox@2x.png */; };
 		9A23CFA416F50C57001C9098 /* SignInControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A23CFA216F50C57001C9098 /* SignInControllerViewController.m */; };
 		9A23CFA516F50C57001C9098 /* SignInControllerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A23CFA316F50C57001C9098 /* SignInControllerViewController.xib */; };
-		9A23CFA816F53B5E001C9098 /* ButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A23CFA716F53B5D001C9098 /* ButtonCell.m */; };
 		9A23CFAA16F53B7D001C9098 /* ButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A23CFA916F53B7D001C9098 /* ButtonCell.xib */; };
 		9A25F249235A5A3B002B3B48 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A73C84721AF51F400AE1221 /* NotificationCenter.framework */; };
 		9A2649F229D0FAE500C0D176 /* CollapsibleTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2649F129D0FAE500C0D176 /* CollapsibleTable.swift */; };
@@ -213,6 +211,9 @@
 		9A6DFCF8224306B30061FE86 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DFCF7224306B30061FE86 /* Launch Screen.storyboard */; };
 		9A6F1BFC29B3D891004D1F31 /* SunriseSunset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F1BFB29B3D891004D1F31 /* SunriseSunset.swift */; };
 		9A70B18722C07A8500CA7E21 /* FlightEditorBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A70B18622C07A8500CA7E21 /* FlightEditorBaseTableViewController.m */; };
+		9A70E34529D4F5AE0068B0E6 /* ConjunctionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A70E34429D4F5AE0068B0E6 /* ConjunctionCell.swift */; };
+		9A70E34729D4F9FA0068B0E6 /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A70E34629D4F9FA0068B0E6 /* ButtonCell.swift */; };
+		9A70E34929D4FB7B0068B0E6 /* CheckboxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A70E34829D4FB7B0068B0E6 /* CheckboxCell.swift */; };
 		9A77CF97110569D0006E7531 /* airport.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A77CF96110569D0006E7531 /* airport.png */; };
 		9A78376E13E8AB99007CD501 /* VADetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A78376C13E8AB98007CD501 /* VADetails.m */; };
 		9A79E30A156E9B7100EBEF48 /* FlightQueryForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A79E309156E9B7100EBEF48 /* FlightQueryForm.m */; };
@@ -431,7 +432,6 @@
 		9ADB297416F62356008D9582 /* TextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ADB297316F62356008D9582 /* TextCell.xib */; };
 		9ADB297816F666BD008D9582 /* NewUserTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ADB297616F666BD008D9582 /* NewUserTableController.m */; };
 		9ADB297916F666BD008D9582 /* NewUserTableController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ADB297716F666BD008D9582 /* NewUserTableController.xib */; };
-		9ADB297D16F69377008D9582 /* CheckboxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ADB297C16F69377008D9582 /* CheckboxCell.m */; };
 		9ADB297F16F6938A008D9582 /* CheckboxCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ADB297E16F6938A008D9582 /* CheckboxCell.xib */; };
 		9ADFA4F01939003300FF30B7 /* newflight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ADFA4EF1939003300FF30B7 /* newflight@2x.png */; };
 		9ADFA4F2193921BA00FF30B7 /* aircraft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ADFA4F1193921BA00FF30B7 /* aircraft@2x.png */; };
@@ -537,8 +537,6 @@
 		28A0AB4B0D9B1048005BE974 /* MFBSample_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFBSample_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MFBSample-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MFBSample-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
-		9A017B7422FA46A9007F0210 /* ConjunctionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConjunctionCell.h; sourceTree = "<group>"; };
-		9A017B7522FA46A9007F0210 /* ConjunctionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConjunctionCell.m; sourceTree = "<group>"; };
 		9A020B3010FFEF3F00801349 /* RecentFlights.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentFlights.h; sourceTree = "<group>"; };
 		9A020B3110FFEF3F00801349 /* RecentFlights.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentFlights.m; sourceTree = "<group>"; };
 		9A03F50229D396BE0047807E /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
@@ -608,8 +606,6 @@
 		9A23CFA116F50C57001C9098 /* SignInControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInControllerViewController.h; sourceTree = "<group>"; };
 		9A23CFA216F50C57001C9098 /* SignInControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInControllerViewController.m; sourceTree = "<group>"; };
 		9A23CFA316F50C57001C9098 /* SignInControllerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignInControllerViewController.xib; sourceTree = "<group>"; };
-		9A23CFA616F53B5D001C9098 /* ButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonCell.h; sourceTree = "<group>"; };
-		9A23CFA716F53B5D001C9098 /* ButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonCell.m; sourceTree = "<group>"; };
 		9A23CFA916F53B7D001C9098 /* ButtonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonCell.xib; sourceTree = "<group>"; };
 		9A2649F129D0FAE500C0D176 /* CollapsibleTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleTable.swift; sourceTree = "<group>"; };
 		9A2649F329D0FC3900C0D176 /* AccessoryBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessoryBar.swift; sourceTree = "<group>"; };
@@ -747,6 +743,9 @@
 		9A6F1BFB29B3D891004D1F31 /* SunriseSunset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunriseSunset.swift; sourceTree = "<group>"; };
 		9A70B18522C07A8500CA7E21 /* FlightEditorBaseTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlightEditorBaseTableViewController.h; sourceTree = "<group>"; };
 		9A70B18622C07A8500CA7E21 /* FlightEditorBaseTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FlightEditorBaseTableViewController.m; sourceTree = "<group>"; };
+		9A70E34429D4F5AE0068B0E6 /* ConjunctionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConjunctionCell.swift; sourceTree = "<group>"; };
+		9A70E34629D4F9FA0068B0E6 /* ButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
+		9A70E34829D4FB7B0068B0E6 /* CheckboxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxCell.swift; sourceTree = "<group>"; };
 		9A73C83F21AF51C200AE1221 /* MyFlightbook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = MyFlightbook.entitlements; path = MyFlightbook/MyFlightbook.entitlements; sourceTree = "<group>"; };
 		9A73C84021AF51C900AE1221 /* MyFlightbookWatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyFlightbookWatch.entitlements; sourceTree = "<group>"; };
 		9A73C84121AF51CF00AE1221 /* MyFlightbookWatch Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MyFlightbookWatch Extension.entitlements"; sourceTree = "<group>"; };
@@ -978,8 +977,6 @@
 		9ADB297516F666BD008D9582 /* NewUserTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewUserTableController.h; sourceTree = "<group>"; };
 		9ADB297616F666BD008D9582 /* NewUserTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewUserTableController.m; sourceTree = "<group>"; };
 		9ADB297716F666BD008D9582 /* NewUserTableController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewUserTableController.xib; sourceTree = "<group>"; };
-		9ADB297B16F69377008D9582 /* CheckboxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckboxCell.h; sourceTree = "<group>"; };
-		9ADB297C16F69377008D9582 /* CheckboxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckboxCell.m; sourceTree = "<group>"; };
 		9ADB297E16F6938A008D9582 /* CheckboxCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckboxCell.xib; sourceTree = "<group>"; };
 		9ADFA4EF1939003300FF30B7 /* newflight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "newflight@2x.png"; sourceTree = "<group>"; };
 		9ADFA4F1193921BA00FF30B7 /* aircraft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aircraft@2x.png"; sourceTree = "<group>"; };
@@ -1780,14 +1777,11 @@
 		9ADB297A16F66C4B008D9582 /* CustomTableCells */ = {
 			isa = PBXGroup;
 			children = (
-				9A23CFA616F53B5D001C9098 /* ButtonCell.h */,
-				9A23CFA716F53B5D001C9098 /* ButtonCell.m */,
+				9A70E34629D4F9FA0068B0E6 /* ButtonCell.swift */,
 				9A23CFA916F53B7D001C9098 /* ButtonCell.xib */,
-				9ADB297B16F69377008D9582 /* CheckboxCell.h */,
-				9ADB297C16F69377008D9582 /* CheckboxCell.m */,
+				9A70E34829D4FB7B0068B0E6 /* CheckboxCell.swift */,
 				9ADB297E16F6938A008D9582 /* CheckboxCell.xib */,
-				9A017B7422FA46A9007F0210 /* ConjunctionCell.h */,
-				9A017B7522FA46A9007F0210 /* ConjunctionCell.m */,
+				9A70E34429D4F5AE0068B0E6 /* ConjunctionCell.swift */,
 				9ABC7EFB22FF5EDC00338439 /* ConjunctionCell.xib */,
 				9A2649F729D106B000C0D176 /* EditCell.swift */,
 				9A6BDE0F157092D600F715E1 /* EditCell.xib */,
@@ -2361,12 +2355,12 @@
 				9A264A0229D26C6700C0D176 /* WaitCell.swift in Sources */,
 				9A8BFADF22B00B1000CB79E0 /* SelectTemplates.m in Sources */,
 				9A48E27429A1686000511D99 /* MyFlightbookWidgets.intentdefinition in Sources */,
-				9A017B7722FA46A9007F0210 /* ConjunctionCell.m in Sources */,
 				9A30201429CBDAB000115538 /* SharedWatch.swift in Sources */,
 				9A9CB2691E513B28002B2E11 /* TotalsCalculator.m in Sources */,
 				9AE39A4C29ABE29D002A6496 /* WebServiceMappingExtensions.swift in Sources */,
 				9A03F50829D3B51A0047807E /* Totals.swift in Sources */,
 				9A14334629A54991007129A9 /* MFBWebServiceObjectExtensions.swift in Sources */,
+				9A70E34929D4FB7B0068B0E6 /* CheckboxCell.swift in Sources */,
 				9A0E793D29BD76F4005EF4D6 /* ApproachDescription.swift in Sources */,
 				9AE39A4729ABC1C5002A6496 /* Airports.swift in Sources */,
 				9AE39A4129AAA40D002A6496 /* MultiValOptionSelector.swift in Sources */,
@@ -2384,6 +2378,7 @@
 				9A0EA69729C947C00031A10D /* MFBAppDelegate.swift in Sources */,
 				9A89C1AF29B8F45300848A6B /* About.swift in Sources */,
 				9AE39A3F29AAA2D0002A6496 /* AutodetectOptions.swift in Sources */,
+				9A70E34529D4F5AE0068B0E6 /* ConjunctionCell.swift in Sources */,
 				9A3E1378127DE704008D672E /* EXFJpeg.m in Sources */,
 				9A06E7AA29D0C41A0093A384 /* PackAndGo.swift in Sources */,
 				9AE39A4A29ABD008002A6496 /* LatLongBox.swift in Sources */,
@@ -2413,6 +2408,7 @@
 				9AC7B8BF14D0ADAB009139BF /* PullRefreshTableViewController.m in Sources */,
 				9A79E30A156E9B7100EBEF48 /* FlightQueryForm.m in Sources */,
 				9AC88C0F29BFAD8B00841C0A /* Aircraft.swift in Sources */,
+				9A70E34729D4F9FA0068B0E6 /* ButtonCell.swift in Sources */,
 				9A42300C157B953F00FF99D4 /* ProgressCell.m in Sources */,
 				9A0DD9F8158579BE00FB6DF2 /* FixedImageCell.m in Sources */,
 				9A2649FA29D106FB00C0D176 /* NavigableCell.swift in Sources */,
@@ -2425,13 +2421,11 @@
 				9A23CFA416F50C57001C9098 /* SignInControllerViewController.m in Sources */,
 				9A0E794029BE2F4F005EF4D6 /* MFBWebService LogbookEntry Extensions.swift in Sources */,
 				9AC88C0D29BFAD8300841C0A /* Logbook.swift in Sources */,
-				9A23CFA816F53B5E001C9098 /* ButtonCell.m in Sources */,
 				9A503AA829CB702200D201C5 /* SynchronousCalls.swift in Sources */,
 				9ADB297216F62344008D9582 /* TextCell.m in Sources */,
 				9A264A0029D25B0B00C0D176 /* PullRefreshTableViewController.swift in Sources */,
 				9A84363229B98AA70001012D /* MFBConstants.swift in Sources */,
 				9ADB297816F666BD008D9582 /* NewUserTableController.m in Sources */,
-				9ADB297D16F69377008D9582 /* CheckboxCell.m in Sources */,
 				9A14335F29A99231007129A9 /* HostedWebViewController.swift in Sources */,
 				9A60D6CB16F90BDE00F9DFFF /* CollapsibleTable.m in Sources */,
 				9A27222E29B5025C006AE702 /* RouteAnnotation.swift in Sources */,

@@ -25,7 +25,6 @@
 //
 
 #import "FlightQueryForm.h"
-#import "ConjunctionCell.h"
 
 @interface FlightQueryForm ()
 @property (nonatomic, strong) MFBWebServiceSvc_FlightQuery * fq;
