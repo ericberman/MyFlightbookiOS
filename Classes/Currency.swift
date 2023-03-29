@@ -75,15 +75,15 @@ public class Currency : PullRefreshTableViewControllerSW, MFBSoapCallDelegate {
             errorString = String(localized: "You must be signed in to view currency", comment: "Must be signed in to view currency")
             showError(errorString, withTitle: String(localized: "Error loading currency", comment: "Title Error message when loading currency"))
         } else if !MFBNetworkManager.shared.isOnLine {
-            let dtLastPack = PackAndGo.lastCurrencyPackDate
-            if dtLastPack != nil {
+            if let dtLastPack = PackAndGo.lastCurrencyPackDate {
                 let df = DateFormatter()
                 df.dateStyle = .short;
                 rgCurrency = PackAndGo.cachedCurrency
                 tableView.reloadData()
                 fIsValid = true
                 tableView.allowsSelection = false
-                showError(String(localized: "PackAndGoUsingCached", comment: "Pack and go - Using Cached"), withTitle: String(localized: "PackAndGoOffline", comment: "Pack and go - Using Cached"))
+                showError(String(format: String(localized: "PackAndGoUsingCached", comment: "Pack and go - Using Cached"), df.string(from: dtLastPack as Date)),
+                          withTitle: String(localized: "PackAndGoOffline", comment: "Pack and go - Using Cached"))
             } else {
                 errorString = String(localized: "No connection to the Internet is available", comment: "Error: Offline")
                 showError(errorString, withTitle: String(localized: "Error loading currency", comment: "Title Error message when loading currency"))

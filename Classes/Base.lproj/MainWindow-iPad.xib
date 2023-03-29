@@ -134,7 +134,7 @@
                         <color key="tintColor" red="0.0" green="0.73725490199999999" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <viewControllers>
-                        <viewController title="Totals" nibName="Totals" id="169" userLabel="totals" customClass="Totals">
+                        <viewController title="Totals" nibName="Totals" id="169" userLabel="totals" customClass="Totals" customModule="MyFlightbook" customModuleProvider="target">
                             <extendedEdge key="edgesForExtendedLayout"/>
                             <toolbarItems/>
                             <navigationItem key="navigationItem" title="Flying Totals" id="228"/>

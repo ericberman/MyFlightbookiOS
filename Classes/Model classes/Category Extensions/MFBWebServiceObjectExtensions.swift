@@ -25,7 +25,7 @@
 
 import Foundation
 
-// MARK: TotalsItem extensions
+// MARK: - TotalsItem extensions
 extension MFBWebServiceSvc_TotalsItem {
    @objc public func formattedValue(fHHMM : Bool) -> NSString {
        let nt = numericType as MFBWebServiceSvc_NumType
@@ -45,23 +45,21 @@ extension MFBWebServiceSvc_TotalsItem {
            }
    }
    
-   @objc public static func Group(items : Array<MFBWebServiceSvc_TotalsItem>) -> NSMutableArray {
-       let d = NSMutableDictionary()
+   @objc public static func group(items : Array<MFBWebServiceSvc_TotalsItem>) -> [[MFBWebServiceSvc_TotalsItem]] {
+       var d : [Int : [MFBWebServiceSvc_TotalsItem]] = [:]
        for ti in items {
            let key = Int(ti.group.rawValue)
            if (d[key] == nil) {
-               d[key] = NSMutableArray()
+               d[key] = []
            }
-           if let arr = d[key] as? NSMutableArray {
-               arr.add(ti)
-           }
+           d[key]!.append(ti)
        }
        
-       let result = NSMutableArray()
+       var result : [[MFBWebServiceSvc_TotalsItem]] = []
        for group in MFBWebServiceSvc_TotalsGroup_none.rawValue ... MFBWebServiceSvc_TotalsGroup_Total.rawValue {
            let key = Int(group)
            if let arr = d[key] {
-               result.add(arr)
+               result.append(arr)
            }
        }
        return result
@@ -84,7 +82,7 @@ extension MFBWebServiceSvc_TotalsItem {
     }
 }
 
-// MARK: CurrencyStatusItem extensions
+// MARK: - CurrencyStatusItem extensions
 extension MFBWebServiceSvc_CurrencyStatusItem {
    @objc public func formattedTitle() -> String {
        if (attribute.range(of:"<a href", options: .caseInsensitive) != nil) {
@@ -128,7 +126,7 @@ extension MFBWebServiceSvc_CurrencyStatusItem {
     }
 }
 
-// MARK: MFBWebServiceSvc_CategoryClass extensions
+// MARK: - MFBWebServiceSvc_CategoryClass extensions
 extension MFBWebServiceSvc_CategoryClass {    
     @objc(initWithID:) public convenience init(ccid : MFBWebServiceSvc_CatClassID) {
         self.init()
@@ -188,7 +186,7 @@ extension MFBWebServiceSvc_CategoryClass {
     }
 }
 
-// MARK: MFBWebServiceSvc MFBWebServiceSvc_FlightQuery extensions
+// MARK: - MFBWebServiceSvc MFBWebServiceSvc_FlightQuery extensions
 extension MFBWebServiceSvc_FlightQuery {
     public var aircraftAsArray : [MFBWebServiceSvc_Aircraft] {
         get {
@@ -356,6 +354,7 @@ extension MFBWebServiceSvc_FlightQuery {
     }
 }
 
+// MARK: - MFBWebServiceSvc_ArrayOfMFBImageInfo
 extension MFBWebServiceSvc_ArrayOfMFBImageInfo {
     static let imgKey = "RGMFBImages"
     
@@ -381,6 +380,7 @@ extension MFBWebServiceSvc_ArrayOfMFBImageInfo {
     }
 }
 
+// MARK: - MFBWebServiceSvc_MFBImageInfo
 private var UIB_CACHEDTHUMB_KEY: UInt8 = 0
 
 extension MFBWebServiceSvc_MFBImageInfo {

@@ -50,7 +50,7 @@ public class TotalsRow : UITableViewCell {
         }
     }
     
-    @objc(rowForTotal: forTableView: usingHHMM:) public static func rowForTotal(ti : MFBWebServiceSvc_TotalsItem, tableView : UITableView, fHHMM : Bool) -> TotalsRow? {
+    @objc(rowForTotal: forTableView: usingHHMM:) public static func rowForTotal(ti : MFBWebServiceSvc_TotalsItem, tableView : UITableView, fHHMM : Bool) -> TotalsRow {
         let CellIdentifier = "TotalsRow"
         var cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier)
         if (cell == nil) {
@@ -66,15 +66,13 @@ public class TotalsRow : UITableViewCell {
             cell?.selectionStyle = .none
         }
         
-        if let tr = cell as? TotalsRow {
-            tr.txtLabel.text = ti.description
-            tr.txtSubDesc.text = ti.subDescription
-            tr.txtValue.text = ti.formattedValue(fHHMM: fHHMM) as String
-            tr.accessoryType = (ti.query == nil) ? .none : .disclosureIndicator
-            tr.AdjustLayoutForValues()
-            return tr
-        }
+        let tr = cell as! TotalsRow
         
-        return cell as? TotalsRow // should never happen
+        tr.txtLabel.text = ti.description
+        tr.txtSubDesc.text = ti.subDescription
+        tr.txtValue.text = ti.formattedValue(fHHMM: fHHMM) as String
+        tr.accessoryType = (ti.query == nil) ? .none : .disclosureIndicator
+        tr.AdjustLayoutForValues()
+        return tr
     }
 }

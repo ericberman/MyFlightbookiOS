@@ -13,6 +13,7 @@
 		9A020B3310FFEF3F00801349 /* RecentFlights.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A020B3110FFEF3F00801349 /* RecentFlights.m */; };
 		9A03F50329D396BE0047807E /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A03F50229D396BE0047807E /* Currency.swift */; };
 		9A03F50529D3ABA30047807E /* SwiftConversionHackBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A03F50429D3ABA30047807E /* SwiftConversionHackBridge.m */; };
+		9A03F50829D3B51A0047807E /* Totals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A03F50729D3B51A0047807E /* Totals.swift */; };
 		9A050D292138790100B3F794 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A050D282138790000B3F794 /* Photos.framework */; };
 		9A06E7AA29D0C41A0093A384 /* PackAndGo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A06E7A929D0C41A0093A384 /* PackAndGo.swift */; };
 		9A06E7AC29D0E2EA0093A384 /* Training.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A06E7AB29D0E2EA0093A384 /* Training.swift */; };
@@ -452,7 +453,6 @@
 		9AEC4CA313AD4B7C0044897B /* Pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AEC4CA113AD4B7C0044897B /* Pause.png */; };
 		9AEC4CA413AD4B7C0044897B /* Play.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AEC4CA213AD4B7C0044897B /* Play.png */; };
 		9AEFF6E329BD2A4600B07B13 /* MFBWebService PropertyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEFF6E229BD2A4600B07B13 /* MFBWebService PropertyExtensions.swift */; };
-		9AF7AD1B10E1D7DC00A7DD43 /* Totals.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF7AD1910E1D7DC00A7DD43 /* Totals.m */; };
 		9AF81C9C1BE6918B001FC0C8 /* RefreshableTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF81C9B1BE6918B001FC0C8 /* RefreshableTableController.swift */; };
 		9AFAC07110E594F000225E90 /* runway.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AFAC07010E594F000225E90 /* runway.png */; };
 		9AFAC07B10E5968800225E90 /* NearbyAirports.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AFAC07910E5968800225E90 /* NearbyAirports.m */; };
@@ -544,6 +544,7 @@
 		9A03F50229D396BE0047807E /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		9A03F50429D3ABA30047807E /* SwiftConversionHackBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwiftConversionHackBridge.m; sourceTree = "<group>"; };
 		9A03F50629D3ABB80047807E /* SwiftConversionHackBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftConversionHackBridge.h; sourceTree = "<group>"; };
+		9A03F50729D3B51A0047807E /* Totals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Totals.swift; sourceTree = "<group>"; };
 		9A050D282138790000B3F794 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		9A06E7A929D0C41A0093A384 /* PackAndGo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackAndGo.swift; sourceTree = "<group>"; };
 		9A06E7AB29D0E2EA0093A384 /* Training.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Training.swift; sourceTree = "<group>"; };
@@ -1002,8 +1003,6 @@
 		9AEC4CA213AD4B7C0044897B /* Play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Play.png; sourceTree = "<group>"; };
 		9AEF733D127DE857004A0D6C /* EXFMutableMetaData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXFMutableMetaData.h; sourceTree = "<group>"; };
 		9AEFF6E229BD2A4600B07B13 /* MFBWebService PropertyExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MFBWebService PropertyExtensions.swift"; sourceTree = "<group>"; };
-		9AF7AD1810E1D7DC00A7DD43 /* Totals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Totals.h; sourceTree = "<group>"; };
-		9AF7AD1910E1D7DC00A7DD43 /* Totals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Totals.m; sourceTree = "<group>"; };
 		9AF81C9B1BE6918B001FC0C8 /* RefreshableTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshableTableController.swift; sourceTree = "<group>"; };
 		9AFAC07010E594F000225E90 /* runway.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = runway.png; sourceTree = "<group>"; };
 		9AFAC07810E5968800225E90 /* NearbyAirports.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyAirports.h; sourceTree = "<group>"; };
@@ -1299,11 +1298,10 @@
 		9A518E48111F863B004B4BF6 /* Totals and Currency */ = {
 			isa = PBXGroup;
 			children = (
-				9AF7AD1810E1D7DC00A7DD43 /* Totals.h */,
-				9AF7AD1910E1D7DC00A7DD43 /* Totals.m */,
 				9A14334B29A6B37E007129A9 /* TotalsRow.swift */,
 				9A14334D29A6D9B7007129A9 /* CurrencyRow.swift */,
 				9A03F50229D396BE0047807E /* Currency.swift */,
+				9A03F50729D3B51A0047807E /* Totals.swift */,
 			);
 			name = "Totals and Currency";
 			sourceTree = "<group>";
@@ -2370,7 +2368,7 @@
 				9A30201429CBDAB000115538 /* SharedWatch.swift in Sources */,
 				9A9CB2691E513B28002B2E11 /* TotalsCalculator.m in Sources */,
 				9AE39A4C29ABE29D002A6496 /* WebServiceMappingExtensions.swift in Sources */,
-				9AF7AD1B10E1D7DC00A7DD43 /* Totals.m in Sources */,
+				9A03F50829D3B51A0047807E /* Totals.swift in Sources */,
 				9A14334629A54991007129A9 /* MFBWebServiceObjectExtensions.swift in Sources */,
 				9A0E793D29BD76F4005EF4D6 /* ApproachDescription.swift in Sources */,
 				9AE39A4729ABC1C5002A6496 /* Airports.swift in Sources */,

@@ -25,9 +25,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MyFlightbook-Swift.h>
 #import "SwiftConversionHackBridge.h"
 #import "RecentFlights.h"
 #import "AircraftViewController.h"
+#import "FlightQueryForm.h"
 
 // Below are stubs for things that we can't call from swift (because we'd have to expose them in the bridging header,
 // but they in turn pull in references to swift objects that are defined in swift.h, causing circularity
@@ -43,6 +45,13 @@
 
 + (UIViewController *_Nonnull) aircraftDetailsWithAircraft: (MFBWebServiceSvc_Aircraft * _Nonnull) ac {
     return [[AircraftViewController alloc] initWithAircraft:ac];
+}
+
++ (UIViewController *_Nonnull) queryControllerWithQuery: (MFBWebServiceSvc_FlightQuery * _Nonnull) fq withDelegate: (id<QueryDelegate> _Nullable) delegate {
+    FlightQueryForm * fqv = [[FlightQueryForm alloc] init];
+    fqv.delegate = delegate;
+    [fqv setQuery:fq];
+    return fqv;
 }
 
 @end

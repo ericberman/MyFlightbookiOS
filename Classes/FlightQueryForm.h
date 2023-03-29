@@ -29,10 +29,6 @@
 #import <MyFlightbook-Swift.h>
 #import "CollapsibleTable.h"
 
-@protocol QueryDelegate
-- (void) queryUpdated:(MFBWebServiceSvc_FlightQuery *) fq;
-@end
-
 @interface FlightQueryForm : CollapsibleTable<DateRangeChanged, UITextFieldDelegate, MFBSoapCallDelegate> {
     id<QueryDelegate> delegate;
 @private

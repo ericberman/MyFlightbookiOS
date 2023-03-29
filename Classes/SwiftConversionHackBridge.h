@@ -28,9 +28,14 @@
 #define SwiftConversionHackBridge_h
 #import "MFBWebServiceSvc.h"
 
+@protocol QueryDelegate
+- (void) queryUpdated:(MFBWebServiceSvc_FlightQuery *_Nonnull) fq;
+@end
+
 @interface SwiftConversionHackBridge : NSObject
-+ (UIViewController *_Nonnull) recentFlightsWithQuery: ( MFBWebServiceSvc_FlightQuery * _Nonnull ) fq;
++ (UIViewController *_Nonnull) recentFlightsWithQuery: (MFBWebServiceSvc_FlightQuery * _Nonnull) fq;
 + (UIViewController *_Nonnull) aircraftDetailsWithAircraft: (MFBWebServiceSvc_Aircraft * _Nonnull) ac;
++ (UIViewController *_Nonnull) queryControllerWithQuery: (MFBWebServiceSvc_FlightQuery * _Nonnull) fq withDelegate: (id<QueryDelegate> _Nullable) delegate;
 @end
 
 #endif /* SwiftConversionHackBridge_h */
