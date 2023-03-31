@@ -28,7 +28,6 @@
 #import <MyFlightbook-Swift.h>
 #import "AircraftViewController.h"
 #import "RecentFlights.h"
-#import "TextCell.h"
 
 @interface AircraftViewController ()
 - (void) findFlights:(id)sender;
@@ -820,7 +819,7 @@ enum aircraftRows {rowInfoStart, rowStaticDesc = rowInfoStart, rowInfoLast,
 #pragma mark - Find Flights
 - (void) findFlights:(id)sender
 {
-    if (self.ac == nil || self.navigationController == nil || MFBNetworkManager.shared.isOnLine)
+    if (self.ac == nil || self.navigationController == nil || !MFBNetworkManager.shared.isOnLine)
         return;
     
     MFBWebServiceSvc_FlightQuery * fq = [MFBWebServiceSvc_FlightQuery getNewFlightQuery];

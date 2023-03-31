@@ -770,7 +770,7 @@ typedef enum {sectFlightQuery, sectUploadInProgress, sectUnsubmittedFlights, sec
             NSAssert(indexPath.row == 0, @"Flight query row must only have one row!");
             FlightQueryForm * fqf = [FlightQueryForm new];
             fqf.delegate = self;
-            [fqf setQuery:self.fq];
+            fqf.query = self.fq;
             [self.navigationController pushViewController:fqf animated:YES];
             return;
         }

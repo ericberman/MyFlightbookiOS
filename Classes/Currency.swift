@@ -108,7 +108,7 @@ public class Currency : PullRefreshTableViewControllerSW, MFBSoapCallDelegate {
         }
     }
     
-    func BodyReturned(body: AnyObject) {
+    public func BodyReturned(body: AnyObject) {
         if let resp = body as? MFBWebServiceSvc_GetCurrencyForUserResponse {
             rgCurrency = resp.getCurrencyForUserResult.currencyStatusItem as? [MFBWebServiceSvc_CurrencyStatusItem]
             if (rgCurrency != nil) {
@@ -118,7 +118,7 @@ public class Currency : PullRefreshTableViewControllerSW, MFBSoapCallDelegate {
         }
     }
     
-    func ResultCompleted(sc: MFBSoapCall) {
+    public func ResultCompleted(sc: MFBSoapCall) {
         errorString = sc.errorString
         if !errorString.isEmpty {
             showError(errorString, withTitle: String(localized: "Error loading currency", comment: "Title Error message when loading currency"))

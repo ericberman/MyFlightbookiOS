@@ -124,7 +124,7 @@ import Foundation
         }
     }
     
-    func BodyReturned(body: AnyObject) {
+    public func BodyReturned(body: AnyObject) {
         if let resp = body as? MFBWebServiceSvc_TotalsForUserWithQueryResponse {
             if fq.isUnrestricted() {
                 PackAndGo.updateTotals(resp.totalsForUserWithQueryResult.totalsItem as! [MFBWebServiceSvc_TotalsItem])
@@ -134,7 +134,7 @@ import Foundation
         }
     }
     
-    func ResultCompleted(sc: MFBSoapCall) {
+    public func ResultCompleted(sc: MFBSoapCall) {
         errorString = sc.errorString
         if errorString.isEmpty {
             tableView.reloadData()
@@ -206,7 +206,8 @@ import Foundation
         }
         
         if indexPath.section == 0 {
-            navigationController?.pushViewController(SwiftConversionHackBridge.queryController(with: fq, with: self), animated: true)
+            let fqf = FlightQueryForm.queryController(fq, delegate: self)
+            navigationController?.pushViewController(fqf, animated: true)
         }
         else {
             let ti = rgTotalsGroups![indexPath.section - 1][indexPath.row]

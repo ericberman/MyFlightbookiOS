@@ -352,6 +352,31 @@ extension MFBWebServiceSvc_FlightQuery {
             hasMakes() ||
             hasCatClasses())
     }
+    
+    @objc static public func stringForDateRange(_ dr : MFBWebServiceSvc_DateRanges) -> String {
+        switch (dr) {
+            case MFBWebServiceSvc_DateRanges_AllTime, MFBWebServiceSvc_DateRanges_none:
+                return String(localized: "All Time", comment: "Totals - All Time")
+            case MFBWebServiceSvc_DateRanges_Trailing12Months:
+                return String(localized: "12 Months", comment: "Totals - Trailing 12 months")
+            case MFBWebServiceSvc_DateRanges_Tailing6Months:
+                return String(localized: "6 Months", comment: "Totals - Trailing 6 months")
+            case MFBWebServiceSvc_DateRanges_YTD:
+                return String(localized: "YTD", comment: "Totals - Year-to-date")
+            case MFBWebServiceSvc_DateRanges_PrevMonth:
+                return String(localized: "Previous Month", comment: "Totals - Previous Month")
+            case MFBWebServiceSvc_DateRanges_PrevYear:
+                return String(localized: "Previous Year", comment: "Totals - Previous Year")
+            case MFBWebServiceSvc_DateRanges_ThisMonth:
+                return String(localized: "This Month", comment: "Totals - This month")
+            case MFBWebServiceSvc_DateRanges_Trailing30:
+                return String(localized: "Trailing 30", comment: "Totals - Trailing 30 days")
+            case MFBWebServiceSvc_DateRanges_Trailing90:
+                return String(localized: "Trailing 90", comment: "Totals - Trailing 90 days")
+            default:
+                return ""
+        }
+    }
 }
 
 // MARK: - MFBWebServiceSvc_ArrayOfMFBImageInfo

@@ -25,7 +25,7 @@
 
 import Foundation
 
-@objc protocol MFBSoapCallDelegate {
+@objc public protocol MFBSoapCallDelegate {
     @objc(BodyReturned:) func BodyReturned(body : AnyObject) -> Void
     @objc(HeaderReturned:) optional func HeaderReturned(header : AnyObject) -> Void
     @objc(ResultCompleted:) optional func ResultCompleted(sc : MFBSoapCall) -> Void
@@ -45,6 +45,11 @@ import Foundation
         timeOut = 0
         contextFlag = 0
         super.init()
+    }
+    
+    public convenience init(delegate d : MFBSoapCallDelegate) {
+        self.init()
+        delegate = d
     }
     
     // MARK: Hack retain/release for async calls

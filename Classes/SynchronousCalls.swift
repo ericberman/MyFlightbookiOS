@@ -101,11 +101,11 @@ import Foundation
         return resultFromBody() as? [SimpleLogbookEntry]
     }
     
-    @objc func BodyReturned(body: AnyObject) {
+    @objc public func BodyReturned(body: AnyObject) {
         returnedBody = body
     }
     
-    @objc func ResultCompleted(sc: MFBSoapCall) {
+    @objc public func ResultCompleted(sc: MFBSoapCall) {
         
     }
 }

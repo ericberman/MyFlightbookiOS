@@ -29,7 +29,6 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "FlightProperties.h"
 #import "math.h"
-#import "TextCell.h"
 
 @interface LEEditController()
 @property (nonatomic, strong) NSTimer * timerElapsed;

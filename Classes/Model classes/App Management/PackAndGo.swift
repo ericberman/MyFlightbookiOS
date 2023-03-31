@@ -162,7 +162,7 @@ import Foundation
     }
     
     // MARK: Retrieving from WebServices
-    func BodyReturned(body: AnyObject) {
+    public func BodyReturned(body: AnyObject) {
         if let resp = body as? MFBWebServiceSvc_AircraftForUserResponse {
             Aircraft.sharedAircraft.cacheAircraft(resp.aircraftForUserResult.aircraft as! [MFBWebServiceSvc_Aircraft], forUser: authToken)
             fAircraftReturned = true
@@ -199,7 +199,7 @@ import Foundation
         }
     }
     
-    func ResultCompleted(sc: MFBSoapCall) {
+    public func ResultCompleted(sc: MFBSoapCall) {
         errorString = sc.errorString
         
         if (fPropsReturned && fTotalsReturned && fVisitedReturned && fFlightsReturned && fAircraftReturned && fCurrencyReturned) {
