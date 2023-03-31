@@ -181,7 +181,7 @@
                         <color key="tintColor" red="0.0" green="0.73725490199999999" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <viewControllers>
-                        <viewController title="Visited Airports" nibName="VisitedAirports" id="241" customClass="VisitedAirports">
+                        <viewController title="Visited Airports" nibName="VisitedAirports" id="241" customClass="VisitedAirports" customModule="MyFlightbook" customModuleProvider="target">
                             <extendedEdge key="edgesForExtendedLayout"/>
                             <navigationItem key="navigationItem" title="Visited Airports" id="242"/>
                         </viewController>

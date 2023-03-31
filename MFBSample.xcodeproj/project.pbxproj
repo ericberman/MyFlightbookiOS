@@ -49,8 +49,6 @@
 		9A16572014DC59B9004FDC35 /* sunset.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A16571E14DC59B9004FDC35 /* sunset.png */; };
 		9A170C982437FCF600CDECCF /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A170C972437FCF600CDECCF /* CoreServices.framework */; };
 		9A17C5F113E8952C00C47C82 /* airporttab.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A17C5F013E8952C00C47C82 /* airporttab.png */; };
-		9A17C5F513E895CB00C47C82 /* VisitedAirports.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A17C5F313E895CB00C47C82 /* VisitedAirports.m */; };
-		9A17C5FA13E89B1B00C47C82 /* VisitedAirportRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A17C5F913E89B1B00C47C82 /* VisitedAirportRow.m */; };
 		9A1860101BE7D56700E88A26 /* RecentsInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A18600F1BE7D56700E88A26 /* RecentsInterfaceController.swift */; };
 		9A1860121BE7D5FE00E88A26 /* RecentsTableRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1860111BE7D5FE00E88A26 /* RecentsTableRowController.swift */; };
 		9A1860131BE7FB6200E88A26 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9A7A7D98147F4DD0003A6912 /* Localizable.strings */; };
@@ -87,6 +85,8 @@
 		9A27223729B69AD3006AE702 /* GPSDeviceViewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A27223629B69AD3006AE702 /* GPSDeviceViewTableViewController.swift */; };
 		9A27223929B6CDEE006AE702 /* MFBLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A27223829B6CDEE006AE702 /* MFBLocation.swift */; };
 		9A2BD09A10E04619001D4043 /* totals.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A2BD09910E04619001D4043 /* totals.png */; };
+		9A2BFEBD29D7122100427E8F /* VisitedAirports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2BFEBC29D7122100427E8F /* VisitedAirports.swift */; };
+		9A2BFEBF29D7122A00427E8F /* VADetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2BFEBE29D7122A00427E8F /* VADetails.swift */; };
 		9A2D594214C3485800FD8F05 /* RecentFlightCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A2D594114C3485800FD8F05 /* RecentFlightCell.xib */; };
 		9A30201429CBDAB000115538 /* SharedWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A30201329CBDAB000115538 /* SharedWatch.swift */; };
 		9A30201629CBDAFC00115538 /* SimpleItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A30201529CBDAFC00115538 /* SimpleItems.swift */; };
@@ -173,7 +173,6 @@
 		9A5A0880147ED35300C05C50 /* Totals.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A5A085C147ED35300C05C50 /* Totals.xib */; };
 		9A5A0881147ED35300C05C50 /* TotalsRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A5A085E147ED35300C05C50 /* TotalsRow.xib */; };
 		9A5A0882147ED35300C05C50 /* VADetails.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A5A0860147ED35300C05C50 /* VADetails.xib */; };
-		9A5A0884147ED35300C05C50 /* VisitedAirportRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A5A0864147ED35300C05C50 /* VisitedAirportRow.xib */; };
 		9A5A0885147ED35300C05C50 /* VisitedAirports.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A5A0866147ED35300C05C50 /* VisitedAirports.xib */; };
 		9A5DA32119E847E50016100C /* EditCellML.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A5DA32019E847E50016100C /* EditCellML.xib */; };
 		9A5E746E1710E8F7004C58CC /* Pause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A5E746B1710E8F7004C58CC /* Pause@2x.png */; };
@@ -217,7 +216,6 @@
 		9A70E34729D4F9FA0068B0E6 /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A70E34629D4F9FA0068B0E6 /* ButtonCell.swift */; };
 		9A70E34929D4FB7B0068B0E6 /* CheckboxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A70E34829D4FB7B0068B0E6 /* CheckboxCell.swift */; };
 		9A77CF97110569D0006E7531 /* airport.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A77CF96110569D0006E7531 /* airport.png */; };
-		9A78376E13E8AB99007CD501 /* VADetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A78376C13E8AB98007CD501 /* VADetails.m */; };
 		9A7A7D96147F4DD0003A6912 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9A7A7D98147F4DD0003A6912 /* Localizable.strings */; };
 		9A7C143C1533D660007EB69A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9A7C143B1533D660007EB69A /* Settings.bundle */; };
 		9A8005A022CEBCCF00EC487E /* LogbookEntryBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A80059F22CEBCCF00EC487E /* LogbookEntryBaseTableViewController.m */; };
@@ -583,10 +581,6 @@
 		9A16571E14DC59B9004FDC35 /* sunset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sunset.png; sourceTree = "<group>"; };
 		9A170C972437FCF600CDECCF /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		9A17C5F013E8952C00C47C82 /* airporttab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = airporttab.png; sourceTree = "<group>"; };
-		9A17C5F213E895CB00C47C82 /* VisitedAirports.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitedAirports.h; sourceTree = "<group>"; };
-		9A17C5F313E895CB00C47C82 /* VisitedAirports.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitedAirports.m; sourceTree = "<group>"; };
-		9A17C5F813E89B1B00C47C82 /* VisitedAirportRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitedAirportRow.h; sourceTree = "<group>"; };
-		9A17C5F913E89B1B00C47C82 /* VisitedAirportRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitedAirportRow.m; sourceTree = "<group>"; };
 		9A18600F1BE7D56700E88A26 /* RecentsInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentsInterfaceController.swift; sourceTree = "<group>"; };
 		9A1860111BE7D5FE00E88A26 /* RecentsTableRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentsTableRowController.swift; sourceTree = "<group>"; };
 		9A196C2F112312EB007A7DD1 /* Recording.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Recording.png; sourceTree = "<group>"; };
@@ -624,6 +618,8 @@
 		9A27223629B69AD3006AE702 /* GPSDeviceViewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSDeviceViewTableViewController.swift; sourceTree = "<group>"; };
 		9A27223829B6CDEE006AE702 /* MFBLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFBLocation.swift; sourceTree = "<group>"; };
 		9A2BD09910E04619001D4043 /* totals.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = totals.png; sourceTree = "<group>"; };
+		9A2BFEBC29D7122100427E8F /* VisitedAirports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitedAirports.swift; sourceTree = "<group>"; };
+		9A2BFEBE29D7122A00427E8F /* VADetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VADetails.swift; sourceTree = "<group>"; };
 		9A2D594114C3485800FD8F05 /* RecentFlightCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecentFlightCell.xib; sourceTree = "<group>"; };
 		9A30201329CBDAB000115538 /* SharedWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedWatch.swift; sourceTree = "<group>"; };
 		9A30201529CBDAFC00115538 /* SimpleItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleItems.swift; sourceTree = "<group>"; };
@@ -753,8 +749,6 @@
 		9A73C84121AF51CF00AE1221 /* MyFlightbookWatch Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MyFlightbookWatch Extension.entitlements"; sourceTree = "<group>"; };
 		9A73C84721AF51F400AE1221 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		9A77CF96110569D0006E7531 /* airport.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = airport.png; sourceTree = "<group>"; };
-		9A78376B13E8AB98007CD501 /* VADetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VADetails.h; sourceTree = "<group>"; };
-		9A78376C13E8AB98007CD501 /* VADetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VADetails.m; sourceTree = "<group>"; };
 		9A7A7D97147F4DD0003A6912 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9A7C143115336317007EB69A /* RecentFlightCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentFlightCell.h; sourceTree = "<group>"; };
 		9A7C143B1533D660007EB69A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -931,7 +925,6 @@
 		9AC6AF211BD0158C004AB2E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Totals.xib; sourceTree = "<group>"; };
 		9AC6AF221BD0158D004AB2E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TotalsRow.xib; sourceTree = "<group>"; };
 		9AC6AF231BD0158E004AB2E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/VADetails.xib; sourceTree = "<group>"; };
-		9AC6AF251BD01590004AB2E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/VisitedAirportRow.xib; sourceTree = "<group>"; };
 		9AC6AF261BD01591004AB2E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/VisitedAirports.xib; sourceTree = "<group>"; };
 		9AC7B8BD14D0ADAB009139BF /* PullRefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullRefreshTableViewController.h; sourceTree = "<group>"; };
 		9AC7B8BE14D0ADAB009139BF /* PullRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullRefreshTableViewController.m; sourceTree = "<group>"; };
@@ -1179,12 +1172,8 @@
 		9A17C5F713E89AD900C47C82 /* Visited Airports */ = {
 			isa = PBXGroup;
 			children = (
-				9A78376B13E8AB98007CD501 /* VADetails.h */,
-				9A78376C13E8AB98007CD501 /* VADetails.m */,
-				9A17C5F813E89B1B00C47C82 /* VisitedAirportRow.h */,
-				9A17C5F913E89B1B00C47C82 /* VisitedAirportRow.m */,
-				9A17C5F213E895CB00C47C82 /* VisitedAirports.h */,
-				9A17C5F313E895CB00C47C82 /* VisitedAirports.m */,
+				9A2BFEBC29D7122100427E8F /* VisitedAirports.swift */,
+				9A2BFEBE29D7122A00427E8F /* VADetails.swift */,
 			);
 			name = "Visited Airports";
 			sourceTree = "<group>";
@@ -1555,7 +1544,6 @@
 				9A5A085C147ED35300C05C50 /* Totals.xib */,
 				9A5A085E147ED35300C05C50 /* TotalsRow.xib */,
 				9A5A0860147ED35300C05C50 /* VADetails.xib */,
-				9A5A0864147ED35300C05C50 /* VisitedAirportRow.xib */,
 				9A5A0866147ED35300C05C50 /* VisitedAirports.xib */,
 				9A6DFCF7224306B30061FE86 /* Launch Screen.storyboard */,
 			);
@@ -2070,7 +2058,6 @@
 				9A5A0880147ED35300C05C50 /* Totals.xib in Resources */,
 				9A5A0881147ED35300C05C50 /* TotalsRow.xib in Resources */,
 				9A5A0882147ED35300C05C50 /* VADetails.xib in Resources */,
-				9A5A0884147ED35300C05C50 /* VisitedAirportRow.xib in Resources */,
 				9A5A0885147ED35300C05C50 /* VisitedAirports.xib in Resources */,
 				9A902D701A210B0B00698017 /* currency@3x.png in Resources */,
 				9A20B156192D34E600A8F64F /* README.md in Resources */,
@@ -2339,6 +2326,7 @@
 				9ACEDB9922388BAB00221A17 /* AircraftViewController.m in Sources */,
 				9A41A36929D0ACB9005E0A7B /* NetworkManagment.swift in Sources */,
 				9A27223729B69AD3006AE702 /* GPSDeviceViewTableViewController.swift in Sources */,
+				9A2BFEBF29D7122A00427E8F /* VADetails.swift in Sources */,
 				9A8005A022CEBCCF00EC487E /* LogbookEntryBaseTableViewController.m in Sources */,
 				9A8EE98629AA676B00F133CF /* UserProfile.swift in Sources */,
 				9A69202B10CCBD8B00DF1CA6 /* NSDate+ISO8601Parsing.m in Sources */,
@@ -2360,6 +2348,7 @@
 				9A14334629A54991007129A9 /* MFBWebServiceObjectExtensions.swift in Sources */,
 				9A70E34929D4FB7B0068B0E6 /* CheckboxCell.swift in Sources */,
 				9A0E793D29BD76F4005EF4D6 /* ApproachDescription.swift in Sources */,
+				9A2BFEBD29D7122100427E8F /* VisitedAirports.swift in Sources */,
 				9AE39A4729ABC1C5002A6496 /* Airports.swift in Sources */,
 				9AE39A4129AAA40D002A6496 /* MultiValOptionSelector.swift in Sources */,
 				9A03F50529D3ABA30047807E /* SwiftConversionHackBridge.m in Sources */,
@@ -2390,12 +2379,9 @@
 				9A14334C29A6B37E007129A9 /* TotalsRow.swift in Sources */,
 				9A21D5CB2214D1E300961605 /* BadElfSession.swift in Sources */,
 				9A0F0E7413E88781007E54C1 /* MFBWebServiceSvc.m in Sources */,
-				9A17C5F513E895CB00C47C82 /* VisitedAirports.m in Sources */,
 				9A14334429A52934007129A9 /* MFBTheme.swift in Sources */,
-				9A17C5FA13E89B1B00C47C82 /* VisitedAirportRow.m in Sources */,
 				9A84363729BAB0540001012D /* CountryCode.swift in Sources */,
 				9A2649F829D106B000C0D176 /* EditCell.swift in Sources */,
-				9A78376E13E8AB99007CD501 /* VADetails.m in Sources */,
 				9A14335529A81A1A007129A9 /* UserPreferences.swift in Sources */,
 				9A06E7AC29D0E2EA0093A384 /* Training.swift in Sources */,
 				9A48E27D29A1693B00511D99 /* WidgetSoapCall.swift in Sources */,
@@ -2647,14 +2633,6 @@
 				9AC6AF231BD0158E004AB2E3 /* Base */,
 			);
 			name = VADetails.xib;
-			sourceTree = "<group>";
-		};
-		9A5A0864147ED35300C05C50 /* VisitedAirportRow.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9AC6AF251BD01590004AB2E3 /* Base */,
-			);
-			name = VisitedAirportRow.xib;
 			sourceTree = "<group>";
 		};
 		9A5A0866147ED35300C05C50 /* VisitedAirports.xib */ = {
