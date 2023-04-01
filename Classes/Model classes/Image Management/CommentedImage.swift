@@ -494,7 +494,6 @@ import Security
         var cImages = 0
         var cErrors = 0;
         var szLastErr = ""
-        var cTotalImages = 0
         
         let rg = rgImages ?? []
         
@@ -502,6 +501,10 @@ import Security
             completionHandler()
             return
         }
+        
+        // We will first build up an array of uploads that need to happen
+        // We will then call them, OR we will call completion handler
+        var rgPendingUploads : [URLRequest] = []
         
         progress(String(localized: "UploadingImagesStart", comment: "Progress message when starting upload of images"))
         
@@ -566,40 +569,50 @@ import Security
             
             req.httpBody = postBody
             
-            cTotalImages += 1   // one more image to upload
-            
             // We'll do these all in parallel, completing when we've done all of them
-            let sess = URLSession(configuration: .default)
-            sess.dataTask(with: req) { data, response, error in
-                DispatchQueue.main.async {
-                    objc_sync_enter(cImages)
-                    cImages += 1
-                    
-                    progress(String(format: String(localized: "Uploading Image %d of %lu", comment: "Progress message when uploading an image; the %d is replaced by numbers (e.g. '2 of 4')"),
-                                    cImages, cTotalImages))
-                    
-                    var szResponse : String? = nil
-                    if (data != nil) {
-                        szResponse = String(data: data!, encoding: .utf8)
-                    }
-                    
-                    if (szResponse ?? "").isEmpty || !szResponse!.contains("OK") {
-                        cErrors += 1
-                        szLastErr = szResponse ?? error!.localizedDescription
-                    }
-                    
-                    if (cImages == cTotalImages) {
-                        // Done!
-                        completionHandler()
-                        if (cErrors > 0) {
-                            let szText = String(format: String(localized: "%d of %d images uploaded.  Error: %@", comment: "Status after uploading images; %d and %@ get replaced by numbers and the error message, respectively; keep them"), (cImages - cErrors), cImages, szLastErr)
-                            WPSAlertController.presentOkayAlertWithTitle(String(localized: "Error uploading Pictures", comment: "Error message if there were errors uploading an image"), message:szText)
+            // But for now, hold on to the request - we'll send it below asynchronously.
+            rgPendingUploads.append(req)
+        }
+        
+        let cTotalImages = rgPendingUploads.count
+        
+        if rgPendingUploads.isEmpty {
+            // Make sure completion handler is called!!!
+            completionHandler()
+        } else {
+            for req in rgPendingUploads {
+                let sess = URLSession(configuration: .default)
+                sess.dataTask(with: req) { data, response, error in
+                    DispatchQueue.main.async {
+                        objc_sync_enter(cImages)
+                        cImages += 1
+                        
+                        progress(String(format: String(localized: "Uploading Image %d of %lu", comment: "Progress message when uploading an image; the %d is replaced by numbers (e.g. '2 of 4')"),
+                                        cImages, cTotalImages))
+                        
+                        var szResponse : String? = nil
+                        if (data != nil) {
+                            szResponse = String(data: data!, encoding: .utf8)
                         }
+                        
+                        if (szResponse ?? "").isEmpty || !szResponse!.contains("OK") {
+                            cErrors += 1
+                            szLastErr = szResponse ?? error!.localizedDescription
+                        }
+                        
+                        if (cImages == cTotalImages) {
+                            // Done!
+                            completionHandler()
+                            if (cErrors > 0) {
+                                let szText = String(format: String(localized: "%d of %d images uploaded.  Error: %@", comment: "Status after uploading images; %d and %@ get replaced by numbers and the error message, respectively; keep them"), (cImages - cErrors), cImages, szLastErr)
+                                WPSAlertController.presentOkayAlertWithTitle(String(localized: "Error uploading Pictures", comment: "Error message if there were errors uploading an image"), message:szText)
+                            }
+                        }
+                        
+                        objc_sync_exit(cImages)
                     }
-                    
-                    objc_sync_exit(cImages)
-                }
-            }.resume()
+                }.resume()
+            }
         }
     }
  
