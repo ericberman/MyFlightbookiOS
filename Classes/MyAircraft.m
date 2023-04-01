@@ -25,7 +25,6 @@
 //
 
 #import "MyAircraft.h"
-#import "FixedImageCell.h"
 #import "AircraftViewController.h"
 #import "NewAircraftViewController.h"
 
@@ -233,7 +232,7 @@ BOOL fNeedsRefresh = NO;
     
     FixedImageCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[FixedImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[FixedImageCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
 	}
     
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

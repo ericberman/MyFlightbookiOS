@@ -28,7 +28,6 @@
 #import <UIKit/UIKit.h>
 #import "LEEditController.h"
 #import "PullRefreshTableViewController.h"
-#import "ProgressCell.h"
 
 @interface RecentFlights : PullRefreshTableViewController <LEEditDelegate, UITableViewDelegate, 
 UIAlertViewDelegate, MFBSoapCallDelegate, QueryDelegate, NetworkManagementListener, RecentFlightsProtocol> {

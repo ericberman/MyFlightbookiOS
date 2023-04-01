@@ -23,7 +23,6 @@
 		9A085CAF20F3EF5500DDA442 /* tower.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A085CAC20F3EF5500DDA442 /* tower.png */; };
 		9A085CB020F3EF5500DDA442 /* tower@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A085CAD20F3EF5500DDA442 /* tower@3x.png */; };
 		9A0C938511E63A850062AF27 /* FlightProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C938311E63A850062AF27 /* FlightProperties.m */; };
-		9A0DD9F8158579BE00FB6DF2 /* FixedImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0DD9F7158579BE00FB6DF2 /* FixedImageCell.m */; };
 		9A0E793D29BD76F4005EF4D6 /* ApproachDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0E793C29BD76F4005EF4D6 /* ApproachDescription.swift */; };
 		9A0E794029BE2F4F005EF4D6 /* MFBWebService LogbookEntry Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0E793F29BE2F4F005EF4D6 /* MFBWebService LogbookEntry Extensions.swift */; };
 		9A0EA69729C947C00031A10D /* MFBAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0EA69629C947C00031A10D /* MFBAppDelegate.swift */; };
@@ -108,7 +107,6 @@
 		9A40859F170B48B60079A2C6 /* Favorite.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A40859D170B48B60079A2C6 /* Favorite.png */; };
 		9A4085A0170B48B60079A2C6 /* Favorite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A40859E170B48B60079A2C6 /* Favorite@2x.png */; };
 		9A41A36929D0ACB9005E0A7B /* NetworkManagment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A41A36829D0ACB9005E0A7B /* NetworkManagment.swift */; };
-		9A42300C157B953F00FF99D4 /* ProgressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A42300B157B953F00FF99D4 /* ProgressCell.m */; };
 		9A4587BD14C205500045AF51 /* RecentFlightCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A4587BC14C205500045AF51 /* RecentFlightCell.m */; };
 		9A46938020F53BE900614481 /* Icon80x80.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A46937E20F53BE800614481 /* Icon80x80.png */; };
 		9A46938120F53BE900614481 /* Icon40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A46937F20F53BE900614481 /* Icon40x40.png */; };
@@ -211,6 +209,8 @@
 		9A6DFCF6224302230061FE86 /* Default-Landscape-2436x1125.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DFCF2224302230061FE86 /* Default-Landscape-2436x1125.png */; };
 		9A6DFCF8224306B30061FE86 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DFCF7224306B30061FE86 /* Launch Screen.storyboard */; };
 		9A6F1BFC29B3D891004D1F31 /* SunriseSunset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F1BFB29B3D891004D1F31 /* SunriseSunset.swift */; };
+		9A7083AE29D86A73002819F8 /* ProgressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7083AD29D86A73002819F8 /* ProgressCell.swift */; };
+		9A7083B029D86A85002819F8 /* FixedImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7083AF29D86A85002819F8 /* FixedImageCell.swift */; };
 		9A70B18722C07A8500CA7E21 /* FlightEditorBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A70B18622C07A8500CA7E21 /* FlightEditorBaseTableViewController.m */; };
 		9A70E34529D4F5AE0068B0E6 /* ConjunctionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A70E34429D4F5AE0068B0E6 /* ConjunctionCell.swift */; };
 		9A70E34729D4F9FA0068B0E6 /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A70E34629D4F9FA0068B0E6 /* ButtonCell.swift */; };
@@ -554,8 +554,6 @@
 		9A0B1C3C25F3EDE300E583A8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LEEditController.strings; sourceTree = "<group>"; };
 		9A0C938211E63A850062AF27 /* FlightProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlightProperties.h; sourceTree = "<group>"; };
 		9A0C938311E63A850062AF27 /* FlightProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlightProperties.m; sourceTree = "<group>"; };
-		9A0DD9F6158579BE00FB6DF2 /* FixedImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixedImageCell.h; sourceTree = "<group>"; };
-		9A0DD9F7158579BE00FB6DF2 /* FixedImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FixedImageCell.m; sourceTree = "<group>"; };
 		9A0E793C29BD76F4005EF4D6 /* ApproachDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApproachDescription.swift; sourceTree = "<group>"; };
 		9A0E793F29BE2F4F005EF4D6 /* MFBWebService LogbookEntry Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MFBWebService LogbookEntry Extensions.swift"; sourceTree = "<group>"; };
 		9A0EA69629C947C00031A10D /* MFBAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFBAppDelegate.swift; sourceTree = "<group>"; };
@@ -649,8 +647,6 @@
 		9A40859D170B48B60079A2C6 /* Favorite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Favorite.png; sourceTree = "<group>"; };
 		9A40859E170B48B60079A2C6 /* Favorite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Favorite@2x.png"; sourceTree = "<group>"; };
 		9A41A36829D0ACB9005E0A7B /* NetworkManagment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagment.swift; sourceTree = "<group>"; };
-		9A42300A157B953F00FF99D4 /* ProgressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressCell.h; sourceTree = "<group>"; };
-		9A42300B157B953F00FF99D4 /* ProgressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressCell.m; sourceTree = "<group>"; };
 		9A4587BC14C205500045AF51 /* RecentFlightCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentFlightCell.m; sourceTree = "<group>"; };
 		9A46937E20F53BE800614481 /* Icon80x80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon80x80.png; sourceTree = "<group>"; };
 		9A46937F20F53BE900614481 /* Icon40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon40x40.png; sourceTree = "<group>"; };
@@ -739,6 +735,8 @@
 		9A6DFCF2224302230061FE86 /* Default-Landscape-2436x1125.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape-2436x1125.png"; sourceTree = "<group>"; };
 		9A6DFCF7224306B30061FE86 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		9A6F1BFB29B3D891004D1F31 /* SunriseSunset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunriseSunset.swift; sourceTree = "<group>"; };
+		9A7083AD29D86A73002819F8 /* ProgressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCell.swift; sourceTree = "<group>"; };
+		9A7083AF29D86A85002819F8 /* FixedImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedImageCell.swift; sourceTree = "<group>"; };
 		9A70B18522C07A8500CA7E21 /* FlightEditorBaseTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlightEditorBaseTableViewController.h; sourceTree = "<group>"; };
 		9A70B18622C07A8500CA7E21 /* FlightEditorBaseTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FlightEditorBaseTableViewController.m; sourceTree = "<group>"; };
 		9A70E34429D4F5AE0068B0E6 /* ConjunctionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConjunctionCell.swift; sourceTree = "<group>"; };
@@ -1775,11 +1773,9 @@
 				9A60CAE1180DFCFF00BE813A /* EditCellNoLabel.xib */,
 				9A2649FD29D2105300C0D176 /* ExpandHeaderCell.swift */,
 				9A6C3B4215728F27004EB8FA /* ExpandHeaderCell.xib */,
-				9A0DD9F6158579BE00FB6DF2 /* FixedImageCell.h */,
-				9A0DD9F7158579BE00FB6DF2 /* FixedImageCell.m */,
+				9A7083AF29D86A85002819F8 /* FixedImageCell.swift */,
 				9A2649F929D106FB00C0D176 /* NavigableCell.swift */,
-				9A42300A157B953F00FF99D4 /* ProgressCell.h */,
-				9A42300B157B953F00FF99D4 /* ProgressCell.m */,
+				9A7083AD29D86A73002819F8 /* ProgressCell.swift */,
 				9A825DF6193677EA00967DF9 /* ProgressCell.xib */,
 				9A2649FB29D1120700C0D176 /* PropertyCell.swift */,
 				9A99506116E3C17F00C61594 /* PropertyCell.xib */,
@@ -2330,6 +2326,7 @@
 				9A8005A022CEBCCF00EC487E /* LogbookEntryBaseTableViewController.m in Sources */,
 				9A8EE98629AA676B00F133CF /* UserProfile.swift in Sources */,
 				9A69202B10CCBD8B00DF1CA6 /* NSDate+ISO8601Parsing.m in Sources */,
+				9A7083AE29D86A73002819F8 /* ProgressCell.swift in Sources */,
 				9A69202C10CCBD8B00DF1CA6 /* NSDate+ISO8601Unparsing.m in Sources */,
 				9A27223329B55C67006AE702 /* Telemetry.swift in Sources */,
 				9A69202D10CCBD8B00DF1CA6 /* USAdditions.m in Sources */,
@@ -2344,6 +2341,7 @@
 				9A30201429CBDAB000115538 /* SharedWatch.swift in Sources */,
 				9A9CB2691E513B28002B2E11 /* TotalsCalculator.m in Sources */,
 				9AE39A4C29ABE29D002A6496 /* WebServiceMappingExtensions.swift in Sources */,
+				9A7083B029D86A85002819F8 /* FixedImageCell.swift in Sources */,
 				9A03F50829D3B51A0047807E /* Totals.swift in Sources */,
 				9A14334629A54991007129A9 /* MFBWebServiceObjectExtensions.swift in Sources */,
 				9A70E34929D4FB7B0068B0E6 /* CheckboxCell.swift in Sources */,
@@ -2392,8 +2390,6 @@
 				9AC7B8BF14D0ADAB009139BF /* PullRefreshTableViewController.m in Sources */,
 				9AC88C0F29BFAD8B00841C0A /* Aircraft.swift in Sources */,
 				9A70E34729D4F9FA0068B0E6 /* ButtonCell.swift in Sources */,
-				9A42300C157B953F00FF99D4 /* ProgressCell.m in Sources */,
-				9A0DD9F8158579BE00FB6DF2 /* FixedImageCell.m in Sources */,
 				9A2649FA29D106FB00C0D176 /* NavigableCell.swift in Sources */,
 				9AC88C0729BE96FE00841C0A /* MFBWebService Aircraft Extensions.swift in Sources */,
 				9A03F50A29D489520047807E /* NearbyAirports.swift in Sources */,
