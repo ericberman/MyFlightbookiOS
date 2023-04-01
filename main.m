@@ -41,7 +41,7 @@ void Swizzle(Class c, SEL orig, SEL new)
 
 void SwizzleArchivedClasses(void);
 
-void SwizzleArchivedClasses()
+void SwizzleArchivedClasses(void)
 {
     /*
      Swizzle the classes that where we replace initwithcoder/decode
