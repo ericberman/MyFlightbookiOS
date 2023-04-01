@@ -285,7 +285,7 @@ import Foundation
             
             let va = (content[indexPath.section][szKeyRowValues] as! [MFBWebServiceSvc_VisitedAirport])[indexPath.row]
             
-            config.attributedText = NSAttributedString.attributedStringFromMarkDown(sz: "*\(va.airport.code.uppercased())* - \(va.airport.name ?? "")" as NSString, size: config.textProperties.font.pointSize)
+            config.attributedText = NSAttributedString.attributedStringFromMarkDown(sz: "*\(va.airport.code.uppercased())* - \(va.airport.name.capitalized)" as NSString, size: config.textProperties.font.pointSize)
             
             let dist = va.airport.distanceFromPosition.doubleValue
             
