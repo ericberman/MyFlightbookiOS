@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -101,7 +101,7 @@
                         <color key="tintColor" red="0.0" green="0.73725490199999999" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <viewControllers>
-                        <viewController title="My Aircraft" nibName="MyAircraft" id="216" customClass="MyAircraft">
+                        <viewController title="My Aircraft" nibName="MyAircraft" id="216" customClass="MyAircraft" customModule="MyFlightbook" customModuleProvider="target">
                             <extendedEdge key="edgesForExtendedLayout"/>
                             <toolbarItems/>
                             <navigationItem key="navigationItem" title="My Aircraft" id="217"/>

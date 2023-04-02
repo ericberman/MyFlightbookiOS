@@ -27,27 +27,28 @@
 import Foundation
 
 @objc public class FixedImageCell : UITableViewCell {
-    public override func layoutSubviews() {
-        super.layoutSubviews()
-        let f = contentView.frame
-        let MARGIN = 3.0
-        
-        // x, y, width, height
-        let dxWidth = f.size.height * 1.2
-        let dxHeight = f.size.height
-        
-        let dxAccessory = 0.0
-        
-        let rImage = CGRectMake(MARGIN, 1.0, dxWidth - 2 * MARGIN, dxHeight - 1.0)
-        imageView!.frame = rImage
-        imageView!.contentMode = .scaleAspectFit
-        
-        let xLabels = rImage.origin.x + rImage.size.width + MARGIN
-        
-        let rText = CGRectMake(xLabels, textLabel!.frame.origin.y, f.size.width - xLabels - dxAccessory - 2.0 * MARGIN, textLabel!.frame.size.height)
-        textLabel!.frame = rText;
-        
-        let rDetail = CGRectMake(xLabels, detailTextLabel!.frame.origin.y, f.size.width - xLabels - dxAccessory - 2.0 * MARGIN, detailTextLabel!.frame.size.height)
-        detailTextLabel!.frame = rDetail
+    @IBOutlet public weak var imgView : UIImageView!
+    @IBOutlet public weak var lblMain : UILabel!
+    
+    public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    }
+    
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    @objc public static func getFixedImageCell(_ tableView : UITableView) -> FixedImageCell {
+        let cellTextIdentifier = "fixedImageCell"
+        var cell = tableView.dequeueReusableCell(withIdentifier: cellTextIdentifier) as? FixedImageCell
+        if (cell == nil) {
+            let topLevelObjects = Bundle.main.loadNibNamed("FixedImageCell", owner: self)!
+            if let firstObject = topLevelObjects[0] as? FixedImageCell {
+                cell = firstObject
+            } else {
+                cell = topLevelObjects[1] as? FixedImageCell
+            }
+        }
+        return cell!
     }
 }

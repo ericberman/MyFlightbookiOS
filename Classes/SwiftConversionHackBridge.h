@@ -31,6 +31,7 @@
 @interface SwiftConversionHackBridge : NSObject
 + (UIViewController *_Nonnull) recentFlightsWithQuery: (MFBWebServiceSvc_FlightQuery * _Nonnull) fq;
 + (UIViewController *_Nonnull) aircraftDetailsWithAircraft: (MFBWebServiceSvc_Aircraft * _Nonnull) ac;
++ (UIViewController *_Nonnull) aircraftDetailsWithAircraft: (MFBWebServiceSvc_Aircraft * _Nonnull) ac delegate:(id _Nullable ) d;
 @end
 
 #endif /* SwiftConversionHackBridge_h */

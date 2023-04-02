@@ -147,11 +147,12 @@
 		9A4F3B6618177E61009E575C /* Default-Portrait768x1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4F3B6218177E61009E575C /* Default-Portrait768x1024.png */; };
 		9A4F3B6718177E61009E575C /* Default-Portrait1536x2048.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4F3B6318177E61009E575C /* Default-Portrait1536x2048.png */; };
 		9A503AA829CB702200D201C5 /* SynchronousCalls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A503AA729CB702200D201C5 /* SynchronousCalls.swift */; };
+		9A512DDB29D8892F004A222A /* MyAircraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A512DDA29D8892F004A222A /* MyAircraft.swift */; };
+		9A512DDF29D8D8F8004A222A /* FixedImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A512DDE29D8D8F8004A222A /* FixedImageCell.xib */; };
 		9A517E451E2ED4CC00EC3545 /* ApproachEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A517E441E2ED4CC00EC3545 /* ApproachEditor.m */; };
 		9A52ECB21B6574D000DE8A83 /* schedule.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A52ECAF1B6574D000DE8A83 /* schedule.png */; };
 		9A52ECB31B6574D000DE8A83 /* schedule@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A52ECB01B6574D000DE8A83 /* schedule@2x.png */; };
 		9A52ECB41B6574D000DE8A83 /* schedule@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A52ECB11B6574D000DE8A83 /* schedule@3x.png */; };
-		9A58E0481131A77C005988FA /* MyAircraft.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A58E0461131A77C005988FA /* MyAircraft.m */; };
 		9A58E0541131AC4C005988FA /* aircraft.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A58E0531131AC4C005988FA /* aircraft.png */; };
 		9A5950012454BB7000333233 /* f_logo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A5950002454BB7000333233 /* f_logo@3x.png */; };
 		9A5A082C147ED30600C05C50 /* LEEditController-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A5A0824147ED30600C05C50 /* LEEditController-iPad.xib */; };
@@ -678,14 +679,14 @@
 		9A4F3B6318177E61009E575C /* Default-Portrait1536x2048.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait1536x2048.png"; sourceTree = "<group>"; };
 		9A503AA729CB702200D201C5 /* SynchronousCalls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynchronousCalls.swift; sourceTree = "<group>"; };
 		9A50B5901BD73623004F04AF /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LEEditController.strings; sourceTree = "<group>"; };
+		9A512DDA29D8892F004A222A /* MyAircraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAircraft.swift; sourceTree = "<group>"; };
+		9A512DDE29D8D8F8004A222A /* FixedImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FixedImageCell.xib; sourceTree = "<group>"; };
 		9A517E431E2ED4CC00EC3545 /* ApproachEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApproachEditor.h; sourceTree = "<group>"; };
 		9A517E441E2ED4CC00EC3545 /* ApproachEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApproachEditor.m; sourceTree = "<group>"; };
 		9A52ECAF1B6574D000DE8A83 /* schedule.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = schedule.png; sourceTree = "<group>"; };
 		9A52ECB01B6574D000DE8A83 /* schedule@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "schedule@2x.png"; sourceTree = "<group>"; };
 		9A52ECB11B6574D000DE8A83 /* schedule@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "schedule@3x.png"; sourceTree = "<group>"; };
 		9A565B6E13E3545800BEFFA7 /* GPSSamples.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GPSSamples.csv; sourceTree = "<group>"; };
-		9A58E0451131A77C005988FA /* MyAircraft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAircraft.h; sourceTree = "<group>"; };
-		9A58E0461131A77C005988FA /* MyAircraft.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAircraft.m; sourceTree = "<group>"; };
 		9A58E0531131AC4C005988FA /* aircraft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aircraft.png; sourceTree = "<group>"; };
 		9A5950002454BB7000333233 /* f_logo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "f_logo@3x.png"; sourceTree = "<group>"; };
 		9A5DA32019E847E50016100C /* EditCellML.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditCellML.xib; sourceTree = "<group>"; };
@@ -1320,8 +1321,6 @@
 		9A58E0441131A749005988FA /* Aircraft */ = {
 			isa = PBXGroup;
 			children = (
-				9A58E0451131A77C005988FA /* MyAircraft.h */,
-				9A58E0461131A77C005988FA /* MyAircraft.m */,
 				9A6B78A222399DDC0014B0C2 /* AircraftViewControllerBase.h */,
 				9A6B78A322399DDC0014B0C2 /* AircraftViewControllerBase.m */,
 				9A6B789F22399C8C0014B0C2 /* NewAircraftViewController.h */,
@@ -1329,6 +1328,7 @@
 				9A60D6C416F8D6A500F9DFFF /* AircraftViewController.h */,
 				9ACEDB9722388BAB00221A17 /* AircraftViewController.m */,
 				9A264A0329D33CC400C0D176 /* MakeModel.swift */,
+				9A512DDA29D8892F004A222A /* MyAircraft.swift */,
 			);
 			name = Aircraft;
 			sourceTree = "<group>";
@@ -1774,6 +1774,7 @@
 				9A2649FD29D2105300C0D176 /* ExpandHeaderCell.swift */,
 				9A6C3B4215728F27004EB8FA /* ExpandHeaderCell.xib */,
 				9A7083AF29D86A85002819F8 /* FixedImageCell.swift */,
+				9A512DDE29D8D8F8004A222A /* FixedImageCell.xib */,
 				9A2649F929D106FB00C0D176 /* NavigableCell.swift */,
 				9A7083AD29D86A73002819F8 /* ProgressCell.swift */,
 				9A825DF6193677EA00967DF9 /* ProgressCell.xib */,
@@ -2234,6 +2235,7 @@
 				9AAA7CDD1715E4CA00429F78 /* backspace@2x.png in Resources */,
 				9A4F3B5918177BA1009E575C /* Icon-iPad76x76.png in Resources */,
 				9AAA7CDE1715E4CA00429F78 /* Icon-iPad-small.png in Resources */,
+				9A512DDF29D8D8F8004A222A /* FixedImageCell.xib in Resources */,
 				9AAA7CDF1715E4CA00429F78 /* Icon-iPad@2x.png in Resources */,
 				9AAA7CE01715E4CA00429F78 /* Icon-small@2x.png in Resources */,
 				9AD92AE71E4CD57600A2FC49 /* noimage.png in Resources */,
@@ -2309,6 +2311,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A2649FC29D1120700C0D176 /* PropertyCell.swift in Sources */,
+				9A512DDB29D8892F004A222A /* MyAircraft.swift in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				9A2649F629D0FE4E00C0D176 /* DateRangeViewController.swift in Sources */,
 				9A03F50C29D4CBC80047807E /* ImageComment.swift in Sources */,
@@ -2354,7 +2357,6 @@
 				9A020B3310FFEF3F00801349 /* RecentFlights.m in Sources */,
 				9AE39A4329AAA456002A6496 /* OptionSelection.swift in Sources */,
 				9A517E451E2ED4CC00EC3545 /* ApproachEditor.m in Sources */,
-				9A58E0481131A77C005988FA /* MyAircraft.m in Sources */,
 				9A0C938511E63A850062AF27 /* FlightProperties.m in Sources */,
 				9A3E1375127DE704008D672E /* EXFGPS.m in Sources */,
 				9A3E1376127DE704008D672E /* EXFHandlers.m in Sources */,

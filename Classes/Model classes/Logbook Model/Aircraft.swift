@@ -461,3 +461,8 @@ import Foundation
         return dictHighWaterHobbs[aircraftID] ?? NSNumber(floatLiteral: 0.0)
     }
 }
+
+@objc public protocol AircraftViewControllerDelegate {
+    @objc func aircraftListChanged()
+}
+

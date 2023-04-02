@@ -29,10 +29,6 @@
 #import <MyFlightbook-Swift.h>
 #import "CollapsibleTable.h"
 
-@protocol AircraftViewControllerDelegate
-- (void) aircraftListChanged;
-@end
-
 @interface AircraftViewControllerBase : CollapsibleTable
 @property (nonatomic, strong) IBOutlet UIDatePicker * datePicker;
 @property (nonatomic, strong) IBOutlet UIPickerView * picker;
