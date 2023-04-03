@@ -26,24 +26,13 @@
 
 import Foundation
 
-// Internal class for grouping multiple models under each manufacturer
-public class ManufacturerCollection : NSObject {
-    var szManufacturer = ""
-    var rgModels : [MFBWebServiceSvc_SimpleMakeModel] = []
-    
-    init(szManufacturer: String) {
-        self.szManufacturer = szManufacturer
-    }
-}
-
 @objc public class MakeModel : PullRefreshTableViewControllerSW, UISearchBarDelegate {
     @IBOutlet weak var searchBar : UISearchBar!
 
     @objc public var ac : MFBWebServiceSvc_Aircraft? = nil
     var rgFilteredMakes : [MFBWebServiceSvc_SimpleMakeModel] = []
-    var content : [ManufacturerCollection] = []
+    var content : [ModelGroup] = []
     var indices : [String] = []
-    var dictIndexMap : [String : Int] = [:]
     var fDisableRefresh = false
     
     public override init(style: UITableView.Style) {
@@ -65,58 +54,12 @@ public class ManufacturerCollection : NSObject {
         Each ManufacturerCollection has the name of the manufacturer and an array of its models (SimpleMakeModel)
     */
     public func groupData() {
-        // Chop the property types up for indexing
-        // We will then convert that dictionary to an array and sort it.
-        content.removeAll()
-        var szKey = ""
-        let alphaSet = CharacterSet.alphanumerics
-        
         if (rgFilteredMakes.isEmpty) {
             rgFilteredMakes.append(contentsOf: Aircraft.sharedAircraft.rgMakeModels ?? [])
         }
-        let arMakes = rgFilteredMakes
-        
-        // Create the array of ManufacturerCollection objects from the models in the above array
-        var dictMC : [String : ManufacturerCollection] = [:]
-        for mm in arMakes {
-            let szMan = mm.manufacturerName
-            var mc = dictMC[szMan]
-            if (mc == nil) {
-                mc = ManufacturerCollection(szManufacturer: szMan)
-                dictMC[szMan] = mc
-            }
-            mc!.rgModels.append(mm)
-        }
-        
-        // Now create an aray of these models
-        content.append(contentsOf: dictMC.values)
-        
-        // Sort by manufacturer name
-        content.sort { mc1, mc2 in
-            return mc1.szManufacturer.compare(mc2.szManufacturer, options: .caseInsensitive) != .orderedDescending
-        }
-        
-        // And build up the appropriate indices
-        indices.removeAll()
-        indices.append(UITableView.indexSearch)
-        dictIndexMap.removeAll()
-        
-        for i in 0..<content.count {
-            let mc = content[i]
-            var szNewKey = mc.szManufacturer.prefix(1).uppercased()
-            
-            if szNewKey.trimmingCharacters(in: alphaSet) == szNewKey {
-                szNewKey = " "
-            }
-            
-            if szKey == szNewKey {
-                continue
-            }
-            
-            szKey = szNewKey
-            indices.append(szNewKey)
-            dictIndexMap[szNewKey] = i
-        }
+
+        content = ModelGroup.groupModels(rgFilteredMakes)
+        indices = ModelGroup.indicesFromGroups(content)
     }
     
     // MARK: - Update makes and models
@@ -198,24 +141,24 @@ public class ManufacturerCollection : NSObject {
     }
     
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1 + (isExpanded(section) ? content[section].rgModels.count : 0)
+        return 1 + (isExpanded(section) ? content[section].models.count : 0)
     }
     
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let CellIdentifierModel = "Cell"
         
         // Get the manufacturer collection for this indexpath
-        let mc = content[indexPath.section]
+        let mg = content[indexPath.section]
         
-        // See if this is a header cell or not.
+        // See if this is a header cell
         if (indexPath.row == 0) {
-            return ExpandHeaderCell.getHeaderCell(tableView, withTitle: mc.szManufacturer, forSection: indexPath.section, initialState: isExpanded(indexPath.section))
+            return ExpandHeaderCell.getHeaderCell(tableView, withTitle: mg.manufacturerName, forSection: indexPath.section, initialState: isExpanded(indexPath.section))
         }
 
         // Otherwise, it's a model cell
         let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifierModel) ?? UITableViewCell(style: .subtitle, reuseIdentifier: CellIdentifierModel)
 
-        let mm = mc.rgModels[indexPath.row - 1]
+        let mm = mg.models[indexPath.row - 1]
         
         var config = cell.defaultContentConfiguration()
         config.text = mm.manufacturerName
@@ -236,7 +179,9 @@ public class ManufacturerCollection : NSObject {
             tableView.scrollRectToVisible(searchBar.frame, animated: false)
             return -1
         }
-        return dictIndexMap[title] ?? 0
+        return content.firstIndex { mg in
+            mg.manufacturerName.hasPrefix(title)
+        } ?? 0
     }
     
     // MARK: - Table view delegate
@@ -247,7 +192,7 @@ public class ManufacturerCollection : NSObject {
         }
         
         let mc = content[indexPath.section]
-        let mm = mc.rgModels[indexPath.row - 1]
+        let mm = mc.models[indexPath.row - 1]
         ac?.modelID = mm.modelID
         navigationController?.popViewController(animated: true)
     }

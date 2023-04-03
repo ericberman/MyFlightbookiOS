@@ -231,6 +231,50 @@ extension MFBWebServiceSvc_Aircraft {
     }
 }
 
+// Grouping of models by manufacturer.
+public struct ModelGroup {
+    public var manufacturerName : String
+    public var models : [MFBWebServiceSvc_SimpleMakeModel] = []
+    
+    public static func groupModels(_ rg : [MFBWebServiceSvc_SimpleMakeModel]) -> [ModelGroup] {
+        var result : [ModelGroup] = []
+        var szKey = ""
+        
+        // sort by manufacturer name, if not already sorted.
+        let rgSorted = rg.sorted { smm1, smm2 in
+            smm1.manufacturerName.compare(smm2.manufacturerName, options: .caseInsensitive) != .orderedDescending
+        }
+        
+        for smm in rgSorted {
+            let szNewKey = smm.manufacturerName
+            
+            if (szKey.compare(szNewKey, options: .caseInsensitive) != .orderedSame) {
+                result.append(ModelGroup(manufacturerName: szNewKey))
+                szKey = szNewKey
+            }
+            
+            result[result.count - 1].models.append(smm)
+        }
+        
+        return result
+    }
+    
+    public static func indicesFromGroups(_ rg : [ModelGroup]) -> [String] {
+        var rgResult = [UITableView.indexSearch]
+        var szKey = ""
+
+        for mg in rg {
+            let szNewKey = String(mg.manufacturerName.prefix(1)).uppercased()
+            if szKey.compare(szNewKey, options: .caseInsensitive) != .orderedSame {
+                rgResult.append(szNewKey)
+                szKey = szNewKey
+            }
+        }
+
+        return rgResult
+    }
+}
+
 // MARK: MFBWebServiceSvc_SimpleMakeModel extensions
 extension MFBWebServiceSvc_SimpleMakeModel {
     // These are kind of a hack on the syntax of the simple make/model Description, which is "Manufacturer (model and other info)"
