@@ -23,10 +23,8 @@
 //  Created by Eric Berman on 7/4/19.
 //
 
+#import <MyFlightbook-Swift.h>
 #import "FlightEditorBaseTableViewController.h"
-#import "SelectTemplates.h"
-#import "ApproachEditor.h"
-#import "TotalsCalculator.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

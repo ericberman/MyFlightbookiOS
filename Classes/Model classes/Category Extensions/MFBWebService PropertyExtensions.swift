@@ -222,12 +222,11 @@ private let _szKeyTemplateID = "keyTemplID"
 private let _szKeyTemplateName = "keyTemplName"
 private let _szKeyTemplateDesc = "keyTemplDesc"
 private let _szKeyTemplateGroup = "keyTemplGroup"
+private let _szKeyTemplateGroupName = "keyTemplGroupName"
 private let _szKeyTemplateDefault = "keyTemplDefault"
 private let _szKeyTemplatePropTypes = "keyTemplTypes"
 
 extension MFBWebServiceSvc_PropertyTemplate {
-    @objc public static let KEY_GROUPNAME  = "GroupName"
-    @objc public static let KEY_PROPSFORGROUP = "PropsForGroup"
     @objc public static let GROUP_ID_AUTOMATIC=0
     
     @objc public func encodeWithCoderMFB(_ encoder : NSCoder) {
@@ -235,6 +234,7 @@ extension MFBWebServiceSvc_PropertyTemplate {
         encoder.encode(name, forKey: _szKeyTemplateName)
         encoder.encode(description, forKey: _szKeyTemplateDesc)
         encoder.encode(groupAsInt, forKey: _szKeyTemplateGroup)
+        encoder.encode(groupDisplayName ?? "", forKey: _szKeyTemplateGroupName)
         encoder.encode(isDefault, forKey: _szKeyTemplateDefault)
         encoder.encode(propertyTypes, forKey: _szKeyTemplatePropTypes)
     }
@@ -245,6 +245,7 @@ extension MFBWebServiceSvc_PropertyTemplate {
         name = decoder.decodeObject(of: NSString.self, forKey: _szKeyTemplateName)! as String
         description = decoder.decodeObject(of: NSString.self, forKey: _szKeyTemplateDesc)! as String
         groupAsInt = decoder.decodeObject(of: NSNumber.self, forKey: _szKeyTemplateGroup)! as NSNumber
+        groupDisplayName = decoder.decodeObject(of: NSString.self, forKey: _szKeyTemplateGroupName) as? String ?? ""
         isDefault = decoder.decodeObject(of: USBoolean.self, forKey: _szKeyTemplateDefault)
         propertyTypes = try! decoder.decodeTopLevelObject(of: [NSMutableArray.self, MFBWebServiceSvc_ArrayOfInt.self, NSNumber.self],
                                                           forKey: _szKeyTemplatePropTypes)! as! MFBWebServiceSvc_ArrayOfInt
@@ -313,8 +314,8 @@ extension MFBWebServiceSvc_PropertyTemplate {
         return id_.hash
     }
 
-    @objc public static func groupTemplates(_ rgTemplates : [MFBWebServiceSvc_PropertyTemplate]) -> [NSDictionary] {
-        var result : [NSMutableDictionary] = []
+    public static func groupTemplates(_ rgTemplates : [MFBWebServiceSvc_PropertyTemplate]) -> [TemplateGroup] {
+        var result : [TemplateGroup] = []
         
         // sort the arry by group, then by name
         let sorted = rgTemplates.sorted { pt1, pt2 in
@@ -329,21 +330,28 @@ extension MFBWebServiceSvc_PropertyTemplate {
             }
         }
         
-        var currentGroupName = ""
-        var currentItems : NSMutableArray? = nil
+        var currentGroup : TemplateGroup = TemplateGroup()
         
         for pt in sorted {
-            if pt.groupDisplayName.compare(currentGroupName, options: .caseInsensitive) != .orderedSame {
-                currentGroupName = pt.groupDisplayName
-                currentItems = NSMutableArray()
-                let dict = NSMutableDictionary()
-                dict[KEY_GROUPNAME] = currentGroupName
-                dict[KEY_PROPSFORGROUP] = currentItems
-                result.append(dict)
+            if pt.groupDisplayName.compare(currentGroup.groupName, options: .caseInsensitive) != .orderedSame {
+                currentGroup = TemplateGroup(groupName: pt.groupDisplayName)
+                result.append(currentGroup)
             }
-            currentItems!.add(pt)
+            // OH MY GOD - this is insanely lame of swift.
+            // currentGroup.templates.append(pt) DOESN'T IMPACT WHAT'S IN THE RESULT ARRAY
+            // because fucking swift does everything by value, but
+            // result[result.count - 1].templates.append(pt) does work.
+            // How on earth does that make sense, Apple???
+            // So far, Swift is mostly good, but this is both pathetically lame and pathetically hidden.
+
+            result[result.count - 1].templates.append(pt)
         }
         
         return result
     }
+}
+
+public struct TemplateGroup {
+    var groupName = ""
+    var templates : [MFBWebServiceSvc_PropertyTemplate] = []
 }

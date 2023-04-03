@@ -162,7 +162,7 @@ public class CollapsibleTableSw : UITableViewController, UIImagePickerController
     }
     
     func nextNavCell(_ ipIn : IndexPath?) -> IndexPath? {
-        if ipIn == nil {
+            if ipIn == nil {
             return nil
         }
         var ip = ipIn!

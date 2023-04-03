@@ -149,7 +149,6 @@
 		9A503AA829CB702200D201C5 /* SynchronousCalls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A503AA729CB702200D201C5 /* SynchronousCalls.swift */; };
 		9A512DDB29D8892F004A222A /* MyAircraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A512DDA29D8892F004A222A /* MyAircraft.swift */; };
 		9A512DDF29D8D8F8004A222A /* FixedImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A512DDE29D8D8F8004A222A /* FixedImageCell.xib */; };
-		9A517E451E2ED4CC00EC3545 /* ApproachEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A517E441E2ED4CC00EC3545 /* ApproachEditor.m */; };
 		9A52ECB21B6574D000DE8A83 /* schedule.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A52ECAF1B6574D000DE8A83 /* schedule.png */; };
 		9A52ECB31B6574D000DE8A83 /* schedule@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A52ECB01B6574D000DE8A83 /* schedule@2x.png */; };
 		9A52ECB41B6574D000DE8A83 /* schedule@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A52ECB11B6574D000DE8A83 /* schedule@3x.png */; };
@@ -234,7 +233,6 @@
 		9A897FE01666B39800D9019C /* sunrise@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FDF1666B39700D9019C /* sunrise@2x.png */; };
 		9A897FE21666B3A700D9019C /* sunset@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A897FE11666B3A700D9019C /* sunset@2x.png */; };
 		9A89C1AF29B8F45300848A6B /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A89C1AE29B8F45300848A6B /* About.swift */; };
-		9A8BFADF22B00B1000CB79E0 /* SelectTemplates.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A8BFADE22B00B1000CB79E0 /* SelectTemplates.m */; };
 		9A8D628015851392001105F2 /* DateRangeSelector.xib.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9A8D627E15851392001105F2 /* DateRangeSelector.xib.txt */; };
 		9A8D6283158513AB001105F2 /* DateRangeSelector.xib.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9A8D6281158513AB001105F2 /* DateRangeSelector.xib.txt */; };
 		9A8EE98129A9B20200F133CF /* MFBSoap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8EE98029A9B20200F133CF /* MFBSoap.swift */; };
@@ -330,7 +328,6 @@
 		9A99506216E3C17F00C61594 /* PropertyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A99506116E3C17F00C61594 /* PropertyCell.xib */; };
 		9A99507716E69D5C00C61594 /* AccessoryBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A99507516E69D5C00C61594 /* AccessoryBar.xib */; };
 		9A9A56F929CE25B300C5D006 /* CommentedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9A56F829CE25B300C5D006 /* CommentedImage.swift */; };
-		9A9CB2691E513B28002B2E11 /* TotalsCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CB2681E513B28002B2E11 /* TotalsCalculator.m */; };
 		9AA09D6A14684DDA00192184 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		9AA09D6B14684DE600192184 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		9AA09D6C14684DF400192184 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AA0BBE5113DD3E00032DA0F /* AVFoundation.framework */; };
@@ -374,6 +371,9 @@
 		9AC264391BE6CEAA00914D30 /* Recording@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A902D7D1A210E7700698017 /* Recording@3x.png */; };
 		9AC2C80229A3E3D600A702B2 /* ObjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2C80129A3E3D600A702B2 /* ObjectExtensions.swift */; };
 		9AC2C80329A3E3D600A702B2 /* ObjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2C80129A3E3D600A702B2 /* ObjectExtensions.swift */; };
+		9AC6F0CE29D9D305007D0044 /* TotalsCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC6F0CD29D9D305007D0044 /* TotalsCalculator.swift */; };
+		9AC6F0D229D9D332007D0044 /* SelectTemplates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC6F0D129D9D332007D0044 /* SelectTemplates.swift */; };
+		9AC6F0D429D9D33E007D0044 /* ApproachEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC6F0D329D9D33E007D0044 /* ApproachEditor.swift */; };
 		9AC7B8BF14D0ADAB009139BF /* PullRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC7B8BE14D0ADAB009139BF /* PullRefreshTableViewController.m */; };
 		9AC7B8C114D0ADBB009139BF /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AC7B8C014D0ADBB009139BF /* arrow.png */; };
 		9AC7B8C314D0AEF0009139BF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AC7B8C214D0AEF0009139BF /* QuartzCore.framework */; };
@@ -681,8 +681,6 @@
 		9A50B5901BD73623004F04AF /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LEEditController.strings; sourceTree = "<group>"; };
 		9A512DDA29D8892F004A222A /* MyAircraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAircraft.swift; sourceTree = "<group>"; };
 		9A512DDE29D8D8F8004A222A /* FixedImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FixedImageCell.xib; sourceTree = "<group>"; };
-		9A517E431E2ED4CC00EC3545 /* ApproachEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApproachEditor.h; sourceTree = "<group>"; };
-		9A517E441E2ED4CC00EC3545 /* ApproachEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApproachEditor.m; sourceTree = "<group>"; };
 		9A52ECAF1B6574D000DE8A83 /* schedule.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = schedule.png; sourceTree = "<group>"; };
 		9A52ECB01B6574D000DE8A83 /* schedule@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "schedule@2x.png"; sourceTree = "<group>"; };
 		9A52ECB11B6574D000DE8A83 /* schedule@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "schedule@3x.png"; sourceTree = "<group>"; };
@@ -774,8 +772,6 @@
 		9A897FDF1666B39700D9019C /* sunrise@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sunrise@2x.png"; sourceTree = "<group>"; };
 		9A897FE11666B3A700D9019C /* sunset@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sunset@2x.png"; sourceTree = "<group>"; };
 		9A89C1AE29B8F45300848A6B /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = About.swift; sourceTree = "<group>"; };
-		9A8BFADD22B00B1000CB79E0 /* SelectTemplates.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectTemplates.h; sourceTree = "<group>"; };
-		9A8BFADE22B00B1000CB79E0 /* SelectTemplates.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectTemplates.m; sourceTree = "<group>"; };
 		9A8D627F15851392001105F2 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text; name = fr; path = Classes/fr.lproj/DateRangeSelector.xib.txt; sourceTree = "<group>"; };
 		9A8D6282158513AB001105F2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text; name = en; path = Classes/en.lproj/DateRangeSelector.xib.txt; sourceTree = "<group>"; };
 		9A8EE98029A9B20200F133CF /* MFBSoap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFBSoap.swift; sourceTree = "<group>"; };
@@ -873,8 +869,6 @@
 		9A960C9B10DE9B1C00843113 /* profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile.png; sourceTree = "<group>"; };
 		9A99506116E3C17F00C61594 /* PropertyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PropertyCell.xib; sourceTree = "<group>"; };
 		9A9A56F829CE25B300C5D006 /* CommentedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentedImage.swift; sourceTree = "<group>"; };
-		9A9CB2671E513B28002B2E11 /* TotalsCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TotalsCalculator.h; sourceTree = "<group>"; };
-		9A9CB2681E513B28002B2E11 /* TotalsCalculator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TotalsCalculator.m; sourceTree = "<group>"; };
 		9AA06CB810F3C27E00D635C1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		9AA09D6814684DC800192184 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		9AA09D6D14684E3A00192184 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -925,6 +919,9 @@
 		9AC6AF221BD0158D004AB2E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TotalsRow.xib; sourceTree = "<group>"; };
 		9AC6AF231BD0158E004AB2E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/VADetails.xib; sourceTree = "<group>"; };
 		9AC6AF261BD01591004AB2E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/VisitedAirports.xib; sourceTree = "<group>"; };
+		9AC6F0CD29D9D305007D0044 /* TotalsCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalsCalculator.swift; sourceTree = "<group>"; };
+		9AC6F0D129D9D332007D0044 /* SelectTemplates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTemplates.swift; sourceTree = "<group>"; };
+		9AC6F0D329D9D33E007D0044 /* ApproachEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApproachEditor.swift; sourceTree = "<group>"; };
 		9AC7B8BD14D0ADAB009139BF /* PullRefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullRefreshTableViewController.h; sourceTree = "<group>"; };
 		9AC7B8BE14D0ADAB009139BF /* PullRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullRefreshTableViewController.m; sourceTree = "<group>"; };
 		9AC7B8C014D0ADBB009139BF /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
@@ -1242,17 +1239,14 @@
 				9A0C938311E63A850062AF27 /* FlightProperties.m */,
 				28216C950DB411BC00E5133A /* LEEditController.h */,
 				28216C960DB411BC00E5133A /* LEEditController.m */,
-				9A517E431E2ED4CC00EC3545 /* ApproachEditor.h */,
-				9A517E441E2ED4CC00EC3545 /* ApproachEditor.m */,
-				9A9CB2671E513B28002B2E11 /* TotalsCalculator.h */,
-				9A9CB2681E513B28002B2E11 /* TotalsCalculator.m */,
 				9A27223629B69AD3006AE702 /* GPSDeviceViewTableViewController.swift */,
-				9A8BFADD22B00B1000CB79E0 /* SelectTemplates.h */,
-				9A8BFADE22B00B1000CB79E0 /* SelectTemplates.m */,
 				9A70B18522C07A8500CA7E21 /* FlightEditorBaseTableViewController.h */,
 				9A70B18622C07A8500CA7E21 /* FlightEditorBaseTableViewController.m */,
 				9A80059E22CEBCCF00EC487E /* LogbookEntryBaseTableViewController.h */,
 				9A80059F22CEBCCF00EC487E /* LogbookEntryBaseTableViewController.m */,
+				9AC6F0CD29D9D305007D0044 /* TotalsCalculator.swift */,
+				9AC6F0D129D9D332007D0044 /* SelectTemplates.swift */,
+				9AC6F0D329D9D33E007D0044 /* ApproachEditor.swift */,
 			);
 			name = "Flight Entry";
 			sourceTree = "<group>";
@@ -2332,6 +2326,7 @@
 				9A69202B10CCBD8B00DF1CA6 /* NSDate+ISO8601Parsing.m in Sources */,
 				9A7083AE29D86A73002819F8 /* ProgressCell.swift in Sources */,
 				9A69202C10CCBD8B00DF1CA6 /* NSDate+ISO8601Unparsing.m in Sources */,
+				9AC6F0D429D9D33E007D0044 /* ApproachEditor.swift in Sources */,
 				9A27223329B55C67006AE702 /* Telemetry.swift in Sources */,
 				9A69202D10CCBD8B00DF1CA6 /* USAdditions.m in Sources */,
 				9A69202E10CCBD8B00DF1CA6 /* USGlobals.m in Sources */,
@@ -2340,10 +2335,8 @@
 				9A8EE98129A9B20200F133CF /* MFBSoap.swift in Sources */,
 				9A69202F10CCBD8B00DF1CA6 /* xsd.m in Sources */,
 				9A264A0229D26C6700C0D176 /* WaitCell.swift in Sources */,
-				9A8BFADF22B00B1000CB79E0 /* SelectTemplates.m in Sources */,
 				9A48E27429A1686000511D99 /* MyFlightbookWidgets.intentdefinition in Sources */,
 				9A30201429CBDAB000115538 /* SharedWatch.swift in Sources */,
-				9A9CB2691E513B28002B2E11 /* TotalsCalculator.m in Sources */,
 				9AE39A4C29ABE29D002A6496 /* WebServiceMappingExtensions.swift in Sources */,
 				9A7083B029D86A85002819F8 /* FixedImageCell.swift in Sources */,
 				9A03F50829D3B51A0047807E /* Totals.swift in Sources */,
@@ -2356,7 +2349,6 @@
 				9A03F50529D3ABA30047807E /* SwiftConversionHackBridge.m in Sources */,
 				9A020B3310FFEF3F00801349 /* RecentFlights.m in Sources */,
 				9AE39A4329AAA456002A6496 /* OptionSelection.swift in Sources */,
-				9A517E451E2ED4CC00EC3545 /* ApproachEditor.m in Sources */,
 				9A0C938511E63A850062AF27 /* FlightProperties.m in Sources */,
 				9A3E1375127DE704008D672E /* EXFGPS.m in Sources */,
 				9A3E1376127DE704008D672E /* EXFHandlers.m in Sources */,
@@ -2365,6 +2357,7 @@
 				9A2649F429D0FC3900C0D176 /* AccessoryBar.swift in Sources */,
 				9A0EA69729C947C00031A10D /* MFBAppDelegate.swift in Sources */,
 				9A89C1AF29B8F45300848A6B /* About.swift in Sources */,
+				9AC6F0D229D9D332007D0044 /* SelectTemplates.swift in Sources */,
 				9AE39A3F29AAA2D0002A6496 /* AutodetectOptions.swift in Sources */,
 				9A70E34529D4F5AE0068B0E6 /* ConjunctionCell.swift in Sources */,
 				9A3E1378127DE704008D672E /* EXFJpeg.m in Sources */,
@@ -2372,6 +2365,7 @@
 				9AE39A4A29ABD008002A6496 /* LatLongBox.swift in Sources */,
 				9AC88C0B29BFAD6800841C0A /* MFBAsyncOperation.swift in Sources */,
 				9A3E1379127DE704008D672E /* EXFMetaData.m in Sources */,
+				9AC6F0CE29D9D305007D0044 /* TotalsCalculator.swift in Sources */,
 				9A3E137A127DE704008D672E /* EXFTagDefinitionHolder.m in Sources */,
 				9A2649FE29D2105300C0D176 /* ExpandHeaderCell.swift in Sources */,
 				9A3E137B127DE704008D672E /* EXFUtils.m in Sources */,
