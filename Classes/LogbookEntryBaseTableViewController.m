@@ -24,7 +24,6 @@
 //
 
 #import "LogbookEntryBaseTableViewController.h"
-#import "FlightProperties.h"
 #import "RecentFlights.h"
 #import <MyFlightbook-Swift.h>
 

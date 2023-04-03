@@ -22,7 +22,6 @@
 		9A085CAE20F3EF5500DDA442 /* tower@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A085CAB20F3EF5500DDA442 /* tower@2x.png */; };
 		9A085CAF20F3EF5500DDA442 /* tower.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A085CAC20F3EF5500DDA442 /* tower.png */; };
 		9A085CB020F3EF5500DDA442 /* tower@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A085CAD20F3EF5500DDA442 /* tower@3x.png */; };
-		9A0C938511E63A850062AF27 /* FlightProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C938311E63A850062AF27 /* FlightProperties.m */; };
 		9A0E793D29BD76F4005EF4D6 /* ApproachDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0E793C29BD76F4005EF4D6 /* ApproachDescription.swift */; };
 		9A0E794029BE2F4F005EF4D6 /* MFBWebService LogbookEntry Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0E793F29BE2F4F005EF4D6 /* MFBWebService LogbookEntry Extensions.swift */; };
 		9A0EA69729C947C00031A10D /* MFBAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0EA69629C947C00031A10D /* MFBAppDelegate.swift */; };
@@ -188,6 +187,7 @@
 		9A61876C1711DFC5007C7754 /* twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A61876A1711DFC4007C7754 /* twitter.png */; };
 		9A61876D1711DFC5007C7754 /* twitter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A61876B1711DFC4007C7754 /* twitter@2x.png */; };
 		9A6247A31AA509A3002A8E0B /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A6247A21AA509A3002A8E0B /* MediaPlayer.framework */; };
+		9A6590D429DA517900917FCD /* FlightProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6590D329DA517900917FCD /* FlightProperties.swift */; };
 		9A69202B10CCBD8B00DF1CA6 /* NSDate+ISO8601Parsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202110CCBD8900DF1CA6 /* NSDate+ISO8601Parsing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9A69202C10CCBD8B00DF1CA6 /* NSDate+ISO8601Unparsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202310CCBD8900DF1CA6 /* NSDate+ISO8601Unparsing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9A69202D10CCBD8B00DF1CA6 /* USAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202510CCBD8A00DF1CA6 /* USAdditions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -553,8 +553,6 @@
 		9A085CAD20F3EF5500DDA442 /* tower@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tower@3x.png"; sourceTree = "<group>"; };
 		9A0B1C3525F3ED3B00E583A8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "en.lproj/LEEditController-iPad.strings"; sourceTree = "<group>"; };
 		9A0B1C3C25F3EDE300E583A8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LEEditController.strings; sourceTree = "<group>"; };
-		9A0C938211E63A850062AF27 /* FlightProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlightProperties.h; sourceTree = "<group>"; };
-		9A0C938311E63A850062AF27 /* FlightProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlightProperties.m; sourceTree = "<group>"; };
 		9A0E793C29BD76F4005EF4D6 /* ApproachDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApproachDescription.swift; sourceTree = "<group>"; };
 		9A0E793F29BE2F4F005EF4D6 /* MFBWebService LogbookEntry Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MFBWebService LogbookEntry Extensions.swift"; sourceTree = "<group>"; };
 		9A0EA69629C947C00031A10D /* MFBAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFBAppDelegate.swift; sourceTree = "<group>"; };
@@ -705,6 +703,7 @@
 		9A61876A1711DFC4007C7754 /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter.png; sourceTree = "<group>"; };
 		9A61876B1711DFC4007C7754 /* twitter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter@2x.png"; sourceTree = "<group>"; };
 		9A6247A21AA509A3002A8E0B /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		9A6590D329DA517900917FCD /* FlightProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightProperties.swift; sourceTree = "<group>"; };
 		9A69202010CCBD8800DF1CA6 /* NSDate+ISO8601Parsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+ISO8601Parsing.h"; sourceTree = "<group>"; };
 		9A69202110CCBD8900DF1CA6 /* NSDate+ISO8601Parsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+ISO8601Parsing.m"; sourceTree = "<group>"; };
 		9A69202210CCBD8900DF1CA6 /* NSDate+ISO8601Unparsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+ISO8601Unparsing.h"; sourceTree = "<group>"; };
@@ -1235,18 +1234,17 @@
 		9A518E46111F85EC004B4BF6 /* Flight Entry */ = {
 			isa = PBXGroup;
 			children = (
-				9A0C938211E63A850062AF27 /* FlightProperties.h */,
-				9A0C938311E63A850062AF27 /* FlightProperties.m */,
-				28216C950DB411BC00E5133A /* LEEditController.h */,
-				28216C960DB411BC00E5133A /* LEEditController.m */,
-				9A27223629B69AD3006AE702 /* GPSDeviceViewTableViewController.swift */,
+				9AC6F0D329D9D33E007D0044 /* ApproachEditor.swift */,
 				9A70B18522C07A8500CA7E21 /* FlightEditorBaseTableViewController.h */,
 				9A70B18622C07A8500CA7E21 /* FlightEditorBaseTableViewController.m */,
+				9A27223629B69AD3006AE702 /* GPSDeviceViewTableViewController.swift */,
+				28216C950DB411BC00E5133A /* LEEditController.h */,
+				28216C960DB411BC00E5133A /* LEEditController.m */,
 				9A80059E22CEBCCF00EC487E /* LogbookEntryBaseTableViewController.h */,
 				9A80059F22CEBCCF00EC487E /* LogbookEntryBaseTableViewController.m */,
-				9AC6F0CD29D9D305007D0044 /* TotalsCalculator.swift */,
 				9AC6F0D129D9D332007D0044 /* SelectTemplates.swift */,
-				9AC6F0D329D9D33E007D0044 /* ApproachEditor.swift */,
+				9AC6F0CD29D9D305007D0044 /* TotalsCalculator.swift */,
+				9A6590D329DA517900917FCD /* FlightProperties.swift */,
 			);
 			name = "Flight Entry";
 			sourceTree = "<group>";
@@ -2349,7 +2347,6 @@
 				9A03F50529D3ABA30047807E /* SwiftConversionHackBridge.m in Sources */,
 				9A020B3310FFEF3F00801349 /* RecentFlights.m in Sources */,
 				9AE39A4329AAA456002A6496 /* OptionSelection.swift in Sources */,
-				9A0C938511E63A850062AF27 /* FlightProperties.m in Sources */,
 				9A3E1375127DE704008D672E /* EXFGPS.m in Sources */,
 				9A3E1376127DE704008D672E /* EXFHandlers.m in Sources */,
 				9A264A0429D33CC400C0D176 /* MakeModel.swift in Sources */,
@@ -2374,6 +2371,7 @@
 				9A14334C29A6B37E007129A9 /* TotalsRow.swift in Sources */,
 				9A21D5CB2214D1E300961605 /* BadElfSession.swift in Sources */,
 				9A0F0E7413E88781007E54C1 /* MFBWebServiceSvc.m in Sources */,
+				9A6590D429DA517900917FCD /* FlightProperties.swift in Sources */,
 				9A14334429A52934007129A9 /* MFBTheme.swift in Sources */,
 				9A84363729BAB0540001012D /* CountryCode.swift in Sources */,
 				9A2649F829D106B000C0D176 /* EditCell.swift in Sources */,

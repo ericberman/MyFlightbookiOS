@@ -26,7 +26,6 @@
 
 #import <UIKit/UIKit.h>
 #import "LogbookEntryBaseTableViewController.h"
-#import "FlightProperties.h"
 
 @interface LEEditController : LogbookEntryBaseTableViewController <EditPropertyDelegate, AutoDetectDelegate, UIAlertViewDelegate, UIPickerViewDataSource, LEControllerProtocol> {
 }

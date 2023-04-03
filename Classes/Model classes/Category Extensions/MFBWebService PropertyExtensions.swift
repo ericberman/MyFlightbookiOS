@@ -57,6 +57,38 @@ extension MFBWebServiceSvc_ArrayOfCustomFlightProperty {
     
 }
 
+public struct PropGroup {
+    public var key : String
+    public var props : [MFBWebServiceSvc_CustomPropertyType] = []
+    
+    public static func groupProps(_ rg : [MFBWebServiceSvc_CustomPropertyType]) -> [PropGroup] {
+        var result : [PropGroup] = []
+        var szKey = ""
+        
+        for cpt in rg {
+            let szNewKey = cpt.isFavorite.boolValue ?
+                String(localized: "Used", comment: "Bucket for quick access to previously used properties; KEEP THIS SHORT - e.g., 'previously used' is too long to fit in the right margin!") :
+            String(cpt.title.prefix(1)).uppercased()
+            
+            if szKey.compare(szNewKey, options: .caseInsensitive) != .orderedSame {
+                result.append(PropGroup(key: szNewKey))
+                szKey = szNewKey
+            }
+            result[result.count - 1].props.append(cpt)
+        }
+        
+        return result
+    }
+    
+    public static func indicesFromGroups(_ rg : [PropGroup]) -> [String] {
+        var rgResult = [UITableView.indexSearch]
+        rgResult.append(contentsOf: rg.map { pg in
+            return pg.key
+        })
+        return rgResult
+    }
+}
+
 // MARK: MFBWebServiceSvc_CustomPropertyType extensions
 extension MFBWebServiceSvc_CustomPropertyType {
 

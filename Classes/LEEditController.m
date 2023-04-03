@@ -27,7 +27,6 @@
 #import "LEEditController.h"
 #import <QuartzCore/QuartzCore.h>
 #import <MobileCoreServices/UTCoreTypes.h>
-#import "FlightProperties.h"
 #import "math.h"
 
 @interface LEEditController()
