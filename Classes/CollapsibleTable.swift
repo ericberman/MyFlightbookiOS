@@ -87,7 +87,7 @@ public class CollapsibleTableSw : UITableViewController, UIImagePickerController
         }
 
         expandedSections.insert(section)
-        let cell = self.tableView(tv, cellForRowAt: IndexPath(row: 0, section: section)) as! ExpandHeaderCell
+        let cell = tv.cellForRow(at: IndexPath(row: 0, section: section)) as! ExpandHeaderCell
         cell.setExpanded(true)
         
         let newRowCount = tableView(tv, numberOfRowsInSection: section)
