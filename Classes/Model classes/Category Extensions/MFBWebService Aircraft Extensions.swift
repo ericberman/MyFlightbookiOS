@@ -242,7 +242,14 @@ public struct ModelGroup {
         
         // sort by manufacturer name, if not already sorted.
         let rgSorted = rg.sorted { smm1, smm2 in
-            smm1.manufacturerName.compare(smm2.manufacturerName, options: .caseInsensitive) != .orderedDescending
+            switch smm1.manufacturerName.compare(smm2.manufacturerName, options: .caseInsensitive) {
+            case .orderedDescending:
+                return false
+            case .orderedAscending:
+                return true
+            case .orderedSame:
+                return smm1.unamibiguousDescription.compare(smm2.unamibiguousDescription, options: .caseInsensitive) != .orderedDescending
+            }
         }
         
         for smm in rgSorted {
