@@ -22,6 +22,7 @@
 		9A085CAE20F3EF5500DDA442 /* tower@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A085CAB20F3EF5500DDA442 /* tower@2x.png */; };
 		9A085CAF20F3EF5500DDA442 /* tower.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A085CAC20F3EF5500DDA442 /* tower.png */; };
 		9A085CB020F3EF5500DDA442 /* tower@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A085CAD20F3EF5500DDA442 /* tower@3x.png */; };
+		9A0DB05029DB9B87005CEC20 /* SecurityQuestionPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0DB04F29DB9B87005CEC20 /* SecurityQuestionPicker.swift */; };
 		9A0E793D29BD76F4005EF4D6 /* ApproachDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0E793C29BD76F4005EF4D6 /* ApproachDescription.swift */; };
 		9A0E794029BE2F4F005EF4D6 /* MFBWebService LogbookEntry Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0E793F29BE2F4F005EF4D6 /* MFBWebService LogbookEntry Extensions.swift */; };
 		9A0EA69729C947C00031A10D /* MFBAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0EA69629C947C00031A10D /* MFBAppDelegate.swift */; };
@@ -178,7 +179,6 @@
 		9A5F990629A2A64E00692E27 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9A7A7D98147F4DD0003A6912 /* Localizable.strings */; };
 		9A60CAE2180DFCFF00BE813A /* EditCellNoLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A60CAE1180DFCFF00BE813A /* EditCellNoLabel.xib */; };
 		9A60D6CB16F90BDE00F9DFFF /* CollapsibleTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A60D6CA16F90BDE00F9DFFF /* CollapsibleTable.m */; };
-		9A6137431CF95F840002873E /* SecurityQuestionPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6137421CF95F840002873E /* SecurityQuestionPicker.m */; };
 		9A6187601711DD38007C7754 /* f_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A61875E1711DD37007C7754 /* f_logo.png */; };
 		9A6187611711DD38007C7754 /* f_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A61875F1711DD37007C7754 /* f_logo@2x.png */; };
 		9A6187641711DD9D007C7754 /* MFBLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A6187621711DD9C007C7754 /* MFBLogo.png */; };
@@ -553,6 +553,7 @@
 		9A085CAD20F3EF5500DDA442 /* tower@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tower@3x.png"; sourceTree = "<group>"; };
 		9A0B1C3525F3ED3B00E583A8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "en.lproj/LEEditController-iPad.strings"; sourceTree = "<group>"; };
 		9A0B1C3C25F3EDE300E583A8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LEEditController.strings; sourceTree = "<group>"; };
+		9A0DB04F29DB9B87005CEC20 /* SecurityQuestionPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityQuestionPicker.swift; sourceTree = "<group>"; };
 		9A0E793C29BD76F4005EF4D6 /* ApproachDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApproachDescription.swift; sourceTree = "<group>"; };
 		9A0E793F29BE2F4F005EF4D6 /* MFBWebService LogbookEntry Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MFBWebService LogbookEntry Extensions.swift"; sourceTree = "<group>"; };
 		9A0EA69629C947C00031A10D /* MFBAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFBAppDelegate.swift; sourceTree = "<group>"; };
@@ -693,8 +694,6 @@
 		9A60D6C416F8D6A500F9DFFF /* AircraftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AircraftViewController.h; sourceTree = "<group>"; };
 		9A60D6C916F90BDE00F9DFFF /* CollapsibleTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollapsibleTable.h; sourceTree = "<group>"; };
 		9A60D6CA16F90BDE00F9DFFF /* CollapsibleTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollapsibleTable.m; sourceTree = "<group>"; };
-		9A6137411CF95F840002873E /* SecurityQuestionPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecurityQuestionPicker.h; sourceTree = "<group>"; };
-		9A6137421CF95F840002873E /* SecurityQuestionPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecurityQuestionPicker.m; sourceTree = "<group>"; };
 		9A61875E1711DD37007C7754 /* f_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = f_logo.png; sourceTree = "<group>"; };
 		9A61875F1711DD37007C7754 /* f_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "f_logo@2x.png"; sourceTree = "<group>"; };
 		9A6187621711DD9C007C7754 /* MFBLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MFBLogo.png; sourceTree = "<group>"; };
@@ -1252,18 +1251,17 @@
 		9A518E47111F85FC004B4BF6 /* Profile and options */ = {
 			isa = PBXGroup;
 			children = (
-				9A23CFA116F50C57001C9098 /* SignInControllerViewController.h */,
-				9A23CFA216F50C57001C9098 /* SignInControllerViewController.m */,
-				9A23CFA316F50C57001C9098 /* SignInControllerViewController.xib */,
+				9A89C1AE29B8F45300848A6B /* About.swift */,
+				9AE39A3E29AAA2D0002A6496 /* AutodetectOptions.swift */,
+				9AE39A4029AAA40D002A6496 /* MultiValOptionSelector.swift */,
 				9ADB297516F666BD008D9582 /* NewUserTableController.h */,
 				9ADB297616F666BD008D9582 /* NewUserTableController.m */,
 				9ADB297716F666BD008D9582 /* NewUserTableController.xib */,
-				9A6137411CF95F840002873E /* SecurityQuestionPicker.h */,
-				9A6137421CF95F840002873E /* SecurityQuestionPicker.m */,
-				9AE39A3E29AAA2D0002A6496 /* AutodetectOptions.swift */,
-				9AE39A4029AAA40D002A6496 /* MultiValOptionSelector.swift */,
 				9AE39A4229AAA456002A6496 /* OptionSelection.swift */,
-				9A89C1AE29B8F45300848A6B /* About.swift */,
+				9A0DB04F29DB9B87005CEC20 /* SecurityQuestionPicker.swift */,
+				9A23CFA116F50C57001C9098 /* SignInControllerViewController.h */,
+				9A23CFA216F50C57001C9098 /* SignInControllerViewController.m */,
+				9A23CFA316F50C57001C9098 /* SignInControllerViewController.xib */,
 			);
 			name = "Profile and options";
 			sourceTree = "<group>";
@@ -2324,6 +2322,7 @@
 				9A69202B10CCBD8B00DF1CA6 /* NSDate+ISO8601Parsing.m in Sources */,
 				9A7083AE29D86A73002819F8 /* ProgressCell.swift in Sources */,
 				9A69202C10CCBD8B00DF1CA6 /* NSDate+ISO8601Unparsing.m in Sources */,
+				9A0DB05029DB9B87005CEC20 /* SecurityQuestionPicker.swift in Sources */,
 				9AC6F0D429D9D33E007D0044 /* ApproachEditor.swift in Sources */,
 				9A27223329B55C67006AE702 /* Telemetry.swift in Sources */,
 				9A69202D10CCBD8B00DF1CA6 /* USAdditions.m in Sources */,
@@ -2366,7 +2365,6 @@
 				9A3E137A127DE704008D672E /* EXFTagDefinitionHolder.m in Sources */,
 				9A2649FE29D2105300C0D176 /* ExpandHeaderCell.swift in Sources */,
 				9A3E137B127DE704008D672E /* EXFUtils.m in Sources */,
-				9A6137431CF95F840002873E /* SecurityQuestionPicker.m in Sources */,
 				9A84363429BA926D0001012D /* MFBSqlLite.swift in Sources */,
 				9A14334C29A6B37E007129A9 /* TotalsRow.swift in Sources */,
 				9A21D5CB2214D1E300961605 /* BadElfSession.swift in Sources */,
