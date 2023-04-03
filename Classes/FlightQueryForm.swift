@@ -874,7 +874,7 @@ import Foundation
         case .fqsDate:
             fq.dateRange = MFBWebServiceSvc_DateRanges(rawValue: UInt32(indexPath.row))
             if (fq.dateRange == MFBWebServiceSvc_DateRanges_Custom) {
-                let drs = DateRangeViewController(nibName: "Date", bundle:nil)
+                let drs = DateRangeViewController(nibName: "DateRangeViewController", bundle:nil)
                 drs.delegate = self;
                 drs.dtStart = MFBSoapCall.LocalDateFromUTCDate(dt: fq.dateMin)
                 drs.dtEnd = MFBSoapCall.LocalDateFromUTCDate(dt: fq.dateMax)
