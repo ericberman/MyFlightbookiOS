@@ -72,14 +72,16 @@ import Foundation
         let CellIdentifier = "Cell"
         let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier) as? EditCell ?? EditCell.getEditCell(tableView, withAccessory: nil)
         
+        let df = DateFormatter()
+        df.dateStyle = .medium
         // Configure the cell...
         if indexPath.row == 0 { // start date
             cell.lbl.text = String(localized: "Start Date", comment: "Indicates the starting date of a range")
-            cell.txt.text = dtStart?.formatted() ?? ""
+            cell.txt.text = dtStart == nil ? "" : df.string(from: dtStart!)
         } else {
             // End date
             cell.lbl.text = String(localized: "End Date", comment: "Indicates the ending date of a range")
-            cell.txt.text = dtEnd?.formatted() ?? ""
+            cell.txt.text = dtEnd == nil ? "" : df.string(from: dtEnd!)
         }
         
         cell.txt.inputAccessoryView = self.vwAccessory
@@ -140,7 +142,9 @@ import Foundation
     // MARK: dateChanged events
     @IBAction public func dateChanged(_ sender : UIDatePicker) {
         let ec = tableView.cellForRow(at: activeIndexPath) as! EditCell
-        ec.txt.text = sender.date.formatted()
+        let df = DateFormatter()
+        df.dateStyle = .medium
+        ec.txt.text = df.string(from: sender.date)
         if activeIndexPath.row == 0 {
             dtStart = sender.date
         } else {
