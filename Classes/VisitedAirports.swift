@@ -216,7 +216,7 @@ import Foundation
             rgVAFiltered = Array(rgVA ?? [])
         } else {
             rgVAFiltered = (rgVA ?? []).filter({ va in
-                let szSearch = "\(va.code ?? "") \(va.airport.name ?? "")"
+                let szSearch = "\(va.code ?? "") \(va.airport.name ?? "") \(va.airport.country ?? "") \(va.airport.admin1 ?? "")"
                 return szSearch.range(of: szFilter, options: .caseInsensitive) != nil
             })
         }
