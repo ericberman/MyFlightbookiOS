@@ -220,15 +220,15 @@ import Security
         })
     }
     
-    func saveImageFromCameraWorker(_ dictMetaData : [String : Any]) {
+    func saveImageFromCameraWorker(_ dictMetaData : [UIImagePickerController.InfoKey : Any]) {
         autoreleasepool {
             let app = MFBAppDelegate.threadSafeAppDelegate
             
             // save a local copy for ourselves, with GPS data
-            var dictAdditionalData : [String : Any] = [:]
+            var dictAdditionalData : [NSString : Any] = [:]
             
-            if let dictExif = dictMetaData[UIImagePickerController.InfoKey.mediaMetadata.rawValue] as? [String : Any] {
-                let oExif = dictExif["{Exif}"] as? [String : Any]
+            if let dictExif = dictMetaData[UIImagePickerController.InfoKey.mediaMetadata] as? [NSString : Any] {
+                let oExif = dictExif["{Exif}"] as? [NSString : Any]
                 let oOrientation = dictExif["Orientation"] as? NSNumber
                 
                 if oExif != nil {
@@ -246,7 +246,9 @@ import Security
                 switch (status) {
                 case .notDetermined:
                     PHPhotoLibrary.requestAuthorization(for: .readWrite) { status in
-                        self.saveImageDataToLibrary(taggedJPG)
+                        DispatchQueue.main.async {
+                            self.saveImageDataToLibrary(taggedJPG)
+                        }
                     }
                 case .denied, .restricted, .limited:
                     break
@@ -266,7 +268,9 @@ import Security
             case .notDetermined:
                 PHPhotoLibrary.requestAuthorization(for: .readWrite) { status in
                     if self.imgInfo?.urlFullImage != nil {
-                        self.saveVideoDataToLibrary(URL(string: self.imgInfo!.urlFullImage)!)
+                        DispatchQueue.main.async {
+                            self.saveVideoDataToLibrary(URL(string: self.imgInfo!.urlFullImage)!)
+                        }
                     }
                 }
             case .denied, .restricted, .limited:
@@ -281,7 +285,7 @@ import Security
         }
     }
     
-    func saveImageWorker(_ dictMetaData : [String : Any]) {
+    func saveImageWorker(_ dictMetaData : [UIImagePickerController.InfoKey : Any]) {
         autoreleasepool {
             // No metadata, no GPS provided (even in the dictionary above), so just write it out where we won't lose it.
             if imgInfo?.location == nil {
@@ -290,7 +294,7 @@ import Security
                 }
             }
             else {
-                let _ = GeoTag(coordinate: CLLocation(latitude: imgInfo!.location.latitude.doubleValue, longitude: imgInfo!.location.longitude.doubleValue), additionalData: dictMetaData)
+                let _ = GeoTag(coordinate: CLLocation(latitude: imgInfo!.location.latitude.doubleValue, longitude: imgInfo!.location.longitude.doubleValue), additionalData: (dictMetaData[UIImagePickerController.InfoKey.mediaMetadata] as? [NSString : Any]) ?? [:])
             }
             
             self.imgPendingToSave = nil;
@@ -298,7 +302,7 @@ import Security
     }
     
     // sets the image, saving it to disk in the background
-    @objc public func SetImage(_ img : UIImage, fromCamera fFromCamera : Bool, withMetaData dict : [String : Any]) {
+    @objc public func SetImage(_ img : UIImage, fromCamera fFromCamera : Bool, withMetaData dict : [UIImagePickerController.InfoKey : Any]) {
         // cache the image
         imgCached = img
         imgPendingToSave = nil
@@ -414,7 +418,7 @@ import Security
         }
     }
     
-    func GeoTag(coordinate imageLocation : CLLocation?, additionalData dictExif : [String : Any]) -> Data? {
+    func GeoTag(coordinate imageLocation : CLLocation?, additionalData dictExif : [NSString : Any]) -> Data? {
         if imageLocation == nil {
             return nil
         }

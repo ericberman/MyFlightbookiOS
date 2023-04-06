@@ -71,8 +71,10 @@ public class CollapsibleTableSw : UITableViewController, UIImagePickerController
         
         let oldRowCount = tableView(tv, numberOfRowsInSection: section)
         expandedSections.remove(section)
-        let cell = tv.cellForRow(at: IndexPath(row: 0, section: section)) as! ExpandHeaderCell
-        cell.setExpanded(false)
+        
+        // cellforrow can return nil if the cell isn't visible yet, which might be true in viewDidLoad
+        let cell = tv.cellForRow(at: IndexPath(row: 0, section: section)) as? ExpandHeaderCell
+        cell?.setExpanded(false)
         
         var rg : [IndexPath] = []
         for i in 1..<oldRowCount {
@@ -87,8 +89,10 @@ public class CollapsibleTableSw : UITableViewController, UIImagePickerController
         }
 
         expandedSections.insert(section)
-        let cell = tv.cellForRow(at: IndexPath(row: 0, section: section)) as! ExpandHeaderCell
-        cell.setExpanded(true)
+
+        // cellforrow can return nil if the cell isn't visible yet, which might be true in viewDidLoad
+        let cell = tv.cellForRow(at: IndexPath(row: 0, section: section)) as? ExpandHeaderCell
+        cell?.setExpanded(true)
         
         let newRowCount = tableView(tv, numberOfRowsInSection: section)
         var rg : [IndexPath] = []
@@ -290,7 +294,7 @@ public class CollapsibleTableSw : UITableViewController, UIImagePickerController
     }
     
     // TODO: Migrate to PHPicker from UIImagePicker?
-    public func canUsePhotoLibary() -> Bool {
+    public func canUsePhotoLibrary() -> Bool {
         return UIImagePickerController.isSourceTypeAvailable(.photoLibrary)
     }
     
@@ -299,7 +303,7 @@ public class CollapsibleTableSw : UITableViewController, UIImagePickerController
         imgView.delegate = self
         
         let fIsCameraAvailable = canUseCamera()
-        let fIsGalleryAvailable = canUsePhotoLibary()
+        let fIsGalleryAvailable = canUsePhotoLibrary()
         if usingCamera && !fIsCameraAvailable || !usingCamera && !fIsGalleryAvailable {
             return
         }
@@ -322,7 +326,9 @@ public class CollapsibleTableSw : UITableViewController, UIImagePickerController
         case .notDetermined:
             PHPhotoLibrary.requestAuthorization(for: .readWrite) { status in
                 if status == .authorized {
-                    self.addImages(false, fromButton: sender as? UIBarButtonItem)
+                    DispatchQueue.main.async {
+                        self.addImages(false, fromButton: sender as? UIBarButtonItem)
+                    }
                 }
             }
             case .denied, .restricted, .limited:
@@ -370,7 +376,7 @@ public class CollapsibleTableSw : UITableViewController, UIImagePickerController
                 }
                 
                 if let img = info[.originalImage] as? UIImage {
-                    ci.SetImage(img, fromCamera: fCamera, withMetaData: info as! [String : Any])
+                    ci.SetImage(img, fromCamera: fCamera, withMetaData: info)
                 }
             } else if (fVideo) {
                 ci.SetVideo(info[.mediaURL] as! URL, fromCamera: fCamera)

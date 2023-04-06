@@ -218,7 +218,7 @@ public class Currency : PullRefreshTableViewControllerSW, MFBSoapCallDelegate {
                 }
             case MFBWebServiceSvc_CurrencyGroups_Aircraft:
                 if let ac = Aircraft.sharedAircraft.AircraftByID(ci.associatedResourceID.intValue) {
-                    navigationController?.pushViewController(SwiftConversionHackBridge.aircraftDetails(with: ac), animated: true)
+                    navigationController?.pushViewController(AircraftViewController(with: ac, delegate: nil), animated: true)
                 }
             case MFBWebServiceSvc_CurrencyGroups_none, MFBWebServiceSvc_CurrencyGroups_None:
                 break

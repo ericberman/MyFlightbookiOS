@@ -28,8 +28,6 @@
 #import <MyFlightbook-Swift.h>
 #import "SwiftConversionHackBridge.h"
 #import "RecentFlights.h"
-#import "AircraftViewController.h"
-#import "NewAircraftViewController.h"
 
 // Below are stubs for things that we can't call from swift (because we'd have to expose them in the bridging header,
 // but they in turn pull in references to swift objects that are defined in swift.h, causing circularity
@@ -41,17 +39,5 @@
     rf.fq = fq;
     [rf refresh];
     return rf;
-}
-
-+ (UIViewController *_Nonnull) aircraftDetailsWithAircraft: (MFBWebServiceSvc_Aircraft * _Nonnull) ac {
-    return ac.isNew ? [[NewAircraftViewController alloc] initWithAircraft:ac] : [[AircraftViewController alloc] initWithAircraft:ac];
-}
-
-+ (UIViewController *_Nonnull) aircraftDetailsWithAircraft: (MFBWebServiceSvc_Aircraft * _Nonnull) ac delegate:(id _Nullable) d {
-    AircraftViewControllerBase * vc = ac.isNew ? [[NewAircraftViewController alloc] initWithAircraft:ac] : [[AircraftViewController alloc] initWithAircraft:ac];
-    
-    if (d != nil && [d conformsToProtocol:@protocol(AircraftViewControllerDelegate)])
-        vc.delegate = (id<AircraftViewControllerDelegate>)d;
-    return vc;
 }
 @end

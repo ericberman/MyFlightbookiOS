@@ -204,6 +204,9 @@ extension MFBWebServiceSvc_Aircraft {
         ac.roleForPilot = MFBWebServiceSvc_PilotRole_None;
         ac.defaultImage = ""
         ac.defaultTemplates = MFBWebServiceSvc_ArrayOfInt()
+        ac.privateNotes = ""
+        ac.publicNotes = ""
+        ac.aircraftImages = MFBWebServiceSvc_ArrayOfMFBImageInfo()
         return ac;
     }
 

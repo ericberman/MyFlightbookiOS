@@ -183,7 +183,7 @@ public class MyAircraft : PullRefreshTableViewControllerSW, AircraftViewControll
             return
         }
         
-        nc?.pushViewController(SwiftConversionHackBridge.aircraftDetails(with: ac, delegate: d), animated: true)
+        nc?.pushViewController(AircraftViewControllerBaseSw.controllerFor(ac, delegate: d), animated: true)
     }
     
     @objc func newAircraft() {
