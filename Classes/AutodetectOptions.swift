@@ -143,7 +143,7 @@ import MapKit
         }
         
         idswMapOptions?.selectedSegmentIndex = Int(up.mapType.rawValue);
-        super.viewDidAppear(animated)
+        super.viewWillAppear(animated)
         self.tableView.reloadData()
     }
     
