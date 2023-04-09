@@ -106,7 +106,7 @@ import Foundation
     }
     
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let ec = EditCell.getEditCell(tableView, withAccessory: vwAccessory)
+        let ec = EditCell.getEditCellNoLabel(tableView, withAccessory: vwAccessory)
         ec.txt.delegate = self
         ec.txt.autocorrectionType = .no
         ec.txt.autocapitalizationType = .allCharacters
