@@ -172,7 +172,7 @@ extension MFBWebServiceSvc_LogbookEntry : AutoDetectDelegate {
         
         // see if any properties are empty
         if ((customProperties?.customFlightProperty?.count ?? 0) > 0) {
-            return FlightProps().distillList(customProperties.customFlightProperty as? [MFBWebServiceSvc_CustomFlightProperty], includeLockedProps: false, includeTemplates: NSSet()).count == 0
+            return FlightProps().distillList(customProperties.customFlightProperty as? [MFBWebServiceSvc_CustomFlightProperty], includeLockedProps: false, includeTemplates: NSSet()).isEmpty
         }
         
         return false
@@ -185,6 +185,7 @@ extension MFBWebServiceSvc_LogbookEntry : AutoDetectDelegate {
         le.aircraftID = NSNumber(integerLiteral: -1)
         
         le.customProperties = MFBWebServiceSvc_ArrayOfCustomFlightProperty()
+        le.flightImages  = MFBWebServiceSvc_ArrayOfMFBImageInfo()
         
         le.date = Date()
         le.comment = ""
@@ -512,7 +513,7 @@ extension MFBWebServiceSvc_LogbookEntry : AutoDetectDelegate {
         if cfp == nil {
             return addProperty(idPropType, withDate: dt)!
         } else {
-            cfp?.dateValue = dt
+            cfp!.dateValue = dt
             return cfp!
         }
     }

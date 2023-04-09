@@ -192,8 +192,12 @@ import Foundation
             if (textField.text ?? "").isEmpty {
                 cfp.dateValue = nil
             }
-        case MFBWebServiceSvc_CFPPropertyType_cfpDecimal, MFBWebServiceSvc_CFPPropertyType_cfpCurrency:
+        case MFBWebServiceSvc_CFPPropertyType_cfpDecimal:
             cfp.decValue = textField.getValue()
+        case MFBWebServiceSvc_CFPPropertyType_cfpCurrency:
+            let nf = NumberFormatter()
+            nf.numberStyle = .currency
+            cfp.decValue = nf.number(from: textField.text ?? "") ?? NSNumber(floatLiteral: 0)
         case MFBWebServiceSvc_CFPPropertyType_cfpInteger:
             cfp.intValue = textField.getValue()
         default:
@@ -303,23 +307,42 @@ import Foundation
     }
     
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        // always allow deletion of a selection (allows for deletion of proposed selection)
-        if string.isEmpty {
+        switch cpt.type {
+        case MFBWebServiceSvc_CFPPropertyType_cfpString:
+            if string.isEmpty {
+                return true
+            }
+            
+            let sz = textField.text! as NSString
+            
+            // check for autocomplete
+            let szUserTyped = sz.replacingCharacters(in: range, with: string)
+            let szUserTypedWithCompletion = proposeCompletion(szUserTyped)
+            if szUserTyped.compare(szUserTypedWithCompletion) != .orderedSame {
+                textField.text = szUserTypedWithCompletion;
+                let startPos = textField.position(from: textField.beginningOfDocument, offset: szUserTyped.count)
+                let endPos = textField.endOfDocument
+                textField.selectedTextRange = textField.textRange(from: startPos!, to: endPos)
+                return false
+            }
+            return true // any string can be edited
+        case MFBWebServiceSvc_CFPPropertyType_cfpBoolean, MFBWebServiceSvc_CFPPropertyType_cfpDate, MFBWebServiceSvc_CFPPropertyType_cfpDateTime:
+            return false
+        case MFBWebServiceSvc_CFPPropertyType_cfpCurrency:
+            let t = textField.text ?? ""
+            let nf = NumberFormatter()
+            nf.numberStyle = .currency
+            return nf.number(from: t) != nil
+        case MFBWebServiceSvc_CFPPropertyType_cfpDecimal, MFBWebServiceSvc_CFPPropertyType_cfpInteger:
+            // OK, at this point we have a number - either integer, decimal, or HH:MM.  Allow it if the result makes sense.
+            let t = textField.text ?? ""
+            return textField.isValidNumber(szProposed: t.replacingCharacters(in: Range(range, in: t)!, with: string))
+        case MFBWebServiceSvc_CFPPropertyType_none:
+            // should never happen
+            return true
+        default:
+            // should never happen
             return true
         }
-        
-        let sz = textField.text! as NSString
-        
-        // check for autocomplete
-        let szUserTyped = sz.replacingCharacters(in: range, with: string)
-        let szUserTypedWithCompletion = proposeCompletion(szUserTyped)
-        if szUserTyped.compare(szUserTypedWithCompletion) != .orderedSame {
-            textField.text = szUserTypedWithCompletion;
-            let startPos = textField.position(from: textField.beginningOfDocument, offset: szUserTyped.count)
-            let endPos = textField.endOfDocument
-            textField.selectedTextRange = textField.textRange(from: startPos!, to: endPos)
-            return false
-        }
-        return true // any string can be edited
     }
 }

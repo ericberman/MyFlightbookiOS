@@ -38,10 +38,7 @@ import Foundation
     @objc func pauseFlightExternal()
     @objc func toggleFlightPause()
     @objc func flightCouldBeInProgress() -> Bool
-    @objc var fIsPaused : Bool { get }
-    @objc var rgPicsForFlight : [CommentedImage] { get }
-    @objc var le : LogbookEntry { get }
-    @objc var view : UIView { get }
+    @objc var le : LogbookEntry! { get }
 }
 
 @objc public protocol RecentFlightsProtocol {
@@ -51,7 +48,7 @@ import Foundation
 
 @objc(LogbookEntry) public class LogbookEntry : MFBAsyncOperation, MFBSoapCallDelegate, NSCoding, NSSecureCoding {
     // TODO: Can any of these be made private
-    @objc public var entryData : MFBWebServiceSvc_LogbookEntry
+    @objc public var entryData = MFBWebServiceSvc_LogbookEntry.getNewLogbookEntry()
     @objc public var rgPicsForFlight = NSMutableArray()
     @objc public var fIsPaused = false
     @objc public var fShuntPending = false
@@ -79,11 +76,6 @@ import Foundation
     private let _szkeyAccumulatedNightTime = "_accumulatedNightTime"
     
     private let CONTEXT_FLAG_COMMIT=4038
-    
-    @objc public override init() {
-        entryData = MFBWebServiceSvc_LogbookEntry.getNewLogbookEntry()
-        super.init()
-    }
     
     @objc public static var NEW_FLIGHT_ID : NSNumber {
         get {
@@ -221,21 +213,21 @@ import Foundation
                 dtTotal = hobbsEnd - hobbsStart
             }
             case .block:
-            var blockOut = Date.distantPast
-            var blockIn = Date.distantPast
+            var blockOut : Date? = nil
+            var blockIn : Date? = nil
                 
-                for c in entryData.customProperties.customFlightProperty {
-                    if let cfp = c as? MFBWebServiceSvc_CustomFlightProperty {
-                        if (cfp.propTypeID.intValue == PropTypeID.blockOut.rawValue) {
-                            blockOut = cfp.dateValue!
-                        }
-                        if (cfp.propTypeID.intValue == PropTypeID.blockIn.rawValue) {
-                            blockIn = cfp.dateValue!
-                        }
+            for c in entryData.customProperties.customFlightProperty {
+                if let cfp = c as? MFBWebServiceSvc_CustomFlightProperty {
+                    if (cfp.propTypeID.intValue == PropTypeID.blockOut.rawValue) {
+                        blockOut = cfp.dateValue
+                    }
+                    if (cfp.propTypeID.intValue == PropTypeID.blockIn.rawValue) {
+                        blockIn = cfp.dateValue
                     }
                 }
+            }
             if (!NSDate.isUnknownDate(dt: blockOut) && !NSDate.isUnknownDate(dt: blockIn)) {
-                dtTotal = (blockIn.timeIntervalSince(blockOut) / 3600.0) - dtPauseTime
+                dtTotal = (blockIn!.timeIntervalSince(blockOut!) / 3600.0) - dtPauseTime
             }
 
         case .flightStartToEngineEnd:

@@ -55,7 +55,7 @@
                         <color key="tintColor" red="0.0" green="0.73725490199999999" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <viewControllers>
-                        <viewController title="editFlight" nibName="LEEditController" id="183" userLabel="editFlight" customClass="LEEditController">
+                        <viewController title="editFlight" nibName="LEEditController" id="183" userLabel="editFlight" customClass="LEEditController" customModule="MyFlightbook" customModuleProvider="target">
                             <extendedEdge key="edgesForExtendedLayout"/>
                             <toolbarItems/>
                             <navigationItem key="navigationItem" title="New Flight" id="184">

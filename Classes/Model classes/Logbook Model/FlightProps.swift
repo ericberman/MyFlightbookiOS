@@ -385,7 +385,7 @@ import SQLite3
     /*
       Returns a distillation of the provided list to only those items which are non-default AND not locked AND not in the specified templates
     */
-    @objc public func distillList(_ rgFP : [MFBWebServiceSvc_CustomFlightProperty]?, includeLockedProps fIncludeLock : Bool, includeTemplates templates : NSSet?) -> NSMutableArray {
+    @objc public func distillList(_ rgFP : [MFBWebServiceSvc_CustomFlightProperty]?, includeLockedProps fIncludeLock : Bool, includeTemplates templates : NSSet?) -> [MFBWebServiceSvc_CustomFlightProperty] {
         var rgResult : [MFBWebServiceSvc_CustomFlightProperty] = []
         
         let templatedProps = (templates == nil) ? NSSet() : MFBWebServiceSvc_PropertyTemplate.propListForSets(templates!)
@@ -406,7 +406,7 @@ import SQLite3
             return key1!.compare(key2!, options: .caseInsensitive) != .orderedDescending
         }
         
-        return NSMutableArray(array: rgResult)
+        return rgResult
     }
 
     /*

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
-		28216C970DB411BC00E5133A /* LEEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28216C960DB411BC00E5133A /* LEEditController.m */; };
 		9A020B3310FFEF3F00801349 /* RecentFlights.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A020B3110FFEF3F00801349 /* RecentFlights.m */; };
 		9A03F50329D396BE0047807E /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A03F50229D396BE0047807E /* Currency.swift */; };
 		9A03F50529D3ABA30047807E /* SwiftConversionHackBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A03F50429D3ABA30047807E /* SwiftConversionHackBridge.m */; };
@@ -26,6 +25,9 @@
 		9A0DB05229DCC502005CEC20 /* AircraftViewControllerBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0DB05129DCC502005CEC20 /* AircraftViewControllerBase.swift */; };
 		9A0DB05429DCC515005CEC20 /* AircraftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0DB05329DCC515005CEC20 /* AircraftViewController.swift */; };
 		9A0DB05629DCC526005CEC20 /* NewAircraftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0DB05529DCC526005CEC20 /* NewAircraftViewController.swift */; };
+		9A0DB05829DF3717005CEC20 /* FlightEditorBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0DB05729DF3717005CEC20 /* FlightEditorBaseTableViewController.swift */; };
+		9A0DB05A29DF372C005CEC20 /* LEEditBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0DB05929DF372C005CEC20 /* LEEditBaseTableViewController.swift */; };
+		9A0DB05C29DF3737005CEC20 /* LEEditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0DB05B29DF3737005CEC20 /* LEEditController.swift */; };
 		9A0E793D29BD76F4005EF4D6 /* ApproachDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0E793C29BD76F4005EF4D6 /* ApproachDescription.swift */; };
 		9A0E794029BE2F4F005EF4D6 /* MFBWebService LogbookEntry Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0E793F29BE2F4F005EF4D6 /* MFBWebService LogbookEntry Extensions.swift */; };
 		9A0EA69729C947C00031A10D /* MFBAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0EA69629C947C00031A10D /* MFBAppDelegate.swift */; };
@@ -212,14 +214,12 @@
 		9A6F1BFC29B3D891004D1F31 /* SunriseSunset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F1BFB29B3D891004D1F31 /* SunriseSunset.swift */; };
 		9A7083AE29D86A73002819F8 /* ProgressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7083AD29D86A73002819F8 /* ProgressCell.swift */; };
 		9A7083B029D86A85002819F8 /* FixedImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7083AF29D86A85002819F8 /* FixedImageCell.swift */; };
-		9A70B18722C07A8500CA7E21 /* FlightEditorBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A70B18622C07A8500CA7E21 /* FlightEditorBaseTableViewController.m */; };
 		9A70E34529D4F5AE0068B0E6 /* ConjunctionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A70E34429D4F5AE0068B0E6 /* ConjunctionCell.swift */; };
 		9A70E34729D4F9FA0068B0E6 /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A70E34629D4F9FA0068B0E6 /* ButtonCell.swift */; };
 		9A70E34929D4FB7B0068B0E6 /* CheckboxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A70E34829D4FB7B0068B0E6 /* CheckboxCell.swift */; };
 		9A77CF97110569D0006E7531 /* airport.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A77CF96110569D0006E7531 /* airport.png */; };
 		9A7A7D96147F4DD0003A6912 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9A7A7D98147F4DD0003A6912 /* Localizable.strings */; };
 		9A7C143C1533D660007EB69A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9A7C143B1533D660007EB69A /* Settings.bundle */; };
-		9A8005A022CEBCCF00EC487E /* LogbookEntryBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A80059F22CEBCCF00EC487E /* LogbookEntryBaseTableViewController.m */; };
 		9A804AF716EE445F002F77CA /* DateRangeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A804AF516EE445F002F77CA /* DateRangeViewController.xib */; };
 		9A820A991D970359001EDEDF /* MakeModel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A820A971D970359001EDEDF /* MakeModel.xib */; };
 		9A825DF7193677EA00967DF9 /* ProgressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A825DF6193677EA00967DF9 /* ProgressCell.xib */; };
@@ -530,8 +530,6 @@
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		28216C950DB411BC00E5133A /* LEEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LEEditController.h; sourceTree = "<group>"; };
-		28216C960DB411BC00E5133A /* LEEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LEEditController.m; sourceTree = "<group>"; };
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AB4B0D9B1048005BE974 /* MFBSample_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFBSample_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -557,6 +555,9 @@
 		9A0DB05129DCC502005CEC20 /* AircraftViewControllerBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AircraftViewControllerBase.swift; sourceTree = "<group>"; };
 		9A0DB05329DCC515005CEC20 /* AircraftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AircraftViewController.swift; sourceTree = "<group>"; };
 		9A0DB05529DCC526005CEC20 /* NewAircraftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAircraftViewController.swift; sourceTree = "<group>"; };
+		9A0DB05729DF3717005CEC20 /* FlightEditorBaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightEditorBaseTableViewController.swift; sourceTree = "<group>"; };
+		9A0DB05929DF372C005CEC20 /* LEEditBaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LEEditBaseTableViewController.swift; sourceTree = "<group>"; };
+		9A0DB05B29DF3737005CEC20 /* LEEditController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LEEditController.swift; sourceTree = "<group>"; };
 		9A0E793C29BD76F4005EF4D6 /* ApproachDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApproachDescription.swift; sourceTree = "<group>"; };
 		9A0E793F29BE2F4F005EF4D6 /* MFBWebService LogbookEntry Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MFBWebService LogbookEntry Extensions.swift"; sourceTree = "<group>"; };
 		9A0EA69629C947C00031A10D /* MFBAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFBAppDelegate.swift; sourceTree = "<group>"; };
@@ -732,8 +733,6 @@
 		9A6F1BFB29B3D891004D1F31 /* SunriseSunset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunriseSunset.swift; sourceTree = "<group>"; };
 		9A7083AD29D86A73002819F8 /* ProgressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCell.swift; sourceTree = "<group>"; };
 		9A7083AF29D86A85002819F8 /* FixedImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedImageCell.swift; sourceTree = "<group>"; };
-		9A70B18522C07A8500CA7E21 /* FlightEditorBaseTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlightEditorBaseTableViewController.h; sourceTree = "<group>"; };
-		9A70B18622C07A8500CA7E21 /* FlightEditorBaseTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FlightEditorBaseTableViewController.m; sourceTree = "<group>"; };
 		9A70E34429D4F5AE0068B0E6 /* ConjunctionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConjunctionCell.swift; sourceTree = "<group>"; };
 		9A70E34629D4F9FA0068B0E6 /* ButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
 		9A70E34829D4FB7B0068B0E6 /* CheckboxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxCell.swift; sourceTree = "<group>"; };
@@ -746,8 +745,6 @@
 		9A7C143115336317007EB69A /* RecentFlightCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentFlightCell.h; sourceTree = "<group>"; };
 		9A7C143B1533D660007EB69A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		9A7E42B611810DBF002000A4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		9A80059E22CEBCCF00EC487E /* LogbookEntryBaseTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogbookEntryBaseTableViewController.h; sourceTree = "<group>"; };
-		9A80059F22CEBCCF00EC487E /* LogbookEntryBaseTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogbookEntryBaseTableViewController.m; sourceTree = "<group>"; };
 		9A804AF516EE445F002F77CA /* DateRangeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DateRangeViewController.xib; sourceTree = "<group>"; };
 		9A820A981D970359001EDEDF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MakeModel.xib; sourceTree = "<group>"; };
 		9A820A9B1D970927001EDEDF /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MakeModel.strings; sourceTree = "<group>"; };
@@ -1231,16 +1228,13 @@
 			isa = PBXGroup;
 			children = (
 				9AC6F0D329D9D33E007D0044 /* ApproachEditor.swift */,
-				9A70B18522C07A8500CA7E21 /* FlightEditorBaseTableViewController.h */,
-				9A70B18622C07A8500CA7E21 /* FlightEditorBaseTableViewController.m */,
+				9A0DB05729DF3717005CEC20 /* FlightEditorBaseTableViewController.swift */,
+				9A6590D329DA517900917FCD /* FlightProperties.swift */,
 				9A27223629B69AD3006AE702 /* GPSDeviceViewTableViewController.swift */,
-				28216C950DB411BC00E5133A /* LEEditController.h */,
-				28216C960DB411BC00E5133A /* LEEditController.m */,
-				9A80059E22CEBCCF00EC487E /* LogbookEntryBaseTableViewController.h */,
-				9A80059F22CEBCCF00EC487E /* LogbookEntryBaseTableViewController.m */,
+				9A0DB05929DF372C005CEC20 /* LEEditBaseTableViewController.swift */,
+				9A0DB05B29DF3737005CEC20 /* LEEditController.swift */,
 				9AC6F0D129D9D332007D0044 /* SelectTemplates.swift */,
 				9AC6F0CD29D9D305007D0044 /* TotalsCalculator.swift */,
-				9A6590D329DA517900917FCD /* FlightProperties.swift */,
 			);
 			name = "Flight Entry";
 			sourceTree = "<group>";
@@ -2301,7 +2295,6 @@
 				9A03F50C29D4CBC80047807E /* ImageComment.swift in Sources */,
 				9A03F50329D396BE0047807E /* Currency.swift in Sources */,
 				9A6F1BFC29B3D891004D1F31 /* SunriseSunset.swift in Sources */,
-				28216C970DB411BC00E5133A /* LEEditController.m in Sources */,
 				9A3AE5C829D5E6EE0058EE45 /* FlightQueryForm.swift in Sources */,
 				9A0DB05429DCC515005CEC20 /* AircraftViewController.swift in Sources */,
 				9A30201629CBDAFC00115538 /* SimpleItems.swift in Sources */,
@@ -2310,13 +2303,14 @@
 				9A41A36929D0ACB9005E0A7B /* NetworkManagment.swift in Sources */,
 				9A27223729B69AD3006AE702 /* GPSDeviceViewTableViewController.swift in Sources */,
 				9A2BFEBF29D7122A00427E8F /* VADetails.swift in Sources */,
-				9A8005A022CEBCCF00EC487E /* LogbookEntryBaseTableViewController.m in Sources */,
 				9A8EE98629AA676B00F133CF /* UserProfile.swift in Sources */,
 				9A69202B10CCBD8B00DF1CA6 /* NSDate+ISO8601Parsing.m in Sources */,
 				9A7083AE29D86A73002819F8 /* ProgressCell.swift in Sources */,
 				9A69202C10CCBD8B00DF1CA6 /* NSDate+ISO8601Unparsing.m in Sources */,
 				9A0DB05029DB9B87005CEC20 /* SecurityQuestionPicker.swift in Sources */,
 				9AC6F0D429D9D33E007D0044 /* ApproachEditor.swift in Sources */,
+				9A0DB05A29DF372C005CEC20 /* LEEditBaseTableViewController.swift in Sources */,
+				9A0DB05829DF3717005CEC20 /* FlightEditorBaseTableViewController.swift in Sources */,
 				9A27223329B55C67006AE702 /* Telemetry.swift in Sources */,
 				9A69202D10CCBD8B00DF1CA6 /* USAdditions.m in Sources */,
 				9A69202E10CCBD8B00DF1CA6 /* USGlobals.m in Sources */,
@@ -2337,6 +2331,7 @@
 				9AE39A4729ABC1C5002A6496 /* Airports.swift in Sources */,
 				9AE39A4129AAA40D002A6496 /* MultiValOptionSelector.swift in Sources */,
 				9A03F50529D3ABA30047807E /* SwiftConversionHackBridge.m in Sources */,
+				9A0DB05C29DF3737005CEC20 /* LEEditController.swift in Sources */,
 				9A020B3310FFEF3F00801349 /* RecentFlights.m in Sources */,
 				9AE39A4329AAA456002A6496 /* OptionSelection.swift in Sources */,
 				9A3E1375127DE704008D672E /* EXFGPS.m in Sources */,
@@ -2370,7 +2365,6 @@
 				9A14335529A81A1A007129A9 /* UserPreferences.swift in Sources */,
 				9A06E7AC29D0E2EA0093A384 /* Training.swift in Sources */,
 				9A48E27D29A1693B00511D99 /* WidgetSoapCall.swift in Sources */,
-				9A70B18722C07A8500CA7E21 /* FlightEditorBaseTableViewController.m in Sources */,
 				9A27223529B699C8006AE702 /* GPSSim.swift in Sources */,
 				9A2649F229D0FAE500C0D176 /* CollapsibleTable.swift in Sources */,
 				9A4587BD14C205500045AF51 /* RecentFlightCell.m in Sources */,

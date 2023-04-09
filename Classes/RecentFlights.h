@@ -26,7 +26,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LEEditController.h"
+#import <MyFlightbook-Swift.h>
 #import "PullRefreshTableViewController.h"
 
 @interface RecentFlights : PullRefreshTableViewController <LEEditDelegate, UITableViewDelegate, 

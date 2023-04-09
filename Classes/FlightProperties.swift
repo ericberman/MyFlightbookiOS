@@ -27,7 +27,7 @@ import Foundation
 
 @objc public protocol EditPropertyDelegate {
     func propertyUpdated(_ cpt : MFBWebServiceSvc_CustomPropertyType)
-    func dateOfFlightShouldReset(_ dt : NSDate)
+    func dateOfFlightShouldReset(_ dt : Date)
 }
 
 @objc public class FlightProperties : PullRefreshTableViewControllerSW, UITextFieldDelegate, UISearchBarDelegate {
@@ -82,7 +82,7 @@ import Foundation
     }
     
     func commitChanges() {
-        le?.entryData.customProperties.setProperties(flightProps.distillList(rgAllProps, includeLockedProps: true, includeTemplates: activeTemplates as NSSet) as! [MFBWebServiceSvc_CustomFlightProperty])
+        le?.entryData.customProperties.setProperties(flightProps.distillList(rgAllProps, includeLockedProps: true, includeTemplates: activeTemplates as NSSet))
     }
     
     @objc public override func refresh() {
@@ -276,7 +276,7 @@ import Foundation
         let fShouldEdit = pc.prepForEditing()
         
         if !fShouldEdit && pc.cfp.propTypeID.intValue == PropTypeID.blockOut.rawValue {
-            delegate?.dateOfFlightShouldReset(pc.cfp.dateValue! as NSDate)
+            delegate?.dateOfFlightShouldReset(pc.cfp.dateValue!)
         }
         
         ipActive = self.tableView.indexPath(for: pc)
@@ -292,18 +292,7 @@ import Foundation
     
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let pc = owningPropertyCell(textField)
-        
-        switch pc.cpt.type {
-        case MFBWebServiceSvc_CFPPropertyType_cfpString:
-            // Defer to the property cell so that autocompletion to previous values can work.
-            return pc.textField(textField, shouldChangeCharactersIn: range, replacementString: string)
-        case MFBWebServiceSvc_CFPPropertyType_cfpBoolean, MFBWebServiceSvc_CFPPropertyType_cfpDate, MFBWebServiceSvc_CFPPropertyType_cfpDateTime:
-            return false
-        default:
-            // OK, at this point we have a number - either integer, decimal, or HH:MM.  Allow it if the result makes sense.
-            let t = textField.text ?? ""
-            return textField.isValidNumber(szProposed: t.replacingCharacters(in: Range(range, in: t)!, with: string))
-        }
+        return pc.textField(textField, shouldChangeCharactersIn: range, replacementString: string)
     }
     
     // MARK: - AccessoryViewDelegates

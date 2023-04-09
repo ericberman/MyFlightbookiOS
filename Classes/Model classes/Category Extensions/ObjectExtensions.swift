@@ -95,20 +95,21 @@ extension UITextField {
         }
     }
     
-    @objc(setIsHHMM:) public func setIsHHMM(IsHHMM : Bool) -> Void {
-        objc_setAssociatedObject(self, &UIB_ISHHMM_KEY, IsHHMM ? "Y" : "N", objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        updateKeyboardType(numericType: numberType(), fIsHHMM: IsHHMM)
-        placeholder = NSNumber(floatLiteral: 0.0).formatAs(Type: numberType(), inHHMM: IsHHMM, useGrouping: true) as String
+    public var isHHMM : Bool {
+        get {
+            let val = objc_getAssociatedObject(self, &UIB_ISHHMM_KEY) as? String ?? "N"
+            return val == "Y"
+        }
+        set (val) {
+            objc_setAssociatedObject(self, &UIB_ISHHMM_KEY, val ? "Y" : "N", objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            updateKeyboardType(numericType: numberType(), fIsHHMM: val)
+            placeholder = NSNumber(floatLiteral: 0.0).formatAs(Type: numberType(), inHHMM: val, useGrouping: true) as String
+        }
     }
-    
-    @objc public func IsHHMM() -> Bool {
-        let val = objc_getAssociatedObject(self, &UIB_ISHHMM_KEY) as? String ?? "N"
-        return val == "Y"
-    }
-    
+        
     @objc(setNumberType: inHHMM:) public func setType(numericType: NumericType, fHHMM : Bool) -> Void {
         objc_setAssociatedObject(self, &UIB_NUMBER_TYPE_KEY, numericType, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        setIsHHMM(IsHHMM: fHHMM)
+        isHHMM = fHHMM
         updateKeyboardType(numericType: numericType, fIsHHMM: numericType == .Time && fHHMM)
         placeholder = NSNumber(floatLiteral: 0.0).formatAs(Type: numericType, inHHMM: fHHMM, useGrouping: true) as String
     }
@@ -187,11 +188,11 @@ extension UITextField {
     }
     
     @objc(value) public func getValue() -> NSNumber {
-        return UITextField.valueForString(sz: text!, numType: numberType(), fHHMM: IsHHMM())
+        return UITextField.valueForString(sz: text!, numType: numberType(), fHHMM: isHHMM)
     }
     
     @objc(setValue:) public func setValue(num : NSNumber) -> Void {
-        text = num.formatAs(Type: numberType(), inHHMM: IsHHMM(), useGrouping: false) as String
+        text = num.formatAs(Type: numberType(), inHHMM: isHHMM, useGrouping: false) as String
     }
     
     @objc(setValue: withDefault:) public func setValueWithDefault(num : NSNumber, numDefault : NSNumber) {
@@ -206,12 +207,13 @@ extension UITextField {
         let nt = numberType()
         if (nt == .Integer) {
             return szProposed.range(of: "^\\d*$", options: .regularExpression) != nil
-        } else if (nt == .Decimal || (nt == .Time && !IsHHMM())) {
+        } else if (nt == .Decimal || (nt == .Time && !isHHMM)) {
             let nf = NumberFormatter()
             var szDec = nf.decimalSeparator
             if (szDec == ".") {
                 szDec = "\\."
             }
+            
             return szProposed.range(of: "^\\d*\(szDec!)?\\d*$", options: .regularExpression) != nil
         } else {
             // Must be hhmm
@@ -247,6 +249,16 @@ extension UITextField {
                 tfTemp.removeFromSuperview()
             })
         })
+    }
+}
+
+// MARK: - TimeInterval extensions
+extension TimeInterval {
+    public func toHHMMSS() -> String {
+        let h = Int(self / 3600.0)
+        let m = Int(Double(Int(self) % 3600) / 60.0)
+        let s = Int(self) % 60
+        return String(format: "%02d:%02d:%02d", h, m, s)
     }
 }
 
@@ -399,6 +411,10 @@ extension Date {
         df.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return df
     }
+    
+    public func utcString(useLocalTime: Bool) -> String {
+        return (self as NSDate).utcString(useLocalTime: useLocalTime)
+    }
 }
 
 // MARK: UIViewController
@@ -457,7 +473,7 @@ extension NSAttributedString {
                     let range = NSMakeRange(lastPos, r.location - lastPos)
                     attr.append(NSAttributedString(string: sz.substring(with: range), attributes: [.foregroundColor : textColor]))
                 }
-                if (r.length >= 2 && sz.length > r.location + r.length) {
+                if (r.length >= 2 && sz.length >= r.location + r.length) {
                     let matchText = sz.substring(with: r) as NSString
                     let matchType = matchText.substring(to: 1)
                     let matchContent = matchText.substring(with: NSMakeRange(1, matchText.length - 2))
