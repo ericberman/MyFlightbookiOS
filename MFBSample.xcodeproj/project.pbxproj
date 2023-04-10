@@ -66,7 +66,6 @@
 		9A23CF9C16F4DE9A001C9098 /* Checkbox-Sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A23CF9816F4DE9A001C9098 /* Checkbox-Sel@2x.png */; };
 		9A23CF9D16F4DE9A001C9098 /* Checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A23CF9916F4DE9A001C9098 /* Checkbox.png */; };
 		9A23CF9E16F4DE9A001C9098 /* Checkbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A23CF9A16F4DE9A001C9098 /* Checkbox@2x.png */; };
-		9A23CFA416F50C57001C9098 /* SignInControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A23CFA216F50C57001C9098 /* SignInControllerViewController.m */; };
 		9A23CFA516F50C57001C9098 /* SignInControllerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A23CFA316F50C57001C9098 /* SignInControllerViewController.xib */; };
 		9A23CFAA16F53B7D001C9098 /* ButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A23CFA916F53B7D001C9098 /* ButtonCell.xib */; };
 		9A25F249235A5A3B002B3B48 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A73C84721AF51F400AE1221 /* NotificationCenter.framework */; };
@@ -96,6 +95,8 @@
 		9A30201829CBE32A00115538 /* SimpleItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A30201529CBDAFC00115538 /* SimpleItems.swift */; };
 		9A30201929CBE32D00115538 /* SimpleItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A30201529CBDAFC00115538 /* SimpleItems.swift */; };
 		9A30B1C01103D61C002A5029 /* MoreInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A30B1BF1103D61C002A5029 /* MoreInfo.png */; };
+		9A357D2629E3A938009B8344 /* SignInControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A357D2529E3A938009B8344 /* SignInControllerViewController.swift */; };
+		9A357D2829E3A947009B8344 /* NewUserTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A357D2729E3A947009B8344 /* NewUserTableController.swift */; };
 		9A3A27331573F062009AE0F6 /* WaitCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A3A27321573F062009AE0F6 /* WaitCell.xib */; };
 		9A3A694F11B85C72009A5C88 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3A694E11B85C72009A5C88 /* libsqlite3.0.dylib */; };
 		9A3AE5C829D5E6EE0058EE45 /* FlightQueryForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3AE5C729D5E6EE0058EE45 /* FlightQueryForm.swift */; };
@@ -180,7 +181,6 @@
 		9A5E74701710E8F7004C58CC /* Recording@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A5E746D1710E8F7004C58CC /* Recording@2x.png */; };
 		9A5F990629A2A64E00692E27 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9A7A7D98147F4DD0003A6912 /* Localizable.strings */; };
 		9A60CAE2180DFCFF00BE813A /* EditCellNoLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A60CAE1180DFCFF00BE813A /* EditCellNoLabel.xib */; };
-		9A60D6CB16F90BDE00F9DFFF /* CollapsibleTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A60D6CA16F90BDE00F9DFFF /* CollapsibleTable.m */; };
 		9A6187601711DD38007C7754 /* f_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A61875E1711DD37007C7754 /* f_logo.png */; };
 		9A6187611711DD38007C7754 /* f_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A61875F1711DD37007C7754 /* f_logo@2x.png */; };
 		9A6187641711DD9D007C7754 /* MFBLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A6187621711DD9C007C7754 /* MFBLogo.png */; };
@@ -374,7 +374,6 @@
 		9AC6F0CE29D9D305007D0044 /* TotalsCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC6F0CD29D9D305007D0044 /* TotalsCalculator.swift */; };
 		9AC6F0D229D9D332007D0044 /* SelectTemplates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC6F0D129D9D332007D0044 /* SelectTemplates.swift */; };
 		9AC6F0D429D9D33E007D0044 /* ApproachEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC6F0D329D9D33E007D0044 /* ApproachEditor.swift */; };
-		9AC7B8BF14D0ADAB009139BF /* PullRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC7B8BE14D0ADAB009139BF /* PullRefreshTableViewController.m */; };
 		9AC7B8C114D0ADBB009139BF /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AC7B8C014D0ADBB009139BF /* arrow.png */; };
 		9AC7B8C314D0AEF0009139BF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AC7B8C214D0AEF0009139BF /* QuartzCore.framework */; };
 		9AC83AD119E440260092C7BB /* tracklog.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 9AC83ACF19E440260092C7BB /* tracklog.gpx */; };
@@ -428,7 +427,6 @@
 		9AD832F110E29D3F007817A4 /* currency.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AD832F010E29D3F007817A4 /* currency.png */; };
 		9AD92AE71E4CD57600A2FC49 /* noimage.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AD92AE61E4CD57600A2FC49 /* noimage.png */; };
 		9ADB297416F62356008D9582 /* TextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ADB297316F62356008D9582 /* TextCell.xib */; };
-		9ADB297816F666BD008D9582 /* NewUserTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ADB297616F666BD008D9582 /* NewUserTableController.m */; };
 		9ADB297916F666BD008D9582 /* NewUserTableController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ADB297716F666BD008D9582 /* NewUserTableController.xib */; };
 		9ADB297F16F6938A008D9582 /* CheckboxCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ADB297E16F6938A008D9582 /* CheckboxCell.xib */; };
 		9ADFA4F01939003300FF30B7 /* newflight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ADFA4EF1939003300FF30B7 /* newflight@2x.png */; };
@@ -594,8 +592,6 @@
 		9A23CF9816F4DE9A001C9098 /* Checkbox-Sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Checkbox-Sel@2x.png"; sourceTree = "<group>"; };
 		9A23CF9916F4DE9A001C9098 /* Checkbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Checkbox.png; sourceTree = "<group>"; };
 		9A23CF9A16F4DE9A001C9098 /* Checkbox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Checkbox@2x.png"; sourceTree = "<group>"; };
-		9A23CFA116F50C57001C9098 /* SignInControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInControllerViewController.h; sourceTree = "<group>"; };
-		9A23CFA216F50C57001C9098 /* SignInControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInControllerViewController.m; sourceTree = "<group>"; };
 		9A23CFA316F50C57001C9098 /* SignInControllerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignInControllerViewController.xib; sourceTree = "<group>"; };
 		9A23CFA916F53B7D001C9098 /* ButtonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonCell.xib; sourceTree = "<group>"; };
 		9A2649F129D0FAE500C0D176 /* CollapsibleTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleTable.swift; sourceTree = "<group>"; };
@@ -622,6 +618,8 @@
 		9A30201529CBDAFC00115538 /* SimpleItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleItems.swift; sourceTree = "<group>"; };
 		9A30201B29CCB5C200115538 /* MyFlightbookWatch Extension-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MyFlightbookWatch Extension-Bridging-Header.h"; path = "Model classes/MyFlightbookWatch Extension-Bridging-Header.h"; sourceTree = "<group>"; };
 		9A30B1BF1103D61C002A5029 /* MoreInfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MoreInfo.png; sourceTree = "<group>"; };
+		9A357D2529E3A938009B8344 /* SignInControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInControllerViewController.swift; sourceTree = "<group>"; };
+		9A357D2729E3A947009B8344 /* NewUserTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserTableController.swift; sourceTree = "<group>"; };
 		9A3A27321573F062009AE0F6 /* WaitCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WaitCell.xib; sourceTree = "<group>"; };
 		9A3A694E11B85C72009A5C88 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		9A3AE5C729D5E6EE0058EE45 /* FlightQueryForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightQueryForm.swift; sourceTree = "<group>"; };
@@ -689,8 +687,6 @@
 		9A5E746C1710E8F7004C58CC /* Play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Play@2x.png"; sourceTree = "<group>"; };
 		9A5E746D1710E8F7004C58CC /* Recording@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Recording@2x.png"; sourceTree = "<group>"; };
 		9A60CAE1180DFCFF00BE813A /* EditCellNoLabel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditCellNoLabel.xib; sourceTree = "<group>"; };
-		9A60D6C916F90BDE00F9DFFF /* CollapsibleTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollapsibleTable.h; sourceTree = "<group>"; };
-		9A60D6CA16F90BDE00F9DFFF /* CollapsibleTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollapsibleTable.m; sourceTree = "<group>"; };
 		9A61875E1711DD37007C7754 /* f_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = f_logo.png; sourceTree = "<group>"; };
 		9A61875F1711DD37007C7754 /* f_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "f_logo@2x.png"; sourceTree = "<group>"; };
 		9A6187621711DD9C007C7754 /* MFBLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MFBLogo.png; sourceTree = "<group>"; };
@@ -910,8 +906,6 @@
 		9AC6F0CD29D9D305007D0044 /* TotalsCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalsCalculator.swift; sourceTree = "<group>"; };
 		9AC6F0D129D9D332007D0044 /* SelectTemplates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTemplates.swift; sourceTree = "<group>"; };
 		9AC6F0D329D9D33E007D0044 /* ApproachEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApproachEditor.swift; sourceTree = "<group>"; };
-		9AC7B8BD14D0ADAB009139BF /* PullRefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullRefreshTableViewController.h; sourceTree = "<group>"; };
-		9AC7B8BE14D0ADAB009139BF /* PullRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullRefreshTableViewController.m; sourceTree = "<group>"; };
 		9AC7B8C014D0ADBB009139BF /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		9AC7B8C214D0AEF0009139BF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9AC83ACF19E440260092C7BB /* tracklog.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tracklog.gpx; sourceTree = "<group>"; };
@@ -948,8 +942,6 @@
 		9AD832F010E29D3F007817A4 /* currency.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = currency.png; sourceTree = "<group>"; };
 		9AD92AE61E4CD57600A2FC49 /* noimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noimage.png; sourceTree = "<group>"; };
 		9ADB297316F62356008D9582 /* TextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextCell.xib; sourceTree = "<group>"; };
-		9ADB297516F666BD008D9582 /* NewUserTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewUserTableController.h; sourceTree = "<group>"; };
-		9ADB297616F666BD008D9582 /* NewUserTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewUserTableController.m; sourceTree = "<group>"; };
 		9ADB297716F666BD008D9582 /* NewUserTableController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewUserTableController.xib; sourceTree = "<group>"; };
 		9ADB297E16F6938A008D9582 /* CheckboxCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckboxCell.xib; sourceTree = "<group>"; };
 		9ADFA4EF1939003300FF30B7 /* newflight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "newflight@2x.png"; sourceTree = "<group>"; };
@@ -1240,13 +1232,11 @@
 				9A89C1AE29B8F45300848A6B /* About.swift */,
 				9AE39A3E29AAA2D0002A6496 /* AutodetectOptions.swift */,
 				9AE39A4029AAA40D002A6496 /* MultiValOptionSelector.swift */,
-				9ADB297516F666BD008D9582 /* NewUserTableController.h */,
-				9ADB297616F666BD008D9582 /* NewUserTableController.m */,
+				9A357D2729E3A947009B8344 /* NewUserTableController.swift */,
 				9ADB297716F666BD008D9582 /* NewUserTableController.xib */,
 				9AE39A4229AAA456002A6496 /* OptionSelection.swift */,
 				9A0DB04F29DB9B87005CEC20 /* SecurityQuestionPicker.swift */,
-				9A23CFA116F50C57001C9098 /* SignInControllerViewController.h */,
-				9A23CFA216F50C57001C9098 /* SignInControllerViewController.m */,
+				9A357D2529E3A938009B8344 /* SignInControllerViewController.swift */,
 				9A23CFA316F50C57001C9098 /* SignInControllerViewController.xib */,
 			);
 			name = "Profile and options";
@@ -1277,15 +1267,11 @@
 			isa = PBXGroup;
 			children = (
 				9ADB297A16F66C4B008D9582 /* CustomTableCells */,
-				9A60D6C916F90BDE00F9DFFF /* CollapsibleTable.h */,
-				9A60D6CA16F90BDE00F9DFFF /* CollapsibleTable.m */,
 				9A2649F129D0FAE500C0D176 /* CollapsibleTable.swift */,
 				9A3AE5C729D5E6EE0058EE45 /* FlightQueryForm.swift */,
 				9A14335E29A99231007129A9 /* HostedWebViewController.swift */,
 				9A03F50B29D4CBC80047807E /* ImageComment.swift */,
 				9A03F50929D489520047807E /* NearbyAirports.swift */,
-				9AC7B8BD14D0ADAB009139BF /* PullRefreshTableViewController.h */,
-				9AC7B8BE14D0ADAB009139BF /* PullRefreshTableViewController.m */,
 				9A2649FF29D25B0B00C0D176 /* PullRefreshTableViewController.swift */,
 				9AC88C1029BFD54600841C0A /* WPSAlertController.swift */,
 			);
@@ -2345,6 +2331,7 @@
 				9A2649FE29D2105300C0D176 /* ExpandHeaderCell.swift in Sources */,
 				9A3E137B127DE704008D672E /* EXFUtils.m in Sources */,
 				9A84363429BA926D0001012D /* MFBSqlLite.swift in Sources */,
+				9A357D2829E3A947009B8344 /* NewUserTableController.swift in Sources */,
 				9A14334C29A6B37E007129A9 /* TotalsRow.swift in Sources */,
 				9A21D5CB2214D1E300961605 /* BadElfSession.swift in Sources */,
 				9A0F0E7413E88781007E54C1 /* MFBWebServiceSvc.m in Sources */,
@@ -2357,7 +2344,6 @@
 				9A48E27D29A1693B00511D99 /* WidgetSoapCall.swift in Sources */,
 				9A27223529B699C8006AE702 /* GPSSim.swift in Sources */,
 				9A2649F229D0FAE500C0D176 /* CollapsibleTable.swift in Sources */,
-				9AC7B8BF14D0ADAB009139BF /* PullRefreshTableViewController.m in Sources */,
 				9AC88C0F29BFAD8B00841C0A /* Aircraft.swift in Sources */,
 				9A70E34729D4F9FA0068B0E6 /* ButtonCell.swift in Sources */,
 				9A2649FA29D106FB00C0D176 /* NavigableCell.swift in Sources */,
@@ -2368,15 +2354,13 @@
 				9AC88C1129BFD54600841C0A /* WPSAlertController.swift in Sources */,
 				9A20B152192D34D300A8F64F /* iRate.m in Sources */,
 				9AEFF6E329BD2A4600B07B13 /* MFBWebService PropertyExtensions.swift in Sources */,
-				9A23CFA416F50C57001C9098 /* SignInControllerViewController.m in Sources */,
 				9A0E794029BE2F4F005EF4D6 /* MFBWebService LogbookEntry Extensions.swift in Sources */,
 				9AC88C0D29BFAD8300841C0A /* Logbook.swift in Sources */,
 				9A503AA829CB702200D201C5 /* SynchronousCalls.swift in Sources */,
 				9A264A0029D25B0B00C0D176 /* PullRefreshTableViewController.swift in Sources */,
 				9A84363229B98AA70001012D /* MFBConstants.swift in Sources */,
-				9ADB297816F666BD008D9582 /* NewUserTableController.m in Sources */,
 				9A14335F29A99231007129A9 /* HostedWebViewController.swift in Sources */,
-				9A60D6CB16F90BDE00F9DFFF /* CollapsibleTable.m in Sources */,
+				9A357D2629E3A938009B8344 /* SignInControllerViewController.swift in Sources */,
 				9A27222E29B5025C006AE702 /* RouteAnnotation.swift in Sources */,
 				9A9A56F929CE25B300C5D006 /* CommentedImage.swift in Sources */,
 				9A27223929B6CDEE006AE702 /* MFBLocation.swift in Sources */,

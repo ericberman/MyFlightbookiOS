@@ -410,39 +410,31 @@ public class CollapsibleTableSw : UITableViewController, UIImagePickerController
     
     // MARK: iOS7 hacks
     // Reduce the space between sections.
-    // TODO: Still need these?
-    /*
-     - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-     {
-         CGFloat height = self.defSectionFooterHeight;    // default
-         NSString * sz = [self tableView:tableView titleForFooterInSection:section];
-         if (tableView == self.tableView && [sz length] > 0)
-         {
-             CGFloat h = [sz boundingRectWithSize:CGSizeMake(self.tableView.frame.size.width - 20, 10000)
-                                                             options:NSStringDrawingUsesLineFragmentOrigin
-                                                          attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:22.0]}
-                                                             context:nil].size.height;
-             return ceil(h);
-         }
-         return height;
-     }
-
-     - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-     {
-         CGFloat height = self.defSectionHeaderHeight;
-         NSString * sz = [self tableView:tableView titleForHeaderInSection:section];
-         if (tableView == self.tableView && [sz length] > 0)
-         {
-             CGFloat h = [sz boundingRectWithSize:CGSizeMake(self.tableView.frame.size.width - 20, 10000)
-                                          options:NSStringDrawingUsesLineFragmentOrigin
-                                       attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:22.0]}
-                                          context:nil].size.height;
-             return ceil(h);
-         }
-         
-         return height;
-     }
-     */
+    public override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        let sz = self.tableView(tableView, titleForFooterInSection:section) ?? ""
+        
+        if tableView == tableView && !sz.isEmpty {
+            let h = (sz as NSString).boundingRect(with: CGSizeMake(self.tableView.frame.size.width - 20, 10000),
+                                                  options:.usesLineFragmentOrigin,
+                                                  attributes: [.font : UIFont.systemFont(ofSize: 22.0)],
+                                                  context: nil).size.height
+            return ceil(h)
+        }
+        return defSectionFooterHeight
+    }
+    
+    public override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        let sz = self.tableView(tableView, titleForHeaderInSection:section) ?? ""
+        
+        if tableView == tableView && !sz.isEmpty {
+            let h = (sz as NSString).boundingRect(with: CGSizeMake(self.tableView.frame.size.width - 20, 10000),
+                                                  options:.usesLineFragmentOrigin,
+                                                  attributes: [.font : UIFont.systemFont(ofSize: 22.0)],
+                                                  context: nil).size.height
+            return ceil(h)
+        }
+        return defSectionHeaderHeight
+    }
     
     // MARK: Invalidate (for sign-out)
     public func invalidateViewController() {

@@ -287,20 +287,33 @@ import Foundation
     }
 }
 
-@objc public class NewUserObject : MFBWebServiceSvc_CreateUser {
-    @objc public var szEmail2 = ""
-    @objc public var szPass2 = ""
-    @objc public var szLastError = ""
+public class NewUserObject : MFBWebServiceSvc_CreateUser {
+    public var szEmail2 = ""
+    public var szPass2 = ""
+    public var szLastError = ""
+    
+    private func initSuperVars() {
+        // below are all initialized to nil in super.init, so set them to empty strings now
+        szAppToken = ""
+        szEmail = ""
+        szPass = ""
+        szFirst = ""
+        szLast = ""
+        szQuestion = ""
+        szAnswer = ""
+    }
     
     @objc public override init() {
         super.init()
+        initSuperVars()
     }
     
     @objc public required init?(coder: NSCoder) {
         super.init(coder: coder)
+        initSuperVars()
     }
     
-    @objc public func isValid() -> Bool {
+    public func isValid() -> Bool {
         szLastError = ""
         
         if (szPass.isEmpty || szPass != szPass2) {

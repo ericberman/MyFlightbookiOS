@@ -121,7 +121,7 @@
                         <color key="tintColor" red="0.0" green="0.73725490199999999" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <viewControllers>
-                        <viewController title="Profile" nibName="SignInControllerViewController" id="159" userLabel="profile" customClass="SignInControllerViewController">
+                        <viewController title="Profile" nibName="SignInControllerViewController" id="159" userLabel="profile" customClass="SignInControllerViewController" customModule="MyFlightbook" customModuleProvider="target">
                             <extendedEdge key="edgesForExtendedLayout"/>
                             <tabBarItem key="tabBarItem" tag="6" title="Profile" image="profile.png" id="160"/>
                             <toolbarItems/>
