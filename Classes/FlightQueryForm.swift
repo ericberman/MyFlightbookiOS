@@ -176,7 +176,8 @@ import Foundation
         })
         
         if rgUsedProps.isEmpty {
-            rgUsedProps = Array(_immutableCocoaArray: fp.rgFlightProps)
+            let allProps = (fp.rgFlightProps.customFlightProperty as? [MFBWebServiceSvc_CustomPropertyType]) ?? []
+            rgUsedProps.append(contentsOf: allProps)
         }
     }
     
@@ -407,15 +408,7 @@ import Foundation
         return cell
     }
     
-    // MARK: TableView Data Source
-    public override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return CGFloat.leastNonzeroMagnitude
-    }
-    
-    public override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return CGFloat.leastNonzeroMagnitude
-    }
-    
+    // MARK: TableView Data Source    
     public override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return nil
     }

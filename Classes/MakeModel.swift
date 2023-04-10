@@ -120,14 +120,6 @@ import Foundation
         return content.count
     }
     
-    public override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section == 0 ? String(localized: "Add Model Prompt", comment: "Prompt to create a new model on MyFlightbook.com") : nil
-    }
-    
-    public override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 0 ? 18.0 : super.tableView(tableView, heightForHeaderInSection: section)
-    }
-    
     public override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if (section == 0) {
             let header = view as! UITableViewHeaderFooterView

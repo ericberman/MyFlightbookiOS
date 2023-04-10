@@ -127,9 +127,12 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
             setCurrentAircraft(Aircraft.sharedAircraft.preferredAircraft)
         }
         
-        let ac = Aircraft.sharedAircraft.AircraftByID(le.entryData.aircraftID.intValue)
-        let templateArray = (ac?.defaultTemplates.int_.count ?? 0) > 0 ? MFBWebServiceSvc_PropertyTemplate.templatesWithIDs(ac!.defaultTemplates.int_ as! [NSNumber]) : MFBWebServiceSvc_PropertyTemplate.defaultTemplates
-        activeTemplates = Set(templateArray)
+        if let ac = Aircraft.sharedAircraft.AircraftByID(le.entryData.aircraftID.intValue) {
+            let templateArray = (ac.defaultTemplates.int_.count) > 0 ? MFBWebServiceSvc_PropertyTemplate.templatesWithIDs(ac.defaultTemplates.int_ as! [NSNumber]) : MFBWebServiceSvc_PropertyTemplate.defaultTemplates
+            activeTemplates = Set(templateArray)
+        } else {
+            le.entryData.aircraftID = NSNumber(integerLiteral: -1)
+        }
         templatesUpdated(activeTemplates)
         
         initFormFromLE()

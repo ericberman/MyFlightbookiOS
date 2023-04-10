@@ -161,10 +161,6 @@ import Foundation
         }
     }
     
-    public override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return (section == 0) ? CGFloat.leastNonzeroMagnitude : super.tableView(tableView, heightForHeaderInSection: section)
-    }
-
     public override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return section == 0 ? nil : (section == 1 && (rgTotalsGroups ?? []).count == 0 ? String(localized: "No totals are available.", comment: "No totals retrieved") : rgTotalsGroups![section - 1][0].groupName)
     }
