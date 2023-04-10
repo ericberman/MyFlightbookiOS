@@ -27,7 +27,8 @@
 import Foundation
 
 public class MyAircraft : PullRefreshTableViewControllerSW, AircraftViewControllerDelegate {
-    var dictImagesForAircraft : [NSNumber : CommentedImage] = [:]
+    var _dictImagesForAircraft : [NSNumber : CommentedImage] = [:]
+    let dictLock = NSLock()
     var rgFavoriteAircraft : [MFBWebServiceSvc_Aircraft] = []
     var rgArchivedAircraft : [MFBWebServiceSvc_Aircraft] = []
     var fNeedsRefresh = false
@@ -35,6 +36,36 @@ public class MyAircraft : PullRefreshTableViewControllerSW, AircraftViewControll
     enum aircraftSections : Int, CaseIterable {
         case sectFavorites = 0
         case sectArchived = 1
+    }
+    
+    // MARK: - Thread safe dictionary utilities
+    // Non of these functions make any calls that can result in another one being called, so there should be no thread contention/deadlock.
+    func imageForAircraft(_ num : NSNumber) -> CommentedImage? {
+        dictLock.lock()
+        let result = _dictImagesForAircraft[num]
+        dictLock.unlock()
+        return result
+    }
+    
+    func cacheImage(_ ci : CommentedImage, for aircraftID : NSNumber) {
+        dictLock.lock()
+        _dictImagesForAircraft[aircraftID] = ci
+        dictLock.unlock()
+    }
+    
+    func clearImageCache() {
+        dictLock.lock()
+        _dictImagesForAircraft.removeAll()
+        dictLock.unlock()
+    }
+    
+    var hasCachedImages : Bool {
+        get {
+            dictLock.lock()
+            let result = !_dictImagesForAircraft.isEmpty
+            dictLock.unlock()
+            return result
+        }
     }
     
     // MARK: - View Lifecycle
@@ -55,7 +86,7 @@ public class MyAircraft : PullRefreshTableViewControllerSW, AircraftViewControll
         super.viewWillAppear(animated)
         tableView.reloadData()
         
-        if dictImagesForAircraft.isEmpty {
+        if !hasCachedImages {
             loadThumbnails()
         }
         
@@ -66,7 +97,7 @@ public class MyAircraft : PullRefreshTableViewControllerSW, AircraftViewControll
     
     public override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        dictImagesForAircraft.removeAll()
+        clearImageCache()
     }
     
     // MARK: - Tableview data source delegate
@@ -124,7 +155,7 @@ public class MyAircraft : PullRefreshTableViewControllerSW, AircraftViewControll
         cell.lblMain.attributedText = szTail
         
 
-        let ci = dictImagesForAircraft[ac.aircraftID]
+        let ci = imageForAircraft(ac.aircraftID)
         let opacity = ac.hideFromSelection.boolValue ? 0.5 : 1.0
         cell.lblMain.alpha = opacity
         cell.imgView.alpha = opacity
@@ -268,8 +299,6 @@ public class MyAircraft : PullRefreshTableViewControllerSW, AircraftViewControll
             return  // don't bother with the dispatching below or caching results
         }
         
-        let obj = dictImagesForAircraft
-        
         DispatchQueue.global(qos: .background).async {
             for ac in rgAc {
                 let rgmfb = ac.aircraftImages.mfbImageInfo as! [MFBWebServiceSvc_MFBImageInfo]
@@ -283,10 +312,8 @@ public class MyAircraft : PullRefreshTableViewControllerSW, AircraftViewControll
                 }) ?? rgmfb[0]
                 
                 // get the thumbnail on a background queue
-                objc_sync_enter(obj)
                 ci.GetThumbnail()
-                self.dictImagesForAircraft[ac.aircraftID] = ci
-                objc_sync_exit(obj)
+                self.cacheImage(ci, for: ac.aircraftID)
                 
                 if (ci.imgInfo != nil) {
                     DispatchQueue.main.async {
@@ -300,7 +327,7 @@ public class MyAircraft : PullRefreshTableViewControllerSW, AircraftViewControll
     }
     
     func initAircraftLists() {
-        dictImagesForAircraft.removeAll()
+        clearImageCache()
         rgArchivedAircraft.removeAll()
         rgFavoriteAircraft.removeAll()
         

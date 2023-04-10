@@ -219,21 +219,26 @@ public class RecentFlights : PullRefreshTableViewControllerSW, LEEditDelegate, U
      The fix for this is to count the number of outstanding requests.  For the latter, we'll also allow a flag saying "hey, when all requests finish, do one more refresh.  (That's the hack).
      */
     
+    let pendingCallLock = NSLock()
+    
     func addPendingCall() {
-        objc_sync_enter(self)
+        pendingCallLock.lock()
         callInProgress = true
         callsAwaitingCompletion += 1
-        objc_sync_exit(self)
+        NSLog("RECENT FLIGHTS Add pending call, count = \(callsAwaitingCompletion)")
+        pendingCallLock.unlock()
     }
     
     func removePendingCall() {
-        objc_sync_enter(self)
+        pendingCallLock.lock()
         callsAwaitingCompletion -= 1
         callInProgress = callsAwaitingCompletion != 0
         if callsAwaitingCompletion < 0 {
             fatalError("negative calls pending completion!")
         }
-        objc_sync_exit(self)
+        NSLog("RECENT FLIGHTS Remove pending call, count = \(callsAwaitingCompletion)")
+        pendingCallLock.unlock()
+        
         if !callInProgress && refreshOnResultsComplete {
             refreshOnResultsComplete = false
             refresh(false)
@@ -327,9 +332,12 @@ public class RecentFlights : PullRefreshTableViewControllerSW, LEEditDelegate, U
                     aircraft.setHighWaterTach(cfp.decValue, forAircraft: le.aircraftID)
                 }
             }
-            
+            NSLog("RECENT FLIGHTS: Result Received")
+
             loadThumbnails(rgIncrementalResults)
         } else if let resp = body as? MFBWebServiceSvc_PendingFlightsForUserResponse {
+            NSLog("RECENT FLIGHTS: Pending Flights Received")
+
             rgPendingFlights = resp.pendingFlightsForUserResult.pendingFlight as! [MFBWebServiceSvc_PendingFlight]
         } else if let resp = body as? MFBWebServiceSvc_DeletePendingFlightResponse {
             rgPendingFlights = resp.deletePendingFlightResult.pendingFlight as! [MFBWebServiceSvc_PendingFlight]
@@ -337,7 +345,6 @@ public class RecentFlights : PullRefreshTableViewControllerSW, LEEditDelegate, U
     }
     
     public func ResultCompleted(sc: MFBSoapCall) {
-        NSLog("RECENT FLIGHTS: Result Completed")
         errorString = sc.errorString
         if !errorString.isEmpty {
             showError(errorString, withTitle:String(localized: "Error loading recent flights", comment: "Title for error message on recent flights"))
@@ -475,9 +482,11 @@ public class RecentFlights : PullRefreshTableViewControllerSW, LEEditDelegate, U
     }
     
     func submitUnsubmittedFlights() {
-        if !hasUnsubmittedFlights || !MFBNetworkManager.shared.isOnLine {
+        if !hasUnsubmittedFlights || !MFBNetworkManager.shared.isOnLine || uploadInProgress {
             return
         }
+        
+        NSLog("RECENT FLIGHTS : SubmitUnsubmitted, uploadInProgress is \(uploadInProgress ? "TRUE" : "FALSE")")
         
         cFlightsToSubmit = MFBAppDelegate.threadSafeAppDelegate.rgUnsubmittedFlights.count
         

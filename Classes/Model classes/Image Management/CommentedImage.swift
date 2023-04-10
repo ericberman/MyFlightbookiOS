@@ -588,7 +588,6 @@ import Security
                 let sess = URLSession(configuration: .default)
                 sess.dataTask(with: req) { data, response, error in
                     DispatchQueue.main.async {
-                        objc_sync_enter(cImages)
                         cImages += 1
                         
                         progress(String(format: String(localized: "Uploading Image %d of %lu", comment: "Progress message when uploading an image; the %d is replaced by numbers (e.g. '2 of 4')"),
@@ -612,8 +611,6 @@ import Security
                                 WPSAlertController.presentOkayAlertWithTitle(String(localized: "Error uploading Pictures", comment: "Error message if there were errors uploading an image"), message:szText)
                             }
                         }
-                        
-                        objc_sync_exit(cImages)
                     }
                 }.resume()
             }
@@ -622,8 +619,6 @@ import Security
  
     @objc public static func initCommentedImagesFromMFBII(_ rgmfbii : [MFBWebServiceSvc_MFBImageInfo], toArray rgImages: NSMutableArray) -> Bool {
         var fResult = false
-        
-        objc_sync_enter(rgmfbii)
         
         // add existing images to the image array
         for mfbii in rgmfbii {
@@ -643,8 +638,6 @@ import Security
                 }
             }
         }
-        
-        objc_sync_exit(rgmfbii)
         
         return fResult
     }

@@ -251,15 +251,12 @@ import WidgetKit
     }
     
     public func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        objc_sync_enter(self)
-        
         NSLog("application:openURL: with %@, %@", url.absoluteString, MFBAppDelegate.fAppLaunchFinished ? "app launch is finished, opening" : "Queueing to open when launch is finished.")
         if (MFBAppDelegate.fAppLaunchFinished) {
             openURL(url)
         } else {
             MFBAppDelegate.urlLaunchURL = url
         }
-        objc_sync_exit(self)
         return true
     }
     
