@@ -43,5 +43,4 @@
 #import "iRate.h"
 #import "HostName.h"
 #import "ApiKeys.h"
-#import "SwiftConversionHackBridge.h"
 #endif /* MyFlightbook_Bridging_Header_h */

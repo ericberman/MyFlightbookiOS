@@ -81,7 +81,7 @@
                         <color key="tintColor" red="0.0" green="0.73725490199999999" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <viewControllers>
-                        <viewController nibName="RecentFlights" id="203" customClass="RecentFlights">
+                        <viewController nibName="RecentFlights" id="203" customClass="RecentFlights" customModule="MyFlightbook" customModuleProvider="target">
                             <extendedEdge key="edgesForExtendedLayout"/>
                             <toolbarItems/>
                             <navigationItem key="navigationItem" title="Recent Flights" id="204"/>

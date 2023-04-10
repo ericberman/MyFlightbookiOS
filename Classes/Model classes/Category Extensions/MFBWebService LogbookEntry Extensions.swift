@@ -309,6 +309,9 @@ extension MFBWebServiceSvc_LogbookEntry : AutoDetectDelegate {
         
         user = (decoder.decodeObject(of: NSString.self, forKey: _szkeyUser) ?? "") as String
         flightData = (decoder.decodeObject(of: NSString.self, forKey: _szKeyFlightData) ?? "") as String
+        if (flightImages == nil) {
+            flightImages = MFBWebServiceSvc_ArrayOfMFBImageInfo()
+        }
     }
     
     @objc public func encodeWithCoderMFB(_ encoder : NSCoder) {

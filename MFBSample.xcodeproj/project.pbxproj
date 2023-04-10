@@ -8,9 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
-		9A020B3310FFEF3F00801349 /* RecentFlights.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A020B3110FFEF3F00801349 /* RecentFlights.m */; };
 		9A03F50329D396BE0047807E /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A03F50229D396BE0047807E /* Currency.swift */; };
-		9A03F50529D3ABA30047807E /* SwiftConversionHackBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A03F50429D3ABA30047807E /* SwiftConversionHackBridge.m */; };
 		9A03F50829D3B51A0047807E /* Totals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A03F50729D3B51A0047807E /* Totals.swift */; };
 		9A03F50A29D489520047807E /* NearbyAirports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A03F50929D489520047807E /* NearbyAirports.swift */; };
 		9A03F50C29D4CBC80047807E /* ImageComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A03F50B29D4CBC80047807E /* ImageComment.swift */; };
@@ -112,7 +110,6 @@
 		9A40859F170B48B60079A2C6 /* Favorite.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A40859D170B48B60079A2C6 /* Favorite.png */; };
 		9A4085A0170B48B60079A2C6 /* Favorite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A40859E170B48B60079A2C6 /* Favorite@2x.png */; };
 		9A41A36929D0ACB9005E0A7B /* NetworkManagment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A41A36829D0ACB9005E0A7B /* NetworkManagment.swift */; };
-		9A4587BD14C205500045AF51 /* RecentFlightCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A4587BC14C205500045AF51 /* RecentFlightCell.m */; };
 		9A46938020F53BE900614481 /* Icon80x80.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A46937E20F53BE800614481 /* Icon80x80.png */; };
 		9A46938120F53BE900614481 /* Icon40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A46937F20F53BE900614481 /* Icon40x40.png */; };
 		9A46938320F53C5200614481 /* Icon60x60.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A46938220F53C5200614481 /* Icon60x60.png */; };
@@ -350,6 +347,8 @@
 		9AA77D8A1618CAC000B36935 /* Default-Landscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA77D871618CAC000B36935 /* Default-Landscape@2x.png */; };
 		9AA77D8B1618CAC000B36935 /* Default-Portrait@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA77D881618CAC000B36935 /* Default-Portrait@2x.png */; };
 		9AA94A66220F63880056AED3 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AA94A65220F63880056AED3 /* ExternalAccessory.framework */; };
+		9AA9791D29E328BE00D56DC4 /* RecentFlightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA9791C29E328BE00D56DC4 /* RecentFlightCell.swift */; };
+		9AA9791F29E328CC00D56DC4 /* RecentFlights.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA9791E29E328CC00D56DC4 /* RecentFlights.swift */; };
 		9AAA71E810EEC97300D5D3B6 /* centermap.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AAA71E710EEC97300D5D3B6 /* centermap.png */; };
 		9AAA7CDD1715E4CA00429F78 /* backspace@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AAA7CD81715E4CA00429F78 /* backspace@2x.png */; };
 		9AAA7CDE1715E4CA00429F78 /* Icon-iPad-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AAA7CD91715E4CA00429F78 /* Icon-iPad-small.png */; };
@@ -534,11 +533,7 @@
 		28A0AB4B0D9B1048005BE974 /* MFBSample_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFBSample_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MFBSample-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MFBSample-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
-		9A020B3010FFEF3F00801349 /* RecentFlights.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentFlights.h; sourceTree = "<group>"; };
-		9A020B3110FFEF3F00801349 /* RecentFlights.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentFlights.m; sourceTree = "<group>"; };
 		9A03F50229D396BE0047807E /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
-		9A03F50429D3ABA30047807E /* SwiftConversionHackBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwiftConversionHackBridge.m; sourceTree = "<group>"; };
-		9A03F50629D3ABB80047807E /* SwiftConversionHackBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftConversionHackBridge.h; sourceTree = "<group>"; };
 		9A03F50729D3B51A0047807E /* Totals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Totals.swift; sourceTree = "<group>"; };
 		9A03F50929D489520047807E /* NearbyAirports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyAirports.swift; sourceTree = "<group>"; };
 		9A03F50B29D4CBC80047807E /* ImageComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageComment.swift; sourceTree = "<group>"; };
@@ -651,7 +646,6 @@
 		9A40859D170B48B60079A2C6 /* Favorite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Favorite.png; sourceTree = "<group>"; };
 		9A40859E170B48B60079A2C6 /* Favorite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Favorite@2x.png"; sourceTree = "<group>"; };
 		9A41A36829D0ACB9005E0A7B /* NetworkManagment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagment.swift; sourceTree = "<group>"; };
-		9A4587BC14C205500045AF51 /* RecentFlightCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentFlightCell.m; sourceTree = "<group>"; };
 		9A46937E20F53BE800614481 /* Icon80x80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon80x80.png; sourceTree = "<group>"; };
 		9A46937F20F53BE900614481 /* Icon40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon40x40.png; sourceTree = "<group>"; };
 		9A46938220F53C5200614481 /* Icon60x60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon60x60.png; sourceTree = "<group>"; };
@@ -742,7 +736,6 @@
 		9A73C84721AF51F400AE1221 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		9A77CF96110569D0006E7531 /* airport.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = airport.png; sourceTree = "<group>"; };
 		9A7A7D97147F4DD0003A6912 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		9A7C143115336317007EB69A /* RecentFlightCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentFlightCell.h; sourceTree = "<group>"; };
 		9A7C143B1533D660007EB69A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		9A7E42B611810DBF002000A4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9A804AF516EE445F002F77CA /* DateRangeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DateRangeViewController.xib; sourceTree = "<group>"; };
@@ -875,6 +868,8 @@
 		9AA77D871618CAC000B36935 /* Default-Landscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x.png"; sourceTree = "<group>"; };
 		9AA77D881618CAC000B36935 /* Default-Portrait@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x.png"; sourceTree = "<group>"; };
 		9AA94A65220F63880056AED3 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		9AA9791C29E328BE00D56DC4 /* RecentFlightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentFlightCell.swift; sourceTree = "<group>"; };
+		9AA9791E29E328CC00D56DC4 /* RecentFlights.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentFlights.swift; sourceTree = "<group>"; };
 		9AAA71E710EEC97300D5D3B6 /* centermap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = centermap.png; sourceTree = "<group>"; };
 		9AAA7CD81715E4CA00429F78 /* backspace@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backspace@2x.png"; sourceTree = "<group>"; };
 		9AAA7CD91715E4CA00429F78 /* Icon-iPad-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad-small.png"; sourceTree = "<group>"; };
@@ -1271,11 +1266,9 @@
 		9A518E49111F8643004B4BF6 /* Recent Flights */ = {
 			isa = PBXGroup;
 			children = (
-				9A7C143115336317007EB69A /* RecentFlightCell.h */,
-				9A4587BC14C205500045AF51 /* RecentFlightCell.m */,
 				9A2D594114C3485800FD8F05 /* RecentFlightCell.xib */,
-				9A020B3010FFEF3F00801349 /* RecentFlights.h */,
-				9A020B3110FFEF3F00801349 /* RecentFlights.m */,
+				9AA9791C29E328BE00D56DC4 /* RecentFlightCell.swift */,
+				9AA9791E29E328CC00D56DC4 /* RecentFlights.swift */,
 			);
 			name = "Recent Flights";
 			sourceTree = "<group>";
@@ -1661,8 +1654,6 @@
 				9ADFA501193925C400FF30B7 /* Training */,
 				9A518E4A111F864D004B4BF6 /* UI Utility Classes */,
 				9A17C5F713E89AD900C47C82 /* Visited Airports */,
-				9A03F50429D3ABA30047807E /* SwiftConversionHackBridge.m */,
-				9A03F50629D3ABB80047807E /* SwiftConversionHackBridge.h */,
 			);
 			name = UIClasses;
 			sourceTree = "<group>";
@@ -2330,12 +2321,11 @@
 				9A2BFEBD29D7122100427E8F /* VisitedAirports.swift in Sources */,
 				9AE39A4729ABC1C5002A6496 /* Airports.swift in Sources */,
 				9AE39A4129AAA40D002A6496 /* MultiValOptionSelector.swift in Sources */,
-				9A03F50529D3ABA30047807E /* SwiftConversionHackBridge.m in Sources */,
 				9A0DB05C29DF3737005CEC20 /* LEEditController.swift in Sources */,
-				9A020B3310FFEF3F00801349 /* RecentFlights.m in Sources */,
 				9AE39A4329AAA456002A6496 /* OptionSelection.swift in Sources */,
 				9A3E1375127DE704008D672E /* EXFGPS.m in Sources */,
 				9A3E1376127DE704008D672E /* EXFHandlers.m in Sources */,
+				9AA9791F29E328CC00D56DC4 /* RecentFlights.swift in Sources */,
 				9A264A0429D33CC400C0D176 /* MakeModel.swift in Sources */,
 				9A3E1377127DE704008D672E /* EXFJFIF.m in Sources */,
 				9A2649F429D0FC3900C0D176 /* AccessoryBar.swift in Sources */,
@@ -2367,13 +2357,13 @@
 				9A48E27D29A1693B00511D99 /* WidgetSoapCall.swift in Sources */,
 				9A27223529B699C8006AE702 /* GPSSim.swift in Sources */,
 				9A2649F229D0FAE500C0D176 /* CollapsibleTable.swift in Sources */,
-				9A4587BD14C205500045AF51 /* RecentFlightCell.m in Sources */,
 				9AC7B8BF14D0ADAB009139BF /* PullRefreshTableViewController.m in Sources */,
 				9AC88C0F29BFAD8B00841C0A /* Aircraft.swift in Sources */,
 				9A70E34729D4F9FA0068B0E6 /* ButtonCell.swift in Sources */,
 				9A2649FA29D106FB00C0D176 /* NavigableCell.swift in Sources */,
 				9AC88C0729BE96FE00841C0A /* MFBWebService Aircraft Extensions.swift in Sources */,
 				9A03F50A29D489520047807E /* NearbyAirports.swift in Sources */,
+				9AA9791D29E328BE00D56DC4 /* RecentFlightCell.swift in Sources */,
 				9A27223029B53861006AE702 /* FlightProps.swift in Sources */,
 				9AC88C1129BFD54600841C0A /* WPSAlertController.swift in Sources */,
 				9A20B152192D34D300A8F64F /* iRate.m in Sources */,

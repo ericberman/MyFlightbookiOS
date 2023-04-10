@@ -206,7 +206,7 @@ extension MFBWebServiceSvc_CustomFlightProperty {
         }
     }
     
-    @objc(formatForDisplay::::) public func formatForDisplay(_ labelColor : UIColor, valueColor : UIColor, labelFont : UIFont, valueFont : UIFont) -> NSAttributedString {
+    public func formatForDisplay(_ labelColor : UIColor, valueColor : UIColor, labelFont : UIFont, valueFont : UIFont) -> AttributedString {
         let rgCpt = FlightProps.sharedPropTypes
         var s = AttributedString("", attributes: AttributeContainer([.font : labelFont, .foregroundColor : labelColor]))
         for cpt in rgCpt {
@@ -222,7 +222,7 @@ extension MFBWebServiceSvc_CustomFlightProperty {
                 }
             }
         }
-        return NSAttributedString(s)
+        return s
     }
 
     @objc public func encodeWithCoderMFB(_ encoder : NSCoder) {

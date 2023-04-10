@@ -679,7 +679,7 @@ import Foundation
         let fq = MFBWebServiceSvc_FlightQuery.getNewFlightQuery()
         fq.aircraftList.add(ac)
         
-        navigationController?.pushViewController(SwiftConversionHackBridge.recentFlights(with: fq), animated: true)
+        navigationController?.pushViewController(RecentFlights.viewForFlightsMatching(query: fq), animated: true)
     }
     
     // MARK: - View Schedule

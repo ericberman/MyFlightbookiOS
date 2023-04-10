@@ -72,6 +72,15 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
     let rowSigFirst = leRow.rowSigHeader.rawValue
     let rowSigLast = leRow.rowSigValidity.rawValue
 
+    // MARK: Get an LEEditController
+    public static func editorForFlight(_ le : LogbookEntry, delegate : LEEditDelegate? = nil) -> LEEditController {
+        let leView = LEEditController(nibName: UIDevice.current.userInterfaceIdiom == .pad ? "LEEditController-iPad" : "LEEditController", bundle: nil)
+        leView.le = le
+        leView.delegate = delegate
+        leView.view = leView.view // force viewdidload, etc.
+        return leView
+    }
+    
     // MARK: - View Lifecycle
     public override func viewDidLoad() {
         super.viewDidLoad()

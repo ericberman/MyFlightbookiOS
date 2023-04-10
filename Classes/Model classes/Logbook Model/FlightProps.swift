@@ -360,11 +360,8 @@ import SQLite3
             nfDecimal.numberStyle = .currency
             szValue = nfDecimal.string(from: fp.decValue) ?? ""
         case MFBWebServiceSvc_CFPPropertyType_cfpDecimal:
-            let nfDecimal = NumberFormatter()
-            nfDecimal.numberStyle = .decimal
-            nfDecimal.minimumFractionDigits = 1
-            nfDecimal.maximumFractionDigits = 2
-            szValue = nfDecimal.string(from: fp.decValue) ?? ""
+            let nt = cpt.flags.uint32Value & 0x00200000 == 0 ? NumericType.Time : NumericType.Decimal
+            szValue = fp.decValue.formatAsTime(fHHMM: nt == .Time && UserPreferences.current.HHMMPref, fGroup: true) as String
         case MFBWebServiceSvc_CFPPropertyType_cfpInteger:
             szValue = (fp.intValue ?? 0).stringValue
         case MFBWebServiceSvc_CFPPropertyType_cfpString:

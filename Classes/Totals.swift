@@ -212,7 +212,7 @@ import Foundation
         else {
             let ti = rgTotalsGroups![indexPath.section - 1][indexPath.row]
             if let q = ti.query {
-                navigationController?.pushViewController(SwiftConversionHackBridge.recentFlights(with: q), animated: true)
+                navigationController?.pushViewController(RecentFlights.viewForFlightsMatching(query: q), animated: true)
             }
         }
     }

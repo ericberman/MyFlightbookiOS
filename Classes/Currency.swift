@@ -207,11 +207,11 @@ public class Currency : PullRefreshTableViewControllerSW, MFBSoapCallDelegate {
                 pushAuthURL("FLIGHTREVIEW")
             case MFBWebServiceSvc_CurrencyGroups_FlightExperience:
                 if ci.query != nil {
-                    navigationController?.pushViewController(SwiftConversionHackBridge.recentFlights(with: ci.query), animated: true)
+                    navigationController?.pushViewController(RecentFlights.viewForFlightsMatching(query: ci.query), animated: true)
                 }
             case MFBWebServiceSvc_CurrencyGroups_CustomCurrency:
                 if (ci.query != nil)  {
-                    navigationController?.pushViewController(SwiftConversionHackBridge.recentFlights(with: ci.query!), animated: true)
+                    navigationController?.pushViewController(RecentFlights.viewForFlightsMatching(query: ci.query), animated: true)
                 }
                 else {
                     pushAuthURL("CUSTOMCURRENCY")

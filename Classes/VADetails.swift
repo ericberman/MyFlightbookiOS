@@ -125,7 +125,7 @@ public class VADetails : UIViewController, MKMapViewDelegate {
     func findFlightsForAirport(_ va : MFBWebServiceSvc_VisitedAirport) {
         let fq = MFBWebServiceSvc_FlightQuery.getNewFlightQuery()
         fq.airportList.string.addObjects(from: Airports.CodesFromString(va.AllCodes()))
-        let rfv = SwiftConversionHackBridge.recentFlights(with: fq)
+        let rfv = RecentFlights.viewForFlightsMatching(query: fq)
         navigationController?.pushViewController(rfv, animated: true)
     }
 }
