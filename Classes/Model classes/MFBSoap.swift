@@ -32,18 +32,16 @@ import Foundation
 }
 
 @objc public class MFBSoapCall : NSObject, MFBWebServiceSoapBindingResponseDelegate {
-    @objc var delegate : MFBSoapCallDelegate?
-    @objc var logCallData : Bool
-    @objc var errorString : String
-    @objc var timeOut : TimeInterval
-    @objc var contextFlag : Int
+    @objc var delegate : MFBSoapCallDelegate? = nil
+    @objc var logCallData = false
+    @objc var errorString = ""
+    @objc var timeOut : TimeInterval = 0
+    @objc var contextFlag = 0
+    
+    public var additionalContext : [String : Any] = [:]
+    public var onCompletion : ((MFBSoapCall) -> Void)? = nil
 
     @objc public override init() {
-        logCallData = false
-        errorString = ""
-        delegate = nil
-        timeOut = 0
-        contextFlag = 0
         super.init()
     }
     

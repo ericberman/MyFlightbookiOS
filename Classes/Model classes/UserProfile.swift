@@ -31,7 +31,7 @@ import Foundation
     @objc public var Password = ""
     @objc public var AuthToken = ""
     @objc public var ErrorString = ""
-    private var authStatus = MFBWebServiceSvc_AuthStatus_none
+    public var authStatus = MFBWebServiceSvc_AuthStatus_none
 
     private let _szPrefsPath = "MyFlightbookDataPrefs"
     private let _szKeyUser = "UserKey"
@@ -45,6 +45,9 @@ import Foundation
     private let _szKeyCachedTokenRetrievalDate = "keyCacheTokenDate"
     
     private static var _shared : MFBProfile = MFBProfile()
+    
+    private static let CONTEXT_CREATE_USER = 10238473
+    private static let CONTEXT_GET_AUTHTOKEN = 8374736
     
     @objc public static var sharedProfile : MFBProfile {
         get {
@@ -158,21 +161,17 @@ import Foundation
         return true
     }
     
-    @objc(GetAuthToken:) public func GetAuthToken(sz2FACode : String) -> MFBWebServiceSvc_AuthStatus {
+    public func GetAuthToken(sz2FACode : String, onCompletion : ((MFBSoapCall)->Void)?) -> Bool {
         NSLog("GetAuthToken")
         ErrorString = ""
         
-        if (Thread.isMainThread) {
-            NSLog("GetAuthToken called from main thread - naughty!  We will crash")
-        }
-        
         if (UserName.isEmpty) {
             ErrorString = String(localized: "Please provide an email address.", comment: "Create Account validation - no email")
-            return MFBWebServiceSvc_AuthStatus_Failed
+            return false
         }
         if (Password.isEmpty) {
             ErrorString = String(localized: "Please provide a password.", comment: "Validation - Missing Password")
-            return MFBWebServiceSvc_AuthStatus_Failed
+            return false
         }
         
         let ud = UserDefaults.standard
@@ -193,25 +192,19 @@ import Foundation
         sc.delegate = self
         sc.timeOut = 10.0
         
-        sc.makeCallSynchronous(calltoMake: { b in
-            return b.authTokenForUserNew(usingParameters: authTokSvc)
-        }, asSecure: true)
+        sc.contextFlag = MFBProfile.CONTEXT_GET_AUTHTOKEN
+        sc.additionalContext["at"] = authTokSvc
+        sc.additionalContext["cachedUser"] = szUserCached
+        sc.onCompletion = onCompletion
         
-        if (ErrorString.isEmpty && !AuthToken.isEmpty && authStatus == MFBWebServiceSvc_AuthStatus_Success) {
-            NSLog("Authtoken successfully retrieved - updating cache");
-            cacheAuthCreds()
-            if (szUserCached == nil || szUserCached != UserName) { // signed in as someone new
-                performSelector(onMainThread: #selector(clearOldUserContent), with: nil, waitUntilDone: true)
-                return authStatus
-            }
+        sc.makeCallAsync { b, sc in
+            b.authTokenForUserNewAsync(usingParameters: authTokSvc, delegate: sc)
         }
-        else if (AuthToken.isEmpty && ErrorString.isEmpty) {  // if we didn't get any actual error, but didn't get an auth string, that's also an error
-            ErrorString = String(localized: "Unable to authenticate.  Please check your email address and password and ensure that you have Internet access", comment: "Error - authentication failure")
-        }
-        return authStatus
+
+        return true
     }
     
-    @objc(createUser:) public func createUser(cu : MFBWebServiceSvc_CreateUser) -> Bool {
+    public func createUser(cu : MFBWebServiceSvc_CreateUser, onCompletion : ((MFBSoapCall)->Void)?) -> Bool {
         NSLog("CreateUser");
         if (cu.szEmail.isEmpty) {
             ErrorString = String(localized: "Please provide an email address.", comment: "Create Account validation - no email")
@@ -234,28 +227,18 @@ import Foundation
             return false;
         }
         
-        assert(!Thread().isMainThread)  // we're going to make a synchronous call below - can't be on main thread.  TODO: should rework where this is called from (only one place)
-        
-        let sc = MFBSoapCall()
-        sc.delegate = self
+        let sc = MFBSoapCall(delegate: self)
         sc.timeOut = 10.0
+        sc.contextFlag = MFBProfile.CONTEXT_CREATE_USER
         
         cu.szAppToken = _szKeyAppToken
+        sc.onCompletion = onCompletion
+        sc.additionalContext["cu"] = cu
         
-        sc.makeCallSynchronous(calltoMake: { b in
-            b.createUser(usingParameters: cu)
-        }, asSecure: true)
-        ErrorString = sc.errorString
-        
-        if (ErrorString.isEmpty && !AuthToken.isEmpty) {
-            NSLog("Account successfully created")
-            // Now, sign in
-            UserName = cu.szEmail
-            Password = cu.szPass
-            cacheAuthCreds()
-            clearOldUserContent()
+        sc.makeCallAsync { b, sc in
+            b.createUserAsync(usingParameters: cu, delegate: sc)
         }
-        return ErrorString.isEmpty
+        return true
     }
     
     @objc(BodyReturned:) public func BodyReturned(body: AnyObject) {
@@ -276,6 +259,35 @@ import Foundation
                 cacheAuthCreds()
             }
         }
+    }
+    
+    public func ResultCompleted(sc: MFBSoapCall) {
+        ErrorString = sc.errorString
+        
+        if sc.contextFlag == MFBProfile.CONTEXT_CREATE_USER && ErrorString.isEmpty && !AuthToken.isEmpty {
+            NSLog("Account successfully created")
+            // Now, sign in
+            if let cu = sc.additionalContext["cu"] as? MFBWebServiceSvc_CreateUser {
+                UserName = cu.szEmail
+                Password = cu.szPass
+            }
+            cacheAuthCreds()
+            clearOldUserContent()
+        } else if sc.contextFlag == MFBProfile.CONTEXT_GET_AUTHTOKEN  && ErrorString.isEmpty && !AuthToken.isEmpty && authStatus == MFBWebServiceSvc_AuthStatus_Success {
+                NSLog("Authtoken successfully retrieved - updating cache");
+                cacheAuthCreds()
+            if let szUserCached = sc.additionalContext["cachedUser"] as? String {
+                if szUserCached != UserName { // signed in as someone new
+                    clearOldUserContent()
+                }
+            }
+            else if AuthToken.isEmpty && ErrorString.isEmpty {  // if we didn't get any actual error, but didn't get an auth string, that's also an error
+                ErrorString = String(localized: "Unable to authenticate.  Please check your email address and password and ensure that you have Internet access", comment: "Error - authentication failure")
+                sc.errorString = ErrorString    // in case we added an error
+            }
+        }
+
+        sc.onCompletion?(sc)
     }
     
     @objc public func isValid() -> Bool {

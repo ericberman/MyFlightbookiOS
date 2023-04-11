@@ -94,37 +94,37 @@ public class SignInControllerViewController : CollapsibleTableSw, UITextFieldDel
         
         MFBProfile.sharedProfile.clearCache()
         
-        WPSAlertController.presentProgressAlertWithTitle(String(localized: "Signing in...", comment: "Progress: Signing In"), onViewController:self)
-        
-        DispatchQueue.global().async {
-            let result = MFBProfile.sharedProfile.GetAuthToken(sz2FACode: self.sz2fa)
-            
+        if MFBProfile.sharedProfile.GetAuthToken(sz2FACode: sz2fa, onCompletion: { sc in
             // if successful, refresh flight properties.
+            let result = MFBProfile.sharedProfile.authStatus
             if result == MFBWebServiceSvc_AuthStatus_Success {
                 let fp = FlightProps()
                 fp.setCacheRetry()
                 fp.loadCustomPropertyTypes()
             }
             
-            DispatchQueue.main.async {
-                self.dismiss(animated: true) {
-                    if (result == MFBWebServiceSvc_AuthStatus_Success) {
-                        let app = MFBAppDelegate.threadSafeAppDelegate
-                        self.sz2fa = ""
-                        
-                        app.ensureWarningShownForUser()
-                        MFBProfile.sharedProfile.SavePrefs()
-                        self.tableView.reloadData()
-                        
-                        Aircraft.sharedAircraft.refreshIfNeeded()
-                        app.DefaultPage()
-                    } else if (result == MFBWebServiceSvc_AuthStatus_TwoFactorCodeRequired) {
-                        self.get2FA()
-                    } else {
-                        self.showError(MFBProfile.sharedProfile.ErrorString)
-                    }
+            self.dismiss(animated: true) {
+                if (result == MFBWebServiceSvc_AuthStatus_Success) {
+                    let app = MFBAppDelegate.threadSafeAppDelegate
+                    self.sz2fa = ""
+                    
+                    app.ensureWarningShownForUser()
+                    MFBProfile.sharedProfile.SavePrefs()
+                    self.tableView.reloadData()
+                    
+                    Aircraft.sharedAircraft.refreshIfNeeded()
+                    app.DefaultPage()
+                } else if (result == MFBWebServiceSvc_AuthStatus_TwoFactorCodeRequired) {
+                    self.get2FA()
+                } else {
+                    self.showError(MFBProfile.sharedProfile.ErrorString)
                 }
             }
+        }) {
+            // successfully started the sign-in, so show progress...
+            WPSAlertController.presentProgressAlertWithTitle(String(localized: "Signing in...", comment: "Progress: Signing In"), onViewController:self)
+        } else {
+            showError(MFBProfile.sharedProfile.ErrorString)
         }
     }
     

@@ -265,35 +265,34 @@ public class NewUserTableController : CollapsibleTableSw, UITextFieldDelegate {
             return
         }
         
-        WPSAlertController.presentProgressAlertWithTitle(String(localized: "Creating Account...", comment: "Progress indicator"), onViewController:self)
-        
-        DispatchQueue.global().async {
-            let fSuccess = MFBProfile.sharedProfile.createUser(cu: self.nuo) && MFBProfile.sharedProfile.isValid()
-            
-            DispatchQueue.main.async {
-                self.dismiss(animated: true) {
-                    if fSuccess {
-                        // cache the relevant credentials, load any aircraft, and go to the default page for the user!
-                        MFBProfile.sharedProfile.SavePrefs()
-                        Aircraft.sharedAircraft.refreshIfNeeded()
-                        
-                        // Refresh properties on a background thread.
-                        DispatchQueue.global().async {
-                            FlightProps().loadCustomPropertyTypes()
-                        }
-
-                        let alert = UIAlertController(title: String(localized: "Welcome to MyFlightbook!", comment: "New user welcome message title"),
-                                                      message:String(localized: "\r\nBefore you can enter flights, you must set up at least one aircraft that you fly.", comment: "New user 'Next steps' message"), preferredStyle:.alert)
-                        
-                        alert.addAction(UIAlertAction(title: String(localized: "Close", comment: "Close button on error message"), style:.cancel) { uaa in
-                            self.navigationController?.popViewController(animated: true)
-                        })
-                        self.present(alert, animated: true)
-                    } else {
-                        self.showErrorAlertWithMessage(msg: MFBProfile.sharedProfile.ErrorString)
-                    }
+        if MFBProfile.sharedProfile.createUser(cu: nuo, onCompletion: { sc in
+            self.dismiss(animated: true) {
+                if sc.errorString.isEmpty {
+                    // cache the relevant credentials, load any aircraft, and go to the default page for the user!
+                    MFBProfile.sharedProfile.SavePrefs()
+                    Aircraft.sharedAircraft.refreshIfNeeded()
+                    
+                    // Refresh properties on a background thread.
+                    let fp = FlightProps()
+                    fp.setCacheRetry()
+                    fp.loadCustomPropertyTypes()
+                    
+                    let alert = UIAlertController(title: String(localized: "Welcome to MyFlightbook!", comment: "New user welcome message title"),
+                                                  message:String(localized: "\r\nBefore you can enter flights, you must set up at least one aircraft that you fly.", comment: "New user 'Next steps' message"), preferredStyle:.alert)
+                    
+                    alert.addAction(UIAlertAction(title: String(localized: "Close", comment: "Close button on error message"), style:.cancel) { uaa in
+                        self.navigationController?.popViewController(animated: true)
+                    })
+                    self.present(alert, animated: true)
+                } else {
+                    self.showErrorAlertWithMessage(msg: MFBProfile.sharedProfile.ErrorString)
                 }
             }
+        }) {
+            // successfully started create user, show progress.
+            WPSAlertController.presentProgressAlertWithTitle(String(localized: "Creating Account...", comment: "Progress indicator"), onViewController:self)
+        } else {
+            showErrorAlertWithMessage(msg: MFBProfile.sharedProfile.ErrorString)
         }
     }
     
