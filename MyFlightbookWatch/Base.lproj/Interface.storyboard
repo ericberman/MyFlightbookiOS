@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="17156" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="21701" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch42"/>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="17034"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="21615"/>
     </dependencies>
     <scenes>
         <!--New Flight-->
@@ -128,8 +127,23 @@
                                     </connections>
                                 </tableRow>
                             </items>
+                            <gestureRecognizers>
+                                <longPressGestureRecognizer id="hLP-EL-i6s">
+                                    <connections>
+                                        <action selector="refresh" destination="tOL-R1-d3W" id="V6r-ef-ias"/>
+                                    </connections>
+                                </longPressGestureRecognizer>
+                            </gestureRecognizers>
                         </table>
-                        <label alignment="left" text="No totals are available.  Make sure you are signed in , and force-press to refresh." numberOfLines="5" id="QPq-4Q-DAs" userLabel="lblError"/>
+                        <label alignment="left" text="No totals are available.  Make sure you are signed in , and long-press to refresh." numberOfLines="5" id="QPq-4Q-DAs" userLabel="lblError">
+                            <gestureRecognizers>
+                                <longPressGestureRecognizer id="LLJ-tY-dN1">
+                                    <connections>
+                                        <action selector="refresh" destination="tOL-R1-d3W" id="xEE-w8-d1d"/>
+                                    </connections>
+                                </longPressGestureRecognizer>
+                            </gestureRecognizers>
+                        </label>
                     </items>
                     <connections>
                         <outlet property="lblError" destination="QPq-4Q-DAs" id="Ajj-Nc-ctQ"/>
@@ -181,8 +195,23 @@
                                     </connections>
                                 </tableRow>
                             </items>
+                            <gestureRecognizers>
+                                <longPressGestureRecognizer id="CAK-Ih-HY9">
+                                    <connections>
+                                        <action selector="refresh" destination="nTf-GX-DXe" id="bhE-IO-oqb"/>
+                                    </connections>
+                                </longPressGestureRecognizer>
+                            </gestureRecognizers>
                         </table>
-                        <label alignment="left" text="No flights are available.  Make sure you are signed in , and force-press to refresh." numberOfLines="6" id="1JO-7S-UDd" userLabel="lblError"/>
+                        <label alignment="left" text="No flights are available.  Make sure you are signed in , and long-press to refresh." numberOfLines="6" id="1JO-7S-UDd" userLabel="lblError">
+                            <gestureRecognizers>
+                                <longPressGestureRecognizer id="T6e-Mf-Q53">
+                                    <connections>
+                                        <action selector="refresh" destination="nTf-GX-DXe" id="mR0-8w-S8v"/>
+                                    </connections>
+                                </longPressGestureRecognizer>
+                            </gestureRecognizers>
+                        </label>
                     </items>
                     <connections>
                         <outlet property="lblError" destination="1JO-7S-UDd" id="1cY-hX-g7X"/>
@@ -224,8 +253,23 @@
                                     </connections>
                                 </tableRow>
                             </items>
+                            <gestureRecognizers>
+                                <longPressGestureRecognizer id="QoK-Ap-Qzb">
+                                    <connections>
+                                        <action selector="refresh" destination="jxf-FK-QQY" id="K40-ga-udT"/>
+                                    </connections>
+                                </longPressGestureRecognizer>
+                            </gestureRecognizers>
                         </table>
-                        <label alignment="left" text="No currency is available.  Make sure you are signed in , and force-press to refresh." numberOfLines="5" id="JPe-4X-D0f" userLabel="lblError"/>
+                        <label alignment="left" text="No currency is available.  Make sure you are signed in , and long-press to refresh." numberOfLines="5" id="JPe-4X-D0f" userLabel="lblError">
+                            <gestureRecognizers>
+                                <longPressGestureRecognizer id="hpc-KN-wv6">
+                                    <connections>
+                                        <action selector="refresh" destination="jxf-FK-QQY" id="XKE-bi-UlW"/>
+                                    </connections>
+                                </longPressGestureRecognizer>
+                            </gestureRecognizers>
+                        </label>
                     </items>
                     <connections>
                         <outlet property="lblError" destination="JPe-4X-D0f" id="veY-a2-i5n"/>

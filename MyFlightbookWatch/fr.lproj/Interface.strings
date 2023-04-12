@@ -6,7 +6,7 @@
 "1A2-SN-xwQ.format" = "HH:mm:ss z";
 
 /* Class = "WKInterfaceLabel"; text = "(error)"; ObjectID = "1JO-7S-UDd"; */
-"1JO-7S-UDd.text" = "Aucun vol sont disponibles. Assurez-vous que vous êtes connecté, et la force-presse pour se rafraîchir.";
+"1JO-7S-UDd.text" = "Aucun vol sont disponibles. Assurez-vous que vous êtes connecté, et appuyez longuement pour actualiser.";
 
 /* Class = "WKInterfaceLabel"; text = "Votre vol est prêt à être soumis. Vous pouvez le faire sur votre iPhone."; ObjectID = "28e-TE-zBE"; */
 "28e-TE-zBE.text" = "Votre vol est prêt à être soumis. Vous pouvez le faire sur votre iPhone.";
@@ -33,13 +33,13 @@
 "I7C-Za-7j8.text" = "Label";
 
 /* Class = "WKInterfaceLabel"; text = "(error)"; ObjectID = "JPe-4X-D0f"; */
-"JPe-4X-D0f.text" = "Statut ne sont pas disponibles. Assurez-vous que vous êtes connecté, et la force-presse pour se rafraîchir.";
+"JPe-4X-D0f.text" = "Statut ne sont pas disponibles. Assurez-vous que vous êtes connecté, et appuyez longuement pour actualiser.";
 
 /* Class = "WKInterfaceLabel"; text = "(Latitude)"; ObjectID = "QA5-os-H6g"; */
 "QA5-os-H6g.text" = "(Latitude)";
 
 /* Class = "WKInterfaceLabel"; text = "(error)"; ObjectID = "QPq-4Q-DAs"; */
-"QPq-4Q-DAs.text" = "Aucun totaux sont disponibles. Assurez-vous que vous êtes connecté, et la force-presse pour se rafraîchir.";
+"QPq-4Q-DAs.text" = "Aucun totaux sont disponibles. Assurez-vous que vous êtes connecté, et appuyez longuement pour actualiser.";
 
 /* Class = "WKInterfaceLabel"; text = "(Comments)"; ObjectID = "TQn-WP-2i6"; */
 "TQn-WP-2i6.text" = "(Comments)";
