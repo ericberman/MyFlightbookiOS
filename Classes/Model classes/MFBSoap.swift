@@ -159,20 +159,20 @@ import Foundation
         return makeCallAsync(callToMake: calltoMake, asSecure: true)
     }
     
-    // Call only on background threads.
-    @discardableResult @objc(makeCallSynchronous: asSecure:) public func makeCallSynchronous(calltoMake : (MFBWebServiceSoapBinding) -> MFBWebServiceSoapBindingResponse, asSecure : Bool) -> Bool {
-        var retVal = true
-        assert(!Thread.isMainThread, "NEVER call makeCallSynchronous on the main thread!")
-        let binding = setUpBinding(fSecure: setUpBinding(fSecure: asSecure) != nil)
-        if (binding != nil) {
-            let response = calltoMake(binding!)
-            retVal = parseResponse(response: response)
-        }
-        else {
-            retVal = false
-        }
-        return retVal
-    }
+//    // Call only on background threads.
+//    @discardableResult @objc(makeCallSynchronous: asSecure:) public func makeCallSynchronous(calltoMake : (MFBWebServiceSoapBinding) -> MFBWebServiceSoapBindingResponse, asSecure : Bool) -> Bool {
+//        var retVal = true
+//        assert(!Thread.isMainThread, "NEVER call makeCallSynchronous on the main thread!")
+//        let binding = setUpBinding(fSecure: setUpBinding(fSecure: asSecure) != nil)
+//        if (binding != nil) {
+//            let response = calltoMake(binding!)
+//            retVal = parseResponse(response: response)
+//        }
+//        else {
+//            retVal = false
+//        }
+//        return retVal
+//    }
     
     public func operation(_ operation: MFBWebServiceSoapBindingOperation!, completedWith response: MFBWebServiceSoapBindingResponse!) {
         // always call this on the main thread

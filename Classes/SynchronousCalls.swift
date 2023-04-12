@@ -28,29 +28,27 @@ import Foundation
 
 @objc public class SynchronousCalls : NSObject, MFBSoapCallDelegate {
 
-    var returnedBody : AnyObject? = nil
+    let group = DispatchGroup()
+    
+    private let onResultKey = "onResultKey"
+    private var _onBodyReturned : ((AnyObject) -> Void)!
     
     // MARK: MFBSoapDelegate
-    @objc func getSoapCall() -> MFBSoapCall {
-        let sc = MFBSoapCall()
-        sc.delegate = self
+    @objc func getSoapCall(onBodyReturned : @escaping (AnyObject) -> Void) -> MFBSoapCall {
+        assert(!Thread.isMainThread, "SynchronousCall made on main thread!!!")
+        let sc = MFBSoapCall(delegate: self)
         sc.timeOut = 20.0   // 20 second timeout
+        _onBodyReturned = onBodyReturned
+        group.enter()
         return sc
     }
     
-    private func resultFromBody() -> AnyObject? {
-        if let resp = returnedBody as? MFBWebServiceSvc_GetCurrencyForUserResponse {
-            let rgCs = resp.getCurrencyForUserResult.currencyStatusItem as? [MFBWebServiceSvc_CurrencyStatusItem] ?? []
-            return MFBWebServiceSvc_CurrencyStatusItem.toSimpleItems(items: rgCs) as AnyObject
-        } else if let resp = returnedBody as? MFBWebServiceSvc_TotalsForUserResponse {
-            let rgti = resp.totalsForUserResult.totalsItem as? [MFBWebServiceSvc_TotalsItem] ?? []
-            return MFBWebServiceSvc_TotalsItem.toSimpleItems(items: rgti, fHHMM: UserPreferences.current.HHMMPref) as AnyObject
-        } else if let resp = returnedBody as? MFBWebServiceSvc_FlightsWithQueryAndOffsetResponse {
-            let rgle = resp.flightsWithQueryAndOffsetResult.logbookEntry as? [MFBWebServiceSvc_LogbookEntry] ?? []
-            return MFBWebServiceSvc_LogbookEntry.toSimpleItems(items: rgle, fHHMM: UserPreferences.current.HHMMPref) as AnyObject
-        }
-        
-        return nil
+    @objc public func BodyReturned(body: AnyObject) {
+        _onBodyReturned(body)
+    }
+    
+    @objc public func ResultCompleted(sc: MFBSoapCall) {
+        group.leave()
     }
     
     public func currency(forUserSynchronous szAuthToken : String?) -> [SimpleCurrencyItem]? {
@@ -61,11 +59,18 @@ import Foundation
         let curSvc = MFBWebServiceSvc_GetCurrencyForUser()
         curSvc.szAuthToken = szAuthToken
         
-        getSoapCall().makeCallSynchronous(calltoMake: { b in
-            return b.getCurrencyForUser(usingParameters: curSvc)
-        }, asSecure: true)
+        var result : [MFBWebServiceSvc_CurrencyStatusItem] = []
         
-        return resultFromBody() as? [SimpleCurrencyItem]
+        getSoapCall { body in
+            if let resp = body as? MFBWebServiceSvc_GetCurrencyForUserResponse {
+                result = resp.getCurrencyForUserResult.currencyStatusItem as? [MFBWebServiceSvc_CurrencyStatusItem] ?? []
+            }
+        }.makeCallAsync { b, sc in
+            b.getCurrencyForUserAsync(usingParameters: curSvc, delegate: sc)
+        }
+        
+        group.wait()
+        return MFBWebServiceSvc_CurrencyStatusItem.toSimpleItems(items: result)
     }
     
     public func totals(forUserSynchronous szAuthToken : String?) -> [SimpleTotalItem]? {
@@ -73,14 +78,22 @@ import Foundation
             return nil
         }
         
-        let totSvc = MFBWebServiceSvc_TotalsForUser()
+        let totSvc = MFBWebServiceSvc_TotalsForUserWithQuery()
         totSvc.szAuthToken = szAuthToken
+        totSvc.fq = MFBWebServiceSvc_FlightQuery.getNewFlightQuery()
         
-        getSoapCall().makeCallSynchronous(calltoMake: { b in
-            return b.totalsForUser(usingParameters: totSvc)
-        }, asSecure: true)
+        var result : [MFBWebServiceSvc_TotalsItem] = []
         
-        return resultFromBody() as? [SimpleTotalItem]
+        getSoapCall { body in
+            if let resp = body as? MFBWebServiceSvc_TotalsForUserWithQueryResponse {
+                result = resp.totalsForUserWithQueryResult.totalsItem as? [MFBWebServiceSvc_TotalsItem] ?? []
+            }
+        }.makeCallAsync { b, sc in
+            b.totalsForUserWithQueryAsync(usingParameters: totSvc, delegate: sc)
+        }
+        
+        group.wait()
+        return MFBWebServiceSvc_TotalsItem.toSimpleItems(items: result, fHHMM: UserPreferences.current.HHMMPref)
     }
     
     public func recents(forUserSynchronous szAuthToken : String?) -> [SimpleLogbookEntry]? {
@@ -94,18 +107,17 @@ import Foundation
         recSvc.offset = NSNumber(integerLiteral: 0)
         recSvc.maxCount = NSNumber(integerLiteral: 10)
         
-        getSoapCall().makeCallSynchronous(calltoMake: { b in
-            return b.flightsWithQueryAndOffset(usingParameters: recSvc)
-        }, asSecure: true)
+        var result : [MFBWebServiceSvc_LogbookEntry] = []
         
-        return resultFromBody() as? [SimpleLogbookEntry]
-    }
-    
-    @objc public func BodyReturned(body: AnyObject) {
-        returnedBody = body
-    }
-    
-    @objc public func ResultCompleted(sc: MFBSoapCall) {
+        getSoapCall { body in
+            if let resp = body as? MFBWebServiceSvc_FlightsWithQueryAndOffsetResponse {
+                result = resp.flightsWithQueryAndOffsetResult.logbookEntry as? [MFBWebServiceSvc_LogbookEntry] ?? []
+            }
+        }.makeCallAsync { b, sc in
+            b.flightsWithQueryAndOffsetAsync(usingParameters: recSvc, delegate: sc)
+        }
         
+        group.wait()
+        return MFBWebServiceSvc_LogbookEntry.toSimpleItems(items: result, fHHMM: UserPreferences.current.HHMMPref)
     }
 }
