@@ -151,6 +151,10 @@
 	<string>MyFlightbook saves pictures that you take into your library so that you have your own copy of it.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>MyFlightbook allows you to attach pictures or videos to your flights or to aircraft that you fly.</string>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>ConfigurationIntent</string>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
