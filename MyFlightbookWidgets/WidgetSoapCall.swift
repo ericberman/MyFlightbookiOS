@@ -25,10 +25,10 @@
 
 import Foundation
 
-public class WidgetSoapCall : NSObject, MFBWebServiceSoapBindingResponseDelegate {
+public class WidgetSoapCall : NSObject, MFBWebServiceSoap12BindingResponseDelegate {
     public var errorString = ""
     
-    internal let binding = MFBWebServiceSoapBinding()
+    internal let binding = MFBWebServiceSoap12Binding()
     // request the correct language/locale
     private let szPreferredLocale = Locale.current.identifier
     private let szPreferredLanguage = Locale.preferredLanguages[0]
@@ -40,7 +40,7 @@ public class WidgetSoapCall : NSObject, MFBWebServiceSoapBindingResponseDelegate
     
     var completionHandler : ((WidgetSoapCall) -> Void)?
     
-    public func operation(_ operation: MFBWebServiceSoapBindingOperation!, completedWith response: MFBWebServiceSoapBindingResponse!) {
+    public func operation(_ operation: MFBWebServiceSoap12BindingOperation!, completedWith response: MFBWebServiceSoap12BindingResponse!) {
         if (!(response?.error?.localizedDescription ?? "").isEmpty) {
             errorString = response.error.localizedDescription
         } else {

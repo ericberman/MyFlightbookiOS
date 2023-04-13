@@ -31,7 +31,7 @@ import Foundation
     @objc(ResultCompleted:) optional func ResultCompleted(sc : MFBSoapCall) -> Void
 }
 
-@objc public class MFBSoapCall : NSObject, MFBWebServiceSoapBindingResponseDelegate {
+@objc public class MFBSoapCall : NSObject, MFBWebServiceSoap12BindingResponseDelegate {
     @objc var delegate : MFBSoapCallDelegate? = nil
     @objc var logCallData = false
     @objc var errorString = ""
@@ -66,14 +66,13 @@ import Foundation
     }
     
     // MARK: Actual functionality
-    func setUpBinding(fSecure : Bool) -> MFBWebServiceSoapBinding? {
+    func setUpBinding(fSecure : Bool) -> MFBWebServiceSoap12Binding? {
         var secure = fSecure
         if (!MFBNetworkManager.shared.isOnLine) {
             self.errorString = String(localized: "No access to the Internet", comment: "Error message if app cannot connect to the Internet")
             return nil;
         }
-        
-        let binding = MFBWebServiceSoapBinding()
+        let binding = MFBWebServiceSoap12Binding()
         if (timeOut != 0) {
             binding.timeout = self.timeOut
         }
@@ -99,7 +98,7 @@ import Foundation
         return binding
     }
     
-    func parseResponse(response : MFBWebServiceSoapBindingResponse?) -> Bool {
+    func parseResponse(response : MFBWebServiceSoap12BindingResponse?) -> Bool {
         var retVal = true
         
         if (response?.error?.localizedDescription.isEmpty ?? false) {
@@ -131,7 +130,7 @@ import Foundation
         return retVal
     }
     
-    @discardableResult func makeCallAsync(callToMake:@escaping (MFBWebServiceSoapBinding, MFBSoapCall)->Void, asSecure fSecure: Bool) -> Bool {
+    @discardableResult func makeCallAsync(callToMake:@escaping (MFBWebServiceSoap12Binding, MFBSoapCall)->Void, asSecure fSecure: Bool) -> Bool {
         var retVal:Bool = true
 
         let binding = setUpBinding(fSecure: fSecure)
@@ -151,16 +150,16 @@ import Foundation
         return retVal
     }
     
-    @discardableResult @objc(makeCallAsync:) public func makeCallAsync(callToMake : @escaping (MFBWebServiceSoapBinding, MFBSoapCall) -> Void) -> Bool {
+    @discardableResult @objc(makeCallAsync:) public func makeCallAsync(callToMake : @escaping (MFBWebServiceSoap12Binding, MFBSoapCall) -> Void) -> Bool {
         return makeCallAsync(callToMake: callToMake, asSecure: false)
     }
     
-    @discardableResult @objc(makeCallAsyncSecure:) public func makeCallAsyncSecure(calltoMake : @escaping (MFBWebServiceSoapBinding, MFBSoapCall) -> Void) -> Bool {
+    @discardableResult @objc(makeCallAsyncSecure:) public func makeCallAsyncSecure(calltoMake : @escaping (MFBWebServiceSoap12Binding, MFBSoapCall) -> Void) -> Bool {
         return makeCallAsync(callToMake: calltoMake, asSecure: true)
     }
     
 //    // Call only on background threads.
-//    @discardableResult @objc(makeCallSynchronous: asSecure:) public func makeCallSynchronous(calltoMake : (MFBWebServiceSoapBinding) -> MFBWebServiceSoapBindingResponse, asSecure : Bool) -> Bool {
+//    @discardableResult @objc(makeCallSynchronous: asSecure:) public func makeCallSynchronous(calltoMake : (MFBWebServiceSoap12Binding) -> MFBWebServiceSoap12BindingResponse, asSecure : Bool) -> Bool {
 //        var retVal = true
 //        assert(!Thread.isMainThread, "NEVER call makeCallSynchronous on the main thread!")
 //        let binding = setUpBinding(fSecure: setUpBinding(fSecure: asSecure) != nil)
@@ -174,7 +173,7 @@ import Foundation
 //        return retVal
 //    }
     
-    public func operation(_ operation: MFBWebServiceSoapBindingOperation!, completedWith response: MFBWebServiceSoapBindingResponse!) {
+    public func operation(_ operation: MFBWebServiceSoap12BindingOperation!, completedWith response: MFBWebServiceSoap12BindingResponse!) {
         // always call this on the main thread
         DispatchQueue.main.async {
             let _ = self.parseResponse(response: response)
