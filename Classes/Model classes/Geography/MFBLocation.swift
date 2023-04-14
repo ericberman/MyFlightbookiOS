@@ -105,11 +105,11 @@ import Foundation
     @objc public var delegate : AutoDetectDelegate? = nil
     @objc public var lastSeenLoc : CLLocation? = nil
     @objc public var currentLoc : CLLocation? = nil
-    @objc public var rgAllSamples : [String] = []
     @objc public var currentFlightState = FlightState.fsOnGround
     
     
     // MARK: private properties
+    var rgAllSamples : [String] = []
     private var flightTrackData = ""
     private var locManager : CLLocationManager? = nil
     private var fIsBlessed = false
@@ -168,7 +168,7 @@ import Foundation
         
         flightTrackData = defs.string(forKey: MFBLocation._szKeyPrefFlightTrackData) ?? ""
         
-        rgAllSamples = (defs.object(forKey: MFBLocation._szKeyPrefFlightTrackData) as? [String]) ?? []
+        rgAllSamples = (defs.object(forKey: MFBLocation._szKeyPrefFlightSamples) as? [String]) ?? []
         
         fRecordHighRes = UserPreferences.current.recordHighRes
         MFBLocation.refreshTakeoffSpeed()
