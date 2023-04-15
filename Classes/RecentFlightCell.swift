@@ -187,8 +187,8 @@ public class RecentFlightCell : UITableViewCell {
             // Add various values
             attrString.append(attributedLabel(String(localized: "fieldTotal", comment: "Entry Field: Total"), value: le.totalFlightTime, font: boldFont, inHHMM: fUseHHMM, numType : .Time))
             
-            attrString.append(attributedLabel(String(localized: "fieldLandings", comment: "Entry Field: Landings"), value: le.landings, font: boldFont, inHHMM: fUseHHMM, numType : .Time))
-            attrString.append(attributedLabel(String(localized: "fieldApproaches", comment: "Entry Field: Approaches"), value: le.approaches, font: boldFont, inHHMM: fUseHHMM, numType : .Time))
+            attrString.append(attributedLabel(String(localized: "fieldLandings", comment: "Entry Field: Landings"), value: le.landings, font: boldFont, inHHMM: false, numType : .Integer))
+            attrString.append(attributedLabel(String(localized: "fieldApproaches", comment: "Entry Field: Approaches"), value: le.approaches, font: boldFont, inHHMM: false, numType : .Integer))
             
             attrString.append(attributedLabel(String(localized: "fieldNight", comment: "Entry Field: Night"), value: le.nighttime, font: boldFont, inHHMM: fUseHHMM, numType : .Time))
             attrString.append(attributedLabel(String(localized: "fieldSimIMC", comment: "Entry Field: Simulated IMC"), value: le.simulatedIFR, font: boldFont, inHHMM: fUseHHMM, numType : .Time))
