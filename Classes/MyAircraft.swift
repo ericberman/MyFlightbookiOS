@@ -33,11 +33,13 @@ public class MyAircraft : PullRefreshTableViewControllerSW, AircraftViewControll
     var rgArchivedAircraft : [MFBWebServiceSvc_Aircraft] = []
     var fNeedsRefresh = false
     
+    let hasRefreshedSinceSwiftConversionKey = "keyHasRefreshed"
+    
     enum aircraftSections : Int, CaseIterable {
         case sectFavorites = 0
         case sectArchived = 1
     }
-    
+        
     // MARK: - Thread safe dictionary utilities
     // Non of these functions make any calls that can result in another one being called, so there should be no thread contention/deadlock.
     func imageForAircraft(_ num : NSNumber) -> CommentedImage? {
@@ -77,6 +79,11 @@ public class MyAircraft : PullRefreshTableViewControllerSW, AircraftViewControll
         initAircraftLists()
 
         MFBAppDelegate.threadSafeAppDelegate.registerNotifyResetAll(self)
+        
+        if !UserDefaults.standard.bool(forKey: hasRefreshedSinceSwiftConversionKey) {
+            fNeedsRefresh = true
+            UserDefaults.standard.set(true, forKey: hasRefreshedSinceSwiftConversionKey)
+        }
         
         tableView.rowHeight = 86
     }
@@ -317,7 +324,7 @@ public class MyAircraft : PullRefreshTableViewControllerSW, AircraftViewControll
                 
                 if (ci.imgInfo != nil) {
                     DispatchQueue.main.async {
-                        self.reload()
+                        self.tableView.reloadData()
                     }
                 }
             }
