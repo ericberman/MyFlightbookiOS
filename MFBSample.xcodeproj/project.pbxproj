@@ -32,7 +32,6 @@
 		9A0EDBC31288FD9C00153C6E /* Default-Landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A0EDBC01288FD9C00153C6E /* Default-Landscape.png */; };
 		9A0EDBC41288FD9C00153C6E /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A0EDBC11288FD9C00153C6E /* Default-Portrait.png */; };
 		9A0EDBDF1289021100153C6E /* Default-PortraitUpsideDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A0EDBDE1289021100153C6E /* Default-PortraitUpsideDown.png */; };
-		9A0F0E7413E88781007E54C1 /* MFBWebServiceSvc.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0F0E7313E88781007E54C1 /* MFBWebServiceSvc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9A1014BD10DD551800FA37D4 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A1014BC10DD551800FA37D4 /* Icon.png */; };
 		9A1014C110DD56A500FA37D4 /* icon-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A1014C010DD56A500FA37D4 /* icon-small.png */; };
 		9A1014C310DD57DE00FA37D4 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 9A1014C210DD57DE00FA37D4 /* iTunesArtwork */; };
@@ -152,6 +151,7 @@
 		9A503AA829CB702200D201C5 /* SynchronousCalls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A503AA729CB702200D201C5 /* SynchronousCalls.swift */; };
 		9A512DDB29D8892F004A222A /* MyAircraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A512DDA29D8892F004A222A /* MyAircraft.swift */; };
 		9A512DDF29D8D8F8004A222A /* FixedImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A512DDE29D8D8F8004A222A /* FixedImageCell.xib */; };
+		9A512EFF29EB14C000428C72 /* MFBSoapCallLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A48E28D29A16EE400511D99 /* MFBSoapCallLibrary.a */; };
 		9A52ECB21B6574D000DE8A83 /* schedule.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A52ECAF1B6574D000DE8A83 /* schedule.png */; };
 		9A52ECB31B6574D000DE8A83 /* schedule@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A52ECB01B6574D000DE8A83 /* schedule@2x.png */; };
 		9A52ECB41B6574D000DE8A83 /* schedule@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A52ECB11B6574D000DE8A83 /* schedule@3x.png */; };
@@ -190,11 +190,6 @@
 		9A61876D1711DFC5007C7754 /* twitter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A61876B1711DFC4007C7754 /* twitter@2x.png */; };
 		9A6247A31AA509A3002A8E0B /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A6247A21AA509A3002A8E0B /* MediaPlayer.framework */; };
 		9A6590D429DA517900917FCD /* FlightProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6590D329DA517900917FCD /* FlightProperties.swift */; };
-		9A69202B10CCBD8B00DF1CA6 /* NSDate+ISO8601Parsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202110CCBD8900DF1CA6 /* NSDate+ISO8601Parsing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A69202C10CCBD8B00DF1CA6 /* NSDate+ISO8601Unparsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202310CCBD8900DF1CA6 /* NSDate+ISO8601Unparsing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A69202D10CCBD8B00DF1CA6 /* USAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202510CCBD8A00DF1CA6 /* USAdditions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A69202E10CCBD8B00DF1CA6 /* USGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202710CCBD8A00DF1CA6 /* USGlobals.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A69202F10CCBD8B00DF1CA6 /* xsd.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202910CCBD8B00DF1CA6 /* xsd.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9A6BDE10157092D600F715E1 /* EditCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A6BDE0F157092D600F715E1 /* EditCell.xib */; };
 		9A6C3B4315728F27004EB8FA /* ExpandHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A6C3B4215728F27004EB8FA /* ExpandHeaderCell.xib */; };
 		9A6DDB9511A8547D0053C8AA /* MFBIcon.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DDB9111A8547D0053C8AA /* MFBIcon.gif */; };
@@ -982,6 +977,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A512EFF29EB14C000428C72 /* MFBSoapCallLibrary.a in Frameworks */,
 				9AA94A66220F63880056AED3 /* ExternalAccessory.framework in Frameworks */,
 				9A050D292138790100B3F794 /* Photos.framework in Frameworks */,
 				9ACDC9011BE01BC600B0A077 /* WatchConnectivity.framework in Frameworks */,
@@ -1036,7 +1032,6 @@
 			children = (
 				9ACE9E8B1D075299004274F9 /* MyFlightbook-Bridging-Header.h */,
 				9AB21C5C10DF27850042AD88 /* Model classes */,
-				9A69201D10CCBD8800DF1CA6 /* WebServiceCode */,
 				9AB3C2961115F540001401C8 /* UIClasses */,
 				9ABC6B361EBCD74300EE9C97 /* ApiKeys.h */,
 				9A8901F91F9A4E800023CE34 /* HostName.h */,
@@ -1059,6 +1054,7 @@
 		29B97314FDCFA39411CA2CEA /* MFBSample */ = {
 			isa = PBXGroup;
 			children = (
+				9A69201D10CCBD8800DF1CA6 /* WebServiceCode */,
 				9A48E2A529A1797900511D99 /* MyFlightbookWidgetsExtension.entitlements */,
 				9A73C83F21AF51C200AE1221 /* MyFlightbook.entitlements */,
 				9A1A8B971EAA5E5D008F938B /* ReadMe.md */,
@@ -2283,20 +2279,15 @@
 				9A27223729B69AD3006AE702 /* GPSDeviceViewTableViewController.swift in Sources */,
 				9A2BFEBF29D7122A00427E8F /* VADetails.swift in Sources */,
 				9A8EE98629AA676B00F133CF /* UserProfile.swift in Sources */,
-				9A69202B10CCBD8B00DF1CA6 /* NSDate+ISO8601Parsing.m in Sources */,
 				9A7083AE29D86A73002819F8 /* ProgressCell.swift in Sources */,
-				9A69202C10CCBD8B00DF1CA6 /* NSDate+ISO8601Unparsing.m in Sources */,
 				9A0DB05029DB9B87005CEC20 /* SecurityQuestionPicker.swift in Sources */,
 				9AC6F0D429D9D33E007D0044 /* ApproachEditor.swift in Sources */,
 				9A0DB05A29DF372C005CEC20 /* LEEditBaseTableViewController.swift in Sources */,
 				9A0DB05829DF3717005CEC20 /* FlightEditorBaseTableViewController.swift in Sources */,
 				9A27223329B55C67006AE702 /* Telemetry.swift in Sources */,
-				9A69202D10CCBD8B00DF1CA6 /* USAdditions.m in Sources */,
-				9A69202E10CCBD8B00DF1CA6 /* USGlobals.m in Sources */,
 				9A0DB05229DCC502005CEC20 /* AircraftViewControllerBase.swift in Sources */,
 				9A14334E29A6D9B7007129A9 /* CurrencyRow.swift in Sources */,
 				9A8EE98129A9B20200F133CF /* MFBSoap.swift in Sources */,
-				9A69202F10CCBD8B00DF1CA6 /* xsd.m in Sources */,
 				9A264A0229D26C6700C0D176 /* WaitCell.swift in Sources */,
 				9A357D2929E5F00A009B8344 /* MyFlightbookWidgets.intentdefinition in Sources */,
 				9A30201429CBDAB000115538 /* SharedWatch.swift in Sources */,
@@ -2336,7 +2327,6 @@
 				9A357D2829E3A947009B8344 /* NewUserTableController.swift in Sources */,
 				9A14334C29A6B37E007129A9 /* TotalsRow.swift in Sources */,
 				9A21D5CB2214D1E300961605 /* BadElfSession.swift in Sources */,
-				9A0F0E7413E88781007E54C1 /* MFBWebServiceSvc.m in Sources */,
 				9A6590D429DA517900917FCD /* FlightProperties.swift in Sources */,
 				9A14334429A52934007129A9 /* MFBTheme.swift in Sources */,
 				9A84363729BAB0540001012D /* CountryCode.swift in Sources */,
@@ -3335,7 +3325,7 @@
 				INFOPLIST_FILE = MyFlightbookWidgets/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MyFlightbookWidgets;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3388,7 +3378,7 @@
 				INFOPLIST_FILE = MyFlightbookWidgets/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MyFlightbookWidgets;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3440,7 +3430,7 @@
 				INFOPLIST_FILE = MyFlightbookWidgets/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MyFlightbookWidgets;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3487,7 +3477,7 @@
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = "-ObjC";
@@ -3519,7 +3509,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = "-ObjC";
@@ -3552,7 +3542,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = "-ObjC";
