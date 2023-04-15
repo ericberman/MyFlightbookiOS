@@ -39,8 +39,8 @@ public class CollapsibleTableSw : UITableViewController, UIImagePickerController
     public var expandedSections : Set<Int> = []
     public var ipActive : IndexPath? = nil
     public var fIsValid = false
-    public var defSectionHeaderHeight : CGFloat = 1
-    public var defSectionFooterHeight : CGFloat = 1
+    public var defSectionHeaderHeight : CGFloat = CGFloat.leastNonzeroMagnitude
+    public var defSectionFooterHeight : CGFloat = CGFloat.leastNonzeroMagnitude
     
     private var fSelectActiveSelOnScrollCompletion = false
     private var fSelectFirst = false
