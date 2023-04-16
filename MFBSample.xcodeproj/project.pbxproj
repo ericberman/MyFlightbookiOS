@@ -56,7 +56,7 @@
 		9A196C30112312EB007A7DD1 /* Recording.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A196C2F112312EB007A7DD1 /* Recording.png */; };
 		9A1A8B951EAA560F008F938B /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 9A1A8B941EAA560F008F938B /* .gitignore */; };
 		9A1C4C3B22639CAC00ED3444 /* Default-Portrait2304x3096.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A1C4C3A22639CAC00ED3444 /* Default-Portrait2304x3096.png */; };
-		9A20B152192D34D300A8F64F /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A20B151192D34D300A8F64F /* iRate.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		9A20B152192D34D300A8F64F /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A20B151192D34D300A8F64F /* iRate.m */; };
 		9A20B155192D34E600A8F64F /* LICENCE.md in Resources */ = {isa = PBXBuildFile; fileRef = 9A20B153192D34E600A8F64F /* LICENCE.md */; };
 		9A20B156192D34E600A8F64F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9A20B154192D34E600A8F64F /* README.md */; };
 		9A20B158192D358000A8F64F /* iRate.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9A20B157192D358000A8F64F /* iRate.bundle */; };
