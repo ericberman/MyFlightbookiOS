@@ -16,10 +16,10 @@
 
 - (void) parseJfif:(CFDataRef*) theJfifData;
 
-@property (readwrite, retain) NSString* identifier;
-@property (readwrite, retain) NSString* version;
+@property (readwrite, strong) NSString* identifier;
+@property (readwrite, strong) NSString* version;
 
-@property (readwrite, retain) NSData* thumbnail;
+@property (readwrite, strong) NSData* thumbnail;
 
 // primitive attributes
 @property (readwrite) JFIFUnits units;
@@ -43,15 +43,15 @@
 -(void) setupHandlers;
 
 
-@property (readwrite,retain) NSMutableDictionary* userKeyedHandlers;
+@property (readwrite,strong) NSMutableDictionary* userKeyedHandlers;
 
-@property (readwrite,retain) NSMutableDictionary* keyedHandlers;
-@property (readwrite,retain) EXFTagDefinitionHolder* tagDefinitions;
-@property (readwrite, retain) NSMutableDictionary* keyedTagValues;
+@property (readwrite,strong) NSMutableDictionary* keyedHandlers;
+@property (readwrite,strong) EXFTagDefinitionHolder* tagDefinitions;
+@property (readwrite, strong) NSMutableDictionary* keyedTagValues;
 
-@property (readwrite,retain) NSMutableDictionary* keyedThumbnailTagValues;
+@property (readwrite,strong) NSMutableDictionary* keyedThumbnailTagValues;
 
-@property (readwrite,retain) NSData* thumbnailBytes;
+@property (readwrite,strong) NSData* thumbnailBytes;
 
 @property (readwrite) int compression;
 @property (readwrite) int bitsPerPixel;

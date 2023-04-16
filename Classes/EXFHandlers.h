@@ -18,8 +18,9 @@
 	@protocol EXFTagHandler
 	@abstract Prtocol defintion for User defined Tag Handlers
 	*/
-@protocol EXFTagHandler
+#import <Foundation/Foundation.h>
 
+@protocol EXFTagHandler
 /*!
    Decoding of the tag from a byte buffer and insertion into the provided dictionary under the key provided
  */

@@ -31,8 +31,8 @@ typedef enum JFIFUnits JFIFUnits;
     JFIFUnits units;
 }
 
-@property (readonly, retain) NSString* identifier;
-@property (readonly, retain) NSString* version;
+@property (readonly, strong) NSString* identifier;
+@property (readonly, strong) NSString* version;
 
 @property (readonly) int length;
 @property (readonly) int resolutionX;
@@ -40,7 +40,7 @@ typedef enum JFIFUnits JFIFUnits;
 
 @property (readonly) int thumbnailX;
 @property (readonly) int thumbnailY;
-@property (readonly,retain) NSData* thumbnail;
+@property (readonly,strong) NSData* thumbnail;
 @property (readonly) JFIFUnits units;
 
 

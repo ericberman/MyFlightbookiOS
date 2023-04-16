@@ -67,10 +67,10 @@
 #define M_COM   0xfe
 
 @interface EXFJpeg ()
-    @property (readwrite, retain) NSMutableDictionary* keyedHeaders;
-    @property (readwrite, retain) EXFMetaData* exifMetaData;
-    @property (readwrite, retain) EXFJFIF* jfif;
-                                @property (readwrite, retain) NSData* remainingData;
+    @property (readwrite, strong) NSMutableDictionary* keyedHeaders;
+    @property (readwrite, strong) EXFMetaData* exifMetaData;
+    @property (readwrite, strong) EXFJFIF* jfif;
+                                @property (readwrite, strong) NSData* remainingData;
 @end
 
 @implementation EXFJpeg
@@ -89,11 +89,9 @@
                 // Initializeyour own data
         NSMutableDictionary* headerDictionary = [[NSMutableDictionary alloc] init];
         self.keyedHeaders =headerDictionary;
-        [headerDictionary release];
         
         EXFMetaData* exifParam =[[EXFMetaData alloc]init];
         self.exifMetaData = exifParam;
-        [exifParam release];
         
         self.jfif =nil;
         
@@ -109,16 +107,11 @@
 
 -(void) dealloc{
     
-    self.keyedHeaders = nil;
-    self.exifMetaData = nil;
-    self.jfif =nil;
-    self.remainingData =nil;
                                 
     imageBytePtr =NULL;
     imageStartPtr =NULL;
     
     // release super class
-    [super dealloc];
 }
 
 
@@ -304,7 +297,6 @@
     
         self.jfif = localJfif;
     }
-    [localJfif release];
     
     // we may need to add the additional stuff here for jfif extensions
     
@@ -421,16 +413,15 @@
  
                     // add comments to dictionary
                     (self.keyedHeaders)[key] = commentData;
-                    [key release];
                     // will always mark the end of the app_x block
                     endOfEXFPtr = imageBytePtr;
                      
                     // we pass a pointer to the NSData pointer here
                     if (val == M_APP0){
                          Debug(@"Parsing JFIF APP_0 at %ld", (long) (imageBytePtr - imageStartPtr));
-                        [self parseJfif:(CFDataRef*)&commentData];
+                        [self parseJfif:(CFDataRef*) (void *) &commentData];
                     } else if (val == M_APP1){
-                        [self parseExif:(CFDataRef*)&commentData];
+                        [self parseExif:(CFDataRef*) (void *) &commentData];
                         Debug(@"Finished App1 at %ld", (long) (endOfEXFPtr - imageStartPtr));
                     } else if (val == M_APP2){
                         Debug(@"Finished APP2 at %ld", (long) (imageBytePtr - imageStartPtr));
@@ -459,7 +450,6 @@
     // add in the bytes after the exf block
                                 NSData* theRemainingdata = [[NSData alloc] initWithBytes:endOfEXFPtr length:imageLength - (endOfEXFPtr - imageStartPtr)];
     self.remainingData = theRemainingdata;
-                                [theRemainingdata release];
                                 
                                 endOfEXFPtr = NULL;
                                 imageStartPtr = NULL;
@@ -525,7 +515,6 @@
                 [newImage appendBytes:ptr length:4];
                 [newImage appendData:data];
             }
-            [key release];
         }
     }
      

@@ -36,7 +36,6 @@ const UInt8 UNIChars[8] =  {0x55,0x4e,0x49,0x43,0x4f,0x44,0x45,0x00};
     
     EXFraction* value = [[EXFraction alloc] initWith:num :denom];
     location.degrees =value;
-    [value release];
     
     // Debug(@"Got hours num %i nad denom %i", num, denom);
     
@@ -48,7 +47,6 @@ const UInt8 UNIChars[8] =  {0x55,0x4e,0x49,0x43,0x4f,0x44,0x45,0x00};
     
     value = [[EXFraction alloc] initWith:num :denom];
     location.minutes =value;
-    [value release];
     
     // Debug(@"Got minutes num %i and denom %i", num, denom);
     
@@ -61,12 +59,10 @@ const UInt8 UNIChars[8] =  {0x55,0x4e,0x49,0x43,0x4f,0x44,0x45,0x00};
     // Debug(@"Got seconds num %i and denom %i", num, denom);
     value = [[EXFraction alloc] initWith:num :denom];
     location.seconds =value;
-    [value release];
     
     // Debug(@"Got Timestamp %@ Degrees %@ Minutes %@ Seconds",timestamp.degrees , timestamp.minutes,timestamp.seconds);
     keyedValues[tagId] = location;
     
-    [location release];
      
 
 }
@@ -125,7 +121,6 @@ const UInt8 UNIChars[8] =  {0x55,0x4e,0x49,0x43,0x4f,0x44,0x45,0x00};
     EXFraction* value = [[EXFraction alloc] initWith:num :denom];
    
     timestamp.hours =value;
-    [value release];
     
     // Debug(@"Got hours num %i nad denom %i", num, denom);
     
@@ -137,7 +132,6 @@ const UInt8 UNIChars[8] =  {0x55,0x4e,0x49,0x43,0x4f,0x44,0x45,0x00};
     
     value =  [[EXFraction alloc] initWith:num :denom];
     timestamp.minutes =value;
-    [value release];
     
     // Debug(@"Got minutes num %i and denom %i", num, denom);
     
@@ -150,12 +144,10 @@ const UInt8 UNIChars[8] =  {0x55,0x4e,0x49,0x43,0x4f,0x44,0x45,0x00};
     // Debug(@"Got seconds num %i and denom %i", num, denom);
     value =  [[EXFraction alloc] initWith:num :denom];
     timestamp.seconds =value;
-    [value release];
     
     // Debug(@"Got Timestamp %@ Degrees %@ Minutes %@ Seconds",timestamp.degrees , timestamp.minutes,timestamp.seconds);
     keyedValues[tagId] = timestamp;
     
-    [timestamp release];
     
     
 }
@@ -336,7 +328,6 @@ const UInt8 UNIChars[8] =  {0x55,0x4e,0x49,0x43,0x4f,0x44,0x45,0x00};
     NSNumber* num = [[NSNumber alloc] initWithInt: (*ptr) & 0xff] ;
     keyedValues[tagId] = num;
     
-    [num release];
 }
 
 -(void)encodeTag: (NSMutableData*) targetBuffer : (id) tagData :(BOOL) bigEndianOrder{
@@ -384,13 +375,11 @@ const UInt8 UNIChars[8] =  {0x55,0x4e,0x49,0x43,0x4f,0x44,0x45,0x00};
     for (int i =0;i<byteLength;i++){
         NSNumber* num = [[NSNumber alloc] initWithInt: (*(ptr+i)) & 0xff] ;
         [byteArray addObject: num];
-        [num release];
     }
     // Debug(@"Assigned string %@",value);
     
     keyedValues[tagId] = byteArray;
     
-    [byteArray release];
     
 }
 

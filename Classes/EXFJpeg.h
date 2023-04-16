@@ -44,12 +44,12 @@
 /*
  Returns the EXIF MetaData object. 
 */
-@property (readonly, retain) EXFMetaData* exifMetaData;
+@property (readonly, strong) EXFMetaData* exifMetaData;
 
 /*
  Returns the JFIF Meta Data of a scanned Image
 */
-@property (readonly, retain) EXFJFIF* jfif;
+@property (readonly, strong) EXFJFIF* jfif;
 
 
 /*

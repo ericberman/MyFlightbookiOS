@@ -14,6 +14,7 @@
 @abstract EXFConstants.h provides the definition of commonly used enums, definitions and basic interfaces.
 */
 
+#import <Foundation/Foundation.h>
 /*
 Type defs for some of the internal definitions
 */
@@ -261,7 +262,7 @@ For more detail see the EXF specification <a href="http://www.exif.org/Exif2-2.P
 
 @property (readonly) EXFTagId tagId;
 @property (readonly) EXFDataType dataType;
-@property (readonly, retain) NSString* name;
+@property (readonly, strong) NSString* name;
 @property (readonly) int parentTagId;
 @property (readonly) BOOL editable;
 @property (readonly) int components;
