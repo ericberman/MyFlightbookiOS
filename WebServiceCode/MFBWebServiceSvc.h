@@ -303,7 +303,6 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 @interface MFBWebServiceSvc_Aircraft : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
-	USBoolean * HideFromSelection;
 	NSNumber * InstanceTypeID;
 	MFBWebServiceSvc_AircraftInstanceTypes InstanceType;
 	NSString * InstanceTypeDescription;
@@ -324,6 +323,7 @@ SOAPSigner *soapSigner;
 	NSNumber * ModelID;
 	NSString * ModelDescription;
 	NSString * ErrorString;
+	USBoolean * HideFromSelection;
 	NSNumber * Version;
 	NSString * DefaultImage;
 	MFBWebServiceSvc_PilotRole RoleForPilot;
@@ -348,7 +348,6 @@ SOAPSigner *soapSigner;
 - (void)deserializeElementsFromNode:(xmlNodePtr)cur;
 @property (strong) SOAPSigner *soapSigner;
 /* elements */
-@property (nonatomic, strong) USBoolean * HideFromSelection;
 @property (nonatomic, strong) NSNumber * InstanceTypeID;
 @property (nonatomic, assign) MFBWebServiceSvc_AircraftInstanceTypes InstanceType;
 @property (nonatomic, strong) NSString * InstanceTypeDescription;
@@ -369,6 +368,7 @@ SOAPSigner *soapSigner;
 @property (nonatomic, strong) NSNumber * ModelID;
 @property (nonatomic, strong) NSString * ModelDescription;
 @property (nonatomic, strong) NSString * ErrorString;
+@property (nonatomic, strong) USBoolean * HideFromSelection;
 @property (nonatomic, strong) NSNumber * Version;
 @property (nonatomic, strong) NSString * DefaultImage;
 @property (nonatomic, assign) MFBWebServiceSvc_PilotRole RoleForPilot;

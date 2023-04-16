@@ -1487,7 +1487,6 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (id)init
 {
 	if((self = [super init])) {
-		HideFromSelection = 0;
 		InstanceTypeID = 0;
 		InstanceType = 0;
 		InstanceTypeDescription = 0;
@@ -1508,6 +1507,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 		ModelID = 0;
 		ModelDescription = 0;
 		ErrorString = 0;
+		HideFromSelection = 0;
 		Version = 0;
 		DefaultImage = 0;
 		RoleForPilot = 0;
@@ -1555,9 +1555,6 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((__bridge void *)self.HideFromSelection) != 0) {
-		xmlAddChild(node, [self.HideFromSelection xmlNodeForDoc:node->doc elementName:@"HideFromSelection" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
 	if(((__bridge void *)self.InstanceTypeID) != 0) {
 		xmlAddChild(node, [self.InstanceTypeID xmlNodeForDoc:node->doc elementName:@"InstanceTypeID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
@@ -1618,6 +1615,9 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	if(((__bridge void *)self.ErrorString) != 0) {
 		xmlAddChild(node, [self.ErrorString xmlNodeForDoc:node->doc elementName:@"ErrorString" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
+	if(((__bridge void *)self.HideFromSelection) != 0) {
+		xmlAddChild(node, [self.HideFromSelection xmlNodeForDoc:node->doc elementName:@"HideFromSelection" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
 	if(((__bridge void *)self.Version) != 0) {
 		xmlAddChild(node, [self.Version xmlNodeForDoc:node->doc elementName:@"Version" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
@@ -1659,7 +1659,6 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	}
 }
 /* elements */
-@synthesize HideFromSelection;
 @synthesize InstanceTypeID;
 @synthesize InstanceType;
 @synthesize InstanceTypeDescription;
@@ -1680,6 +1679,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 @synthesize ModelID;
 @synthesize ModelDescription;
 @synthesize ErrorString;
+@synthesize HideFromSelection;
 @synthesize Version;
 @synthesize DefaultImage;
 @synthesize RoleForPilot;
@@ -1725,39 +1725,6 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 				elementString = [NSString stringWithCString:(char*)elementText encoding:NSUTF8StringEncoding];
 				[elementString self]; // avoid compiler warning for unused var
 				xmlFree(elementText);
-			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "HideFromSelection")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [USBoolean class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				self.HideFromSelection = newChild;
 			}
 			if(xmlStrEqual(cur->name, (const xmlChar *) "InstanceTypeID")) {
 				
@@ -2390,6 +2357,39 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 				id newChild = [elementClass deserializeNode:cur];
 				
 				self.ErrorString = newChild;
+			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "HideFromSelection")) {
+				
+				Class elementClass = nil;
+				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if(instanceType == NULL) {
+					elementClass = [USBoolean class];
+				} else {
+					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
+					
+					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
+					
+					NSString *elementClassString = nil;
+					if([elementTypeArray count] > 1) {
+						NSString *prefix = [elementTypeArray objectAtIndex:0];
+						NSString *localName = [elementTypeArray objectAtIndex:1];
+						
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
+						
+						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
+						
+						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
+					} else {
+						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
+					}
+					
+					elementClass = NSClassFromString(elementClassString);
+					xmlFree(instanceType);
+				}
+				
+				id newChild = [elementClass deserializeNode:cur];
+				
+				self.HideFromSelection = newChild;
 			}
 			if(xmlStrEqual(cur->name, (const xmlChar *) "Version")) {
 				
@@ -4813,8 +4813,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -4919,8 +4918,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -5114,8 +5112,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -5277,8 +5274,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -5434,8 +5430,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -5591,8 +5586,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -6190,8 +6184,7 @@ NSString * MFBWebServiceSvc_CatClassID_stringFromEnum(MFBWebServiceSvc_CatClassI
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -6353,8 +6346,7 @@ NSString * MFBWebServiceSvc_CatClassID_stringFromEnum(MFBWebServiceSvc_CatClassI
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -6570,8 +6562,7 @@ NSString * MFBWebServiceSvc_CFPPropertyType_stringFromEnum(MFBWebServiceSvc_CFPP
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -7003,8 +6994,7 @@ NSString * MFBWebServiceSvc_CFPPropertyType_stringFromEnum(MFBWebServiceSvc_CFPP
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -7166,8 +7156,7 @@ NSString * MFBWebServiceSvc_CFPPropertyType_stringFromEnum(MFBWebServiceSvc_CFPP
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -8227,8 +8216,7 @@ NSString * MFBWebServiceSvc_TurbineLevel_stringFromEnum(MFBWebServiceSvc_Turbine
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -8390,8 +8378,7 @@ NSString * MFBWebServiceSvc_TurbineLevel_stringFromEnum(MFBWebServiceSvc_Turbine
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -10243,8 +10230,7 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -10572,8 +10558,7 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -10735,8 +10720,7 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -10892,8 +10876,7 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -11087,8 +11070,7 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -11626,8 +11608,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -11789,8 +11770,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -11946,8 +11926,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -12141,8 +12120,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -12298,8 +12276,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -12455,8 +12432,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -13030,8 +13006,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -13377,8 +13352,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -13540,8 +13514,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -13697,8 +13670,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -13968,8 +13940,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -14391,8 +14362,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -14554,8 +14524,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -14903,8 +14872,7 @@ NSString * MFBWebServiceSvc_VideoSource_stringFromEnum(MFBWebServiceSvc_VideoSou
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -15066,8 +15034,7 @@ NSString * MFBWebServiceSvc_VideoSource_stringFromEnum(MFBWebServiceSvc_VideoSou
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -16743,8 +16710,7 @@ NSString * MFBWebServiceSvc_VideoSource_stringFromEnum(MFBWebServiceSvc_VideoSou
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -17179,8 +17145,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -17309,8 +17274,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -17472,8 +17436,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -17629,8 +17592,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -17862,8 +17824,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -18019,9 +17980,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -18215,9 +18174,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -18373,9 +18330,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -18480,9 +18435,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -18714,9 +18667,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -18872,9 +18823,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -19068,9 +19017,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -19232,9 +19179,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -19390,9 +19335,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -19586,9 +19529,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -19744,9 +19685,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -19940,9 +19879,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -20109,9 +20046,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -20273,9 +20208,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -20431,9 +20364,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -20589,9 +20520,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -20747,9 +20676,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -20943,9 +20870,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -21101,9 +21026,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -21297,9 +21220,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -21455,9 +21376,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -21651,9 +21570,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -21809,9 +21726,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -21916,9 +21831,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -22074,9 +21987,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -22232,9 +22143,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -22390,9 +22299,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -22548,9 +22455,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -22934,9 +22839,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -23098,9 +23001,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -23294,9 +23195,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -23452,9 +23351,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -23648,9 +23545,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -23806,9 +23701,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -24040,9 +23933,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -24147,9 +24038,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -24381,9 +24270,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -24488,9 +24375,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -24684,9 +24569,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -24791,9 +24674,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -24987,9 +24868,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -25094,9 +24973,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -25328,9 +25205,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -25486,9 +25361,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -25758,9 +25631,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -25956,9 +25827,7 @@ NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatu
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -26114,9 +25983,7 @@ NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatu
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -26386,9 +26253,7 @@ NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatu
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -26544,9 +26409,7 @@ NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatu
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -26930,9 +26793,7 @@ NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatu
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -27220,9 +27081,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -27378,9 +27237,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -27536,9 +27393,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -27743,9 +27598,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -27907,9 +27760,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -28065,9 +27916,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -28299,9 +28148,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -28457,9 +28304,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -28653,9 +28498,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -28811,9 +28654,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -29007,9 +28848,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -29165,9 +29004,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -29399,9 +29236,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -29557,9 +29392,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -29867,9 +29700,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -30031,9 +29862,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -30189,9 +30018,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	
-		self = [super init];
-			
+	self = [super init];
 	if (self == nil) { return nil; }
  
 	@autoreleasepool {
@@ -30307,7 +30134,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 {
 	synchronousOperationComplete = YES;
 }
-- (MFBWebServiceSoapBindingResponse *)AircraftForUserUsingParameters:(MFBWebServiceSvc_AircraftForUser *)aParameters
+- (MFBWebServiceSoapBindingResponse *)AircraftForUserUsingParameters:(MFBWebServiceSvc_AircraftForUser *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_AircraftForUser*)[MFBWebServiceSoapBinding_AircraftForUser alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30319,7 +30146,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)AddAircraftForUserUsingParameters:(MFBWebServiceSvc_AddAircraftForUser *)aParameters
+- (MFBWebServiceSoapBindingResponse *)AddAircraftForUserUsingParameters:(MFBWebServiceSvc_AddAircraftForUser *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_AddAircraftForUser*)[MFBWebServiceSoapBinding_AddAircraftForUser alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30331,7 +30158,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)AircraftMatchingPrefixUsingParameters:(MFBWebServiceSvc_AircraftMatchingPrefix *)aParameters
+- (MFBWebServiceSoapBindingResponse *)AircraftMatchingPrefixUsingParameters:(MFBWebServiceSvc_AircraftMatchingPrefix *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_AircraftMatchingPrefix*)[MFBWebServiceSoapBinding_AircraftMatchingPrefix alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30343,7 +30170,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)UpdateMaintenanceForAircraftUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraft *)aParameters
+- (MFBWebServiceSoapBindingResponse *)UpdateMaintenanceForAircraftUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraft *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_UpdateMaintenanceForAircraft*)[MFBWebServiceSoapBinding_UpdateMaintenanceForAircraft alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30355,7 +30182,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)UpdateMaintenanceForAircraftWithFlagsAndNotesUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes *)aParameters
+- (MFBWebServiceSoapBindingResponse *)UpdateMaintenanceForAircraftWithFlagsAndNotesUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_UpdateMaintenanceForAircraftWithFlagsAndNotes*)[MFBWebServiceSoapBinding_UpdateMaintenanceForAircraftWithFlagsAndNotes alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30367,7 +30194,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)DeleteAircraftForUserUsingParameters:(MFBWebServiceSvc_DeleteAircraftForUser *)aParameters
+- (MFBWebServiceSoapBindingResponse *)DeleteAircraftForUserUsingParameters:(MFBWebServiceSvc_DeleteAircraftForUser *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_DeleteAircraftForUser*)[MFBWebServiceSoapBinding_DeleteAircraftForUser alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30379,7 +30206,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)MakesAndModelsUsingParameters:(MFBWebServiceSvc_MakesAndModels *)aParameters
+- (MFBWebServiceSoapBindingResponse *)MakesAndModelsUsingParameters:(MFBWebServiceSvc_MakesAndModels *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_MakesAndModels*)[MFBWebServiceSoapBinding_MakesAndModels alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30391,7 +30218,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)GetCurrencyForUserUsingParameters:(MFBWebServiceSvc_GetCurrencyForUser *)aParameters
+- (MFBWebServiceSoapBindingResponse *)GetCurrencyForUserUsingParameters:(MFBWebServiceSvc_GetCurrencyForUser *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_GetCurrencyForUser*)[MFBWebServiceSoapBinding_GetCurrencyForUser alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30403,7 +30230,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)TotalsForUserUsingParameters:(MFBWebServiceSvc_TotalsForUser *)aParameters
+- (MFBWebServiceSoapBindingResponse *)TotalsForUserUsingParameters:(MFBWebServiceSvc_TotalsForUser *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_TotalsForUser*)[MFBWebServiceSoapBinding_TotalsForUser alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30415,7 +30242,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)TotalsForUserWithQueryUsingParameters:(MFBWebServiceSvc_TotalsForUserWithQuery *)aParameters
+- (MFBWebServiceSoapBindingResponse *)TotalsForUserWithQueryUsingParameters:(MFBWebServiceSvc_TotalsForUserWithQuery *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_TotalsForUserWithQuery*)[MFBWebServiceSoapBinding_TotalsForUserWithQuery alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30427,7 +30254,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)VisitedAirportsUsingParameters:(MFBWebServiceSvc_VisitedAirports *)aParameters
+- (MFBWebServiceSoapBindingResponse *)VisitedAirportsUsingParameters:(MFBWebServiceSvc_VisitedAirports *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_VisitedAirports*)[MFBWebServiceSoapBinding_VisitedAirports alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30439,7 +30266,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)FlightsWithQueryAndOffsetUsingParameters:(MFBWebServiceSvc_FlightsWithQueryAndOffset *)aParameters
+- (MFBWebServiceSoapBindingResponse *)FlightsWithQueryAndOffsetUsingParameters:(MFBWebServiceSvc_FlightsWithQueryAndOffset *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_FlightsWithQueryAndOffset*)[MFBWebServiceSoapBinding_FlightsWithQueryAndOffset alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30451,7 +30278,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)FlightsWithQueryUsingParameters:(MFBWebServiceSvc_FlightsWithQuery *)aParameters
+- (MFBWebServiceSoapBindingResponse *)FlightsWithQueryUsingParameters:(MFBWebServiceSvc_FlightsWithQuery *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_FlightsWithQuery*)[MFBWebServiceSoapBinding_FlightsWithQuery alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30463,7 +30290,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)DeleteLogbookEntryUsingParameters:(MFBWebServiceSvc_DeleteLogbookEntry *)aParameters
+- (MFBWebServiceSoapBindingResponse *)DeleteLogbookEntryUsingParameters:(MFBWebServiceSvc_DeleteLogbookEntry *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_DeleteLogbookEntry*)[MFBWebServiceSoapBinding_DeleteLogbookEntry alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30475,7 +30302,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)CommitFlightWithOptionsUsingParameters:(MFBWebServiceSvc_CommitFlightWithOptions *)aParameters
+- (MFBWebServiceSoapBindingResponse *)CommitFlightWithOptionsUsingParameters:(MFBWebServiceSvc_CommitFlightWithOptions *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_CommitFlightWithOptions*)[MFBWebServiceSoapBinding_CommitFlightWithOptions alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30487,7 +30314,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)FlightPathForFlightUsingParameters:(MFBWebServiceSvc_FlightPathForFlight *)aParameters
+- (MFBWebServiceSoapBindingResponse *)FlightPathForFlightUsingParameters:(MFBWebServiceSvc_FlightPathForFlight *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_FlightPathForFlight*)[MFBWebServiceSoapBinding_FlightPathForFlight alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30499,7 +30326,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)FlightPathForFlightGPXUsingParameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters
+- (MFBWebServiceSoapBindingResponse *)FlightPathForFlightGPXUsingParameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_FlightPathForFlightGPX*)[MFBWebServiceSoapBinding_FlightPathForFlightGPX alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30511,7 +30338,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)CreatePendingFlightUsingParameters:(MFBWebServiceSvc_CreatePendingFlight *)aParameters
+- (MFBWebServiceSoapBindingResponse *)CreatePendingFlightUsingParameters:(MFBWebServiceSvc_CreatePendingFlight *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_CreatePendingFlight*)[MFBWebServiceSoapBinding_CreatePendingFlight alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30523,7 +30350,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)PendingFlightsForUserUsingParameters:(MFBWebServiceSvc_PendingFlightsForUser *)aParameters
+- (MFBWebServiceSoapBindingResponse *)PendingFlightsForUserUsingParameters:(MFBWebServiceSvc_PendingFlightsForUser *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_PendingFlightsForUser*)[MFBWebServiceSoapBinding_PendingFlightsForUser alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30535,7 +30362,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)UpdatePendingFlightUsingParameters:(MFBWebServiceSvc_UpdatePendingFlight *)aParameters
+- (MFBWebServiceSoapBindingResponse *)UpdatePendingFlightUsingParameters:(MFBWebServiceSvc_UpdatePendingFlight *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_UpdatePendingFlight*)[MFBWebServiceSoapBinding_UpdatePendingFlight alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30547,7 +30374,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)DeletePendingFlightUsingParameters:(MFBWebServiceSvc_DeletePendingFlight *)aParameters
+- (MFBWebServiceSoapBindingResponse *)DeletePendingFlightUsingParameters:(MFBWebServiceSvc_DeletePendingFlight *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_DeletePendingFlight*)[MFBWebServiceSoapBinding_DeletePendingFlight alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30559,7 +30386,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)CommitPendingFlightUsingParameters:(MFBWebServiceSvc_CommitPendingFlight *)aParameters
+- (MFBWebServiceSoapBindingResponse *)CommitPendingFlightUsingParameters:(MFBWebServiceSvc_CommitPendingFlight *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_CommitPendingFlight*)[MFBWebServiceSoapBinding_CommitPendingFlight alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30571,7 +30398,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)AvailablePropertyTypesUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypes *)aParameters
+- (MFBWebServiceSoapBindingResponse *)AvailablePropertyTypesUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypes *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_AvailablePropertyTypes*)[MFBWebServiceSoapBinding_AvailablePropertyTypes alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30583,7 +30410,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)AvailablePropertyTypesForUserUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypesForUser *)aParameters
+- (MFBWebServiceSoapBindingResponse *)AvailablePropertyTypesForUserUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypesForUser *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_AvailablePropertyTypesForUser*)[MFBWebServiceSoapBinding_AvailablePropertyTypesForUser alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30595,7 +30422,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)PropertiesAndTemplatesForUserUsingParameters:(MFBWebServiceSvc_PropertiesAndTemplatesForUser *)aParameters
+- (MFBWebServiceSoapBindingResponse *)PropertiesAndTemplatesForUserUsingParameters:(MFBWebServiceSvc_PropertiesAndTemplatesForUser *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_PropertiesAndTemplatesForUser*)[MFBWebServiceSoapBinding_PropertiesAndTemplatesForUser alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30607,7 +30434,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)PropertiesForFlightUsingParameters:(MFBWebServiceSvc_PropertiesForFlight *)aParameters
+- (MFBWebServiceSoapBindingResponse *)PropertiesForFlightUsingParameters:(MFBWebServiceSvc_PropertiesForFlight *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_PropertiesForFlight*)[MFBWebServiceSoapBinding_PropertiesForFlight alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30619,7 +30446,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)DeletePropertiesForFlightUsingParameters:(MFBWebServiceSvc_DeletePropertiesForFlight *)aParameters
+- (MFBWebServiceSoapBindingResponse *)DeletePropertiesForFlightUsingParameters:(MFBWebServiceSvc_DeletePropertiesForFlight *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_DeletePropertiesForFlight*)[MFBWebServiceSoapBinding_DeletePropertiesForFlight alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30631,7 +30458,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)DeletePropertyForFlightUsingParameters:(MFBWebServiceSvc_DeletePropertyForFlight *)aParameters
+- (MFBWebServiceSoapBindingResponse *)DeletePropertyForFlightUsingParameters:(MFBWebServiceSvc_DeletePropertyForFlight *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_DeletePropertyForFlight*)[MFBWebServiceSoapBinding_DeletePropertyForFlight alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30643,7 +30470,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)DeleteImageUsingParameters:(MFBWebServiceSvc_DeleteImage *)aParameters
+- (MFBWebServiceSoapBindingResponse *)DeleteImageUsingParameters:(MFBWebServiceSvc_DeleteImage *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_DeleteImage*)[MFBWebServiceSoapBinding_DeleteImage alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30655,7 +30482,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)UpdateImageAnnotationUsingParameters:(MFBWebServiceSvc_UpdateImageAnnotation *)aParameters
+- (MFBWebServiceSoapBindingResponse *)UpdateImageAnnotationUsingParameters:(MFBWebServiceSvc_UpdateImageAnnotation *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_UpdateImageAnnotation*)[MFBWebServiceSoapBinding_UpdateImageAnnotation alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30667,7 +30494,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)AuthTokenForUserUsingParameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters
+- (MFBWebServiceSoapBindingResponse *)AuthTokenForUserUsingParameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_AuthTokenForUser*)[MFBWebServiceSoapBinding_AuthTokenForUser alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30679,7 +30506,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)AuthTokenForUserNewUsingParameters:(MFBWebServiceSvc_AuthTokenForUserNew *)aParameters
+- (MFBWebServiceSoapBindingResponse *)AuthTokenForUserNewUsingParameters:(MFBWebServiceSvc_AuthTokenForUserNew *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_AuthTokenForUserNew*)[MFBWebServiceSoapBinding_AuthTokenForUserNew alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30691,7 +30518,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)RefreshAuthTokenUsingParameters:(MFBWebServiceSvc_RefreshAuthToken *)aParameters
+- (MFBWebServiceSoapBindingResponse *)RefreshAuthTokenUsingParameters:(MFBWebServiceSvc_RefreshAuthToken *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_RefreshAuthToken*)[MFBWebServiceSoapBinding_RefreshAuthToken alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30703,7 +30530,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)CreateUserUsingParameters:(MFBWebServiceSvc_CreateUser *)aParameters
+- (MFBWebServiceSoapBindingResponse *)CreateUserUsingParameters:(MFBWebServiceSvc_CreateUser *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_CreateUser*)[MFBWebServiceSoapBinding_CreateUser alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30715,7 +30542,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)GetNamedQueriesForUserUsingParameters:(MFBWebServiceSvc_GetNamedQueriesForUser *)aParameters
+- (MFBWebServiceSoapBindingResponse *)GetNamedQueriesForUserUsingParameters:(MFBWebServiceSvc_GetNamedQueriesForUser *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_GetNamedQueriesForUser*)[MFBWebServiceSoapBinding_GetNamedQueriesForUser alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30727,7 +30554,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)AddNamedQueryForUserUsingParameters:(MFBWebServiceSvc_AddNamedQueryForUser *)aParameters
+- (MFBWebServiceSoapBindingResponse *)AddNamedQueryForUserUsingParameters:(MFBWebServiceSvc_AddNamedQueryForUser *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_AddNamedQueryForUser*)[MFBWebServiceSoapBinding_AddNamedQueryForUser alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30739,7 +30566,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)DeleteNamedQueryForUserUsingParameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters
+- (MFBWebServiceSoapBindingResponse *)DeleteNamedQueryForUserUsingParameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_DeleteNamedQueryForUser*)[MFBWebServiceSoapBinding_DeleteNamedQueryForUser alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30751,7 +30578,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)SuggestModelsUsingParameters:(MFBWebServiceSvc_SuggestModels *)aParameters
+- (MFBWebServiceSoapBindingResponse *)SuggestModelsUsingParameters:(MFBWebServiceSvc_SuggestModels *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_SuggestModels*)[MFBWebServiceSoapBinding_SuggestModels alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30763,7 +30590,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)PreviouslyUsedTextPropertiesUsingParameters:(MFBWebServiceSvc_PreviouslyUsedTextProperties *)aParameters
+- (MFBWebServiceSoapBindingResponse *)PreviouslyUsedTextPropertiesUsingParameters:(MFBWebServiceSvc_PreviouslyUsedTextProperties *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_PreviouslyUsedTextProperties*)[MFBWebServiceSoapBinding_PreviouslyUsedTextProperties alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30775,7 +30602,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)AirportsInBoundingBoxUsingParameters:(MFBWebServiceSvc_AirportsInBoundingBox *)aParameters
+- (MFBWebServiceSoapBindingResponse *)AirportsInBoundingBoxUsingParameters:(MFBWebServiceSvc_AirportsInBoundingBox *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_AirportsInBoundingBox*)[MFBWebServiceSoapBinding_AirportsInBoundingBox alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -30797,7 +30624,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
         [operation didFailWithError:err];
         return;
     }
-	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.address
+	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.address 
 																												 cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
 																										 timeoutInterval:self.timeout];
 	NSData *bodyData = [outputBody dataUsingEncoding:NSUTF8StringEncoding];
@@ -30915,10 +30742,6 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	}
 	response.error = error;
 	[delegate operation:self completedWithResponse:response];
-}
-- (void)dealloc
-{
-	delegate = nil;
 }
 @end
 @implementation MFBWebServiceSoapBinding_AircraftForUser
@@ -34985,7 +34808,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 {
 	synchronousOperationComplete = YES;
 }
-- (MFBWebServiceSoap12BindingResponse *)AircraftForUserUsingParameters:(MFBWebServiceSvc_AircraftForUser *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)AircraftForUserUsingParameters:(MFBWebServiceSvc_AircraftForUser *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_AircraftForUser*)[MFBWebServiceSoap12Binding_AircraftForUser alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -34997,7 +34820,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)AddAircraftForUserUsingParameters:(MFBWebServiceSvc_AddAircraftForUser *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)AddAircraftForUserUsingParameters:(MFBWebServiceSvc_AddAircraftForUser *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_AddAircraftForUser*)[MFBWebServiceSoap12Binding_AddAircraftForUser alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35009,7 +34832,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)AircraftMatchingPrefixUsingParameters:(MFBWebServiceSvc_AircraftMatchingPrefix *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)AircraftMatchingPrefixUsingParameters:(MFBWebServiceSvc_AircraftMatchingPrefix *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_AircraftMatchingPrefix*)[MFBWebServiceSoap12Binding_AircraftMatchingPrefix alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35021,7 +34844,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)UpdateMaintenanceForAircraftUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraft *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)UpdateMaintenanceForAircraftUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraft *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_UpdateMaintenanceForAircraft*)[MFBWebServiceSoap12Binding_UpdateMaintenanceForAircraft alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35033,7 +34856,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)UpdateMaintenanceForAircraftWithFlagsAndNotesUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)UpdateMaintenanceForAircraftWithFlagsAndNotesUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_UpdateMaintenanceForAircraftWithFlagsAndNotes*)[MFBWebServiceSoap12Binding_UpdateMaintenanceForAircraftWithFlagsAndNotes alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35045,7 +34868,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)DeleteAircraftForUserUsingParameters:(MFBWebServiceSvc_DeleteAircraftForUser *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)DeleteAircraftForUserUsingParameters:(MFBWebServiceSvc_DeleteAircraftForUser *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_DeleteAircraftForUser*)[MFBWebServiceSoap12Binding_DeleteAircraftForUser alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35057,7 +34880,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)MakesAndModelsUsingParameters:(MFBWebServiceSvc_MakesAndModels *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)MakesAndModelsUsingParameters:(MFBWebServiceSvc_MakesAndModels *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_MakesAndModels*)[MFBWebServiceSoap12Binding_MakesAndModels alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35069,7 +34892,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)GetCurrencyForUserUsingParameters:(MFBWebServiceSvc_GetCurrencyForUser *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)GetCurrencyForUserUsingParameters:(MFBWebServiceSvc_GetCurrencyForUser *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_GetCurrencyForUser*)[MFBWebServiceSoap12Binding_GetCurrencyForUser alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35081,7 +34904,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)TotalsForUserUsingParameters:(MFBWebServiceSvc_TotalsForUser *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)TotalsForUserUsingParameters:(MFBWebServiceSvc_TotalsForUser *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_TotalsForUser*)[MFBWebServiceSoap12Binding_TotalsForUser alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35093,7 +34916,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)TotalsForUserWithQueryUsingParameters:(MFBWebServiceSvc_TotalsForUserWithQuery *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)TotalsForUserWithQueryUsingParameters:(MFBWebServiceSvc_TotalsForUserWithQuery *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_TotalsForUserWithQuery*)[MFBWebServiceSoap12Binding_TotalsForUserWithQuery alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35105,7 +34928,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)VisitedAirportsUsingParameters:(MFBWebServiceSvc_VisitedAirports *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)VisitedAirportsUsingParameters:(MFBWebServiceSvc_VisitedAirports *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_VisitedAirports*)[MFBWebServiceSoap12Binding_VisitedAirports alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35117,7 +34940,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)FlightsWithQueryAndOffsetUsingParameters:(MFBWebServiceSvc_FlightsWithQueryAndOffset *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)FlightsWithQueryAndOffsetUsingParameters:(MFBWebServiceSvc_FlightsWithQueryAndOffset *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_FlightsWithQueryAndOffset*)[MFBWebServiceSoap12Binding_FlightsWithQueryAndOffset alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35129,7 +34952,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)FlightsWithQueryUsingParameters:(MFBWebServiceSvc_FlightsWithQuery *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)FlightsWithQueryUsingParameters:(MFBWebServiceSvc_FlightsWithQuery *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_FlightsWithQuery*)[MFBWebServiceSoap12Binding_FlightsWithQuery alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35141,7 +34964,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)DeleteLogbookEntryUsingParameters:(MFBWebServiceSvc_DeleteLogbookEntry *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)DeleteLogbookEntryUsingParameters:(MFBWebServiceSvc_DeleteLogbookEntry *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_DeleteLogbookEntry*)[MFBWebServiceSoap12Binding_DeleteLogbookEntry alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35153,7 +34976,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)CommitFlightWithOptionsUsingParameters:(MFBWebServiceSvc_CommitFlightWithOptions *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)CommitFlightWithOptionsUsingParameters:(MFBWebServiceSvc_CommitFlightWithOptions *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_CommitFlightWithOptions*)[MFBWebServiceSoap12Binding_CommitFlightWithOptions alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35165,7 +34988,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)FlightPathForFlightUsingParameters:(MFBWebServiceSvc_FlightPathForFlight *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)FlightPathForFlightUsingParameters:(MFBWebServiceSvc_FlightPathForFlight *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_FlightPathForFlight*)[MFBWebServiceSoap12Binding_FlightPathForFlight alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35177,7 +35000,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)FlightPathForFlightGPXUsingParameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)FlightPathForFlightGPXUsingParameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_FlightPathForFlightGPX*)[MFBWebServiceSoap12Binding_FlightPathForFlightGPX alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35189,7 +35012,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)CreatePendingFlightUsingParameters:(MFBWebServiceSvc_CreatePendingFlight *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)CreatePendingFlightUsingParameters:(MFBWebServiceSvc_CreatePendingFlight *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_CreatePendingFlight*)[MFBWebServiceSoap12Binding_CreatePendingFlight alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35201,7 +35024,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)PendingFlightsForUserUsingParameters:(MFBWebServiceSvc_PendingFlightsForUser *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)PendingFlightsForUserUsingParameters:(MFBWebServiceSvc_PendingFlightsForUser *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_PendingFlightsForUser*)[MFBWebServiceSoap12Binding_PendingFlightsForUser alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35213,7 +35036,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)UpdatePendingFlightUsingParameters:(MFBWebServiceSvc_UpdatePendingFlight *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)UpdatePendingFlightUsingParameters:(MFBWebServiceSvc_UpdatePendingFlight *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_UpdatePendingFlight*)[MFBWebServiceSoap12Binding_UpdatePendingFlight alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35225,7 +35048,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)DeletePendingFlightUsingParameters:(MFBWebServiceSvc_DeletePendingFlight *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)DeletePendingFlightUsingParameters:(MFBWebServiceSvc_DeletePendingFlight *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_DeletePendingFlight*)[MFBWebServiceSoap12Binding_DeletePendingFlight alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35237,7 +35060,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)CommitPendingFlightUsingParameters:(MFBWebServiceSvc_CommitPendingFlight *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)CommitPendingFlightUsingParameters:(MFBWebServiceSvc_CommitPendingFlight *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_CommitPendingFlight*)[MFBWebServiceSoap12Binding_CommitPendingFlight alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35249,7 +35072,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)AvailablePropertyTypesUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypes *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)AvailablePropertyTypesUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypes *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_AvailablePropertyTypes*)[MFBWebServiceSoap12Binding_AvailablePropertyTypes alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35261,7 +35084,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)AvailablePropertyTypesForUserUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypesForUser *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)AvailablePropertyTypesForUserUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypesForUser *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_AvailablePropertyTypesForUser*)[MFBWebServiceSoap12Binding_AvailablePropertyTypesForUser alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35273,7 +35096,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)PropertiesAndTemplatesForUserUsingParameters:(MFBWebServiceSvc_PropertiesAndTemplatesForUser *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)PropertiesAndTemplatesForUserUsingParameters:(MFBWebServiceSvc_PropertiesAndTemplatesForUser *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_PropertiesAndTemplatesForUser*)[MFBWebServiceSoap12Binding_PropertiesAndTemplatesForUser alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35285,7 +35108,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)PropertiesForFlightUsingParameters:(MFBWebServiceSvc_PropertiesForFlight *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)PropertiesForFlightUsingParameters:(MFBWebServiceSvc_PropertiesForFlight *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_PropertiesForFlight*)[MFBWebServiceSoap12Binding_PropertiesForFlight alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35297,7 +35120,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)DeletePropertiesForFlightUsingParameters:(MFBWebServiceSvc_DeletePropertiesForFlight *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)DeletePropertiesForFlightUsingParameters:(MFBWebServiceSvc_DeletePropertiesForFlight *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_DeletePropertiesForFlight*)[MFBWebServiceSoap12Binding_DeletePropertiesForFlight alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35309,7 +35132,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)DeletePropertyForFlightUsingParameters:(MFBWebServiceSvc_DeletePropertyForFlight *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)DeletePropertyForFlightUsingParameters:(MFBWebServiceSvc_DeletePropertyForFlight *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_DeletePropertyForFlight*)[MFBWebServiceSoap12Binding_DeletePropertyForFlight alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35321,7 +35144,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)DeleteImageUsingParameters:(MFBWebServiceSvc_DeleteImage *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)DeleteImageUsingParameters:(MFBWebServiceSvc_DeleteImage *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_DeleteImage*)[MFBWebServiceSoap12Binding_DeleteImage alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35333,7 +35156,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)UpdateImageAnnotationUsingParameters:(MFBWebServiceSvc_UpdateImageAnnotation *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)UpdateImageAnnotationUsingParameters:(MFBWebServiceSvc_UpdateImageAnnotation *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_UpdateImageAnnotation*)[MFBWebServiceSoap12Binding_UpdateImageAnnotation alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35345,7 +35168,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)AuthTokenForUserUsingParameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)AuthTokenForUserUsingParameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_AuthTokenForUser*)[MFBWebServiceSoap12Binding_AuthTokenForUser alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35357,7 +35180,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)AuthTokenForUserNewUsingParameters:(MFBWebServiceSvc_AuthTokenForUserNew *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)AuthTokenForUserNewUsingParameters:(MFBWebServiceSvc_AuthTokenForUserNew *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_AuthTokenForUserNew*)[MFBWebServiceSoap12Binding_AuthTokenForUserNew alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35369,7 +35192,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)RefreshAuthTokenUsingParameters:(MFBWebServiceSvc_RefreshAuthToken *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)RefreshAuthTokenUsingParameters:(MFBWebServiceSvc_RefreshAuthToken *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_RefreshAuthToken*)[MFBWebServiceSoap12Binding_RefreshAuthToken alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35381,7 +35204,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)CreateUserUsingParameters:(MFBWebServiceSvc_CreateUser *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)CreateUserUsingParameters:(MFBWebServiceSvc_CreateUser *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_CreateUser*)[MFBWebServiceSoap12Binding_CreateUser alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35393,7 +35216,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)GetNamedQueriesForUserUsingParameters:(MFBWebServiceSvc_GetNamedQueriesForUser *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)GetNamedQueriesForUserUsingParameters:(MFBWebServiceSvc_GetNamedQueriesForUser *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_GetNamedQueriesForUser*)[MFBWebServiceSoap12Binding_GetNamedQueriesForUser alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35405,7 +35228,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)AddNamedQueryForUserUsingParameters:(MFBWebServiceSvc_AddNamedQueryForUser *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)AddNamedQueryForUserUsingParameters:(MFBWebServiceSvc_AddNamedQueryForUser *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_AddNamedQueryForUser*)[MFBWebServiceSoap12Binding_AddNamedQueryForUser alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35417,7 +35240,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)DeleteNamedQueryForUserUsingParameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)DeleteNamedQueryForUserUsingParameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_DeleteNamedQueryForUser*)[MFBWebServiceSoap12Binding_DeleteNamedQueryForUser alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35429,7 +35252,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)SuggestModelsUsingParameters:(MFBWebServiceSvc_SuggestModels *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)SuggestModelsUsingParameters:(MFBWebServiceSvc_SuggestModels *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_SuggestModels*)[MFBWebServiceSoap12Binding_SuggestModels alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35441,7 +35264,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)PreviouslyUsedTextPropertiesUsingParameters:(MFBWebServiceSvc_PreviouslyUsedTextProperties *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)PreviouslyUsedTextPropertiesUsingParameters:(MFBWebServiceSvc_PreviouslyUsedTextProperties *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_PreviouslyUsedTextProperties*)[MFBWebServiceSoap12Binding_PreviouslyUsedTextProperties alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35453,7 +35276,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)AirportsInBoundingBoxUsingParameters:(MFBWebServiceSvc_AirportsInBoundingBox *)aParameters
+- (MFBWebServiceSoap12BindingResponse *)AirportsInBoundingBoxUsingParameters:(MFBWebServiceSvc_AirportsInBoundingBox *)aParameters 
 {
 	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_AirportsInBoundingBox*)[MFBWebServiceSoap12Binding_AirportsInBoundingBox alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
@@ -35475,7 +35298,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
         [operation didFailWithError:err];
         return;
     }
-	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.address
+	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.address 
 																												 cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
 																										 timeoutInterval:self.timeout];
 	NSData *bodyData = [outputBody dataUsingEncoding:NSUTF8StringEncoding];
@@ -35593,10 +35416,6 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 	}
 	response.error = error;
 	[delegate operation:self completedWithResponse:response];
-}
-- (void)dealloc
-{
-	delegate = nil;
 }
 @end
 @implementation MFBWebServiceSoap12Binding_AircraftForUser
@@ -39438,7 +39257,7 @@ parameters:(MFBWebServiceSvc_AirportsInBoundingBox *)aParameters
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];

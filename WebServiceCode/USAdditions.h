@@ -82,7 +82,7 @@
 @property (nonatomic, strong) NSString *faultstring;
 @property (nonatomic, strong) NSString *faultactor;
 @property (nonatomic, strong) id detail;
-@property (weak, readonly) NSString *simpleFaultString;
+@property (readonly) NSString *simpleFaultString;
 
 + (SOAPFault *)deserializeNode:(xmlNodePtr)cur expectedExceptions:(NSDictionary *)exceptions;
 
