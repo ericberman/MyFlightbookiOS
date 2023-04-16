@@ -423,11 +423,17 @@ import Foundation
             }
         }
         
-        let fRecordable = !fSuppressAllRecording && (delegate?.flightCouldBeInProgress() ?? false) && fRecordFlightData
+        let fFlightInProgress = delegate?.flightCouldBeInProgress() ?? false
+        
+        let fRecordable = !fSuppressAllRecording && fFlightInProgress && fRecordFlightData
+
+        // We're going to record this sample from recording if...
+        // a) It's recordable - recdording option is on and not suppressed, and a flight is in progress AND
+        // b) we are forcing recording (fForceRecord) OR we have a valid sample (validTime and validSample) OR have valid speed and are recording high resolution
         
         // record this if appropriate - we do the valid time check here to avoid too tightly clustered
         // samples, but any event (landing/takeoff) will set it to be true.
-        if ((fRecordHighRes && fValidSpeed) || (fRecordable && (fForceRecord || (fValidTime && fValidSample)))) {
+        if fRecordable && ((fRecordHighRes && fValidSpeed) || fForceRecord || (fValidTime && fValidSample)) {
             recordLocation(newLocation, withEvent: szEvent)
         }
         
@@ -472,7 +478,7 @@ import Foundation
         for loc in locations {
 #if DEBUG
             if self.fIsBlessed {
-                NSLog("Received REAL location %8f, %8f", loc.coordinate.latitude, loc.coordinate.longitude)
+//                NSLog("Received REAL location %8f, %8f", loc.coordinate.latitude, loc.coordinate.longitude)
             }
 #endif
             self.newLocation(loc)
