@@ -24,10 +24,5 @@ USGlobals *sharedInstance = nil;
 	return self;
 }
 
-- (void) dealloc
-{
-	self.wsdlStandardNamespaces = nil;
-	[super dealloc];
-}
 
 @end

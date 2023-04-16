@@ -4,7 +4,7 @@
 	NSMutableDictionary *wsdlStandardNamespaces;
 }
 
-@property (nonatomic, retain) NSMutableDictionary *wsdlStandardNamespaces;
+@property (nonatomic, strong) NSMutableDictionary *wsdlStandardNamespaces;
 
 + (USGlobals *)sharedInstance;
 

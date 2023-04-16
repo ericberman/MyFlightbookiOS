@@ -78,11 +78,11 @@
 	NSString *detail;
 }
 
-@property (nonatomic, retain) NSString *faultcode;
-@property (nonatomic, retain) NSString *faultstring;
-@property (nonatomic, retain) NSString *faultactor;
-@property (nonatomic, retain) id detail;
-@property (readonly) NSString *simpleFaultString;
+@property (nonatomic, strong) NSString *faultcode;
+@property (nonatomic, strong) NSString *faultstring;
+@property (nonatomic, strong) NSString *faultactor;
+@property (nonatomic, strong) id detail;
+@property (weak, readonly) NSString *simpleFaultString;
 
 + (SOAPFault *)deserializeNode:(xmlNodePtr)cur expectedExceptions:(NSDictionary *)exceptions;
 
@@ -95,10 +95,10 @@
 @end
 
 @interface SOAPSigner : NSObject {
-    id<SOAPSignerDelegate> delegate;
+    id<SOAPSignerDelegate> __weak delegate;
 }
 
-@property (nonatomic, assign) id<SOAPSignerDelegate> delegate;
+@property (nonatomic, weak) id<SOAPSignerDelegate> delegate;
 
 - (id) initWithDelegate:(id<SOAPSignerDelegate>)del;
 - (NSString *)signRequest:(NSString *)req;

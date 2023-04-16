@@ -40,10 +40,9 @@ static BOOL is_leap_year(NSUInteger year) {
    // BUG: Set to US locale so that "AM" or "PM" doesn't automatically get appended
    // see http://stackoverflow.com/questions/143075/nsdateformatter-am-i-doing-something-wrong-or-is-this-a-bug
    // and http://developer.apple.com/library/ios/#qa/qa1480/_index.html
-  formatter.locale = [[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"] autorelease];
+  formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
 
   NSString *str = [formatter stringForObjectValue:self];
-  [formatter release];
   if(includeTime) {
     // NSDate - all values are UTC
     str = [str stringByAppendingString: @"Z"];
@@ -86,7 +85,6 @@ static BOOL is_leap_year(NSUInteger year) {
   
   NSUInteger weekday = ((dayOfYear + Jan1Weekday) - 1U) % 7U;
   
-  [gregorian release];
   
   if((dayOfYear <= (7U - Jan1Weekday)) && (Jan1Weekday > thursday)) {
     week = 52U + ((Jan1Weekday == friday) || ((Jan1Weekday == saturday) && prevYearIsLeapYear));
@@ -107,7 +105,6 @@ static BOOL is_leap_year(NSUInteger year) {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat: [@"'T'HH:mm:ss'Z'" prepareDateFormatWithTimeSeparator: timeSep]];
     timeString = [formatter stringForObjectValue:self];
-    [formatter release];
   } else
     timeString = @"";
   
@@ -121,13 +118,11 @@ static BOOL is_leap_year(NSUInteger year) {
   NSUInteger dayOfYear = [gregorian ordinalityOfUnit: NSCalendarUnitDay inUnit: NSCalendarUnitYear forDate: self];
   NSString *timeString;
 
-  [gregorian release];
 
   if(includeTime) {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:[@"'T'HH:mm:ss'Z'" prepareDateFormatWithTimeSeparator:timeSep]];
     timeString = [formatter stringForObjectValue:self];
-    [formatter release];
   } else
     timeString = @"";
   
@@ -178,7 +173,7 @@ static BOOL is_leap_year(NSUInteger year) {
 - (NSString *)prepareDateFormatWithTimeSeparator:(unichar)timeSep {
   NSString *dateFormat = self;
   if(timeSep != ':') {
-    NSMutableString *dateFormatMutable = [[dateFormat mutableCopy] autorelease];
+    NSMutableString *dateFormatMutable = [dateFormat mutableCopy];
     [dateFormatMutable replaceOccurrencesOfString:@":"
   withString:[NSString stringWithCharacters:&timeSep length:1U]
   options:NSBackwardsSearch | NSLiteralSearch

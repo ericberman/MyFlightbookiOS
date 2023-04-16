@@ -24,7 +24,7 @@
 
 - (NSString *)stringByEscapingXML
 {
-	NSMutableString *escapedString = [[self mutableCopy] autorelease];
+	NSMutableString *escapedString = [self mutableCopy];
 	[escapedString replaceOccurrencesOfString:@"&" withString:@"&amp;" options:0 range:NSMakeRange(0, [escapedString length])];
 	[escapedString replaceOccurrencesOfString:@"\"" withString:@"&quot;" options:0 range:NSMakeRange(0, [escapedString length])];
 	[escapedString replaceOccurrencesOfString:@"'" withString:@"&apos;" options:0 range:NSMakeRange(0, [escapedString length])];
@@ -35,7 +35,7 @@
 
 - (NSString *)stringByUnescapingXML
 {
-	NSMutableString *unescapedString = [[self mutableCopy] autorelease];
+	NSMutableString *unescapedString = [self mutableCopy];
 	[unescapedString replaceOccurrencesOfString:@"&quot;" withString:@"\"" options:0 range:NSMakeRange(0, [unescapedString length])];
 	[unescapedString replaceOccurrencesOfString:@"&apos;" withString:@"'" options:0 range:NSMakeRange(0, [unescapedString length])];
 	[unescapedString replaceOccurrencesOfString:@"&lt;" withString:@"<" options:0 range:NSMakeRange(0, [unescapedString length])];
@@ -303,7 +303,7 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
 		else characters[length++] = '=';	
 	}
 	
-	return [[[NSString alloc] initWithBytesNoCopy:characters length:length encoding:NSASCIIStringEncoding freeWhenDone:YES] autorelease];
+	return [[NSString alloc] initWithBytesNoCopy:characters length:length encoding:NSASCIIStringEncoding freeWhenDone:YES];
 }
 
 @end
@@ -349,9 +349,9 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
 	NSString *stringValue = [NSString deserializeNode:cur];
 	
 	if([stringValue isEqualToString:@"true"]) {
-		return [[[USBoolean alloc] initWithBool:YES] autorelease];
+		return [[USBoolean alloc] initWithBool:YES];
 	} else if([stringValue isEqualToString:@"false"]) {
-		return [[[USBoolean alloc] initWithBool:NO] autorelease];
+		return [[USBoolean alloc] initWithBool:NO];
 	}
 	
 	return nil;
@@ -403,7 +403,7 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
 
 + (SOAPFault *)deserializeNode:(xmlNodePtr)cur expectedExceptions:(NSDictionary *)exceptions
 {
-	SOAPFault *soapFault = [[SOAPFault new] autorelease];
+	SOAPFault *soapFault = [SOAPFault new];
 	NSString *ns = [NSString stringWithCString:(char*)cur->ns->href encoding:NSUTF8StringEncoding];
 	if (! ns) return soapFault;
 	if ([ns isEqualToString:@"http://schemas.xmlsoap.org/soap/envelope/"]) {
@@ -471,14 +471,6 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
 	return simpleString;
 }
 
-- (void)dealloc
-{
-	[faultcode release];
-	[faultstring release];
-	[faultactor release];
-	[detail release];
-	[super dealloc];
-}
 
 @end
 
@@ -746,16 +738,16 @@ xmlXPathObjectPtr execute_xpath_expression(xmlDocPtr doc, const xmlChar* xpathEx
 
 + (id)managerWithUsername:(NSString *)usr andPassword:(NSString *)pwd
 {
-    return [[[BasicSSLCredentialsManager alloc]
-             initWithUsername:usr andPassword:pwd] autorelease];
+    return [[BasicSSLCredentialsManager alloc]
+             initWithUsername:usr andPassword:pwd];
 }
 
 - (id)initWithUsername:(NSString *)usr andPassword:(NSString *)pwd
 {
     self = [super init];
     if (self != nil) {
-        username = [usr retain];
-        password = [pwd retain];
+        username = usr;
+        password = pwd;
     }
     return self;
 }
@@ -794,10 +786,4 @@ xmlXPathObjectPtr execute_xpath_expression(xmlDocPtr doc, const xmlChar* xpathEx
     return NO;
 }
 
--(void)dealloc
-{
-    [username release];
-    [password release];
-    [super dealloc];
-}
 @end
