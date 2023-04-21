@@ -29041,1020 +29041,6 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	return YES;
 }
 @end
-@implementation MFBWebServiceSvc_PreviouslyUsedTextProperties
-@synthesize soapSigner;
-- (id)init
-{
-	if((self = [super init])) {
-		prefixText = 0;
-		count = 0;
-		contextKey = 0;
-	}
-	
-	return self;
-}
-- (NSString *)nsPrefix
-{
-	return @"MFBWebServiceSvc";
-}
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
-{
-	NSString *nodeName = nil;
-	if(elNSPrefix != nil && [elNSPrefix length] > 0)
-	{
-		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
-	}
-	else
-	{
-		nodeName = [NSString stringWithFormat:@"%@:%@", @"MFBWebServiceSvc", elName];
-	}
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
-	
-	[self addAttributesToNode:node];
-	
-	[self addElementsToNode:node];
-	
-	return node;
-}
-- (void)addAttributesToNode:(xmlNodePtr)node
-{
-	
-}
-- (void)addElementsToNode:(xmlNodePtr)node
-{
-	
-	if(((__bridge void *)self.prefixText) != 0) {
-		xmlAddChild(node, [self.prefixText xmlNodeForDoc:node->doc elementName:@"prefixText" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-	if(((__bridge void *)self.count) != 0) {
-		xmlAddChild(node, [self.count xmlNodeForDoc:node->doc elementName:@"count" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-	if(((__bridge void *)self.contextKey) != 0) {
-		xmlAddChild(node, [self.contextKey xmlNodeForDoc:node->doc elementName:@"contextKey" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-}
-/* elements */
-@synthesize prefixText;
-@synthesize count;
-@synthesize contextKey;
-/* attributes */
-- (NSDictionary *)attributes
-{
-	NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
-	
-	return attributes;
-}
-+ (MFBWebServiceSvc_PreviouslyUsedTextProperties *)deserializeNode:(xmlNodePtr)cur
-{
-	MFBWebServiceSvc_PreviouslyUsedTextProperties *newObject = [MFBWebServiceSvc_PreviouslyUsedTextProperties new];
-	
-	[newObject deserializeAttributesFromNode:cur];
-	[newObject deserializeElementsFromNode:cur];
-	
-	return newObject;
-}
-- (void)deserializeAttributesFromNode:(xmlNodePtr)cur
-{
-}
-- (void)deserializeElementsFromNode:(xmlNodePtr)cur
-{
-	
-	
-	for( cur = cur->children ; cur != NULL ; cur = cur->next ) {
-		if(cur->type == XML_ELEMENT_NODE) {
-			xmlChar *elementText = xmlNodeListGetString(cur->doc, cur->children, 1);
-			NSString *elementString = nil;
-			
-			if(elementText != NULL) {
-				elementString = [NSString stringWithCString:(char*)elementText encoding:NSUTF8StringEncoding];
-				[elementString self]; // avoid compiler warning for unused var
-				xmlFree(elementText);
-			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "prefixText")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [NSString class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				self.prefixText = newChild;
-			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "count")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [NSNumber class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				self.count = newChild;
-			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "contextKey")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [NSString class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				self.contextKey = newChild;
-			}
-		}
-	}
-}
-/* NSCoder functions taken from:
- * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
- */
-- (id) initWithCoder:(NSCoder *)decoder {
-	self = [super init];
-	if (self == nil) { return nil; }
- 
-	@autoreleasepool {
-		unsigned int numIvars = 0;
-		Ivar * ivars = class_copyIvarList([self class], &numIvars);
-		for(int i = 0; i < numIvars; i++) {
-			Ivar thisIvar = ivars[i];
-			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-			id value = [decoder decodeObjectForKey:key];
-			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-			[self setValue:value forKey:key];
-		}
-		if (numIvars > 0) { free(ivars); }
-		return self;
-	}
-}
-- (void) encodeWithCoder:(NSCoder *)encoder {
-	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
-		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
-	}
-	@autoreleasepool {
-		unsigned int numIvars = 0;
-		Ivar * ivars = class_copyIvarList([self class], &numIvars);
-		for (int i = 0; i < numIvars; i++) {
-			Ivar thisIvar = ivars[i];
-			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-			id value = [self valueForKey:key];
-			[encoder encodeObject:value forKey:key];
-		}
-		if (numIvars > 0) { free(ivars); }
-	}
-}
-+ (BOOL) supportsSecureCoding {
-	return YES;
-}
-@end
-@implementation MFBWebServiceSvc_PreviouslyUsedTextPropertiesResponse
-@synthesize soapSigner;
-- (id)init
-{
-	if((self = [super init])) {
-		PreviouslyUsedTextPropertiesResult = 0;
-	}
-	
-	return self;
-}
-- (NSString *)nsPrefix
-{
-	return @"MFBWebServiceSvc";
-}
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
-{
-	NSString *nodeName = nil;
-	if(elNSPrefix != nil && [elNSPrefix length] > 0)
-	{
-		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
-	}
-	else
-	{
-		nodeName = [NSString stringWithFormat:@"%@:%@", @"MFBWebServiceSvc", elName];
-	}
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
-	
-	[self addAttributesToNode:node];
-	
-	[self addElementsToNode:node];
-	
-	return node;
-}
-- (void)addAttributesToNode:(xmlNodePtr)node
-{
-	
-}
-- (void)addElementsToNode:(xmlNodePtr)node
-{
-	
-	if(((__bridge void *)self.PreviouslyUsedTextPropertiesResult) != 0) {
-		xmlAddChild(node, [self.PreviouslyUsedTextPropertiesResult xmlNodeForDoc:node->doc elementName:@"PreviouslyUsedTextPropertiesResult" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-}
-/* elements */
-@synthesize PreviouslyUsedTextPropertiesResult;
-/* attributes */
-- (NSDictionary *)attributes
-{
-	NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
-	
-	return attributes;
-}
-+ (MFBWebServiceSvc_PreviouslyUsedTextPropertiesResponse *)deserializeNode:(xmlNodePtr)cur
-{
-	MFBWebServiceSvc_PreviouslyUsedTextPropertiesResponse *newObject = [MFBWebServiceSvc_PreviouslyUsedTextPropertiesResponse new];
-	
-	[newObject deserializeAttributesFromNode:cur];
-	[newObject deserializeElementsFromNode:cur];
-	
-	return newObject;
-}
-- (void)deserializeAttributesFromNode:(xmlNodePtr)cur
-{
-}
-- (void)deserializeElementsFromNode:(xmlNodePtr)cur
-{
-	
-	
-	for( cur = cur->children ; cur != NULL ; cur = cur->next ) {
-		if(cur->type == XML_ELEMENT_NODE) {
-			xmlChar *elementText = xmlNodeListGetString(cur->doc, cur->children, 1);
-			NSString *elementString = nil;
-			
-			if(elementText != NULL) {
-				elementString = [NSString stringWithCString:(char*)elementText encoding:NSUTF8StringEncoding];
-				[elementString self]; // avoid compiler warning for unused var
-				xmlFree(elementText);
-			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "PreviouslyUsedTextPropertiesResult")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [MFBWebServiceSvc_ArrayOfString class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				self.PreviouslyUsedTextPropertiesResult = newChild;
-			}
-		}
-	}
-}
-/* NSCoder functions taken from:
- * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
- */
-- (id) initWithCoder:(NSCoder *)decoder {
-	self = [super init];
-	if (self == nil) { return nil; }
- 
-	@autoreleasepool {
-		unsigned int numIvars = 0;
-		Ivar * ivars = class_copyIvarList([self class], &numIvars);
-		for(int i = 0; i < numIvars; i++) {
-			Ivar thisIvar = ivars[i];
-			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-			id value = [decoder decodeObjectForKey:key];
-			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-			[self setValue:value forKey:key];
-		}
-		if (numIvars > 0) { free(ivars); }
-		return self;
-	}
-}
-- (void) encodeWithCoder:(NSCoder *)encoder {
-	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
-		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
-	}
-	@autoreleasepool {
-		unsigned int numIvars = 0;
-		Ivar * ivars = class_copyIvarList([self class], &numIvars);
-		for (int i = 0; i < numIvars; i++) {
-			Ivar thisIvar = ivars[i];
-			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-			id value = [self valueForKey:key];
-			[encoder encodeObject:value forKey:key];
-		}
-		if (numIvars > 0) { free(ivars); }
-	}
-}
-+ (BOOL) supportsSecureCoding {
-	return YES;
-}
-@end
-@implementation MFBWebServiceSvc_AirportsInBoundingBox
-@synthesize soapSigner;
-- (id)init
-{
-	if((self = [super init])) {
-		latSouth = 0;
-		lonWest = 0;
-		latNorth = 0;
-		lonEast = 0;
-		fIncludeHeliports = 0;
-	}
-	
-	return self;
-}
-- (NSString *)nsPrefix
-{
-	return @"MFBWebServiceSvc";
-}
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
-{
-	NSString *nodeName = nil;
-	if(elNSPrefix != nil && [elNSPrefix length] > 0)
-	{
-		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
-	}
-	else
-	{
-		nodeName = [NSString stringWithFormat:@"%@:%@", @"MFBWebServiceSvc", elName];
-	}
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
-	
-	[self addAttributesToNode:node];
-	
-	[self addElementsToNode:node];
-	
-	return node;
-}
-- (void)addAttributesToNode:(xmlNodePtr)node
-{
-	
-}
-- (void)addElementsToNode:(xmlNodePtr)node
-{
-	
-	if(((__bridge void *)self.latSouth) != 0) {
-		xmlAddChild(node, [self.latSouth xmlNodeForDoc:node->doc elementName:@"latSouth" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-	if(((__bridge void *)self.lonWest) != 0) {
-		xmlAddChild(node, [self.lonWest xmlNodeForDoc:node->doc elementName:@"lonWest" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-	if(((__bridge void *)self.latNorth) != 0) {
-		xmlAddChild(node, [self.latNorth xmlNodeForDoc:node->doc elementName:@"latNorth" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-	if(((__bridge void *)self.lonEast) != 0) {
-		xmlAddChild(node, [self.lonEast xmlNodeForDoc:node->doc elementName:@"lonEast" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-	if(((__bridge void *)self.fIncludeHeliports) != 0) {
-		xmlAddChild(node, [self.fIncludeHeliports xmlNodeForDoc:node->doc elementName:@"fIncludeHeliports" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-}
-/* elements */
-@synthesize latSouth;
-@synthesize lonWest;
-@synthesize latNorth;
-@synthesize lonEast;
-@synthesize fIncludeHeliports;
-/* attributes */
-- (NSDictionary *)attributes
-{
-	NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
-	
-	return attributes;
-}
-+ (MFBWebServiceSvc_AirportsInBoundingBox *)deserializeNode:(xmlNodePtr)cur
-{
-	MFBWebServiceSvc_AirportsInBoundingBox *newObject = [MFBWebServiceSvc_AirportsInBoundingBox new];
-	
-	[newObject deserializeAttributesFromNode:cur];
-	[newObject deserializeElementsFromNode:cur];
-	
-	return newObject;
-}
-- (void)deserializeAttributesFromNode:(xmlNodePtr)cur
-{
-}
-- (void)deserializeElementsFromNode:(xmlNodePtr)cur
-{
-	
-	
-	for( cur = cur->children ; cur != NULL ; cur = cur->next ) {
-		if(cur->type == XML_ELEMENT_NODE) {
-			xmlChar *elementText = xmlNodeListGetString(cur->doc, cur->children, 1);
-			NSString *elementString = nil;
-			
-			if(elementText != NULL) {
-				elementString = [NSString stringWithCString:(char*)elementText encoding:NSUTF8StringEncoding];
-				[elementString self]; // avoid compiler warning for unused var
-				xmlFree(elementText);
-			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "latSouth")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [NSNumber class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				self.latSouth = newChild;
-			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "lonWest")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [NSNumber class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				self.lonWest = newChild;
-			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "latNorth")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [NSNumber class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				self.latNorth = newChild;
-			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "lonEast")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [NSNumber class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				self.lonEast = newChild;
-			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "fIncludeHeliports")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [USBoolean class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				self.fIncludeHeliports = newChild;
-			}
-		}
-	}
-}
-/* NSCoder functions taken from:
- * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
- */
-- (id) initWithCoder:(NSCoder *)decoder {
-	self = [super init];
-	if (self == nil) { return nil; }
- 
-	@autoreleasepool {
-		unsigned int numIvars = 0;
-		Ivar * ivars = class_copyIvarList([self class], &numIvars);
-		for(int i = 0; i < numIvars; i++) {
-			Ivar thisIvar = ivars[i];
-			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-			id value = [decoder decodeObjectForKey:key];
-			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-			[self setValue:value forKey:key];
-		}
-		if (numIvars > 0) { free(ivars); }
-		return self;
-	}
-}
-- (void) encodeWithCoder:(NSCoder *)encoder {
-	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
-		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
-	}
-	@autoreleasepool {
-		unsigned int numIvars = 0;
-		Ivar * ivars = class_copyIvarList([self class], &numIvars);
-		for (int i = 0; i < numIvars; i++) {
-			Ivar thisIvar = ivars[i];
-			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-			id value = [self valueForKey:key];
-			[encoder encodeObject:value forKey:key];
-		}
-		if (numIvars > 0) { free(ivars); }
-	}
-}
-+ (BOOL) supportsSecureCoding {
-	return YES;
-}
-@end
-@implementation MFBWebServiceSvc_ArrayOfAirport
-@synthesize soapSigner;
-- (id)init
-{
-	if((self = [super init])) {
-		airport = [[NSMutableArray alloc] init];
-	}
-	
-	return self;
-}
-- (NSString *)nsPrefix
-{
-	return @"MFBWebServiceSvc";
-}
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
-{
-	NSString *nodeName = nil;
-	if(elNSPrefix != nil && [elNSPrefix length] > 0)
-	{
-		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
-	}
-	else
-	{
-		nodeName = [NSString stringWithFormat:@"%@:%@", @"MFBWebServiceSvc", elName];
-	}
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
-	
-	[self addAttributesToNode:node];
-	
-	[self addElementsToNode:node];
-	
-	return node;
-}
-- (void)addAttributesToNode:(xmlNodePtr)node
-{
-	
-}
-- (void)addElementsToNode:(xmlNodePtr)node
-{
-	
-	if(((__bridge void *)self.airport) != 0) {
-		for(MFBWebServiceSvc_airport * child in self.airport) {
-			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"airport" elementNSPrefix:@"MFBWebServiceSvc"]);
-		}
-	}
-}
-/* elements */
-@synthesize airport;
-- (void)addAirport:(MFBWebServiceSvc_airport *)toAdd
-{
-	if(toAdd != nil) [airport addObject:toAdd];
-}
-/* attributes */
-- (NSDictionary *)attributes
-{
-	NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
-	
-	return attributes;
-}
-+ (MFBWebServiceSvc_ArrayOfAirport *)deserializeNode:(xmlNodePtr)cur
-{
-	MFBWebServiceSvc_ArrayOfAirport *newObject = [MFBWebServiceSvc_ArrayOfAirport new];
-	
-	[newObject deserializeAttributesFromNode:cur];
-	[newObject deserializeElementsFromNode:cur];
-	
-	return newObject;
-}
-- (void)deserializeAttributesFromNode:(xmlNodePtr)cur
-{
-}
-- (void)deserializeElementsFromNode:(xmlNodePtr)cur
-{
-	
-	
-	for( cur = cur->children ; cur != NULL ; cur = cur->next ) {
-		if(cur->type == XML_ELEMENT_NODE) {
-			xmlChar *elementText = xmlNodeListGetString(cur->doc, cur->children, 1);
-			NSString *elementString = nil;
-			
-			if(elementText != NULL) {
-				elementString = [NSString stringWithCString:(char*)elementText encoding:NSUTF8StringEncoding];
-				[elementString self]; // avoid compiler warning for unused var
-				xmlFree(elementText);
-			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "airport")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [MFBWebServiceSvc_airport class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				if(newChild != nil) [self.airport addObject:newChild];
-			}
-		}
-	}
-}
-/* NSCoder functions taken from:
- * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
- */
-- (id) initWithCoder:(NSCoder *)decoder {
-	self = [super init];
-	if (self == nil) { return nil; }
- 
-	@autoreleasepool {
-		unsigned int numIvars = 0;
-		Ivar * ivars = class_copyIvarList([self class], &numIvars);
-		for(int i = 0; i < numIvars; i++) {
-			Ivar thisIvar = ivars[i];
-			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-			id value = [decoder decodeObjectForKey:key];
-			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-			[self setValue:value forKey:key];
-		}
-		if (numIvars > 0) { free(ivars); }
-		return self;
-	}
-}
-- (void) encodeWithCoder:(NSCoder *)encoder {
-	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
-		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
-	}
-	@autoreleasepool {
-		unsigned int numIvars = 0;
-		Ivar * ivars = class_copyIvarList([self class], &numIvars);
-		for (int i = 0; i < numIvars; i++) {
-			Ivar thisIvar = ivars[i];
-			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-			id value = [self valueForKey:key];
-			[encoder encodeObject:value forKey:key];
-		}
-		if (numIvars > 0) { free(ivars); }
-	}
-}
-+ (BOOL) supportsSecureCoding {
-	return YES;
-}
-@end
-@implementation MFBWebServiceSvc_AirportsInBoundingBoxResponse
-@synthesize soapSigner;
-- (id)init
-{
-	if((self = [super init])) {
-		AirportsInBoundingBoxResult = 0;
-	}
-	
-	return self;
-}
-- (NSString *)nsPrefix
-{
-	return @"MFBWebServiceSvc";
-}
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
-{
-	NSString *nodeName = nil;
-	if(elNSPrefix != nil && [elNSPrefix length] > 0)
-	{
-		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
-	}
-	else
-	{
-		nodeName = [NSString stringWithFormat:@"%@:%@", @"MFBWebServiceSvc", elName];
-	}
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
-	
-	[self addAttributesToNode:node];
-	
-	[self addElementsToNode:node];
-	
-	return node;
-}
-- (void)addAttributesToNode:(xmlNodePtr)node
-{
-	
-}
-- (void)addElementsToNode:(xmlNodePtr)node
-{
-	
-	if(((__bridge void *)self.AirportsInBoundingBoxResult) != 0) {
-		xmlAddChild(node, [self.AirportsInBoundingBoxResult xmlNodeForDoc:node->doc elementName:@"AirportsInBoundingBoxResult" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-}
-/* elements */
-@synthesize AirportsInBoundingBoxResult;
-/* attributes */
-- (NSDictionary *)attributes
-{
-	NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
-	
-	return attributes;
-}
-+ (MFBWebServiceSvc_AirportsInBoundingBoxResponse *)deserializeNode:(xmlNodePtr)cur
-{
-	MFBWebServiceSvc_AirportsInBoundingBoxResponse *newObject = [MFBWebServiceSvc_AirportsInBoundingBoxResponse new];
-	
-	[newObject deserializeAttributesFromNode:cur];
-	[newObject deserializeElementsFromNode:cur];
-	
-	return newObject;
-}
-- (void)deserializeAttributesFromNode:(xmlNodePtr)cur
-{
-}
-- (void)deserializeElementsFromNode:(xmlNodePtr)cur
-{
-	
-	
-	for( cur = cur->children ; cur != NULL ; cur = cur->next ) {
-		if(cur->type == XML_ELEMENT_NODE) {
-			xmlChar *elementText = xmlNodeListGetString(cur->doc, cur->children, 1);
-			NSString *elementString = nil;
-			
-			if(elementText != NULL) {
-				elementString = [NSString stringWithCString:(char*)elementText encoding:NSUTF8StringEncoding];
-				[elementString self]; // avoid compiler warning for unused var
-				xmlFree(elementText);
-			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "AirportsInBoundingBoxResult")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [MFBWebServiceSvc_ArrayOfAirport class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				self.AirportsInBoundingBoxResult = newChild;
-			}
-		}
-	}
-}
-/* NSCoder functions taken from:
- * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
- */
-- (id) initWithCoder:(NSCoder *)decoder {
-	self = [super init];
-	if (self == nil) { return nil; }
- 
-	@autoreleasepool {
-		unsigned int numIvars = 0;
-		Ivar * ivars = class_copyIvarList([self class], &numIvars);
-		for(int i = 0; i < numIvars; i++) {
-			Ivar thisIvar = ivars[i];
-			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-			id value = [decoder decodeObjectForKey:key];
-			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-			[self setValue:value forKey:key];
-		}
-		if (numIvars > 0) { free(ivars); }
-		return self;
-	}
-}
-- (void) encodeWithCoder:(NSCoder *)encoder {
-	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
-		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
-	}
-	@autoreleasepool {
-		unsigned int numIvars = 0;
-		Ivar * ivars = class_copyIvarList([self class], &numIvars);
-		for (int i = 0; i < numIvars; i++) {
-			Ivar thisIvar = ivars[i];
-			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-			id value = [self valueForKey:key];
-			[encoder encodeObject:value forKey:key];
-		}
-		if (numIvars > 0) { free(ivars); }
-	}
-}
-+ (BOOL) supportsSecureCoding {
-	return YES;
-}
-@end
 @implementation MFBWebServiceSvc
 + (void)initialize
 {
@@ -30063,11 +29049,11 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSoapBinding *)MFBWebServiceSoapBinding
 {
-	return [[MFBWebServiceSoapBinding alloc] initWithAddress:@"https://myflightbook.com/logbook/public/webservice.asmx"];
+	return [[MFBWebServiceSoapBinding alloc] initWithAddress:@"https://myflightbook.com/logbook/Public/webservice.asmx"];
 }
 + (MFBWebServiceSoap12Binding *)MFBWebServiceSoap12Binding
 {
-	return [[MFBWebServiceSoap12Binding alloc] initWithAddress:@"https://myflightbook.com/logbook/public/webservice.asmx"];
+	return [[MFBWebServiceSoap12Binding alloc] initWithAddress:@"https://myflightbook.com/logbook/Public/webservice.asmx"];
 }
 @end
 @implementation MFBWebServiceSoapBinding
@@ -30115,17 +29101,6 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 		[cookies addObject:toAdd];
 	}
 }
-- (MFBWebServiceSoapBindingResponse *)performSynchronousOperation:(MFBWebServiceSoapBindingOperation *)operation
-{
-	synchronousOperationComplete = NO;
-	[operation start];
-	
-	// Now wait for response
-	NSRunLoop *theRL = [NSRunLoop currentRunLoop];
-	
-	while (!synchronousOperationComplete && [theRL runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]]);
-	return operation.response;
-}
 - (void)performAsynchronousOperation:(MFBWebServiceSoapBindingOperation *)operation
 {
 	[operation start];
@@ -30134,23 +29109,11 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 {
 	synchronousOperationComplete = YES;
 }
-- (MFBWebServiceSoapBindingResponse *)AircraftForUserUsingParameters:(MFBWebServiceSvc_AircraftForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_AircraftForUser*)[MFBWebServiceSoapBinding_AircraftForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)AircraftForUserAsyncUsingParameters:(MFBWebServiceSvc_AircraftForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_AircraftForUser*)[MFBWebServiceSoapBinding_AircraftForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoapBindingResponse *)AddAircraftForUserUsingParameters:(MFBWebServiceSvc_AddAircraftForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_AddAircraftForUser*)[MFBWebServiceSoapBinding_AddAircraftForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)AddAircraftForUserAsyncUsingParameters:(MFBWebServiceSvc_AddAircraftForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
@@ -30158,23 +29121,11 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)AircraftMatchingPrefixUsingParameters:(MFBWebServiceSvc_AircraftMatchingPrefix *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_AircraftMatchingPrefix*)[MFBWebServiceSoapBinding_AircraftMatchingPrefix alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)AircraftMatchingPrefixAsyncUsingParameters:(MFBWebServiceSvc_AircraftMatchingPrefix *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_AircraftMatchingPrefix*)[MFBWebServiceSoapBinding_AircraftMatchingPrefix alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoapBindingResponse *)UpdateMaintenanceForAircraftUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraft *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_UpdateMaintenanceForAircraft*)[MFBWebServiceSoapBinding_UpdateMaintenanceForAircraft alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)UpdateMaintenanceForAircraftAsyncUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraft *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
@@ -30182,23 +29133,11 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)UpdateMaintenanceForAircraftWithFlagsAndNotesUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_UpdateMaintenanceForAircraftWithFlagsAndNotes*)[MFBWebServiceSoapBinding_UpdateMaintenanceForAircraftWithFlagsAndNotes alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)UpdateMaintenanceForAircraftWithFlagsAndNotesAsyncUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_UpdateMaintenanceForAircraftWithFlagsAndNotes*)[MFBWebServiceSoapBinding_UpdateMaintenanceForAircraftWithFlagsAndNotes alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoapBindingResponse *)DeleteAircraftForUserUsingParameters:(MFBWebServiceSvc_DeleteAircraftForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_DeleteAircraftForUser*)[MFBWebServiceSoapBinding_DeleteAircraftForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)DeleteAircraftForUserAsyncUsingParameters:(MFBWebServiceSvc_DeleteAircraftForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
@@ -30206,23 +29145,11 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)MakesAndModelsUsingParameters:(MFBWebServiceSvc_MakesAndModels *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_MakesAndModels*)[MFBWebServiceSoapBinding_MakesAndModels alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)MakesAndModelsAsyncUsingParameters:(MFBWebServiceSvc_MakesAndModels *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_MakesAndModels*)[MFBWebServiceSoapBinding_MakesAndModels alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoapBindingResponse *)GetCurrencyForUserUsingParameters:(MFBWebServiceSvc_GetCurrencyForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_GetCurrencyForUser*)[MFBWebServiceSoapBinding_GetCurrencyForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)GetCurrencyForUserAsyncUsingParameters:(MFBWebServiceSvc_GetCurrencyForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
@@ -30230,23 +29157,11 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)TotalsForUserUsingParameters:(MFBWebServiceSvc_TotalsForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_TotalsForUser*)[MFBWebServiceSoapBinding_TotalsForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)TotalsForUserAsyncUsingParameters:(MFBWebServiceSvc_TotalsForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_TotalsForUser*)[MFBWebServiceSoapBinding_TotalsForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoapBindingResponse *)TotalsForUserWithQueryUsingParameters:(MFBWebServiceSvc_TotalsForUserWithQuery *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_TotalsForUserWithQuery*)[MFBWebServiceSoapBinding_TotalsForUserWithQuery alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)TotalsForUserWithQueryAsyncUsingParameters:(MFBWebServiceSvc_TotalsForUserWithQuery *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
@@ -30254,23 +29169,11 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)VisitedAirportsUsingParameters:(MFBWebServiceSvc_VisitedAirports *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_VisitedAirports*)[MFBWebServiceSoapBinding_VisitedAirports alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)VisitedAirportsAsyncUsingParameters:(MFBWebServiceSvc_VisitedAirports *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_VisitedAirports*)[MFBWebServiceSoapBinding_VisitedAirports alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoapBindingResponse *)FlightsWithQueryAndOffsetUsingParameters:(MFBWebServiceSvc_FlightsWithQueryAndOffset *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_FlightsWithQueryAndOffset*)[MFBWebServiceSoapBinding_FlightsWithQueryAndOffset alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)FlightsWithQueryAndOffsetAsyncUsingParameters:(MFBWebServiceSvc_FlightsWithQueryAndOffset *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
@@ -30278,23 +29181,11 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)FlightsWithQueryUsingParameters:(MFBWebServiceSvc_FlightsWithQuery *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_FlightsWithQuery*)[MFBWebServiceSoapBinding_FlightsWithQuery alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)FlightsWithQueryAsyncUsingParameters:(MFBWebServiceSvc_FlightsWithQuery *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_FlightsWithQuery*)[MFBWebServiceSoapBinding_FlightsWithQuery alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoapBindingResponse *)DeleteLogbookEntryUsingParameters:(MFBWebServiceSvc_DeleteLogbookEntry *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_DeleteLogbookEntry*)[MFBWebServiceSoapBinding_DeleteLogbookEntry alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)DeleteLogbookEntryAsyncUsingParameters:(MFBWebServiceSvc_DeleteLogbookEntry *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
@@ -30302,23 +29193,11 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)CommitFlightWithOptionsUsingParameters:(MFBWebServiceSvc_CommitFlightWithOptions *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_CommitFlightWithOptions*)[MFBWebServiceSoapBinding_CommitFlightWithOptions alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)CommitFlightWithOptionsAsyncUsingParameters:(MFBWebServiceSvc_CommitFlightWithOptions *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_CommitFlightWithOptions*)[MFBWebServiceSoapBinding_CommitFlightWithOptions alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoapBindingResponse *)FlightPathForFlightUsingParameters:(MFBWebServiceSvc_FlightPathForFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_FlightPathForFlight*)[MFBWebServiceSoapBinding_FlightPathForFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)FlightPathForFlightAsyncUsingParameters:(MFBWebServiceSvc_FlightPathForFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
@@ -30326,23 +29205,11 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)FlightPathForFlightGPXUsingParameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_FlightPathForFlightGPX*)[MFBWebServiceSoapBinding_FlightPathForFlightGPX alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)FlightPathForFlightGPXAsyncUsingParameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_FlightPathForFlightGPX*)[MFBWebServiceSoapBinding_FlightPathForFlightGPX alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoapBindingResponse *)CreatePendingFlightUsingParameters:(MFBWebServiceSvc_CreatePendingFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_CreatePendingFlight*)[MFBWebServiceSoapBinding_CreatePendingFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)CreatePendingFlightAsyncUsingParameters:(MFBWebServiceSvc_CreatePendingFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
@@ -30350,23 +29217,11 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)PendingFlightsForUserUsingParameters:(MFBWebServiceSvc_PendingFlightsForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_PendingFlightsForUser*)[MFBWebServiceSoapBinding_PendingFlightsForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)PendingFlightsForUserAsyncUsingParameters:(MFBWebServiceSvc_PendingFlightsForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_PendingFlightsForUser*)[MFBWebServiceSoapBinding_PendingFlightsForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoapBindingResponse *)UpdatePendingFlightUsingParameters:(MFBWebServiceSvc_UpdatePendingFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_UpdatePendingFlight*)[MFBWebServiceSoapBinding_UpdatePendingFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)UpdatePendingFlightAsyncUsingParameters:(MFBWebServiceSvc_UpdatePendingFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
@@ -30374,23 +29229,11 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)DeletePendingFlightUsingParameters:(MFBWebServiceSvc_DeletePendingFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_DeletePendingFlight*)[MFBWebServiceSoapBinding_DeletePendingFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)DeletePendingFlightAsyncUsingParameters:(MFBWebServiceSvc_DeletePendingFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_DeletePendingFlight*)[MFBWebServiceSoapBinding_DeletePendingFlight alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoapBindingResponse *)CommitPendingFlightUsingParameters:(MFBWebServiceSvc_CommitPendingFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_CommitPendingFlight*)[MFBWebServiceSoapBinding_CommitPendingFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)CommitPendingFlightAsyncUsingParameters:(MFBWebServiceSvc_CommitPendingFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
@@ -30398,23 +29241,11 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)AvailablePropertyTypesUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypes *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_AvailablePropertyTypes*)[MFBWebServiceSoapBinding_AvailablePropertyTypes alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)AvailablePropertyTypesAsyncUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypes *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_AvailablePropertyTypes*)[MFBWebServiceSoapBinding_AvailablePropertyTypes alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoapBindingResponse *)AvailablePropertyTypesForUserUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypesForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_AvailablePropertyTypesForUser*)[MFBWebServiceSoapBinding_AvailablePropertyTypesForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)AvailablePropertyTypesForUserAsyncUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypesForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
@@ -30422,23 +29253,11 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)PropertiesAndTemplatesForUserUsingParameters:(MFBWebServiceSvc_PropertiesAndTemplatesForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_PropertiesAndTemplatesForUser*)[MFBWebServiceSoapBinding_PropertiesAndTemplatesForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)PropertiesAndTemplatesForUserAsyncUsingParameters:(MFBWebServiceSvc_PropertiesAndTemplatesForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_PropertiesAndTemplatesForUser*)[MFBWebServiceSoapBinding_PropertiesAndTemplatesForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoapBindingResponse *)PropertiesForFlightUsingParameters:(MFBWebServiceSvc_PropertiesForFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_PropertiesForFlight*)[MFBWebServiceSoapBinding_PropertiesForFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)PropertiesForFlightAsyncUsingParameters:(MFBWebServiceSvc_PropertiesForFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
@@ -30446,23 +29265,11 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)DeletePropertiesForFlightUsingParameters:(MFBWebServiceSvc_DeletePropertiesForFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_DeletePropertiesForFlight*)[MFBWebServiceSoapBinding_DeletePropertiesForFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)DeletePropertiesForFlightAsyncUsingParameters:(MFBWebServiceSvc_DeletePropertiesForFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_DeletePropertiesForFlight*)[MFBWebServiceSoapBinding_DeletePropertiesForFlight alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoapBindingResponse *)DeletePropertyForFlightUsingParameters:(MFBWebServiceSvc_DeletePropertyForFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_DeletePropertyForFlight*)[MFBWebServiceSoapBinding_DeletePropertyForFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)DeletePropertyForFlightAsyncUsingParameters:(MFBWebServiceSvc_DeletePropertyForFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
@@ -30470,23 +29277,11 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)DeleteImageUsingParameters:(MFBWebServiceSvc_DeleteImage *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_DeleteImage*)[MFBWebServiceSoapBinding_DeleteImage alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)DeleteImageAsyncUsingParameters:(MFBWebServiceSvc_DeleteImage *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_DeleteImage*)[MFBWebServiceSoapBinding_DeleteImage alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoapBindingResponse *)UpdateImageAnnotationUsingParameters:(MFBWebServiceSvc_UpdateImageAnnotation *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_UpdateImageAnnotation*)[MFBWebServiceSoapBinding_UpdateImageAnnotation alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)UpdateImageAnnotationAsyncUsingParameters:(MFBWebServiceSvc_UpdateImageAnnotation *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
@@ -30494,23 +29289,11 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)AuthTokenForUserUsingParameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_AuthTokenForUser*)[MFBWebServiceSoapBinding_AuthTokenForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)AuthTokenForUserAsyncUsingParameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_AuthTokenForUser*)[MFBWebServiceSoapBinding_AuthTokenForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoapBindingResponse *)AuthTokenForUserNewUsingParameters:(MFBWebServiceSvc_AuthTokenForUserNew *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_AuthTokenForUserNew*)[MFBWebServiceSoapBinding_AuthTokenForUserNew alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)AuthTokenForUserNewAsyncUsingParameters:(MFBWebServiceSvc_AuthTokenForUserNew *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
@@ -30518,23 +29301,11 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)RefreshAuthTokenUsingParameters:(MFBWebServiceSvc_RefreshAuthToken *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_RefreshAuthToken*)[MFBWebServiceSoapBinding_RefreshAuthToken alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)RefreshAuthTokenAsyncUsingParameters:(MFBWebServiceSvc_RefreshAuthToken *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_RefreshAuthToken*)[MFBWebServiceSoapBinding_RefreshAuthToken alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoapBindingResponse *)CreateUserUsingParameters:(MFBWebServiceSvc_CreateUser *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_CreateUser*)[MFBWebServiceSoapBinding_CreateUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)CreateUserAsyncUsingParameters:(MFBWebServiceSvc_CreateUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
@@ -30542,23 +29313,11 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)GetNamedQueriesForUserUsingParameters:(MFBWebServiceSvc_GetNamedQueriesForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_GetNamedQueriesForUser*)[MFBWebServiceSoapBinding_GetNamedQueriesForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)GetNamedQueriesForUserAsyncUsingParameters:(MFBWebServiceSvc_GetNamedQueriesForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_GetNamedQueriesForUser*)[MFBWebServiceSoapBinding_GetNamedQueriesForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoapBindingResponse *)AddNamedQueryForUserUsingParameters:(MFBWebServiceSvc_AddNamedQueryForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_AddNamedQueryForUser*)[MFBWebServiceSoapBinding_AddNamedQueryForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)AddNamedQueryForUserAsyncUsingParameters:(MFBWebServiceSvc_AddNamedQueryForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
@@ -30566,51 +29325,15 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)DeleteNamedQueryForUserUsingParameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_DeleteNamedQueryForUser*)[MFBWebServiceSoapBinding_DeleteNamedQueryForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)DeleteNamedQueryForUserAsyncUsingParameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_DeleteNamedQueryForUser*)[MFBWebServiceSoapBinding_DeleteNamedQueryForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoapBindingResponse *)SuggestModelsUsingParameters:(MFBWebServiceSvc_SuggestModels *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_SuggestModels*)[MFBWebServiceSoapBinding_SuggestModels alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)SuggestModelsAsyncUsingParameters:(MFBWebServiceSvc_SuggestModels *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_SuggestModels*)[MFBWebServiceSoapBinding_SuggestModels alloc] initWithBinding:self delegate:responseDelegate
-																							 parameters:aParameters
-																							 ]];
-}
-- (MFBWebServiceSoapBindingResponse *)PreviouslyUsedTextPropertiesUsingParameters:(MFBWebServiceSvc_PreviouslyUsedTextProperties *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_PreviouslyUsedTextProperties*)[MFBWebServiceSoapBinding_PreviouslyUsedTextProperties alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
-- (void)PreviouslyUsedTextPropertiesAsyncUsingParameters:(MFBWebServiceSvc_PreviouslyUsedTextProperties *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
-{
-	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_PreviouslyUsedTextProperties*)[MFBWebServiceSoapBinding_PreviouslyUsedTextProperties alloc] initWithBinding:self delegate:responseDelegate
-																							 parameters:aParameters
-																							 ]];
-}
-- (MFBWebServiceSoapBindingResponse *)AirportsInBoundingBoxUsingParameters:(MFBWebServiceSvc_AirportsInBoundingBox *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoapBinding_AirportsInBoundingBox*)[MFBWebServiceSoapBinding_AirportsInBoundingBox alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
-- (void)AirportsInBoundingBoxAsyncUsingParameters:(MFBWebServiceSvc_AirportsInBoundingBox *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
-{
-	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_AirportsInBoundingBox*)[MFBWebServiceSoapBinding_AirportsInBoundingBox alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
 }
@@ -30635,7 +29358,6 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	[request setValue:@"wsdl2objc" forHTTPHeaderField:@"User-Agent"];
 	[request setValue:soapAction forHTTPHeaderField:@"SOAPAction"];
 	[request setValue:[[self MIMEType] stringByAppendingString:@"; charset=utf-8"] forHTTPHeaderField:@"Content-Type"];
-	// ERICBE: cast to unsigned long to prevent warnings about implicit cast of NSInteger
 	[request setValue:[NSString stringWithFormat:@"%lu", (unsigned long) [bodyData length]] forHTTPHeaderField:@"Content-Length"];
 	[request setValue:self.address.host forHTTPHeaderField:@"Host"];
 	for (NSString *eachHeaderField in [self.customHeaders allKeys]) {
@@ -34468,202 +33190,6 @@ parameters:(MFBWebServiceSvc_SuggestModels *)aParameters
 	}
 }
 @end
-@implementation MFBWebServiceSoapBinding_PreviouslyUsedTextProperties
-@synthesize parameters;
-- (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
-parameters:(MFBWebServiceSvc_PreviouslyUsedTextProperties *)aParameters
-{
-	if((self = [super initWithBinding:aBinding delegate:responseDelegate])) {
-		self.parameters = aParameters;
-	}
-	
-	return self;
-}
-- (void)main
-{
-	response = [MFBWebServiceSoapBindingResponse new];
-	
-	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
-	
-	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
-	NSMutableDictionary *bodyElements = nil;
-	NSMutableArray *bodyKeys = nil;
-	bodyElements = [NSMutableDictionary dictionary];
-	bodyKeys = [NSMutableArray array];
-	id obj = nil;
-	if(parameters != nil) obj = parameters;
-	if(obj != nil) {
-		[bodyElements setObject:obj forKey:@"PreviouslyUsedTextProperties"];
-		[bodyKeys addObject:@"PreviouslyUsedTextProperties"];
-	}
-	
-	NSString *operationXMLString = [envelope serializedFormUsingHeaderElements:headerElements bodyElements:bodyElements bodyKeys:bodyKeys];
-	operationXMLString = binding.soapSigner ? [binding.soapSigner signRequest:operationXMLString] : operationXMLString;
-	
-	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/PreviouslyUsedTextProperties" forOperation:self];
-}
-- (void)connectionDidFinishLoading
-{
-	if (responseData != nil && delegate != nil)
-	{
-		xmlDocPtr doc;
-		xmlNodePtr cur;
-		
-		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
-		}
-		
-#if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
-	// Not yet defined in 10.5 libxml
-	#define XML_PARSE_COMPACT 0
-#endif
-    // EricBe: Put explicit conversion since [responseData length] is NSInteger but xmlReadMemory wants int.
-	doc = xmlReadMemory([responseData bytes], (int) [responseData length], NULL, NULL, XML_PARSE_COMPACT | XML_PARSE_NOBLANKS);
-		
-		if (doc == NULL) {
-			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Errors while parsing returned XML" forKey:NSLocalizedDescriptionKey];
-			
-			response.error = [NSError errorWithDomain:@"MFBWebServiceSoapBindingResponseXML" code:1 userInfo:userInfo];
-			[delegate operation:self completedWithResponse:response];
-		} else {
-			cur = xmlDocGetRootElement(doc);
-			cur = cur->children;
-			
-			for( ; cur != NULL ; cur = cur->next) {
-				if(cur->type == XML_ELEMENT_NODE) {
-					
-					if(xmlStrEqual(cur->name, (const xmlChar *) "Body")) {
-						NSMutableArray *responseBodyParts = [NSMutableArray array];
-						
-						xmlNodePtr bodyNode;
-						for(bodyNode=cur->children ; bodyNode != NULL ; bodyNode = bodyNode->next) {
-							if(cur->type == XML_ELEMENT_NODE) {
-								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "PreviouslyUsedTextPropertiesResponse")) {
-									MFBWebServiceSvc_PreviouslyUsedTextPropertiesResponse *bodyObject = [MFBWebServiceSvc_PreviouslyUsedTextPropertiesResponse deserializeNode:bodyNode];
-									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
-									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
-									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
-									NSDictionary *exceptions = [NSDictionary dictionary];
-									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
-									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
-									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-								}
-							}
-						}
-						
-						response.bodyParts = responseBodyParts;
-					}
-				}
-			}
-			
-			xmlFreeDoc(doc);
-		}
-		
-		xmlCleanupParser();
-		[delegate operation:self completedWithResponse:response];
-	}
-}
-@end
-@implementation MFBWebServiceSoapBinding_AirportsInBoundingBox
-@synthesize parameters;
-- (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
-parameters:(MFBWebServiceSvc_AirportsInBoundingBox *)aParameters
-{
-	if((self = [super initWithBinding:aBinding delegate:responseDelegate])) {
-		self.parameters = aParameters;
-	}
-	
-	return self;
-}
-- (void)main
-{
-	response = [MFBWebServiceSoapBindingResponse new];
-	
-	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
-	
-	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
-	NSMutableDictionary *bodyElements = nil;
-	NSMutableArray *bodyKeys = nil;
-	bodyElements = [NSMutableDictionary dictionary];
-	bodyKeys = [NSMutableArray array];
-	id obj = nil;
-	if(parameters != nil) obj = parameters;
-	if(obj != nil) {
-		[bodyElements setObject:obj forKey:@"AirportsInBoundingBox"];
-		[bodyKeys addObject:@"AirportsInBoundingBox"];
-	}
-	
-	NSString *operationXMLString = [envelope serializedFormUsingHeaderElements:headerElements bodyElements:bodyElements bodyKeys:bodyKeys];
-	operationXMLString = binding.soapSigner ? [binding.soapSigner signRequest:operationXMLString] : operationXMLString;
-	
-	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/AirportsInBoundingBox" forOperation:self];
-}
-- (void)connectionDidFinishLoading
-{
-	if (responseData != nil && delegate != nil)
-	{
-		xmlDocPtr doc;
-		xmlNodePtr cur;
-		
-		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
-		}
-		
-#if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
-	// Not yet defined in 10.5 libxml
-	#define XML_PARSE_COMPACT 0
-#endif
-    // EricBe: Put explicit conversion since [responseData length] is NSInteger but xmlReadMemory wants int.
-	doc = xmlReadMemory([responseData bytes], (int) [responseData length], NULL, NULL, XML_PARSE_COMPACT | XML_PARSE_NOBLANKS);
-		
-		if (doc == NULL) {
-			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Errors while parsing returned XML" forKey:NSLocalizedDescriptionKey];
-			
-			response.error = [NSError errorWithDomain:@"MFBWebServiceSoapBindingResponseXML" code:1 userInfo:userInfo];
-			[delegate operation:self completedWithResponse:response];
-		} else {
-			cur = xmlDocGetRootElement(doc);
-			cur = cur->children;
-			
-			for( ; cur != NULL ; cur = cur->next) {
-				if(cur->type == XML_ELEMENT_NODE) {
-					
-					if(xmlStrEqual(cur->name, (const xmlChar *) "Body")) {
-						NSMutableArray *responseBodyParts = [NSMutableArray array];
-						
-						xmlNodePtr bodyNode;
-						for(bodyNode=cur->children ; bodyNode != NULL ; bodyNode = bodyNode->next) {
-							if(cur->type == XML_ELEMENT_NODE) {
-								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "AirportsInBoundingBoxResponse")) {
-									MFBWebServiceSvc_AirportsInBoundingBoxResponse *bodyObject = [MFBWebServiceSvc_AirportsInBoundingBoxResponse deserializeNode:bodyNode];
-									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
-									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
-									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
-									NSDictionary *exceptions = [NSDictionary dictionary];
-									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
-									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
-									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-								}
-							}
-						}
-						
-						response.bodyParts = responseBodyParts;
-					}
-				}
-			}
-			
-			xmlFreeDoc(doc);
-		}
-		
-		xmlCleanupParser();
-		[delegate operation:self completedWithResponse:response];
-	}
-}
-@end
 static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelopeInstance = nil;
 @implementation MFBWebServiceSoapBinding_envelope
 + (MFBWebServiceSoapBinding_envelope *)sharedInstance
@@ -34789,17 +33315,6 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 		[cookies addObject:toAdd];
 	}
 }
-- (MFBWebServiceSoap12BindingResponse *)performSynchronousOperation:(MFBWebServiceSoap12BindingOperation *)operation
-{
-	synchronousOperationComplete = NO;
-	[operation start];
-	
-	// Now wait for response
-	NSRunLoop *theRL = [NSRunLoop currentRunLoop];
-	
-	while (!synchronousOperationComplete && [theRL runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]]);
-	return operation.response;
-}
 - (void)performAsynchronousOperation:(MFBWebServiceSoap12BindingOperation *)operation
 {
 	[operation start];
@@ -34808,23 +33323,11 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 {
 	synchronousOperationComplete = YES;
 }
-- (MFBWebServiceSoap12BindingResponse *)AircraftForUserUsingParameters:(MFBWebServiceSvc_AircraftForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_AircraftForUser*)[MFBWebServiceSoap12Binding_AircraftForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)AircraftForUserAsyncUsingParameters:(MFBWebServiceSvc_AircraftForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_AircraftForUser*)[MFBWebServiceSoap12Binding_AircraftForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoap12BindingResponse *)AddAircraftForUserUsingParameters:(MFBWebServiceSvc_AddAircraftForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_AddAircraftForUser*)[MFBWebServiceSoap12Binding_AddAircraftForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)AddAircraftForUserAsyncUsingParameters:(MFBWebServiceSvc_AddAircraftForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
@@ -34832,23 +33335,11 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)AircraftMatchingPrefixUsingParameters:(MFBWebServiceSvc_AircraftMatchingPrefix *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_AircraftMatchingPrefix*)[MFBWebServiceSoap12Binding_AircraftMatchingPrefix alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)AircraftMatchingPrefixAsyncUsingParameters:(MFBWebServiceSvc_AircraftMatchingPrefix *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_AircraftMatchingPrefix*)[MFBWebServiceSoap12Binding_AircraftMatchingPrefix alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoap12BindingResponse *)UpdateMaintenanceForAircraftUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraft *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_UpdateMaintenanceForAircraft*)[MFBWebServiceSoap12Binding_UpdateMaintenanceForAircraft alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)UpdateMaintenanceForAircraftAsyncUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraft *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
@@ -34856,23 +33347,11 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)UpdateMaintenanceForAircraftWithFlagsAndNotesUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_UpdateMaintenanceForAircraftWithFlagsAndNotes*)[MFBWebServiceSoap12Binding_UpdateMaintenanceForAircraftWithFlagsAndNotes alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)UpdateMaintenanceForAircraftWithFlagsAndNotesAsyncUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_UpdateMaintenanceForAircraftWithFlagsAndNotes*)[MFBWebServiceSoap12Binding_UpdateMaintenanceForAircraftWithFlagsAndNotes alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoap12BindingResponse *)DeleteAircraftForUserUsingParameters:(MFBWebServiceSvc_DeleteAircraftForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_DeleteAircraftForUser*)[MFBWebServiceSoap12Binding_DeleteAircraftForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)DeleteAircraftForUserAsyncUsingParameters:(MFBWebServiceSvc_DeleteAircraftForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
@@ -34880,23 +33359,11 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)MakesAndModelsUsingParameters:(MFBWebServiceSvc_MakesAndModels *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_MakesAndModels*)[MFBWebServiceSoap12Binding_MakesAndModels alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)MakesAndModelsAsyncUsingParameters:(MFBWebServiceSvc_MakesAndModels *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_MakesAndModels*)[MFBWebServiceSoap12Binding_MakesAndModels alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoap12BindingResponse *)GetCurrencyForUserUsingParameters:(MFBWebServiceSvc_GetCurrencyForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_GetCurrencyForUser*)[MFBWebServiceSoap12Binding_GetCurrencyForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)GetCurrencyForUserAsyncUsingParameters:(MFBWebServiceSvc_GetCurrencyForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
@@ -34904,23 +33371,11 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)TotalsForUserUsingParameters:(MFBWebServiceSvc_TotalsForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_TotalsForUser*)[MFBWebServiceSoap12Binding_TotalsForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)TotalsForUserAsyncUsingParameters:(MFBWebServiceSvc_TotalsForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_TotalsForUser*)[MFBWebServiceSoap12Binding_TotalsForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoap12BindingResponse *)TotalsForUserWithQueryUsingParameters:(MFBWebServiceSvc_TotalsForUserWithQuery *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_TotalsForUserWithQuery*)[MFBWebServiceSoap12Binding_TotalsForUserWithQuery alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)TotalsForUserWithQueryAsyncUsingParameters:(MFBWebServiceSvc_TotalsForUserWithQuery *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
@@ -34928,23 +33383,11 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)VisitedAirportsUsingParameters:(MFBWebServiceSvc_VisitedAirports *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_VisitedAirports*)[MFBWebServiceSoap12Binding_VisitedAirports alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)VisitedAirportsAsyncUsingParameters:(MFBWebServiceSvc_VisitedAirports *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_VisitedAirports*)[MFBWebServiceSoap12Binding_VisitedAirports alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoap12BindingResponse *)FlightsWithQueryAndOffsetUsingParameters:(MFBWebServiceSvc_FlightsWithQueryAndOffset *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_FlightsWithQueryAndOffset*)[MFBWebServiceSoap12Binding_FlightsWithQueryAndOffset alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)FlightsWithQueryAndOffsetAsyncUsingParameters:(MFBWebServiceSvc_FlightsWithQueryAndOffset *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
@@ -34952,23 +33395,11 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)FlightsWithQueryUsingParameters:(MFBWebServiceSvc_FlightsWithQuery *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_FlightsWithQuery*)[MFBWebServiceSoap12Binding_FlightsWithQuery alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)FlightsWithQueryAsyncUsingParameters:(MFBWebServiceSvc_FlightsWithQuery *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_FlightsWithQuery*)[MFBWebServiceSoap12Binding_FlightsWithQuery alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoap12BindingResponse *)DeleteLogbookEntryUsingParameters:(MFBWebServiceSvc_DeleteLogbookEntry *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_DeleteLogbookEntry*)[MFBWebServiceSoap12Binding_DeleteLogbookEntry alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)DeleteLogbookEntryAsyncUsingParameters:(MFBWebServiceSvc_DeleteLogbookEntry *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
@@ -34976,23 +33407,11 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)CommitFlightWithOptionsUsingParameters:(MFBWebServiceSvc_CommitFlightWithOptions *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_CommitFlightWithOptions*)[MFBWebServiceSoap12Binding_CommitFlightWithOptions alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)CommitFlightWithOptionsAsyncUsingParameters:(MFBWebServiceSvc_CommitFlightWithOptions *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_CommitFlightWithOptions*)[MFBWebServiceSoap12Binding_CommitFlightWithOptions alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoap12BindingResponse *)FlightPathForFlightUsingParameters:(MFBWebServiceSvc_FlightPathForFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_FlightPathForFlight*)[MFBWebServiceSoap12Binding_FlightPathForFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)FlightPathForFlightAsyncUsingParameters:(MFBWebServiceSvc_FlightPathForFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
@@ -35000,23 +33419,11 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)FlightPathForFlightGPXUsingParameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_FlightPathForFlightGPX*)[MFBWebServiceSoap12Binding_FlightPathForFlightGPX alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)FlightPathForFlightGPXAsyncUsingParameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_FlightPathForFlightGPX*)[MFBWebServiceSoap12Binding_FlightPathForFlightGPX alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoap12BindingResponse *)CreatePendingFlightUsingParameters:(MFBWebServiceSvc_CreatePendingFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_CreatePendingFlight*)[MFBWebServiceSoap12Binding_CreatePendingFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)CreatePendingFlightAsyncUsingParameters:(MFBWebServiceSvc_CreatePendingFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
@@ -35024,23 +33431,11 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)PendingFlightsForUserUsingParameters:(MFBWebServiceSvc_PendingFlightsForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_PendingFlightsForUser*)[MFBWebServiceSoap12Binding_PendingFlightsForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)PendingFlightsForUserAsyncUsingParameters:(MFBWebServiceSvc_PendingFlightsForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_PendingFlightsForUser*)[MFBWebServiceSoap12Binding_PendingFlightsForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoap12BindingResponse *)UpdatePendingFlightUsingParameters:(MFBWebServiceSvc_UpdatePendingFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_UpdatePendingFlight*)[MFBWebServiceSoap12Binding_UpdatePendingFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)UpdatePendingFlightAsyncUsingParameters:(MFBWebServiceSvc_UpdatePendingFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
@@ -35048,23 +33443,11 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)DeletePendingFlightUsingParameters:(MFBWebServiceSvc_DeletePendingFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_DeletePendingFlight*)[MFBWebServiceSoap12Binding_DeletePendingFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)DeletePendingFlightAsyncUsingParameters:(MFBWebServiceSvc_DeletePendingFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_DeletePendingFlight*)[MFBWebServiceSoap12Binding_DeletePendingFlight alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoap12BindingResponse *)CommitPendingFlightUsingParameters:(MFBWebServiceSvc_CommitPendingFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_CommitPendingFlight*)[MFBWebServiceSoap12Binding_CommitPendingFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)CommitPendingFlightAsyncUsingParameters:(MFBWebServiceSvc_CommitPendingFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
@@ -35072,23 +33455,11 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)AvailablePropertyTypesUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypes *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_AvailablePropertyTypes*)[MFBWebServiceSoap12Binding_AvailablePropertyTypes alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)AvailablePropertyTypesAsyncUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypes *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_AvailablePropertyTypes*)[MFBWebServiceSoap12Binding_AvailablePropertyTypes alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoap12BindingResponse *)AvailablePropertyTypesForUserUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypesForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_AvailablePropertyTypesForUser*)[MFBWebServiceSoap12Binding_AvailablePropertyTypesForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)AvailablePropertyTypesForUserAsyncUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypesForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
@@ -35096,23 +33467,11 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)PropertiesAndTemplatesForUserUsingParameters:(MFBWebServiceSvc_PropertiesAndTemplatesForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_PropertiesAndTemplatesForUser*)[MFBWebServiceSoap12Binding_PropertiesAndTemplatesForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)PropertiesAndTemplatesForUserAsyncUsingParameters:(MFBWebServiceSvc_PropertiesAndTemplatesForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_PropertiesAndTemplatesForUser*)[MFBWebServiceSoap12Binding_PropertiesAndTemplatesForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoap12BindingResponse *)PropertiesForFlightUsingParameters:(MFBWebServiceSvc_PropertiesForFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_PropertiesForFlight*)[MFBWebServiceSoap12Binding_PropertiesForFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)PropertiesForFlightAsyncUsingParameters:(MFBWebServiceSvc_PropertiesForFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
@@ -35120,23 +33479,11 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)DeletePropertiesForFlightUsingParameters:(MFBWebServiceSvc_DeletePropertiesForFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_DeletePropertiesForFlight*)[MFBWebServiceSoap12Binding_DeletePropertiesForFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)DeletePropertiesForFlightAsyncUsingParameters:(MFBWebServiceSvc_DeletePropertiesForFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_DeletePropertiesForFlight*)[MFBWebServiceSoap12Binding_DeletePropertiesForFlight alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoap12BindingResponse *)DeletePropertyForFlightUsingParameters:(MFBWebServiceSvc_DeletePropertyForFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_DeletePropertyForFlight*)[MFBWebServiceSoap12Binding_DeletePropertyForFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)DeletePropertyForFlightAsyncUsingParameters:(MFBWebServiceSvc_DeletePropertyForFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
@@ -35144,23 +33491,11 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)DeleteImageUsingParameters:(MFBWebServiceSvc_DeleteImage *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_DeleteImage*)[MFBWebServiceSoap12Binding_DeleteImage alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)DeleteImageAsyncUsingParameters:(MFBWebServiceSvc_DeleteImage *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_DeleteImage*)[MFBWebServiceSoap12Binding_DeleteImage alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoap12BindingResponse *)UpdateImageAnnotationUsingParameters:(MFBWebServiceSvc_UpdateImageAnnotation *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_UpdateImageAnnotation*)[MFBWebServiceSoap12Binding_UpdateImageAnnotation alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)UpdateImageAnnotationAsyncUsingParameters:(MFBWebServiceSvc_UpdateImageAnnotation *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
@@ -35168,23 +33503,11 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)AuthTokenForUserUsingParameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_AuthTokenForUser*)[MFBWebServiceSoap12Binding_AuthTokenForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)AuthTokenForUserAsyncUsingParameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_AuthTokenForUser*)[MFBWebServiceSoap12Binding_AuthTokenForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoap12BindingResponse *)AuthTokenForUserNewUsingParameters:(MFBWebServiceSvc_AuthTokenForUserNew *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_AuthTokenForUserNew*)[MFBWebServiceSoap12Binding_AuthTokenForUserNew alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)AuthTokenForUserNewAsyncUsingParameters:(MFBWebServiceSvc_AuthTokenForUserNew *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
@@ -35192,23 +33515,11 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)RefreshAuthTokenUsingParameters:(MFBWebServiceSvc_RefreshAuthToken *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_RefreshAuthToken*)[MFBWebServiceSoap12Binding_RefreshAuthToken alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)RefreshAuthTokenAsyncUsingParameters:(MFBWebServiceSvc_RefreshAuthToken *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_RefreshAuthToken*)[MFBWebServiceSoap12Binding_RefreshAuthToken alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoap12BindingResponse *)CreateUserUsingParameters:(MFBWebServiceSvc_CreateUser *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_CreateUser*)[MFBWebServiceSoap12Binding_CreateUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)CreateUserAsyncUsingParameters:(MFBWebServiceSvc_CreateUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
@@ -35216,23 +33527,11 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)GetNamedQueriesForUserUsingParameters:(MFBWebServiceSvc_GetNamedQueriesForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_GetNamedQueriesForUser*)[MFBWebServiceSoap12Binding_GetNamedQueriesForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)GetNamedQueriesForUserAsyncUsingParameters:(MFBWebServiceSvc_GetNamedQueriesForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_GetNamedQueriesForUser*)[MFBWebServiceSoap12Binding_GetNamedQueriesForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
-}
-- (MFBWebServiceSoap12BindingResponse *)AddNamedQueryForUserUsingParameters:(MFBWebServiceSvc_AddNamedQueryForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_AddNamedQueryForUser*)[MFBWebServiceSoap12Binding_AddNamedQueryForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
 }
 - (void)AddNamedQueryForUserAsyncUsingParameters:(MFBWebServiceSvc_AddNamedQueryForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
@@ -35240,51 +33539,15 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)DeleteNamedQueryForUserUsingParameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_DeleteNamedQueryForUser*)[MFBWebServiceSoap12Binding_DeleteNamedQueryForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)DeleteNamedQueryForUserAsyncUsingParameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_DeleteNamedQueryForUser*)[MFBWebServiceSoap12Binding_DeleteNamedQueryForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
 }
-- (MFBWebServiceSoap12BindingResponse *)SuggestModelsUsingParameters:(MFBWebServiceSvc_SuggestModels *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_SuggestModels*)[MFBWebServiceSoap12Binding_SuggestModels alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
 - (void)SuggestModelsAsyncUsingParameters:(MFBWebServiceSvc_SuggestModels *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_SuggestModels*)[MFBWebServiceSoap12Binding_SuggestModels alloc] initWithBinding:self delegate:responseDelegate
-																							 parameters:aParameters
-																							 ]];
-}
-- (MFBWebServiceSoap12BindingResponse *)PreviouslyUsedTextPropertiesUsingParameters:(MFBWebServiceSvc_PreviouslyUsedTextProperties *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_PreviouslyUsedTextProperties*)[MFBWebServiceSoap12Binding_PreviouslyUsedTextProperties alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
-- (void)PreviouslyUsedTextPropertiesAsyncUsingParameters:(MFBWebServiceSvc_PreviouslyUsedTextProperties *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
-{
-	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_PreviouslyUsedTextProperties*)[MFBWebServiceSoap12Binding_PreviouslyUsedTextProperties alloc] initWithBinding:self delegate:responseDelegate
-																							 parameters:aParameters
-																							 ]];
-}
-- (MFBWebServiceSoap12BindingResponse *)AirportsInBoundingBoxUsingParameters:(MFBWebServiceSvc_AirportsInBoundingBox *)aParameters 
-{
-	return [self performSynchronousOperation:[(MFBWebServiceSoap12Binding_AirportsInBoundingBox*)[MFBWebServiceSoap12Binding_AirportsInBoundingBox alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							]];
-}
-- (void)AirportsInBoundingBoxAsyncUsingParameters:(MFBWebServiceSvc_AirportsInBoundingBox *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
-{
-	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_AirportsInBoundingBox*)[MFBWebServiceSoap12Binding_AirportsInBoundingBox alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ]];
 }
@@ -35309,7 +33572,6 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 	[request setValue:@"wsdl2objc" forHTTPHeaderField:@"User-Agent"];
 	[request setValue:soapAction forHTTPHeaderField:@"SOAPAction"];
 	[request setValue:[[self MIMEType] stringByAppendingString:@"; charset=utf-8"] forHTTPHeaderField:@"Content-Type"];
-	// ERICBE: cast to unsigned long to prevent warnings about implicit cast of NSInteger
 	[request setValue:[NSString stringWithFormat:@"%lu", (unsigned long) [bodyData length]] forHTTPHeaderField:@"Content-Length"];
 	[request setValue:self.address.host forHTTPHeaderField:@"Host"];
 	for (NSString *eachHeaderField in [self.customHeaders allKeys]) {
@@ -39116,202 +37378,6 @@ parameters:(MFBWebServiceSvc_SuggestModels *)aParameters
 							if(cur->type == XML_ELEMENT_NODE) {
 								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "SuggestModelsResponse")) {
 									MFBWebServiceSvc_SuggestModelsResponse *bodyObject = [MFBWebServiceSvc_SuggestModelsResponse deserializeNode:bodyNode];
-									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
-									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
-									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
-									NSDictionary *exceptions = [NSDictionary dictionary];
-									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
-									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
-									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-								}
-							}
-						}
-						
-						response.bodyParts = responseBodyParts;
-					}
-				}
-			}
-			
-			xmlFreeDoc(doc);
-		}
-		
-		xmlCleanupParser();
-		[delegate operation:self completedWithResponse:response];
-	}
-}
-@end
-@implementation MFBWebServiceSoap12Binding_PreviouslyUsedTextProperties
-@synthesize parameters;
-- (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
-parameters:(MFBWebServiceSvc_PreviouslyUsedTextProperties *)aParameters
-{
-	if((self = [super initWithBinding:aBinding delegate:responseDelegate])) {
-		self.parameters = aParameters;
-	}
-	
-	return self;
-}
-- (void)main
-{
-	response = [MFBWebServiceSoap12BindingResponse new];
-	
-	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
-	
-	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
-	NSMutableDictionary *bodyElements = nil;
-	NSMutableArray *bodyKeys = nil;
-	bodyElements = [NSMutableDictionary dictionary];
-	bodyKeys = [NSMutableArray array];
-	id obj = nil;
-	if(parameters != nil) obj = parameters;
-	if(obj != nil) {
-		[bodyElements setObject:obj forKey:@"PreviouslyUsedTextProperties"];
-		[bodyKeys addObject:@"PreviouslyUsedTextProperties"];
-	}
-	
-	NSString *operationXMLString = [envelope serializedFormUsingHeaderElements:headerElements bodyElements:bodyElements bodyKeys:bodyKeys];
-	operationXMLString = binding.soapSigner ? [binding.soapSigner signRequest:operationXMLString] : operationXMLString;
-	
-	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/PreviouslyUsedTextProperties" forOperation:self];
-}
-- (void)connectionDidFinishLoading
-{
-	if (responseData != nil && delegate != nil)
-	{
-		xmlDocPtr doc;
-		xmlNodePtr cur;
-		
-		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
-		}
-		
-#if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
-	// Not yet defined in 10.5 libxml
-	#define XML_PARSE_COMPACT 0
-#endif
-    // EricBe: Put explicit conversion since [responseData length] is NSInteger but xmlReadMemory wants int.
-	doc = xmlReadMemory([responseData bytes], (int) [responseData length], NULL, NULL, XML_PARSE_COMPACT | XML_PARSE_NOBLANKS);
-		
-		if (doc == NULL) {
-			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Errors while parsing returned XML" forKey:NSLocalizedDescriptionKey];
-			
-			response.error = [NSError errorWithDomain:@"MFBWebServiceSoap12BindingResponseXML" code:1 userInfo:userInfo];
-			[delegate operation:self completedWithResponse:response];
-		} else {
-			cur = xmlDocGetRootElement(doc);
-			cur = cur->children;
-			
-			for( ; cur != NULL ; cur = cur->next) {
-				if(cur->type == XML_ELEMENT_NODE) {
-					
-					if(xmlStrEqual(cur->name, (const xmlChar *) "Body")) {
-						NSMutableArray *responseBodyParts = [NSMutableArray array];
-						
-						xmlNodePtr bodyNode;
-						for(bodyNode=cur->children ; bodyNode != NULL ; bodyNode = bodyNode->next) {
-							if(cur->type == XML_ELEMENT_NODE) {
-								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "PreviouslyUsedTextPropertiesResponse")) {
-									MFBWebServiceSvc_PreviouslyUsedTextPropertiesResponse *bodyObject = [MFBWebServiceSvc_PreviouslyUsedTextPropertiesResponse deserializeNode:bodyNode];
-									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
-									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
-									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
-									NSDictionary *exceptions = [NSDictionary dictionary];
-									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
-									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
-									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-								}
-							}
-						}
-						
-						response.bodyParts = responseBodyParts;
-					}
-				}
-			}
-			
-			xmlFreeDoc(doc);
-		}
-		
-		xmlCleanupParser();
-		[delegate operation:self completedWithResponse:response];
-	}
-}
-@end
-@implementation MFBWebServiceSoap12Binding_AirportsInBoundingBox
-@synthesize parameters;
-- (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
-parameters:(MFBWebServiceSvc_AirportsInBoundingBox *)aParameters
-{
-	if((self = [super initWithBinding:aBinding delegate:responseDelegate])) {
-		self.parameters = aParameters;
-	}
-	
-	return self;
-}
-- (void)main
-{
-	response = [MFBWebServiceSoap12BindingResponse new];
-	
-	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
-	
-	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
-	NSMutableDictionary *bodyElements = nil;
-	NSMutableArray *bodyKeys = nil;
-	bodyElements = [NSMutableDictionary dictionary];
-	bodyKeys = [NSMutableArray array];
-	id obj = nil;
-	if(parameters != nil) obj = parameters;
-	if(obj != nil) {
-		[bodyElements setObject:obj forKey:@"AirportsInBoundingBox"];
-		[bodyKeys addObject:@"AirportsInBoundingBox"];
-	}
-	
-	NSString *operationXMLString = [envelope serializedFormUsingHeaderElements:headerElements bodyElements:bodyElements bodyKeys:bodyKeys];
-	operationXMLString = binding.soapSigner ? [binding.soapSigner signRequest:operationXMLString] : operationXMLString;
-	
-	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/AirportsInBoundingBox" forOperation:self];
-}
-- (void)connectionDidFinishLoading
-{
-	if (responseData != nil && delegate != nil)
-	{
-		xmlDocPtr doc;
-		xmlNodePtr cur;
-		
-		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
-		}
-		
-#if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
-	// Not yet defined in 10.5 libxml
-	#define XML_PARSE_COMPACT 0
-#endif
-    // EricBe: Put explicit conversion since [responseData length] is NSInteger but xmlReadMemory wants int.
-	doc = xmlReadMemory([responseData bytes], (int) [responseData length], NULL, NULL, XML_PARSE_COMPACT | XML_PARSE_NOBLANKS);
-		
-		if (doc == NULL) {
-			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Errors while parsing returned XML" forKey:NSLocalizedDescriptionKey];
-			
-			response.error = [NSError errorWithDomain:@"MFBWebServiceSoap12BindingResponseXML" code:1 userInfo:userInfo];
-			[delegate operation:self completedWithResponse:response];
-		} else {
-			cur = xmlDocGetRootElement(doc);
-			cur = cur->children;
-			
-			for( ; cur != NULL ; cur = cur->next) {
-				if(cur->type == XML_ELEMENT_NODE) {
-					
-					if(xmlStrEqual(cur->name, (const xmlChar *) "Body")) {
-						NSMutableArray *responseBodyParts = [NSMutableArray array];
-						
-						xmlNodePtr bodyNode;
-						for(bodyNode=cur->children ; bodyNode != NULL ; bodyNode = bodyNode->next) {
-							if(cur->type == XML_ELEMENT_NODE) {
-								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "AirportsInBoundingBoxResponse")) {
-									MFBWebServiceSvc_AirportsInBoundingBoxResponse *bodyObject = [MFBWebServiceSvc_AirportsInBoundingBoxResponse deserializeNode:bodyNode];
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
