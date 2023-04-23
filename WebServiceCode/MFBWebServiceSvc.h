@@ -120,8 +120,6 @@
 @class MFBWebServiceSvc_AddNamedQueryForUserResponse;
 @class MFBWebServiceSvc_DeleteNamedQueryForUser;
 @class MFBWebServiceSvc_DeleteNamedQueryForUserResponse;
-@class MFBWebServiceSvc_SuggestModels;
-@class MFBWebServiceSvc_SuggestModelsResponse;
 @interface MFBWebServiceSvc_AircraftForUser : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
@@ -3118,46 +3116,6 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_SuggestModels : NSObject <NSCoding, NSSecureCoding> {
-SOAPSigner *soapSigner;
-/* elements */
-	NSString * prefixText;
-	NSNumber * count;
-/* attributes */
-}
-- (NSString *)nsPrefix;
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
-- (void)addAttributesToNode:(xmlNodePtr)node;
-- (void)addElementsToNode:(xmlNodePtr)node;
-+ (MFBWebServiceSvc_SuggestModels *)deserializeNode:(xmlNodePtr)cur;
-- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
-- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
-@property (strong) SOAPSigner *soapSigner;
-/* elements */
-@property (nonatomic, strong) NSString * prefixText;
-@property (nonatomic, strong) NSNumber * count;
-/* attributes */
-- (NSDictionary *)attributes;
-@end
-@interface MFBWebServiceSvc_SuggestModelsResponse : NSObject <NSCoding, NSSecureCoding> {
-SOAPSigner *soapSigner;
-/* elements */
-	MFBWebServiceSvc_ArrayOfString * SuggestModelsResult;
-/* attributes */
-}
-- (NSString *)nsPrefix;
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
-- (void)addAttributesToNode:(xmlNodePtr)node;
-- (void)addElementsToNode:(xmlNodePtr)node;
-+ (MFBWebServiceSvc_SuggestModelsResponse *)deserializeNode:(xmlNodePtr)cur;
-- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
-- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
-@property (strong) SOAPSigner *soapSigner;
-/* elements */
-@property (nonatomic, strong) MFBWebServiceSvc_ArrayOfString * SuggestModelsResult;
-/* attributes */
-- (NSDictionary *)attributes;
-@end
 /* Cookies handling provided by http://en.wikibooks.org/wiki/Programming:WebObjects/Web_Services/Web_Service_Provider */
 #import <libxml/parser.h>
 #import "xsd.h"
@@ -3244,7 +3202,6 @@ SOAPSigner *soapSigner;
 - (void)GetNamedQueriesForUserAsyncUsingParameters:(MFBWebServiceSvc_GetNamedQueriesForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (void)AddNamedQueryForUserAsyncUsingParameters:(MFBWebServiceSvc_AddNamedQueryForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (void)DeleteNamedQueryForUserAsyncUsingParameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
-- (void)SuggestModelsAsyncUsingParameters:(MFBWebServiceSvc_SuggestModels *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 @end
 @interface MFBWebServiceSoapBindingOperation : NSOperation {
 	MFBWebServiceSoapBinding *binding;
@@ -3558,14 +3515,6 @@ SOAPSigner *soapSigner;
 	parameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters
 ;
 @end
-@interface MFBWebServiceSoapBinding_SuggestModels : MFBWebServiceSoapBindingOperation {
-	MFBWebServiceSvc_SuggestModels * parameters;
-}
-@property (nonatomic, strong) MFBWebServiceSvc_SuggestModels * parameters;
-- (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)aDelegate
-	parameters:(MFBWebServiceSvc_SuggestModels *)aParameters
-;
-@end
 @interface MFBWebServiceSoapBinding_envelope : NSObject {
 }
 + (MFBWebServiceSoapBinding_envelope *)sharedInstance;
@@ -3654,7 +3603,6 @@ SOAPSigner *soapSigner;
 - (void)GetNamedQueriesForUserAsyncUsingParameters:(MFBWebServiceSvc_GetNamedQueriesForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (void)AddNamedQueryForUserAsyncUsingParameters:(MFBWebServiceSvc_AddNamedQueryForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (void)DeleteNamedQueryForUserAsyncUsingParameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
-- (void)SuggestModelsAsyncUsingParameters:(MFBWebServiceSvc_SuggestModels *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 @end
 @interface MFBWebServiceSoap12BindingOperation : NSOperation {
 	MFBWebServiceSoap12Binding *binding;
@@ -3966,14 +3914,6 @@ SOAPSigner *soapSigner;
 @property (nonatomic, strong) MFBWebServiceSvc_DeleteNamedQueryForUser * parameters;
 - (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)aDelegate
 	parameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters
-;
-@end
-@interface MFBWebServiceSoap12Binding_SuggestModels : MFBWebServiceSoap12BindingOperation {
-	MFBWebServiceSvc_SuggestModels * parameters;
-}
-@property (nonatomic, strong) MFBWebServiceSvc_SuggestModels * parameters;
-- (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)aDelegate
-	parameters:(MFBWebServiceSvc_SuggestModels *)aParameters
 ;
 @end
 @interface MFBWebServiceSoap12Binding_envelope : NSObject {
