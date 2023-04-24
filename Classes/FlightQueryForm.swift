@@ -1034,8 +1034,14 @@ import Foundation
                     navigationController?.popViewController(animated: true)
                 }
             }
-        default:
-            fatalError("Unknown flight query section \(fqs.debugDescription)")
+        case .fqsText:
+            if let ec = tableView.cellForRow(at: indexPath) as? EditCell {
+                ec.txt.becomeFirstResponder()
+            }
+            break
+        case .none:
+            // should never happen.
+            break
         }
     }
     
