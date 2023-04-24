@@ -447,7 +447,7 @@ import Foundation
         case .rowVOR, .rowXPnder, .rowPitot, .rowAltimeter, .rowELT, .rowAnnual, .row100hr, .rowOil, .rowEngine, .rowRegistration:
             (tableView.cellForRow(at: indexPath) as! EditCell).txt.becomeFirstResponder()
         case .rowMaintNotes:
-            (tableView.cellForRow(at: indexPath) as! TextCell).txt.becomeFirstResponder()
+            (tableView.cellForRow(at: indexPath) as! EditCell).txt.becomeFirstResponder()
         case .rowMaintHeader, .rowPrefsHeader, .rowNotesHeader:
             self.tableView.endEditing(true)
             toggleSection(indexPath.section)
