@@ -429,9 +429,9 @@ public class CollapsibleTableSw : UITableViewController, UIImagePickerController
         if tableView == tableView && !sz.isEmpty {
             let h = (sz as NSString).boundingRect(with: CGSizeMake(self.tableView.frame.size.width - 20, 10000),
                                                   options:.usesLineFragmentOrigin,
-                                                  attributes: [.font : UIFont.systemFont(ofSize: 22.0)],
+                                                  attributes: [.font : UIFont.preferredFont(forTextStyle: .body)],
                                                   context: nil).size.height
-            return ceil(h)
+            return ceil(h) + 5
         }
         return defSectionHeaderHeight
     }

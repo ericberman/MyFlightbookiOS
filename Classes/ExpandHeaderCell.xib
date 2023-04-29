@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,22 +16,36 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="4">
-                        <rect key="frame" x="39" y="11" width="236" height="21"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4">
+                        <rect key="frame" x="39" y="11.5" width="236" height="21"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                         <nil key="textColor"/>
                         <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="Collapsed.png" translatesAutoresizingMaskIntoConstraints="NO" id="9">
-                        <rect key="frame" x="10" y="11" width="21" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Collapsed.png" translatesAutoresizingMaskIntoConstraints="NO" id="9">
+                        <rect key="frame" x="10" y="11.5" width="21" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="21" id="fkA-8a-RgZ"/>
+                            <constraint firstAttribute="height" constant="21" id="mBw-th-vsQ"/>
+                        </constraints>
                     </imageView>
-                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nOp-6r-rKv">
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nOp-6r-rKv">
                         <rect key="frame" x="290" y="11" width="22" height="22"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="22" id="1JS-3K-5j8"/>
+                            <constraint firstAttribute="width" constant="22" id="bEh-Vf-0sL"/>
+                        </constraints>
                     </button>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="nOp-6r-rKv" secondAttribute="trailing" constant="8" id="3Vh-oH-ZFC"/>
+                    <constraint firstAttribute="trailing" secondItem="4" secondAttribute="trailing" constant="45" id="8hf-Df-6D7"/>
+                    <constraint firstItem="nOp-6r-rKv" firstAttribute="centerY" secondItem="BRr-Ns-cOm" secondAttribute="centerY" id="LZa-Kv-hZu"/>
+                    <constraint firstItem="4" firstAttribute="centerY" secondItem="BRr-Ns-cOm" secondAttribute="centerY" id="Swd-MN-cLJ"/>
+                    <constraint firstItem="9" firstAttribute="centerY" secondItem="BRr-Ns-cOm" secondAttribute="centerY" id="X1f-9a-v9L"/>
+                    <constraint firstItem="9" firstAttribute="leading" secondItem="BRr-Ns-cOm" secondAttribute="leading" constant="10" id="teG-Pn-zIT"/>
+                    <constraint firstItem="4" firstAttribute="leading" secondItem="9" secondAttribute="trailing" constant="8" symbolic="YES" id="z3A-NG-vog"/>
+                </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
             <connections>
