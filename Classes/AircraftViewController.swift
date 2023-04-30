@@ -429,7 +429,7 @@ import Foundation
                 config.textProperties.alignment = .center
                 config.textProperties.lineBreakMode = .byWordWrapping
                 config.textProperties.numberOfLines = 2
-                config.textProperties.font = UIFont.systemFont(ofSize: 9.0)
+                config.textProperties.font = UIFont.preferredFont(forTextStyle: .caption2)
                 header.contentConfiguration = config
             }
         }

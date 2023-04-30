@@ -431,7 +431,7 @@ public class CollapsibleTableSw : UITableViewController, UIImagePickerController
                                                   options:.usesLineFragmentOrigin,
                                                   attributes: [.font : UIFont.preferredFont(forTextStyle: .body)],
                                                   context: nil).size.height
-            return ceil(h) + 5
+            return ceil(h) + 10
         }
         return defSectionHeaderHeight
     }
