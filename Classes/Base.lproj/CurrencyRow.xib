@@ -1,55 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" id="3" customClass="CurrencyRow" customModule="MyFlightbook" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" rowHeight="52" id="3" customClass="CurrencyRow" customModule="MyFlightbook" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3" id="pyn-iQ-rqK">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="5">
-                        <rect key="frame" x="168" y="2" width="150" height="14.5"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Value" lineBreakMode="tailTruncation" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5">
+                        <rect key="frame" x="160" y="2" width="155" height="20.5"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="6">
-                        <rect key="frame" x="168" y="16" width="150" height="12"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Discrepancy" lineBreakMode="tailTruncation" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6">
+                        <rect key="frame" x="160" y="24.5" width="155" height="13.5"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                         <color key="textColor" systemColor="secondaryLabelColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="wordWrap" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="4">
-                        <rect key="frame" x="10" y="4" width="150" height="32"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Currency Description" lineBreakMode="wordWrap" numberOfLines="2" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4">
+                        <rect key="frame" x="5" y="2" width="150" height="18"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="6" firstAttribute="top" secondItem="5" secondAttribute="bottom" constant="-0.5" id="0Jq-Uo-WSI"/>
+                    <constraint firstItem="5" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="5" id="05E-W6-S4p"/>
+                    <constraint firstItem="6" firstAttribute="top" secondItem="5" secondAttribute="bottom" constant="2" id="0Jq-Uo-WSI"/>
                     <constraint firstItem="5" firstAttribute="top" secondItem="pyn-iQ-rqK" secondAttribute="top" constant="2" id="5e0-Gx-hlw"/>
-                    <constraint firstAttribute="trailing" secondItem="6" secondAttribute="trailing" constant="2" id="6ph-f0-Sp7"/>
-                    <constraint firstItem="6" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5" secondAttribute="leading" id="6ra-qL-kBg"/>
-                    <constraint firstItem="5" firstAttribute="width" secondItem="4" secondAttribute="width" id="AGb-vC-TcY"/>
-                    <constraint firstAttribute="trailing" secondItem="5" secondAttribute="trailing" constant="2" id="Dyw-wL-5g2"/>
-                    <constraint firstItem="6" firstAttribute="width" secondItem="5" secondAttribute="width" id="En3-BX-hMv"/>
-                    <constraint firstAttribute="bottom" secondItem="4" secondAttribute="bottom" constant="4" id="N7X-uB-m2W"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="6" secondAttribute="bottom" constant="2" id="5lu-mw-mOW"/>
+                    <constraint firstItem="5" firstAttribute="width" secondItem="pyn-iQ-rqK" secondAttribute="width" multiplier="0.5" constant="-5" id="AGb-vC-TcY"/>
+                    <constraint firstItem="6" firstAttribute="width" secondItem="pyn-iQ-rqK" secondAttribute="width" multiplier="0.5" constant="-5" id="En3-BX-hMv"/>
+                    <constraint firstItem="4" firstAttribute="top" secondItem="pyn-iQ-rqK" secondAttribute="top" constant="2" id="IRH-hr-YWR"/>
+                    <constraint firstAttribute="trailing" secondItem="5" secondAttribute="trailing" constant="5" id="IY8-sB-SMn"/>
+                    <constraint firstItem="6" firstAttribute="leading" secondItem="pyn-iQ-rqK" secondAttribute="centerX" id="XoS-fO-XCK"/>
                     <constraint firstItem="4" firstAttribute="width" secondItem="pyn-iQ-rqK" secondAttribute="width" multiplier="1:2" constant="-10" id="aHG-iS-tSE"/>
-                    <constraint firstItem="4" firstAttribute="leading" secondItem="pyn-iQ-rqK" secondAttribute="leading" constant="10" id="cKN-al-8Vc"/>
-                    <constraint firstItem="5" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="8" id="k68-mA-wKi"/>
-                    <constraint firstAttribute="trailing" secondItem="5" secondAttribute="trailing" constant="2" id="tx7-rX-cIe"/>
-                    <constraint firstItem="4" firstAttribute="centerY" secondItem="pyn-iQ-rqK" secondAttribute="centerY" id="uVm-p0-Mc0"/>
+                    <constraint firstItem="4" firstAttribute="leading" secondItem="pyn-iQ-rqK" secondAttribute="leading" constant="5" id="cKN-al-8Vc"/>
+                    <constraint firstItem="5" firstAttribute="leading" secondItem="pyn-iQ-rqK" secondAttribute="centerX" id="k68-mA-wKi"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="4" secondAttribute="bottom" constant="2" id="koi-mC-Wfd"/>
+                    <constraint firstAttribute="trailing" secondItem="6" secondAttribute="trailing" constant="5" id="n6R-Ok-iPM"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

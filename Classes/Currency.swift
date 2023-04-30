@@ -41,6 +41,11 @@ public class Currency : PullRefreshTableViewControllerSW, MFBSoapCallDelegate {
         let app = MFBAppDelegate.threadSafeAppDelegate
         app.registerNotifyDataChanged(self)
         app.registerNotifyResetAll(self)
+        tableView.sectionHeaderHeight = UITableView.automaticDimension
+        tableView.estimatedSectionHeaderHeight = 38
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 80
+
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target:self, action:#selector(refresh))
     }
