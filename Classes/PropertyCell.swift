@@ -192,12 +192,8 @@ import Foundation
             if (textField.text ?? "").isEmpty {
                 cfp.dateValue = nil
             }
-        case MFBWebServiceSvc_CFPPropertyType_cfpDecimal:
+        case MFBWebServiceSvc_CFPPropertyType_cfpDecimal, MFBWebServiceSvc_CFPPropertyType_cfpCurrency:
             cfp.decValue = textField.getValue()
-        case MFBWebServiceSvc_CFPPropertyType_cfpCurrency:
-            let nf = NumberFormatter()
-            nf.numberStyle = .currency
-            cfp.decValue = nf.number(from: textField.text ?? "") ?? NSNumber(floatLiteral: 0)
         case MFBWebServiceSvc_CFPPropertyType_cfpInteger:
             cfp.intValue = textField.getValue()
         default:
@@ -328,12 +324,7 @@ import Foundation
             return true // any string can be edited
         case MFBWebServiceSvc_CFPPropertyType_cfpBoolean, MFBWebServiceSvc_CFPPropertyType_cfpDate, MFBWebServiceSvc_CFPPropertyType_cfpDateTime:
             return false
-        case MFBWebServiceSvc_CFPPropertyType_cfpCurrency:
-            let t = textField.text ?? ""
-            let nf = NumberFormatter()
-            nf.numberStyle = .currency
-            return nf.number(from: t) != nil
-        case MFBWebServiceSvc_CFPPropertyType_cfpDecimal, MFBWebServiceSvc_CFPPropertyType_cfpInteger:
+        case MFBWebServiceSvc_CFPPropertyType_cfpCurrency, MFBWebServiceSvc_CFPPropertyType_cfpDecimal, MFBWebServiceSvc_CFPPropertyType_cfpInteger:
             // OK, at this point we have a number - either integer, decimal, or HH:MM.  Allow it if the result makes sense.
             let t = textField.text ?? ""
             return textField.isValidNumber(szProposed: t.replacingCharacters(in: Range(range, in: t)!, with: string))

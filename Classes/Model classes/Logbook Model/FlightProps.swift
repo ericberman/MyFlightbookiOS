@@ -357,7 +357,7 @@ import SQLite3
             szValue = (fp.boolValue.boolValue) ? " ✓" : ""
         case MFBWebServiceSvc_CFPPropertyType_cfpCurrency:
             let nfDecimal = NumberFormatter()
-            nfDecimal.numberStyle = .currency
+            nfDecimal.numberStyle = .decimal
             szValue = nfDecimal.string(from: fp.decValue) ?? ""
         case MFBWebServiceSvc_CFPPropertyType_cfpDecimal:
             let nt = cpt.flags.uint32Value & 0x00200000 == 0 ? NumericType.Time : NumericType.Decimal
