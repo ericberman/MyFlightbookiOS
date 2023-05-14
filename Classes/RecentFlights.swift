@@ -225,7 +225,7 @@ public class RecentFlights : PullRefreshTableViewControllerSW, LEEditDelegate, U
         pendingCallLock.lock()
         callInProgress = true
         callsAwaitingCompletion += 1
-        NSLog("RECENT FLIGHTS Add pending call, count = \(callsAwaitingCompletion)")
+        NSLog("RECENT FLIGHTS ADD PENDING CALL, count = \(callsAwaitingCompletion)")
         pendingCallLock.unlock()
     }
     
@@ -236,7 +236,7 @@ public class RecentFlights : PullRefreshTableViewControllerSW, LEEditDelegate, U
         if callsAwaitingCompletion < 0 {
             fatalError("negative calls pending completion!")
         }
-        NSLog("RECENT FLIGHTS Remove pending call, count = \(callsAwaitingCompletion)")
+        NSLog("RECENT FLIGHTS REMOVE PENDING CALL, count = \(callsAwaitingCompletion)")
         pendingCallLock.unlock()
         
         if !callInProgress && refreshOnResultsComplete {
@@ -332,7 +332,7 @@ public class RecentFlights : PullRefreshTableViewControllerSW, LEEditDelegate, U
                     aircraft.setHighWaterTach(cfp.decValue, forAircraft: le.aircraftID)
                 }
             }
-            NSLog("RECENT FLIGHTS: Result Received")
+            NSLog("RECENT FLIGHTS: Flight List Result Received")
 
             loadThumbnails(rgIncrementalResults)
         } else if let resp = body as? MFBWebServiceSvc_PendingFlightsForUserResponse {
@@ -418,6 +418,7 @@ public class RecentFlights : PullRefreshTableViewControllerSW, LEEditDelegate, U
     
     func submitUnsubmittedFlightsCompleted(_ sc : MFBSoapCall?, fromCaller le : LogbookEntry) {
         let app = MFBAppDelegate.threadSafeAppDelegate;
+        NSLog("RECENT FLIGHTS: submitUnsubmittedFlightsCompleted")
         if le.errorString.isEmpty && !le.entryData.isQueued() { // success
             app.dequeueUnsubmittedFlight(le)
             iRate.sharedInstance().logEvent(false)  // ask user to rate the app if they have saved the requesite # of flights
@@ -428,7 +429,7 @@ public class RecentFlights : PullRefreshTableViewControllerSW, LEEditDelegate, U
         iFlightInProgress += 1
         
         if (iFlightInProgress >= cFlightsToSubmit) {
-            NSLog("No more flights to submit");
+            NSLog("RECENT FLIGHTS: No more flights to submit");
             uploadInProgress = false
             if callInProgress {
                 refreshOnResultsComplete = true
@@ -437,6 +438,7 @@ public class RecentFlights : PullRefreshTableViewControllerSW, LEEditDelegate, U
                 refresh(false)
             }
         } else {
+            NSLog("RECENT FLIGHTS: submitting next flight")
             submitUnsubmittedFlight()
         }
     }
@@ -454,6 +456,7 @@ public class RecentFlights : PullRefreshTableViewControllerSW, LEEditDelegate, U
         let app = MFBAppDelegate.threadSafeAppDelegate;
         let index = cFlightsToSubmit - iFlightInProgress - 1;
         if index >= app.rgUnsubmittedFlights.count { // should never happen.
+            NSLog("RECENT FLIGHTS: index \(index) is greater than app.rgUnsubmittedFlights.count (\(app.rgUnsubmittedFlights.count))")
             return
         }
         
@@ -465,12 +468,14 @@ public class RecentFlights : PullRefreshTableViewControllerSW, LEEditDelegate, U
             le.szAuthToken = MFBProfile.sharedProfile.AuthToken
             le.progressLabel = cellProgress.progressDetailLabel
             le.setDelegate(self) { sc, ao in
+                NSLog("RECENT FLIGHTS: Commit le completed")
                 self.removePendingCall()
                 self.submitUnsubmittedFlightsCompleted(sc, fromCaller: ao as! LogbookEntry)
             }
             
             addPendingCall()
             do {
+                NSLog("RECENT FLIGHTS: Commit le starting")
                 try le.commitFlight()
             } catch {
                 showErrorAlertWithMessage(msg: error.localizedDescription)
@@ -601,6 +606,7 @@ public class RecentFlights : PullRefreshTableViewControllerSW, LEEditDelegate, U
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var le : MFBWebServiceSvc_LogbookEntry? = nil
         var ci : CommentedImage? = nil
+        var errString = ""
         
         let section = activeSections[indexPath.section]
         
@@ -626,6 +632,7 @@ public class RecentFlights : PullRefreshTableViewControllerSW, LEEditDelegate, U
             
             ci = l.rgPicsForFlight.count > 0 ? l.rgPicsForFlight[0] as? CommentedImage : nil
             le = l.entryData
+            errString = l.errorString
         case .sectExistingFlights:
             if indexPath.row >= rgFlights.count {   // is this the row to trigger the next batch of flights?
                 loadFlightsForUser()  // get the next batch
@@ -650,7 +657,7 @@ public class RecentFlights : PullRefreshTableViewControllerSW, LEEditDelegate, U
         }
         
         // this will force a layout
-        cell.setFlight(le!, image: ci, errorString: le?.errorString ?? "", tableView: tableView)
+        cell.setFlight(le!, image: ci, errorString: errString, tableView: tableView)
 
         if section == .sectUnsubmittedFlights || section == .sectPendingFlights {
             cell.backgroundColor = UIColor.systemGray4

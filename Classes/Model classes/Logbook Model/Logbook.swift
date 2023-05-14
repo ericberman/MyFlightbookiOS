@@ -501,6 +501,9 @@ import Foundation
                     // If this was a pending flight, it will be in the pending flight list.  Remove it, if so.
                     MFBAppDelegate.threadSafeAppDelegate.dequeueUnsubmittedFlight(self)
                 }
+            } else {
+                // there was an error - make sure operationCompleted gets called regardless.
+                self.operationCompleted(sc)
             }
         } else {
             operationCompleted(sc)
