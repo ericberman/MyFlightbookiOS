@@ -462,7 +462,7 @@ extension NSAttributedString {
         let textColor = UIColor.label
         var lastPos = Int(0)
         
-        let attr = NSMutableAttributedString(string: "", attributes: [.foregroundColor  : textColor])
+        let attr = NSMutableAttributedString(string: "", attributes: [.font : baseFont, .foregroundColor  : textColor])
 
         let reg = try! NSRegularExpression(pattern: "(\\*[^*_\r\n]*\\*)|(_[^*_\r\n]*_)", options: .caseInsensitive)
         reg.enumerateMatches(in: sz as String, range: NSRange((sz as String).startIndex..., in:sz as String)) { match, flags, stop in
@@ -471,7 +471,7 @@ extension NSAttributedString {
                 let r = matchRange!
                 if (r.location > lastPos) {
                     let range = NSMakeRange(lastPos, r.location - lastPos)
-                    attr.append(NSAttributedString(string: sz.substring(with: range), attributes: [.foregroundColor : textColor]))
+                    attr.append(NSAttributedString(string: sz.substring(with: range), attributes: [.font : baseFont, .foregroundColor : textColor]))
                 }
                 if (r.length >= 2 && sz.length >= r.location + r.length) {
                     let matchText = sz.substring(with: r) as NSString
@@ -489,7 +489,7 @@ extension NSAttributedString {
         }
         
         if (lastPos < sz.length) {
-            attr.append(NSAttributedString(string: sz.substring(with: NSMakeRange(lastPos, sz.length - lastPos)), attributes:[.foregroundColor : textColor]))
+            attr.append(NSAttributedString(string: sz.substring(with: NSMakeRange(lastPos, sz.length - lastPos)), attributes:[.font : baseFont, .foregroundColor : textColor]))
         }
         return attr
     }

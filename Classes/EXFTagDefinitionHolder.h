@@ -13,7 +13,7 @@
 NSMutableDictionary* definitions;
 }
  
-@property (readwrite, retain) NSDictionary* definitions;
+@property (readwrite, strong) NSDictionary* definitions;
 
 -(void) addTagDefinition: (EXFTag*) aTagDefinition forKey: (NSNumber*) aTagKey;
 

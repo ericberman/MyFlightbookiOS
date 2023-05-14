@@ -56,7 +56,7 @@
 		9A196C30112312EB007A7DD1 /* Recording.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A196C2F112312EB007A7DD1 /* Recording.png */; };
 		9A1A8B951EAA560F008F938B /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 9A1A8B941EAA560F008F938B /* .gitignore */; };
 		9A1C4C3B22639CAC00ED3444 /* Default-Portrait2304x3096.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A1C4C3A22639CAC00ED3444 /* Default-Portrait2304x3096.png */; };
-		9A20B152192D34D300A8F64F /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A20B151192D34D300A8F64F /* iRate.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		9A20B152192D34D300A8F64F /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A20B151192D34D300A8F64F /* iRate.m */; };
 		9A20B155192D34E600A8F64F /* LICENCE.md in Resources */ = {isa = PBXBuildFile; fileRef = 9A20B153192D34E600A8F64F /* LICENCE.md */; };
 		9A20B156192D34E600A8F64F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9A20B154192D34E600A8F64F /* README.md */; };
 		9A20B158192D358000A8F64F /* iRate.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9A20B157192D358000A8F64F /* iRate.bundle */; };
@@ -102,13 +102,6 @@
 		9A3A694F11B85C72009A5C88 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3A694E11B85C72009A5C88 /* libsqlite3.0.dylib */; };
 		9A3AE5C829D5E6EE0058EE45 /* FlightQueryForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3AE5C729D5E6EE0058EE45 /* FlightQueryForm.swift */; };
 		9A3AE5CA29D66DD70058EE45 /* TextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3AE5C929D66DD70058EE45 /* TextCell.swift */; };
-		9A3E1375127DE704008D672E /* EXFGPS.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3E136E127DE704008D672E /* EXFGPS.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A3E1376127DE704008D672E /* EXFHandlers.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3E136F127DE704008D672E /* EXFHandlers.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A3E1377127DE704008D672E /* EXFJFIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3E1370127DE704008D672E /* EXFJFIF.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A3E1378127DE704008D672E /* EXFJpeg.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3E1371127DE704008D672E /* EXFJpeg.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A3E1379127DE704008D672E /* EXFMetaData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3E1372127DE704008D672E /* EXFMetaData.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A3E137A127DE704008D672E /* EXFTagDefinitionHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3E1373127DE704008D672E /* EXFTagDefinitionHolder.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A3E137B127DE704008D672E /* EXFUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3E1374127DE704008D672E /* EXFUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9A40859F170B48B60079A2C6 /* Favorite.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A40859D170B48B60079A2C6 /* Favorite.png */; };
 		9A4085A0170B48B60079A2C6 /* Favorite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A40859E170B48B60079A2C6 /* Favorite@2x.png */; };
 		9A41A36929D0ACB9005E0A7B /* NetworkManagment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A41A36829D0ACB9005E0A7B /* NetworkManagment.swift */; };
@@ -126,18 +119,18 @@
 		9A48E27729A1686000511D99 /* MyFlightbookWidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9A48E26529A1685E00511D99 /* MyFlightbookWidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9A48E27D29A1693B00511D99 /* WidgetSoapCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A48E27C29A1693B00511D99 /* WidgetSoapCall.swift */; };
 		9A48E27E29A1694500511D99 /* WidgetSoapCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A48E27C29A1693B00511D99 /* WidgetSoapCall.swift */; };
-		9A48E29729A16F0400511D99 /* MFBWebServiceSvc.h in Sources */ = {isa = PBXBuildFile; fileRef = 9A0F0E7213E88781007E54C1 /* MFBWebServiceSvc.h */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A48E29829A16F0400511D99 /* MFBWebServiceSvc.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0F0E7313E88781007E54C1 /* MFBWebServiceSvc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A48E29929A16F0400511D99 /* NSDate+ISO8601Parsing.h in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202010CCBD8800DF1CA6 /* NSDate+ISO8601Parsing.h */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A48E29A29A16F0400511D99 /* NSDate+ISO8601Parsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202110CCBD8900DF1CA6 /* NSDate+ISO8601Parsing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A48E29B29A16F0400511D99 /* NSDate+ISO8601Unparsing.h in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202210CCBD8900DF1CA6 /* NSDate+ISO8601Unparsing.h */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A48E29C29A16F0400511D99 /* NSDate+ISO8601Unparsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202310CCBD8900DF1CA6 /* NSDate+ISO8601Unparsing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A48E29D29A16F0400511D99 /* USAdditions.h in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202410CCBD8900DF1CA6 /* USAdditions.h */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A48E29E29A16F0400511D99 /* USAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202510CCBD8A00DF1CA6 /* USAdditions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A48E29F29A16F0400511D99 /* USGlobals.h in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202610CCBD8A00DF1CA6 /* USGlobals.h */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A48E2A029A16F0400511D99 /* USGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202710CCBD8A00DF1CA6 /* USGlobals.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A48E2A129A16F0400511D99 /* xsd.h in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202810CCBD8A00DF1CA6 /* xsd.h */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		9A48E2A229A16F0400511D99 /* xsd.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202910CCBD8B00DF1CA6 /* xsd.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9A48E29729A16F0400511D99 /* MFBWebServiceSvc.h in Sources */ = {isa = PBXBuildFile; fileRef = 9A0F0E7213E88781007E54C1 /* MFBWebServiceSvc.h */; };
+		9A48E29829A16F0400511D99 /* MFBWebServiceSvc.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0F0E7313E88781007E54C1 /* MFBWebServiceSvc.m */; };
+		9A48E29929A16F0400511D99 /* NSDate+ISO8601Parsing.h in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202010CCBD8800DF1CA6 /* NSDate+ISO8601Parsing.h */; };
+		9A48E29A29A16F0400511D99 /* NSDate+ISO8601Parsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202110CCBD8900DF1CA6 /* NSDate+ISO8601Parsing.m */; };
+		9A48E29B29A16F0400511D99 /* NSDate+ISO8601Unparsing.h in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202210CCBD8900DF1CA6 /* NSDate+ISO8601Unparsing.h */; };
+		9A48E29C29A16F0400511D99 /* NSDate+ISO8601Unparsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202310CCBD8900DF1CA6 /* NSDate+ISO8601Unparsing.m */; };
+		9A48E29D29A16F0400511D99 /* USAdditions.h in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202410CCBD8900DF1CA6 /* USAdditions.h */; };
+		9A48E29E29A16F0400511D99 /* USAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202510CCBD8A00DF1CA6 /* USAdditions.m */; };
+		9A48E29F29A16F0400511D99 /* USGlobals.h in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202610CCBD8A00DF1CA6 /* USGlobals.h */; };
+		9A48E2A029A16F0400511D99 /* USGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202710CCBD8A00DF1CA6 /* USGlobals.m */; };
+		9A48E2A129A16F0400511D99 /* xsd.h in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202810CCBD8A00DF1CA6 /* xsd.h */; };
+		9A48E2A229A16F0400511D99 /* xsd.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202910CCBD8B00DF1CA6 /* xsd.m */; };
 		9A48E2A329A16F4700511D99 /* MFBSoapCallLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A48E28D29A16EE400511D99 /* MFBSoapCallLibrary.a */; };
 		9A4F3B5918177BA1009E575C /* Icon-iPad76x76.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4F3B5618177BA1009E575C /* Icon-iPad76x76.png */; };
 		9A4F3B5A18177BA1009E575C /* Icon-iPadRetina152x152.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4F3B5718177BA1009E575C /* Icon-iPadRetina152x152.png */; };
@@ -189,6 +182,14 @@
 		9A61876C1711DFC5007C7754 /* twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A61876A1711DFC4007C7754 /* twitter.png */; };
 		9A61876D1711DFC5007C7754 /* twitter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A61876B1711DFC4007C7754 /* twitter@2x.png */; };
 		9A6247A31AA509A3002A8E0B /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A6247A21AA509A3002A8E0B /* MediaPlayer.framework */; };
+		9A6414CB29ECAE8400AAE878 /* EXFUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3E1374127DE704008D672E /* EXFUtils.m */; };
+		9A6414CC29ECAE9300AAE878 /* EXFJFIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3E1370127DE704008D672E /* EXFJFIF.m */; };
+		9A6414CD29ECAE9300AAE878 /* EXFMetaData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3E1372127DE704008D672E /* EXFMetaData.m */; };
+		9A6414CE29ECAE9300AAE878 /* EXFTagDefinitionHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3E1373127DE704008D672E /* EXFTagDefinitionHolder.m */; };
+		9A6414CF29ECAE9300AAE878 /* EXFJpeg.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3E1371127DE704008D672E /* EXFJpeg.m */; };
+		9A6414D029ECAE9300AAE878 /* EXFGPS.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3E136E127DE704008D672E /* EXFGPS.m */; };
+		9A6414D129ECAE9300AAE878 /* EXFHandlers.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3E136F127DE704008D672E /* EXFHandlers.m */; };
+		9A6414D229ECAEBC00AAE878 /* ExifLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A6414C129ECAE6C00AAE878 /* ExifLibrary.a */; };
 		9A6590D429DA517900917FCD /* FlightProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6590D329DA517900917FCD /* FlightProperties.swift */; };
 		9A6BDE10157092D600F715E1 /* EditCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A6BDE0F157092D600F715E1 /* EditCell.xib */; };
 		9A6C3B4315728F27004EB8FA /* ExpandHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A6C3B4215728F27004EB8FA /* ExpandHeaderCell.xib */; };
@@ -484,6 +485,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9A6414BF29ECAE6C00AAE878 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9A73C85821AF51F500AE1221 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -692,6 +702,10 @@
 		9A61876A1711DFC4007C7754 /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter.png; sourceTree = "<group>"; };
 		9A61876B1711DFC4007C7754 /* twitter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter@2x.png"; sourceTree = "<group>"; };
 		9A6247A21AA509A3002A8E0B /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		9A6414C129ECAE6C00AAE878 /* ExifLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = ExifLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A6414D329ECAEF600AAE878 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk/System/Library/Frameworks/CoreFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		9A6414D529ECAF2000AAE878 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk/System/iOSSupport/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		9A6414D729ECAF2700AAE878 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk/System/Library/Frameworks/AppKit.framework; sourceTree = DEVELOPER_DIR; };
 		9A6590D329DA517900917FCD /* FlightProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightProperties.swift; sourceTree = "<group>"; };
 		9A69202010CCBD8800DF1CA6 /* NSDate+ISO8601Parsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+ISO8601Parsing.h"; sourceTree = "<group>"; };
 		9A69202110CCBD8900DF1CA6 /* NSDate+ISO8601Parsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+ISO8601Parsing.m"; sourceTree = "<group>"; };
@@ -977,6 +991,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A6414D229ECAEBC00AAE878 /* ExifLibrary.a in Frameworks */,
 				9A512EFF29EB14C000428C72 /* MFBSoapCallLibrary.a in Frameworks */,
 				9AA94A66220F63880056AED3 /* ExternalAccessory.framework in Frameworks */,
 				9A050D292138790100B3F794 /* Photos.framework in Frameworks */,
@@ -1017,6 +1032,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9A6414BE29ECAE6C00AAE878 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9ACDC8D51BDFEA1400B0A077 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1047,6 +1069,7 @@
 				9ACDC8D81BDFEA1400B0A077 /* MyFlightbookWatch Extension.appex */,
 				9A48E26529A1685E00511D99 /* MyFlightbookWidgetsExtension.appex */,
 				9A48E28D29A16EE400511D99 /* MFBSoapCallLibrary.a */,
+				9A6414C129ECAE6C00AAE878 /* ExifLibrary.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1054,6 +1077,7 @@
 		29B97314FDCFA39411CA2CEA /* MFBSample */ = {
 			isa = PBXGroup;
 			children = (
+				9A3E12F0127DD606008D672E /* Exif */,
 				9A69201D10CCBD8800DF1CA6 /* WebServiceCode */,
 				9A48E2A529A1797900511D99 /* MyFlightbookWidgetsExtension.entitlements */,
 				9A73C83F21AF51C200AE1221 /* MyFlightbook.entitlements */,
@@ -1104,6 +1128,9 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9A6414D729ECAF2700AAE878 /* AppKit.framework */,
+				9A6414D529ECAF2000AAE878 /* UIKit.framework */,
+				9A6414D329ECAEF600AAE878 /* CoreFoundation.framework */,
 				9A170C972437FCF600CDECCF /* CoreServices.framework */,
 				9AA94A65220F63880056AED3 /* ExternalAccessory.framework */,
 				9A050D282138790000B3F794 /* Photos.framework */,
@@ -1186,7 +1213,7 @@
 				9A3E1374127DE704008D672E /* EXFUtils.m */,
 			);
 			name = Exif;
-			path = ../..;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		9A48E26A29A1685F00511D99 /* MyFlightbookWidgets */ = {
@@ -1598,7 +1625,6 @@
 		9A9A56F729CE259600C5D006 /* Image Management */ = {
 			isa = PBXGroup;
 			children = (
-				9A3E12F0127DD606008D672E /* Exif */,
 				9A9A56F829CE25B300C5D006 /* CommentedImage.swift */,
 			);
 			path = "Image Management";
@@ -1823,6 +1849,23 @@
 			productReference = 9A48E28D29A16EE400511D99 /* MFBSoapCallLibrary.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		9A6414C029ECAE6C00AAE878 /* ExifLibrary */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9A6414C729ECAE6C00AAE878 /* Build configuration list for PBXNativeTarget "ExifLibrary" */;
+			buildPhases = (
+				9A6414BD29ECAE6C00AAE878 /* Sources */,
+				9A6414BE29ECAE6C00AAE878 /* Frameworks */,
+				9A6414BF29ECAE6C00AAE878 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ExifLibrary;
+			productName = ExifLibrary;
+			productReference = 9A6414C129ECAE6C00AAE878 /* ExifLibrary.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		9ACDC8CB1BDFEA1300B0A077 /* MyFlightbookWatch */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9ACDC8F51BDFEA1400B0A077 /* Build configuration list for PBXNativeTarget "MyFlightbookWatch" */;
@@ -1890,6 +1933,9 @@
 						DevelopmentTeam = 99X7N8Z9WP;
 						ProvisioningStyle = Automatic;
 					};
+					9A6414C029ECAE6C00AAE878 = {
+						CreatedOnToolsVersion = 14.3;
+					};
 					9ACDC8CB1BDFEA1300B0A077 = {
 						CreatedOnToolsVersion = 7.1;
 						DevelopmentTeam = 99X7N8Z9WP;
@@ -1932,6 +1978,7 @@
 				9ACDC8D71BDFEA1400B0A077 /* MyFlightbookWatch Extension */,
 				9A48E26429A1685E00511D99 /* MyFlightbookWidgetsExtension */,
 				9A48E28C29A16EE400511D99 /* MFBSoapCallLibrary */,
+				9A6414C029ECAE6C00AAE878 /* ExifLibrary */,
 			);
 		};
 /* End PBXProject section */
@@ -2302,11 +2349,8 @@
 				9AE39A4129AAA40D002A6496 /* MultiValOptionSelector.swift in Sources */,
 				9A0DB05C29DF3737005CEC20 /* LEEditController.swift in Sources */,
 				9AE39A4329AAA456002A6496 /* OptionSelection.swift in Sources */,
-				9A3E1375127DE704008D672E /* EXFGPS.m in Sources */,
-				9A3E1376127DE704008D672E /* EXFHandlers.m in Sources */,
 				9AA9791F29E328CC00D56DC4 /* RecentFlights.swift in Sources */,
 				9A264A0429D33CC400C0D176 /* MakeModel.swift in Sources */,
-				9A3E1377127DE704008D672E /* EXFJFIF.m in Sources */,
 				9A2649F429D0FC3900C0D176 /* AccessoryBar.swift in Sources */,
 				9A0EA69729C947C00031A10D /* MFBAppDelegate.swift in Sources */,
 				9A89C1AF29B8F45300848A6B /* About.swift in Sources */,
@@ -2314,15 +2358,11 @@
 				9AE39A3F29AAA2D0002A6496 /* AutodetectOptions.swift in Sources */,
 				9A70E34529D4F5AE0068B0E6 /* ConjunctionCell.swift in Sources */,
 				9A0DB05629DCC526005CEC20 /* NewAircraftViewController.swift in Sources */,
-				9A3E1378127DE704008D672E /* EXFJpeg.m in Sources */,
 				9A06E7AA29D0C41A0093A384 /* PackAndGo.swift in Sources */,
 				9AE39A4A29ABD008002A6496 /* LatLongBox.swift in Sources */,
 				9AC88C0B29BFAD6800841C0A /* MFBAsyncOperation.swift in Sources */,
-				9A3E1379127DE704008D672E /* EXFMetaData.m in Sources */,
 				9AC6F0CE29D9D305007D0044 /* TotalsCalculator.swift in Sources */,
-				9A3E137A127DE704008D672E /* EXFTagDefinitionHolder.m in Sources */,
 				9A2649FE29D2105300C0D176 /* ExpandHeaderCell.swift in Sources */,
-				9A3E137B127DE704008D672E /* EXFUtils.m in Sources */,
 				9A84363429BA926D0001012D /* MFBSqlLite.swift in Sources */,
 				9A357D2829E3A947009B8344 /* NewUserTableController.swift in Sources */,
 				9A14334C29A6B37E007129A9 /* TotalsRow.swift in Sources */,
@@ -2389,6 +2429,20 @@
 				9A48E2A029A16F0400511D99 /* USGlobals.m in Sources */,
 				9A48E2A129A16F0400511D99 /* xsd.h in Sources */,
 				9A48E2A229A16F0400511D99 /* xsd.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9A6414BD29ECAE6C00AAE878 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A6414D029ECAE9300AAE878 /* EXFGPS.m in Sources */,
+				9A6414CD29ECAE9300AAE878 /* EXFMetaData.m in Sources */,
+				9A6414CF29ECAE9300AAE878 /* EXFJpeg.m in Sources */,
+				9A6414D129ECAE9300AAE878 /* EXFHandlers.m in Sources */,
+				9A6414CC29ECAE9300AAE878 /* EXFJFIF.m in Sources */,
+				9A6414CE29ECAE9300AAE878 /* EXFTagDefinitionHolder.m in Sources */,
+				9A6414CB29ECAE8400AAE878 /* EXFUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3211,7 +3265,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2023.04.11.1;
+				CURRENT_PROJECT_VERSION = 2023.05.13.1;
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -3229,7 +3283,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Classes\"",
 				);
-				MARKETING_VERSION = 2023.04.11;
+				MARKETING_VERSION = 2023.05.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone;
 				PRODUCT_NAME = MyFlightbook;
 				PROVISIONING_PROFILE = "";
@@ -3256,7 +3310,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 2023.04.11.1;
+				CURRENT_PROJECT_VERSION = 2023.05.13.1;
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				EXCLUDED_SOURCE_FILE_NAMES = (
 					tracklog.gpx,
@@ -3276,7 +3330,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Classes\"",
 				);
-				MARKETING_VERSION = 2023.04.11;
+				MARKETING_VERSION = 2023.05.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone;
 				PRODUCT_NAME = MyFlightbook;
 				PROVISIONING_PROFILE = "";
@@ -3309,7 +3363,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2023.04.11.1;
+				CURRENT_PROJECT_VERSION = 2023.05.13.1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -3331,7 +3385,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2023.04.11;
+				MARKETING_VERSION = 2023.05.13;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.MyFlightbookWidgets;
@@ -3367,7 +3421,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2023.04.11.1;
+				CURRENT_PROJECT_VERSION = 2023.05.13.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3384,7 +3438,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2023.04.11;
+				MARKETING_VERSION = 2023.05.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.MyFlightbookWidgets;
@@ -3419,7 +3473,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2023.04.11.1;
+				CURRENT_PROJECT_VERSION = 2023.05.13.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3436,7 +3490,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2023.04.11;
+				MARKETING_VERSION = 2023.05.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.MyFlightbookWidgets;
@@ -3553,6 +3607,109 @@
 			};
 			name = Distribution;
 		};
+		9A6414C829ECAE6C00AAE878 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 99X7N8Z9WP;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9A6414C929ECAE6C00AAE878 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 99X7N8Z9WP;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9A6414CA29ECAE6C00AAE878 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 99X7N8Z9WP;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Distribution;
+		};
 		9A67391110FBC6D00008CF82 /* Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3615,7 +3772,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 2023.04.11.1;
+				CURRENT_PROJECT_VERSION = 2023.05.13.1;
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				EXCLUDED_SOURCE_FILE_NAMES = (
 					tracklog.gpx,
@@ -3635,7 +3792,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Classes\"",
 				);
-				MARKETING_VERSION = 2023.04.11;
+				MARKETING_VERSION = 2023.05.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone;
 				PRODUCT_NAME = MyFlightbook;
 				PROVISIONING_PROFILE = "";
@@ -3672,7 +3829,7 @@
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2023.04.11.1;
+				CURRENT_PROJECT_VERSION = 2023.05.13.1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -3691,7 +3848,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				IBSC_MODULE = MyFlightbookWatch_Extension;
 				INFOPLIST_FILE = MyFlightbookWatch/Info.plist;
-				MARKETING_VERSION = 2023.04.11;
+				MARKETING_VERSION = 2023.05.13;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3733,7 +3890,7 @@
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2023.04.11.1;
+				CURRENT_PROJECT_VERSION = 2023.05.13.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3747,7 +3904,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				IBSC_MODULE = MyFlightbookWatch_Extension;
 				INFOPLIST_FILE = MyFlightbookWatch/Info.plist;
-				MARKETING_VERSION = 2023.04.11;
+				MARKETING_VERSION = 2023.05.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3789,7 +3946,7 @@
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2023.04.11.1;
+				CURRENT_PROJECT_VERSION = 2023.05.13.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3803,7 +3960,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				IBSC_MODULE = MyFlightbookWatch_Extension;
 				INFOPLIST_FILE = MyFlightbookWatch/Info.plist;
-				MARKETING_VERSION = 2023.04.11;
+				MARKETING_VERSION = 2023.05.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3842,7 +3999,7 @@
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2023.04.11.1;
+				CURRENT_PROJECT_VERSION = 2023.05.13.1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -3865,7 +4022,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2023.04.11;
+				MARKETING_VERSION = 2023.05.13;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_CFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp.watchkitextension;
@@ -3905,7 +4062,7 @@
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2023.04.11.1;
+				CURRENT_PROJECT_VERSION = 2023.05.13.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3923,7 +4080,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2023.04.11;
+				MARKETING_VERSION = 2023.05.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_CFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp.watchkitextension;
@@ -3962,7 +4119,7 @@
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2023.04.11.1;
+				CURRENT_PROJECT_VERSION = 2023.05.13.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3980,7 +4137,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2023.04.11;
+				MARKETING_VERSION = 2023.05.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_CFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp.watchkitextension;
@@ -4130,6 +4287,16 @@
 				9A48E29429A16EE400511D99 /* Debug */,
 				9A48E29529A16EE400511D99 /* Release */,
 				9A48E29629A16EE400511D99 /* Distribution */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		9A6414C729ECAE6C00AAE878 /* Build configuration list for PBXNativeTarget "ExifLibrary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9A6414C829ECAE6C00AAE878 /* Debug */,
+				9A6414C929ECAE6C00AAE878 /* Release */,
+				9A6414CA29ECAE6C00AAE878 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

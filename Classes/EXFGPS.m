@@ -33,13 +33,6 @@
                                 return ((double)degrees.numerator/degrees.denominator) +(((double)minutes.numerator/ minutes.denominator)/60) + (((double)seconds.numerator /seconds.denominator)/3600) ;
 }
 
--(void) dealloc{
-    self.degrees =nil;
-    self.minutes=nil;
-    self.seconds =nil;
-    
-    [super dealloc];
-}
 
 
 // EXIF helper utilities, from http://iphone-land.blogspot.com
@@ -102,11 +95,4 @@
     return [NSString stringWithFormat:@"%@:%@:%@",hoursStr,minutesStr,secondsStr];
 }
 
--(void) dealloc{
-    self.hours =nil;
-    self.minutes=nil;
-    self.seconds =nil;
-    
-    [super dealloc];
-}
 @end

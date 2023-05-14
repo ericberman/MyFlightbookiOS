@@ -28,7 +28,7 @@ import MapKit
 
 @objc public class RouteAnnotation : NSObject, MKAnnotation {
     @objc public var center = CLLocationCoordinate2D()
-    @objc public var lineColor = UIColor.systemBlue
+    @objc public var lineColor = UIColor.systemBlue.withAlphaComponent(0.65)
     
     // MARK: MKAnnotation support
     @objc public var coordinate : CLLocationCoordinate2D {
@@ -83,7 +83,7 @@ import MapKit
     }
          
     @objc public override class func colorForPolyline() -> UIColor {
-        return UserPreferences.current.routeColor
+        return UserPreferences.current.routeColor.withAlphaComponent(0.65)
     }
 }
 
@@ -101,6 +101,6 @@ import MapKit
     }
         
     @objc public override class func colorForPolyline() -> UIColor {
-        return UserPreferences.current.pathColor
+        return UserPreferences.current.pathColor.withAlphaComponent(0.65)
     }
 }

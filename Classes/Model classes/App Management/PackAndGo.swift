@@ -78,7 +78,6 @@ import Foundation
                                                                MFBWebServiceSvc_ArrayOfVideoRef.self,
                                                                MFBWebServiceSvc_ArrayOfString.self,
                                                                MFBWebServiceSvc_ArrayOfInt.self,
-                                                               MFBWebServiceSvc_ArrayOfAirport.self,
                                                                MFBWebServiceSvc_ArrayOfMakeModel.self,
                                                                MFBWebServiceSvc_ArrayOfLatLong.self,
                                                                MFBWebServiceSvc_ArrayOfLogbookEntry.self,

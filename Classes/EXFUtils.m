@@ -165,7 +165,7 @@
 
 +(NSString*)createStringFromBuffer:(UInt8**) ptr : (UInt32) byteCount : (NSStringEncoding) encoding{
    
-    NSString* result =   [[[NSString alloc] initWithBytes:*ptr length:byteCount encoding:encoding] autorelease];
+    NSString* result =   [[NSString alloc] initWithBytes:*ptr length:byteCount encoding:encoding];
     // Debug(@"Created string %@", result);
     return result;                          
 }

@@ -19,13 +19,6 @@
 	
 	return self;
 }
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthUserToken != nil) [szAuthUserToken release];
-	
-	[super dealloc];
-}
 - (NSString *)nsPrefix
 {
 	return @"MFBWebServiceSvc";
@@ -56,7 +49,7 @@
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthUserToken) != 0) {
+	if(((__bridge void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -71,7 +64,7 @@
 }
 + (MFBWebServiceSvc_AircraftForUser *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_AircraftForUser *newObject = [[MFBWebServiceSvc_AircraftForUser new] autorelease];
+	MFBWebServiceSvc_AircraftForUser *newObject = [MFBWebServiceSvc_AircraftForUser new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -131,46 +124,42 @@
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -283,14 +272,6 @@ NSString * MFBWebServiceSvc_ImageFileType_stringFromEnum(MFBWebServiceSvc_ImageF
 	
 	return self;
 }
-- (void)dealloc
-{
-	[soapSigner release];
-	if(Latitude != nil) [Latitude release];
-	if(Longitude != nil) [Longitude release];
-	
-	[super dealloc];
-}
 - (NSString *)nsPrefix
 {
 	return @"MFBWebServiceSvc";
@@ -321,10 +302,10 @@ NSString * MFBWebServiceSvc_ImageFileType_stringFromEnum(MFBWebServiceSvc_ImageF
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.Latitude) != 0) {
+	if(((__bridge void *)self.Latitude) != 0) {
 		xmlAddChild(node, [self.Latitude xmlNodeForDoc:node->doc elementName:@"Latitude" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Longitude) != 0) {
+	if(((__bridge void *)self.Longitude) != 0) {
 		xmlAddChild(node, [self.Longitude xmlNodeForDoc:node->doc elementName:@"Longitude" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -340,7 +321,7 @@ NSString * MFBWebServiceSvc_ImageFileType_stringFromEnum(MFBWebServiceSvc_ImageF
 }
 + (MFBWebServiceSvc_LatLong *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_LatLong *newObject = [[MFBWebServiceSvc_LatLong new] autorelease];
+	MFBWebServiceSvc_LatLong *newObject = [MFBWebServiceSvc_LatLong new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -433,46 +414,42 @@ NSString * MFBWebServiceSvc_ImageFileType_stringFromEnum(MFBWebServiceSvc_ImageF
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -497,22 +474,6 @@ NSString * MFBWebServiceSvc_ImageFileType_stringFromEnum(MFBWebServiceSvc_ImageF
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(Width != nil) [Width release];
-	if(Height != nil) [Height release];
-	if(WidthThumbnail != nil) [WidthThumbnail release];
-	if(HeightThumbnail != nil) [HeightThumbnail release];
-	if(Comment != nil) [Comment release];
-	if(VirtualPath != nil) [VirtualPath release];
-	if(ThumbnailFile != nil) [ThumbnailFile release];
-	if(Location != nil) [Location release];
-	if(URLFullImage != nil) [URLFullImage release];
-	if(URLThumbnail != nil) [URLThumbnail release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -544,37 +505,37 @@ NSString * MFBWebServiceSvc_ImageFileType_stringFromEnum(MFBWebServiceSvc_ImageF
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.Width) != 0) {
+	if(((__bridge void *)self.Width) != 0) {
 		xmlAddChild(node, [self.Width xmlNodeForDoc:node->doc elementName:@"Width" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Height) != 0) {
+	if(((__bridge void *)self.Height) != 0) {
 		xmlAddChild(node, [self.Height xmlNodeForDoc:node->doc elementName:@"Height" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.WidthThumbnail) != 0) {
+	if(((__bridge void *)self.WidthThumbnail) != 0) {
 		xmlAddChild(node, [self.WidthThumbnail xmlNodeForDoc:node->doc elementName:@"WidthThumbnail" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.HeightThumbnail) != 0) {
+	if(((__bridge void *)self.HeightThumbnail) != 0) {
 		xmlAddChild(node, [self.HeightThumbnail xmlNodeForDoc:node->doc elementName:@"HeightThumbnail" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 	if(((void *)self.ImageType) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:ImageType", [MFBWebServiceSvc_ImageFileType_stringFromEnum(self.ImageType) xmlString]);
 	}
-	if(((void *)self.Comment) != 0) {
+	if(((__bridge void *)self.Comment) != 0) {
 		xmlAddChild(node, [self.Comment xmlNodeForDoc:node->doc elementName:@"Comment" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.VirtualPath) != 0) {
+	if(((__bridge void *)self.VirtualPath) != 0) {
 		xmlAddChild(node, [self.VirtualPath xmlNodeForDoc:node->doc elementName:@"VirtualPath" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.ThumbnailFile) != 0) {
+	if(((__bridge void *)self.ThumbnailFile) != 0) {
 		xmlAddChild(node, [self.ThumbnailFile xmlNodeForDoc:node->doc elementName:@"ThumbnailFile" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Location) != 0) {
+	if(((__bridge void *)self.Location) != 0) {
 		xmlAddChild(node, [self.Location xmlNodeForDoc:node->doc elementName:@"Location" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.URLFullImage) != 0) {
+	if(((__bridge void *)self.URLFullImage) != 0) {
 		xmlAddChild(node, [self.URLFullImage xmlNodeForDoc:node->doc elementName:@"URLFullImage" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.URLThumbnail) != 0) {
+	if(((__bridge void *)self.URLThumbnail) != 0) {
 		xmlAddChild(node, [self.URLThumbnail xmlNodeForDoc:node->doc elementName:@"URLThumbnail" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -599,7 +560,7 @@ NSString * MFBWebServiceSvc_ImageFileType_stringFromEnum(MFBWebServiceSvc_ImageF
 }
 + (MFBWebServiceSvc_MFBImageInfoBase *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_MFBImageInfoBase *newObject = [[MFBWebServiceSvc_MFBImageInfoBase new] autorelease];
+	MFBWebServiceSvc_MFBImageInfoBase *newObject = [MFBWebServiceSvc_MFBImageInfoBase new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -961,46 +922,42 @@ NSString * MFBWebServiceSvc_ImageFileType_stringFromEnum(MFBWebServiceSvc_ImageF
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -1013,11 +970,6 @@ NSString * MFBWebServiceSvc_ImageFileType_stringFromEnum(MFBWebServiceSvc_ImageF
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -1041,7 +993,7 @@ NSString * MFBWebServiceSvc_ImageFileType_stringFromEnum(MFBWebServiceSvc_ImageF
 	// BUGBUG: ASP.NET compatibility: need to add xmlns attribute or else parameters don't make it.  Is there a good
 	// place to do this so that we don't have to redo this whenever we autogenerate new code?
 	xmlNsPtr xmlns = xmlSearchNs(doc, root, (const xmlChar*)"xmlns");
-	xmlSetNsProp(node, xmlns, (const xmlChar*)"xmlns", (const xmlChar*)"http://myflightbook.com/");	
+	xmlSetNsProp(node, xmlns, (const xmlChar*)"xmlns", (const xmlChar*)"http://myflightbook.com/");
 	
 	
 	[self addAttributesToNode:node];
@@ -1070,7 +1022,7 @@ NSString * MFBWebServiceSvc_ImageFileType_stringFromEnum(MFBWebServiceSvc_ImageF
 }
 + (MFBWebServiceSvc_MFBImageInfo *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_MFBImageInfo *newObject = [[MFBWebServiceSvc_MFBImageInfo new] autorelease];
+	MFBWebServiceSvc_MFBImageInfo *newObject = [MFBWebServiceSvc_MFBImageInfo new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -1099,46 +1051,42 @@ NSString * MFBWebServiceSvc_ImageFileType_stringFromEnum(MFBWebServiceSvc_ImageF
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -1153,13 +1101,6 @@ NSString * MFBWebServiceSvc_ImageFileType_stringFromEnum(MFBWebServiceSvc_ImageF
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(MFBImageInfo != nil) [MFBImageInfo release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -1191,7 +1132,7 @@ NSString * MFBWebServiceSvc_ImageFileType_stringFromEnum(MFBWebServiceSvc_ImageF
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.MFBImageInfo) != 0) {
+	if(((__bridge void *)self.MFBImageInfo) != 0) {
 		for(MFBWebServiceSvc_MFBImageInfo * child in self.MFBImageInfo) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"MFBImageInfo" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -1212,7 +1153,7 @@ NSString * MFBWebServiceSvc_ImageFileType_stringFromEnum(MFBWebServiceSvc_ImageF
 }
 + (MFBWebServiceSvc_ArrayOfMFBImageInfo *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_ArrayOfMFBImageInfo *newObject = [[MFBWebServiceSvc_ArrayOfMFBImageInfo new] autorelease];
+	MFBWebServiceSvc_ArrayOfMFBImageInfo *newObject = [MFBWebServiceSvc_ArrayOfMFBImageInfo new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -1272,46 +1213,42 @@ NSString * MFBWebServiceSvc_ImageFileType_stringFromEnum(MFBWebServiceSvc_ImageF
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -1363,13 +1300,6 @@ NSString * MFBWebServiceSvc_PilotRole_stringFromEnum(MFBWebServiceSvc_PilotRole 
 	
 	return self;
 }
-- (void)dealloc
-{
-	[soapSigner release];
-	if(int_ != nil) [int_ release];
-	
-	[super dealloc];
-}
 - (NSString *)nsPrefix
 {
 	return @"MFBWebServiceSvc";
@@ -1400,7 +1330,7 @@ NSString * MFBWebServiceSvc_PilotRole_stringFromEnum(MFBWebServiceSvc_PilotRole 
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.int_) != 0) {
+	if(((__bridge void *)self.int_) != 0) {
 		for(NSNumber * child in self.int_) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"int" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -1421,7 +1351,7 @@ NSString * MFBWebServiceSvc_PilotRole_stringFromEnum(MFBWebServiceSvc_PilotRole 
 }
 + (MFBWebServiceSvc_ArrayOfInt *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_ArrayOfInt *newObject = [[MFBWebServiceSvc_ArrayOfInt new] autorelease];
+	MFBWebServiceSvc_ArrayOfInt *newObject = [MFBWebServiceSvc_ArrayOfInt new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -1481,46 +1411,42 @@ NSString * MFBWebServiceSvc_PilotRole_stringFromEnum(MFBWebServiceSvc_PilotRole 
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -1561,7 +1487,6 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (id)init
 {
 	if((self = [super init])) {
-		HideFromSelection = 0;
 		InstanceTypeID = 0;
 		InstanceType = 0;
 		InstanceTypeDescription = 0;
@@ -1582,6 +1507,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 		ModelID = 0;
 		ModelDescription = 0;
 		ErrorString = 0;
+		HideFromSelection = 0;
 		Version = 0;
 		DefaultImage = 0;
 		RoleForPilot = 0;
@@ -1598,43 +1524,6 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(HideFromSelection != nil) [HideFromSelection release];
-	if(InstanceTypeID != nil) [InstanceTypeID release];
-	if(InstanceTypeDescription != nil) [InstanceTypeDescription release];
-	if(LastVOR != nil) [LastVOR release];
-	if(LastAltimeter != nil) [LastAltimeter release];
-	if(LastTransponder != nil) [LastTransponder release];
-	if(LastELT != nil) [LastELT release];
-	if(LastStatic != nil) [LastStatic release];
-	if(Last100 != nil) [Last100 release];
-	if(LastOilChange != nil) [LastOilChange release];
-	if(LastNewEngine != nil) [LastNewEngine release];
-	if(LastAnnual != nil) [LastAnnual release];
-	if(IsGlass != nil) [IsGlass release];
-	if(AircraftImages != nil) [AircraftImages release];
-	if(AircraftID != nil) [AircraftID release];
-	if(ModelCommonName != nil) [ModelCommonName release];
-	if(TailNumber != nil) [TailNumber release];
-	if(ModelID != nil) [ModelID release];
-	if(ModelDescription != nil) [ModelDescription release];
-	if(ErrorString != nil) [ErrorString release];
-	if(Version != nil) [Version release];
-	if(DefaultImage != nil) [DefaultImage release];
-	if(CopyPICNameWithCrossfill != nil) [CopyPICNameWithCrossfill release];
-	if(RegistrationDue != nil) [RegistrationDue release];
-	if(PublicNotes != nil) [PublicNotes release];
-	if(PrivateNotes != nil) [PrivateNotes release];
-	if(DefaultTemplates != nil) [DefaultTemplates release];
-	if(ICAO != nil) [ICAO release];
-	if(GlassUpgradeDate != nil) [GlassUpgradeDate release];
-	if(MaintenanceNote != nil) [MaintenanceNote release];
-	if(Revision != nil) [Revision release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -1666,111 +1555,110 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.HideFromSelection) != 0) {
-		xmlAddChild(node, [self.HideFromSelection xmlNodeForDoc:node->doc elementName:@"HideFromSelection" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-	if(((void *)self.InstanceTypeID) != 0) {
+	if(((__bridge void *)self.InstanceTypeID) != 0) {
 		xmlAddChild(node, [self.InstanceTypeID xmlNodeForDoc:node->doc elementName:@"InstanceTypeID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 	if(((void *)self.InstanceType) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:InstanceType", [MFBWebServiceSvc_AircraftInstanceTypes_stringFromEnum(self.InstanceType) xmlString]);
 	}
-	if(((void *)self.InstanceTypeDescription) != 0) {
+	if(((__bridge void *)self.InstanceTypeDescription) != 0) {
 		xmlAddChild(node, [self.InstanceTypeDescription xmlNodeForDoc:node->doc elementName:@"InstanceTypeDescription" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.LastVOR) != 0) {
+	if(((__bridge void *)self.LastVOR) != 0) {
 		xmlAddChild(node, [self.LastVOR xmlNodeForDoc:node->doc elementName:@"LastVOR" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.LastAltimeter) != 0) {
+	if(((__bridge void *)self.LastAltimeter) != 0) {
 		xmlAddChild(node, [self.LastAltimeter xmlNodeForDoc:node->doc elementName:@"LastAltimeter" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.LastTransponder) != 0) {
+	if(((__bridge void *)self.LastTransponder) != 0) {
 		xmlAddChild(node, [self.LastTransponder xmlNodeForDoc:node->doc elementName:@"LastTransponder" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.LastELT) != 0) {
+	if(((__bridge void *)self.LastELT) != 0) {
 		xmlAddChild(node, [self.LastELT xmlNodeForDoc:node->doc elementName:@"LastELT" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.LastStatic) != 0) {
+	if(((__bridge void *)self.LastStatic) != 0) {
 		xmlAddChild(node, [self.LastStatic xmlNodeForDoc:node->doc elementName:@"LastStatic" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Last100) != 0) {
+	if(((__bridge void *)self.Last100) != 0) {
 		xmlAddChild(node, [self.Last100 xmlNodeForDoc:node->doc elementName:@"Last100" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.LastOilChange) != 0) {
+	if(((__bridge void *)self.LastOilChange) != 0) {
 		xmlAddChild(node, [self.LastOilChange xmlNodeForDoc:node->doc elementName:@"LastOilChange" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.LastNewEngine) != 0) {
+	if(((__bridge void *)self.LastNewEngine) != 0) {
 		xmlAddChild(node, [self.LastNewEngine xmlNodeForDoc:node->doc elementName:@"LastNewEngine" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.LastAnnual) != 0) {
+	if(((__bridge void *)self.LastAnnual) != 0) {
 		xmlAddChild(node, [self.LastAnnual xmlNodeForDoc:node->doc elementName:@"LastAnnual" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.IsGlass) != 0) {
+	if(((__bridge void *)self.IsGlass) != 0) {
 		xmlAddChild(node, [self.IsGlass xmlNodeForDoc:node->doc elementName:@"IsGlass" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.AircraftImages) != 0) {
+	if(((__bridge void *)self.AircraftImages) != 0) {
 		xmlAddChild(node, [self.AircraftImages xmlNodeForDoc:node->doc elementName:@"AircraftImages" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.AircraftID) != 0) {
+	if(((__bridge void *)self.AircraftID) != 0) {
 		xmlAddChild(node, [self.AircraftID xmlNodeForDoc:node->doc elementName:@"AircraftID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.ModelCommonName) != 0) {
+	if(((__bridge void *)self.ModelCommonName) != 0) {
 		xmlAddChild(node, [self.ModelCommonName xmlNodeForDoc:node->doc elementName:@"ModelCommonName" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.TailNumber) != 0) {
+	if(((__bridge void *)self.TailNumber) != 0) {
 		xmlAddChild(node, [self.TailNumber xmlNodeForDoc:node->doc elementName:@"TailNumber" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.ModelID) != 0) {
+	if(((__bridge void *)self.ModelID) != 0) {
 		xmlAddChild(node, [self.ModelID xmlNodeForDoc:node->doc elementName:@"ModelID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.ModelDescription) != 0) {
+	if(((__bridge void *)self.ModelDescription) != 0) {
 		xmlAddChild(node, [self.ModelDescription xmlNodeForDoc:node->doc elementName:@"ModelDescription" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.ErrorString) != 0) {
+	if(((__bridge void *)self.ErrorString) != 0) {
 		xmlAddChild(node, [self.ErrorString xmlNodeForDoc:node->doc elementName:@"ErrorString" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Version) != 0) {
+	if(((__bridge void *)self.HideFromSelection) != 0) {
+		xmlAddChild(node, [self.HideFromSelection xmlNodeForDoc:node->doc elementName:@"HideFromSelection" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
+	if(((__bridge void *)self.Version) != 0) {
 		xmlAddChild(node, [self.Version xmlNodeForDoc:node->doc elementName:@"Version" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.DefaultImage) != 0) {
+	if(((__bridge void *)self.DefaultImage) != 0) {
 		xmlAddChild(node, [self.DefaultImage xmlNodeForDoc:node->doc elementName:@"DefaultImage" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 	if(((void *)self.RoleForPilot) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:RoleForPilot", [MFBWebServiceSvc_PilotRole_stringFromEnum(self.RoleForPilot) xmlString]);
 	}
-	if(((void *)self.CopyPICNameWithCrossfill) != 0) {
+	if(((__bridge void *)self.CopyPICNameWithCrossfill) != 0) {
 		xmlAddChild(node, [self.CopyPICNameWithCrossfill xmlNodeForDoc:node->doc elementName:@"CopyPICNameWithCrossfill" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.RegistrationDue) != 0) {
+	if(((__bridge void *)self.RegistrationDue) != 0) {
 		xmlAddChild(node, [self.RegistrationDue xmlNodeForDoc:node->doc elementName:@"RegistrationDue" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.PublicNotes) != 0) {
+	if(((__bridge void *)self.PublicNotes) != 0) {
 		xmlAddChild(node, [self.PublicNotes xmlNodeForDoc:node->doc elementName:@"PublicNotes" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.PrivateNotes) != 0) {
+	if(((__bridge void *)self.PrivateNotes) != 0) {
 		xmlAddChild(node, [self.PrivateNotes xmlNodeForDoc:node->doc elementName:@"PrivateNotes" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.DefaultTemplates) != 0) {
+	if(((__bridge void *)self.DefaultTemplates) != 0) {
 		xmlAddChild(node, [self.DefaultTemplates xmlNodeForDoc:node->doc elementName:@"DefaultTemplates" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.ICAO) != 0) {
+	if(((__bridge void *)self.ICAO) != 0) {
 		xmlAddChild(node, [self.ICAO xmlNodeForDoc:node->doc elementName:@"ICAO" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.GlassUpgradeDate) != 0) {
+	if(((__bridge void *)self.GlassUpgradeDate) != 0) {
 		xmlAddChild(node, [self.GlassUpgradeDate xmlNodeForDoc:node->doc elementName:@"GlassUpgradeDate" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 	if(((void *)self.AvionicsTechnologyUpgrade) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:AvionicsTechnologyUpgrade", [MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(self.AvionicsTechnologyUpgrade) xmlString]);
 	}
-	if(((void *)self.MaintenanceNote) != 0) {
+	if(((__bridge void *)self.MaintenanceNote) != 0) {
 		xmlAddChild(node, [self.MaintenanceNote xmlNodeForDoc:node->doc elementName:@"MaintenanceNote" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Revision) != 0) {
+	if(((__bridge void *)self.Revision) != 0) {
 		xmlAddChild(node, [self.Revision xmlNodeForDoc:node->doc elementName:@"Revision" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
 /* elements */
-@synthesize HideFromSelection;
 @synthesize InstanceTypeID;
 @synthesize InstanceType;
 @synthesize InstanceTypeDescription;
@@ -1791,6 +1679,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 @synthesize ModelID;
 @synthesize ModelDescription;
 @synthesize ErrorString;
+@synthesize HideFromSelection;
 @synthesize Version;
 @synthesize DefaultImage;
 @synthesize RoleForPilot;
@@ -1813,7 +1702,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSvc_Aircraft *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_Aircraft *newObject = [[MFBWebServiceSvc_Aircraft new] autorelease];
+	MFBWebServiceSvc_Aircraft *newObject = [MFBWebServiceSvc_Aircraft new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -1836,39 +1725,6 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 				elementString = [NSString stringWithCString:(char*)elementText encoding:NSUTF8StringEncoding];
 				[elementString self]; // avoid compiler warning for unused var
 				xmlFree(elementText);
-			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "HideFromSelection")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [USBoolean class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				self.HideFromSelection = newChild;
 			}
 			if(xmlStrEqual(cur->name, (const xmlChar *) "InstanceTypeID")) {
 				
@@ -2502,6 +2358,39 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 				
 				self.ErrorString = newChild;
 			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "HideFromSelection")) {
+				
+				Class elementClass = nil;
+				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if(instanceType == NULL) {
+					elementClass = [USBoolean class];
+				} else {
+					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
+					
+					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
+					
+					NSString *elementClassString = nil;
+					if([elementTypeArray count] > 1) {
+						NSString *prefix = [elementTypeArray objectAtIndex:0];
+						NSString *localName = [elementTypeArray objectAtIndex:1];
+						
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
+						
+						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
+						
+						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
+					} else {
+						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
+					}
+					
+					elementClass = NSClassFromString(elementClassString);
+					xmlFree(instanceType);
+				}
+				
+				id newChild = [elementClass deserializeNode:cur];
+				
+				self.HideFromSelection = newChild;
+			}
 			if(xmlStrEqual(cur->name, (const xmlChar *) "Version")) {
 				
 				Class elementClass = nil;
@@ -2878,46 +2767,42 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -2932,13 +2817,6 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(Aircraft != nil) [Aircraft release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -2970,7 +2848,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.Aircraft) != 0) {
+	if(((__bridge void *)self.Aircraft) != 0) {
 		for(MFBWebServiceSvc_Aircraft * child in self.Aircraft) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"Aircraft" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -2991,7 +2869,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSvc_ArrayOfAircraft *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_ArrayOfAircraft *newObject = [[MFBWebServiceSvc_ArrayOfAircraft new] autorelease];
+	MFBWebServiceSvc_ArrayOfAircraft *newObject = [MFBWebServiceSvc_ArrayOfAircraft new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -3051,46 +2929,42 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -3105,13 +2979,6 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(AircraftForUserResult != nil) [AircraftForUserResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -3143,7 +3010,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.AircraftForUserResult) != 0) {
+	if(((__bridge void *)self.AircraftForUserResult) != 0) {
 		xmlAddChild(node, [self.AircraftForUserResult xmlNodeForDoc:node->doc elementName:@"AircraftForUserResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -3158,7 +3025,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSvc_AircraftForUserResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_AircraftForUserResponse *newObject = [[MFBWebServiceSvc_AircraftForUserResponse new] autorelease];
+	MFBWebServiceSvc_AircraftForUserResponse *newObject = [MFBWebServiceSvc_AircraftForUserResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -3218,46 +3085,42 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -3275,16 +3138,6 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthUserToken != nil) [szAuthUserToken release];
-	if(szTail != nil) [szTail release];
-	if(idModel != nil) [idModel release];
-	if(idInstanceType != nil) [idInstanceType release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -3316,16 +3169,16 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthUserToken) != 0) {
+	if(((__bridge void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.szTail) != 0) {
+	if(((__bridge void *)self.szTail) != 0) {
 		xmlAddChild(node, [self.szTail xmlNodeForDoc:node->doc elementName:@"szTail" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.idModel) != 0) {
+	if(((__bridge void *)self.idModel) != 0) {
 		xmlAddChild(node, [self.idModel xmlNodeForDoc:node->doc elementName:@"idModel" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.idInstanceType) != 0) {
+	if(((__bridge void *)self.idInstanceType) != 0) {
 		xmlAddChild(node, [self.idInstanceType xmlNodeForDoc:node->doc elementName:@"idInstanceType" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -3343,7 +3196,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSvc_AddAircraftForUser *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_AddAircraftForUser *newObject = [[MFBWebServiceSvc_AddAircraftForUser new] autorelease];
+	MFBWebServiceSvc_AddAircraftForUser *newObject = [MFBWebServiceSvc_AddAircraftForUser new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -3502,46 +3355,42 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -3556,13 +3405,6 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(AddAircraftForUserResult != nil) [AddAircraftForUserResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -3594,7 +3436,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.AddAircraftForUserResult) != 0) {
+	if(((__bridge void *)self.AddAircraftForUserResult) != 0) {
 		xmlAddChild(node, [self.AddAircraftForUserResult xmlNodeForDoc:node->doc elementName:@"AddAircraftForUserResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -3609,7 +3451,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSvc_AddAircraftForUserResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_AddAircraftForUserResponse *newObject = [[MFBWebServiceSvc_AddAircraftForUserResponse new] autorelease];
+	MFBWebServiceSvc_AddAircraftForUserResponse *newObject = [MFBWebServiceSvc_AddAircraftForUserResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -3669,46 +3511,42 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -3724,14 +3562,6 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthToken != nil) [szAuthToken release];
-	if(szPrefix != nil) [szPrefix release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -3763,10 +3593,10 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthToken) != 0) {
+	if(((__bridge void *)self.szAuthToken) != 0) {
 		xmlAddChild(node, [self.szAuthToken xmlNodeForDoc:node->doc elementName:@"szAuthToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.szPrefix) != 0) {
+	if(((__bridge void *)self.szPrefix) != 0) {
 		xmlAddChild(node, [self.szPrefix xmlNodeForDoc:node->doc elementName:@"szPrefix" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -3782,7 +3612,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSvc_AircraftMatchingPrefix *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_AircraftMatchingPrefix *newObject = [[MFBWebServiceSvc_AircraftMatchingPrefix new] autorelease];
+	MFBWebServiceSvc_AircraftMatchingPrefix *newObject = [MFBWebServiceSvc_AircraftMatchingPrefix new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -3875,46 +3705,42 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -3929,13 +3755,6 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(AircraftMatchingPrefixResult != nil) [AircraftMatchingPrefixResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -3967,7 +3786,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.AircraftMatchingPrefixResult) != 0) {
+	if(((__bridge void *)self.AircraftMatchingPrefixResult) != 0) {
 		xmlAddChild(node, [self.AircraftMatchingPrefixResult xmlNodeForDoc:node->doc elementName:@"AircraftMatchingPrefixResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -3982,7 +3801,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSvc_AircraftMatchingPrefixResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_AircraftMatchingPrefixResponse *newObject = [[MFBWebServiceSvc_AircraftMatchingPrefixResponse new] autorelease];
+	MFBWebServiceSvc_AircraftMatchingPrefixResponse *newObject = [MFBWebServiceSvc_AircraftMatchingPrefixResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -4042,46 +3861,42 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -4097,14 +3912,6 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthUserToken != nil) [szAuthUserToken release];
-	if(ac != nil) [ac release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -4136,10 +3943,10 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthUserToken) != 0) {
+	if(((__bridge void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.ac) != 0) {
+	if(((__bridge void *)self.ac) != 0) {
 		xmlAddChild(node, [self.ac xmlNodeForDoc:node->doc elementName:@"ac" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -4155,7 +3962,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSvc_UpdateMaintenanceForAircraft *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_UpdateMaintenanceForAircraft *newObject = [[MFBWebServiceSvc_UpdateMaintenanceForAircraft new] autorelease];
+	MFBWebServiceSvc_UpdateMaintenanceForAircraft *newObject = [MFBWebServiceSvc_UpdateMaintenanceForAircraft new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -4248,46 +4055,42 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -4301,12 +4104,6 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -4348,7 +4145,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSvc_UpdateMaintenanceForAircraftResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_UpdateMaintenanceForAircraftResponse *newObject = [[MFBWebServiceSvc_UpdateMaintenanceForAircraftResponse new] autorelease];
+	MFBWebServiceSvc_UpdateMaintenanceForAircraftResponse *newObject = [MFBWebServiceSvc_UpdateMaintenanceForAircraftResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -4363,46 +4160,42 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	
 	
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -4418,14 +4211,6 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthUserToken != nil) [szAuthUserToken release];
-	if(ac != nil) [ac release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -4457,10 +4242,10 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthUserToken) != 0) {
+	if(((__bridge void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.ac) != 0) {
+	if(((__bridge void *)self.ac) != 0) {
 		xmlAddChild(node, [self.ac xmlNodeForDoc:node->doc elementName:@"ac" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -4476,7 +4261,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes *newObject = [[MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes new] autorelease];
+	MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes *newObject = [MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -4569,46 +4354,42 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -4622,12 +4403,6 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -4669,7 +4444,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotesResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotesResponse *newObject = [[MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotesResponse new] autorelease];
+	MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotesResponse *newObject = [MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotesResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -4684,46 +4459,42 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	
 	
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -4739,14 +4510,6 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthUserToken != nil) [szAuthUserToken release];
-	if(idAircraft != nil) [idAircraft release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -4778,10 +4541,10 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthUserToken) != 0) {
+	if(((__bridge void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.idAircraft) != 0) {
+	if(((__bridge void *)self.idAircraft) != 0) {
 		xmlAddChild(node, [self.idAircraft xmlNodeForDoc:node->doc elementName:@"idAircraft" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -4797,7 +4560,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSvc_DeleteAircraftForUser *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_DeleteAircraftForUser *newObject = [[MFBWebServiceSvc_DeleteAircraftForUser new] autorelease];
+	MFBWebServiceSvc_DeleteAircraftForUser *newObject = [MFBWebServiceSvc_DeleteAircraftForUser new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -4890,46 +4653,42 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -4944,13 +4703,6 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(DeleteAircraftForUserResult != nil) [DeleteAircraftForUserResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -4982,7 +4734,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.DeleteAircraftForUserResult) != 0) {
+	if(((__bridge void *)self.DeleteAircraftForUserResult) != 0) {
 		xmlAddChild(node, [self.DeleteAircraftForUserResult xmlNodeForDoc:node->doc elementName:@"DeleteAircraftForUserResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -4997,7 +4749,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSvc_DeleteAircraftForUserResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_DeleteAircraftForUserResponse *newObject = [[MFBWebServiceSvc_DeleteAircraftForUserResponse new] autorelease];
+	MFBWebServiceSvc_DeleteAircraftForUserResponse *newObject = [MFBWebServiceSvc_DeleteAircraftForUserResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -5057,46 +4809,42 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -5110,12 +4858,6 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -5157,7 +4899,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSvc_MakesAndModels *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_MakesAndModels *newObject = [[MFBWebServiceSvc_MakesAndModels new] autorelease];
+	MFBWebServiceSvc_MakesAndModels *newObject = [MFBWebServiceSvc_MakesAndModels new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -5172,46 +4914,42 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	
 	
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -5227,14 +4965,6 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(ModelID != nil) [ModelID release];
-	if(Description != nil) [Description release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -5266,10 +4996,10 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.ModelID) != 0) {
+	if(((__bridge void *)self.ModelID) != 0) {
 		xmlAddChild(node, [self.ModelID xmlNodeForDoc:node->doc elementName:@"ModelID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Description) != 0) {
+	if(((__bridge void *)self.Description) != 0) {
 		xmlAddChild(node, [self.Description xmlNodeForDoc:node->doc elementName:@"Description" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -5285,7 +5015,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSvc_SimpleMakeModel *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_SimpleMakeModel *newObject = [[MFBWebServiceSvc_SimpleMakeModel new] autorelease];
+	MFBWebServiceSvc_SimpleMakeModel *newObject = [MFBWebServiceSvc_SimpleMakeModel new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -5378,46 +5108,42 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -5432,13 +5158,6 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(SimpleMakeModel != nil) [SimpleMakeModel release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -5470,7 +5189,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.SimpleMakeModel) != 0) {
+	if(((__bridge void *)self.SimpleMakeModel) != 0) {
 		for(MFBWebServiceSvc_SimpleMakeModel * child in self.SimpleMakeModel) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"SimpleMakeModel" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -5491,7 +5210,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSvc_ArrayOfSimpleMakeModel *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_ArrayOfSimpleMakeModel *newObject = [[MFBWebServiceSvc_ArrayOfSimpleMakeModel new] autorelease];
+	MFBWebServiceSvc_ArrayOfSimpleMakeModel *newObject = [MFBWebServiceSvc_ArrayOfSimpleMakeModel new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -5551,46 +5270,42 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -5605,13 +5320,6 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(MakesAndModelsResult != nil) [MakesAndModelsResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -5643,7 +5351,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.MakesAndModelsResult) != 0) {
+	if(((__bridge void *)self.MakesAndModelsResult) != 0) {
 		xmlAddChild(node, [self.MakesAndModelsResult xmlNodeForDoc:node->doc elementName:@"MakesAndModelsResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -5658,7 +5366,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSvc_MakesAndModelsResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_MakesAndModelsResponse *newObject = [[MFBWebServiceSvc_MakesAndModelsResponse new] autorelease];
+	MFBWebServiceSvc_MakesAndModelsResponse *newObject = [MFBWebServiceSvc_MakesAndModelsResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -5718,46 +5426,42 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -5772,13 +5476,6 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthToken != nil) [szAuthToken release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -5810,7 +5507,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthToken) != 0) {
+	if(((__bridge void *)self.szAuthToken) != 0) {
 		xmlAddChild(node, [self.szAuthToken xmlNodeForDoc:node->doc elementName:@"szAuthToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -5825,7 +5522,7 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSvc_GetCurrencyForUser *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_GetCurrencyForUser *newObject = [[MFBWebServiceSvc_GetCurrencyForUser new] autorelease];
+	MFBWebServiceSvc_GetCurrencyForUser *newObject = [MFBWebServiceSvc_GetCurrencyForUser new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -5885,46 +5582,42 @@ NSString * MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(MFBWebServiceS
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -6262,16 +5955,6 @@ NSString * MFBWebServiceSvc_CatClassID_stringFromEnum(MFBWebServiceSvc_CatClassI
 	
 	return self;
 }
-- (void)dealloc
-{
-	[soapSigner release];
-	if(CatClass != nil) [CatClass release];
-	if(Category_ != nil) [Category_ release];
-	if(Class_ != nil) [Class_ release];
-	if(AltCatClass != nil) [AltCatClass release];
-	
-	[super dealloc];
-}
 - (NSString *)nsPrefix
 {
 	return @"MFBWebServiceSvc";
@@ -6302,16 +5985,16 @@ NSString * MFBWebServiceSvc_CatClassID_stringFromEnum(MFBWebServiceSvc_CatClassI
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.CatClass) != 0) {
+	if(((__bridge void *)self.CatClass) != 0) {
 		xmlAddChild(node, [self.CatClass xmlNodeForDoc:node->doc elementName:@"CatClass" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Category_) != 0) {
+	if(((__bridge void *)self.Category_) != 0) {
 		xmlAddChild(node, [self.Category_ xmlNodeForDoc:node->doc elementName:@"Category" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Class_) != 0) {
+	if(((__bridge void *)self.Class_) != 0) {
 		xmlAddChild(node, [self.Class_ xmlNodeForDoc:node->doc elementName:@"Class" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.AltCatClass) != 0) {
+	if(((__bridge void *)self.AltCatClass) != 0) {
 		xmlAddChild(node, [self.AltCatClass xmlNodeForDoc:node->doc elementName:@"AltCatClass" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 	if(((void *)self.IdCatClass) != 0) {
@@ -6333,7 +6016,7 @@ NSString * MFBWebServiceSvc_CatClassID_stringFromEnum(MFBWebServiceSvc_CatClassI
 }
 + (MFBWebServiceSvc_CategoryClass *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_CategoryClass *newObject = [[MFBWebServiceSvc_CategoryClass new] autorelease];
+	MFBWebServiceSvc_CategoryClass *newObject = [MFBWebServiceSvc_CategoryClass new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -6497,46 +6180,42 @@ NSString * MFBWebServiceSvc_CatClassID_stringFromEnum(MFBWebServiceSvc_CatClassI
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -6551,13 +6230,6 @@ NSString * MFBWebServiceSvc_CatClassID_stringFromEnum(MFBWebServiceSvc_CatClassI
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(CategoryClass != nil) [CategoryClass release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -6589,7 +6261,7 @@ NSString * MFBWebServiceSvc_CatClassID_stringFromEnum(MFBWebServiceSvc_CatClassI
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.CategoryClass) != 0) {
+	if(((__bridge void *)self.CategoryClass) != 0) {
 		for(MFBWebServiceSvc_CategoryClass * child in self.CategoryClass) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"CategoryClass" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -6610,7 +6282,7 @@ NSString * MFBWebServiceSvc_CatClassID_stringFromEnum(MFBWebServiceSvc_CatClassI
 }
 + (MFBWebServiceSvc_ArrayOfCategoryClass *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_ArrayOfCategoryClass *newObject = [[MFBWebServiceSvc_ArrayOfCategoryClass new] autorelease];
+	MFBWebServiceSvc_ArrayOfCategoryClass *newObject = [MFBWebServiceSvc_ArrayOfCategoryClass new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -6670,46 +6342,42 @@ NSString * MFBWebServiceSvc_CatClassID_stringFromEnum(MFBWebServiceSvc_CatClassI
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -6779,13 +6447,6 @@ NSString * MFBWebServiceSvc_CFPPropertyType_stringFromEnum(MFBWebServiceSvc_CFPP
 	
 	return self;
 }
-- (void)dealloc
-{
-	[soapSigner release];
-	if(string != nil) [string release];
-	
-	[super dealloc];
-}
 - (NSString *)nsPrefix
 {
 	return @"MFBWebServiceSvc";
@@ -6816,7 +6477,7 @@ NSString * MFBWebServiceSvc_CFPPropertyType_stringFromEnum(MFBWebServiceSvc_CFPP
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.string) != 0) {
+	if(((__bridge void *)self.string) != 0) {
 		for(NSString * child in self.string) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"string" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -6837,7 +6498,7 @@ NSString * MFBWebServiceSvc_CFPPropertyType_stringFromEnum(MFBWebServiceSvc_CFPP
 }
 + (MFBWebServiceSvc_ArrayOfString *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_ArrayOfString *newObject = [[MFBWebServiceSvc_ArrayOfString new] autorelease];
+	MFBWebServiceSvc_ArrayOfString *newObject = [MFBWebServiceSvc_ArrayOfString new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -6897,46 +6558,42 @@ NSString * MFBWebServiceSvc_CFPPropertyType_stringFromEnum(MFBWebServiceSvc_CFPP
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -6959,20 +6616,6 @@ NSString * MFBWebServiceSvc_CFPPropertyType_stringFromEnum(MFBWebServiceSvc_CFPP
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(PropTypeID != nil) [PropTypeID release];
-	if(Title != nil) [Title release];
-	if(SortKey != nil) [SortKey release];
-	if(IsFavorite != nil) [IsFavorite release];
-	if(FormatString != nil) [FormatString release];
-	if(Description != nil) [Description release];
-	if(Flags != nil) [Flags release];
-	if(PreviousValues != nil) [PreviousValues release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -7004,31 +6647,31 @@ NSString * MFBWebServiceSvc_CFPPropertyType_stringFromEnum(MFBWebServiceSvc_CFPP
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.PropTypeID) != 0) {
+	if(((__bridge void *)self.PropTypeID) != 0) {
 		xmlAddChild(node, [self.PropTypeID xmlNodeForDoc:node->doc elementName:@"PropTypeID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Title) != 0) {
+	if(((__bridge void *)self.Title) != 0) {
 		xmlAddChild(node, [self.Title xmlNodeForDoc:node->doc elementName:@"Title" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.SortKey) != 0) {
+	if(((__bridge void *)self.SortKey) != 0) {
 		xmlAddChild(node, [self.SortKey xmlNodeForDoc:node->doc elementName:@"SortKey" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.IsFavorite) != 0) {
+	if(((__bridge void *)self.IsFavorite) != 0) {
 		xmlAddChild(node, [self.IsFavorite xmlNodeForDoc:node->doc elementName:@"IsFavorite" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.FormatString) != 0) {
+	if(((__bridge void *)self.FormatString) != 0) {
 		xmlAddChild(node, [self.FormatString xmlNodeForDoc:node->doc elementName:@"FormatString" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 	if(((void *)self.Type) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:Type", [MFBWebServiceSvc_CFPPropertyType_stringFromEnum(self.Type) xmlString]);
 	}
-	if(((void *)self.Description) != 0) {
+	if(((__bridge void *)self.Description) != 0) {
 		xmlAddChild(node, [self.Description xmlNodeForDoc:node->doc elementName:@"Description" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Flags) != 0) {
+	if(((__bridge void *)self.Flags) != 0) {
 		xmlAddChild(node, [self.Flags xmlNodeForDoc:node->doc elementName:@"Flags" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.PreviousValues) != 0) {
+	if(((__bridge void *)self.PreviousValues) != 0) {
 		xmlAddChild(node, [self.PreviousValues xmlNodeForDoc:node->doc elementName:@"PreviousValues" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -7051,7 +6694,7 @@ NSString * MFBWebServiceSvc_CFPPropertyType_stringFromEnum(MFBWebServiceSvc_CFPP
 }
 + (MFBWebServiceSvc_CustomPropertyType *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_CustomPropertyType *newObject = [[MFBWebServiceSvc_CustomPropertyType new] autorelease];
+	MFBWebServiceSvc_CustomPropertyType *newObject = [MFBWebServiceSvc_CustomPropertyType new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -7347,46 +6990,42 @@ NSString * MFBWebServiceSvc_CFPPropertyType_stringFromEnum(MFBWebServiceSvc_CFPP
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -7401,13 +7040,6 @@ NSString * MFBWebServiceSvc_CFPPropertyType_stringFromEnum(MFBWebServiceSvc_CFPP
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(CustomPropertyType != nil) [CustomPropertyType release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -7439,7 +7071,7 @@ NSString * MFBWebServiceSvc_CFPPropertyType_stringFromEnum(MFBWebServiceSvc_CFPP
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.CustomPropertyType) != 0) {
+	if(((__bridge void *)self.CustomPropertyType) != 0) {
 		for(MFBWebServiceSvc_CustomPropertyType * child in self.CustomPropertyType) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"CustomPropertyType" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -7460,7 +7092,7 @@ NSString * MFBWebServiceSvc_CFPPropertyType_stringFromEnum(MFBWebServiceSvc_CFPP
 }
 + (MFBWebServiceSvc_ArrayOfCustomPropertyType *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_ArrayOfCustomPropertyType *newObject = [[MFBWebServiceSvc_ArrayOfCustomPropertyType new] autorelease];
+	MFBWebServiceSvc_ArrayOfCustomPropertyType *newObject = [MFBWebServiceSvc_ArrayOfCustomPropertyType new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -7520,46 +7152,42 @@ NSString * MFBWebServiceSvc_CFPPropertyType_stringFromEnum(MFBWebServiceSvc_CFPP
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -7731,32 +7359,6 @@ NSString * MFBWebServiceSvc_TurbineLevel_stringFromEnum(MFBWebServiceSvc_Turbine
 	
 	return self;
 }
-- (void)dealloc
-{
-	[soapSigner release];
-	if(CategoryClassDisplay != nil) [CategoryClassDisplay release];
-	if(ManufacturerDisplay != nil) [ManufacturerDisplay release];
-	if(ArmyMDS != nil) [ArmyMDS release];
-	if(ErrorString != nil) [ErrorString release];
-	if(MakeModelID != nil) [MakeModelID release];
-	if(Model != nil) [Model release];
-	if(ModelName != nil) [ModelName release];
-	if(TypeName != nil) [TypeName release];
-	if(FamilyName != nil) [FamilyName release];
-	if(ManufacturerID != nil) [ManufacturerID release];
-	if(IsComplex != nil) [IsComplex release];
-	if(IsHighPerf != nil) [IsHighPerf release];
-	if(Is200HP != nil) [Is200HP release];
-	if(IsTailWheel != nil) [IsTailWheel release];
-	if(IsConstantProp != nil) [IsConstantProp release];
-	if(HasFlaps != nil) [HasFlaps release];
-	if(IsRetract != nil) [IsRetract release];
-	if(IsCertifiedSinglePilot != nil) [IsCertifiedSinglePilot release];
-	if(IsMotorGlider != nil) [IsMotorGlider release];
-	if(IsMultiEngineHelicopter != nil) [IsMultiEngineHelicopter release];
-	
-	[super dealloc];
-}
 - (NSString *)nsPrefix
 {
 	return @"MFBWebServiceSvc";
@@ -7790,76 +7392,76 @@ NSString * MFBWebServiceSvc_TurbineLevel_stringFromEnum(MFBWebServiceSvc_Turbine
 	if(((void *)self.AllowedTypes) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:AllowedTypes", [MFBWebServiceSvc_AllowedAircraftTypes_stringFromEnum(self.AllowedTypes) xmlString]);
 	}
-	if(((void *)self.CategoryClassDisplay) != 0) {
+	if(((__bridge void *)self.CategoryClassDisplay) != 0) {
 		xmlAddChild(node, [self.CategoryClassDisplay xmlNodeForDoc:node->doc elementName:@"CategoryClassDisplay" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.ManufacturerDisplay) != 0) {
+	if(((__bridge void *)self.ManufacturerDisplay) != 0) {
 		xmlAddChild(node, [self.ManufacturerDisplay xmlNodeForDoc:node->doc elementName:@"ManufacturerDisplay" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 	if(((void *)self.AvionicsTechnology) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:AvionicsTechnology", [MFBWebServiceSvc_AvionicsTechnologyType_stringFromEnum(self.AvionicsTechnology) xmlString]);
 	}
-	if(((void *)self.ArmyMDS) != 0) {
+	if(((__bridge void *)self.ArmyMDS) != 0) {
 		xmlAddChild(node, [self.ArmyMDS xmlNodeForDoc:node->doc elementName:@"ArmyMDS" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.ErrorString) != 0) {
+	if(((__bridge void *)self.ErrorString) != 0) {
 		xmlAddChild(node, [self.ErrorString xmlNodeForDoc:node->doc elementName:@"ErrorString" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.MakeModelID) != 0) {
+	if(((__bridge void *)self.MakeModelID) != 0) {
 		xmlAddChild(node, [self.MakeModelID xmlNodeForDoc:node->doc elementName:@"MakeModelID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Model) != 0) {
+	if(((__bridge void *)self.Model) != 0) {
 		xmlAddChild(node, [self.Model xmlNodeForDoc:node->doc elementName:@"Model" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.ModelName) != 0) {
+	if(((__bridge void *)self.ModelName) != 0) {
 		xmlAddChild(node, [self.ModelName xmlNodeForDoc:node->doc elementName:@"ModelName" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.TypeName) != 0) {
+	if(((__bridge void *)self.TypeName) != 0) {
 		xmlAddChild(node, [self.TypeName xmlNodeForDoc:node->doc elementName:@"TypeName" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.FamilyName) != 0) {
+	if(((__bridge void *)self.FamilyName) != 0) {
 		xmlAddChild(node, [self.FamilyName xmlNodeForDoc:node->doc elementName:@"FamilyName" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 	if(((void *)self.CategoryClassID) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:CategoryClassID", [MFBWebServiceSvc_CatClassID_stringFromEnum(self.CategoryClassID) xmlString]);
 	}
-	if(((void *)self.ManufacturerID) != 0) {
+	if(((__bridge void *)self.ManufacturerID) != 0) {
 		xmlAddChild(node, [self.ManufacturerID xmlNodeForDoc:node->doc elementName:@"ManufacturerID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.IsComplex) != 0) {
+	if(((__bridge void *)self.IsComplex) != 0) {
 		xmlAddChild(node, [self.IsComplex xmlNodeForDoc:node->doc elementName:@"IsComplex" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.IsHighPerf) != 0) {
+	if(((__bridge void *)self.IsHighPerf) != 0) {
 		xmlAddChild(node, [self.IsHighPerf xmlNodeForDoc:node->doc elementName:@"IsHighPerf" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Is200HP) != 0) {
+	if(((__bridge void *)self.Is200HP) != 0) {
 		xmlAddChild(node, [self.Is200HP xmlNodeForDoc:node->doc elementName:@"Is200HP" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 	if(((void *)self.PerformanceType) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:PerformanceType", [MFBWebServiceSvc_HighPerfType_stringFromEnum(self.PerformanceType) xmlString]);
 	}
-	if(((void *)self.IsTailWheel) != 0) {
+	if(((__bridge void *)self.IsTailWheel) != 0) {
 		xmlAddChild(node, [self.IsTailWheel xmlNodeForDoc:node->doc elementName:@"IsTailWheel" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.IsConstantProp) != 0) {
+	if(((__bridge void *)self.IsConstantProp) != 0) {
 		xmlAddChild(node, [self.IsConstantProp xmlNodeForDoc:node->doc elementName:@"IsConstantProp" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.HasFlaps) != 0) {
+	if(((__bridge void *)self.HasFlaps) != 0) {
 		xmlAddChild(node, [self.HasFlaps xmlNodeForDoc:node->doc elementName:@"HasFlaps" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.IsRetract) != 0) {
+	if(((__bridge void *)self.IsRetract) != 0) {
 		xmlAddChild(node, [self.IsRetract xmlNodeForDoc:node->doc elementName:@"IsRetract" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 	if(((void *)self.EngineType) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:EngineType", [MFBWebServiceSvc_TurbineLevel_stringFromEnum(self.EngineType) xmlString]);
 	}
-	if(((void *)self.IsCertifiedSinglePilot) != 0) {
+	if(((__bridge void *)self.IsCertifiedSinglePilot) != 0) {
 		xmlAddChild(node, [self.IsCertifiedSinglePilot xmlNodeForDoc:node->doc elementName:@"IsCertifiedSinglePilot" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.IsMotorGlider) != 0) {
+	if(((__bridge void *)self.IsMotorGlider) != 0) {
 		xmlAddChild(node, [self.IsMotorGlider xmlNodeForDoc:node->doc elementName:@"IsMotorGlider" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.IsMultiEngineHelicopter) != 0) {
+	if(((__bridge void *)self.IsMultiEngineHelicopter) != 0) {
 		xmlAddChild(node, [self.IsMultiEngineHelicopter xmlNodeForDoc:node->doc elementName:@"IsMultiEngineHelicopter" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -7898,7 +7500,7 @@ NSString * MFBWebServiceSvc_TurbineLevel_stringFromEnum(MFBWebServiceSvc_Turbine
 }
 + (MFBWebServiceSvc_MakeModel *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_MakeModel *newObject = [[MFBWebServiceSvc_MakeModel new] autorelease];
+	MFBWebServiceSvc_MakeModel *newObject = [MFBWebServiceSvc_MakeModel new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -8610,46 +8212,42 @@ NSString * MFBWebServiceSvc_TurbineLevel_stringFromEnum(MFBWebServiceSvc_Turbine
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -8664,13 +8262,6 @@ NSString * MFBWebServiceSvc_TurbineLevel_stringFromEnum(MFBWebServiceSvc_Turbine
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(MakeModel != nil) [MakeModel release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -8702,7 +8293,7 @@ NSString * MFBWebServiceSvc_TurbineLevel_stringFromEnum(MFBWebServiceSvc_Turbine
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.MakeModel) != 0) {
+	if(((__bridge void *)self.MakeModel) != 0) {
 		for(MFBWebServiceSvc_MakeModel * child in self.MakeModel) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"MakeModel" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -8723,7 +8314,7 @@ NSString * MFBWebServiceSvc_TurbineLevel_stringFromEnum(MFBWebServiceSvc_Turbine
 }
 + (MFBWebServiceSvc_ArrayOfMakeModel *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_ArrayOfMakeModel *newObject = [[MFBWebServiceSvc_ArrayOfMakeModel new] autorelease];
+	MFBWebServiceSvc_ArrayOfMakeModel *newObject = [MFBWebServiceSvc_ArrayOfMakeModel new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -8783,46 +8374,42 @@ NSString * MFBWebServiceSvc_TurbineLevel_stringFromEnum(MFBWebServiceSvc_Turbine
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -8963,54 +8550,6 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 	
 	return self;
 }
-- (void)dealloc
-{
-	[soapSigner release];
-	if(CatClasses != nil) [CatClasses release];
-	if(PropertyTypes != nil) [PropertyTypes release];
-	if(UserName != nil) [UserName release];
-	if(IsPublic != nil) [IsPublic release];
-	if(HasNightLandings != nil) [HasNightLandings release];
-	if(HasFullStopLandings != nil) [HasFullStopLandings release];
-	if(HasLandings != nil) [HasLandings release];
-	if(HasApproaches != nil) [HasApproaches release];
-	if(HasHolds != nil) [HasHolds release];
-	if(HasXC != nil) [HasXC release];
-	if(HasSimIMCTime != nil) [HasSimIMCTime release];
-	if(HasGroundSim != nil) [HasGroundSim release];
-	if(HasIMC != nil) [HasIMC release];
-	if(HasAnyInstrument != nil) [HasAnyInstrument release];
-	if(HasNight != nil) [HasNight release];
-	if(HasDual != nil) [HasDual release];
-	if(HasCFI != nil) [HasCFI release];
-	if(HasSIC != nil) [HasSIC release];
-	if(HasPIC != nil) [HasPIC release];
-	if(HasTotalTime != nil) [HasTotalTime release];
-	if(IsSigned != nil) [IsSigned release];
-	if(DateMin != nil) [DateMin release];
-	if(DateMax != nil) [DateMax release];
-	if(GeneralText != nil) [GeneralText release];
-	if(AircraftList != nil) [AircraftList release];
-	if(AirportList != nil) [AirportList release];
-	if(MakeList != nil) [MakeList release];
-	if(ModelName != nil) [ModelName release];
-	if(TypeNames != nil) [TypeNames release];
-	if(IsComplex != nil) [IsComplex release];
-	if(HasFlaps != nil) [HasFlaps release];
-	if(IsHighPerformance != nil) [IsHighPerformance release];
-	if(IsConstantSpeedProp != nil) [IsConstantSpeedProp release];
-	if(IsRetract != nil) [IsRetract release];
-	if(IsTechnicallyAdvanced != nil) [IsTechnicallyAdvanced release];
-	if(IsGlass != nil) [IsGlass release];
-	if(IsTailwheel != nil) [IsTailwheel release];
-	if(IsMultiEngineHeli != nil) [IsMultiEngineHeli release];
-	if(IsTurbine != nil) [IsTurbine release];
-	if(HasTelemetry != nil) [HasTelemetry release];
-	if(HasImages != nil) [HasImages release];
-	if(IsMotorglider != nil) [IsMotorglider release];
-	
-	[super dealloc];
-}
 - (NSString *)nsPrefix
 {
 	return @"MFBWebServiceSvc";
@@ -9047,139 +8586,139 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 	if(((void *)self.Distance) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:Distance", [MFBWebServiceSvc_FlightDistance_stringFromEnum(self.Distance) xmlString]);
 	}
-	if(((void *)self.CatClasses) != 0) {
+	if(((__bridge void *)self.CatClasses) != 0) {
 		xmlAddChild(node, [self.CatClasses xmlNodeForDoc:node->doc elementName:@"CatClasses" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.PropertyTypes) != 0) {
+	if(((__bridge void *)self.PropertyTypes) != 0) {
 		xmlAddChild(node, [self.PropertyTypes xmlNodeForDoc:node->doc elementName:@"PropertyTypes" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 	if(((void *)self.PropertiesConjunction) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:PropertiesConjunction", [MFBWebServiceSvc_GroupConjunction_stringFromEnum(self.PropertiesConjunction) xmlString]);
 	}
-	if(((void *)self.UserName) != 0) {
+	if(((__bridge void *)self.UserName) != 0) {
 		xmlAddChild(node, [self.UserName xmlNodeForDoc:node->doc elementName:@"UserName" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.IsPublic) != 0) {
+	if(((__bridge void *)self.IsPublic) != 0) {
 		xmlAddChild(node, [self.IsPublic xmlNodeForDoc:node->doc elementName:@"IsPublic" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 	if(((void *)self.FlightCharacteristicsConjunction) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:FlightCharacteristicsConjunction", [MFBWebServiceSvc_GroupConjunction_stringFromEnum(self.FlightCharacteristicsConjunction) xmlString]);
 	}
-	if(((void *)self.HasNightLandings) != 0) {
+	if(((__bridge void *)self.HasNightLandings) != 0) {
 		xmlAddChild(node, [self.HasNightLandings xmlNodeForDoc:node->doc elementName:@"HasNightLandings" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.HasFullStopLandings) != 0) {
+	if(((__bridge void *)self.HasFullStopLandings) != 0) {
 		xmlAddChild(node, [self.HasFullStopLandings xmlNodeForDoc:node->doc elementName:@"HasFullStopLandings" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.HasLandings) != 0) {
+	if(((__bridge void *)self.HasLandings) != 0) {
 		xmlAddChild(node, [self.HasLandings xmlNodeForDoc:node->doc elementName:@"HasLandings" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.HasApproaches) != 0) {
+	if(((__bridge void *)self.HasApproaches) != 0) {
 		xmlAddChild(node, [self.HasApproaches xmlNodeForDoc:node->doc elementName:@"HasApproaches" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.HasHolds) != 0) {
+	if(((__bridge void *)self.HasHolds) != 0) {
 		xmlAddChild(node, [self.HasHolds xmlNodeForDoc:node->doc elementName:@"HasHolds" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.HasXC) != 0) {
+	if(((__bridge void *)self.HasXC) != 0) {
 		xmlAddChild(node, [self.HasXC xmlNodeForDoc:node->doc elementName:@"HasXC" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.HasSimIMCTime) != 0) {
+	if(((__bridge void *)self.HasSimIMCTime) != 0) {
 		xmlAddChild(node, [self.HasSimIMCTime xmlNodeForDoc:node->doc elementName:@"HasSimIMCTime" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.HasGroundSim) != 0) {
+	if(((__bridge void *)self.HasGroundSim) != 0) {
 		xmlAddChild(node, [self.HasGroundSim xmlNodeForDoc:node->doc elementName:@"HasGroundSim" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.HasIMC) != 0) {
+	if(((__bridge void *)self.HasIMC) != 0) {
 		xmlAddChild(node, [self.HasIMC xmlNodeForDoc:node->doc elementName:@"HasIMC" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.HasAnyInstrument) != 0) {
+	if(((__bridge void *)self.HasAnyInstrument) != 0) {
 		xmlAddChild(node, [self.HasAnyInstrument xmlNodeForDoc:node->doc elementName:@"HasAnyInstrument" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.HasNight) != 0) {
+	if(((__bridge void *)self.HasNight) != 0) {
 		xmlAddChild(node, [self.HasNight xmlNodeForDoc:node->doc elementName:@"HasNight" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.HasDual) != 0) {
+	if(((__bridge void *)self.HasDual) != 0) {
 		xmlAddChild(node, [self.HasDual xmlNodeForDoc:node->doc elementName:@"HasDual" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.HasCFI) != 0) {
+	if(((__bridge void *)self.HasCFI) != 0) {
 		xmlAddChild(node, [self.HasCFI xmlNodeForDoc:node->doc elementName:@"HasCFI" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.HasSIC) != 0) {
+	if(((__bridge void *)self.HasSIC) != 0) {
 		xmlAddChild(node, [self.HasSIC xmlNodeForDoc:node->doc elementName:@"HasSIC" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.HasPIC) != 0) {
+	if(((__bridge void *)self.HasPIC) != 0) {
 		xmlAddChild(node, [self.HasPIC xmlNodeForDoc:node->doc elementName:@"HasPIC" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.HasTotalTime) != 0) {
+	if(((__bridge void *)self.HasTotalTime) != 0) {
 		xmlAddChild(node, [self.HasTotalTime xmlNodeForDoc:node->doc elementName:@"HasTotalTime" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.IsSigned) != 0) {
+	if(((__bridge void *)self.IsSigned) != 0) {
 		xmlAddChild(node, [self.IsSigned xmlNodeForDoc:node->doc elementName:@"IsSigned" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.DateMin) != 0) {
+	if(((__bridge void *)self.DateMin) != 0) {
 		xmlAddChild(node, [self.DateMin xmlNodeForDoc:node->doc elementName:@"DateMin" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.DateMax) != 0) {
+	if(((__bridge void *)self.DateMax) != 0) {
 		xmlAddChild(node, [self.DateMax xmlNodeForDoc:node->doc elementName:@"DateMax" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.GeneralText) != 0) {
+	if(((__bridge void *)self.GeneralText) != 0) {
 		xmlAddChild(node, [self.GeneralText xmlNodeForDoc:node->doc elementName:@"GeneralText" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.AircraftList) != 0) {
+	if(((__bridge void *)self.AircraftList) != 0) {
 		xmlAddChild(node, [self.AircraftList xmlNodeForDoc:node->doc elementName:@"AircraftList" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.AirportList) != 0) {
+	if(((__bridge void *)self.AirportList) != 0) {
 		xmlAddChild(node, [self.AirportList xmlNodeForDoc:node->doc elementName:@"AirportList" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.MakeList) != 0) {
+	if(((__bridge void *)self.MakeList) != 0) {
 		xmlAddChild(node, [self.MakeList xmlNodeForDoc:node->doc elementName:@"MakeList" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.ModelName) != 0) {
+	if(((__bridge void *)self.ModelName) != 0) {
 		xmlAddChild(node, [self.ModelName xmlNodeForDoc:node->doc elementName:@"ModelName" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.TypeNames) != 0) {
+	if(((__bridge void *)self.TypeNames) != 0) {
 		xmlAddChild(node, [self.TypeNames xmlNodeForDoc:node->doc elementName:@"TypeNames" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.IsComplex) != 0) {
+	if(((__bridge void *)self.IsComplex) != 0) {
 		xmlAddChild(node, [self.IsComplex xmlNodeForDoc:node->doc elementName:@"IsComplex" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.HasFlaps) != 0) {
+	if(((__bridge void *)self.HasFlaps) != 0) {
 		xmlAddChild(node, [self.HasFlaps xmlNodeForDoc:node->doc elementName:@"HasFlaps" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.IsHighPerformance) != 0) {
+	if(((__bridge void *)self.IsHighPerformance) != 0) {
 		xmlAddChild(node, [self.IsHighPerformance xmlNodeForDoc:node->doc elementName:@"IsHighPerformance" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.IsConstantSpeedProp) != 0) {
+	if(((__bridge void *)self.IsConstantSpeedProp) != 0) {
 		xmlAddChild(node, [self.IsConstantSpeedProp xmlNodeForDoc:node->doc elementName:@"IsConstantSpeedProp" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.IsRetract) != 0) {
+	if(((__bridge void *)self.IsRetract) != 0) {
 		xmlAddChild(node, [self.IsRetract xmlNodeForDoc:node->doc elementName:@"IsRetract" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.IsTechnicallyAdvanced) != 0) {
+	if(((__bridge void *)self.IsTechnicallyAdvanced) != 0) {
 		xmlAddChild(node, [self.IsTechnicallyAdvanced xmlNodeForDoc:node->doc elementName:@"IsTechnicallyAdvanced" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.IsGlass) != 0) {
+	if(((__bridge void *)self.IsGlass) != 0) {
 		xmlAddChild(node, [self.IsGlass xmlNodeForDoc:node->doc elementName:@"IsGlass" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.IsTailwheel) != 0) {
+	if(((__bridge void *)self.IsTailwheel) != 0) {
 		xmlAddChild(node, [self.IsTailwheel xmlNodeForDoc:node->doc elementName:@"IsTailwheel" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 	if(((void *)self.EngineType) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:EngineType", [MFBWebServiceSvc_EngineTypeRestriction_stringFromEnum(self.EngineType) xmlString]);
 	}
-	if(((void *)self.IsMultiEngineHeli) != 0) {
+	if(((__bridge void *)self.IsMultiEngineHeli) != 0) {
 		xmlAddChild(node, [self.IsMultiEngineHeli xmlNodeForDoc:node->doc elementName:@"IsMultiEngineHeli" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.IsTurbine) != 0) {
+	if(((__bridge void *)self.IsTurbine) != 0) {
 		xmlAddChild(node, [self.IsTurbine xmlNodeForDoc:node->doc elementName:@"IsTurbine" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.HasTelemetry) != 0) {
+	if(((__bridge void *)self.HasTelemetry) != 0) {
 		xmlAddChild(node, [self.HasTelemetry xmlNodeForDoc:node->doc elementName:@"HasTelemetry" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.HasImages) != 0) {
+	if(((__bridge void *)self.HasImages) != 0) {
 		xmlAddChild(node, [self.HasImages xmlNodeForDoc:node->doc elementName:@"HasImages" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.IsMotorglider) != 0) {
+	if(((__bridge void *)self.IsMotorglider) != 0) {
 		xmlAddChild(node, [self.IsMotorglider xmlNodeForDoc:node->doc elementName:@"IsMotorglider" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 	if(((void *)self.AircraftInstanceTypes) != 0) {
@@ -9244,7 +8783,7 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 }
 + (MFBWebServiceSvc_FlightQuery *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_FlightQuery *newObject = [[MFBWebServiceSvc_FlightQuery new] autorelease];
+	MFBWebServiceSvc_FlightQuery *newObject = [MFBWebServiceSvc_FlightQuery new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -10687,46 +10226,42 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -10747,17 +10282,6 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(Attribute != nil) [Attribute release];
-	if(Value != nil) [Value release];
-	if(Discrepancy != nil) [Discrepancy release];
-	if(AssociatedResourceID != nil) [AssociatedResourceID release];
-	if(Query != nil) [Query release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -10789,25 +10313,25 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.Attribute) != 0) {
+	if(((__bridge void *)self.Attribute) != 0) {
 		xmlAddChild(node, [self.Attribute xmlNodeForDoc:node->doc elementName:@"Attribute" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Value) != 0) {
+	if(((__bridge void *)self.Value) != 0) {
 		xmlAddChild(node, [self.Value xmlNodeForDoc:node->doc elementName:@"Value" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 	if(((void *)self.Status) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:Status", [MFBWebServiceSvc_CurrencyState_stringFromEnum(self.Status) xmlString]);
 	}
-	if(((void *)self.Discrepancy) != 0) {
+	if(((__bridge void *)self.Discrepancy) != 0) {
 		xmlAddChild(node, [self.Discrepancy xmlNodeForDoc:node->doc elementName:@"Discrepancy" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.AssociatedResourceID) != 0) {
+	if(((__bridge void *)self.AssociatedResourceID) != 0) {
 		xmlAddChild(node, [self.AssociatedResourceID xmlNodeForDoc:node->doc elementName:@"AssociatedResourceID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 	if(((void *)self.CurrencyGroup) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:CurrencyGroup", [MFBWebServiceSvc_CurrencyGroups_stringFromEnum(self.CurrencyGroup) xmlString]);
 	}
-	if(((void *)self.Query) != 0) {
+	if(((__bridge void *)self.Query) != 0) {
 		xmlAddChild(node, [self.Query xmlNodeForDoc:node->doc elementName:@"Query" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -10828,7 +10352,7 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 }
 + (MFBWebServiceSvc_CurrencyStatusItem *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_CurrencyStatusItem *newObject = [[MFBWebServiceSvc_CurrencyStatusItem new] autorelease];
+	MFBWebServiceSvc_CurrencyStatusItem *newObject = [MFBWebServiceSvc_CurrencyStatusItem new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -11030,46 +10554,42 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -11084,13 +10604,6 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(CurrencyStatusItem != nil) [CurrencyStatusItem release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -11122,7 +10635,7 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.CurrencyStatusItem) != 0) {
+	if(((__bridge void *)self.CurrencyStatusItem) != 0) {
 		for(MFBWebServiceSvc_CurrencyStatusItem * child in self.CurrencyStatusItem) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"CurrencyStatusItem" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -11143,7 +10656,7 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 }
 + (MFBWebServiceSvc_ArrayOfCurrencyStatusItem *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_ArrayOfCurrencyStatusItem *newObject = [[MFBWebServiceSvc_ArrayOfCurrencyStatusItem new] autorelease];
+	MFBWebServiceSvc_ArrayOfCurrencyStatusItem *newObject = [MFBWebServiceSvc_ArrayOfCurrencyStatusItem new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -11203,46 +10716,42 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -11257,13 +10766,6 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(GetCurrencyForUserResult != nil) [GetCurrencyForUserResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -11295,7 +10797,7 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.GetCurrencyForUserResult) != 0) {
+	if(((__bridge void *)self.GetCurrencyForUserResult) != 0) {
 		xmlAddChild(node, [self.GetCurrencyForUserResult xmlNodeForDoc:node->doc elementName:@"GetCurrencyForUserResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -11310,7 +10812,7 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 }
 + (MFBWebServiceSvc_GetCurrencyForUserResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_GetCurrencyForUserResponse *newObject = [[MFBWebServiceSvc_GetCurrencyForUserResponse new] autorelease];
+	MFBWebServiceSvc_GetCurrencyForUserResponse *newObject = [MFBWebServiceSvc_GetCurrencyForUserResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -11370,46 +10872,42 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -11425,14 +10923,6 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthToken != nil) [szAuthToken release];
-	if(dtMin != nil) [dtMin release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -11464,10 +10954,10 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthToken) != 0) {
+	if(((__bridge void *)self.szAuthToken) != 0) {
 		xmlAddChild(node, [self.szAuthToken xmlNodeForDoc:node->doc elementName:@"szAuthToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.dtMin) != 0) {
+	if(((__bridge void *)self.dtMin) != 0) {
 		xmlAddChild(node, [self.dtMin xmlNodeForDoc:node->doc elementName:@"dtMin" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -11483,7 +10973,7 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 }
 + (MFBWebServiceSvc_TotalsForUser *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_TotalsForUser *newObject = [[MFBWebServiceSvc_TotalsForUser new] autorelease];
+	MFBWebServiceSvc_TotalsForUser *newObject = [MFBWebServiceSvc_TotalsForUser new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -11576,46 +11066,42 @@ NSString * MFBWebServiceSvc_AircraftInstanceRestriction_stringFromEnum(MFBWebSer
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -11736,20 +11222,6 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 	
 	return self;
 }
-- (void)dealloc
-{
-	[soapSigner release];
-	if(Value != nil) [Value release];
-	if(Description != nil) [Description release];
-	if(SubDescription != nil) [SubDescription release];
-	if(IsInt != nil) [IsInt release];
-	if(IsTime != nil) [IsTime release];
-	if(IsCurrency != nil) [IsCurrency release];
-	if(Query != nil) [Query release];
-	if(GroupName != nil) [GroupName release];
-	
-	[super dealloc];
-}
 - (NSString *)nsPrefix
 {
 	return @"MFBWebServiceSvc";
@@ -11780,34 +11252,34 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.Value) != 0) {
+	if(((__bridge void *)self.Value) != 0) {
 		xmlAddChild(node, [self.Value xmlNodeForDoc:node->doc elementName:@"Value" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Description) != 0) {
+	if(((__bridge void *)self.Description) != 0) {
 		xmlAddChild(node, [self.Description xmlNodeForDoc:node->doc elementName:@"Description" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.SubDescription) != 0) {
+	if(((__bridge void *)self.SubDescription) != 0) {
 		xmlAddChild(node, [self.SubDescription xmlNodeForDoc:node->doc elementName:@"SubDescription" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 	if(((void *)self.NumericType) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:NumericType", [MFBWebServiceSvc_NumType_stringFromEnum(self.NumericType) xmlString]);
 	}
-	if(((void *)self.IsInt) != 0) {
+	if(((__bridge void *)self.IsInt) != 0) {
 		xmlAddChild(node, [self.IsInt xmlNodeForDoc:node->doc elementName:@"IsInt" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.IsTime) != 0) {
+	if(((__bridge void *)self.IsTime) != 0) {
 		xmlAddChild(node, [self.IsTime xmlNodeForDoc:node->doc elementName:@"IsTime" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.IsCurrency) != 0) {
+	if(((__bridge void *)self.IsCurrency) != 0) {
 		xmlAddChild(node, [self.IsCurrency xmlNodeForDoc:node->doc elementName:@"IsCurrency" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Query) != 0) {
+	if(((__bridge void *)self.Query) != 0) {
 		xmlAddChild(node, [self.Query xmlNodeForDoc:node->doc elementName:@"Query" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 	if(((void *)self.Group) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:Group", [MFBWebServiceSvc_TotalsGroup_stringFromEnum(self.Group) xmlString]);
 	}
-	if(((void *)self.GroupName) != 0) {
+	if(((__bridge void *)self.GroupName) != 0) {
 		xmlAddChild(node, [self.GroupName xmlNodeForDoc:node->doc elementName:@"GroupName" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -11831,7 +11303,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 }
 + (MFBWebServiceSvc_TotalsItem *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_TotalsItem *newObject = [[MFBWebServiceSvc_TotalsItem new] autorelease];
+	MFBWebServiceSvc_TotalsItem *newObject = [MFBWebServiceSvc_TotalsItem new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -12132,46 +11604,42 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -12186,13 +11654,6 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(TotalsItem != nil) [TotalsItem release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -12224,7 +11685,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.TotalsItem) != 0) {
+	if(((__bridge void *)self.TotalsItem) != 0) {
 		for(MFBWebServiceSvc_TotalsItem * child in self.TotalsItem) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"TotalsItem" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -12245,7 +11706,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 }
 + (MFBWebServiceSvc_ArrayOfTotalsItem *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_ArrayOfTotalsItem *newObject = [[MFBWebServiceSvc_ArrayOfTotalsItem new] autorelease];
+	MFBWebServiceSvc_ArrayOfTotalsItem *newObject = [MFBWebServiceSvc_ArrayOfTotalsItem new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -12305,46 +11766,42 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -12359,13 +11816,6 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(TotalsForUserResult != nil) [TotalsForUserResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -12397,7 +11847,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.TotalsForUserResult) != 0) {
+	if(((__bridge void *)self.TotalsForUserResult) != 0) {
 		xmlAddChild(node, [self.TotalsForUserResult xmlNodeForDoc:node->doc elementName:@"TotalsForUserResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -12412,7 +11862,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 }
 + (MFBWebServiceSvc_TotalsForUserResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_TotalsForUserResponse *newObject = [[MFBWebServiceSvc_TotalsForUserResponse new] autorelease];
+	MFBWebServiceSvc_TotalsForUserResponse *newObject = [MFBWebServiceSvc_TotalsForUserResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -12472,46 +11922,42 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -12527,14 +11973,6 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthToken != nil) [szAuthToken release];
-	if(fq != nil) [fq release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -12566,10 +12004,10 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthToken) != 0) {
+	if(((__bridge void *)self.szAuthToken) != 0) {
 		xmlAddChild(node, [self.szAuthToken xmlNodeForDoc:node->doc elementName:@"szAuthToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.fq) != 0) {
+	if(((__bridge void *)self.fq) != 0) {
 		xmlAddChild(node, [self.fq xmlNodeForDoc:node->doc elementName:@"fq" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -12585,7 +12023,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 }
 + (MFBWebServiceSvc_TotalsForUserWithQuery *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_TotalsForUserWithQuery *newObject = [[MFBWebServiceSvc_TotalsForUserWithQuery new] autorelease];
+	MFBWebServiceSvc_TotalsForUserWithQuery *newObject = [MFBWebServiceSvc_TotalsForUserWithQuery new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -12678,46 +12116,42 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -12732,13 +12166,6 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(TotalsForUserWithQueryResult != nil) [TotalsForUserWithQueryResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -12770,7 +12197,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.TotalsForUserWithQueryResult) != 0) {
+	if(((__bridge void *)self.TotalsForUserWithQueryResult) != 0) {
 		xmlAddChild(node, [self.TotalsForUserWithQueryResult xmlNodeForDoc:node->doc elementName:@"TotalsForUserWithQueryResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -12785,7 +12212,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 }
 + (MFBWebServiceSvc_TotalsForUserWithQueryResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_TotalsForUserWithQueryResponse *newObject = [[MFBWebServiceSvc_TotalsForUserWithQueryResponse new] autorelease];
+	MFBWebServiceSvc_TotalsForUserWithQueryResponse *newObject = [MFBWebServiceSvc_TotalsForUserWithQueryResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -12845,46 +12272,42 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -12899,13 +12322,6 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthToken != nil) [szAuthToken release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -12937,7 +12353,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthToken) != 0) {
+	if(((__bridge void *)self.szAuthToken) != 0) {
 		xmlAddChild(node, [self.szAuthToken xmlNodeForDoc:node->doc elementName:@"szAuthToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -12952,7 +12368,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 }
 + (MFBWebServiceSvc_VisitedAirports *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_VisitedAirports *newObject = [[MFBWebServiceSvc_VisitedAirports new] autorelease];
+	MFBWebServiceSvc_VisitedAirports *newObject = [MFBWebServiceSvc_VisitedAirports new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -13012,46 +12428,42 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -13077,24 +12489,6 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(DistanceFromPosition != nil) [DistanceFromPosition release];
-	if(UserName != nil) [UserName release];
-	if(FacilityTypeCode != nil) [FacilityTypeCode release];
-	if(FacilityType != nil) [FacilityType release];
-	if(Code != nil) [Code release];
-	if(Name != nil) [Name release];
-	if(Country != nil) [Country release];
-	if(Admin1 != nil) [Admin1 release];
-	if(LatLong != nil) [LatLong release];
-	if(Latitude != nil) [Latitude release];
-	if(Longitude != nil) [Longitude release];
-	if(ErrorText != nil) [ErrorText release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -13126,40 +12520,40 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.DistanceFromPosition) != 0) {
+	if(((__bridge void *)self.DistanceFromPosition) != 0) {
 		xmlAddChild(node, [self.DistanceFromPosition xmlNodeForDoc:node->doc elementName:@"DistanceFromPosition" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.UserName) != 0) {
+	if(((__bridge void *)self.UserName) != 0) {
 		xmlAddChild(node, [self.UserName xmlNodeForDoc:node->doc elementName:@"UserName" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.FacilityTypeCode) != 0) {
+	if(((__bridge void *)self.FacilityTypeCode) != 0) {
 		xmlAddChild(node, [self.FacilityTypeCode xmlNodeForDoc:node->doc elementName:@"FacilityTypeCode" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.FacilityType) != 0) {
+	if(((__bridge void *)self.FacilityType) != 0) {
 		xmlAddChild(node, [self.FacilityType xmlNodeForDoc:node->doc elementName:@"FacilityType" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Code) != 0) {
+	if(((__bridge void *)self.Code) != 0) {
 		xmlAddChild(node, [self.Code xmlNodeForDoc:node->doc elementName:@"Code" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Name) != 0) {
+	if(((__bridge void *)self.Name) != 0) {
 		xmlAddChild(node, [self.Name xmlNodeForDoc:node->doc elementName:@"Name" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Country) != 0) {
+	if(((__bridge void *)self.Country) != 0) {
 		xmlAddChild(node, [self.Country xmlNodeForDoc:node->doc elementName:@"Country" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Admin1) != 0) {
+	if(((__bridge void *)self.Admin1) != 0) {
 		xmlAddChild(node, [self.Admin1 xmlNodeForDoc:node->doc elementName:@"Admin1" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.LatLong) != 0) {
+	if(((__bridge void *)self.LatLong) != 0) {
 		xmlAddChild(node, [self.LatLong xmlNodeForDoc:node->doc elementName:@"LatLong" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Latitude) != 0) {
+	if(((__bridge void *)self.Latitude) != 0) {
 		xmlAddChild(node, [self.Latitude xmlNodeForDoc:node->doc elementName:@"Latitude" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Longitude) != 0) {
+	if(((__bridge void *)self.Longitude) != 0) {
 		xmlAddChild(node, [self.Longitude xmlNodeForDoc:node->doc elementName:@"Longitude" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.ErrorText) != 0) {
+	if(((__bridge void *)self.ErrorText) != 0) {
 		xmlAddChild(node, [self.ErrorText xmlNodeForDoc:node->doc elementName:@"ErrorText" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -13185,7 +12579,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 }
 + (MFBWebServiceSvc_airport *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_airport *newObject = [[MFBWebServiceSvc_airport new] autorelease];
+	MFBWebServiceSvc_airport *newObject = [MFBWebServiceSvc_airport new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -13608,46 +13002,42 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -13667,18 +13057,6 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(Code != nil) [Code release];
-	if(Aliases != nil) [Aliases release];
-	if(Airport != nil) [Airport release];
-	if(EarliestVisitDate != nil) [EarliestVisitDate release];
-	if(LatestVisitDate != nil) [LatestVisitDate release];
-	if(NumberOfVisits != nil) [NumberOfVisits release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -13710,22 +13088,22 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.Code) != 0) {
+	if(((__bridge void *)self.Code) != 0) {
 		xmlAddChild(node, [self.Code xmlNodeForDoc:node->doc elementName:@"Code" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Aliases) != 0) {
+	if(((__bridge void *)self.Aliases) != 0) {
 		xmlAddChild(node, [self.Aliases xmlNodeForDoc:node->doc elementName:@"Aliases" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Airport) != 0) {
+	if(((__bridge void *)self.Airport) != 0) {
 		xmlAddChild(node, [self.Airport xmlNodeForDoc:node->doc elementName:@"Airport" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.EarliestVisitDate) != 0) {
+	if(((__bridge void *)self.EarliestVisitDate) != 0) {
 		xmlAddChild(node, [self.EarliestVisitDate xmlNodeForDoc:node->doc elementName:@"EarliestVisitDate" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.LatestVisitDate) != 0) {
+	if(((__bridge void *)self.LatestVisitDate) != 0) {
 		xmlAddChild(node, [self.LatestVisitDate xmlNodeForDoc:node->doc elementName:@"LatestVisitDate" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.NumberOfVisits) != 0) {
+	if(((__bridge void *)self.NumberOfVisits) != 0) {
 		xmlAddChild(node, [self.NumberOfVisits xmlNodeForDoc:node->doc elementName:@"NumberOfVisits" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -13745,7 +13123,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 }
 + (MFBWebServiceSvc_VisitedAirport *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_VisitedAirport *newObject = [[MFBWebServiceSvc_VisitedAirport new] autorelease];
+	MFBWebServiceSvc_VisitedAirport *newObject = [MFBWebServiceSvc_VisitedAirport new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -13970,46 +13348,42 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -14024,13 +13398,6 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(VisitedAirport != nil) [VisitedAirport release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -14062,7 +13429,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.VisitedAirport) != 0) {
+	if(((__bridge void *)self.VisitedAirport) != 0) {
 		for(MFBWebServiceSvc_VisitedAirport * child in self.VisitedAirport) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"VisitedAirport" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -14083,7 +13450,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 }
 + (MFBWebServiceSvc_ArrayOfVisitedAirport *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_ArrayOfVisitedAirport *newObject = [[MFBWebServiceSvc_ArrayOfVisitedAirport new] autorelease];
+	MFBWebServiceSvc_ArrayOfVisitedAirport *newObject = [MFBWebServiceSvc_ArrayOfVisitedAirport new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -14143,46 +13510,42 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -14197,13 +13560,6 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(VisitedAirportsResult != nil) [VisitedAirportsResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -14235,7 +13591,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.VisitedAirportsResult) != 0) {
+	if(((__bridge void *)self.VisitedAirportsResult) != 0) {
 		xmlAddChild(node, [self.VisitedAirportsResult xmlNodeForDoc:node->doc elementName:@"VisitedAirportsResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -14250,7 +13606,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 }
 + (MFBWebServiceSvc_VisitedAirportsResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_VisitedAirportsResponse *newObject = [[MFBWebServiceSvc_VisitedAirportsResponse new] autorelease];
+	MFBWebServiceSvc_VisitedAirportsResponse *newObject = [MFBWebServiceSvc_VisitedAirportsResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -14310,46 +13666,42 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -14367,16 +13719,6 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthUserToken != nil) [szAuthUserToken release];
-	if(fq != nil) [fq release];
-	if(offset != nil) [offset release];
-	if(maxCount != nil) [maxCount release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -14408,16 +13750,16 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthUserToken) != 0) {
+	if(((__bridge void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.fq) != 0) {
+	if(((__bridge void *)self.fq) != 0) {
 		xmlAddChild(node, [self.fq xmlNodeForDoc:node->doc elementName:@"fq" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.offset) != 0) {
+	if(((__bridge void *)self.offset) != 0) {
 		xmlAddChild(node, [self.offset xmlNodeForDoc:node->doc elementName:@"offset" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.maxCount) != 0) {
+	if(((__bridge void *)self.maxCount) != 0) {
 		xmlAddChild(node, [self.maxCount xmlNodeForDoc:node->doc elementName:@"maxCount" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -14435,7 +13777,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 }
 + (MFBWebServiceSvc_FlightsWithQueryAndOffset *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_FlightsWithQueryAndOffset *newObject = [[MFBWebServiceSvc_FlightsWithQueryAndOffset new] autorelease];
+	MFBWebServiceSvc_FlightsWithQueryAndOffset *newObject = [MFBWebServiceSvc_FlightsWithQueryAndOffset new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -14594,46 +13936,42 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -14655,20 +13993,6 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(PropID != nil) [PropID release];
-	if(FlightID != nil) [FlightID release];
-	if(PropTypeID != nil) [PropTypeID release];
-	if(IntValue != nil) [IntValue release];
-	if(BoolValue != nil) [BoolValue release];
-	if(DecValue != nil) [DecValue release];
-	if(DateValue != nil) [DateValue release];
-	if(TextValue != nil) [TextValue release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -14700,28 +14024,28 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.PropID) != 0) {
+	if(((__bridge void *)self.PropID) != 0) {
 		xmlAddChild(node, [self.PropID xmlNodeForDoc:node->doc elementName:@"PropID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.FlightID) != 0) {
+	if(((__bridge void *)self.FlightID) != 0) {
 		xmlAddChild(node, [self.FlightID xmlNodeForDoc:node->doc elementName:@"FlightID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.PropTypeID) != 0) {
+	if(((__bridge void *)self.PropTypeID) != 0) {
 		xmlAddChild(node, [self.PropTypeID xmlNodeForDoc:node->doc elementName:@"PropTypeID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.IntValue) != 0) {
+	if(((__bridge void *)self.IntValue) != 0) {
 		xmlAddChild(node, [self.IntValue xmlNodeForDoc:node->doc elementName:@"IntValue" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.BoolValue) != 0) {
+	if(((__bridge void *)self.BoolValue) != 0) {
 		xmlAddChild(node, [self.BoolValue xmlNodeForDoc:node->doc elementName:@"BoolValue" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.DecValue) != 0) {
+	if(((__bridge void *)self.DecValue) != 0) {
 		xmlAddChild(node, [self.DecValue xmlNodeForDoc:node->doc elementName:@"DecValue" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.DateValue) != 0) {
+	if(((__bridge void *)self.DateValue) != 0) {
 		xmlAddChild(node, [self.DateValue xmlNodeForDoc:node->doc elementName:@"DateValue" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.TextValue) != 0) {
+	if(((__bridge void *)self.TextValue) != 0) {
 		xmlAddChild(node, [self.TextValue xmlNodeForDoc:node->doc elementName:@"TextValue" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -14743,7 +14067,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 }
 + (MFBWebServiceSvc_CustomFlightProperty *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_CustomFlightProperty *newObject = [[MFBWebServiceSvc_CustomFlightProperty new] autorelease];
+	MFBWebServiceSvc_CustomFlightProperty *newObject = [MFBWebServiceSvc_CustomFlightProperty new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -15034,46 +14358,42 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -15088,13 +14408,6 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(CustomFlightProperty != nil) [CustomFlightProperty release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -15126,7 +14439,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.CustomFlightProperty) != 0) {
+	if(((__bridge void *)self.CustomFlightProperty) != 0) {
 		for(MFBWebServiceSvc_CustomFlightProperty * child in self.CustomFlightProperty) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"CustomFlightProperty" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -15147,7 +14460,7 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 }
 + (MFBWebServiceSvc_ArrayOfCustomFlightProperty *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_ArrayOfCustomFlightProperty *newObject = [[MFBWebServiceSvc_ArrayOfCustomFlightProperty new] autorelease];
+	MFBWebServiceSvc_ArrayOfCustomFlightProperty *newObject = [MFBWebServiceSvc_ArrayOfCustomFlightProperty new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -15207,46 +14520,42 @@ NSString * MFBWebServiceSvc_TotalsGroup_stringFromEnum(MFBWebServiceSvc_TotalsGr
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -15297,17 +14606,6 @@ NSString * MFBWebServiceSvc_VideoSource_stringFromEnum(MFBWebServiceSvc_VideoSou
 	
 	return self;
 }
-- (void)dealloc
-{
-	[soapSigner release];
-	if(ID_ != nil) [ID_ release];
-	if(FlightID != nil) [FlightID release];
-	if(VideoReference != nil) [VideoReference release];
-	if(Comment != nil) [Comment release];
-	if(ErrorString != nil) [ErrorString release];
-	
-	[super dealloc];
-}
 - (NSString *)nsPrefix
 {
 	return @"MFBWebServiceSvc";
@@ -15338,22 +14636,22 @@ NSString * MFBWebServiceSvc_VideoSource_stringFromEnum(MFBWebServiceSvc_VideoSou
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.ID_) != 0) {
+	if(((__bridge void *)self.ID_) != 0) {
 		xmlAddChild(node, [self.ID_ xmlNodeForDoc:node->doc elementName:@"ID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.FlightID) != 0) {
+	if(((__bridge void *)self.FlightID) != 0) {
 		xmlAddChild(node, [self.FlightID xmlNodeForDoc:node->doc elementName:@"FlightID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.VideoReference) != 0) {
+	if(((__bridge void *)self.VideoReference) != 0) {
 		xmlAddChild(node, [self.VideoReference xmlNodeForDoc:node->doc elementName:@"VideoReference" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 	if(((void *)self.Source) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:Source", [MFBWebServiceSvc_VideoSource_stringFromEnum(self.Source) xmlString]);
 	}
-	if(((void *)self.Comment) != 0) {
+	if(((__bridge void *)self.Comment) != 0) {
 		xmlAddChild(node, [self.Comment xmlNodeForDoc:node->doc elementName:@"Comment" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.ErrorString) != 0) {
+	if(((__bridge void *)self.ErrorString) != 0) {
 		xmlAddChild(node, [self.ErrorString xmlNodeForDoc:node->doc elementName:@"ErrorString" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -15373,7 +14671,7 @@ NSString * MFBWebServiceSvc_VideoSource_stringFromEnum(MFBWebServiceSvc_VideoSou
 }
 + (MFBWebServiceSvc_VideoRef *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_VideoRef *newObject = [[MFBWebServiceSvc_VideoRef new] autorelease];
+	MFBWebServiceSvc_VideoRef *newObject = [MFBWebServiceSvc_VideoRef new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -15570,46 +14868,42 @@ NSString * MFBWebServiceSvc_VideoSource_stringFromEnum(MFBWebServiceSvc_VideoSou
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -15624,13 +14918,6 @@ NSString * MFBWebServiceSvc_VideoSource_stringFromEnum(MFBWebServiceSvc_VideoSou
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(VideoRef != nil) [VideoRef release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -15662,7 +14949,7 @@ NSString * MFBWebServiceSvc_VideoSource_stringFromEnum(MFBWebServiceSvc_VideoSou
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.VideoRef) != 0) {
+	if(((__bridge void *)self.VideoRef) != 0) {
 		for(MFBWebServiceSvc_VideoRef * child in self.VideoRef) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"VideoRef" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -15683,7 +14970,7 @@ NSString * MFBWebServiceSvc_VideoSource_stringFromEnum(MFBWebServiceSvc_VideoSou
 }
 + (MFBWebServiceSvc_ArrayOfVideoRef *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_ArrayOfVideoRef *newObject = [[MFBWebServiceSvc_ArrayOfVideoRef new] autorelease];
+	MFBWebServiceSvc_ArrayOfVideoRef *newObject = [MFBWebServiceSvc_ArrayOfVideoRef new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -15743,46 +15030,42 @@ NSString * MFBWebServiceSvc_VideoSource_stringFromEnum(MFBWebServiceSvc_VideoSou
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -15838,53 +15121,6 @@ NSString * MFBWebServiceSvc_VideoSource_stringFromEnum(MFBWebServiceSvc_VideoSou
 	
 	return self;
 }
-- (void)dealloc
-{
-	[soapSigner release];
-	if(User != nil) [User release];
-	if(AircraftID != nil) [AircraftID release];
-	if(CatClassOverride != nil) [CatClassOverride release];
-	if(NightLandings != nil) [NightLandings release];
-	if(FullStopLandings != nil) [FullStopLandings release];
-	if(Approaches != nil) [Approaches release];
-	if(PrecisionApproaches != nil) [PrecisionApproaches release];
-	if(NonPrecisionApproaches != nil) [NonPrecisionApproaches release];
-	if(Landings != nil) [Landings release];
-	if(CrossCountry != nil) [CrossCountry release];
-	if(Nighttime != nil) [Nighttime release];
-	if(IMC != nil) [IMC release];
-	if(SimulatedIFR != nil) [SimulatedIFR release];
-	if(GroundSim != nil) [GroundSim release];
-	if(Dual != nil) [Dual release];
-	if(CFI != nil) [CFI release];
-	if(PIC != nil) [PIC release];
-	if(SIC != nil) [SIC release];
-	if(TotalFlightTime != nil) [TotalFlightTime release];
-	if(fHoldingProcedures != nil) [fHoldingProcedures release];
-	if(Route != nil) [Route release];
-	if(Comment != nil) [Comment release];
-	if(fIsPublic != nil) [fIsPublic release];
-	if(Date != nil) [Date release];
-	if(ErrorString != nil) [ErrorString release];
-	if(FlightID != nil) [FlightID release];
-	if(FlightStart != nil) [FlightStart release];
-	if(FlightEnd != nil) [FlightEnd release];
-	if(EngineStart != nil) [EngineStart release];
-	if(EngineEnd != nil) [EngineEnd release];
-	if(HobbsStart != nil) [HobbsStart release];
-	if(HobbsEnd != nil) [HobbsEnd release];
-	if(ModelDisplay != nil) [ModelDisplay release];
-	if(TailNumDisplay != nil) [TailNumDisplay release];
-	if(CatClassDisplay != nil) [CatClassDisplay release];
-	if(FlightData != nil) [FlightData release];
-	if(CustomProperties != nil) [CustomProperties release];
-	if(FlightImages != nil) [FlightImages release];
-	if(Videos != nil) [Videos release];
-	if(SendFlightLink != nil) [SendFlightLink release];
-	if(SocialMediaLink != nil) [SocialMediaLink release];
-	
-	[super dealloc];
-}
 - (NSString *)nsPrefix
 {
 	return @"MFBWebServiceSvc";
@@ -15915,127 +15151,127 @@ NSString * MFBWebServiceSvc_VideoSource_stringFromEnum(MFBWebServiceSvc_VideoSou
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.User) != 0) {
+	if(((__bridge void *)self.User) != 0) {
 		xmlAddChild(node, [self.User xmlNodeForDoc:node->doc elementName:@"User" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.AircraftID) != 0) {
+	if(((__bridge void *)self.AircraftID) != 0) {
 		xmlAddChild(node, [self.AircraftID xmlNodeForDoc:node->doc elementName:@"AircraftID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.CatClassOverride) != 0) {
+	if(((__bridge void *)self.CatClassOverride) != 0) {
 		xmlAddChild(node, [self.CatClassOverride xmlNodeForDoc:node->doc elementName:@"CatClassOverride" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.NightLandings) != 0) {
+	if(((__bridge void *)self.NightLandings) != 0) {
 		xmlAddChild(node, [self.NightLandings xmlNodeForDoc:node->doc elementName:@"NightLandings" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.FullStopLandings) != 0) {
+	if(((__bridge void *)self.FullStopLandings) != 0) {
 		xmlAddChild(node, [self.FullStopLandings xmlNodeForDoc:node->doc elementName:@"FullStopLandings" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Approaches) != 0) {
+	if(((__bridge void *)self.Approaches) != 0) {
 		xmlAddChild(node, [self.Approaches xmlNodeForDoc:node->doc elementName:@"Approaches" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.PrecisionApproaches) != 0) {
+	if(((__bridge void *)self.PrecisionApproaches) != 0) {
 		xmlAddChild(node, [self.PrecisionApproaches xmlNodeForDoc:node->doc elementName:@"PrecisionApproaches" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.NonPrecisionApproaches) != 0) {
+	if(((__bridge void *)self.NonPrecisionApproaches) != 0) {
 		xmlAddChild(node, [self.NonPrecisionApproaches xmlNodeForDoc:node->doc elementName:@"NonPrecisionApproaches" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Landings) != 0) {
+	if(((__bridge void *)self.Landings) != 0) {
 		xmlAddChild(node, [self.Landings xmlNodeForDoc:node->doc elementName:@"Landings" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.CrossCountry) != 0) {
+	if(((__bridge void *)self.CrossCountry) != 0) {
 		xmlAddChild(node, [self.CrossCountry xmlNodeForDoc:node->doc elementName:@"CrossCountry" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Nighttime) != 0) {
+	if(((__bridge void *)self.Nighttime) != 0) {
 		xmlAddChild(node, [self.Nighttime xmlNodeForDoc:node->doc elementName:@"Nighttime" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.IMC) != 0) {
+	if(((__bridge void *)self.IMC) != 0) {
 		xmlAddChild(node, [self.IMC xmlNodeForDoc:node->doc elementName:@"IMC" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.SimulatedIFR) != 0) {
+	if(((__bridge void *)self.SimulatedIFR) != 0) {
 		xmlAddChild(node, [self.SimulatedIFR xmlNodeForDoc:node->doc elementName:@"SimulatedIFR" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.GroundSim) != 0) {
+	if(((__bridge void *)self.GroundSim) != 0) {
 		xmlAddChild(node, [self.GroundSim xmlNodeForDoc:node->doc elementName:@"GroundSim" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Dual) != 0) {
+	if(((__bridge void *)self.Dual) != 0) {
 		xmlAddChild(node, [self.Dual xmlNodeForDoc:node->doc elementName:@"Dual" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.CFI) != 0) {
+	if(((__bridge void *)self.CFI) != 0) {
 		xmlAddChild(node, [self.CFI xmlNodeForDoc:node->doc elementName:@"CFI" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.PIC) != 0) {
+	if(((__bridge void *)self.PIC) != 0) {
 		xmlAddChild(node, [self.PIC xmlNodeForDoc:node->doc elementName:@"PIC" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.SIC) != 0) {
+	if(((__bridge void *)self.SIC) != 0) {
 		xmlAddChild(node, [self.SIC xmlNodeForDoc:node->doc elementName:@"SIC" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.TotalFlightTime) != 0) {
+	if(((__bridge void *)self.TotalFlightTime) != 0) {
 		xmlAddChild(node, [self.TotalFlightTime xmlNodeForDoc:node->doc elementName:@"TotalFlightTime" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.fHoldingProcedures) != 0) {
+	if(((__bridge void *)self.fHoldingProcedures) != 0) {
 		xmlAddChild(node, [self.fHoldingProcedures xmlNodeForDoc:node->doc elementName:@"fHoldingProcedures" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Route) != 0) {
+	if(((__bridge void *)self.Route) != 0) {
 		xmlAddChild(node, [self.Route xmlNodeForDoc:node->doc elementName:@"Route" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Comment) != 0) {
+	if(((__bridge void *)self.Comment) != 0) {
 		xmlAddChild(node, [self.Comment xmlNodeForDoc:node->doc elementName:@"Comment" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.fIsPublic) != 0) {
+	if(((__bridge void *)self.fIsPublic) != 0) {
 		xmlAddChild(node, [self.fIsPublic xmlNodeForDoc:node->doc elementName:@"fIsPublic" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Date) != 0) {
+	if(((__bridge void *)self.Date) != 0) {
 		xmlAddChild(node, [self.Date xmlNodeForDoc:node->doc elementName:@"Date" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.ErrorString) != 0) {
+	if(((__bridge void *)self.ErrorString) != 0) {
 		xmlAddChild(node, [self.ErrorString xmlNodeForDoc:node->doc elementName:@"ErrorString" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.FlightID) != 0) {
+	if(((__bridge void *)self.FlightID) != 0) {
 		xmlAddChild(node, [self.FlightID xmlNodeForDoc:node->doc elementName:@"FlightID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.FlightStart) != 0) {
+	if(((__bridge void *)self.FlightStart) != 0) {
 		xmlAddChild(node, [self.FlightStart xmlNodeForDoc:node->doc elementName:@"FlightStart" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.FlightEnd) != 0) {
+	if(((__bridge void *)self.FlightEnd) != 0) {
 		xmlAddChild(node, [self.FlightEnd xmlNodeForDoc:node->doc elementName:@"FlightEnd" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.EngineStart) != 0) {
+	if(((__bridge void *)self.EngineStart) != 0) {
 		xmlAddChild(node, [self.EngineStart xmlNodeForDoc:node->doc elementName:@"EngineStart" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.EngineEnd) != 0) {
+	if(((__bridge void *)self.EngineEnd) != 0) {
 		xmlAddChild(node, [self.EngineEnd xmlNodeForDoc:node->doc elementName:@"EngineEnd" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.HobbsStart) != 0) {
+	if(((__bridge void *)self.HobbsStart) != 0) {
 		xmlAddChild(node, [self.HobbsStart xmlNodeForDoc:node->doc elementName:@"HobbsStart" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.HobbsEnd) != 0) {
+	if(((__bridge void *)self.HobbsEnd) != 0) {
 		xmlAddChild(node, [self.HobbsEnd xmlNodeForDoc:node->doc elementName:@"HobbsEnd" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.ModelDisplay) != 0) {
+	if(((__bridge void *)self.ModelDisplay) != 0) {
 		xmlAddChild(node, [self.ModelDisplay xmlNodeForDoc:node->doc elementName:@"ModelDisplay" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.TailNumDisplay) != 0) {
+	if(((__bridge void *)self.TailNumDisplay) != 0) {
 		xmlAddChild(node, [self.TailNumDisplay xmlNodeForDoc:node->doc elementName:@"TailNumDisplay" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.CatClassDisplay) != 0) {
+	if(((__bridge void *)self.CatClassDisplay) != 0) {
 		xmlAddChild(node, [self.CatClassDisplay xmlNodeForDoc:node->doc elementName:@"CatClassDisplay" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.FlightData) != 0) {
+	if(((__bridge void *)self.FlightData) != 0) {
 		xmlAddChild(node, [self.FlightData xmlNodeForDoc:node->doc elementName:@"FlightData" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.CustomProperties) != 0) {
+	if(((__bridge void *)self.CustomProperties) != 0) {
 		xmlAddChild(node, [self.CustomProperties xmlNodeForDoc:node->doc elementName:@"CustomProperties" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.FlightImages) != 0) {
+	if(((__bridge void *)self.FlightImages) != 0) {
 		xmlAddChild(node, [self.FlightImages xmlNodeForDoc:node->doc elementName:@"FlightImages" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Videos) != 0) {
+	if(((__bridge void *)self.Videos) != 0) {
 		xmlAddChild(node, [self.Videos xmlNodeForDoc:node->doc elementName:@"Videos" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.SendFlightLink) != 0) {
+	if(((__bridge void *)self.SendFlightLink) != 0) {
 		xmlAddChild(node, [self.SendFlightLink xmlNodeForDoc:node->doc elementName:@"SendFlightLink" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.SocialMediaLink) != 0) {
+	if(((__bridge void *)self.SocialMediaLink) != 0) {
 		xmlAddChild(node, [self.SocialMediaLink xmlNodeForDoc:node->doc elementName:@"SocialMediaLink" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -16090,7 +15326,7 @@ NSString * MFBWebServiceSvc_VideoSource_stringFromEnum(MFBWebServiceSvc_VideoSou
 }
 + (MFBWebServiceSvc_LogbookEntryCore *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_LogbookEntryCore *newObject = [[MFBWebServiceSvc_LogbookEntryCore new] autorelease];
+	MFBWebServiceSvc_LogbookEntryCore *newObject = [MFBWebServiceSvc_LogbookEntryCore new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -17470,46 +16706,42 @@ NSString * MFBWebServiceSvc_VideoSource_stringFromEnum(MFBWebServiceSvc_VideoSou
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -17561,18 +16793,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(CFIComments != nil) [CFIComments release];
-	if(CFISignatureDate != nil) [CFISignatureDate release];
-	if(CFICertificate != nil) [CFICertificate release];
-	if(CFIExpiration != nil) [CFIExpiration release];
-	if(CFIEmail != nil) [CFIEmail release];
-	if(CFIName != nil) [CFIName release];
-	if(HasDigitizedSig != nil) [HasDigitizedSig release];
-	
-	[super dealloc];
-}
 - (NSString *)nsPrefix
 {
 	return @"MFBWebServiceSvc";
@@ -17595,7 +16815,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	// BUGBUG: ASP.NET compatibility: need to add xmlns attribute or else parameters don't make it.  Is there a good
 	// place to do this so that we don't have to redo this whenever we autogenerate new code?
 	xmlNsPtr xmlns = xmlSearchNs(doc, root, (const xmlChar*)"xmlns");
-	xmlSetNsProp(node, xmlns, (const xmlChar*)"xmlns", (const xmlChar*)"http://myflightbook.com/");	
+	xmlSetNsProp(node, xmlns, (const xmlChar*)"xmlns", (const xmlChar*)"http://myflightbook.com/");
 	
 	
 	[self addAttributesToNode:node];
@@ -17613,28 +16833,28 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 {
 	[super addElementsToNode:node];
 	
-	if(((void *)self.CFIComments) != 0) {
+	if(((__bridge void *)self.CFIComments) != 0) {
 		xmlAddChild(node, [self.CFIComments xmlNodeForDoc:node->doc elementName:@"CFIComments" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.CFISignatureDate) != 0) {
+	if(((__bridge void *)self.CFISignatureDate) != 0) {
 		xmlAddChild(node, [self.CFISignatureDate xmlNodeForDoc:node->doc elementName:@"CFISignatureDate" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.CFICertificate) != 0) {
+	if(((__bridge void *)self.CFICertificate) != 0) {
 		xmlAddChild(node, [self.CFICertificate xmlNodeForDoc:node->doc elementName:@"CFICertificate" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.CFIExpiration) != 0) {
+	if(((__bridge void *)self.CFIExpiration) != 0) {
 		xmlAddChild(node, [self.CFIExpiration xmlNodeForDoc:node->doc elementName:@"CFIExpiration" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.CFIEmail) != 0) {
+	if(((__bridge void *)self.CFIEmail) != 0) {
 		xmlAddChild(node, [self.CFIEmail xmlNodeForDoc:node->doc elementName:@"CFIEmail" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.CFIName) != 0) {
+	if(((__bridge void *)self.CFIName) != 0) {
 		xmlAddChild(node, [self.CFIName xmlNodeForDoc:node->doc elementName:@"CFIName" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 	if(((void *)self.CFISignatureState) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:CFISignatureState", [MFBWebServiceSvc_SignatureState_stringFromEnum(self.CFISignatureState) xmlString]);
 	}
-	if(((void *)self.HasDigitizedSig) != 0) {
+	if(((__bridge void *)self.HasDigitizedSig) != 0) {
 		xmlAddChild(node, [self.HasDigitizedSig xmlNodeForDoc:node->doc elementName:@"HasDigitizedSig" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -17656,7 +16876,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_LogbookEntryBase *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_LogbookEntryBase *newObject = [[MFBWebServiceSvc_LogbookEntryBase new] autorelease];
+	MFBWebServiceSvc_LogbookEntryBase *newObject = [MFBWebServiceSvc_LogbookEntryBase new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -17921,46 +17141,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -17973,11 +17189,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -18001,7 +17212,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	// BUGBUG: ASP.NET compatibility: need to add xmlns attribute or else parameters don't make it.  Is there a good
 	// place to do this so that we don't have to redo this whenever we autogenerate new code?
 	xmlNsPtr xmlns = xmlSearchNs(doc, root, (const xmlChar*)"xmlns");
-	xmlSetNsProp(node, xmlns, (const xmlChar*)"xmlns", (const xmlChar*)"http://myflightbook.com/");	
+	xmlSetNsProp(node, xmlns, (const xmlChar*)"xmlns", (const xmlChar*)"http://myflightbook.com/");
 	
 	
 	[self addAttributesToNode:node];
@@ -18030,7 +17241,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_LogbookEntry *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_LogbookEntry *newObject = [[MFBWebServiceSvc_LogbookEntry new] autorelease];
+	MFBWebServiceSvc_LogbookEntry *newObject = [MFBWebServiceSvc_LogbookEntry new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -18059,46 +17270,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -18113,13 +17320,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(LogbookEntry != nil) [LogbookEntry release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -18151,7 +17351,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.LogbookEntry) != 0) {
+	if(((__bridge void *)self.LogbookEntry) != 0) {
 		for(MFBWebServiceSvc_LogbookEntry * child in self.LogbookEntry) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"LogbookEntry" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -18172,7 +17372,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_ArrayOfLogbookEntry *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_ArrayOfLogbookEntry *newObject = [[MFBWebServiceSvc_ArrayOfLogbookEntry new] autorelease];
+	MFBWebServiceSvc_ArrayOfLogbookEntry *newObject = [MFBWebServiceSvc_ArrayOfLogbookEntry new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -18232,46 +17432,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -18286,13 +17482,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(FlightsWithQueryAndOffsetResult != nil) [FlightsWithQueryAndOffsetResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -18324,7 +17513,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.FlightsWithQueryAndOffsetResult) != 0) {
+	if(((__bridge void *)self.FlightsWithQueryAndOffsetResult) != 0) {
 		xmlAddChild(node, [self.FlightsWithQueryAndOffsetResult xmlNodeForDoc:node->doc elementName:@"FlightsWithQueryAndOffsetResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -18339,7 +17528,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_FlightsWithQueryAndOffsetResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_FlightsWithQueryAndOffsetResponse *newObject = [[MFBWebServiceSvc_FlightsWithQueryAndOffsetResponse new] autorelease];
+	MFBWebServiceSvc_FlightsWithQueryAndOffsetResponse *newObject = [MFBWebServiceSvc_FlightsWithQueryAndOffsetResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -18399,46 +17588,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -18455,15 +17640,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthUserToken != nil) [szAuthUserToken release];
-	if(fq != nil) [fq release];
-	if(maxCount != nil) [maxCount release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -18495,13 +17671,13 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthUserToken) != 0) {
+	if(((__bridge void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.fq) != 0) {
+	if(((__bridge void *)self.fq) != 0) {
 		xmlAddChild(node, [self.fq xmlNodeForDoc:node->doc elementName:@"fq" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.maxCount) != 0) {
+	if(((__bridge void *)self.maxCount) != 0) {
 		xmlAddChild(node, [self.maxCount xmlNodeForDoc:node->doc elementName:@"maxCount" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -18518,7 +17694,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_FlightsWithQuery *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_FlightsWithQuery *newObject = [[MFBWebServiceSvc_FlightsWithQuery new] autorelease];
+	MFBWebServiceSvc_FlightsWithQuery *newObject = [MFBWebServiceSvc_FlightsWithQuery new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -18644,46 +17820,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -18698,13 +17870,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(FlightsWithQueryResult != nil) [FlightsWithQueryResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -18736,7 +17901,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.FlightsWithQueryResult) != 0) {
+	if(((__bridge void *)self.FlightsWithQueryResult) != 0) {
 		xmlAddChild(node, [self.FlightsWithQueryResult xmlNodeForDoc:node->doc elementName:@"FlightsWithQueryResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -18751,7 +17916,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_FlightsWithQueryResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_FlightsWithQueryResponse *newObject = [[MFBWebServiceSvc_FlightsWithQueryResponse new] autorelease];
+	MFBWebServiceSvc_FlightsWithQueryResponse *newObject = [MFBWebServiceSvc_FlightsWithQueryResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -18811,46 +17976,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -18866,14 +18027,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthUserToken != nil) [szAuthUserToken release];
-	if(idFlight != nil) [idFlight release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -18905,10 +18058,10 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthUserToken) != 0) {
+	if(((__bridge void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.idFlight) != 0) {
+	if(((__bridge void *)self.idFlight) != 0) {
 		xmlAddChild(node, [self.idFlight xmlNodeForDoc:node->doc elementName:@"idFlight" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -18924,7 +18077,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_DeleteLogbookEntry *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_DeleteLogbookEntry *newObject = [[MFBWebServiceSvc_DeleteLogbookEntry new] autorelease];
+	MFBWebServiceSvc_DeleteLogbookEntry *newObject = [MFBWebServiceSvc_DeleteLogbookEntry new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -19017,46 +18170,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -19071,13 +18220,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(DeleteLogbookEntryResult != nil) [DeleteLogbookEntryResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -19109,7 +18251,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.DeleteLogbookEntryResult) != 0) {
+	if(((__bridge void *)self.DeleteLogbookEntryResult) != 0) {
 		xmlAddChild(node, [self.DeleteLogbookEntryResult xmlNodeForDoc:node->doc elementName:@"DeleteLogbookEntryResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -19124,7 +18266,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_DeleteLogbookEntryResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_DeleteLogbookEntryResponse *newObject = [[MFBWebServiceSvc_DeleteLogbookEntryResponse new] autorelease];
+	MFBWebServiceSvc_DeleteLogbookEntryResponse *newObject = [MFBWebServiceSvc_DeleteLogbookEntryResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -19184,46 +18326,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -19237,12 +18375,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -19284,7 +18416,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_PostingOptions *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_PostingOptions *newObject = [[MFBWebServiceSvc_PostingOptions new] autorelease];
+	MFBWebServiceSvc_PostingOptions *newObject = [MFBWebServiceSvc_PostingOptions new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -19299,46 +18431,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	
 	
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -19355,15 +18483,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthUserToken != nil) [szAuthUserToken release];
-	if(le != nil) [le release];
-	if(po != nil) [po release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -19395,13 +18514,13 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthUserToken) != 0) {
+	if(((__bridge void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.le) != 0) {
+	if(((__bridge void *)self.le) != 0) {
 		xmlAddChild(node, [self.le xmlNodeForDoc:node->doc elementName:@"le" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.po) != 0) {
+	if(((__bridge void *)self.po) != 0) {
 		xmlAddChild(node, [self.po xmlNodeForDoc:node->doc elementName:@"po" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -19418,7 +18537,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_CommitFlightWithOptions *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_CommitFlightWithOptions *newObject = [[MFBWebServiceSvc_CommitFlightWithOptions new] autorelease];
+	MFBWebServiceSvc_CommitFlightWithOptions *newObject = [MFBWebServiceSvc_CommitFlightWithOptions new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -19544,46 +18663,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -19598,13 +18713,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(CommitFlightWithOptionsResult != nil) [CommitFlightWithOptionsResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -19636,7 +18744,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.CommitFlightWithOptionsResult) != 0) {
+	if(((__bridge void *)self.CommitFlightWithOptionsResult) != 0) {
 		xmlAddChild(node, [self.CommitFlightWithOptionsResult xmlNodeForDoc:node->doc elementName:@"CommitFlightWithOptionsResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -19651,7 +18759,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_CommitFlightWithOptionsResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_CommitFlightWithOptionsResponse *newObject = [[MFBWebServiceSvc_CommitFlightWithOptionsResponse new] autorelease];
+	MFBWebServiceSvc_CommitFlightWithOptionsResponse *newObject = [MFBWebServiceSvc_CommitFlightWithOptionsResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -19711,46 +18819,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -19766,14 +18870,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthUserToken != nil) [szAuthUserToken release];
-	if(idFlight != nil) [idFlight release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -19805,10 +18901,10 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthUserToken) != 0) {
+	if(((__bridge void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.idFlight) != 0) {
+	if(((__bridge void *)self.idFlight) != 0) {
 		xmlAddChild(node, [self.idFlight xmlNodeForDoc:node->doc elementName:@"idFlight" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -19824,7 +18920,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_FlightPathForFlight *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_FlightPathForFlight *newObject = [[MFBWebServiceSvc_FlightPathForFlight new] autorelease];
+	MFBWebServiceSvc_FlightPathForFlight *newObject = [MFBWebServiceSvc_FlightPathForFlight new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -19917,46 +19013,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -19971,13 +19063,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(LatLong != nil) [LatLong release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -20009,7 +19094,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.LatLong) != 0) {
+	if(((__bridge void *)self.LatLong) != 0) {
 		for(MFBWebServiceSvc_LatLong * child in self.LatLong) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"LatLong" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -20030,7 +19115,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_ArrayOfLatLong *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_ArrayOfLatLong *newObject = [[MFBWebServiceSvc_ArrayOfLatLong new] autorelease];
+	MFBWebServiceSvc_ArrayOfLatLong *newObject = [MFBWebServiceSvc_ArrayOfLatLong new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -20090,46 +19175,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -20144,13 +19225,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(FlightPathForFlightResult != nil) [FlightPathForFlightResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -20182,7 +19256,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.FlightPathForFlightResult) != 0) {
+	if(((__bridge void *)self.FlightPathForFlightResult) != 0) {
 		xmlAddChild(node, [self.FlightPathForFlightResult xmlNodeForDoc:node->doc elementName:@"FlightPathForFlightResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -20197,7 +19271,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_FlightPathForFlightResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_FlightPathForFlightResponse *newObject = [[MFBWebServiceSvc_FlightPathForFlightResponse new] autorelease];
+	MFBWebServiceSvc_FlightPathForFlightResponse *newObject = [MFBWebServiceSvc_FlightPathForFlightResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -20257,46 +19331,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -20312,14 +19382,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthUserToken != nil) [szAuthUserToken release];
-	if(idFlight != nil) [idFlight release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -20351,10 +19413,10 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthUserToken) != 0) {
+	if(((__bridge void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.idFlight) != 0) {
+	if(((__bridge void *)self.idFlight) != 0) {
 		xmlAddChild(node, [self.idFlight xmlNodeForDoc:node->doc elementName:@"idFlight" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -20370,7 +19432,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_FlightPathForFlightGPX *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_FlightPathForFlightGPX *newObject = [[MFBWebServiceSvc_FlightPathForFlightGPX new] autorelease];
+	MFBWebServiceSvc_FlightPathForFlightGPX *newObject = [MFBWebServiceSvc_FlightPathForFlightGPX new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -20463,46 +19525,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -20517,13 +19575,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(FlightPathForFlightGPXResult != nil) [FlightPathForFlightGPXResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -20555,7 +19606,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.FlightPathForFlightGPXResult) != 0) {
+	if(((__bridge void *)self.FlightPathForFlightGPXResult) != 0) {
 		xmlAddChild(node, [self.FlightPathForFlightGPXResult xmlNodeForDoc:node->doc elementName:@"FlightPathForFlightGPXResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -20570,7 +19621,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_FlightPathForFlightGPXResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_FlightPathForFlightGPXResponse *newObject = [[MFBWebServiceSvc_FlightPathForFlightGPXResponse new] autorelease];
+	MFBWebServiceSvc_FlightPathForFlightGPXResponse *newObject = [MFBWebServiceSvc_FlightPathForFlightGPXResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -20630,46 +19681,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -20685,14 +19732,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthUserToken != nil) [szAuthUserToken release];
-	if(le != nil) [le release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -20724,10 +19763,10 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthUserToken) != 0) {
+	if(((__bridge void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.le) != 0) {
+	if(((__bridge void *)self.le) != 0) {
 		xmlAddChild(node, [self.le xmlNodeForDoc:node->doc elementName:@"le" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -20743,7 +19782,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_CreatePendingFlight *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_CreatePendingFlight *newObject = [[MFBWebServiceSvc_CreatePendingFlight new] autorelease];
+	MFBWebServiceSvc_CreatePendingFlight *newObject = [MFBWebServiceSvc_CreatePendingFlight new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -20836,46 +19875,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -20889,12 +19924,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	if(PendingID != nil) [PendingID release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -20918,7 +19947,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	// BUGBUG: ASP.NET compatibility: need to add xmlns attribute or else parameters don't make it.  Is there a good
 	// place to do this so that we don't have to redo this whenever we autogenerate new code?
 	xmlNsPtr xmlns = xmlSearchNs(doc, root, (const xmlChar*)"xmlns");
-	xmlSetNsProp(node, xmlns, (const xmlChar*)"xmlns", (const xmlChar*)"http://myflightbook.com/");	
+	xmlSetNsProp(node, xmlns, (const xmlChar*)"xmlns", (const xmlChar*)"http://myflightbook.com/");
 	
 	
 	[self addAttributesToNode:node];
@@ -20936,7 +19965,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 {
 	[super addElementsToNode:node];
 	
-	if(((void *)self.PendingID) != 0) {
+	if(((__bridge void *)self.PendingID) != 0) {
 		xmlAddChild(node, [self.PendingID xmlNodeForDoc:node->doc elementName:@"PendingID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -20951,7 +19980,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_PendingFlight *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_PendingFlight *newObject = [[MFBWebServiceSvc_PendingFlight new] autorelease];
+	MFBWebServiceSvc_PendingFlight *newObject = [MFBWebServiceSvc_PendingFlight new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -21013,46 +20042,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -21067,13 +20092,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(PendingFlight != nil) [PendingFlight release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -21105,7 +20123,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.PendingFlight) != 0) {
+	if(((__bridge void *)self.PendingFlight) != 0) {
 		for(MFBWebServiceSvc_PendingFlight * child in self.PendingFlight) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"PendingFlight" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -21126,7 +20144,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_ArrayOfPendingFlight *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_ArrayOfPendingFlight *newObject = [[MFBWebServiceSvc_ArrayOfPendingFlight new] autorelease];
+	MFBWebServiceSvc_ArrayOfPendingFlight *newObject = [MFBWebServiceSvc_ArrayOfPendingFlight new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -21186,46 +20204,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -21240,13 +20254,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(CreatePendingFlightResult != nil) [CreatePendingFlightResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -21278,7 +20285,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.CreatePendingFlightResult) != 0) {
+	if(((__bridge void *)self.CreatePendingFlightResult) != 0) {
 		xmlAddChild(node, [self.CreatePendingFlightResult xmlNodeForDoc:node->doc elementName:@"CreatePendingFlightResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -21293,7 +20300,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_CreatePendingFlightResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_CreatePendingFlightResponse *newObject = [[MFBWebServiceSvc_CreatePendingFlightResponse new] autorelease];
+	MFBWebServiceSvc_CreatePendingFlightResponse *newObject = [MFBWebServiceSvc_CreatePendingFlightResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -21353,46 +20360,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -21407,13 +20410,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthUserToken != nil) [szAuthUserToken release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -21445,7 +20441,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthUserToken) != 0) {
+	if(((__bridge void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -21460,7 +20456,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_PendingFlightsForUser *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_PendingFlightsForUser *newObject = [[MFBWebServiceSvc_PendingFlightsForUser new] autorelease];
+	MFBWebServiceSvc_PendingFlightsForUser *newObject = [MFBWebServiceSvc_PendingFlightsForUser new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -21520,46 +20516,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -21574,13 +20566,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(PendingFlightsForUserResult != nil) [PendingFlightsForUserResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -21612,7 +20597,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.PendingFlightsForUserResult) != 0) {
+	if(((__bridge void *)self.PendingFlightsForUserResult) != 0) {
 		xmlAddChild(node, [self.PendingFlightsForUserResult xmlNodeForDoc:node->doc elementName:@"PendingFlightsForUserResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -21627,7 +20612,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_PendingFlightsForUserResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_PendingFlightsForUserResponse *newObject = [[MFBWebServiceSvc_PendingFlightsForUserResponse new] autorelease];
+	MFBWebServiceSvc_PendingFlightsForUserResponse *newObject = [MFBWebServiceSvc_PendingFlightsForUserResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -21687,46 +20672,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -21742,14 +20723,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthUserToken != nil) [szAuthUserToken release];
-	if(pf != nil) [pf release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -21781,10 +20754,10 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthUserToken) != 0) {
+	if(((__bridge void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.pf) != 0) {
+	if(((__bridge void *)self.pf) != 0) {
 		xmlAddChild(node, [self.pf xmlNodeForDoc:node->doc elementName:@"pf" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -21800,7 +20773,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_UpdatePendingFlight *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_UpdatePendingFlight *newObject = [[MFBWebServiceSvc_UpdatePendingFlight new] autorelease];
+	MFBWebServiceSvc_UpdatePendingFlight *newObject = [MFBWebServiceSvc_UpdatePendingFlight new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -21893,46 +20866,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -21947,13 +20916,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(UpdatePendingFlightResult != nil) [UpdatePendingFlightResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -21985,7 +20947,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.UpdatePendingFlightResult) != 0) {
+	if(((__bridge void *)self.UpdatePendingFlightResult) != 0) {
 		xmlAddChild(node, [self.UpdatePendingFlightResult xmlNodeForDoc:node->doc elementName:@"UpdatePendingFlightResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -22000,7 +20962,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_UpdatePendingFlightResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_UpdatePendingFlightResponse *newObject = [[MFBWebServiceSvc_UpdatePendingFlightResponse new] autorelease];
+	MFBWebServiceSvc_UpdatePendingFlightResponse *newObject = [MFBWebServiceSvc_UpdatePendingFlightResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -22060,46 +21022,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -22115,14 +21073,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthUserToken != nil) [szAuthUserToken release];
-	if(idpending != nil) [idpending release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -22154,10 +21104,10 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthUserToken) != 0) {
+	if(((__bridge void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.idpending) != 0) {
+	if(((__bridge void *)self.idpending) != 0) {
 		xmlAddChild(node, [self.idpending xmlNodeForDoc:node->doc elementName:@"idpending" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -22173,7 +21123,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_DeletePendingFlight *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_DeletePendingFlight *newObject = [[MFBWebServiceSvc_DeletePendingFlight new] autorelease];
+	MFBWebServiceSvc_DeletePendingFlight *newObject = [MFBWebServiceSvc_DeletePendingFlight new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -22266,46 +21216,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -22320,13 +21266,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(DeletePendingFlightResult != nil) [DeletePendingFlightResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -22358,7 +21297,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.DeletePendingFlightResult) != 0) {
+	if(((__bridge void *)self.DeletePendingFlightResult) != 0) {
 		xmlAddChild(node, [self.DeletePendingFlightResult xmlNodeForDoc:node->doc elementName:@"DeletePendingFlightResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -22373,7 +21312,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_DeletePendingFlightResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_DeletePendingFlightResponse *newObject = [[MFBWebServiceSvc_DeletePendingFlightResponse new] autorelease];
+	MFBWebServiceSvc_DeletePendingFlightResponse *newObject = [MFBWebServiceSvc_DeletePendingFlightResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -22433,46 +21372,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -22488,14 +21423,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthUserToken != nil) [szAuthUserToken release];
-	if(pf != nil) [pf release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -22527,10 +21454,10 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthUserToken) != 0) {
+	if(((__bridge void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.pf) != 0) {
+	if(((__bridge void *)self.pf) != 0) {
 		xmlAddChild(node, [self.pf xmlNodeForDoc:node->doc elementName:@"pf" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -22546,7 +21473,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_CommitPendingFlight *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_CommitPendingFlight *newObject = [[MFBWebServiceSvc_CommitPendingFlight new] autorelease];
+	MFBWebServiceSvc_CommitPendingFlight *newObject = [MFBWebServiceSvc_CommitPendingFlight new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -22639,46 +21566,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -22693,13 +21616,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(CommitPendingFlightResult != nil) [CommitPendingFlightResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -22731,7 +21647,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.CommitPendingFlightResult) != 0) {
+	if(((__bridge void *)self.CommitPendingFlightResult) != 0) {
 		xmlAddChild(node, [self.CommitPendingFlightResult xmlNodeForDoc:node->doc elementName:@"CommitPendingFlightResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -22746,7 +21662,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_CommitPendingFlightResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_CommitPendingFlightResponse *newObject = [[MFBWebServiceSvc_CommitPendingFlightResponse new] autorelease];
+	MFBWebServiceSvc_CommitPendingFlightResponse *newObject = [MFBWebServiceSvc_CommitPendingFlightResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -22806,46 +21722,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -22859,12 +21771,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -22906,7 +21812,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_AvailablePropertyTypes *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_AvailablePropertyTypes *newObject = [[MFBWebServiceSvc_AvailablePropertyTypes new] autorelease];
+	MFBWebServiceSvc_AvailablePropertyTypes *newObject = [MFBWebServiceSvc_AvailablePropertyTypes new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -22921,46 +21827,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	
 	
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -22975,13 +21877,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(AvailablePropertyTypesResult != nil) [AvailablePropertyTypesResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -23013,7 +21908,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.AvailablePropertyTypesResult) != 0) {
+	if(((__bridge void *)self.AvailablePropertyTypesResult) != 0) {
 		xmlAddChild(node, [self.AvailablePropertyTypesResult xmlNodeForDoc:node->doc elementName:@"AvailablePropertyTypesResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -23028,7 +21923,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_AvailablePropertyTypesResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_AvailablePropertyTypesResponse *newObject = [[MFBWebServiceSvc_AvailablePropertyTypesResponse new] autorelease];
+	MFBWebServiceSvc_AvailablePropertyTypesResponse *newObject = [MFBWebServiceSvc_AvailablePropertyTypesResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -23088,46 +21983,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -23142,13 +22033,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthUserToken != nil) [szAuthUserToken release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -23180,7 +22064,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthUserToken) != 0) {
+	if(((__bridge void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -23195,7 +22079,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_AvailablePropertyTypesForUser *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_AvailablePropertyTypesForUser *newObject = [[MFBWebServiceSvc_AvailablePropertyTypesForUser new] autorelease];
+	MFBWebServiceSvc_AvailablePropertyTypesForUser *newObject = [MFBWebServiceSvc_AvailablePropertyTypesForUser new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -23255,46 +22139,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -23309,13 +22189,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(AvailablePropertyTypesForUserResult != nil) [AvailablePropertyTypesForUserResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -23347,7 +22220,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.AvailablePropertyTypesForUserResult) != 0) {
+	if(((__bridge void *)self.AvailablePropertyTypesForUserResult) != 0) {
 		xmlAddChild(node, [self.AvailablePropertyTypesForUserResult xmlNodeForDoc:node->doc elementName:@"AvailablePropertyTypesForUserResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -23362,7 +22235,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_AvailablePropertyTypesForUserResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_AvailablePropertyTypesForUserResponse *newObject = [[MFBWebServiceSvc_AvailablePropertyTypesForUserResponse new] autorelease];
+	MFBWebServiceSvc_AvailablePropertyTypesForUserResponse *newObject = [MFBWebServiceSvc_AvailablePropertyTypesForUserResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -23422,46 +22295,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -23476,13 +22345,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthUserToken != nil) [szAuthUserToken release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -23514,7 +22376,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthUserToken) != 0) {
+	if(((__bridge void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -23529,7 +22391,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_PropertiesAndTemplatesForUser *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_PropertiesAndTemplatesForUser *newObject = [[MFBWebServiceSvc_PropertiesAndTemplatesForUser new] autorelease];
+	MFBWebServiceSvc_PropertiesAndTemplatesForUser *newObject = [MFBWebServiceSvc_PropertiesAndTemplatesForUser new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -23589,46 +22451,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -23649,19 +22507,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(ID_ != nil) [ID_ release];
-	if(Name != nil) [Name release];
-	if(Description != nil) [Description release];
-	if(GroupAsInt != nil) [GroupAsInt release];
-	if(GroupDisplayName != nil) [GroupDisplayName release];
-	if(PropertyTypes != nil) [PropertyTypes release];
-	if(IsDefault != nil) [IsDefault release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -23693,25 +22538,25 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.ID_) != 0) {
+	if(((__bridge void *)self.ID_) != 0) {
 		xmlAddChild(node, [self.ID_ xmlNodeForDoc:node->doc elementName:@"ID" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Name) != 0) {
+	if(((__bridge void *)self.Name) != 0) {
 		xmlAddChild(node, [self.Name xmlNodeForDoc:node->doc elementName:@"Name" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.Description) != 0) {
+	if(((__bridge void *)self.Description) != 0) {
 		xmlAddChild(node, [self.Description xmlNodeForDoc:node->doc elementName:@"Description" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.GroupAsInt) != 0) {
+	if(((__bridge void *)self.GroupAsInt) != 0) {
 		xmlAddChild(node, [self.GroupAsInt xmlNodeForDoc:node->doc elementName:@"GroupAsInt" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.GroupDisplayName) != 0) {
+	if(((__bridge void *)self.GroupDisplayName) != 0) {
 		xmlAddChild(node, [self.GroupDisplayName xmlNodeForDoc:node->doc elementName:@"GroupDisplayName" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.PropertyTypes) != 0) {
+	if(((__bridge void *)self.PropertyTypes) != 0) {
 		xmlAddChild(node, [self.PropertyTypes xmlNodeForDoc:node->doc elementName:@"PropertyTypes" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.IsDefault) != 0) {
+	if(((__bridge void *)self.IsDefault) != 0) {
 		xmlAddChild(node, [self.IsDefault xmlNodeForDoc:node->doc elementName:@"IsDefault" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -23732,7 +22577,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_PropertyTemplate *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_PropertyTemplate *newObject = [[MFBWebServiceSvc_PropertyTemplate new] autorelease];
+	MFBWebServiceSvc_PropertyTemplate *newObject = [MFBWebServiceSvc_PropertyTemplate new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -23990,46 +22835,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -24044,13 +22885,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(PropertyTemplate != nil) [PropertyTemplate release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -24082,7 +22916,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.PropertyTemplate) != 0) {
+	if(((__bridge void *)self.PropertyTemplate) != 0) {
 		for(MFBWebServiceSvc_PropertyTemplate * child in self.PropertyTemplate) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"PropertyTemplate" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -24103,7 +22937,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_ArrayOfPropertyTemplate *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_ArrayOfPropertyTemplate *newObject = [[MFBWebServiceSvc_ArrayOfPropertyTemplate new] autorelease];
+	MFBWebServiceSvc_ArrayOfPropertyTemplate *newObject = [MFBWebServiceSvc_ArrayOfPropertyTemplate new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -24163,46 +22997,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -24218,14 +23048,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(UserProperties != nil) [UserProperties release];
-	if(UserTemplates != nil) [UserTemplates release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -24257,10 +23079,10 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.UserProperties) != 0) {
+	if(((__bridge void *)self.UserProperties) != 0) {
 		xmlAddChild(node, [self.UserProperties xmlNodeForDoc:node->doc elementName:@"UserProperties" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.UserTemplates) != 0) {
+	if(((__bridge void *)self.UserTemplates) != 0) {
 		xmlAddChild(node, [self.UserTemplates xmlNodeForDoc:node->doc elementName:@"UserTemplates" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -24276,7 +23098,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_TemplatePropTypeBundle *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_TemplatePropTypeBundle *newObject = [[MFBWebServiceSvc_TemplatePropTypeBundle new] autorelease];
+	MFBWebServiceSvc_TemplatePropTypeBundle *newObject = [MFBWebServiceSvc_TemplatePropTypeBundle new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -24369,46 +23191,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -24423,13 +23241,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(PropertiesAndTemplatesForUserResult != nil) [PropertiesAndTemplatesForUserResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -24461,7 +23272,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.PropertiesAndTemplatesForUserResult) != 0) {
+	if(((__bridge void *)self.PropertiesAndTemplatesForUserResult) != 0) {
 		xmlAddChild(node, [self.PropertiesAndTemplatesForUserResult xmlNodeForDoc:node->doc elementName:@"PropertiesAndTemplatesForUserResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -24476,7 +23287,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_PropertiesAndTemplatesForUserResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_PropertiesAndTemplatesForUserResponse *newObject = [[MFBWebServiceSvc_PropertiesAndTemplatesForUserResponse new] autorelease];
+	MFBWebServiceSvc_PropertiesAndTemplatesForUserResponse *newObject = [MFBWebServiceSvc_PropertiesAndTemplatesForUserResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -24536,46 +23347,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -24591,14 +23398,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthUserToken != nil) [szAuthUserToken release];
-	if(idFlight != nil) [idFlight release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -24630,10 +23429,10 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthUserToken) != 0) {
+	if(((__bridge void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.idFlight) != 0) {
+	if(((__bridge void *)self.idFlight) != 0) {
 		xmlAddChild(node, [self.idFlight xmlNodeForDoc:node->doc elementName:@"idFlight" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -24649,7 +23448,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_PropertiesForFlight *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_PropertiesForFlight *newObject = [[MFBWebServiceSvc_PropertiesForFlight new] autorelease];
+	MFBWebServiceSvc_PropertiesForFlight *newObject = [MFBWebServiceSvc_PropertiesForFlight new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -24742,46 +23541,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -24796,13 +23591,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(PropertiesForFlightResult != nil) [PropertiesForFlightResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -24834,7 +23622,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.PropertiesForFlightResult) != 0) {
+	if(((__bridge void *)self.PropertiesForFlightResult) != 0) {
 		xmlAddChild(node, [self.PropertiesForFlightResult xmlNodeForDoc:node->doc elementName:@"PropertiesForFlightResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -24849,7 +23637,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_PropertiesForFlightResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_PropertiesForFlightResponse *newObject = [[MFBWebServiceSvc_PropertiesForFlightResponse new] autorelease];
+	MFBWebServiceSvc_PropertiesForFlightResponse *newObject = [MFBWebServiceSvc_PropertiesForFlightResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -24909,46 +23697,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -24965,15 +23749,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthUserToken != nil) [szAuthUserToken release];
-	if(idFlight != nil) [idFlight release];
-	if(rgPropIds != nil) [rgPropIds release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -25005,13 +23780,13 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthUserToken) != 0) {
+	if(((__bridge void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.idFlight) != 0) {
+	if(((__bridge void *)self.idFlight) != 0) {
 		xmlAddChild(node, [self.idFlight xmlNodeForDoc:node->doc elementName:@"idFlight" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.rgPropIds) != 0) {
+	if(((__bridge void *)self.rgPropIds) != 0) {
 		xmlAddChild(node, [self.rgPropIds xmlNodeForDoc:node->doc elementName:@"rgPropIds" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -25028,7 +23803,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_DeletePropertiesForFlight *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_DeletePropertiesForFlight *newObject = [[MFBWebServiceSvc_DeletePropertiesForFlight new] autorelease];
+	MFBWebServiceSvc_DeletePropertiesForFlight *newObject = [MFBWebServiceSvc_DeletePropertiesForFlight new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -25154,46 +23929,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -25207,12 +23978,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -25254,7 +24019,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_DeletePropertiesForFlightResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_DeletePropertiesForFlightResponse *newObject = [[MFBWebServiceSvc_DeletePropertiesForFlightResponse new] autorelease];
+	MFBWebServiceSvc_DeletePropertiesForFlightResponse *newObject = [MFBWebServiceSvc_DeletePropertiesForFlightResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -25269,46 +24034,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	
 	
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -25325,15 +24086,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthUserToken != nil) [szAuthUserToken release];
-	if(idFlight != nil) [idFlight release];
-	if(propId != nil) [propId release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -25365,13 +24117,13 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthUserToken) != 0) {
+	if(((__bridge void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.idFlight) != 0) {
+	if(((__bridge void *)self.idFlight) != 0) {
 		xmlAddChild(node, [self.idFlight xmlNodeForDoc:node->doc elementName:@"idFlight" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.propId) != 0) {
+	if(((__bridge void *)self.propId) != 0) {
 		xmlAddChild(node, [self.propId xmlNodeForDoc:node->doc elementName:@"propId" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -25388,7 +24140,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_DeletePropertyForFlight *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_DeletePropertyForFlight *newObject = [[MFBWebServiceSvc_DeletePropertyForFlight new] autorelease];
+	MFBWebServiceSvc_DeletePropertyForFlight *newObject = [MFBWebServiceSvc_DeletePropertyForFlight new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -25514,46 +24266,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -25567,12 +24315,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -25614,7 +24356,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_DeletePropertyForFlightResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_DeletePropertyForFlightResponse *newObject = [[MFBWebServiceSvc_DeletePropertyForFlightResponse new] autorelease];
+	MFBWebServiceSvc_DeletePropertyForFlightResponse *newObject = [MFBWebServiceSvc_DeletePropertyForFlightResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -25629,46 +24371,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	
 	
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -25684,14 +24422,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthUserToken != nil) [szAuthUserToken release];
-	if(mfbii != nil) [mfbii release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -25723,10 +24453,10 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthUserToken) != 0) {
+	if(((__bridge void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.mfbii) != 0) {
+	if(((__bridge void *)self.mfbii) != 0) {
 		xmlAddChild(node, [self.mfbii xmlNodeForDoc:node->doc elementName:@"mfbii" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -25742,7 +24472,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_DeleteImage *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_DeleteImage *newObject = [[MFBWebServiceSvc_DeleteImage new] autorelease];
+	MFBWebServiceSvc_DeleteImage *newObject = [MFBWebServiceSvc_DeleteImage new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -25835,46 +24565,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -25888,12 +24614,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -25935,7 +24655,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_DeleteImageResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_DeleteImageResponse *newObject = [[MFBWebServiceSvc_DeleteImageResponse new] autorelease];
+	MFBWebServiceSvc_DeleteImageResponse *newObject = [MFBWebServiceSvc_DeleteImageResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -25950,46 +24670,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	
 	
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -26005,14 +24721,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthUserToken != nil) [szAuthUserToken release];
-	if(mfbii != nil) [mfbii release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -26044,10 +24752,10 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthUserToken) != 0) {
+	if(((__bridge void *)self.szAuthUserToken) != 0) {
 		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.mfbii) != 0) {
+	if(((__bridge void *)self.mfbii) != 0) {
 		xmlAddChild(node, [self.mfbii xmlNodeForDoc:node->doc elementName:@"mfbii" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -26063,7 +24771,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_UpdateImageAnnotation *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_UpdateImageAnnotation *newObject = [[MFBWebServiceSvc_UpdateImageAnnotation new] autorelease];
+	MFBWebServiceSvc_UpdateImageAnnotation *newObject = [MFBWebServiceSvc_UpdateImageAnnotation new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -26156,46 +24864,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -26209,12 +24913,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -26256,7 +24954,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_UpdateImageAnnotationResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_UpdateImageAnnotationResponse *newObject = [[MFBWebServiceSvc_UpdateImageAnnotationResponse new] autorelease];
+	MFBWebServiceSvc_UpdateImageAnnotationResponse *newObject = [MFBWebServiceSvc_UpdateImageAnnotationResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -26271,46 +24969,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	
 	
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -26327,15 +25021,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAppToken != nil) [szAppToken release];
-	if(szUser != nil) [szUser release];
-	if(szPass != nil) [szPass release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -26367,13 +25052,13 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAppToken) != 0) {
+	if(((__bridge void *)self.szAppToken) != 0) {
 		xmlAddChild(node, [self.szAppToken xmlNodeForDoc:node->doc elementName:@"szAppToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.szUser) != 0) {
+	if(((__bridge void *)self.szUser) != 0) {
 		xmlAddChild(node, [self.szUser xmlNodeForDoc:node->doc elementName:@"szUser" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.szPass) != 0) {
+	if(((__bridge void *)self.szPass) != 0) {
 		xmlAddChild(node, [self.szPass xmlNodeForDoc:node->doc elementName:@"szPass" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -26390,7 +25075,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_AuthTokenForUser *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_AuthTokenForUser *newObject = [[MFBWebServiceSvc_AuthTokenForUser new] autorelease];
+	MFBWebServiceSvc_AuthTokenForUser *newObject = [MFBWebServiceSvc_AuthTokenForUser new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -26516,46 +25201,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -26570,13 +25251,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(AuthTokenForUserResult != nil) [AuthTokenForUserResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -26608,7 +25282,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.AuthTokenForUserResult) != 0) {
+	if(((__bridge void *)self.AuthTokenForUserResult) != 0) {
 		xmlAddChild(node, [self.AuthTokenForUserResult xmlNodeForDoc:node->doc elementName:@"AuthTokenForUserResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -26623,7 +25297,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_AuthTokenForUserResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_AuthTokenForUserResponse *newObject = [[MFBWebServiceSvc_AuthTokenForUserResponse new] autorelease];
+	MFBWebServiceSvc_AuthTokenForUserResponse *newObject = [MFBWebServiceSvc_AuthTokenForUserResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -26683,46 +25357,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -26740,16 +25410,6 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAppToken != nil) [szAppToken release];
-	if(szUser != nil) [szUser release];
-	if(szPass != nil) [szPass release];
-	if(sz2FactorAuth != nil) [sz2FactorAuth release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -26781,16 +25441,16 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAppToken) != 0) {
+	if(((__bridge void *)self.szAppToken) != 0) {
 		xmlAddChild(node, [self.szAppToken xmlNodeForDoc:node->doc elementName:@"szAppToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.szUser) != 0) {
+	if(((__bridge void *)self.szUser) != 0) {
 		xmlAddChild(node, [self.szUser xmlNodeForDoc:node->doc elementName:@"szUser" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.szPass) != 0) {
+	if(((__bridge void *)self.szPass) != 0) {
 		xmlAddChild(node, [self.szPass xmlNodeForDoc:node->doc elementName:@"szPass" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.sz2FactorAuth) != 0) {
+	if(((__bridge void *)self.sz2FactorAuth) != 0) {
 		xmlAddChild(node, [self.sz2FactorAuth xmlNodeForDoc:node->doc elementName:@"sz2FactorAuth" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -26808,7 +25468,7 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 }
 + (MFBWebServiceSvc_AuthTokenForUserNew *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_AuthTokenForUserNew *newObject = [[MFBWebServiceSvc_AuthTokenForUserNew new] autorelease];
+	MFBWebServiceSvc_AuthTokenForUserNew *newObject = [MFBWebServiceSvc_AuthTokenForUserNew new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -26967,46 +25627,42 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -27053,13 +25709,6 @@ NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatu
 	
 	return self;
 }
-- (void)dealloc
-{
-	[soapSigner release];
-	if(AuthToken != nil) [AuthToken release];
-	
-	[super dealloc];
-}
 - (NSString *)nsPrefix
 {
 	return @"MFBWebServiceSvc";
@@ -27093,7 +25742,7 @@ NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatu
 	if(((void *)self.Result) != 0) {
 		xmlNewChild(node, NULL, (const xmlChar*)"MFBWebServiceSvc:Result", [MFBWebServiceSvc_AuthStatus_stringFromEnum(self.Result) xmlString]);
 	}
-	if(((void *)self.AuthToken) != 0) {
+	if(((__bridge void *)self.AuthToken) != 0) {
 		xmlAddChild(node, [self.AuthToken xmlNodeForDoc:node->doc elementName:@"AuthToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -27109,7 +25758,7 @@ NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatu
 }
 + (MFBWebServiceSvc_AuthResult *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_AuthResult *newObject = [[MFBWebServiceSvc_AuthResult new] autorelease];
+	MFBWebServiceSvc_AuthResult *newObject = [MFBWebServiceSvc_AuthResult new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -27174,46 +25823,42 @@ NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatu
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -27228,13 +25873,6 @@ NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatu
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(AuthTokenForUserNewResult != nil) [AuthTokenForUserNewResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -27266,7 +25904,7 @@ NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatu
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.AuthTokenForUserNewResult) != 0) {
+	if(((__bridge void *)self.AuthTokenForUserNewResult) != 0) {
 		xmlAddChild(node, [self.AuthTokenForUserNewResult xmlNodeForDoc:node->doc elementName:@"AuthTokenForUserNewResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -27281,7 +25919,7 @@ NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatu
 }
 + (MFBWebServiceSvc_AuthTokenForUserNewResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_AuthTokenForUserNewResponse *newObject = [[MFBWebServiceSvc_AuthTokenForUserNewResponse new] autorelease];
+	MFBWebServiceSvc_AuthTokenForUserNewResponse *newObject = [MFBWebServiceSvc_AuthTokenForUserNewResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -27341,46 +25979,42 @@ NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatu
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -27398,16 +26032,6 @@ NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatu
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAppToken != nil) [szAppToken release];
-	if(szUser != nil) [szUser release];
-	if(szPass != nil) [szPass release];
-	if(szPreviousToken != nil) [szPreviousToken release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -27439,16 +26063,16 @@ NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatu
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAppToken) != 0) {
+	if(((__bridge void *)self.szAppToken) != 0) {
 		xmlAddChild(node, [self.szAppToken xmlNodeForDoc:node->doc elementName:@"szAppToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.szUser) != 0) {
+	if(((__bridge void *)self.szUser) != 0) {
 		xmlAddChild(node, [self.szUser xmlNodeForDoc:node->doc elementName:@"szUser" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.szPass) != 0) {
+	if(((__bridge void *)self.szPass) != 0) {
 		xmlAddChild(node, [self.szPass xmlNodeForDoc:node->doc elementName:@"szPass" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.szPreviousToken) != 0) {
+	if(((__bridge void *)self.szPreviousToken) != 0) {
 		xmlAddChild(node, [self.szPreviousToken xmlNodeForDoc:node->doc elementName:@"szPreviousToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -27466,7 +26090,7 @@ NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatu
 }
 + (MFBWebServiceSvc_RefreshAuthToken *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_RefreshAuthToken *newObject = [[MFBWebServiceSvc_RefreshAuthToken new] autorelease];
+	MFBWebServiceSvc_RefreshAuthToken *newObject = [MFBWebServiceSvc_RefreshAuthToken new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -27625,46 +26249,42 @@ NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatu
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -27679,13 +26299,6 @@ NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatu
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(RefreshAuthTokenResult != nil) [RefreshAuthTokenResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -27717,7 +26330,7 @@ NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatu
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.RefreshAuthTokenResult) != 0) {
+	if(((__bridge void *)self.RefreshAuthTokenResult) != 0) {
 		xmlAddChild(node, [self.RefreshAuthTokenResult xmlNodeForDoc:node->doc elementName:@"RefreshAuthTokenResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -27732,7 +26345,7 @@ NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatu
 }
 + (MFBWebServiceSvc_RefreshAuthTokenResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_RefreshAuthTokenResponse *newObject = [[MFBWebServiceSvc_RefreshAuthTokenResponse new] autorelease];
+	MFBWebServiceSvc_RefreshAuthTokenResponse *newObject = [MFBWebServiceSvc_RefreshAuthTokenResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -27792,46 +26405,42 @@ NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatu
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -27852,19 +26461,6 @@ NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatu
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAppToken != nil) [szAppToken release];
-	if(szEmail != nil) [szEmail release];
-	if(szPass != nil) [szPass release];
-	if(szFirst != nil) [szFirst release];
-	if(szLast != nil) [szLast release];
-	if(szQuestion != nil) [szQuestion release];
-	if(szAnswer != nil) [szAnswer release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -27896,25 +26492,25 @@ NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatu
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAppToken) != 0) {
+	if(((__bridge void *)self.szAppToken) != 0) {
 		xmlAddChild(node, [self.szAppToken xmlNodeForDoc:node->doc elementName:@"szAppToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.szEmail) != 0) {
+	if(((__bridge void *)self.szEmail) != 0) {
 		xmlAddChild(node, [self.szEmail xmlNodeForDoc:node->doc elementName:@"szEmail" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.szPass) != 0) {
+	if(((__bridge void *)self.szPass) != 0) {
 		xmlAddChild(node, [self.szPass xmlNodeForDoc:node->doc elementName:@"szPass" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.szFirst) != 0) {
+	if(((__bridge void *)self.szFirst) != 0) {
 		xmlAddChild(node, [self.szFirst xmlNodeForDoc:node->doc elementName:@"szFirst" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.szLast) != 0) {
+	if(((__bridge void *)self.szLast) != 0) {
 		xmlAddChild(node, [self.szLast xmlNodeForDoc:node->doc elementName:@"szLast" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.szQuestion) != 0) {
+	if(((__bridge void *)self.szQuestion) != 0) {
 		xmlAddChild(node, [self.szQuestion xmlNodeForDoc:node->doc elementName:@"szQuestion" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.szAnswer) != 0) {
+	if(((__bridge void *)self.szAnswer) != 0) {
 		xmlAddChild(node, [self.szAnswer xmlNodeForDoc:node->doc elementName:@"szAnswer" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -27935,7 +26531,7 @@ NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatu
 }
 + (MFBWebServiceSvc_CreateUser *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_CreateUser *newObject = [[MFBWebServiceSvc_CreateUser new] autorelease];
+	MFBWebServiceSvc_CreateUser *newObject = [MFBWebServiceSvc_CreateUser new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -28193,46 +26789,42 @@ NSString * MFBWebServiceSvc_AuthStatus_stringFromEnum(MFBWebServiceSvc_AuthStatu
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -28334,14 +26926,6 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	
 	return self;
 }
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthToken != nil) [szAuthToken release];
-	if(szUsername != nil) [szUsername release];
-	
-	[super dealloc];
-}
 - (NSString *)nsPrefix
 {
 	return @"MFBWebServiceSvc";
@@ -28372,10 +26956,10 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthToken) != 0) {
+	if(((__bridge void *)self.szAuthToken) != 0) {
 		xmlAddChild(node, [self.szAuthToken xmlNodeForDoc:node->doc elementName:@"szAuthToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.szUsername) != 0) {
+	if(((__bridge void *)self.szUsername) != 0) {
 		xmlAddChild(node, [self.szUsername xmlNodeForDoc:node->doc elementName:@"szUsername" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 	if(((void *)self.mcs) != 0) {
@@ -28395,7 +26979,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSvc_UserEntity *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_UserEntity *newObject = [[MFBWebServiceSvc_UserEntity new] autorelease];
+	MFBWebServiceSvc_UserEntity *newObject = [MFBWebServiceSvc_UserEntity new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -28493,46 +27077,42 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -28547,13 +27127,6 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(CreateUserResult != nil) [CreateUserResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -28585,7 +27158,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.CreateUserResult) != 0) {
+	if(((__bridge void *)self.CreateUserResult) != 0) {
 		xmlAddChild(node, [self.CreateUserResult xmlNodeForDoc:node->doc elementName:@"CreateUserResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -28600,7 +27173,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSvc_CreateUserResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_CreateUserResponse *newObject = [[MFBWebServiceSvc_CreateUserResponse new] autorelease];
+	MFBWebServiceSvc_CreateUserResponse *newObject = [MFBWebServiceSvc_CreateUserResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -28660,46 +27233,42 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -28714,13 +27283,6 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthToken != nil) [szAuthToken release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -28752,7 +27314,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthToken) != 0) {
+	if(((__bridge void *)self.szAuthToken) != 0) {
 		xmlAddChild(node, [self.szAuthToken xmlNodeForDoc:node->doc elementName:@"szAuthToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -28767,7 +27329,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSvc_GetNamedQueriesForUser *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_GetNamedQueriesForUser *newObject = [[MFBWebServiceSvc_GetNamedQueriesForUser new] autorelease];
+	MFBWebServiceSvc_GetNamedQueriesForUser *newObject = [MFBWebServiceSvc_GetNamedQueriesForUser new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -28827,46 +27389,42 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -28881,13 +27439,6 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	if(QueryName != nil) [QueryName release];
-	if(ColorString != nil) [ColorString release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -28911,7 +27462,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	// BUGBUG: ASP.NET compatibility: need to add xmlns attribute or else parameters don't make it.  Is there a good
 	// place to do this so that we don't have to redo this whenever we autogenerate new code?
 	xmlNsPtr xmlns = xmlSearchNs(doc, root, (const xmlChar*)"xmlns");
-	xmlSetNsProp(node, xmlns, (const xmlChar*)"xmlns", (const xmlChar*)"http://myflightbook.com/");	
+	xmlSetNsProp(node, xmlns, (const xmlChar*)"xmlns", (const xmlChar*)"http://myflightbook.com/");
 	
 	
 	[self addAttributesToNode:node];
@@ -28929,10 +27480,10 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 {
 	[super addElementsToNode:node];
 	
-	if(((void *)self.QueryName) != 0) {
+	if(((__bridge void *)self.QueryName) != 0) {
 		xmlAddChild(node, [self.QueryName xmlNodeForDoc:node->doc elementName:@"QueryName" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.ColorString) != 0) {
+	if(((__bridge void *)self.ColorString) != 0) {
 		xmlAddChild(node, [self.ColorString xmlNodeForDoc:node->doc elementName:@"ColorString" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -28948,7 +27499,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSvc_CannedQuery *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_CannedQuery *newObject = [[MFBWebServiceSvc_CannedQuery new] autorelease];
+	MFBWebServiceSvc_CannedQuery *newObject = [MFBWebServiceSvc_CannedQuery new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -29043,46 +27594,42 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -29097,13 +27644,6 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(CannedQuery != nil) [CannedQuery release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -29135,7 +27675,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.CannedQuery) != 0) {
+	if(((__bridge void *)self.CannedQuery) != 0) {
 		for(MFBWebServiceSvc_CannedQuery * child in self.CannedQuery) {
 			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"CannedQuery" elementNSPrefix:@"MFBWebServiceSvc"]);
 		}
@@ -29156,7 +27696,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSvc_ArrayOfCannedQuery *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_ArrayOfCannedQuery *newObject = [[MFBWebServiceSvc_ArrayOfCannedQuery new] autorelease];
+	MFBWebServiceSvc_ArrayOfCannedQuery *newObject = [MFBWebServiceSvc_ArrayOfCannedQuery new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -29216,46 +27756,42 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -29270,13 +27806,6 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(GetNamedQueriesForUserResult != nil) [GetNamedQueriesForUserResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -29308,7 +27837,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.GetNamedQueriesForUserResult) != 0) {
+	if(((__bridge void *)self.GetNamedQueriesForUserResult) != 0) {
 		xmlAddChild(node, [self.GetNamedQueriesForUserResult xmlNodeForDoc:node->doc elementName:@"GetNamedQueriesForUserResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -29323,7 +27852,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSvc_GetNamedQueriesForUserResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_GetNamedQueriesForUserResponse *newObject = [[MFBWebServiceSvc_GetNamedQueriesForUserResponse new] autorelease];
+	MFBWebServiceSvc_GetNamedQueriesForUserResponse *newObject = [MFBWebServiceSvc_GetNamedQueriesForUserResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -29383,46 +27912,42 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -29439,15 +27964,6 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthToken != nil) [szAuthToken release];
-	if(fq != nil) [fq release];
-	if(szName != nil) [szName release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -29479,13 +27995,13 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthToken) != 0) {
+	if(((__bridge void *)self.szAuthToken) != 0) {
 		xmlAddChild(node, [self.szAuthToken xmlNodeForDoc:node->doc elementName:@"szAuthToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.fq) != 0) {
+	if(((__bridge void *)self.fq) != 0) {
 		xmlAddChild(node, [self.fq xmlNodeForDoc:node->doc elementName:@"fq" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.szName) != 0) {
+	if(((__bridge void *)self.szName) != 0) {
 		xmlAddChild(node, [self.szName xmlNodeForDoc:node->doc elementName:@"szName" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -29502,7 +28018,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSvc_AddNamedQueryForUser *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_AddNamedQueryForUser *newObject = [[MFBWebServiceSvc_AddNamedQueryForUser new] autorelease];
+	MFBWebServiceSvc_AddNamedQueryForUser *newObject = [MFBWebServiceSvc_AddNamedQueryForUser new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -29628,46 +28144,42 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -29682,13 +28194,6 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(AddNamedQueryForUserResult != nil) [AddNamedQueryForUserResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -29720,7 +28225,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.AddNamedQueryForUserResult) != 0) {
+	if(((__bridge void *)self.AddNamedQueryForUserResult) != 0) {
 		xmlAddChild(node, [self.AddNamedQueryForUserResult xmlNodeForDoc:node->doc elementName:@"AddNamedQueryForUserResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -29735,7 +28240,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSvc_AddNamedQueryForUserResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_AddNamedQueryForUserResponse *newObject = [[MFBWebServiceSvc_AddNamedQueryForUserResponse new] autorelease];
+	MFBWebServiceSvc_AddNamedQueryForUserResponse *newObject = [MFBWebServiceSvc_AddNamedQueryForUserResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -29795,46 +28300,42 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -29850,14 +28351,6 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(szAuthToken != nil) [szAuthToken release];
-	if(cq != nil) [cq release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -29889,10 +28382,10 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.szAuthToken) != 0) {
+	if(((__bridge void *)self.szAuthToken) != 0) {
 		xmlAddChild(node, [self.szAuthToken xmlNodeForDoc:node->doc elementName:@"szAuthToken" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
-	if(((void *)self.cq) != 0) {
+	if(((__bridge void *)self.cq) != 0) {
 		xmlAddChild(node, [self.cq xmlNodeForDoc:node->doc elementName:@"cq" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -29908,7 +28401,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSvc_DeleteNamedQueryForUser *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_DeleteNamedQueryForUser *newObject = [[MFBWebServiceSvc_DeleteNamedQueryForUser new] autorelease];
+	MFBWebServiceSvc_DeleteNamedQueryForUser *newObject = [MFBWebServiceSvc_DeleteNamedQueryForUser new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -30001,46 +28494,42 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -30055,13 +28544,6 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	}
 	
 	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(DeleteNamedQueryForUserResult != nil) [DeleteNamedQueryForUserResult release];
-	
-	[super dealloc];
 }
 - (NSString *)nsPrefix
 {
@@ -30093,7 +28575,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 - (void)addElementsToNode:(xmlNodePtr)node
 {
 	
-	if(((void *)self.DeleteNamedQueryForUserResult) != 0) {
+	if(((__bridge void *)self.DeleteNamedQueryForUserResult) != 0) {
 		xmlAddChild(node, [self.DeleteNamedQueryForUserResult xmlNodeForDoc:node->doc elementName:@"DeleteNamedQueryForUserResult" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
 }
@@ -30108,7 +28590,7 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSvc_DeleteNamedQueryForUserResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	MFBWebServiceSvc_DeleteNamedQueryForUserResponse *newObject = [[MFBWebServiceSvc_DeleteNamedQueryForUserResponse new] autorelease];
+	MFBWebServiceSvc_DeleteNamedQueryForUserResponse *newObject = [MFBWebServiceSvc_DeleteNamedQueryForUserResponse new];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -30168,1494 +28650,42 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 		}
 	}
 }
-/* NSCoder functions taken from: 
+/* NSCoder functions taken from:
  * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
  */
 - (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
 	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
 	if (self == nil) { return nil; }
  
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
 	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
 }
 - (void) encodeWithCoder:(NSCoder *)encoder {
 	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
 		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
 	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
-	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-}
-+ (BOOL) supportsSecureCoding {
-	return YES;
-}
-@end
-@implementation MFBWebServiceSvc_SuggestModels
-@synthesize soapSigner;
-- (id)init
-{
-	if((self = [super init])) {
-		prefixText = 0;
-		count = 0;
-	}
-	
-	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(prefixText != nil) [prefixText release];
-	if(count != nil) [count release];
-	
-	[super dealloc];
-}
-- (NSString *)nsPrefix
-{
-	return @"MFBWebServiceSvc";
-}
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
-{
-	NSString *nodeName = nil;
-	if(elNSPrefix != nil && [elNSPrefix length] > 0)
-	{
-		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
-	}
-	else
-	{
-		nodeName = [NSString stringWithFormat:@"%@:%@", @"MFBWebServiceSvc", elName];
-	}
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
-	
-	[self addAttributesToNode:node];
-	
-	[self addElementsToNode:node];
-	
-	return node;
-}
-- (void)addAttributesToNode:(xmlNodePtr)node
-{
-	
-}
-- (void)addElementsToNode:(xmlNodePtr)node
-{
-	
-	if(((void *)self.prefixText) != 0) {
-		xmlAddChild(node, [self.prefixText xmlNodeForDoc:node->doc elementName:@"prefixText" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-	if(((void *)self.count) != 0) {
-		xmlAddChild(node, [self.count xmlNodeForDoc:node->doc elementName:@"count" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-}
-/* elements */
-@synthesize prefixText;
-@synthesize count;
-/* attributes */
-- (NSDictionary *)attributes
-{
-	NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
-	
-	return attributes;
-}
-+ (MFBWebServiceSvc_SuggestModels *)deserializeNode:(xmlNodePtr)cur
-{
-	MFBWebServiceSvc_SuggestModels *newObject = [[MFBWebServiceSvc_SuggestModels new] autorelease];
-	
-	[newObject deserializeAttributesFromNode:cur];
-	[newObject deserializeElementsFromNode:cur];
-	
-	return newObject;
-}
-- (void)deserializeAttributesFromNode:(xmlNodePtr)cur
-{
-}
-- (void)deserializeElementsFromNode:(xmlNodePtr)cur
-{
-	
-	
-	for( cur = cur->children ; cur != NULL ; cur = cur->next ) {
-		if(cur->type == XML_ELEMENT_NODE) {
-			xmlChar *elementText = xmlNodeListGetString(cur->doc, cur->children, 1);
-			NSString *elementString = nil;
-			
-			if(elementText != NULL) {
-				elementString = [NSString stringWithCString:(char*)elementText encoding:NSUTF8StringEncoding];
-				[elementString self]; // avoid compiler warning for unused var
-				xmlFree(elementText);
-			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "prefixText")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [NSString class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				self.prefixText = newChild;
-			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "count")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [NSNumber class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				self.count = newChild;
-			}
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
 		}
+		if (numIvars > 0) { free(ivars); }
 	}
-}
-/* NSCoder functions taken from: 
- * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
- */
-- (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
-	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
-	if (self == nil) { return nil; }
- 
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
-	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
-}
-- (void) encodeWithCoder:(NSCoder *)encoder {
-	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
-		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
-	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
-	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-}
-+ (BOOL) supportsSecureCoding {
-	return YES;
-}
-@end
-@implementation MFBWebServiceSvc_SuggestModelsResponse
-@synthesize soapSigner;
-- (id)init
-{
-	if((self = [super init])) {
-		SuggestModelsResult = 0;
-	}
-	
-	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(SuggestModelsResult != nil) [SuggestModelsResult release];
-	
-	[super dealloc];
-}
-- (NSString *)nsPrefix
-{
-	return @"MFBWebServiceSvc";
-}
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
-{
-	NSString *nodeName = nil;
-	if(elNSPrefix != nil && [elNSPrefix length] > 0)
-	{
-		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
-	}
-	else
-	{
-		nodeName = [NSString stringWithFormat:@"%@:%@", @"MFBWebServiceSvc", elName];
-	}
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
-	
-	[self addAttributesToNode:node];
-	
-	[self addElementsToNode:node];
-	
-	return node;
-}
-- (void)addAttributesToNode:(xmlNodePtr)node
-{
-	
-}
-- (void)addElementsToNode:(xmlNodePtr)node
-{
-	
-	if(((void *)self.SuggestModelsResult) != 0) {
-		xmlAddChild(node, [self.SuggestModelsResult xmlNodeForDoc:node->doc elementName:@"SuggestModelsResult" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-}
-/* elements */
-@synthesize SuggestModelsResult;
-/* attributes */
-- (NSDictionary *)attributes
-{
-	NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
-	
-	return attributes;
-}
-+ (MFBWebServiceSvc_SuggestModelsResponse *)deserializeNode:(xmlNodePtr)cur
-{
-	MFBWebServiceSvc_SuggestModelsResponse *newObject = [[MFBWebServiceSvc_SuggestModelsResponse new] autorelease];
-	
-	[newObject deserializeAttributesFromNode:cur];
-	[newObject deserializeElementsFromNode:cur];
-	
-	return newObject;
-}
-- (void)deserializeAttributesFromNode:(xmlNodePtr)cur
-{
-}
-- (void)deserializeElementsFromNode:(xmlNodePtr)cur
-{
-	
-	
-	for( cur = cur->children ; cur != NULL ; cur = cur->next ) {
-		if(cur->type == XML_ELEMENT_NODE) {
-			xmlChar *elementText = xmlNodeListGetString(cur->doc, cur->children, 1);
-			NSString *elementString = nil;
-			
-			if(elementText != NULL) {
-				elementString = [NSString stringWithCString:(char*)elementText encoding:NSUTF8StringEncoding];
-				[elementString self]; // avoid compiler warning for unused var
-				xmlFree(elementText);
-			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "SuggestModelsResult")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [MFBWebServiceSvc_ArrayOfString class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				self.SuggestModelsResult = newChild;
-			}
-		}
-	}
-}
-/* NSCoder functions taken from: 
- * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
- */
-- (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
-	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
-	if (self == nil) { return nil; }
- 
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
-	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
-}
-- (void) encodeWithCoder:(NSCoder *)encoder {
-	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
-		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
-	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
-	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-}
-+ (BOOL) supportsSecureCoding {
-	return YES;
-}
-@end
-@implementation MFBWebServiceSvc_PreviouslyUsedTextProperties
-@synthesize soapSigner;
-- (id)init
-{
-	if((self = [super init])) {
-		prefixText = 0;
-		count = 0;
-		contextKey = 0;
-	}
-	
-	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(prefixText != nil) [prefixText release];
-	if(count != nil) [count release];
-	if(contextKey != nil) [contextKey release];
-	
-	[super dealloc];
-}
-- (NSString *)nsPrefix
-{
-	return @"MFBWebServiceSvc";
-}
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
-{
-	NSString *nodeName = nil;
-	if(elNSPrefix != nil && [elNSPrefix length] > 0)
-	{
-		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
-	}
-	else
-	{
-		nodeName = [NSString stringWithFormat:@"%@:%@", @"MFBWebServiceSvc", elName];
-	}
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
-	
-	[self addAttributesToNode:node];
-	
-	[self addElementsToNode:node];
-	
-	return node;
-}
-- (void)addAttributesToNode:(xmlNodePtr)node
-{
-	
-}
-- (void)addElementsToNode:(xmlNodePtr)node
-{
-	
-	if(((void *)self.prefixText) != 0) {
-		xmlAddChild(node, [self.prefixText xmlNodeForDoc:node->doc elementName:@"prefixText" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-	if(((void *)self.count) != 0) {
-		xmlAddChild(node, [self.count xmlNodeForDoc:node->doc elementName:@"count" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-	if(((void *)self.contextKey) != 0) {
-		xmlAddChild(node, [self.contextKey xmlNodeForDoc:node->doc elementName:@"contextKey" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-}
-/* elements */
-@synthesize prefixText;
-@synthesize count;
-@synthesize contextKey;
-/* attributes */
-- (NSDictionary *)attributes
-{
-	NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
-	
-	return attributes;
-}
-+ (MFBWebServiceSvc_PreviouslyUsedTextProperties *)deserializeNode:(xmlNodePtr)cur
-{
-	MFBWebServiceSvc_PreviouslyUsedTextProperties *newObject = [[MFBWebServiceSvc_PreviouslyUsedTextProperties new] autorelease];
-	
-	[newObject deserializeAttributesFromNode:cur];
-	[newObject deserializeElementsFromNode:cur];
-	
-	return newObject;
-}
-- (void)deserializeAttributesFromNode:(xmlNodePtr)cur
-{
-}
-- (void)deserializeElementsFromNode:(xmlNodePtr)cur
-{
-	
-	
-	for( cur = cur->children ; cur != NULL ; cur = cur->next ) {
-		if(cur->type == XML_ELEMENT_NODE) {
-			xmlChar *elementText = xmlNodeListGetString(cur->doc, cur->children, 1);
-			NSString *elementString = nil;
-			
-			if(elementText != NULL) {
-				elementString = [NSString stringWithCString:(char*)elementText encoding:NSUTF8StringEncoding];
-				[elementString self]; // avoid compiler warning for unused var
-				xmlFree(elementText);
-			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "prefixText")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [NSString class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				self.prefixText = newChild;
-			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "count")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [NSNumber class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				self.count = newChild;
-			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "contextKey")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [NSString class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				self.contextKey = newChild;
-			}
-		}
-	}
-}
-/* NSCoder functions taken from: 
- * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
- */
-- (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
-	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
-	if (self == nil) { return nil; }
- 
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
-	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
-}
-- (void) encodeWithCoder:(NSCoder *)encoder {
-	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
-		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
-	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
-	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-}
-+ (BOOL) supportsSecureCoding {
-	return YES;
-}
-@end
-@implementation MFBWebServiceSvc_PreviouslyUsedTextPropertiesResponse
-@synthesize soapSigner;
-- (id)init
-{
-	if((self = [super init])) {
-		PreviouslyUsedTextPropertiesResult = 0;
-	}
-	
-	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(PreviouslyUsedTextPropertiesResult != nil) [PreviouslyUsedTextPropertiesResult release];
-	
-	[super dealloc];
-}
-- (NSString *)nsPrefix
-{
-	return @"MFBWebServiceSvc";
-}
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
-{
-	NSString *nodeName = nil;
-	if(elNSPrefix != nil && [elNSPrefix length] > 0)
-	{
-		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
-	}
-	else
-	{
-		nodeName = [NSString stringWithFormat:@"%@:%@", @"MFBWebServiceSvc", elName];
-	}
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
-	
-	[self addAttributesToNode:node];
-	
-	[self addElementsToNode:node];
-	
-	return node;
-}
-- (void)addAttributesToNode:(xmlNodePtr)node
-{
-	
-}
-- (void)addElementsToNode:(xmlNodePtr)node
-{
-	
-	if(((void *)self.PreviouslyUsedTextPropertiesResult) != 0) {
-		xmlAddChild(node, [self.PreviouslyUsedTextPropertiesResult xmlNodeForDoc:node->doc elementName:@"PreviouslyUsedTextPropertiesResult" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-}
-/* elements */
-@synthesize PreviouslyUsedTextPropertiesResult;
-/* attributes */
-- (NSDictionary *)attributes
-{
-	NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
-	
-	return attributes;
-}
-+ (MFBWebServiceSvc_PreviouslyUsedTextPropertiesResponse *)deserializeNode:(xmlNodePtr)cur
-{
-	MFBWebServiceSvc_PreviouslyUsedTextPropertiesResponse *newObject = [[MFBWebServiceSvc_PreviouslyUsedTextPropertiesResponse new] autorelease];
-	
-	[newObject deserializeAttributesFromNode:cur];
-	[newObject deserializeElementsFromNode:cur];
-	
-	return newObject;
-}
-- (void)deserializeAttributesFromNode:(xmlNodePtr)cur
-{
-}
-- (void)deserializeElementsFromNode:(xmlNodePtr)cur
-{
-	
-	
-	for( cur = cur->children ; cur != NULL ; cur = cur->next ) {
-		if(cur->type == XML_ELEMENT_NODE) {
-			xmlChar *elementText = xmlNodeListGetString(cur->doc, cur->children, 1);
-			NSString *elementString = nil;
-			
-			if(elementText != NULL) {
-				elementString = [NSString stringWithCString:(char*)elementText encoding:NSUTF8StringEncoding];
-				[elementString self]; // avoid compiler warning for unused var
-				xmlFree(elementText);
-			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "PreviouslyUsedTextPropertiesResult")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [MFBWebServiceSvc_ArrayOfString class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				self.PreviouslyUsedTextPropertiesResult = newChild;
-			}
-		}
-	}
-}
-/* NSCoder functions taken from: 
- * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
- */
-- (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
-	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
-	if (self == nil) { return nil; }
- 
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
-	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
-}
-- (void) encodeWithCoder:(NSCoder *)encoder {
-	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
-		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
-	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
-	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-}
-+ (BOOL) supportsSecureCoding {
-	return YES;
-}
-@end
-@implementation MFBWebServiceSvc_AirportsInBoundingBox
-@synthesize soapSigner;
-- (id)init
-{
-	if((self = [super init])) {
-		latSouth = 0;
-		lonWest = 0;
-		latNorth = 0;
-		lonEast = 0;
-		fIncludeHeliports = 0;
-	}
-	
-	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(latSouth != nil) [latSouth release];
-	if(lonWest != nil) [lonWest release];
-	if(latNorth != nil) [latNorth release];
-	if(lonEast != nil) [lonEast release];
-	if(fIncludeHeliports != nil) [fIncludeHeliports release];
-	
-	[super dealloc];
-}
-- (NSString *)nsPrefix
-{
-	return @"MFBWebServiceSvc";
-}
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
-{
-	NSString *nodeName = nil;
-	if(elNSPrefix != nil && [elNSPrefix length] > 0)
-	{
-		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
-	}
-	else
-	{
-		nodeName = [NSString stringWithFormat:@"%@:%@", @"MFBWebServiceSvc", elName];
-	}
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
-	
-	[self addAttributesToNode:node];
-	
-	[self addElementsToNode:node];
-	
-	return node;
-}
-- (void)addAttributesToNode:(xmlNodePtr)node
-{
-	
-}
-- (void)addElementsToNode:(xmlNodePtr)node
-{
-	
-	if(((void *)self.latSouth) != 0) {
-		xmlAddChild(node, [self.latSouth xmlNodeForDoc:node->doc elementName:@"latSouth" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-	if(((void *)self.lonWest) != 0) {
-		xmlAddChild(node, [self.lonWest xmlNodeForDoc:node->doc elementName:@"lonWest" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-	if(((void *)self.latNorth) != 0) {
-		xmlAddChild(node, [self.latNorth xmlNodeForDoc:node->doc elementName:@"latNorth" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-	if(((void *)self.lonEast) != 0) {
-		xmlAddChild(node, [self.lonEast xmlNodeForDoc:node->doc elementName:@"lonEast" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-	if(((void *)self.fIncludeHeliports) != 0) {
-		xmlAddChild(node, [self.fIncludeHeliports xmlNodeForDoc:node->doc elementName:@"fIncludeHeliports" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-}
-/* elements */
-@synthesize latSouth;
-@synthesize lonWest;
-@synthesize latNorth;
-@synthesize lonEast;
-@synthesize fIncludeHeliports;
-/* attributes */
-- (NSDictionary *)attributes
-{
-	NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
-	
-	return attributes;
-}
-+ (MFBWebServiceSvc_AirportsInBoundingBox *)deserializeNode:(xmlNodePtr)cur
-{
-	MFBWebServiceSvc_AirportsInBoundingBox *newObject = [[MFBWebServiceSvc_AirportsInBoundingBox new] autorelease];
-	
-	[newObject deserializeAttributesFromNode:cur];
-	[newObject deserializeElementsFromNode:cur];
-	
-	return newObject;
-}
-- (void)deserializeAttributesFromNode:(xmlNodePtr)cur
-{
-}
-- (void)deserializeElementsFromNode:(xmlNodePtr)cur
-{
-	
-	
-	for( cur = cur->children ; cur != NULL ; cur = cur->next ) {
-		if(cur->type == XML_ELEMENT_NODE) {
-			xmlChar *elementText = xmlNodeListGetString(cur->doc, cur->children, 1);
-			NSString *elementString = nil;
-			
-			if(elementText != NULL) {
-				elementString = [NSString stringWithCString:(char*)elementText encoding:NSUTF8StringEncoding];
-				[elementString self]; // avoid compiler warning for unused var
-				xmlFree(elementText);
-			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "latSouth")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [NSNumber class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				self.latSouth = newChild;
-			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "lonWest")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [NSNumber class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				self.lonWest = newChild;
-			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "latNorth")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [NSNumber class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				self.latNorth = newChild;
-			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "lonEast")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [NSNumber class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				self.lonEast = newChild;
-			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "fIncludeHeliports")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [USBoolean class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				self.fIncludeHeliports = newChild;
-			}
-		}
-	}
-}
-/* NSCoder functions taken from: 
- * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
- */
-- (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
-	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
-	if (self == nil) { return nil; }
- 
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
-	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
-}
-- (void) encodeWithCoder:(NSCoder *)encoder {
-	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
-		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
-	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
-	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-}
-+ (BOOL) supportsSecureCoding {
-	return YES;
-}
-@end
-@implementation MFBWebServiceSvc_ArrayOfAirport
-@synthesize soapSigner;
-- (id)init
-{
-	if((self = [super init])) {
-		airport = [[NSMutableArray alloc] init];
-	}
-	
-	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(airport != nil) [airport release];
-	
-	[super dealloc];
-}
-- (NSString *)nsPrefix
-{
-	return @"MFBWebServiceSvc";
-}
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
-{
-	NSString *nodeName = nil;
-	if(elNSPrefix != nil && [elNSPrefix length] > 0)
-	{
-		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
-	}
-	else
-	{
-		nodeName = [NSString stringWithFormat:@"%@:%@", @"MFBWebServiceSvc", elName];
-	}
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
-	
-	[self addAttributesToNode:node];
-	
-	[self addElementsToNode:node];
-	
-	return node;
-}
-- (void)addAttributesToNode:(xmlNodePtr)node
-{
-	
-}
-- (void)addElementsToNode:(xmlNodePtr)node
-{
-	
-	if(((void *)self.airport) != 0) {
-		for(MFBWebServiceSvc_airport * child in self.airport) {
-			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"airport" elementNSPrefix:@"MFBWebServiceSvc"]);
-		}
-	}
-}
-/* elements */
-@synthesize airport;
-- (void)addAirport:(MFBWebServiceSvc_airport *)toAdd
-{
-	if(toAdd != nil) [airport addObject:toAdd];
-}
-/* attributes */
-- (NSDictionary *)attributes
-{
-	NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
-	
-	return attributes;
-}
-+ (MFBWebServiceSvc_ArrayOfAirport *)deserializeNode:(xmlNodePtr)cur
-{
-	MFBWebServiceSvc_ArrayOfAirport *newObject = [[MFBWebServiceSvc_ArrayOfAirport new] autorelease];
-	
-	[newObject deserializeAttributesFromNode:cur];
-	[newObject deserializeElementsFromNode:cur];
-	
-	return newObject;
-}
-- (void)deserializeAttributesFromNode:(xmlNodePtr)cur
-{
-}
-- (void)deserializeElementsFromNode:(xmlNodePtr)cur
-{
-	
-	
-	for( cur = cur->children ; cur != NULL ; cur = cur->next ) {
-		if(cur->type == XML_ELEMENT_NODE) {
-			xmlChar *elementText = xmlNodeListGetString(cur->doc, cur->children, 1);
-			NSString *elementString = nil;
-			
-			if(elementText != NULL) {
-				elementString = [NSString stringWithCString:(char*)elementText encoding:NSUTF8StringEncoding];
-				[elementString self]; // avoid compiler warning for unused var
-				xmlFree(elementText);
-			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "airport")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [MFBWebServiceSvc_airport class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				if(newChild != nil) [self.airport addObject:newChild];
-			}
-		}
-	}
-}
-/* NSCoder functions taken from: 
- * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
- */
-- (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
-	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
-	if (self == nil) { return nil; }
- 
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
-	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
-}
-- (void) encodeWithCoder:(NSCoder *)encoder {
-	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
-		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
-	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
-	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-}
-+ (BOOL) supportsSecureCoding {
-	return YES;
-}
-@end
-@implementation MFBWebServiceSvc_AirportsInBoundingBoxResponse
-@synthesize soapSigner;
-- (id)init
-{
-	if((self = [super init])) {
-		AirportsInBoundingBoxResult = 0;
-	}
-	
-	return self;
-}
-- (void)dealloc
-{
-	[soapSigner release];
-	if(AirportsInBoundingBoxResult != nil) [AirportsInBoundingBoxResult release];
-	
-	[super dealloc];
-}
-- (NSString *)nsPrefix
-{
-	return @"MFBWebServiceSvc";
-}
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
-{
-	NSString *nodeName = nil;
-	if(elNSPrefix != nil && [elNSPrefix length] > 0)
-	{
-		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
-	}
-	else
-	{
-		nodeName = [NSString stringWithFormat:@"%@:%@", @"MFBWebServiceSvc", elName];
-	}
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
-	
-	[self addAttributesToNode:node];
-	
-	[self addElementsToNode:node];
-	
-	return node;
-}
-- (void)addAttributesToNode:(xmlNodePtr)node
-{
-	
-}
-- (void)addElementsToNode:(xmlNodePtr)node
-{
-	
-	if(((void *)self.AirportsInBoundingBoxResult) != 0) {
-		xmlAddChild(node, [self.AirportsInBoundingBoxResult xmlNodeForDoc:node->doc elementName:@"AirportsInBoundingBoxResult" elementNSPrefix:@"MFBWebServiceSvc"]);
-	}
-}
-/* elements */
-@synthesize AirportsInBoundingBoxResult;
-/* attributes */
-- (NSDictionary *)attributes
-{
-	NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
-	
-	return attributes;
-}
-+ (MFBWebServiceSvc_AirportsInBoundingBoxResponse *)deserializeNode:(xmlNodePtr)cur
-{
-	MFBWebServiceSvc_AirportsInBoundingBoxResponse *newObject = [[MFBWebServiceSvc_AirportsInBoundingBoxResponse new] autorelease];
-	
-	[newObject deserializeAttributesFromNode:cur];
-	[newObject deserializeElementsFromNode:cur];
-	
-	return newObject;
-}
-- (void)deserializeAttributesFromNode:(xmlNodePtr)cur
-{
-}
-- (void)deserializeElementsFromNode:(xmlNodePtr)cur
-{
-	
-	
-	for( cur = cur->children ; cur != NULL ; cur = cur->next ) {
-		if(cur->type == XML_ELEMENT_NODE) {
-			xmlChar *elementText = xmlNodeListGetString(cur->doc, cur->children, 1);
-			NSString *elementString = nil;
-			
-			if(elementText != NULL) {
-				elementString = [NSString stringWithCString:(char*)elementText encoding:NSUTF8StringEncoding];
-				[elementString self]; // avoid compiler warning for unused var
-				xmlFree(elementText);
-			}
-			if(xmlStrEqual(cur->name, (const xmlChar *) "AirportsInBoundingBoxResult")) {
-				
-				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
-				if(instanceType == NULL) {
-					elementClass = [MFBWebServiceSvc_ArrayOfAirport class];
-				} else {
-					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
-					
-					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
-					
-					NSString *elementClassString = nil;
-					if([elementTypeArray count] > 1) {
-						NSString *prefix = [elementTypeArray objectAtIndex:0];
-						NSString *localName = [elementTypeArray objectAtIndex:1];
-						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
-						
-						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
-						
-						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
-					} else {
-						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
-					}
-					
-					elementClass = NSClassFromString(elementClassString);
-					xmlFree(instanceType);
-				}
-				
-				id newChild = [elementClass deserializeNode:cur];
-				
-				self.AirportsInBoundingBoxResult = newChild;
-			}
-		}
-	}
-}
-/* NSCoder functions taken from: 
- * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
- */
-- (id) initWithCoder:(NSCoder *)decoder {
-	// ERICBE: XCode Analyze doesn't see below as a call to [super init] or [super initWithCoder];
-	// So we will just call [super init] THEN call initWithCoder.  A bit less efficient, but hey - this code never actually gets called!
-	self = [super init];
-	if ([super respondsToSelector:@selector(initWithCoder:)] && ![self isKindOfClass:[super class]])
-		[super performSelector:@selector(initWithCoder:) withObject:decoder];
-	if (self == nil) { return nil; }
- 
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for(int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [decoder decodeObjectForKey:key];
-		if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
-		[self setValue:value forKey:key];
-	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
-	return self;
-}
-- (void) encodeWithCoder:(NSCoder *)encoder {
-	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
-		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
-	}
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	unsigned int numIvars = 0;
-	Ivar * ivars = class_copyIvarList([self class], &numIvars);
-	for (int i = 0; i < numIvars; i++) {
-		Ivar thisIvar = ivars[i];
-		NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-		id value = [self valueForKey:key];
-		[encoder encodeObject:value forKey:key];
-	}
-	if (numIvars > 0) { free(ivars); }
-	[pool drain];
 }
 + (BOOL) supportsSecureCoding {
 	return YES;
@@ -31669,11 +28699,11 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSoapBinding *)MFBWebServiceSoapBinding
 {
-	return [[[MFBWebServiceSoapBinding alloc] initWithAddress:@"https://myflightbook.com/logbook/public/webservice.asmx"] autorelease];
+	return [[MFBWebServiceSoapBinding alloc] initWithAddress:@"https://myflightbook.com/logbook/Public/webservice.asmx"];
 }
 + (MFBWebServiceSoap12Binding *)MFBWebServiceSoap12Binding
 {
-	return [[[MFBWebServiceSoap12Binding alloc] initWithAddress:@"https://myflightbook.com/logbook/public/webservice.asmx"] autorelease];
+	return [[MFBWebServiceSoap12Binding alloc] initWithAddress:@"https://myflightbook.com/logbook/Public/webservice.asmx"];
 }
 @end
 @implementation MFBWebServiceSoapBinding
@@ -31721,17 +28751,6 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 		[cookies addObject:toAdd];
 	}
 }
-- (MFBWebServiceSoapBindingResponse *)performSynchronousOperation:(MFBWebServiceSoapBindingOperation *)operation
-{
-	synchronousOperationComplete = NO;
-	[operation start];
-	
-	// Now wait for response
-	NSRunLoop *theRL = [NSRunLoop currentRunLoop];
-	
-	while (!synchronousOperationComplete && [theRL runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]]);
-	return operation.response;
-}
 - (void)performAsynchronousOperation:(MFBWebServiceSoapBindingOperation *)operation
 {
 	[operation start];
@@ -31740,485 +28759,227 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 {
 	synchronousOperationComplete = YES;
 }
-- (MFBWebServiceSoapBindingResponse *)AircraftForUserUsingParameters:(MFBWebServiceSvc_AircraftForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_AircraftForUser*)[MFBWebServiceSoapBinding_AircraftForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
-}
 - (void)AircraftForUserAsyncUsingParameters:(MFBWebServiceSvc_AircraftForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_AircraftForUser*)[MFBWebServiceSoapBinding_AircraftForUser alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_AircraftForUser*)[MFBWebServiceSoapBinding_AircraftForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)AddAircraftForUserUsingParameters:(MFBWebServiceSvc_AddAircraftForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_AddAircraftForUser*)[MFBWebServiceSoapBinding_AddAircraftForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)AddAircraftForUserAsyncUsingParameters:(MFBWebServiceSvc_AddAircraftForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_AddAircraftForUser*)[MFBWebServiceSoapBinding_AddAircraftForUser alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_AddAircraftForUser*)[MFBWebServiceSoapBinding_AddAircraftForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)AircraftMatchingPrefixUsingParameters:(MFBWebServiceSvc_AircraftMatchingPrefix *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_AircraftMatchingPrefix*)[MFBWebServiceSoapBinding_AircraftMatchingPrefix alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)AircraftMatchingPrefixAsyncUsingParameters:(MFBWebServiceSvc_AircraftMatchingPrefix *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_AircraftMatchingPrefix*)[MFBWebServiceSoapBinding_AircraftMatchingPrefix alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_AircraftMatchingPrefix*)[MFBWebServiceSoapBinding_AircraftMatchingPrefix alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)UpdateMaintenanceForAircraftUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraft *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_UpdateMaintenanceForAircraft*)[MFBWebServiceSoapBinding_UpdateMaintenanceForAircraft alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)UpdateMaintenanceForAircraftAsyncUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraft *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_UpdateMaintenanceForAircraft*)[MFBWebServiceSoapBinding_UpdateMaintenanceForAircraft alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_UpdateMaintenanceForAircraft*)[MFBWebServiceSoapBinding_UpdateMaintenanceForAircraft alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)UpdateMaintenanceForAircraftWithFlagsAndNotesUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_UpdateMaintenanceForAircraftWithFlagsAndNotes*)[MFBWebServiceSoapBinding_UpdateMaintenanceForAircraftWithFlagsAndNotes alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)UpdateMaintenanceForAircraftWithFlagsAndNotesAsyncUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_UpdateMaintenanceForAircraftWithFlagsAndNotes*)[MFBWebServiceSoapBinding_UpdateMaintenanceForAircraftWithFlagsAndNotes alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_UpdateMaintenanceForAircraftWithFlagsAndNotes*)[MFBWebServiceSoapBinding_UpdateMaintenanceForAircraftWithFlagsAndNotes alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)DeleteAircraftForUserUsingParameters:(MFBWebServiceSvc_DeleteAircraftForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_DeleteAircraftForUser*)[MFBWebServiceSoapBinding_DeleteAircraftForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)DeleteAircraftForUserAsyncUsingParameters:(MFBWebServiceSvc_DeleteAircraftForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_DeleteAircraftForUser*)[MFBWebServiceSoapBinding_DeleteAircraftForUser alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_DeleteAircraftForUser*)[MFBWebServiceSoapBinding_DeleteAircraftForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)MakesAndModelsUsingParameters:(MFBWebServiceSvc_MakesAndModels *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_MakesAndModels*)[MFBWebServiceSoapBinding_MakesAndModels alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)MakesAndModelsAsyncUsingParameters:(MFBWebServiceSvc_MakesAndModels *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_MakesAndModels*)[MFBWebServiceSoapBinding_MakesAndModels alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_MakesAndModels*)[MFBWebServiceSoapBinding_MakesAndModels alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)GetCurrencyForUserUsingParameters:(MFBWebServiceSvc_GetCurrencyForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_GetCurrencyForUser*)[MFBWebServiceSoapBinding_GetCurrencyForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)GetCurrencyForUserAsyncUsingParameters:(MFBWebServiceSvc_GetCurrencyForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_GetCurrencyForUser*)[MFBWebServiceSoapBinding_GetCurrencyForUser alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_GetCurrencyForUser*)[MFBWebServiceSoapBinding_GetCurrencyForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)TotalsForUserUsingParameters:(MFBWebServiceSvc_TotalsForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_TotalsForUser*)[MFBWebServiceSoapBinding_TotalsForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)TotalsForUserAsyncUsingParameters:(MFBWebServiceSvc_TotalsForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_TotalsForUser*)[MFBWebServiceSoapBinding_TotalsForUser alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_TotalsForUser*)[MFBWebServiceSoapBinding_TotalsForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)TotalsForUserWithQueryUsingParameters:(MFBWebServiceSvc_TotalsForUserWithQuery *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_TotalsForUserWithQuery*)[MFBWebServiceSoapBinding_TotalsForUserWithQuery alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)TotalsForUserWithQueryAsyncUsingParameters:(MFBWebServiceSvc_TotalsForUserWithQuery *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_TotalsForUserWithQuery*)[MFBWebServiceSoapBinding_TotalsForUserWithQuery alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_TotalsForUserWithQuery*)[MFBWebServiceSoapBinding_TotalsForUserWithQuery alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)VisitedAirportsUsingParameters:(MFBWebServiceSvc_VisitedAirports *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_VisitedAirports*)[MFBWebServiceSoapBinding_VisitedAirports alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)VisitedAirportsAsyncUsingParameters:(MFBWebServiceSvc_VisitedAirports *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_VisitedAirports*)[MFBWebServiceSoapBinding_VisitedAirports alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_VisitedAirports*)[MFBWebServiceSoapBinding_VisitedAirports alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)FlightsWithQueryAndOffsetUsingParameters:(MFBWebServiceSvc_FlightsWithQueryAndOffset *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_FlightsWithQueryAndOffset*)[MFBWebServiceSoapBinding_FlightsWithQueryAndOffset alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)FlightsWithQueryAndOffsetAsyncUsingParameters:(MFBWebServiceSvc_FlightsWithQueryAndOffset *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_FlightsWithQueryAndOffset*)[MFBWebServiceSoapBinding_FlightsWithQueryAndOffset alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_FlightsWithQueryAndOffset*)[MFBWebServiceSoapBinding_FlightsWithQueryAndOffset alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)FlightsWithQueryUsingParameters:(MFBWebServiceSvc_FlightsWithQuery *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_FlightsWithQuery*)[MFBWebServiceSoapBinding_FlightsWithQuery alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)FlightsWithQueryAsyncUsingParameters:(MFBWebServiceSvc_FlightsWithQuery *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_FlightsWithQuery*)[MFBWebServiceSoapBinding_FlightsWithQuery alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_FlightsWithQuery*)[MFBWebServiceSoapBinding_FlightsWithQuery alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)DeleteLogbookEntryUsingParameters:(MFBWebServiceSvc_DeleteLogbookEntry *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_DeleteLogbookEntry*)[MFBWebServiceSoapBinding_DeleteLogbookEntry alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)DeleteLogbookEntryAsyncUsingParameters:(MFBWebServiceSvc_DeleteLogbookEntry *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_DeleteLogbookEntry*)[MFBWebServiceSoapBinding_DeleteLogbookEntry alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_DeleteLogbookEntry*)[MFBWebServiceSoapBinding_DeleteLogbookEntry alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)CommitFlightWithOptionsUsingParameters:(MFBWebServiceSvc_CommitFlightWithOptions *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_CommitFlightWithOptions*)[MFBWebServiceSoapBinding_CommitFlightWithOptions alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)CommitFlightWithOptionsAsyncUsingParameters:(MFBWebServiceSvc_CommitFlightWithOptions *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_CommitFlightWithOptions*)[MFBWebServiceSoapBinding_CommitFlightWithOptions alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_CommitFlightWithOptions*)[MFBWebServiceSoapBinding_CommitFlightWithOptions alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)FlightPathForFlightUsingParameters:(MFBWebServiceSvc_FlightPathForFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_FlightPathForFlight*)[MFBWebServiceSoapBinding_FlightPathForFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)FlightPathForFlightAsyncUsingParameters:(MFBWebServiceSvc_FlightPathForFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_FlightPathForFlight*)[MFBWebServiceSoapBinding_FlightPathForFlight alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_FlightPathForFlight*)[MFBWebServiceSoapBinding_FlightPathForFlight alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)FlightPathForFlightGPXUsingParameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_FlightPathForFlightGPX*)[MFBWebServiceSoapBinding_FlightPathForFlightGPX alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)FlightPathForFlightGPXAsyncUsingParameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_FlightPathForFlightGPX*)[MFBWebServiceSoapBinding_FlightPathForFlightGPX alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_FlightPathForFlightGPX*)[MFBWebServiceSoapBinding_FlightPathForFlightGPX alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)CreatePendingFlightUsingParameters:(MFBWebServiceSvc_CreatePendingFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_CreatePendingFlight*)[MFBWebServiceSoapBinding_CreatePendingFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)CreatePendingFlightAsyncUsingParameters:(MFBWebServiceSvc_CreatePendingFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_CreatePendingFlight*)[MFBWebServiceSoapBinding_CreatePendingFlight alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_CreatePendingFlight*)[MFBWebServiceSoapBinding_CreatePendingFlight alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)PendingFlightsForUserUsingParameters:(MFBWebServiceSvc_PendingFlightsForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_PendingFlightsForUser*)[MFBWebServiceSoapBinding_PendingFlightsForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)PendingFlightsForUserAsyncUsingParameters:(MFBWebServiceSvc_PendingFlightsForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_PendingFlightsForUser*)[MFBWebServiceSoapBinding_PendingFlightsForUser alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_PendingFlightsForUser*)[MFBWebServiceSoapBinding_PendingFlightsForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)UpdatePendingFlightUsingParameters:(MFBWebServiceSvc_UpdatePendingFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_UpdatePendingFlight*)[MFBWebServiceSoapBinding_UpdatePendingFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)UpdatePendingFlightAsyncUsingParameters:(MFBWebServiceSvc_UpdatePendingFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_UpdatePendingFlight*)[MFBWebServiceSoapBinding_UpdatePendingFlight alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_UpdatePendingFlight*)[MFBWebServiceSoapBinding_UpdatePendingFlight alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)DeletePendingFlightUsingParameters:(MFBWebServiceSvc_DeletePendingFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_DeletePendingFlight*)[MFBWebServiceSoapBinding_DeletePendingFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)DeletePendingFlightAsyncUsingParameters:(MFBWebServiceSvc_DeletePendingFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_DeletePendingFlight*)[MFBWebServiceSoapBinding_DeletePendingFlight alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_DeletePendingFlight*)[MFBWebServiceSoapBinding_DeletePendingFlight alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)CommitPendingFlightUsingParameters:(MFBWebServiceSvc_CommitPendingFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_CommitPendingFlight*)[MFBWebServiceSoapBinding_CommitPendingFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)CommitPendingFlightAsyncUsingParameters:(MFBWebServiceSvc_CommitPendingFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_CommitPendingFlight*)[MFBWebServiceSoapBinding_CommitPendingFlight alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_CommitPendingFlight*)[MFBWebServiceSoapBinding_CommitPendingFlight alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)AvailablePropertyTypesUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypes *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_AvailablePropertyTypes*)[MFBWebServiceSoapBinding_AvailablePropertyTypes alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)AvailablePropertyTypesAsyncUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypes *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_AvailablePropertyTypes*)[MFBWebServiceSoapBinding_AvailablePropertyTypes alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_AvailablePropertyTypes*)[MFBWebServiceSoapBinding_AvailablePropertyTypes alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)AvailablePropertyTypesForUserUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypesForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_AvailablePropertyTypesForUser*)[MFBWebServiceSoapBinding_AvailablePropertyTypesForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)AvailablePropertyTypesForUserAsyncUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypesForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_AvailablePropertyTypesForUser*)[MFBWebServiceSoapBinding_AvailablePropertyTypesForUser alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_AvailablePropertyTypesForUser*)[MFBWebServiceSoapBinding_AvailablePropertyTypesForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)PropertiesAndTemplatesForUserUsingParameters:(MFBWebServiceSvc_PropertiesAndTemplatesForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_PropertiesAndTemplatesForUser*)[MFBWebServiceSoapBinding_PropertiesAndTemplatesForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)PropertiesAndTemplatesForUserAsyncUsingParameters:(MFBWebServiceSvc_PropertiesAndTemplatesForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_PropertiesAndTemplatesForUser*)[MFBWebServiceSoapBinding_PropertiesAndTemplatesForUser alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_PropertiesAndTemplatesForUser*)[MFBWebServiceSoapBinding_PropertiesAndTemplatesForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)PropertiesForFlightUsingParameters:(MFBWebServiceSvc_PropertiesForFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_PropertiesForFlight*)[MFBWebServiceSoapBinding_PropertiesForFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)PropertiesForFlightAsyncUsingParameters:(MFBWebServiceSvc_PropertiesForFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_PropertiesForFlight*)[MFBWebServiceSoapBinding_PropertiesForFlight alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_PropertiesForFlight*)[MFBWebServiceSoapBinding_PropertiesForFlight alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)DeletePropertiesForFlightUsingParameters:(MFBWebServiceSvc_DeletePropertiesForFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_DeletePropertiesForFlight*)[MFBWebServiceSoapBinding_DeletePropertiesForFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)DeletePropertiesForFlightAsyncUsingParameters:(MFBWebServiceSvc_DeletePropertiesForFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_DeletePropertiesForFlight*)[MFBWebServiceSoapBinding_DeletePropertiesForFlight alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_DeletePropertiesForFlight*)[MFBWebServiceSoapBinding_DeletePropertiesForFlight alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)DeletePropertyForFlightUsingParameters:(MFBWebServiceSvc_DeletePropertyForFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_DeletePropertyForFlight*)[MFBWebServiceSoapBinding_DeletePropertyForFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)DeletePropertyForFlightAsyncUsingParameters:(MFBWebServiceSvc_DeletePropertyForFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_DeletePropertyForFlight*)[MFBWebServiceSoapBinding_DeletePropertyForFlight alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_DeletePropertyForFlight*)[MFBWebServiceSoapBinding_DeletePropertyForFlight alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)DeleteImageUsingParameters:(MFBWebServiceSvc_DeleteImage *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_DeleteImage*)[MFBWebServiceSoapBinding_DeleteImage alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)DeleteImageAsyncUsingParameters:(MFBWebServiceSvc_DeleteImage *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_DeleteImage*)[MFBWebServiceSoapBinding_DeleteImage alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_DeleteImage*)[MFBWebServiceSoapBinding_DeleteImage alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)UpdateImageAnnotationUsingParameters:(MFBWebServiceSvc_UpdateImageAnnotation *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_UpdateImageAnnotation*)[MFBWebServiceSoapBinding_UpdateImageAnnotation alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)UpdateImageAnnotationAsyncUsingParameters:(MFBWebServiceSvc_UpdateImageAnnotation *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_UpdateImageAnnotation*)[MFBWebServiceSoapBinding_UpdateImageAnnotation alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_UpdateImageAnnotation*)[MFBWebServiceSoapBinding_UpdateImageAnnotation alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)AuthTokenForUserUsingParameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_AuthTokenForUser*)[MFBWebServiceSoapBinding_AuthTokenForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)AuthTokenForUserAsyncUsingParameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_AuthTokenForUser*)[MFBWebServiceSoapBinding_AuthTokenForUser alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_AuthTokenForUser*)[MFBWebServiceSoapBinding_AuthTokenForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)AuthTokenForUserNewUsingParameters:(MFBWebServiceSvc_AuthTokenForUserNew *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_AuthTokenForUserNew*)[MFBWebServiceSoapBinding_AuthTokenForUserNew alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)AuthTokenForUserNewAsyncUsingParameters:(MFBWebServiceSvc_AuthTokenForUserNew *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_AuthTokenForUserNew*)[MFBWebServiceSoapBinding_AuthTokenForUserNew alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_AuthTokenForUserNew*)[MFBWebServiceSoapBinding_AuthTokenForUserNew alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)RefreshAuthTokenUsingParameters:(MFBWebServiceSvc_RefreshAuthToken *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_RefreshAuthToken*)[MFBWebServiceSoapBinding_RefreshAuthToken alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)RefreshAuthTokenAsyncUsingParameters:(MFBWebServiceSvc_RefreshAuthToken *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_RefreshAuthToken*)[MFBWebServiceSoapBinding_RefreshAuthToken alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_RefreshAuthToken*)[MFBWebServiceSoapBinding_RefreshAuthToken alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)CreateUserUsingParameters:(MFBWebServiceSvc_CreateUser *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_CreateUser*)[MFBWebServiceSoapBinding_CreateUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)CreateUserAsyncUsingParameters:(MFBWebServiceSvc_CreateUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_CreateUser*)[MFBWebServiceSoapBinding_CreateUser alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_CreateUser*)[MFBWebServiceSoapBinding_CreateUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)GetNamedQueriesForUserUsingParameters:(MFBWebServiceSvc_GetNamedQueriesForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_GetNamedQueriesForUser*)[MFBWebServiceSoapBinding_GetNamedQueriesForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)GetNamedQueriesForUserAsyncUsingParameters:(MFBWebServiceSvc_GetNamedQueriesForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_GetNamedQueriesForUser*)[MFBWebServiceSoapBinding_GetNamedQueriesForUser alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_GetNamedQueriesForUser*)[MFBWebServiceSoapBinding_GetNamedQueriesForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)AddNamedQueryForUserUsingParameters:(MFBWebServiceSvc_AddNamedQueryForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_AddNamedQueryForUser*)[MFBWebServiceSoapBinding_AddNamedQueryForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)AddNamedQueryForUserAsyncUsingParameters:(MFBWebServiceSvc_AddNamedQueryForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_AddNamedQueryForUser*)[MFBWebServiceSoapBinding_AddNamedQueryForUser alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_AddNamedQueryForUser*)[MFBWebServiceSoapBinding_AddNamedQueryForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)DeleteNamedQueryForUserUsingParameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_DeleteNamedQueryForUser*)[MFBWebServiceSoapBinding_DeleteNamedQueryForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)DeleteNamedQueryForUserAsyncUsingParameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_DeleteNamedQueryForUser*)[MFBWebServiceSoapBinding_DeleteNamedQueryForUser alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_DeleteNamedQueryForUser*)[MFBWebServiceSoapBinding_DeleteNamedQueryForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)SuggestModelsUsingParameters:(MFBWebServiceSvc_SuggestModels *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_SuggestModels*)[MFBWebServiceSoapBinding_SuggestModels alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
-}
-- (void)SuggestModelsAsyncUsingParameters:(MFBWebServiceSvc_SuggestModels *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
-{
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_SuggestModels*)[MFBWebServiceSoapBinding_SuggestModels alloc] initWithBinding:self delegate:responseDelegate
-																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)PreviouslyUsedTextPropertiesUsingParameters:(MFBWebServiceSvc_PreviouslyUsedTextProperties *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_PreviouslyUsedTextProperties*)[MFBWebServiceSoapBinding_PreviouslyUsedTextProperties alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
-}
-- (void)PreviouslyUsedTextPropertiesAsyncUsingParameters:(MFBWebServiceSvc_PreviouslyUsedTextProperties *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
-{
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_PreviouslyUsedTextProperties*)[MFBWebServiceSoapBinding_PreviouslyUsedTextProperties alloc] initWithBinding:self delegate:responseDelegate
-																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoapBindingResponse *)AirportsInBoundingBoxUsingParameters:(MFBWebServiceSvc_AirportsInBoundingBox *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoapBinding_AirportsInBoundingBox*)[MFBWebServiceSoapBinding_AirportsInBoundingBox alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
-}
-- (void)AirportsInBoundingBoxAsyncUsingParameters:(MFBWebServiceSvc_AirportsInBoundingBox *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
-{
-	[self performAsynchronousOperation: [[(MFBWebServiceSoapBinding_AirportsInBoundingBox*)[MFBWebServiceSoapBinding_AirportsInBoundingBox alloc] initWithBinding:self delegate:responseDelegate
-																							 parameters:aParameters
-																							 ] autorelease]];
+																							 ]];
 }
 - (void)sendHTTPCallUsingBody:(NSString *)outputBody soapAction:(NSString *)soapAction forOperation:(MFBWebServiceSoapBindingOperation *)operation
 {
@@ -32241,7 +29002,6 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	[request setValue:@"wsdl2objc" forHTTPHeaderField:@"User-Agent"];
 	[request setValue:soapAction forHTTPHeaderField:@"SOAPAction"];
 	[request setValue:[[self MIMEType] stringByAppendingString:@"; charset=utf-8"] forHTTPHeaderField:@"Content-Type"];
-	// ERICBE: cast to unsigned long to prevent warnings about implicit cast of NSInteger
 	[request setValue:[NSString stringWithFormat:@"%lu", (unsigned long) [bodyData length]] forHTTPHeaderField:@"Content-Length"];
 	[request setValue:self.address.host forHTTPHeaderField:@"Host"];
 	for (NSString *eachHeaderField in [self.customHeaders allKeys]) {
@@ -32268,17 +29028,6 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	}] resume];
 	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 	[operation connectionDidFinishLoading];
-}
-- (void) dealloc
-{
-	[soapSigner release];
-	// ERICBE: Assign sslManager property to nil to release it - avoids a compiler warning.
-	// [sslManager release];
-	self.sslManager = nil;
-	[address release];
-	[cookies release];
-	[customHeaders release];
-	[super dealloc];
 }
 @end
 @implementation MFBWebServiceSoapBindingOperation
@@ -32360,14 +29109,6 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 	response.error = error;
 	[delegate operation:self completedWithResponse:response];
 }
-- (void)dealloc
-{
-	[binding release];
-	[response release];
-	delegate = nil;
-	[responseData release];
-	[super dealloc];
-}
 @end
 @implementation MFBWebServiceSoapBinding_AircraftForUser
 @synthesize parameters;
@@ -32380,22 +29121,13 @@ parameters:(MFBWebServiceSvc_AircraftForUser *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -32420,7 +29152,7 @@ parameters:(MFBWebServiceSvc_AircraftForUser *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -32453,7 +29185,7 @@ parameters:(MFBWebServiceSvc_AircraftForUser *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -32487,22 +29219,13 @@ parameters:(MFBWebServiceSvc_AddAircraftForUser *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -32527,7 +29250,7 @@ parameters:(MFBWebServiceSvc_AddAircraftForUser *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -32560,7 +29283,7 @@ parameters:(MFBWebServiceSvc_AddAircraftForUser *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -32594,22 +29317,13 @@ parameters:(MFBWebServiceSvc_AircraftMatchingPrefix *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -32634,7 +29348,7 @@ parameters:(MFBWebServiceSvc_AircraftMatchingPrefix *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -32667,7 +29381,7 @@ parameters:(MFBWebServiceSvc_AircraftMatchingPrefix *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -32701,22 +29415,13 @@ parameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraft *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -32741,7 +29446,7 @@ parameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraft *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -32774,7 +29479,7 @@ parameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraft *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -32808,22 +29513,13 @@ parameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes *)aPa
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -32848,7 +29544,7 @@ parameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes *)aPa
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -32881,7 +29577,7 @@ parameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes *)aPa
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -32915,22 +29611,13 @@ parameters:(MFBWebServiceSvc_DeleteAircraftForUser *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -32955,7 +29642,7 @@ parameters:(MFBWebServiceSvc_DeleteAircraftForUser *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -32988,7 +29675,7 @@ parameters:(MFBWebServiceSvc_DeleteAircraftForUser *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -33022,22 +29709,13 @@ parameters:(MFBWebServiceSvc_MakesAndModels *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -33062,7 +29740,7 @@ parameters:(MFBWebServiceSvc_MakesAndModels *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -33095,7 +29773,7 @@ parameters:(MFBWebServiceSvc_MakesAndModels *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -33129,22 +29807,13 @@ parameters:(MFBWebServiceSvc_GetCurrencyForUser *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -33169,7 +29838,7 @@ parameters:(MFBWebServiceSvc_GetCurrencyForUser *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -33202,7 +29871,7 @@ parameters:(MFBWebServiceSvc_GetCurrencyForUser *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -33236,22 +29905,13 @@ parameters:(MFBWebServiceSvc_TotalsForUser *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -33276,7 +29936,7 @@ parameters:(MFBWebServiceSvc_TotalsForUser *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -33309,7 +29969,7 @@ parameters:(MFBWebServiceSvc_TotalsForUser *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -33343,22 +30003,13 @@ parameters:(MFBWebServiceSvc_TotalsForUserWithQuery *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -33383,7 +30034,7 @@ parameters:(MFBWebServiceSvc_TotalsForUserWithQuery *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -33416,7 +30067,7 @@ parameters:(MFBWebServiceSvc_TotalsForUserWithQuery *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -33450,22 +30101,13 @@ parameters:(MFBWebServiceSvc_VisitedAirports *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -33490,7 +30132,7 @@ parameters:(MFBWebServiceSvc_VisitedAirports *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -33523,7 +30165,7 @@ parameters:(MFBWebServiceSvc_VisitedAirports *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -33557,22 +30199,13 @@ parameters:(MFBWebServiceSvc_FlightsWithQueryAndOffset *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -33597,7 +30230,7 @@ parameters:(MFBWebServiceSvc_FlightsWithQueryAndOffset *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -33630,7 +30263,7 @@ parameters:(MFBWebServiceSvc_FlightsWithQueryAndOffset *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -33664,22 +30297,13 @@ parameters:(MFBWebServiceSvc_FlightsWithQuery *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -33704,7 +30328,7 @@ parameters:(MFBWebServiceSvc_FlightsWithQuery *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -33737,7 +30361,7 @@ parameters:(MFBWebServiceSvc_FlightsWithQuery *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -33771,22 +30395,13 @@ parameters:(MFBWebServiceSvc_DeleteLogbookEntry *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -33811,7 +30426,7 @@ parameters:(MFBWebServiceSvc_DeleteLogbookEntry *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -33844,7 +30459,7 @@ parameters:(MFBWebServiceSvc_DeleteLogbookEntry *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -33878,22 +30493,13 @@ parameters:(MFBWebServiceSvc_CommitFlightWithOptions *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -33918,7 +30524,7 @@ parameters:(MFBWebServiceSvc_CommitFlightWithOptions *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -33951,7 +30557,7 @@ parameters:(MFBWebServiceSvc_CommitFlightWithOptions *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -33985,22 +30591,13 @@ parameters:(MFBWebServiceSvc_FlightPathForFlight *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -34025,7 +30622,7 @@ parameters:(MFBWebServiceSvc_FlightPathForFlight *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -34058,7 +30655,7 @@ parameters:(MFBWebServiceSvc_FlightPathForFlight *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -34092,22 +30689,13 @@ parameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -34132,7 +30720,7 @@ parameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -34165,7 +30753,7 @@ parameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -34199,22 +30787,13 @@ parameters:(MFBWebServiceSvc_CreatePendingFlight *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -34239,7 +30818,7 @@ parameters:(MFBWebServiceSvc_CreatePendingFlight *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -34272,7 +30851,7 @@ parameters:(MFBWebServiceSvc_CreatePendingFlight *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -34306,22 +30885,13 @@ parameters:(MFBWebServiceSvc_PendingFlightsForUser *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -34346,7 +30916,7 @@ parameters:(MFBWebServiceSvc_PendingFlightsForUser *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -34379,7 +30949,7 @@ parameters:(MFBWebServiceSvc_PendingFlightsForUser *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -34413,22 +30983,13 @@ parameters:(MFBWebServiceSvc_UpdatePendingFlight *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -34453,7 +31014,7 @@ parameters:(MFBWebServiceSvc_UpdatePendingFlight *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -34486,7 +31047,7 @@ parameters:(MFBWebServiceSvc_UpdatePendingFlight *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -34520,22 +31081,13 @@ parameters:(MFBWebServiceSvc_DeletePendingFlight *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -34560,7 +31112,7 @@ parameters:(MFBWebServiceSvc_DeletePendingFlight *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -34593,7 +31145,7 @@ parameters:(MFBWebServiceSvc_DeletePendingFlight *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -34627,22 +31179,13 @@ parameters:(MFBWebServiceSvc_CommitPendingFlight *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -34667,7 +31210,7 @@ parameters:(MFBWebServiceSvc_CommitPendingFlight *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -34700,7 +31243,7 @@ parameters:(MFBWebServiceSvc_CommitPendingFlight *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -34734,22 +31277,13 @@ parameters:(MFBWebServiceSvc_AvailablePropertyTypes *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -34774,7 +31308,7 @@ parameters:(MFBWebServiceSvc_AvailablePropertyTypes *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -34807,7 +31341,7 @@ parameters:(MFBWebServiceSvc_AvailablePropertyTypes *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -34841,22 +31375,13 @@ parameters:(MFBWebServiceSvc_AvailablePropertyTypesForUser *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -34881,7 +31406,7 @@ parameters:(MFBWebServiceSvc_AvailablePropertyTypesForUser *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -34914,7 +31439,7 @@ parameters:(MFBWebServiceSvc_AvailablePropertyTypesForUser *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -34948,22 +31473,13 @@ parameters:(MFBWebServiceSvc_PropertiesAndTemplatesForUser *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -34988,7 +31504,7 @@ parameters:(MFBWebServiceSvc_PropertiesAndTemplatesForUser *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -35021,7 +31537,7 @@ parameters:(MFBWebServiceSvc_PropertiesAndTemplatesForUser *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -35055,22 +31571,13 @@ parameters:(MFBWebServiceSvc_PropertiesForFlight *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -35095,7 +31602,7 @@ parameters:(MFBWebServiceSvc_PropertiesForFlight *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -35128,7 +31635,7 @@ parameters:(MFBWebServiceSvc_PropertiesForFlight *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -35162,22 +31669,13 @@ parameters:(MFBWebServiceSvc_DeletePropertiesForFlight *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -35202,7 +31700,7 @@ parameters:(MFBWebServiceSvc_DeletePropertiesForFlight *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -35235,7 +31733,7 @@ parameters:(MFBWebServiceSvc_DeletePropertiesForFlight *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -35269,22 +31767,13 @@ parameters:(MFBWebServiceSvc_DeletePropertyForFlight *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -35309,7 +31798,7 @@ parameters:(MFBWebServiceSvc_DeletePropertyForFlight *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -35342,7 +31831,7 @@ parameters:(MFBWebServiceSvc_DeletePropertyForFlight *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -35376,22 +31865,13 @@ parameters:(MFBWebServiceSvc_DeleteImage *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -35416,7 +31896,7 @@ parameters:(MFBWebServiceSvc_DeleteImage *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -35449,7 +31929,7 @@ parameters:(MFBWebServiceSvc_DeleteImage *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -35483,22 +31963,13 @@ parameters:(MFBWebServiceSvc_UpdateImageAnnotation *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -35523,7 +31994,7 @@ parameters:(MFBWebServiceSvc_UpdateImageAnnotation *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -35556,7 +32027,7 @@ parameters:(MFBWebServiceSvc_UpdateImageAnnotation *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -35590,22 +32061,13 @@ parameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -35630,7 +32092,7 @@ parameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -35663,7 +32125,7 @@ parameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -35697,22 +32159,13 @@ parameters:(MFBWebServiceSvc_AuthTokenForUserNew *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -35737,7 +32190,7 @@ parameters:(MFBWebServiceSvc_AuthTokenForUserNew *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -35770,7 +32223,7 @@ parameters:(MFBWebServiceSvc_AuthTokenForUserNew *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -35804,22 +32257,13 @@ parameters:(MFBWebServiceSvc_RefreshAuthToken *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -35844,7 +32288,7 @@ parameters:(MFBWebServiceSvc_RefreshAuthToken *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -35877,7 +32321,7 @@ parameters:(MFBWebServiceSvc_RefreshAuthToken *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -35911,22 +32355,13 @@ parameters:(MFBWebServiceSvc_CreateUser *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -35951,7 +32386,7 @@ parameters:(MFBWebServiceSvc_CreateUser *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -35984,7 +32419,7 @@ parameters:(MFBWebServiceSvc_CreateUser *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -36018,22 +32453,13 @@ parameters:(MFBWebServiceSvc_GetNamedQueriesForUser *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -36058,7 +32484,7 @@ parameters:(MFBWebServiceSvc_GetNamedQueriesForUser *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -36091,7 +32517,7 @@ parameters:(MFBWebServiceSvc_GetNamedQueriesForUser *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -36125,22 +32551,13 @@ parameters:(MFBWebServiceSvc_AddNamedQueryForUser *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -36165,7 +32582,7 @@ parameters:(MFBWebServiceSvc_AddNamedQueryForUser *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -36198,7 +32615,7 @@ parameters:(MFBWebServiceSvc_AddNamedQueryForUser *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -36232,22 +32649,13 @@ parameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoapBindingResponse new];
 	
 	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -36272,7 +32680,7 @@ parameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -36305,328 +32713,7 @@ parameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
-									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
-									NSDictionary *exceptions = [NSDictionary dictionary];
-									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
-									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
-									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-								}
-							}
-						}
-						
-						response.bodyParts = responseBodyParts;
-					}
-				}
-			}
-			
-			xmlFreeDoc(doc);
-		}
-		
-		xmlCleanupParser();
-		[delegate operation:self completedWithResponse:response];
-	}
-}
-@end
-@implementation MFBWebServiceSoapBinding_SuggestModels
-@synthesize parameters;
-- (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
-parameters:(MFBWebServiceSvc_SuggestModels *)aParameters
-{
-	if((self = [super initWithBinding:aBinding delegate:responseDelegate])) {
-		self.parameters = aParameters;
-	}
-	
-	return self;
-}
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
-- (void)main
-{
-	[response autorelease];
-	response = [MFBWebServiceSoapBindingResponse new];
-	
-	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
-	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
-	NSMutableDictionary *bodyElements = nil;
-	NSMutableArray *bodyKeys = nil;
-	bodyElements = [NSMutableDictionary dictionary];
-	bodyKeys = [NSMutableArray array];
-	id obj = nil;
-	if(parameters != nil) obj = parameters;
-	if(obj != nil) {
-		[bodyElements setObject:obj forKey:@"SuggestModels"];
-		[bodyKeys addObject:@"SuggestModels"];
-	}
-	
-	NSString *operationXMLString = [envelope serializedFormUsingHeaderElements:headerElements bodyElements:bodyElements bodyKeys:bodyKeys];
-	operationXMLString = binding.soapSigner ? [binding.soapSigner signRequest:operationXMLString] : operationXMLString;
-	
-	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/SuggestModels" forOperation:self];
-}
-- (void)connectionDidFinishLoading
-{
-	if (responseData != nil && delegate != nil)
-	{
-		xmlDocPtr doc;
-		xmlNodePtr cur;
-		
-		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
-		}
-		
-#if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
-	// Not yet defined in 10.5 libxml
-	#define XML_PARSE_COMPACT 0
-#endif
-    // EricBe: Put explicit conversion since [responseData length] is NSInteger but xmlReadMemory wants int.
-	doc = xmlReadMemory([responseData bytes], (int) [responseData length], NULL, NULL, XML_PARSE_COMPACT | XML_PARSE_NOBLANKS);
-		
-		if (doc == NULL) {
-			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Errors while parsing returned XML" forKey:NSLocalizedDescriptionKey];
-			
-			response.error = [NSError errorWithDomain:@"MFBWebServiceSoapBindingResponseXML" code:1 userInfo:userInfo];
-			[delegate operation:self completedWithResponse:response];
-		} else {
-			cur = xmlDocGetRootElement(doc);
-			cur = cur->children;
-			
-			for( ; cur != NULL ; cur = cur->next) {
-				if(cur->type == XML_ELEMENT_NODE) {
-					
-					if(xmlStrEqual(cur->name, (const xmlChar *) "Body")) {
-						NSMutableArray *responseBodyParts = [NSMutableArray array];
-						
-						xmlNodePtr bodyNode;
-						for(bodyNode=cur->children ; bodyNode != NULL ; bodyNode = bodyNode->next) {
-							if(cur->type == XML_ELEMENT_NODE) {
-								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "SuggestModelsResponse")) {
-									MFBWebServiceSvc_SuggestModelsResponse *bodyObject = [MFBWebServiceSvc_SuggestModelsResponse deserializeNode:bodyNode];
-									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
-									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
-									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
-									NSDictionary *exceptions = [NSDictionary dictionary];
-									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
-									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
-									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-								}
-							}
-						}
-						
-						response.bodyParts = responseBodyParts;
-					}
-				}
-			}
-			
-			xmlFreeDoc(doc);
-		}
-		
-		xmlCleanupParser();
-		[delegate operation:self completedWithResponse:response];
-	}
-}
-@end
-@implementation MFBWebServiceSoapBinding_PreviouslyUsedTextProperties
-@synthesize parameters;
-- (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
-parameters:(MFBWebServiceSvc_PreviouslyUsedTextProperties *)aParameters
-{
-	if((self = [super initWithBinding:aBinding delegate:responseDelegate])) {
-		self.parameters = aParameters;
-	}
-	
-	return self;
-}
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
-- (void)main
-{
-	[response autorelease];
-	response = [MFBWebServiceSoapBindingResponse new];
-	
-	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
-	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
-	NSMutableDictionary *bodyElements = nil;
-	NSMutableArray *bodyKeys = nil;
-	bodyElements = [NSMutableDictionary dictionary];
-	bodyKeys = [NSMutableArray array];
-	id obj = nil;
-	if(parameters != nil) obj = parameters;
-	if(obj != nil) {
-		[bodyElements setObject:obj forKey:@"PreviouslyUsedTextProperties"];
-		[bodyKeys addObject:@"PreviouslyUsedTextProperties"];
-	}
-	
-	NSString *operationXMLString = [envelope serializedFormUsingHeaderElements:headerElements bodyElements:bodyElements bodyKeys:bodyKeys];
-	operationXMLString = binding.soapSigner ? [binding.soapSigner signRequest:operationXMLString] : operationXMLString;
-	
-	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/PreviouslyUsedTextProperties" forOperation:self];
-}
-- (void)connectionDidFinishLoading
-{
-	if (responseData != nil && delegate != nil)
-	{
-		xmlDocPtr doc;
-		xmlNodePtr cur;
-		
-		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
-		}
-		
-#if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
-	// Not yet defined in 10.5 libxml
-	#define XML_PARSE_COMPACT 0
-#endif
-    // EricBe: Put explicit conversion since [responseData length] is NSInteger but xmlReadMemory wants int.
-	doc = xmlReadMemory([responseData bytes], (int) [responseData length], NULL, NULL, XML_PARSE_COMPACT | XML_PARSE_NOBLANKS);
-		
-		if (doc == NULL) {
-			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Errors while parsing returned XML" forKey:NSLocalizedDescriptionKey];
-			
-			response.error = [NSError errorWithDomain:@"MFBWebServiceSoapBindingResponseXML" code:1 userInfo:userInfo];
-			[delegate operation:self completedWithResponse:response];
-		} else {
-			cur = xmlDocGetRootElement(doc);
-			cur = cur->children;
-			
-			for( ; cur != NULL ; cur = cur->next) {
-				if(cur->type == XML_ELEMENT_NODE) {
-					
-					if(xmlStrEqual(cur->name, (const xmlChar *) "Body")) {
-						NSMutableArray *responseBodyParts = [NSMutableArray array];
-						
-						xmlNodePtr bodyNode;
-						for(bodyNode=cur->children ; bodyNode != NULL ; bodyNode = bodyNode->next) {
-							if(cur->type == XML_ELEMENT_NODE) {
-								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "PreviouslyUsedTextPropertiesResponse")) {
-									MFBWebServiceSvc_PreviouslyUsedTextPropertiesResponse *bodyObject = [MFBWebServiceSvc_PreviouslyUsedTextPropertiesResponse deserializeNode:bodyNode];
-									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
-									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
-									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
-									NSDictionary *exceptions = [NSDictionary dictionary];
-									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
-									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
-									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-								}
-							}
-						}
-						
-						response.bodyParts = responseBodyParts;
-					}
-				}
-			}
-			
-			xmlFreeDoc(doc);
-		}
-		
-		xmlCleanupParser();
-		[delegate operation:self completedWithResponse:response];
-	}
-}
-@end
-@implementation MFBWebServiceSoapBinding_AirportsInBoundingBox
-@synthesize parameters;
-- (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
-parameters:(MFBWebServiceSvc_AirportsInBoundingBox *)aParameters
-{
-	if((self = [super initWithBinding:aBinding delegate:responseDelegate])) {
-		self.parameters = aParameters;
-	}
-	
-	return self;
-}
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
-- (void)main
-{
-	[response autorelease];
-	response = [MFBWebServiceSoapBindingResponse new];
-	
-	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
-	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
-	NSMutableDictionary *bodyElements = nil;
-	NSMutableArray *bodyKeys = nil;
-	bodyElements = [NSMutableDictionary dictionary];
-	bodyKeys = [NSMutableArray array];
-	id obj = nil;
-	if(parameters != nil) obj = parameters;
-	if(obj != nil) {
-		[bodyElements setObject:obj forKey:@"AirportsInBoundingBox"];
-		[bodyKeys addObject:@"AirportsInBoundingBox"];
-	}
-	
-	NSString *operationXMLString = [envelope serializedFormUsingHeaderElements:headerElements bodyElements:bodyElements bodyKeys:bodyKeys];
-	operationXMLString = binding.soapSigner ? [binding.soapSigner signRequest:operationXMLString] : operationXMLString;
-	
-	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/AirportsInBoundingBox" forOperation:self];
-}
-- (void)connectionDidFinishLoading
-{
-	if (responseData != nil && delegate != nil)
-	{
-		xmlDocPtr doc;
-		xmlNodePtr cur;
-		
-		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
-		}
-		
-#if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
-	// Not yet defined in 10.5 libxml
-	#define XML_PARSE_COMPACT 0
-#endif
-    // EricBe: Put explicit conversion since [responseData length] is NSInteger but xmlReadMemory wants int.
-	doc = xmlReadMemory([responseData bytes], (int) [responseData length], NULL, NULL, XML_PARSE_COMPACT | XML_PARSE_NOBLANKS);
-		
-		if (doc == NULL) {
-			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Errors while parsing returned XML" forKey:NSLocalizedDescriptionKey];
-			
-			response.error = [NSError errorWithDomain:@"MFBWebServiceSoapBindingResponseXML" code:1 userInfo:userInfo];
-			[delegate operation:self completedWithResponse:response];
-		} else {
-			cur = xmlDocGetRootElement(doc);
-			cur = cur->children;
-			
-			for( ; cur != NULL ; cur = cur->next) {
-				if(cur->type == XML_ELEMENT_NODE) {
-					
-					if(xmlStrEqual(cur->name, (const xmlChar *) "Body")) {
-						NSMutableArray *responseBodyParts = [NSMutableArray array];
-						
-						xmlNodePtr bodyNode;
-						for(bodyNode=cur->children ; bodyNode != NULL ; bodyNode = bodyNode->next) {
-							if(cur->type == XML_ELEMENT_NODE) {
-								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "AirportsInBoundingBoxResponse")) {
-									MFBWebServiceSvc_AirportsInBoundingBoxResponse *bodyObject = [MFBWebServiceSvc_AirportsInBoundingBoxResponse deserializeNode:bodyNode];
-									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
-									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -36710,7 +32797,7 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 	NSString *serializedForm = [NSString stringWithCString:(const char*)buf encoding:NSUTF8StringEncoding];
 	xmlFree(buf);
 	
-	xmlFreeDoc(doc);	
+	xmlFreeDoc(doc);
 	return serializedForm;
 }
 @end
@@ -36727,12 +32814,6 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 	}
 	
 	return self;
-}
-- (void)dealloc {
-	self.headers = nil;
-	self.bodyParts = nil;
-	self.error = nil;	
-	[super dealloc];
 }
 @end
 @implementation MFBWebServiceSoap12Binding
@@ -36780,17 +32861,6 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 		[cookies addObject:toAdd];
 	}
 }
-- (MFBWebServiceSoap12BindingResponse *)performSynchronousOperation:(MFBWebServiceSoap12BindingOperation *)operation
-{
-	synchronousOperationComplete = NO;
-	[operation start];
-	
-	// Now wait for response
-	NSRunLoop *theRL = [NSRunLoop currentRunLoop];
-	
-	while (!synchronousOperationComplete && [theRL runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]]);
-	return operation.response;
-}
 - (void)performAsynchronousOperation:(MFBWebServiceSoap12BindingOperation *)operation
 {
 	[operation start];
@@ -36799,485 +32869,227 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 {
 	synchronousOperationComplete = YES;
 }
-- (MFBWebServiceSoap12BindingResponse *)AircraftForUserUsingParameters:(MFBWebServiceSvc_AircraftForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_AircraftForUser*)[MFBWebServiceSoap12Binding_AircraftForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
-}
 - (void)AircraftForUserAsyncUsingParameters:(MFBWebServiceSvc_AircraftForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_AircraftForUser*)[MFBWebServiceSoap12Binding_AircraftForUser alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_AircraftForUser*)[MFBWebServiceSoap12Binding_AircraftForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)AddAircraftForUserUsingParameters:(MFBWebServiceSvc_AddAircraftForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_AddAircraftForUser*)[MFBWebServiceSoap12Binding_AddAircraftForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)AddAircraftForUserAsyncUsingParameters:(MFBWebServiceSvc_AddAircraftForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_AddAircraftForUser*)[MFBWebServiceSoap12Binding_AddAircraftForUser alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_AddAircraftForUser*)[MFBWebServiceSoap12Binding_AddAircraftForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)AircraftMatchingPrefixUsingParameters:(MFBWebServiceSvc_AircraftMatchingPrefix *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_AircraftMatchingPrefix*)[MFBWebServiceSoap12Binding_AircraftMatchingPrefix alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)AircraftMatchingPrefixAsyncUsingParameters:(MFBWebServiceSvc_AircraftMatchingPrefix *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_AircraftMatchingPrefix*)[MFBWebServiceSoap12Binding_AircraftMatchingPrefix alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_AircraftMatchingPrefix*)[MFBWebServiceSoap12Binding_AircraftMatchingPrefix alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)UpdateMaintenanceForAircraftUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraft *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_UpdateMaintenanceForAircraft*)[MFBWebServiceSoap12Binding_UpdateMaintenanceForAircraft alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)UpdateMaintenanceForAircraftAsyncUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraft *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_UpdateMaintenanceForAircraft*)[MFBWebServiceSoap12Binding_UpdateMaintenanceForAircraft alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_UpdateMaintenanceForAircraft*)[MFBWebServiceSoap12Binding_UpdateMaintenanceForAircraft alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)UpdateMaintenanceForAircraftWithFlagsAndNotesUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_UpdateMaintenanceForAircraftWithFlagsAndNotes*)[MFBWebServiceSoap12Binding_UpdateMaintenanceForAircraftWithFlagsAndNotes alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)UpdateMaintenanceForAircraftWithFlagsAndNotesAsyncUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_UpdateMaintenanceForAircraftWithFlagsAndNotes*)[MFBWebServiceSoap12Binding_UpdateMaintenanceForAircraftWithFlagsAndNotes alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_UpdateMaintenanceForAircraftWithFlagsAndNotes*)[MFBWebServiceSoap12Binding_UpdateMaintenanceForAircraftWithFlagsAndNotes alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)DeleteAircraftForUserUsingParameters:(MFBWebServiceSvc_DeleteAircraftForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_DeleteAircraftForUser*)[MFBWebServiceSoap12Binding_DeleteAircraftForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)DeleteAircraftForUserAsyncUsingParameters:(MFBWebServiceSvc_DeleteAircraftForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_DeleteAircraftForUser*)[MFBWebServiceSoap12Binding_DeleteAircraftForUser alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_DeleteAircraftForUser*)[MFBWebServiceSoap12Binding_DeleteAircraftForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)MakesAndModelsUsingParameters:(MFBWebServiceSvc_MakesAndModels *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_MakesAndModels*)[MFBWebServiceSoap12Binding_MakesAndModels alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)MakesAndModelsAsyncUsingParameters:(MFBWebServiceSvc_MakesAndModels *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_MakesAndModels*)[MFBWebServiceSoap12Binding_MakesAndModels alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_MakesAndModels*)[MFBWebServiceSoap12Binding_MakesAndModels alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)GetCurrencyForUserUsingParameters:(MFBWebServiceSvc_GetCurrencyForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_GetCurrencyForUser*)[MFBWebServiceSoap12Binding_GetCurrencyForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)GetCurrencyForUserAsyncUsingParameters:(MFBWebServiceSvc_GetCurrencyForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_GetCurrencyForUser*)[MFBWebServiceSoap12Binding_GetCurrencyForUser alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_GetCurrencyForUser*)[MFBWebServiceSoap12Binding_GetCurrencyForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)TotalsForUserUsingParameters:(MFBWebServiceSvc_TotalsForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_TotalsForUser*)[MFBWebServiceSoap12Binding_TotalsForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)TotalsForUserAsyncUsingParameters:(MFBWebServiceSvc_TotalsForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_TotalsForUser*)[MFBWebServiceSoap12Binding_TotalsForUser alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_TotalsForUser*)[MFBWebServiceSoap12Binding_TotalsForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)TotalsForUserWithQueryUsingParameters:(MFBWebServiceSvc_TotalsForUserWithQuery *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_TotalsForUserWithQuery*)[MFBWebServiceSoap12Binding_TotalsForUserWithQuery alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)TotalsForUserWithQueryAsyncUsingParameters:(MFBWebServiceSvc_TotalsForUserWithQuery *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_TotalsForUserWithQuery*)[MFBWebServiceSoap12Binding_TotalsForUserWithQuery alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_TotalsForUserWithQuery*)[MFBWebServiceSoap12Binding_TotalsForUserWithQuery alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)VisitedAirportsUsingParameters:(MFBWebServiceSvc_VisitedAirports *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_VisitedAirports*)[MFBWebServiceSoap12Binding_VisitedAirports alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)VisitedAirportsAsyncUsingParameters:(MFBWebServiceSvc_VisitedAirports *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_VisitedAirports*)[MFBWebServiceSoap12Binding_VisitedAirports alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_VisitedAirports*)[MFBWebServiceSoap12Binding_VisitedAirports alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)FlightsWithQueryAndOffsetUsingParameters:(MFBWebServiceSvc_FlightsWithQueryAndOffset *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_FlightsWithQueryAndOffset*)[MFBWebServiceSoap12Binding_FlightsWithQueryAndOffset alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)FlightsWithQueryAndOffsetAsyncUsingParameters:(MFBWebServiceSvc_FlightsWithQueryAndOffset *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_FlightsWithQueryAndOffset*)[MFBWebServiceSoap12Binding_FlightsWithQueryAndOffset alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_FlightsWithQueryAndOffset*)[MFBWebServiceSoap12Binding_FlightsWithQueryAndOffset alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)FlightsWithQueryUsingParameters:(MFBWebServiceSvc_FlightsWithQuery *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_FlightsWithQuery*)[MFBWebServiceSoap12Binding_FlightsWithQuery alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)FlightsWithQueryAsyncUsingParameters:(MFBWebServiceSvc_FlightsWithQuery *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_FlightsWithQuery*)[MFBWebServiceSoap12Binding_FlightsWithQuery alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_FlightsWithQuery*)[MFBWebServiceSoap12Binding_FlightsWithQuery alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)DeleteLogbookEntryUsingParameters:(MFBWebServiceSvc_DeleteLogbookEntry *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_DeleteLogbookEntry*)[MFBWebServiceSoap12Binding_DeleteLogbookEntry alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)DeleteLogbookEntryAsyncUsingParameters:(MFBWebServiceSvc_DeleteLogbookEntry *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_DeleteLogbookEntry*)[MFBWebServiceSoap12Binding_DeleteLogbookEntry alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_DeleteLogbookEntry*)[MFBWebServiceSoap12Binding_DeleteLogbookEntry alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)CommitFlightWithOptionsUsingParameters:(MFBWebServiceSvc_CommitFlightWithOptions *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_CommitFlightWithOptions*)[MFBWebServiceSoap12Binding_CommitFlightWithOptions alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)CommitFlightWithOptionsAsyncUsingParameters:(MFBWebServiceSvc_CommitFlightWithOptions *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_CommitFlightWithOptions*)[MFBWebServiceSoap12Binding_CommitFlightWithOptions alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_CommitFlightWithOptions*)[MFBWebServiceSoap12Binding_CommitFlightWithOptions alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)FlightPathForFlightUsingParameters:(MFBWebServiceSvc_FlightPathForFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_FlightPathForFlight*)[MFBWebServiceSoap12Binding_FlightPathForFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)FlightPathForFlightAsyncUsingParameters:(MFBWebServiceSvc_FlightPathForFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_FlightPathForFlight*)[MFBWebServiceSoap12Binding_FlightPathForFlight alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_FlightPathForFlight*)[MFBWebServiceSoap12Binding_FlightPathForFlight alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)FlightPathForFlightGPXUsingParameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_FlightPathForFlightGPX*)[MFBWebServiceSoap12Binding_FlightPathForFlightGPX alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)FlightPathForFlightGPXAsyncUsingParameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_FlightPathForFlightGPX*)[MFBWebServiceSoap12Binding_FlightPathForFlightGPX alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_FlightPathForFlightGPX*)[MFBWebServiceSoap12Binding_FlightPathForFlightGPX alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)CreatePendingFlightUsingParameters:(MFBWebServiceSvc_CreatePendingFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_CreatePendingFlight*)[MFBWebServiceSoap12Binding_CreatePendingFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)CreatePendingFlightAsyncUsingParameters:(MFBWebServiceSvc_CreatePendingFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_CreatePendingFlight*)[MFBWebServiceSoap12Binding_CreatePendingFlight alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_CreatePendingFlight*)[MFBWebServiceSoap12Binding_CreatePendingFlight alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)PendingFlightsForUserUsingParameters:(MFBWebServiceSvc_PendingFlightsForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_PendingFlightsForUser*)[MFBWebServiceSoap12Binding_PendingFlightsForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)PendingFlightsForUserAsyncUsingParameters:(MFBWebServiceSvc_PendingFlightsForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_PendingFlightsForUser*)[MFBWebServiceSoap12Binding_PendingFlightsForUser alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_PendingFlightsForUser*)[MFBWebServiceSoap12Binding_PendingFlightsForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)UpdatePendingFlightUsingParameters:(MFBWebServiceSvc_UpdatePendingFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_UpdatePendingFlight*)[MFBWebServiceSoap12Binding_UpdatePendingFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)UpdatePendingFlightAsyncUsingParameters:(MFBWebServiceSvc_UpdatePendingFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_UpdatePendingFlight*)[MFBWebServiceSoap12Binding_UpdatePendingFlight alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_UpdatePendingFlight*)[MFBWebServiceSoap12Binding_UpdatePendingFlight alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)DeletePendingFlightUsingParameters:(MFBWebServiceSvc_DeletePendingFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_DeletePendingFlight*)[MFBWebServiceSoap12Binding_DeletePendingFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)DeletePendingFlightAsyncUsingParameters:(MFBWebServiceSvc_DeletePendingFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_DeletePendingFlight*)[MFBWebServiceSoap12Binding_DeletePendingFlight alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_DeletePendingFlight*)[MFBWebServiceSoap12Binding_DeletePendingFlight alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)CommitPendingFlightUsingParameters:(MFBWebServiceSvc_CommitPendingFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_CommitPendingFlight*)[MFBWebServiceSoap12Binding_CommitPendingFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)CommitPendingFlightAsyncUsingParameters:(MFBWebServiceSvc_CommitPendingFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_CommitPendingFlight*)[MFBWebServiceSoap12Binding_CommitPendingFlight alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_CommitPendingFlight*)[MFBWebServiceSoap12Binding_CommitPendingFlight alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)AvailablePropertyTypesUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypes *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_AvailablePropertyTypes*)[MFBWebServiceSoap12Binding_AvailablePropertyTypes alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)AvailablePropertyTypesAsyncUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypes *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_AvailablePropertyTypes*)[MFBWebServiceSoap12Binding_AvailablePropertyTypes alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_AvailablePropertyTypes*)[MFBWebServiceSoap12Binding_AvailablePropertyTypes alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)AvailablePropertyTypesForUserUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypesForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_AvailablePropertyTypesForUser*)[MFBWebServiceSoap12Binding_AvailablePropertyTypesForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)AvailablePropertyTypesForUserAsyncUsingParameters:(MFBWebServiceSvc_AvailablePropertyTypesForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_AvailablePropertyTypesForUser*)[MFBWebServiceSoap12Binding_AvailablePropertyTypesForUser alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_AvailablePropertyTypesForUser*)[MFBWebServiceSoap12Binding_AvailablePropertyTypesForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)PropertiesAndTemplatesForUserUsingParameters:(MFBWebServiceSvc_PropertiesAndTemplatesForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_PropertiesAndTemplatesForUser*)[MFBWebServiceSoap12Binding_PropertiesAndTemplatesForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)PropertiesAndTemplatesForUserAsyncUsingParameters:(MFBWebServiceSvc_PropertiesAndTemplatesForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_PropertiesAndTemplatesForUser*)[MFBWebServiceSoap12Binding_PropertiesAndTemplatesForUser alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_PropertiesAndTemplatesForUser*)[MFBWebServiceSoap12Binding_PropertiesAndTemplatesForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)PropertiesForFlightUsingParameters:(MFBWebServiceSvc_PropertiesForFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_PropertiesForFlight*)[MFBWebServiceSoap12Binding_PropertiesForFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)PropertiesForFlightAsyncUsingParameters:(MFBWebServiceSvc_PropertiesForFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_PropertiesForFlight*)[MFBWebServiceSoap12Binding_PropertiesForFlight alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_PropertiesForFlight*)[MFBWebServiceSoap12Binding_PropertiesForFlight alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)DeletePropertiesForFlightUsingParameters:(MFBWebServiceSvc_DeletePropertiesForFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_DeletePropertiesForFlight*)[MFBWebServiceSoap12Binding_DeletePropertiesForFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)DeletePropertiesForFlightAsyncUsingParameters:(MFBWebServiceSvc_DeletePropertiesForFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_DeletePropertiesForFlight*)[MFBWebServiceSoap12Binding_DeletePropertiesForFlight alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_DeletePropertiesForFlight*)[MFBWebServiceSoap12Binding_DeletePropertiesForFlight alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)DeletePropertyForFlightUsingParameters:(MFBWebServiceSvc_DeletePropertyForFlight *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_DeletePropertyForFlight*)[MFBWebServiceSoap12Binding_DeletePropertyForFlight alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)DeletePropertyForFlightAsyncUsingParameters:(MFBWebServiceSvc_DeletePropertyForFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_DeletePropertyForFlight*)[MFBWebServiceSoap12Binding_DeletePropertyForFlight alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_DeletePropertyForFlight*)[MFBWebServiceSoap12Binding_DeletePropertyForFlight alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)DeleteImageUsingParameters:(MFBWebServiceSvc_DeleteImage *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_DeleteImage*)[MFBWebServiceSoap12Binding_DeleteImage alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)DeleteImageAsyncUsingParameters:(MFBWebServiceSvc_DeleteImage *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_DeleteImage*)[MFBWebServiceSoap12Binding_DeleteImage alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_DeleteImage*)[MFBWebServiceSoap12Binding_DeleteImage alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)UpdateImageAnnotationUsingParameters:(MFBWebServiceSvc_UpdateImageAnnotation *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_UpdateImageAnnotation*)[MFBWebServiceSoap12Binding_UpdateImageAnnotation alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)UpdateImageAnnotationAsyncUsingParameters:(MFBWebServiceSvc_UpdateImageAnnotation *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_UpdateImageAnnotation*)[MFBWebServiceSoap12Binding_UpdateImageAnnotation alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_UpdateImageAnnotation*)[MFBWebServiceSoap12Binding_UpdateImageAnnotation alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)AuthTokenForUserUsingParameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_AuthTokenForUser*)[MFBWebServiceSoap12Binding_AuthTokenForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)AuthTokenForUserAsyncUsingParameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_AuthTokenForUser*)[MFBWebServiceSoap12Binding_AuthTokenForUser alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_AuthTokenForUser*)[MFBWebServiceSoap12Binding_AuthTokenForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)AuthTokenForUserNewUsingParameters:(MFBWebServiceSvc_AuthTokenForUserNew *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_AuthTokenForUserNew*)[MFBWebServiceSoap12Binding_AuthTokenForUserNew alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)AuthTokenForUserNewAsyncUsingParameters:(MFBWebServiceSvc_AuthTokenForUserNew *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_AuthTokenForUserNew*)[MFBWebServiceSoap12Binding_AuthTokenForUserNew alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_AuthTokenForUserNew*)[MFBWebServiceSoap12Binding_AuthTokenForUserNew alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)RefreshAuthTokenUsingParameters:(MFBWebServiceSvc_RefreshAuthToken *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_RefreshAuthToken*)[MFBWebServiceSoap12Binding_RefreshAuthToken alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)RefreshAuthTokenAsyncUsingParameters:(MFBWebServiceSvc_RefreshAuthToken *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_RefreshAuthToken*)[MFBWebServiceSoap12Binding_RefreshAuthToken alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_RefreshAuthToken*)[MFBWebServiceSoap12Binding_RefreshAuthToken alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)CreateUserUsingParameters:(MFBWebServiceSvc_CreateUser *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_CreateUser*)[MFBWebServiceSoap12Binding_CreateUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)CreateUserAsyncUsingParameters:(MFBWebServiceSvc_CreateUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_CreateUser*)[MFBWebServiceSoap12Binding_CreateUser alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_CreateUser*)[MFBWebServiceSoap12Binding_CreateUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)GetNamedQueriesForUserUsingParameters:(MFBWebServiceSvc_GetNamedQueriesForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_GetNamedQueriesForUser*)[MFBWebServiceSoap12Binding_GetNamedQueriesForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)GetNamedQueriesForUserAsyncUsingParameters:(MFBWebServiceSvc_GetNamedQueriesForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_GetNamedQueriesForUser*)[MFBWebServiceSoap12Binding_GetNamedQueriesForUser alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_GetNamedQueriesForUser*)[MFBWebServiceSoap12Binding_GetNamedQueriesForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)AddNamedQueryForUserUsingParameters:(MFBWebServiceSvc_AddNamedQueryForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_AddNamedQueryForUser*)[MFBWebServiceSoap12Binding_AddNamedQueryForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)AddNamedQueryForUserAsyncUsingParameters:(MFBWebServiceSvc_AddNamedQueryForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_AddNamedQueryForUser*)[MFBWebServiceSoap12Binding_AddNamedQueryForUser alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_AddNamedQueryForUser*)[MFBWebServiceSoap12Binding_AddNamedQueryForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)DeleteNamedQueryForUserUsingParameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_DeleteNamedQueryForUser*)[MFBWebServiceSoap12Binding_DeleteNamedQueryForUser alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
+																							 ]];
 }
 - (void)DeleteNamedQueryForUserAsyncUsingParameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_DeleteNamedQueryForUser*)[MFBWebServiceSoap12Binding_DeleteNamedQueryForUser alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_DeleteNamedQueryForUser*)[MFBWebServiceSoap12Binding_DeleteNamedQueryForUser alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)SuggestModelsUsingParameters:(MFBWebServiceSvc_SuggestModels *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_SuggestModels*)[MFBWebServiceSoap12Binding_SuggestModels alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
-}
-- (void)SuggestModelsAsyncUsingParameters:(MFBWebServiceSvc_SuggestModels *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
-{
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_SuggestModels*)[MFBWebServiceSoap12Binding_SuggestModels alloc] initWithBinding:self delegate:responseDelegate
-																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)PreviouslyUsedTextPropertiesUsingParameters:(MFBWebServiceSvc_PreviouslyUsedTextProperties *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_PreviouslyUsedTextProperties*)[MFBWebServiceSoap12Binding_PreviouslyUsedTextProperties alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
-}
-- (void)PreviouslyUsedTextPropertiesAsyncUsingParameters:(MFBWebServiceSvc_PreviouslyUsedTextProperties *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
-{
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_PreviouslyUsedTextProperties*)[MFBWebServiceSoap12Binding_PreviouslyUsedTextProperties alloc] initWithBinding:self delegate:responseDelegate
-																							 parameters:aParameters
-																							 ] autorelease]];
-}
-- (MFBWebServiceSoap12BindingResponse *)AirportsInBoundingBoxUsingParameters:(MFBWebServiceSvc_AirportsInBoundingBox *)aParameters 
-{
-	return [self performSynchronousOperation:[[(MFBWebServiceSoap12Binding_AirportsInBoundingBox*)[MFBWebServiceSoap12Binding_AirportsInBoundingBox alloc] initWithBinding:self delegate:self
-																							parameters:aParameters
-																							] autorelease]];
-}
-- (void)AirportsInBoundingBoxAsyncUsingParameters:(MFBWebServiceSvc_AirportsInBoundingBox *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
-{
-	[self performAsynchronousOperation: [[(MFBWebServiceSoap12Binding_AirportsInBoundingBox*)[MFBWebServiceSoap12Binding_AirportsInBoundingBox alloc] initWithBinding:self delegate:responseDelegate
-																							 parameters:aParameters
-																							 ] autorelease]];
+																							 ]];
 }
 - (void)sendHTTPCallUsingBody:(NSString *)outputBody soapAction:(NSString *)soapAction forOperation:(MFBWebServiceSoap12BindingOperation *)operation
 {
@@ -37300,7 +33112,6 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 	[request setValue:@"wsdl2objc" forHTTPHeaderField:@"User-Agent"];
 	[request setValue:soapAction forHTTPHeaderField:@"SOAPAction"];
 	[request setValue:[[self MIMEType] stringByAppendingString:@"; charset=utf-8"] forHTTPHeaderField:@"Content-Type"];
-	// ERICBE: cast to unsigned long to prevent warnings about implicit cast of NSInteger
 	[request setValue:[NSString stringWithFormat:@"%lu", (unsigned long) [bodyData length]] forHTTPHeaderField:@"Content-Length"];
 	[request setValue:self.address.host forHTTPHeaderField:@"Host"];
 	for (NSString *eachHeaderField in [self.customHeaders allKeys]) {
@@ -37327,17 +33138,6 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 	}] resume];
 	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 	[operation connectionDidFinishLoading];
-}
-- (void) dealloc
-{
-	[soapSigner release];
-	// ERICBE: Assign sslManager property to nil to release it - avoids a compiler warning.
-	// [sslManager release];
-	self.sslManager = nil;
-	[address release];
-	[cookies release];
-	[customHeaders release];
-	[super dealloc];
 }
 @end
 @implementation MFBWebServiceSoap12BindingOperation
@@ -37419,14 +33219,6 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 	response.error = error;
 	[delegate operation:self completedWithResponse:response];
 }
-- (void)dealloc
-{
-	[binding release];
-	[response release];
-	delegate = nil;
-	[responseData release];
-	[super dealloc];
-}
 @end
 @implementation MFBWebServiceSoap12Binding_AircraftForUser
 @synthesize parameters;
@@ -37439,22 +33231,13 @@ parameters:(MFBWebServiceSvc_AircraftForUser *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -37479,7 +33262,7 @@ parameters:(MFBWebServiceSvc_AircraftForUser *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -37512,7 +33295,7 @@ parameters:(MFBWebServiceSvc_AircraftForUser *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -37546,22 +33329,13 @@ parameters:(MFBWebServiceSvc_AddAircraftForUser *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -37586,7 +33360,7 @@ parameters:(MFBWebServiceSvc_AddAircraftForUser *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -37619,7 +33393,7 @@ parameters:(MFBWebServiceSvc_AddAircraftForUser *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -37653,22 +33427,13 @@ parameters:(MFBWebServiceSvc_AircraftMatchingPrefix *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -37693,7 +33458,7 @@ parameters:(MFBWebServiceSvc_AircraftMatchingPrefix *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -37726,7 +33491,7 @@ parameters:(MFBWebServiceSvc_AircraftMatchingPrefix *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -37760,22 +33525,13 @@ parameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraft *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -37800,7 +33556,7 @@ parameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraft *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -37833,7 +33589,7 @@ parameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraft *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -37867,22 +33623,13 @@ parameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes *)aPa
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -37907,7 +33654,7 @@ parameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes *)aPa
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -37940,7 +33687,7 @@ parameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes *)aPa
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -37974,22 +33721,13 @@ parameters:(MFBWebServiceSvc_DeleteAircraftForUser *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -38014,7 +33752,7 @@ parameters:(MFBWebServiceSvc_DeleteAircraftForUser *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -38047,7 +33785,7 @@ parameters:(MFBWebServiceSvc_DeleteAircraftForUser *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -38081,22 +33819,13 @@ parameters:(MFBWebServiceSvc_MakesAndModels *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -38121,7 +33850,7 @@ parameters:(MFBWebServiceSvc_MakesAndModels *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -38154,7 +33883,7 @@ parameters:(MFBWebServiceSvc_MakesAndModels *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -38188,22 +33917,13 @@ parameters:(MFBWebServiceSvc_GetCurrencyForUser *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -38228,7 +33948,7 @@ parameters:(MFBWebServiceSvc_GetCurrencyForUser *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -38261,7 +33981,7 @@ parameters:(MFBWebServiceSvc_GetCurrencyForUser *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -38295,22 +34015,13 @@ parameters:(MFBWebServiceSvc_TotalsForUser *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -38335,7 +34046,7 @@ parameters:(MFBWebServiceSvc_TotalsForUser *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -38368,7 +34079,7 @@ parameters:(MFBWebServiceSvc_TotalsForUser *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -38402,22 +34113,13 @@ parameters:(MFBWebServiceSvc_TotalsForUserWithQuery *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -38442,7 +34144,7 @@ parameters:(MFBWebServiceSvc_TotalsForUserWithQuery *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -38475,7 +34177,7 @@ parameters:(MFBWebServiceSvc_TotalsForUserWithQuery *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -38509,22 +34211,13 @@ parameters:(MFBWebServiceSvc_VisitedAirports *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -38549,7 +34242,7 @@ parameters:(MFBWebServiceSvc_VisitedAirports *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -38582,7 +34275,7 @@ parameters:(MFBWebServiceSvc_VisitedAirports *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -38616,22 +34309,13 @@ parameters:(MFBWebServiceSvc_FlightsWithQueryAndOffset *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -38656,7 +34340,7 @@ parameters:(MFBWebServiceSvc_FlightsWithQueryAndOffset *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -38689,7 +34373,7 @@ parameters:(MFBWebServiceSvc_FlightsWithQueryAndOffset *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -38723,22 +34407,13 @@ parameters:(MFBWebServiceSvc_FlightsWithQuery *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -38763,7 +34438,7 @@ parameters:(MFBWebServiceSvc_FlightsWithQuery *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -38796,7 +34471,7 @@ parameters:(MFBWebServiceSvc_FlightsWithQuery *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -38830,22 +34505,13 @@ parameters:(MFBWebServiceSvc_DeleteLogbookEntry *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -38870,7 +34536,7 @@ parameters:(MFBWebServiceSvc_DeleteLogbookEntry *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -38903,7 +34569,7 @@ parameters:(MFBWebServiceSvc_DeleteLogbookEntry *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -38937,22 +34603,13 @@ parameters:(MFBWebServiceSvc_CommitFlightWithOptions *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -38977,7 +34634,7 @@ parameters:(MFBWebServiceSvc_CommitFlightWithOptions *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -39010,7 +34667,7 @@ parameters:(MFBWebServiceSvc_CommitFlightWithOptions *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -39044,22 +34701,13 @@ parameters:(MFBWebServiceSvc_FlightPathForFlight *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -39084,7 +34732,7 @@ parameters:(MFBWebServiceSvc_FlightPathForFlight *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -39117,7 +34765,7 @@ parameters:(MFBWebServiceSvc_FlightPathForFlight *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -39151,22 +34799,13 @@ parameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -39191,7 +34830,7 @@ parameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -39224,7 +34863,7 @@ parameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -39258,22 +34897,13 @@ parameters:(MFBWebServiceSvc_CreatePendingFlight *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -39298,7 +34928,7 @@ parameters:(MFBWebServiceSvc_CreatePendingFlight *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -39331,7 +34961,7 @@ parameters:(MFBWebServiceSvc_CreatePendingFlight *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -39365,22 +34995,13 @@ parameters:(MFBWebServiceSvc_PendingFlightsForUser *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -39405,7 +35026,7 @@ parameters:(MFBWebServiceSvc_PendingFlightsForUser *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -39438,7 +35059,7 @@ parameters:(MFBWebServiceSvc_PendingFlightsForUser *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -39472,22 +35093,13 @@ parameters:(MFBWebServiceSvc_UpdatePendingFlight *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -39512,7 +35124,7 @@ parameters:(MFBWebServiceSvc_UpdatePendingFlight *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -39545,7 +35157,7 @@ parameters:(MFBWebServiceSvc_UpdatePendingFlight *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -39579,22 +35191,13 @@ parameters:(MFBWebServiceSvc_DeletePendingFlight *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -39619,7 +35222,7 @@ parameters:(MFBWebServiceSvc_DeletePendingFlight *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -39652,7 +35255,7 @@ parameters:(MFBWebServiceSvc_DeletePendingFlight *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -39686,22 +35289,13 @@ parameters:(MFBWebServiceSvc_CommitPendingFlight *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -39726,7 +35320,7 @@ parameters:(MFBWebServiceSvc_CommitPendingFlight *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -39759,7 +35353,7 @@ parameters:(MFBWebServiceSvc_CommitPendingFlight *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -39793,22 +35387,13 @@ parameters:(MFBWebServiceSvc_AvailablePropertyTypes *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -39833,7 +35418,7 @@ parameters:(MFBWebServiceSvc_AvailablePropertyTypes *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -39866,7 +35451,7 @@ parameters:(MFBWebServiceSvc_AvailablePropertyTypes *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -39900,22 +35485,13 @@ parameters:(MFBWebServiceSvc_AvailablePropertyTypesForUser *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -39940,7 +35516,7 @@ parameters:(MFBWebServiceSvc_AvailablePropertyTypesForUser *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -39973,7 +35549,7 @@ parameters:(MFBWebServiceSvc_AvailablePropertyTypesForUser *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -40007,22 +35583,13 @@ parameters:(MFBWebServiceSvc_PropertiesAndTemplatesForUser *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -40047,7 +35614,7 @@ parameters:(MFBWebServiceSvc_PropertiesAndTemplatesForUser *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -40080,7 +35647,7 @@ parameters:(MFBWebServiceSvc_PropertiesAndTemplatesForUser *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -40114,22 +35681,13 @@ parameters:(MFBWebServiceSvc_PropertiesForFlight *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -40154,7 +35712,7 @@ parameters:(MFBWebServiceSvc_PropertiesForFlight *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -40187,7 +35745,7 @@ parameters:(MFBWebServiceSvc_PropertiesForFlight *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -40221,22 +35779,13 @@ parameters:(MFBWebServiceSvc_DeletePropertiesForFlight *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -40261,7 +35810,7 @@ parameters:(MFBWebServiceSvc_DeletePropertiesForFlight *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -40294,7 +35843,7 @@ parameters:(MFBWebServiceSvc_DeletePropertiesForFlight *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -40328,22 +35877,13 @@ parameters:(MFBWebServiceSvc_DeletePropertyForFlight *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -40368,7 +35908,7 @@ parameters:(MFBWebServiceSvc_DeletePropertyForFlight *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -40401,7 +35941,7 @@ parameters:(MFBWebServiceSvc_DeletePropertyForFlight *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -40435,22 +35975,13 @@ parameters:(MFBWebServiceSvc_DeleteImage *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -40475,7 +36006,7 @@ parameters:(MFBWebServiceSvc_DeleteImage *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -40508,7 +36039,7 @@ parameters:(MFBWebServiceSvc_DeleteImage *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -40542,22 +36073,13 @@ parameters:(MFBWebServiceSvc_UpdateImageAnnotation *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -40582,7 +36104,7 @@ parameters:(MFBWebServiceSvc_UpdateImageAnnotation *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -40615,7 +36137,7 @@ parameters:(MFBWebServiceSvc_UpdateImageAnnotation *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -40649,22 +36171,13 @@ parameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -40689,7 +36202,7 @@ parameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -40722,7 +36235,7 @@ parameters:(MFBWebServiceSvc_AuthTokenForUser *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -40756,22 +36269,13 @@ parameters:(MFBWebServiceSvc_AuthTokenForUserNew *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -40796,7 +36300,7 @@ parameters:(MFBWebServiceSvc_AuthTokenForUserNew *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -40829,7 +36333,7 @@ parameters:(MFBWebServiceSvc_AuthTokenForUserNew *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -40863,22 +36367,13 @@ parameters:(MFBWebServiceSvc_RefreshAuthToken *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -40903,7 +36398,7 @@ parameters:(MFBWebServiceSvc_RefreshAuthToken *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -40936,7 +36431,7 @@ parameters:(MFBWebServiceSvc_RefreshAuthToken *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -40970,22 +36465,13 @@ parameters:(MFBWebServiceSvc_CreateUser *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -41010,7 +36496,7 @@ parameters:(MFBWebServiceSvc_CreateUser *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -41043,7 +36529,7 @@ parameters:(MFBWebServiceSvc_CreateUser *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -41077,22 +36563,13 @@ parameters:(MFBWebServiceSvc_GetNamedQueriesForUser *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -41117,7 +36594,7 @@ parameters:(MFBWebServiceSvc_GetNamedQueriesForUser *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -41150,7 +36627,7 @@ parameters:(MFBWebServiceSvc_GetNamedQueriesForUser *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -41184,22 +36661,13 @@ parameters:(MFBWebServiceSvc_AddNamedQueryForUser *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -41224,7 +36692,7 @@ parameters:(MFBWebServiceSvc_AddNamedQueryForUser *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -41257,7 +36725,7 @@ parameters:(MFBWebServiceSvc_AddNamedQueryForUser *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -41291,22 +36759,13 @@ parameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters
 	
 	return self;
 }
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
 - (void)main
 {
-	[response autorelease];
 	response = [MFBWebServiceSoap12BindingResponse new];
 	
 	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
 	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
 	NSMutableDictionary *bodyElements = nil;
 	NSMutableArray *bodyKeys = nil;
 	bodyElements = [NSMutableDictionary dictionary];
@@ -41331,7 +36790,7 @@ parameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters
 		xmlNodePtr cur;
 		
 		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
 		}
 		
 #if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
@@ -41364,328 +36823,7 @@ parameters:(MFBWebServiceSvc_DeleteNamedQueryForUser *)aParameters
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
-									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
-									NSDictionary *exceptions = [NSDictionary dictionary];
-									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
-									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
-									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-								}
-							}
-						}
-						
-						response.bodyParts = responseBodyParts;
-					}
-				}
-			}
-			
-			xmlFreeDoc(doc);
-		}
-		
-		xmlCleanupParser();
-		[delegate operation:self completedWithResponse:response];
-	}
-}
-@end
-@implementation MFBWebServiceSoap12Binding_SuggestModels
-@synthesize parameters;
-- (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
-parameters:(MFBWebServiceSvc_SuggestModels *)aParameters
-{
-	if((self = [super initWithBinding:aBinding delegate:responseDelegate])) {
-		self.parameters = aParameters;
-	}
-	
-	return self;
-}
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
-- (void)main
-{
-	[response autorelease];
-	response = [MFBWebServiceSoap12BindingResponse new];
-	
-	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
-	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
-	NSMutableDictionary *bodyElements = nil;
-	NSMutableArray *bodyKeys = nil;
-	bodyElements = [NSMutableDictionary dictionary];
-	bodyKeys = [NSMutableArray array];
-	id obj = nil;
-	if(parameters != nil) obj = parameters;
-	if(obj != nil) {
-		[bodyElements setObject:obj forKey:@"SuggestModels"];
-		[bodyKeys addObject:@"SuggestModels"];
-	}
-	
-	NSString *operationXMLString = [envelope serializedFormUsingHeaderElements:headerElements bodyElements:bodyElements bodyKeys:bodyKeys];
-	operationXMLString = binding.soapSigner ? [binding.soapSigner signRequest:operationXMLString] : operationXMLString;
-	
-	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/SuggestModels" forOperation:self];
-}
-- (void)connectionDidFinishLoading
-{
-	if (responseData != nil && delegate != nil)
-	{
-		xmlDocPtr doc;
-		xmlNodePtr cur;
-		
-		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
-		}
-		
-#if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
-	// Not yet defined in 10.5 libxml
-	#define XML_PARSE_COMPACT 0
-#endif
-    // EricBe: Put explicit conversion since [responseData length] is NSInteger but xmlReadMemory wants int.
-	doc = xmlReadMemory([responseData bytes], (int) [responseData length], NULL, NULL, XML_PARSE_COMPACT | XML_PARSE_NOBLANKS);
-		
-		if (doc == NULL) {
-			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Errors while parsing returned XML" forKey:NSLocalizedDescriptionKey];
-			
-			response.error = [NSError errorWithDomain:@"MFBWebServiceSoap12BindingResponseXML" code:1 userInfo:userInfo];
-			[delegate operation:self completedWithResponse:response];
-		} else {
-			cur = xmlDocGetRootElement(doc);
-			cur = cur->children;
-			
-			for( ; cur != NULL ; cur = cur->next) {
-				if(cur->type == XML_ELEMENT_NODE) {
-					
-					if(xmlStrEqual(cur->name, (const xmlChar *) "Body")) {
-						NSMutableArray *responseBodyParts = [NSMutableArray array];
-						
-						xmlNodePtr bodyNode;
-						for(bodyNode=cur->children ; bodyNode != NULL ; bodyNode = bodyNode->next) {
-							if(cur->type == XML_ELEMENT_NODE) {
-								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "SuggestModelsResponse")) {
-									MFBWebServiceSvc_SuggestModelsResponse *bodyObject = [MFBWebServiceSvc_SuggestModelsResponse deserializeNode:bodyNode];
-									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
-									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
-									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
-									NSDictionary *exceptions = [NSDictionary dictionary];
-									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
-									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
-									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-								}
-							}
-						}
-						
-						response.bodyParts = responseBodyParts;
-					}
-				}
-			}
-			
-			xmlFreeDoc(doc);
-		}
-		
-		xmlCleanupParser();
-		[delegate operation:self completedWithResponse:response];
-	}
-}
-@end
-@implementation MFBWebServiceSoap12Binding_PreviouslyUsedTextProperties
-@synthesize parameters;
-- (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
-parameters:(MFBWebServiceSvc_PreviouslyUsedTextProperties *)aParameters
-{
-	if((self = [super initWithBinding:aBinding delegate:responseDelegate])) {
-		self.parameters = aParameters;
-	}
-	
-	return self;
-}
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
-- (void)main
-{
-	[response autorelease];
-	response = [MFBWebServiceSoap12BindingResponse new];
-	
-	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
-	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
-	NSMutableDictionary *bodyElements = nil;
-	NSMutableArray *bodyKeys = nil;
-	bodyElements = [NSMutableDictionary dictionary];
-	bodyKeys = [NSMutableArray array];
-	id obj = nil;
-	if(parameters != nil) obj = parameters;
-	if(obj != nil) {
-		[bodyElements setObject:obj forKey:@"PreviouslyUsedTextProperties"];
-		[bodyKeys addObject:@"PreviouslyUsedTextProperties"];
-	}
-	
-	NSString *operationXMLString = [envelope serializedFormUsingHeaderElements:headerElements bodyElements:bodyElements bodyKeys:bodyKeys];
-	operationXMLString = binding.soapSigner ? [binding.soapSigner signRequest:operationXMLString] : operationXMLString;
-	
-	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/PreviouslyUsedTextProperties" forOperation:self];
-}
-- (void)connectionDidFinishLoading
-{
-	if (responseData != nil && delegate != nil)
-	{
-		xmlDocPtr doc;
-		xmlNodePtr cur;
-		
-		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
-		}
-		
-#if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
-	// Not yet defined in 10.5 libxml
-	#define XML_PARSE_COMPACT 0
-#endif
-    // EricBe: Put explicit conversion since [responseData length] is NSInteger but xmlReadMemory wants int.
-	doc = xmlReadMemory([responseData bytes], (int) [responseData length], NULL, NULL, XML_PARSE_COMPACT | XML_PARSE_NOBLANKS);
-		
-		if (doc == NULL) {
-			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Errors while parsing returned XML" forKey:NSLocalizedDescriptionKey];
-			
-			response.error = [NSError errorWithDomain:@"MFBWebServiceSoap12BindingResponseXML" code:1 userInfo:userInfo];
-			[delegate operation:self completedWithResponse:response];
-		} else {
-			cur = xmlDocGetRootElement(doc);
-			cur = cur->children;
-			
-			for( ; cur != NULL ; cur = cur->next) {
-				if(cur->type == XML_ELEMENT_NODE) {
-					
-					if(xmlStrEqual(cur->name, (const xmlChar *) "Body")) {
-						NSMutableArray *responseBodyParts = [NSMutableArray array];
-						
-						xmlNodePtr bodyNode;
-						for(bodyNode=cur->children ; bodyNode != NULL ; bodyNode = bodyNode->next) {
-							if(cur->type == XML_ELEMENT_NODE) {
-								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "PreviouslyUsedTextPropertiesResponse")) {
-									MFBWebServiceSvc_PreviouslyUsedTextPropertiesResponse *bodyObject = [MFBWebServiceSvc_PreviouslyUsedTextPropertiesResponse deserializeNode:bodyNode];
-									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
-									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
-									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
-									NSDictionary *exceptions = [NSDictionary dictionary];
-									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
-									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
-									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-								}
-							}
-						}
-						
-						response.bodyParts = responseBodyParts;
-					}
-				}
-			}
-			
-			xmlFreeDoc(doc);
-		}
-		
-		xmlCleanupParser();
-		[delegate operation:self completedWithResponse:response];
-	}
-}
-@end
-@implementation MFBWebServiceSoap12Binding_AirportsInBoundingBox
-@synthesize parameters;
-- (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
-parameters:(MFBWebServiceSvc_AirportsInBoundingBox *)aParameters
-{
-	if((self = [super initWithBinding:aBinding delegate:responseDelegate])) {
-		self.parameters = aParameters;
-	}
-	
-	return self;
-}
-- (void)dealloc
-{
-	if(parameters != nil) [parameters release];
-	
-	[super dealloc];
-}
-- (void)main
-{
-	[response autorelease];
-	response = [MFBWebServiceSoap12BindingResponse new];
-	
-	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
-	
-	NSMutableDictionary *headerElements = nil;
-	headerElements = [NSMutableDictionary dictionary];
-	
-	NSMutableDictionary *bodyElements = nil;
-	NSMutableArray *bodyKeys = nil;
-	bodyElements = [NSMutableDictionary dictionary];
-	bodyKeys = [NSMutableArray array];
-	id obj = nil;
-	if(parameters != nil) obj = parameters;
-	if(obj != nil) {
-		[bodyElements setObject:obj forKey:@"AirportsInBoundingBox"];
-		[bodyKeys addObject:@"AirportsInBoundingBox"];
-	}
-	
-	NSString *operationXMLString = [envelope serializedFormUsingHeaderElements:headerElements bodyElements:bodyElements bodyKeys:bodyKeys];
-	operationXMLString = binding.soapSigner ? [binding.soapSigner signRequest:operationXMLString] : operationXMLString;
-	
-	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/AirportsInBoundingBox" forOperation:self];
-}
-- (void)connectionDidFinishLoading
-{
-	if (responseData != nil && delegate != nil)
-	{
-		xmlDocPtr doc;
-		xmlNodePtr cur;
-		
-		if (binding.logXMLInOut) {
-			NSLog(@"ResponseBody:\n%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
-		}
-		
-#if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
-	// Not yet defined in 10.5 libxml
-	#define XML_PARSE_COMPACT 0
-#endif
-    // EricBe: Put explicit conversion since [responseData length] is NSInteger but xmlReadMemory wants int.
-	doc = xmlReadMemory([responseData bytes], (int) [responseData length], NULL, NULL, XML_PARSE_COMPACT | XML_PARSE_NOBLANKS);
-		
-		if (doc == NULL) {
-			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Errors while parsing returned XML" forKey:NSLocalizedDescriptionKey];
-			
-			response.error = [NSError errorWithDomain:@"MFBWebServiceSoap12BindingResponseXML" code:1 userInfo:userInfo];
-			[delegate operation:self completedWithResponse:response];
-		} else {
-			cur = xmlDocGetRootElement(doc);
-			cur = cur->children;
-			
-			for( ; cur != NULL ; cur = cur->next) {
-				if(cur->type == XML_ELEMENT_NODE) {
-					
-					if(xmlStrEqual(cur->name, (const xmlChar *) "Body")) {
-						NSMutableArray *responseBodyParts = [NSMutableArray array];
-						
-						xmlNodePtr bodyNode;
-						for(bodyNode=cur->children ; bodyNode != NULL ; bodyNode = bodyNode->next) {
-							if(cur->type == XML_ELEMENT_NODE) {
-								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "AirportsInBoundingBoxResponse")) {
-									MFBWebServiceSvc_AirportsInBoundingBoxResponse *bodyObject = [MFBWebServiceSvc_AirportsInBoundingBoxResponse deserializeNode:bodyNode];
-									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
-									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-								}
-								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) && 
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
 									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									NSDictionary *exceptions = [NSDictionary dictionary];
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
@@ -41769,7 +36907,7 @@ static MFBWebServiceSoap12Binding_envelope *MFBWebServiceSoap12BindingSharedEnve
 	NSString *serializedForm = [NSString stringWithCString:(const char*)buf encoding:NSUTF8StringEncoding];
 	xmlFree(buf);
 	
-	xmlFreeDoc(doc);	
+	xmlFreeDoc(doc);
 	return serializedForm;
 }
 @end
@@ -41786,11 +36924,5 @@ static MFBWebServiceSoap12Binding_envelope *MFBWebServiceSoap12BindingSharedEnve
 	}
 	
 	return self;
-}
-- (void)dealloc {
-	self.headers = nil;
-	self.bodyParts = nil;
-	self.error = nil;	
-	[super dealloc];
 }
 @end

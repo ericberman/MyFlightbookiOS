@@ -629,7 +629,6 @@ static BOOL is_leap_year(NSUInteger year) {
     *outRange = range;
   }
   
-  [gregorian release];
 
   return date;
 }

@@ -429,7 +429,7 @@ import Foundation
                 config.textProperties.alignment = .center
                 config.textProperties.lineBreakMode = .byWordWrapping
                 config.textProperties.numberOfLines = 2
-                config.textProperties.font = UIFont.systemFont(ofSize: 9.0)
+                config.textProperties.font = UIFont.preferredFont(forTextStyle: .caption2)
                 header.contentConfiguration = config
             }
         }
@@ -447,7 +447,7 @@ import Foundation
         case .rowVOR, .rowXPnder, .rowPitot, .rowAltimeter, .rowELT, .rowAnnual, .row100hr, .rowOil, .rowEngine, .rowRegistration:
             (tableView.cellForRow(at: indexPath) as! EditCell).txt.becomeFirstResponder()
         case .rowMaintNotes:
-            (tableView.cellForRow(at: indexPath) as! TextCell).txt.becomeFirstResponder()
+            (tableView.cellForRow(at: indexPath) as! EditCell).txt.becomeFirstResponder()
         case .rowMaintHeader, .rowPrefsHeader, .rowNotesHeader:
             self.tableView.endEditing(true)
             toggleSection(indexPath.section)

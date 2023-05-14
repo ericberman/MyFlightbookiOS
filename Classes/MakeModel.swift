@@ -108,6 +108,10 @@ import Foundation
         super.viewDidLoad()
         groupData()
         NotificationCenter.default.addObserver(self, selector: #selector(makesLoaded), name: Notification.Name("makesLoaded"), object: nil)
+        tableView.sectionHeaderHeight = UITableView.automaticDimension
+        tableView.estimatedSectionHeaderHeight = 38
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 80
     }
     
     public override func viewWillAppear(_ animated: Bool) {

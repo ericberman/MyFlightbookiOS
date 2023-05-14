@@ -96,16 +96,16 @@
 -(void) removeTagValue:(NSNumber*) atagKey;
 
 // returns the tag definitions for the EXIF Data
-@property (readonly,retain) NSDictionary* keyedTagDefinitions;
+@property (readonly,strong) NSDictionary* keyedTagDefinitions;
 
 // The parsed Exif tag values.
-@property (readonly,retain) NSMutableDictionary* keyedTagValues;
+@property (readonly,strong) NSMutableDictionary* keyedTagValues;
 
 // The parsed Exif thumbnail values
-@property (readonly,retain) NSMutableDictionary* keyedThumbnailTagValues;
+@property (readonly,strong) NSMutableDictionary* keyedThumbnailTagValues;
 
 // The thumbnail bytes if any
-@property (readonly,retain) NSData* thumbnailBytes;
+@property (readonly,strong) NSData* thumbnailBytes;
 
 // Compression value
 @property (readonly) int compression;

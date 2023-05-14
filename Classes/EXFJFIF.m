@@ -37,13 +37,6 @@ const int JFIF_MIN_LENGTH =14;
     return self;
 }
 
--(void) dealloc{
-    self.identifier = nil;
-    self.version =nil;
-    self.thumbnail=nil;
-   
-    [super dealloc];
-}
 
 - (void) parseJfif:(CFDataRef*) theJfifData{
    
@@ -78,7 +71,6 @@ const int JFIF_MIN_LENGTH =14;
              UInt8 minorVersion = bytePtr[strLen+1];
              NSString* ver = [[NSString alloc] initWithFormat:@"%x.%x",majorVersion, minorVersion];
              self.version = ver;
-             [ver release];
              
            
             // get the units
@@ -113,7 +105,6 @@ const int JFIF_MIN_LENGTH =14;
            
             }
         // release our comments string
-        [comments release];
     }
    
    

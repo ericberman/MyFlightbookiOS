@@ -70,7 +70,7 @@ public class RecentFlightCell : UITableViewCell {
         let dimmedColor = UIColor.secondaryLabel
         
         if (num?.doubleValue ?? 0.0) != 0.0 {
-            var attrString = AttributedString(label, attributes: AttributeContainer([.foregroundColor : dimmedColor]))
+            var attrString = AttributedString(label, attributes: AttributeContainer([.font : font, .foregroundColor : dimmedColor]))
             attrString.append(AttributedString(": \(num!.formatAs(Type: nt, inHHMM: useHHMM, useGrouping: true)) ", attributes: AttributeContainer([.font : font, .foregroundColor : textColor])))
             return attrString
         } else {
@@ -89,7 +89,7 @@ public class RecentFlightCell : UITableViewCell {
             let elapsed = dtEnd!.timeIntervalSince(dtStart!) / 3600.0;
             let szInterval = (elapsed <= 0) ? "" : " (\(NSNumber(floatLiteral: elapsed).formatAs(Type: .Time, inHHMM: UserPreferences.current.HHMMPref, useGrouping : false)))"
             
-            var attrString = AttributedString(label, attributes: AttributeContainer([.foregroundColor : dimmedColor]))
+            var attrString = AttributedString(label, attributes: AttributeContainer([.font : font, .foregroundColor : dimmedColor]))
             attrString.append(AttributedString(" \(dtStart!.utcString(useLocalTime: UserPreferences.current.UseLocalTime)) - \(dtEnd!.utcString(useLocalTime: UserPreferences.current.UseLocalTime))\(szInterval) ",
                                                attributes: AttributeContainer([.font : font, .foregroundColor : textColor])))
             return attrString;
@@ -140,10 +140,10 @@ public class RecentFlightCell : UITableViewCell {
         let dimmedColor = UIColor.secondaryLabel
         let redColor = UIColor.systemRed
         
-        let baseFont = UIFont.systemFont(ofSize: 12)
+        let baseFont = UIFont.preferredFont(forTextStyle: .caption1)
         let fUseHHMM = UserPreferences.current.HHMMPref
         let boldFont = UIFont(descriptor: baseFont.fontDescriptor.withSymbolicTraits(.traitBold)!, size: baseFont.pointSize)
-        let largeBoldFont = UIFont(descriptor: baseFont.fontDescriptor.withSymbolicTraits([.traitBold])!, size: baseFont.pointSize * 1.3)
+        let largeBoldFont = UIFont.preferredFont(forTextStyle: .headline)
         let italicFont = UIFont(descriptor: baseFont.fontDescriptor.withSymbolicTraits([.traitItalic, .traitBold])!, size: baseFont.pointSize)
         
         var attrString = AttributedString("", attributes: AttributeContainer([.font : baseFont, .foregroundColor : textColor]))
@@ -161,7 +161,7 @@ public class RecentFlightCell : UITableViewCell {
         
         let ac = Aircraft.sharedAircraft.AircraftByID(le.aircraftID.intValue)
         if !(ac?.modelDescription ?? "").isEmpty {
-            attrString.append(AttributedString(" (\(ac!.modelDescription ?? ""))", attributes: AttributeContainer([.foregroundColor : dimmedColor])))
+            attrString.append(AttributedString(" (\(ac!.modelDescription ?? ""))", attributes: AttributeContainer([.font : baseFont, .foregroundColor : dimmedColor])))
         }
         
         let trimmedRoute = le.route.trimmingCharacters(in: .whitespaces)

@@ -55,6 +55,11 @@ import Foundation
         let app = MFBAppDelegate.threadSafeAppDelegate
         app.registerNotifyDataChanged(self)
         app.registerNotifyResetAll(self)
+        
+        tableView.sectionHeaderHeight = UITableView.automaticDimension
+        tableView.estimatedSectionHeaderHeight = 38
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 80
     }
     
     public override func viewWillAppear(_ animated: Bool) {

@@ -46,7 +46,7 @@
 @property (readwrite) EXFTagId tagId;
 @property (readwrite) int parentTagId;
 @property (readwrite) EXFDataType dataType;
-@property (readwrite, retain) NSString* name;
+@property (readwrite, strong) NSString* name;
 @property (readwrite) BOOL editable;
 @property (readwrite) int components;
 @end
@@ -56,8 +56,8 @@
     NSMutableData* tagData;
     NSMutableData* overflowData;
     }
-@property (readwrite, retain) NSMutableData* tagData;
-@property (readwrite, retain) NSMutableData* overflowData;
+@property (readwrite, strong) NSMutableData* tagData;
+@property (readwrite, strong) NSMutableData* overflowData;
 @property (readonly) int blockLength;
 @end
 
@@ -88,10 +88,6 @@
     return self;
 }
 
--(void) dealloc{
-    self.name = nil;
-    [super dealloc];
-}
 
 @end
 
@@ -104,11 +100,9 @@
 if (self = [super init]) {
     NSMutableData* theData = [[NSMutableData alloc] init];
     self.tagData = theData;
-    [theData release];
     
     NSMutableData* theOverflow = [[NSMutableData alloc] init];
     self.overflowData = theOverflow;
-    [theOverflow release];
     }
     return self;
 }
@@ -123,11 +117,6 @@ if (self = [super init]) {
     }
 
 
--(void) dealloc{
-    self.tagData = nil;
-    self.overflowData = nil;
-    [super dealloc];
-}
 
 @end
     
@@ -255,7 +244,6 @@ const NSString* typeMappings [13] ={@"",@"CciISs",@"NSString",@"SsCcIi",@"LlIiSs
        
     // release number objects
 
-    [_key release];
    
     
 }
@@ -270,37 +258,31 @@ const NSString* typeMappings [13] ={@"",@"CciISs",@"NSString",@"SsCcIi",@"LlIiSs
     [self addHandler:locationHandler :EXIF_GPSLongitude];
     [self addHandler:locationHandler :EXIF_GPSDestLatitude];    
     [self addHandler:locationHandler :EXIF_GPSDestLongitude];
-    [locationHandler release];
     
     // do the gps timestamp
     EXFGPSTimeHandler* timeHandler = [[EXFGPSTimeHandler alloc] init];
     [self addHandler:timeHandler :EXIF_GPSTimeStamp];
-    [timeHandler release];
    
   
    
     // do the char set tags
     EXFTextHandler* textHandler = [[EXFTextHandler alloc] init];
     [self addHandler:textHandler :EXIF_UserComment];
-    [textHandler release];
 
     
     // Set up the ascii handlers
     EXFASCIIHandler* asciiHandler = [[EXFASCIIHandler alloc] init];
     [self addHandler:asciiHandler :EXIF_ExifVersion];
     [self addHandler:asciiHandler :EXIF_FlashpixVersion];
-    [asciiHandler release];
     
     
     // set up the byte handler for individual bytes and undefined tag types
     EXFByteHandler* byteHandler = [[EXFByteHandler alloc] init];
     [self addHandler:byteHandler :EXIF_FileSource]; 
-    [byteHandler release];
     
     // byte array tag handler
     EXFByteArrayHandler* byteArrayHandler = [[EXFByteArrayHandler alloc] init];
     [self addHandler:byteArrayHandler :EXIF_ComponentsConfiguration];
-    [byteArrayHandler release];
 }
 
 
@@ -416,27 +398,22 @@ const NSString* typeMappings [13] ={@"",@"CciISs",@"NSString",@"SsCcIi",@"LlIiSs
                 // Initialize the tag definitions
         EXFTagDefinitionHolder* theTagDefs = [[EXFTagDefinitionHolder alloc] init];
         self.tagDefinitions = theTagDefs;
-        [theTagDefs release];
         
         // initialise the tag values
         NSMutableDictionary* keyedValues = [[NSMutableDictionary alloc] init];
         self.keyedTagValues =keyedValues;
-        [keyedValues release];
         
         // initialise the handlers
         NSMutableDictionary* handlerDict = [[NSMutableDictionary alloc] init];
         self.keyedHandlers = handlerDict;
-        [handlerDict release];
         
         //initialise the user handlers
         NSMutableDictionary* userDict = [[NSMutableDictionary alloc] init];
         self.userKeyedHandlers = userDict;
-        [userDict release];
         
         
         NSMutableDictionary* theKeyedThumbnailTagValues = [[NSMutableDictionary alloc] init];
         self.keyedThumbnailTagValues = theKeyedThumbnailTagValues;
-        [theKeyedThumbnailTagValues release];
         
         self.thumbnailBytes =nil;
         
@@ -461,13 +438,6 @@ const NSString* typeMappings [13] ={@"",@"CciISs",@"NSString",@"SsCcIi",@"LlIiSs
     
     self.exif_ptr = NULL;
    
-    self.keyedHandlers = nil;
-    self.keyedTagValues =nil;
-    self.tagDefinitions=nil;
-    self.userKeyedHandlers=nil;
-    self.keyedThumbnailTagValues  =nil;
-    self.thumbnailBytes =nil;
-    [super dealloc];
 }
 
 
@@ -642,10 +612,8 @@ const NSString* typeMappings [13] ={@"",@"CciISs",@"NSString",@"SsCcIi",@"LlIiSs
         if (dictionary == nil){
                  dictionary = [[NSMutableDictionary alloc] init];
                  (self.keyedTagValues)[parentTagNumber] = dictionary;
-                [dictionary release];
                  dictionary = (self.keyedTagValues)[parentTagNumber];
         }
-        [parentTagNumber release];
     }
                  
     // set the value
@@ -704,7 +672,6 @@ const NSString* typeMappings [13] ={@"",@"CciISs",@"NSString",@"SsCcIi",@"LlIiSs
                                                                                                 // we can just return as no parent to release
                                                                                                 Debug(@"No Parent tag %@ found for tag %@", parentTagNumber,aTagKey);
         }
-        [parentTagNumber release];
     }
                                 
                                 // otherwise rmove tag
@@ -752,12 +719,10 @@ const NSString* typeMappings [13] ={@"",@"CciISs",@"NSString",@"SsCcIi",@"LlIiSs
         NSNumber* value = [[NSNumber alloc] initWithInt:val];
         valueOffset+=1;
         [elements addObject:value];
-        [value release];
     }
     
     [self assignElements:keyedValues :tag :elements :components];
     
-    [elements release];
 
    
     
@@ -777,14 +742,12 @@ const NSString* typeMappings [13] ={@"",@"CciISs",@"NSString",@"SsCcIi",@"LlIiSs
     
         valueOffset+=1;
         [elements addObject:value];
-        [value release];
     }
     
     // release the val
     [self assignElements:keyedValues :tag :elements :components];
     
     
-    [elements release];
     
 }
 
@@ -803,14 +766,12 @@ const NSString* typeMappings [13] ={@"",@"CciISs",@"NSString",@"SsCcIi",@"LlIiSs
         
         valueOffset+=2;
         [elements addObject:value];
-        [value release];
     }
     
     // release the val
     [self assignElements:keyedValues :tag :elements :components];
     
     
-    [elements release];
 }
 
 -(void) assignShort:(NSMutableDictionary*) keyedValues : (NSNumber*) tag : (UInt32) valueOffset : (UInt32) components{
@@ -826,7 +787,6 @@ const NSString* typeMappings [13] ={@"",@"CciISs",@"NSString",@"SsCcIi",@"LlIiSs
         
         valueOffset+=2;
         [elements addObject:value];
-        [value release];
         
     }    
    
@@ -835,7 +795,6 @@ const NSString* typeMappings [13] ={@"",@"CciISs",@"NSString",@"SsCcIi",@"LlIiSs
     [self assignElements:keyedValues :tag :elements :components];
     
     
-    [elements release];
     
 }
 
@@ -855,7 +814,6 @@ const NSString* typeMappings [13] ={@"",@"CciISs",@"NSString",@"SsCcIi",@"LlIiSs
     
         valueOffset+=4;
         [elements addObject:value];
-        [value release];
         
     }    
     
@@ -864,7 +822,6 @@ const NSString* typeMappings [13] ={@"",@"CciISs",@"NSString",@"SsCcIi",@"LlIiSs
     [self assignElements:keyedValues :tag :elements :components];
     
     
-    [elements release];
 }
 
 -(void) assignULong:(NSMutableDictionary*) keyedValues : (NSNumber*) tag : (UInt32) valueOffset : (UInt32) components{
@@ -882,7 +839,6 @@ const NSString* typeMappings [13] ={@"",@"CciISs",@"NSString",@"SsCcIi",@"LlIiSs
     
         valueOffset+=4;
         [elements addObject:value];
-        [value release];
         
     }    
     
@@ -891,7 +847,6 @@ const NSString* typeMappings [13] ={@"",@"CciISs",@"NSString",@"SsCcIi",@"LlIiSs
     [self assignElements:keyedValues :tag :elements :components];
     
     
-    [elements release];
 }
 
 -(void) assignString:(NSMutableDictionary*) keyedValues : (NSNumber*) tag : (UInt32) valueOffset : (UInt32) components{
@@ -909,7 +864,6 @@ const NSString* typeMappings [13] ={@"",@"CciISs",@"NSString",@"SsCcIi",@"LlIiSs
     
     keyedValues[tag] = value;
     
-    [value release];
     
 }
 
@@ -928,7 +882,6 @@ const NSString* typeMappings [13] ={@"",@"CciISs",@"NSString",@"SsCcIi",@"LlIiSs
         
         valueOffset+=8;
         [elements addObject:value];
-        [value release];
         
     }    
     
@@ -937,7 +890,6 @@ const NSString* typeMappings [13] ={@"",@"CciISs",@"NSString",@"SsCcIi",@"LlIiSs
     [self assignElements:keyedValues :tag :elements :components];
     
     
-    [elements release];    
     
 }
 
@@ -957,7 +909,6 @@ const NSString* typeMappings [13] ={@"",@"CciISs",@"NSString",@"SsCcIi",@"LlIiSs
     // Debug(@"Assign signed rational called %@", value);
         valueOffset+=8;
         [elements addObject:value];
-        [value release];
         
     }    
     
@@ -966,7 +917,6 @@ const NSString* typeMappings [13] ={@"",@"CciISs",@"NSString",@"SsCcIi",@"LlIiSs
     [self assignElements:keyedValues :tag :elements :components];
     
     
-    [elements release];       
     
 }
 
@@ -1079,7 +1029,6 @@ const NSString* typeMappings [13] ={@"",@"CciISs",@"NSString",@"SsCcIi",@"LlIiSs
             [self processExifDir:subDir: offsetBase+subdirOffset: offsetBase: FALSE];
             
             // release the map we created
-            [subDir release];
          }else{
             
             // see if we have a user handler
@@ -1100,11 +1049,11 @@ const NSString* typeMappings [13] ={@"",@"CciISs",@"NSString",@"SsCcIi",@"LlIiSs
                 NSData* tagData = [NSData dataWithBytes:&self.exif_ptr[valueOffset] length:byteCount];
             
                  
-                Debug(@"Retain count for tagData is %lu", (unsigned long)[tagData retainCount]);
+//                Debug(@"Retain count for tagData is %lu", (unsigned long)[tagData retainCount]);
                 // try and decode the tag here - catch any errors
                 @try {
                                    
-                    [handler decodeTag: keyedValues: tagNumber:(CFDataRef*) &tagData: self.bigEndianOrder];
+                    [handler decodeTag: keyedValues: tagNumber:(CFDataRef*) (void *) &tagData: self.bigEndianOrder];
                                    
                 }@catch (NSException *theError) {
                                    NSLog(@"Unable to process Tag %lu due to error %@", [tagNumber unsignedLongValue],  theError);           
@@ -1174,7 +1123,6 @@ const NSString* typeMappings [13] ={@"",@"CciISs",@"NSString",@"SsCcIi",@"LlIiSs
             tagFailure =TRUE;
             Debug(@"*** Warning No entry added for tag %@", tagNumber);    
         }
-        [tagNumber release];
         
        
     }
@@ -1225,7 +1173,6 @@ const NSString* typeMappings [13] ={@"",@"CciISs",@"NSString",@"SsCcIi",@"LlIiSs
                 nextPtr = exif_ptr + thumbnailStart ;
                 NSData* thumbnailDataArray = [[NSData alloc] initWithBytes:nextPtr length: thumbnailLength];
                 self.thumbnailBytes = thumbnailDataArray;
-                [thumbnailDataArray release];                
                 
         } else if (thumbnailStart + thumbnailLength > self.byteLength){
                 
@@ -1595,7 +1542,6 @@ Bytes 8-11 Value Offset
                     // write the data to the target
                     [target appendData:tagData];
                     // release the temporary buffer
-                    [tagData release];
                     
                 } else{
                     // if it is an array and undefined then treat as array of bytes
@@ -1680,13 +1626,11 @@ Bytes 8-11 Value Offset
 
     }
     
-    [nestedTags release];
     Debug(@"Expected blockCount %li - actual count %lu",(long)blockCount,(unsigned long)[dataWriter.tagData length]);
     Debug(@"Overflow size is %lu",(unsigned long)[dataWriter.overflowData length]);
     
     Debug(@"Reporting block count of %i",[dataWriter blockLength]);
     
-    [dataWriter release];
     
     //make sure we clean up the tags
    
@@ -1770,7 +1714,6 @@ Bytes 8-11 Value Offset
         
         Debug(@"No thumbnail tags found");
     }
-     [dataWriters release];
      
     Debug(@"Got Final data block of size %i", (int)[imageData length] -initialSize);
     // write the size back out
