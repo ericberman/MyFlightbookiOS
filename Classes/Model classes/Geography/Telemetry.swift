@@ -469,9 +469,9 @@ internal enum KMLArrayContext : Int {
             currentContext = .None
             currentGXValueIndex = 0
             let szDataType = attributeDict["name"]
-            if (szDataType == "speedKts") {
+            if (szDataType == "speedKts" || szDataType == "speed_kts") {
                 currentContext = .Speed
-            } else {
+            } else if (szDataType == "acc_horiz") {
                 currentContext = .Accuracy
             }
         }
