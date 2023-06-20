@@ -126,6 +126,7 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
         let endingTach = le.entryData.getExistingProperty(PropTypeID.tachEnd)?.decValue ?? 0
         
         le = LogbookEntry()
+        le.entryData.date = Date.distantPast    // Issue #306 - allow floating "Today"
 
         // Add in any locked properties - but don't hit the web.
         let fp = FlightProps.getFlightPropsNoNet()
@@ -259,6 +260,12 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
         
         let fIsNew = le.entryData.isNewFlight()
         
+        // Issue #306: handle "floating" date
+        if NSDate.isUnknownDate(dt: le.entryData.date) {
+            le.entryData.date = Date()
+            setDisplayDate(le.entryData.date)
+        }
+        
         // get flight telemetry
         app.mfbloc.stopRecordingFlightData()
         if (fIsNew) {
@@ -322,7 +329,11 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
     }
     
     func setDisplayDate(_ dt : NSDate) {
-        idDate.text =  dt.dateString()
+        idDate.text = NSDate.isUnknownDate(dt: dt as Date) ? String(localized: "lblToday", comment: "Prompt indicating a floating date of TODAY") :  dt.dateString()
+    }
+    
+    func setDisplayDate(_ dt : Date) {
+        setDisplayDate(dt as NSDate)
     }
     
     func resetDateOfFlight() {

@@ -934,7 +934,7 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
                 vwAccessory.btnNext.isEnabled = true
             }
         }
-        vwAccessory.btnDelete.isEnabled = (textField != idDate && textField != idPopAircraft)
+        vwAccessory.btnDelete.isEnabled = (textField != idPopAircraft)
         
         // see if it's an engine/flight date
         switch row {
@@ -977,6 +977,11 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
         }
         
         if textField == idDate {
+            if NSDate.isUnknownDate(dt: le.entryData.date) {
+                le.entryData.date = Date()
+                setDisplayDate(le.entryData.date)
+                return false
+            }
             datePicker.date = le.entryData.date
             datePicker.datePickerMode = .date
         } else if textField == idPopAircraft {
@@ -1552,6 +1557,15 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
     
     public override func deleteClicked() {
         activeTextField?.text = ""
+        
+        // handle deletion of date for flight - issue #306
+        if activeTextField == self.idDate {
+            self.le.entryData.date = Date.distantPast
+            setDisplayDate(self.le.entryData.date)
+            tableView.endEditing(true)
+            return
+        }
+        
         assert(ipActive != nil)
         let row = cellIDFromIndexPath(ipActive!)
         let sect = leSection(rawValue: ipActive!.section)

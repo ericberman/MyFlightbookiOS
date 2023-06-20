@@ -67,6 +67,9 @@
 /* Prompt for date that is currently un-set (tapping sets it to TODAY) */
 "(Tap for Today)" = "(Tapez pour aujourd'hui)";
 
+/* Prompt indicating a floating date of TODAY */
+"lblToday" = "(Aujourd'hui)";
+
 /* Prompt to select a make/model for an aircraft */
 "(Tap to select)" = "(Tapez)";
 
