@@ -354,24 +354,24 @@ import SQLite3
         
         switch cpt.type {
         case MFBWebServiceSvc_CFPPropertyType_cfpBoolean:
-            szValue = (fp.boolValue.boolValue) ? " ✓" : ""
+            szValue = (fp.boolValue?.boolValue ?? false) ? " ✓" : ""
         case MFBWebServiceSvc_CFPPropertyType_cfpCurrency:
             let nfDecimal = NumberFormatter()
             nfDecimal.numberStyle = .decimal
             szValue = nfDecimal.string(from: fp.decValue) ?? ""
         case MFBWebServiceSvc_CFPPropertyType_cfpDecimal:
             let nt = cpt.flags.uint32Value & 0x00200000 == 0 ? NumericType.Time : NumericType.Decimal
-            szValue = fp.decValue.formatAsTime(fHHMM: nt == .Time && UserPreferences.current.HHMMPref, fGroup: true) as String
+            szValue = (fp.decValue?.formatAsTime(fHHMM: nt == .Time && UserPreferences.current.HHMMPref, fGroup: true) ?? "") as String
         case MFBWebServiceSvc_CFPPropertyType_cfpInteger:
             szValue = (fp.intValue ?? 0).stringValue
         case MFBWebServiceSvc_CFPPropertyType_cfpString:
             szValue = fp.textValue ?? ""
             break;
         case MFBWebServiceSvc_CFPPropertyType_cfpDate:
-            szValue = fp.dateValue.formatted(date: .abbreviated, time: .omitted)
+            szValue = fp.dateValue?.formatted(date: .abbreviated, time: .omitted) ?? ""
             break;
         case MFBWebServiceSvc_CFPPropertyType_cfpDateTime:
-            szValue = (fp.dateValue as NSDate).utcString(useLocalTime: UserPreferences.current.UseLocalTime)
+            szValue = fp.dateValue?.utcString(useLocalTime: UserPreferences.current.UseLocalTime) ?? ""
         default:
             break
         }
