@@ -322,7 +322,7 @@ import WidgetKit
         
         if let w = window {
             w.makeKeyAndVisible()
-            w.frame = UIScreen.main.bounds
+            // w.frame = UIScreen.main.bounds   // Issue #307 - this doesn't do the right thing if launching into a split view.
             w.rootViewController = tabBarController
             progressAlert = WPSAlertController.presentProgressAlertWithTitle(String(localized: "Loading; please wait...", comment:"Status message at app startup"),
                                                                              onViewController: tabBarController)
