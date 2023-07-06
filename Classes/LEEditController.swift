@@ -503,7 +503,8 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
             return (row == 0) ? .rowImagesHeader : .rowNthImage
         case .sectInCockpit:
             // cockpit rows should be a complete set of rows, including header.
-            return cockpitRows[row]
+            // Issue #308: deleting a value from a field like hobbs and then navigating can then delete the rows; add a failsafe
+            return row < cockpitRows.count ? cockpitRows[row] : .rowGPS
         case .sectProperties:
             return (row == 0) ? .rowPropertiesHeader : ((row == propsForPropsSection.count + 1) ? .rowAddProperties : .rowNthProperty)
         case .sectSharing:
@@ -1570,6 +1571,8 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
         let row = cellIDFromIndexPath(ipActive!)
         let sect = leSection(rawValue: ipActive!.section)
         if (sect == .sectInCockpit) {
+            // Issue #308 - do end-editing BEFORE nullifying an in-the-cockpit item, so that didEndEditing will still have a potentially removed row.
+            tableView.endEditing(true)
             switch row {
             case .rowHobbsStart:
                 le.entryData.hobbsStart = activeTextField?.getValue()
@@ -1577,6 +1580,7 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
                 // Could affect total, but DON'T auto-hobbs or we undo the delete.
                 le.entryData.hobbsEnd = activeTextField?.getValue()
                 autoTotal()
+                tableView.reloadData()
                 return
             case .rowDateTail:
                 return
@@ -1600,12 +1604,10 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
             }
             autoHobbs()
             autoTotal()
-            if row != .rowHobbsStart {
-                tableView.endEditing(true)
-            }
         }
         
         initLEFromForm()
+        tableView.reloadData()  // Issue #308 - in case in-the-cockpit fields were deleted
     }
     
     // MARK: - Add Image
