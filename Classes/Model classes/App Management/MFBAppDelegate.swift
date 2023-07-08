@@ -448,16 +448,12 @@ import WidgetKit
         if MFBProfile.sharedProfile.isValid() {
             // If a flight is in progress, add stop engine and pause/play as appropriate
             if leProtocolHandler.flightCouldBeInProgress() {
-                if !leProtocolHandler.le.entryData.isKnownEngineEnd() {
-                    rgShortcuts.append(UIApplicationShortcutItem(type: "app.stopEngine",
-                                                                 localizedTitle: String(localized: "StopEngine", comment:"Shortcut - Stop Engine"),
-                                                                 localizedSubtitle: "", icon: UIApplicationShortcutIcon(systemImageName: "stop.fill")))
-                }
-                if !leProtocolHandler.le.entryData.isKnownBlockIn() {
-                    rgShortcuts.append(UIApplicationShortcutItem(type: "app.blockIn",
-                                                                 localizedTitle: String(localized: "BlockInShortCut", comment: "Shortcut - Block In"),
-                                                                 localizedSubtitle: "", icon: UIApplicationShortcutIcon(systemImageName: "stop.fill")))
-                }
+                rgShortcuts.append(UIApplicationShortcutItem(type: "app.stopEngine",
+                                                             localizedTitle: String(localized: "StopEngine", comment:"Shortcut - Stop Engine"),
+                                                             localizedSubtitle: "", icon: UIApplicationShortcutIcon(systemImageName: "stop.fill")))
+                rgShortcuts.append(UIApplicationShortcutItem(type: "app.blockIn",
+                                                             localizedTitle: String(localized: "BlockInShortCut", comment: "Shortcut - Block In"),
+                                                             localizedSubtitle: "", icon: UIApplicationShortcutIcon(systemImageName: "stop.fill")))
                 if leProtocolHandler.le.fIsPaused {
                     rgShortcuts.append(UIApplicationShortcutItem(type: "app.resume",
                                                                  localizedTitle: String(localized: "WatchPlay", comment: "Watch - Resume"),
@@ -468,24 +464,19 @@ import WidgetKit
                                                                  localizedSubtitle: "", icon: UIApplicationShortcutIcon(type: .pause)))
                     
                 }
-            } else if !leProtocolHandler.le.entryData.isKnownEngineEnd() {
-                // flight not in progress but also not awaiting submission - just add start flight
-                if !leProtocolHandler.le.entryData.isKnownEngineStart() {
-                    rgShortcuts.append(UIApplicationShortcutItem(type: "app.startEngine",
-                                                                 localizedTitle: String(localized: "StartEngine", comment: "Shortcut - Start Engine"),
-                                                                 localizedSubtitle: "", icon: UIApplicationShortcutIcon(type: .play)))
-                }
-                
-                if !leProtocolHandler.le.entryData.isKnownBlockOut() {
-                    rgShortcuts.append(UIApplicationShortcutItem(type: "app.blockOut",
-                                                                 localizedTitle: String(localized: "BlockOutShortcut", comment: "Shortcut - Block Out"),
-                                                                 localizedSubtitle: "", icon: UIApplicationShortcutIcon(type: .play)))
-                }
-                
+            } else if leProtocolHandler.le.entryData.isKnownEngineEnd() || leProtocolHandler.le.entryData.isKnownBlockIn() {
                 // completed flight waiting for submission
                 rgShortcuts.append(UIApplicationShortcutItem(type: "app.current",
                                                              localizedTitle: String(localized: "CurrentFlight", comment: "Shortcut - Current Flight"),
                                                              localizedSubtitle: "", icon: UIApplicationShortcutIcon(systemImageName: "newflight.png")))
+            } else {
+                // flight not in progress but also not awaiting submission - just add start flight and block out
+                rgShortcuts.append(UIApplicationShortcutItem(type: "app.startEngine",
+                                                             localizedTitle: String(localized: "StartEngine", comment: "Shortcut - Start Engine"),
+                                                             localizedSubtitle: "", icon: UIApplicationShortcutIcon(type: .play)))
+                rgShortcuts.append(UIApplicationShortcutItem(type: "app.blockOut",
+                                                             localizedTitle: String(localized: "BlockOutShortcut", comment: "Shortcut - Block Out"),
+                                                             localizedSubtitle: "", icon: UIApplicationShortcutIcon(type: .play)))
             }
             
             rgShortcuts.append(UIApplicationShortcutItem(type: "app.currency",
