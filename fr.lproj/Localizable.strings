@@ -1023,6 +1023,12 @@ Vous pouvez choisir un dans la liste fournie, le modifier, ou faire un de vos pr
 /* Shortcut - Stop Engine */
 "StopEngine" = "Arrêt Moteur";
 
+/* Shortcut - Block Out */
+"BlockOutShortcut" = "Hors bloc";
+
+/* Shortcut - Block In */
+"BlockInShortCut" = "Sur bloc";
+
 /* Shortcut - Current Flight */
 "CurrentFlight" = "Vol actuel";
 

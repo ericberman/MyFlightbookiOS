@@ -325,6 +325,7 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
             var dtTotal = 0.0
             var dtFlight = 0.0
             var dtEngine = 0.0
+            var dtBlock = 0.0
             
             if le.entryData.isKnownFlightStart() {
                 dtFlight = (NSDate.isUnknownDate(dt: le.entryData.flightEnd) ? Date.timeIntervalSinceReferenceDate  : le.entryData.flightEnd.timeIntervalSinceReferenceDate) - le.entryData.flightStart.timeIntervalSinceReferenceDate
@@ -333,12 +334,27 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
             if le.entryData.isKnownEngineStart() {
                 dtEngine = (NSDate.isUnknownDate(dt: le.entryData.engineEnd) ? Date.timeIntervalSinceReferenceDate : le.entryData.engineEnd.timeIntervalSinceReferenceDate) - le.entryData.engineStart.timeIntervalSinceReferenceDate
             }
+            
+            let dtOut = le.entryData.getExistingProperty(.blockOut)?.dateValue
+            if !NSDate.isUnknownDate(dt: dtOut) {
+                let dtIn = le.entryData.getExistingProperty(.blockIn)?.dateValue
+                dtBlock = (NSDate.isUnknownDate(dt: dtIn) ? Date.timeIntervalSinceReferenceDate : dtIn!.timeIntervalSinceReferenceDate) - dtOut!.timeIntervalSinceReferenceDate
+            }
                 
             let totalsMode = UserPreferences.current.autoTotalMode
             
             // if totals mode is FLIGHT TIME, then elapsed time is based on flight time if/when it is known.
             // OTHERWISE, we use engine time (if known) or else flight time.
-            dtTotal = totalsMode == .flight ? (le.entryData.isKnownFlightStart() ? dtFlight : 0) : (le.entryData.isKnownEngineStart() ? dtEngine : dtFlight)
+            switch (totalsMode) {
+            case .block:
+                dtTotal = dtBlock
+            case .flight:
+                dtTotal = dtFlight
+            case .engine:
+                dtTotal = dtEngine
+            default:
+                dtTotal = max(dtEngine, dtFlight, dtBlock)
+            }
 
             dtTotal -= le.totalTimePaused
             if dtTotal <= 0 {
@@ -855,7 +871,7 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
         datePicker.datePickerMode = .dateAndTime
         self.datePicker.preferredDatePickerStyle = .wheels
         
-        var dt = dtIn ?? Date()
+        var dt = dtIn ?? Date.distantPast // Web issue #1099 - want to ensure trunaction of seconds.
 
         let ec = tableView.cellForRow(at: ipActive!) as! EditCell
 

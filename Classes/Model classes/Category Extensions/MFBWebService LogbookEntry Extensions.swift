@@ -118,6 +118,14 @@ extension MFBWebServiceSvc_LogbookEntry : AutoDetectDelegate {
         return isKnownEngineStart() && isKnownEngineEnd()
     }
     
+    @objc public func isKnownBlockOut() -> Bool {
+        return !NSDate.isUnknownDate(dt: getExistingProperty(.blockOut)?.dateValue)
+    }
+    
+    @objc public func isKnownBlockIn() -> Bool {
+        return !NSDate.isUnknownDate(dt: getExistingProperty(.blockIn)?.dateValue)
+    }
+    
     @objc public func isNewFlight() -> Bool {
         return flightID?.intValue == -1
     }
@@ -713,8 +721,11 @@ extension MFBWebServiceSvc_LogbookEntry : AutoDetectDelegate {
     }
     
     @objc public func flightCouldBeInProgress() -> Bool {
-        // Could be in progress if (EITHER engine or flight start is known) AND EngineEnd is unknown.
-        return ((isKnownFlightStart() || isKnownEngineStart()) && !isKnownEngineEnd())
+        // Issue #305: Could be in progress if ANY of the following are specified: EngineStart, flight start, blockOut
+        // AND NONE of the following are specified: EngineEnd, BlockIn
+        let hasStart = isKnownEngineStart() || isKnownFlightStart() || isKnownBlockOut()
+        let hasEnd = isKnownEngineEnd() || isKnownBlockIn()
+        return hasStart && !hasEnd
     }
     
     @objc public func newLocation(_ newLocation : CLLocation) {
