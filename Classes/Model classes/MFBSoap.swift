@@ -101,7 +101,7 @@ import Foundation
     func parseResponse(response : MFBWebServiceSoap12BindingResponse?) -> Bool {
         var retVal = true
         
-        if !((response?.error?.localizedDescription.isEmpty ?? true)) {
+        if !(response?.error?.localizedDescription ?? "").isEmpty {
             retVal = false
             errorString = response?.error.localizedDescription ?? ""
             NSLog("MFBSoapCall.m - MakeCall - Error: %@", self.errorString);
