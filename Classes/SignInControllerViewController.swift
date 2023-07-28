@@ -37,7 +37,7 @@ public class SignInControllerViewController : CollapsibleTableSw, UITextFieldDel
     }
     
     enum profRow : Int, CaseIterable {
-        case rowWhySignIn = 0, rowEmail, rowPass, rowSignInOut, rowForgotPW, rowCreateAcct, rowFAQ, rowContact, rowSupport, rowFollowTwitter, rowFollowFB, rowOptions, rowAbout, rowPackAndGo
+        case rowWhySignIn = 0, rowEmail, rowPass, rowSignInOut, rowForgotPW, rowCreateAcct, rowFAQ, rowContact, rowSupport, /* rowFollowTwitter, */ rowFollowFB, rowOptions, rowAbout, rowPackAndGo
     }
     
     private let rowLinksFirst = profRow.rowFAQ.rawValue
@@ -280,8 +280,10 @@ public class SignInControllerViewController : CollapsibleTableSw, UITextFieldDel
             return getCell(String(localized: "FAQ", comment: "FAQ prompt"), img: UIImage(named: "MFBLogo"))
         case .rowFollowFB:
             return getCell(String(localized: "Follow on Facebook", comment: "Prompt to follow on Facebook"), img: UIImage(named: "f_logo"))
+            /*
         case .rowFollowTwitter:
             return getCell(String(localized: "Follow on Twitter", comment: "Prompt to follow on Twitter"), img: UIImage(named: "twitter"))
+             */
         case .rowSupport:
             let cell = getCell(String(localized: "SupportPrompt", comment: "Support"), img: UIImage(named: "MFBLogo"))
             var config = cell.contentConfiguration as! UIListContentConfiguration
@@ -359,9 +361,11 @@ public class SignInControllerViewController : CollapsibleTableSw, UITextFieldDel
         case .rowFollowFB:
             tableView.endEditing(true)
             followFacebook()
+                /*
         case .rowFollowTwitter:
             tableView.endEditing(true)
             followTwitter()
+                 */
         case .rowAbout:
             tableView.endEditing(true)
             showAbout()
