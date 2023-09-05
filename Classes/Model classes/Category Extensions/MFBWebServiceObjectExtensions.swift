@@ -455,7 +455,7 @@ extension MFBWebServiceSvc_MFBImageInfo {
     @objc var urlForImage : URL {
         get {
             let szURLImage = urlThumbnail.hasPrefix("/") ? String(format: "https://%@%@", MFBHOSTNAME, urlThumbnail) : urlThumbnail ?? ""
-            return URL(string: szURLImage)!
+            return URL(string: szURLImage.replacingOccurrences(of: " ", with: "%20"))!
         }
     }
     
