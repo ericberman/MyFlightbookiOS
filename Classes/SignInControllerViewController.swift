@@ -70,8 +70,9 @@ public class SignInControllerViewController : CollapsibleTableSw, UITextFieldDel
         let alert = UIAlertController(title: String(localized: "2FATitle", comment: "2fa Title"),
                                       message:String(localized: "2FAPrompt", comment: "2fa Prompt"),
                                       preferredStyle:.alert)
-        alert.addTextField() { textField in
+        alert.addTextField() { (textField) in
             textField.placeholder = String(localized: "2FAWatermark", comment: "2fa Watermark")
+            textField.keyboardType = .numberPad
         }
         
         alert.addAction(UIAlertAction(title: String(localized: "Cancel", comment: "Cancel (button)"), style:.cancel) { uaa in
