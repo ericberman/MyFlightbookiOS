@@ -192,10 +192,14 @@ import Foundation
         return le
     }
     
-    @objc public static func autoFill(_ le : LogbookEntry?) {
+    public static func autoFill(_ le : LogbookEntry?) {
         guard let ed = le?.entryData else {
             return
         }
+        
+        // Issue # 314 - turn on autodetection if not on
+        let savedAutodetect = UserPreferences.current.autodetectTakeoffs
+        UserPreferences.current.autodetectTakeoffs = true
         
         var blockOut : Date? = nil
         var blockIn : Date? = nil
@@ -300,5 +304,8 @@ import Foundation
         }
         
         le?.autoFillFinish()
+        
+        // Restore previous autodetection settings
+        UserPreferences.current.autodetectTakeoffs = savedAutodetect
     }
 }
