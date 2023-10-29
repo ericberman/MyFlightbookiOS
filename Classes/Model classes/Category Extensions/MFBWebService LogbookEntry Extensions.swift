@@ -661,7 +661,7 @@ extension MFBWebServiceSvc_LogbookEntry : AutoDetectDelegate {
     }
     
     @objc @discardableResult public func takeoffDetected() -> NSString {
-        if !isKnownFlightTime() {
+        if !isKnownFlightStart() {
             flightStart = MFBAppDelegate.threadSafeAppDelegate.mfbloc.lastSeenLoc?.timestamp
         }
         autofillClosest()

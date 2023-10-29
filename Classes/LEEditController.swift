@@ -289,7 +289,8 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
             app.mfbloc.startRecordingFlightData()
         }
 
-        if app.mfbloc.lastSeenLoc != nil {
+        // update the position report, but only if this is a new flight
+        if le.entryData.isNewFlight() && app.mfbloc.lastSeenLoc != nil {
             newLocation(app.mfbloc.lastSeenLoc!)
             updatePositionReport()
         }
