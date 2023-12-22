@@ -309,7 +309,7 @@ public class SignInControllerViewController : CollapsibleTableSw, UITextFieldDel
     
     func contactUs() {
         let szSubj = "Comment from \(UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone") user"
-        pushURL("https://\(MFBHOSTNAME)/logbook/public/ContactMe.aspx?email=\(MFBProfile.sharedProfile.UserName)&subj=\(szSubj.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)&noCap=1&naked=1")
+        pushURL(MFBProfile.sharedProfile.authRedirForUser(params: "d=CONTACT&subj=\(szSubj.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)&noCap=1&naked=1"))
     }
     
     func followFacebook() {

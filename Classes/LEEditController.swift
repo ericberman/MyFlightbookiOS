@@ -220,7 +220,7 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
         
         if le.entryData.isSigned() && le.entryData.hasDigitizedSig.boolValue {
             DispatchQueue.global().async {
-                let szURL = String(format: "https://%@/logbook/public/ViewSig.aspx?id=%d", MFBHOSTNAME, self.le.entryData.flightID.intValue)
+                let szURL = String(format: "https://%@/logbook/mvc/image/FlightSig/%d", MFBHOSTNAME, self.le.entryData.flightID.intValue)
                 do {
                     try self.digitizedSig =  UIImage(data: Data(contentsOf: URL(string: szURL)!))
                     DispatchQueue.main.async {

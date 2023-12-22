@@ -297,12 +297,12 @@ public class NewUserTableController : CollapsibleTableSw, UITextFieldDelegate {
     }
     
     @objc func viewPrivacy() {
-        let vwWeb = HostedWebViewController(url: "https://\(MFBHOSTNAME)/logbook/public/privacy.aspx?naked=1")
+        let vwWeb = HostedWebViewController(url: "https://\(MFBHOSTNAME)/logbook/mvc/pub/privacy?naked=1")
         navigationController?.pushViewController(vwWeb, animated: true)
     }
 
     @objc func viewTandC() {
-        let vwWeb = HostedWebViewController(url: "https://\(MFBHOSTNAME)/logbook/public/TandC.aspx?naked=1")
+        let vwWeb = HostedWebViewController(url: "https://\(MFBHOSTNAME)/logbook/mvc/pub/TandC?naked=1")
         navigationController?.pushViewController(vwWeb, animated: true)
     }
     

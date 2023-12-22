@@ -495,10 +495,7 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
     
     // MARK: - Signing flights
     @IBAction @objc func signFlight(_ sender : Any) {
-        let szURL = String(format: "https://%@/logbook/public/SignEntry.aspx?idFlight=%d&auth=%@&naked=1",
-                           MFBHOSTNAME,
-                           self.le.entryData.flightID.intValue,
-                           MFBProfile.sharedProfile.AuthToken.stringByURLEncodingString()!)
+        let szURL = MFBProfile.sharedProfile.authRedirForUser(params: "d=SIGNENTRY&idFlight=\(self.le.entryData.flightID.intValue)&naked=1")
         
         let vwWeb = HostedWebViewController(url: szURL)
         MFBAppDelegate.threadSafeAppDelegate.invalidateCachedTotals()   // this flight could now be invalid

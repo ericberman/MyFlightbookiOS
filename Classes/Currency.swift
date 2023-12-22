@@ -194,7 +194,7 @@ public class Currency : PullRefreshTableViewControllerSW, MFBSoapCallDelegate {
     
     public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == sectDisclaimer {
-            pushWebURL(String(format: "https://%@/logbook/Public/CurrencyDisclaimer.aspx?naked=1", MFBHOSTNAME))
+            pushWebURL(String(format: "https://%@/logbook/mvc/pub/CurrencyNotes?naked=1", MFBHOSTNAME))
         }
         else if indexPath.section == sectCurrency {
             let ci = rgCurrency![indexPath.row] // rgCurrency shouldn't be empty if we're receiving a select event!
