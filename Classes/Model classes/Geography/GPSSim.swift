@@ -204,19 +204,12 @@ import Foundation
         var blockOut : Date? = nil
         var blockIn : Date? = nil
         var t : Telemetry? = nil
-        
-        for cfp in ed.customProperties.customFlightProperty as! [MFBWebServiceSvc_CustomFlightProperty] {
-            if (cfp.propTypeID.intValue == PropTypeID.blockOut.rawValue) {
-                blockOut = cfp.dateValue
-            }
-            if (cfp.propTypeID.intValue == PropTypeID.blockIn.rawValue) {
-                blockIn = cfp.dateValue
-            }
-        }
+        let cfpBlockIn = ed.getExistingProperty(PropTypeID.blockIn.rawValue)
+        let cfpBlockOut = ed.getExistingProperty(PropTypeID.blockOut.rawValue);
         
         // blockIn / blockOut here is not strictly block in/out, it's just "Best guess start / end"
-        blockOut = blockOut ?? (ed.isKnownEngineStart() ? ed.engineStart : (ed.isKnownFlightStart() ? ed.flightStart : nil))
-        blockIn = blockIn ?? (ed.isKnownEngineEnd() ? ed.engineEnd : (ed.isKnownFlightEnd() ? ed.flightEnd : nil))
+        blockOut = cfpBlockOut?.dateValue ?? (ed.isKnownEngineStart() ? ed.engineStart : (ed.isKnownFlightStart() ? ed.flightStart : nil))
+        blockIn = cfpBlockIn?.dateValue ?? (ed.isKnownEngineEnd() ? ed.engineEnd : (ed.isKnownFlightEnd() ? ed.flightEnd : nil))
         
         var fSetXC = false
         var fSyntheticPath = false
@@ -248,8 +241,11 @@ import Foundation
         if t != nil {
             // Clear all of the things that can be computed
             var dtEngineSaved = ed.engineEnd;   // clear this so that flight will appear to be in progress
-            
             ed.engineEnd = nil
+
+            let dtBlockInSaved = cfpBlockIn?.dateValue  // clear block-in as well - see issue #316
+            cfpBlockIn?.dateValue = nil
+            
             ed.route = ""
             ed.totalFlightTime = NSNumber(floatLiteral: 0.0)
             ed.crossCountry = NSNumber(floatLiteral: 0.0)
@@ -267,8 +263,9 @@ import Foundation
             if NSDate.isUnknownDate(dt: dtEngineSaved) {
                 dtEngineSaved = tsFinal
             }
-            ed.engineEnd = dtEngineSaved;   // restore engine end.  If synthetic path, this will be overwritten below anyhow.
-            ed.flightData = szDataSaved;    // Restore flight data.  If synthetic path, this will be overwritten below anyhow.
+            ed.engineEnd = dtEngineSaved            // restore engine end.  If synthetic path, this will be overwritten below anyhow.
+            cfpBlockIn?.dateValue = dtBlockInSaved  // restore block-in time.
+            ed.flightData = szDataSaved             // Restore flight data.  If synthetic path, this will be overwritten below anyhow.
         }
         
         if (fSyntheticPath) {
