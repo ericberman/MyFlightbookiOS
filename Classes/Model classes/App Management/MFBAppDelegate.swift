@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2009-2023 MyFlightbook, LLC
+ Copyright (C) 2009-2024 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -424,13 +424,6 @@ import WidgetKit
             progressAlert = nil
         }
         
-        // set the default in-the-cockpit values.
-        let up = UserPreferences.current;
-        UserDefaults.standard.register(defaults: [up.keyShowHobbs : true,
-                                                  up.keyShowEngine : true,
-                                                  up.keyShowFlight : true,
-                                                  up.keyShowImages : false])  // images are really a "hide images" flag for backwards compatibility.
-
         return true
     }
     

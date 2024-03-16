@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2023 MyFlightbook, LLC
+ Copyright (C) 2023-2024 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -246,6 +246,12 @@ import MapKit
     
     // ALWAYS use current, don't create your own.
     private override init() {
+        // set the default in-the-cockpit values.
+        UserDefaults.standard.register(defaults: [keyShowHobbs : true,
+                                                  keyShowEngine : true,
+                                                  keyShowFlight : true,
+                                                  keyShowImages : false])  // images are really a "hide images" flag for backwards compatibility.
+
         let ud = UserDefaults.standard
         autoTotalMode = autoTotal(rawValue: ud.integer(forKey: szPrefAutoTotal)) ?? .none
         autoHobbsMode = autoHobbs(rawValue: ud.integer(forKey: szPrefAutoHobbs)) ?? .none
