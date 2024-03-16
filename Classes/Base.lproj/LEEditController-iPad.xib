@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -238,19 +238,19 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U7e-wG-cW9" userLabel="vwSunriseSunset">
-                                <rect key="frame" x="523.5" y="0.0" width="100" height="50"/>
+                                <rect key="frame" x="513.5" y="0.0" width="120" height="50"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(Sunrise)" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="614">
-                                        <rect key="frame" x="24" y="10.5" width="76" height="12"/>
+                                        <rect key="frame" x="20" y="10.5" width="100" height="12"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="76" id="Pxl-aF-iuC"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="Pxl-aF-iuC"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="sunrise.png" translatesAutoresizingMaskIntoConstraints="NO" id="617">
-                                        <rect key="frame" x="0.0" y="4" width="20" height="20"/>
+                                        <rect key="frame" x="0.0" y="4" width="12" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="66Q-dV-OEZ"/>
                                         </constraints>
@@ -263,9 +263,9 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(Sunset)" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="615">
-                                        <rect key="frame" x="24" y="27.5" width="76" height="12"/>
+                                        <rect key="frame" x="20" y="27.5" width="100" height="12"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="76" id="19F-iy-PoT"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="19F-iy-PoT"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <nil key="textColor"/>
@@ -275,13 +275,13 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="615" firstAttribute="centerY" secondItem="U7e-wG-cW9" secondAttribute="centerY" multiplier="4:3" id="7Bj-Ba-Wu2"/>
-                                    <constraint firstAttribute="width" constant="100" id="DS0-oN-3fT"/>
+                                    <constraint firstAttribute="width" constant="120" id="DS0-oN-3fT"/>
                                     <constraint firstAttribute="height" constant="50" id="Nlm-PQ-bSA"/>
                                     <constraint firstItem="617" firstAttribute="leading" secondItem="U7e-wG-cW9" secondAttribute="leading" id="PGS-f9-8Fj"/>
                                     <constraint firstItem="616" firstAttribute="leading" secondItem="617" secondAttribute="leading" id="Qnf-zN-Myi"/>
                                     <constraint firstItem="617" firstAttribute="bottom" secondItem="U7e-wG-cW9" secondAttribute="centerY" constant="-1" id="RMN-xu-fEH"/>
                                     <constraint firstItem="615" firstAttribute="leading" secondItem="614" secondAttribute="leading" id="g2Z-K6-o6L"/>
-                                    <constraint firstItem="614" firstAttribute="leading" secondItem="617" secondAttribute="trailing" constant="4" id="oVz-dq-TOw"/>
+                                    <constraint firstItem="614" firstAttribute="leading" secondItem="617" secondAttribute="trailing" constant="8" symbolic="YES" id="oVz-dq-TOw"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="614" secondAttribute="trailing" id="pfZ-Vo-inI"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="615" secondAttribute="trailing" id="qmw-Rb-gQA"/>
                                     <constraint firstItem="616" firstAttribute="top" secondItem="U7e-wG-cW9" secondAttribute="centerY" constant="1" id="r61-JI-CAw"/>
@@ -327,10 +327,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="MFBLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="608">
-                        <rect key="frame" x="11" y="-2.5" width="64" height="64"/>
+                        <rect key="frame" x="11" y="5.5" width="48" height="48"/>
                     </imageView>
                     <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="605">
-                        <rect key="frame" x="95" y="16" width="163" height="27"/>
+                        <rect key="frame" x="79" y="16" width="163" height="27"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <state key="normal" title="Share flight on MyFlightbook"/>
@@ -958,7 +958,7 @@
         <image name="sunrise.png" width="20" height="20"/>
         <image name="sunset.png" width="20" height="20"/>
         <systemColor name="labelColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

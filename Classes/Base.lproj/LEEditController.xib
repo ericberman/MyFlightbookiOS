@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -375,26 +375,26 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3fw-Vq-oIp" userLabel="vwSunRiseSet">
                         <rect key="frame" x="1" y="41" width="105" height="40"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(Sunrise)" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="354">
-                                <rect key="frame" x="25" y="7.5" width="77" height="12"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(Sunrise)" lineBreakMode="tailTruncation" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="354">
+                                <rect key="frame" x="20" y="8" width="85" height="11"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(Sunset)" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="355">
-                                <rect key="frame" x="25" y="20.5" width="77" height="12"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(Sunset)" lineBreakMode="tailTruncation" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="355">
+                                <rect key="frame" x="20" y="21" width="85" height="11"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="sunrise.png" translatesAutoresizingMaskIntoConstraints="NO" id="356">
-                                <rect key="frame" x="0.0" y="-3" width="20" height="20"/>
+                                <rect key="frame" x="0.0" y="-3.5" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="Kcl-dU-c1C"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="sunset.png" translatesAutoresizingMaskIntoConstraints="NO" id="357">
-                                <rect key="frame" x="0.0" y="20.5" width="20" height="20"/>
+                                <rect key="frame" x="0.0" y="21" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="tKU-Xs-bB8"/>
                                 </constraints>
@@ -402,13 +402,13 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="355" firstAttribute="leading" secondItem="357" secondAttribute="trailing" constant="5" id="8P4-Dx-MVN"/>
+                            <constraint firstItem="355" firstAttribute="leading" secondItem="357" secondAttribute="trailing" id="8P4-Dx-MVN"/>
                             <constraint firstItem="355" firstAttribute="centerY" secondItem="3fw-Vq-oIp" secondAttribute="centerY" multiplier="4:3" id="8RM-Du-u9E"/>
-                            <constraint firstAttribute="trailing" secondItem="354" secondAttribute="trailing" constant="3" id="DqV-zv-yo3"/>
+                            <constraint firstAttribute="trailing" secondItem="354" secondAttribute="trailing" id="DqV-zv-yo3"/>
                             <constraint firstAttribute="height" constant="40" id="Osi-Vc-Y2d"/>
                             <constraint firstItem="357" firstAttribute="leading" secondItem="3fw-Vq-oIp" secondAttribute="leading" id="ZWe-SM-oD0"/>
                             <constraint firstItem="356" firstAttribute="bottom" secondItem="354" secondAttribute="baseline" id="epI-v9-Tgb"/>
-                            <constraint firstItem="354" firstAttribute="leading" secondItem="356" secondAttribute="trailing" constant="5" id="nHO-iG-yvh"/>
+                            <constraint firstItem="354" firstAttribute="leading" secondItem="356" secondAttribute="trailing" id="nHO-iG-yvh"/>
                             <constraint firstItem="354" firstAttribute="centerY" secondItem="3fw-Vq-oIp" secondAttribute="centerY" multiplier="2:3" id="nze-eC-STM"/>
                             <constraint firstItem="357" firstAttribute="top" secondItem="355" secondAttribute="top" id="qfd-kE-lTt"/>
                             <constraint firstItem="355" firstAttribute="trailing" secondItem="354" secondAttribute="trailing" id="rMu-EB-43V"/>
