@@ -339,6 +339,10 @@
 		9AA4030F230746B20043F9CB /* search@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA4030C230746B20043F9CB /* search@3x.png */; };
 		9AA4EC3410F1A85200322BE0 /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA4EC3310F1A85200322BE0 /* checkmark.png */; };
 		9AA5E44919DE2AE40065810A /* GPSSamples.csv in Resources */ = {isa = PBXBuildFile; fileRef = 9A565B6E13E3545800BEFFA7 /* GPSSamples.csv */; };
+		9AA723AE2BA7522C0045BE63 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 9AA723AD2BA7522C0045BE63 /* PrivacyInfo.xcprivacy */; };
+		9AA723AF2BA7522C0045BE63 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 9AA723AD2BA7522C0045BE63 /* PrivacyInfo.xcprivacy */; };
+		9AA723B02BA7522C0045BE63 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 9AA723AD2BA7522C0045BE63 /* PrivacyInfo.xcprivacy */; };
+		9AA723B12BA7522C0045BE63 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 9AA723AD2BA7522C0045BE63 /* PrivacyInfo.xcprivacy */; };
 		9AA77D891618CAC000B36935 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA77D861618CAC000B36935 /* Default-568h@2x.png */; };
 		9AA77D8A1618CAC000B36935 /* Default-Landscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA77D871618CAC000B36935 /* Default-Landscape@2x.png */; };
 		9AA77D8B1618CAC000B36935 /* Default-Portrait@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA77D881618CAC000B36935 /* Default-Portrait@2x.png */; };
@@ -871,6 +875,7 @@
 		9AA4030B230746B10043F9CB /* search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search@2x.png"; sourceTree = "<group>"; };
 		9AA4030C230746B20043F9CB /* search@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search@3x.png"; sourceTree = "<group>"; };
 		9AA4EC3310F1A85200322BE0 /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
+		9AA723AD2BA7522C0045BE63 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		9AA77D861618CAC000B36935 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		9AA77D871618CAC000B36935 /* Default-Landscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x.png"; sourceTree = "<group>"; };
 		9AA77D881618CAC000B36935 /* Default-Portrait@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x.png"; sourceTree = "<group>"; };
@@ -1077,6 +1082,7 @@
 		29B97314FDCFA39411CA2CEA /* MFBSample */ = {
 			isa = PBXGroup;
 			children = (
+				9AA723AD2BA7522C0045BE63 /* PrivacyInfo.xcprivacy */,
 				9A3E12F0127DD606008D672E /* Exif */,
 				9A69201D10CCBD8800DF1CA6 /* WebServiceCode */,
 				9A48E2A529A1797900511D99 /* MyFlightbookWidgetsExtension.entitlements */,
@@ -2122,6 +2128,7 @@
 				9A6DFCEE2242FFC90061FE86 /* Default-Portrait828x1792.png in Resources */,
 				9A954D4E1531FBD6000E00ED /* VADetails.xib.txt in Resources */,
 				9A954D4F1531FBD6000E00ED /* ViewFlightWebPage.xib.txt in Resources */,
+				9AA723AE2BA7522C0045BE63 /* PrivacyInfo.xcprivacy in Resources */,
 				9A954D501531FBD6000E00ED /* VisitedAirportRow.xib.txt in Resources */,
 				9AC83AD219E440260092C7BB /* tracklog.kml in Resources */,
 				9A954D511531FBD6000E00ED /* VisitedAirports.xib.txt in Resources */,
@@ -2250,6 +2257,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AA723B12BA7522C0045BE63 /* PrivacyInfo.xcprivacy in Resources */,
 				9A48E27129A1686000511D99 /* Assets.xcassets in Resources */,
 				9A5F990629A2A64E00692E27 /* Localizable.strings in Resources */,
 			);
@@ -2265,6 +2273,7 @@
 				9AD2FFC41BE1AF4600A9B21B /* Pause@2x.png in Resources */,
 				9ACDC8D21BDFEA1300B0A077 /* Assets.xcassets in Resources */,
 				9AC264341BE6CEA900914D30 /* Recording.png in Resources */,
+				9AA723AF2BA7522C0045BE63 /* PrivacyInfo.xcprivacy in Resources */,
 				9AD2FFC31BE1AF4600A9B21B /* Pause.png in Resources */,
 				9AC264361BE6CEA900914D30 /* Recording@3x.png in Resources */,
 				9ACDC8D01BDFEA1300B0A077 /* Interface.storyboard in Resources */,
@@ -2283,6 +2292,7 @@
 				9AD2FFE21BE1AF5400A9B21B /* Icon-small29x29.png in Resources */,
 				9AD2FFDA1BE1AF5400A9B21B /* Icon-iPad-small@2x.png in Resources */,
 				9AD2FFDC1BE1AF5400A9B21B /* Icon-iPad.png in Resources */,
+				9AA723B02BA7522C0045BE63 /* PrivacyInfo.xcprivacy in Resources */,
 				9AD2FFC81BE1AF4700A9B21B /* Pause.png in Resources */,
 				9AD2FFCA1BE1AF4700A9B21B /* Pause@3x.png in Resources */,
 				9ACDC8E81BDFEA1400B0A077 /* Assets.xcassets in Resources */,
@@ -3265,7 +3275,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2024.03.17.1;
+				CURRENT_PROJECT_VERSION = 2024.03.17.2;
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -3310,7 +3320,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 2024.03.17.1;
+				CURRENT_PROJECT_VERSION = 2024.03.17.2;
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				EXCLUDED_SOURCE_FILE_NAMES = (
 					tracklog.gpx,
@@ -3363,7 +3373,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2024.03.17.1;
+				CURRENT_PROJECT_VERSION = 2024.03.17.2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -3421,7 +3431,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2024.03.17.1;
+				CURRENT_PROJECT_VERSION = 2024.03.17.2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3473,7 +3483,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2024.03.17.1;
+				CURRENT_PROJECT_VERSION = 2024.03.17.2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3773,7 +3783,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 2024.03.17.1;
+				CURRENT_PROJECT_VERSION = 2024.03.17.2;
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				EXCLUDED_SOURCE_FILE_NAMES = (
 					tracklog.gpx,
@@ -3830,7 +3840,7 @@
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2024.03.17.1;
+				CURRENT_PROJECT_VERSION = 2024.03.17.2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -3891,7 +3901,7 @@
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2024.03.17.1;
+				CURRENT_PROJECT_VERSION = 2024.03.17.2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3947,7 +3957,7 @@
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2024.03.17.1;
+				CURRENT_PROJECT_VERSION = 2024.03.17.2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -4000,7 +4010,7 @@
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2024.03.17.1;
+				CURRENT_PROJECT_VERSION = 2024.03.17.2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -4063,7 +4073,7 @@
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2024.03.17.1;
+				CURRENT_PROJECT_VERSION = 2024.03.17.2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -4120,7 +4130,7 @@
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2024.03.17.1;
+				CURRENT_PROJECT_VERSION = 2024.03.17.2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_NS_ASSERTIONS = NO;
