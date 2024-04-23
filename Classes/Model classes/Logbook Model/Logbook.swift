@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2009-2023 MyFlightbook, LLC
+ Copyright (C) 2009-2024 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -389,6 +389,15 @@ import Foundation
                 addPF.szAuthUserToken = szAuthToken ?? MFBProfile.sharedProfile.AuthToken
                 addPF.le = entryData
                 
+                // Issue #321:
+                // Date in the entry data was done in local time; will be converted here to UTC, which could be different from
+                // actual date of flight.
+                // We only really have to do this because we have a mix of UTC and "local" dates
+                // SOOO....
+                // adjust the date to a UTC date that looks like the right date
+                stashedDate = entryData.date
+                addPF.le.date = MFBSoapCall.UTCDateFromLocalDate(dt: addPF.le.date)
+
                 sc.makeCallAsync { b, sc in
                     b.createPendingFlightAsync(usingParameters: addPF, delegate: sc)
                 }
