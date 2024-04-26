@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2023 MyFlightbook, LLC
+ Copyright (C) 2023-2024 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -295,7 +295,7 @@ extension NSDate {
         let cal = Calendar.current
         let comps = cal.dateComponents([.year , .month , .day], from: dt!)
         
-        return (dt!.compare(dtOld) == .orderedSame || comps.year == 1)
+        return (dt!.compare(dtOld) == .orderedSame || (comps.year ?? 0) < 100)
     }
 
     @objc(dateByAddingCalendarMonths:) public func dateByAddingCalendarMonths(cMonths:Int) -> Date! {

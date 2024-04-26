@@ -411,7 +411,16 @@ import Foundation
                     let  updPF = MFBWebServiceSvc_UpdatePendingFlight()
                     updPF.szAuthUserToken = szAuthToken ?? MFBProfile.sharedProfile.AuthToken
                     updPF.pf = pf
-                    
+
+                    // Issue #323:
+                    // Date in the entry data was done in local time; will be converted here to UTC, which could be different from
+                    // actual date of flight.
+                    // We only really have to do this because we have a mix of UTC and "local" dates
+                    // SOOO....
+                    // adjust the date to a UTC date that looks like the right date
+                    stashedDate = entryData.date
+                    updPF.pf.date = MFBSoapCall.UTCDateFromLocalDate(dt: updPF.pf.date)
+
                     sc.makeCallAsync { b, sc in
                         b.updatePendingFlightAsync(usingParameters: updPF, delegate: sc)
                     }
@@ -427,6 +436,16 @@ import Foundation
                 let commitPF = MFBWebServiceSvc_CommitPendingFlight()
                 commitPF.szAuthUserToken = szAuthToken ?? MFBProfile.sharedProfile.AuthToken
                 commitPF.pf = pf
+                
+                // Issue #323:
+                // Date in the entry data was done in local time; will be converted here to UTC, which could be different from
+                // actual date of flight.
+                // We only really have to do this because we have a mix of UTC and "local" dates
+                // SOOO....
+                // adjust the date to a UTC date that looks like the right date
+                stashedDate = entryData.date
+                commitPF.pf.date = MFBSoapCall.UTCDateFromLocalDate(dt: commitPF.pf.date)
+                
                 sc.makeCallAsync { b, sc in
                     b.commitPendingFlightAsync(usingParameters: commitPF, delegate: sc)
                 }
