@@ -1184,7 +1184,7 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
     }
     
     @objc public func stopEngine() {
-        if UserPreferences.current.autodetectTakeoffs {
+        if UserPreferences.current.autodetectTakeoffs && le.entryData.isNewFlight() && !(le.entryData is MFBWebServiceSvc_PendingFlight) {
             autofillClosest()
         }
 
@@ -1222,7 +1222,7 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
     }
     
     @objc public func startFlight() {
-        if le.entryData.isNewFlight() {
+        if le.entryData.isNewFlight() && !(le.entryData is MFBWebServiceSvc_PendingFlight) {
             if !le.entryData.isKnownEngineStart() && !le.entryData.isKnownFlightStart() {
                 resetDateOfFlight()
             }
