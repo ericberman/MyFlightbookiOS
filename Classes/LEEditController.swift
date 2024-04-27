@@ -1117,7 +1117,7 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
     
     // MARK: - In the Cockpit
     @objc func startEngine() {
-        if le.entryData.isNewFlight() {
+        if le.entryData.isNewFlight() && !(le.entryData is MFBWebServiceSvc_PendingFlight) {
             if !le.entryData.isKnownEngineStart() {
                 resetDateOfFlight()
             }
