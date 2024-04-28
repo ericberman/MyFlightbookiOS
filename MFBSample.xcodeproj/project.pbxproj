@@ -3275,7 +3275,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2024.04.23.1;
+				CURRENT_PROJECT_VERSION = 2024.04.28.1;
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -3293,7 +3293,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Classes\"",
 				);
-				MARKETING_VERSION = 2024.04.23;
+				MARKETING_VERSION = 2024.04.28;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone;
 				PRODUCT_NAME = MyFlightbook;
 				PROVISIONING_PROFILE = "";
@@ -3320,7 +3320,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 2024.04.23.1;
+				CURRENT_PROJECT_VERSION = 2024.04.28.1;
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				EXCLUDED_SOURCE_FILE_NAMES = (
 					tracklog.gpx,
@@ -3340,7 +3340,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Classes\"",
 				);
-				MARKETING_VERSION = 2024.04.23;
+				MARKETING_VERSION = 2024.04.28;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone;
 				PRODUCT_NAME = MyFlightbook;
 				PROVISIONING_PROFILE = "";
@@ -3373,7 +3373,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2024.04.23.1;
+				CURRENT_PROJECT_VERSION = 2024.04.28.1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -3395,7 +3395,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2024.04.23;
+				MARKETING_VERSION = 2024.04.28;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.MyFlightbookWidgets;
@@ -3431,7 +3431,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2024.04.23.1;
+				CURRENT_PROJECT_VERSION = 2024.04.28.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3448,7 +3448,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2024.04.23;
+				MARKETING_VERSION = 2024.04.28;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.MyFlightbookWidgets;
@@ -3483,7 +3483,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2024.04.23.1;
+				CURRENT_PROJECT_VERSION = 2024.04.28.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3500,7 +3500,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2024.04.23;
+				MARKETING_VERSION = 2024.04.28;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.MyFlightbookWidgets;
@@ -3783,7 +3783,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 2024.04.23.1;
+				CURRENT_PROJECT_VERSION = 2024.04.28.1;
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				EXCLUDED_SOURCE_FILE_NAMES = (
 					tracklog.gpx,
@@ -3803,7 +3803,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Classes\"",
 				);
-				MARKETING_VERSION = 2024.04.23;
+				MARKETING_VERSION = 2024.04.28;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone;
 				PRODUCT_NAME = MyFlightbook;
 				PROVISIONING_PROFILE = "";
@@ -3840,7 +3840,7 @@
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2024.04.23.1;
+				CURRENT_PROJECT_VERSION = 2024.04.28.1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -3859,7 +3859,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				IBSC_MODULE = MyFlightbookWatch_Extension;
 				INFOPLIST_FILE = MyFlightbookWatch/Info.plist;
-				MARKETING_VERSION = 2024.04.23;
+				MARKETING_VERSION = 2024.04.28;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3901,7 +3901,7 @@
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2024.04.23.1;
+				CURRENT_PROJECT_VERSION = 2024.04.28.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3915,7 +3915,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				IBSC_MODULE = MyFlightbookWatch_Extension;
 				INFOPLIST_FILE = MyFlightbookWatch/Info.plist;
-				MARKETING_VERSION = 2024.04.23;
+				MARKETING_VERSION = 2024.04.28;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3957,7 +3957,7 @@
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2024.04.23.1;
+				CURRENT_PROJECT_VERSION = 2024.04.28.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3971,7 +3971,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				IBSC_MODULE = MyFlightbookWatch_Extension;
 				INFOPLIST_FILE = MyFlightbookWatch/Info.plist;
-				MARKETING_VERSION = 2024.04.23;
+				MARKETING_VERSION = 2024.04.28;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4010,7 +4010,7 @@
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2024.04.23.1;
+				CURRENT_PROJECT_VERSION = 2024.04.28;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -4033,7 +4033,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2024.04.23;
+				MARKETING_VERSION = 2024.04.28;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_CFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp.watchkitextension;
@@ -4073,7 +4073,7 @@
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2024.04.23.1;
+				CURRENT_PROJECT_VERSION = 2024.04.28;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -4091,7 +4091,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2024.04.23;
+				MARKETING_VERSION = 2024.04.28;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_CFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp.watchkitextension;
@@ -4130,7 +4130,7 @@
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2024.04.23.1;
+				CURRENT_PROJECT_VERSION = 2024.04.28;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -4148,7 +4148,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2024.04.23;
+				MARKETING_VERSION = 2024.04.28;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_CFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp.watchkitextension;
