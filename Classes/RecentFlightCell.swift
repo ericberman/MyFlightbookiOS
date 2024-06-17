@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2010-2023 MyFlightbook, LLC
+ Copyright (C) 2010-2024 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -171,6 +171,10 @@ public class RecentFlightCell : UITableViewCell {
             attrString.append(AttributedString(" \(trimmedRoute)", attributes: AttributeContainer([.font : italicFont, .foregroundColor : textColor])))
         }
         
+        // Issue #326 - show flight number early
+        let flightnum = le.getExistingProperty(.flightNum)
+        attrString.append(AttributedString(" \(flightnum?.textValue ?? "")", attributes: AttributeContainer([.font : boldFont, .foregroundColor : textColor])))
+        
         let trimmedComments = le.comment?.trimmingCharacters(in: .whitespaces) ?? ""
         if trimmedComments.isEmpty {
             attrString.append(AttributedString(" \(String(localized: "(No Comment)", comment: "No Comment"))", attributes: AttributeContainer([.font : baseFont, .foregroundColor : dimmedColor])))
@@ -215,7 +219,7 @@ public class RecentFlightCell : UITableViewCell {
                 
                 for cfp in le.customProperties.customFlightProperty {
                     let fp = cfp as! MFBWebServiceSvc_CustomFlightProperty
-                    if fp.propTypeID.intValue == PropTypeID.blockIn.rawValue || fp.propTypeID.intValue == PropTypeID.blockOut.rawValue {
+                    if fp.propTypeID.intValue == PropTypeID.blockIn.rawValue || fp.propTypeID.intValue == PropTypeID.blockOut.rawValue || fp.propTypeID.intValue == PropTypeID.flightNum.rawValue {
                         continue
                     }
                     attrString.append(fp.formatForDisplay(dimmedColor, valueColor: textColor, labelFont: baseFont, valueFont: boldFont))

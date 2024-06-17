@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2009-2023 MyFlightbook, LLC
+ Copyright (C) 2009-2024 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -31,6 +31,7 @@ import SQLite3
     case solo = 77
     case IPC = 41
     case BFR = 44
+    case flightNum = 156
     case nameOfPIC = 183
     case nameOfSIC = 184
     case nameOfCFI = 92
