@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2013-2023 MyFlightbook, LLC
+ Copyright (C) 2013-2024 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -309,7 +309,7 @@ public class SignInControllerViewController : CollapsibleTableSw, UITextFieldDel
     
     func contactUs() {
         let szSubj = "Comment from \(UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone") user"
-        pushURL(MFBProfile.sharedProfile.authRedirForUser(params: "d=CONTACT&subj=\(szSubj.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)&noCap=1&naked=1"))
+        pushURL(MFBProfile.sharedProfile.authRedirForUser(params: "d=CONTACT&subj=\(szSubj.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!)&noCap=1&naked=1"))
     }
     
     func followFacebook() {

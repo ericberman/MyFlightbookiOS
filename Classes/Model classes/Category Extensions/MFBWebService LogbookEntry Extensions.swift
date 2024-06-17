@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2009-2023 MyFlightbook, LLC
+ Copyright (C) 2009-2024 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -785,8 +785,8 @@ extension MFBWebServiceSvc_LogbookEntry : AutoDetectDelegate {
             return
         }
         
-        let szEncodedSubject = String(localized: "flightActionSendSubject", comment: "Flight Action - Send Subject").addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-        let szEncodeBody = String(format: String(localized: "flightActionSendBody", comment:"Flight Action - Send Body"), sendFlightLink!).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        let szEncodedSubject = String(localized: "flightActionSendSubject", comment: "Flight Action - Send Subject").addingPercentEncoding(withAllowedCharacters: .alphanumerics)
+        let szEncodeBody = String(format: String(localized: "flightActionSendBody", comment:"Flight Action - Send Body"), sendFlightLink!).addingPercentEncoding(withAllowedCharacters: .alphanumerics)
         let szURL = "mailto:?subject=\(szEncodedSubject!)&body=\(szEncodeBody!)"
         UIApplication.shared.open(URL(string: szURL)!)
     }

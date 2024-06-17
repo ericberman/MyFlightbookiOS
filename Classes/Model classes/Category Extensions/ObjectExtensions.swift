@@ -558,10 +558,6 @@ extension UITableViewCell {
 
 // MARK: NSString extensions
 extension NSString {
-    @objc public func stringByURLEncodingString() -> String? {
-        return addingPercentEncoding(withAllowedCharacters: .alphanumerics)
-    }
-    
     @objc(stringFromCharsThatCouldBeNull:) public static func stringFromCharsThatCouldBeNull(pch : UnsafePointer<CChar>?) -> String {
         return pch == nil ? "" : String(cString: pch!)
     }

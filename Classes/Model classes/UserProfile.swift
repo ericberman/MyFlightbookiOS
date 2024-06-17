@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2009-2023 MyFlightbook, LLC
+ Copyright (C) 2009-2024 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -295,7 +295,15 @@ import Foundation
     }
     
     @objc(authRedirForUser:) public func authRedirForUser(params : String) -> String {
-        return "https://\(MFBHOSTNAME)/logbook/public/authredir.aspx?u=\(UserName.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)&p=\(Password.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)&\(params)"
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = MFBHOSTNAME
+        components.path = "/logbook/public/authredir.aspx"
+        var queryItems = components.queryItems ?? []
+        queryItems.append(URLQueryItem(name: "u", value: UserName))
+        queryItems.append(URLQueryItem(name: "p", value: Password))
+        components.queryItems = queryItems
+        return "\(components.string!)&\(params)"
     }
 }
 
