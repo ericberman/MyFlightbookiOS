@@ -433,7 +433,7 @@ import Foundation
             case .fqsAircraft:
                 return rowsInSection(fqs, itemCount: availableAircraft().count + (fShowAllAircraft ? 0 : 1))
             case .fqsMakes:
-                return rowsInSection(fqs, itemCount: FlightQueryForm.makesInUse?.count ?? 0 + 1)
+                return rowsInSection(fqs, itemCount: (FlightQueryForm.makesInUse?.count ?? 0) + 1)
             case .fqsAircraftFeatures:
                 return rowsInSection(fqs, itemCount: afRows.allCases.count)
             case .fqsFlightFeatures:
