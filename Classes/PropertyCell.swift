@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2017-2023 MyFlightbook, LLC
+ Copyright (C) 2017-2024 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -203,6 +203,10 @@ import Foundation
         styleLabelAsDefault(cfp.isDefaultForType(cpt))
     }
     
+    private func capitalizationForType() -> UITextAutocapitalizationType {
+        return ((cpt.flags.uint32Value & 0x04000000) == 0) ? (((cpt.flags.uint32Value & 0x10000000) == 0 ? .sentences : .words)) : .allCharacters;
+    }
+    
     @objc public func configureCell(_ vwAcc : UIView, andDatePicker dp : UIDatePicker, defValue defVal : NSNumber) {
         lbl.text = cpt.title
         if cfp.isDefaultForType(cpt) {
@@ -232,7 +236,7 @@ import Foundation
             txt.placeholder = ""
             txt.keyboardType = .default
             // turn off autocorrect if we have previous values from which to choose.  This prevents spacebar from accepting the propoosed text.
-            txt.autocapitalizationType = ((cpt.flags.uint32Value & 0x04000000) == 0) ? ((cpt.flags.uint32Value & 0x10000000) == 0 ? .sentences : .words) : .allCharacters;
+            txt.autocapitalizationType = capitalizationForType()
             txt.autocorrectionType = (cpt.previousValues.string.count > 0 || txt.autocapitalizationType == .allCharacters) ? .no : .default
         case MFBWebServiceSvc_CFPPropertyType_cfpDate, MFBWebServiceSvc_CFPPropertyType_cfpDateTime:
             txt.placeholder = (cpt.type == MFBWebServiceSvc_CFPPropertyType_cfpDate) ?
@@ -315,11 +319,19 @@ import Foundation
             let szUserTyped = sz.replacingCharacters(in: range, with: string)
             let szUserTypedWithCompletion = proposeCompletion(szUserTyped)
             if szUserTyped.compare(szUserTypedWithCompletion) != .orderedSame {
+                let savedAutoCap = textField.autocapitalizationType
+                textField.autocapitalizationType = .none
+                textField.reloadInputViews()
                 textField.text = szUserTypedWithCompletion;
+                textField.autocapitalizationType = savedAutoCap
                 let startPos = textField.position(from: textField.beginningOfDocument, offset: szUserTyped.count)
                 let endPos = textField.endOfDocument
                 textField.selectedTextRange = textField.textRange(from: startPos!, to: endPos)
                 return false
+            }
+            else {
+                textField.autocapitalizationType = capitalizationForType()
+                textField.reloadInputViews()
             }
             return true // any string can be edited
         case MFBWebServiceSvc_CFPPropertyType_cfpBoolean, MFBWebServiceSvc_CFPPropertyType_cfpDate, MFBWebServiceSvc_CFPPropertyType_cfpDateTime:
