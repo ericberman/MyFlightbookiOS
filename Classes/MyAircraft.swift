@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2010-2023 MyFlightbook, LLC
+ Copyright (C) 2010-2024 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -154,7 +154,7 @@ public class MyAircraft : PullRefreshTableViewControllerSW, AircraftViewControll
         let colorNotes = UIColor.secondaryLabel
         
 
-        let szTail = NSMutableAttributedString(string: ac.displayTailNumber, attributes: [.font : boldFont, .foregroundColor : colorMain])
+        let szTail = NSMutableAttributedString(string: ac.isAnonymous() ? "" : ac.displayTailNumber, attributes: [.font : boldFont, .foregroundColor : colorMain])
         szTail.append(NSAttributedString(string: " " + "\(ac.modelFullDescription) \(ac.isSim() ? "\(Aircraft.aircraftInstanceTypeDisplay(ac.instanceType)) " : "")".trimmingCharacters(in: .whitespaces),
                                          attributes: [.font : italicFont, .foregroundColor : colorMain]))
         szTail.append(NSAttributedString(string: " " + "\(ac.privateNotes ?? "") \(ac.publicNotes ?? "")".trimmingCharacters(in: .whitespaces), attributes: [.font : baseFont, .foregroundColor : colorNotes]))

@@ -157,11 +157,20 @@ public class RecentFlightCell : UITableViewCell {
         }
         
         attrString.append(AttributedString(df.string(from: le.date), attributes: AttributeContainer([.font : largeBoldFont, .foregroundColor : textColor])))
-        attrString.append(AttributedString(" \(le.tailNumDisplay ?? "")", attributes: AttributeContainer([.font : largeBoldFont, .foregroundColor : textColor])))
-        
+
+        // Issue #326, #330 - show flight number early
+        let flightnum = le.getExistingProperty(.flightNum)
+        attrString.append(AttributedString(" \(flightnum?.textValue ?? "")", attributes: AttributeContainer([.font : largeBoldFont, .foregroundColor : textColor])))
+
         let ac = Aircraft.sharedAircraft.AircraftByID(le.aircraftID.intValue)
+        let modelDesc = "(\(ac?.modelDescription ?? ""))"
+        // Issue #330 - clean up redundancies - only show the tail number if it is distinct from the model description
+        if (modelDesc.compare(le.tailNumDisplay) != .orderedSame) {
+            attrString.append(AttributedString(" \(le.tailNumDisplay ?? "")", attributes: AttributeContainer([.font : largeBoldFont, .foregroundColor : textColor])))
+        }
+
         if !(ac?.modelDescription ?? "").isEmpty {
-            attrString.append(AttributedString(" (\(ac!.modelDescription ?? ""))", attributes: AttributeContainer([.font : baseFont, .foregroundColor : dimmedColor])))
+            attrString.append(AttributedString(" \(modelDesc)", attributes: AttributeContainer([.font : baseFont, .foregroundColor : dimmedColor])))
         }
         
         let trimmedRoute = le.route.trimmingCharacters(in: .whitespaces)
@@ -170,10 +179,6 @@ public class RecentFlightCell : UITableViewCell {
         } else {
             attrString.append(AttributedString(" \(trimmedRoute)", attributes: AttributeContainer([.font : italicFont, .foregroundColor : textColor])))
         }
-        
-        // Issue #326 - show flight number early
-        let flightnum = le.getExistingProperty(.flightNum)
-        attrString.append(AttributedString(" \(flightnum?.textValue ?? "")", attributes: AttributeContainer([.font : boldFont, .foregroundColor : textColor])))
         
         let trimmedComments = le.comment?.trimmingCharacters(in: .whitespaces) ?? ""
         if trimmedComments.isEmpty {
