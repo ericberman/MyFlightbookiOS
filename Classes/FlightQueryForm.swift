@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2017-2023 MyFlightbook, LLC
+ Copyright (C) 2017-2024 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -114,11 +114,16 @@ import Foundation
         
         navigationItem.rightBarButtonItem  = UIBarButtonItem(title: String(localized: "Reset", comment: "Reset button on flight entry"),
                                      style: .plain, target: self, action: #selector(resetQuery))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: String(localized: "ApplySearch", comment: "Apply Search"), style: .plain, target: self, action: #selector(doSearch))
         navigationItem.title = String(localized: "FindFlights", comment: "Find Flights title")
         
         if FlightQueryForm._rgCannedQueries == nil {
             refreshCannedQueries()
         }
+    }
+    
+    @objc public func doSearch() {
+        navigationController?.popViewController(animated: true)
     }
     
     public override func viewWillDisappear(_ animated: Bool) {

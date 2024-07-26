@@ -508,6 +508,9 @@
 /* Choose Flights */
 "FlightSearch" = "Trouver les vols";
 
+/* Apply Search */
+"ApplySearch" = "Recherche";
+
 /* All flights are selected */
 "All Flights" = "(Tous les vols)";
 
