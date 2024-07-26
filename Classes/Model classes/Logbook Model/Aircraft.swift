@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2009-2023 MyFlightbook, LLC
+ Copyright (C) 2009-2024 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -459,6 +459,11 @@ import Foundation
     
     @objc public func getHighWaterHobbsForAircraft(_ aircraftID : NSNumber) -> NSNumber {
         return dictHighWaterHobbs[aircraftID] ?? NSNumber(floatLiteral: 0.0)
+    }
+    
+    public func clearHighWater() {
+        dictHighWaterTach.removeAll()
+        dictHighWaterHobbs.removeAll()
     }
 }
 
