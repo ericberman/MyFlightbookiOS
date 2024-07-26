@@ -621,7 +621,15 @@ public class RecentFlights : PullRefreshTableViewControllerSW, LEEditDelegate, U
             
             var config = cellSelector.defaultContentConfiguration()
             config.text =  String(localized: "FlightSearch", comment: "Choose Flights")
-            config.secondaryText = fq.isUnrestricted() ? String(localized: "All Flights", comment: "All flights are selected") : String(localized: "Not all flights", comment: "Not all flights are selected")
+            if (fq.isUnrestricted()) {
+                config.secondaryText = String(localized: "All Flights", comment: "All flights are selected")
+                cellSelector.backgroundColor = UIColor.systemBackground
+            } else {
+                config.secondaryText = String(localized: "Not all flights", comment: "Not all flights are selected")
+                config.secondaryTextProperties.adjustsFontSizeToFitWidth = true
+                config.secondaryTextProperties.font = UIFont.boldSystemFont(ofSize: config.secondaryTextProperties.font.pointSize)
+                cellSelector.backgroundColor = UIColor.secondarySystemBackground
+            }
             config.image = UIImage(named: "search.png")
             cellSelector.contentConfiguration = config
             return cellSelector
