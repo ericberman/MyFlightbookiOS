@@ -214,7 +214,7 @@ import Foundation
             styleLabelAsDefault(true)
             accessoryType = .none
         } else {
-            txt.text = FlightProps.stringValueForProperty(cfp, withType:cpt)
+            txt.text = FlightProps.stringValueForProperty(cfp, withType:cpt, forEditing: true)
             styleLabelAsDefault(false)
             accessoryType = (cpt.type == MFBWebServiceSvc_CFPPropertyType_cfpBoolean && cfp.boolValue.boolValue) ? .checkmark : .none
         }

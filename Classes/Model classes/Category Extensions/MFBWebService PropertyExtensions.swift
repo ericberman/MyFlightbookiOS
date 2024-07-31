@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2009-2023 MyFlightbook, LLC
+ Copyright (C) 2009-2024 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -211,7 +211,7 @@ extension MFBWebServiceSvc_CustomFlightProperty {
         var s = AttributedString("", attributes: AttributeContainer([.font : labelFont, .foregroundColor : labelColor]))
         for cpt in rgCpt {
             if cpt.propTypeID.intValue == propTypeID.intValue {
-                let sValue = AttributedString(FlightProps.stringValueForProperty(self, withType: cpt), attributes: AttributeContainer([.font : valueFont, .foregroundColor : valueColor]))
+                let sValue = AttributedString(FlightProps.stringValueForProperty(self, withType: cpt, forEditing: false), attributes: AttributeContainer([.font : valueFont, .foregroundColor : valueColor]))
                 s.append(AttributedString(cpt.formatString, attributes: AttributeContainer([.font: labelFont, .foregroundColor : labelColor])))
                 
                 // Replace {0} with the value.  Booleans don't have a "{0}" so just append the checkmark

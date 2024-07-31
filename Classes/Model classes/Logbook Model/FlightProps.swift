@@ -350,7 +350,7 @@ import SQLite3
         }
     }
     
-    @objc public static func stringValueForProperty(_ fp : MFBWebServiceSvc_CustomFlightProperty, withType cpt : MFBWebServiceSvc_CustomPropertyType) -> String {
+    @objc public static func stringValueForProperty(_ fp : MFBWebServiceSvc_CustomFlightProperty, withType cpt : MFBWebServiceSvc_CustomPropertyType, forEditing : Bool) -> String {
         var szValue = ""
         
         switch cpt.type {
@@ -358,7 +358,7 @@ import SQLite3
             szValue = (fp.boolValue?.boolValue ?? false) ? " ✓" : ""
         case MFBWebServiceSvc_CFPPropertyType_cfpCurrency:
             let nfDecimal = NumberFormatter()
-            nfDecimal.numberStyle = .decimal
+            nfDecimal.numberStyle = forEditing ? .decimal : .currency
             szValue = nfDecimal.string(from: fp.decValue) ?? ""
         case MFBWebServiceSvc_CFPPropertyType_cfpDecimal:
             let nt = cpt.flags.uint32Value & 0x00200000 == 0 ? NumericType.Time : NumericType.Decimal
