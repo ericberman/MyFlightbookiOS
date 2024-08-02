@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2009-2023 MyFlightbook, LLC
+ Copyright (C) 2009-2024 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -1392,7 +1392,7 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
     }
     
     @objc public func newLocation(_ newLocation : CLLocation) {
-        let s = newLocation.speed * MFBConstants.MPS_TO_KNOTS
+        let s = newLocation.speed
         let fValidSpeed = s >= 0
         var fValidQuality = false
         let acc = newLocation.horizontalAccuracy

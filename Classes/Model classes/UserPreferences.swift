@@ -100,11 +100,11 @@ import MapKit
 
         switch (UserPreferences.current.speedUnits) {
         case .kts:
-            return String.localizedStringWithFormat(String(localized: "%.1fkts", comment: "Speed in knots.  '%.1f' is replaced by the actual speed; leave it there."), s)
+            return String.localizedStringWithFormat(String(localized: "%.1fkts", comment: "Speed in knots.  '%.1f' is replaced by the actual speed; leave it there."), s * MFBConstants.MPS_TO_KNOTS)
         case .kph:
-            return String.localizedStringWithFormat(String(localized: "%.1fkm/h", comment: "Speed in kph"), s * MFBConstants.KTS_TO_KPH)
+            return String.localizedStringWithFormat(String(localized: "%.1fkm/h", comment: "Speed in kph"), s * MFBConstants.MPS_TO_KNOTS * MFBConstants.KTS_TO_KPH)
         case .mph:
-            return String.localizedStringWithFormat(String(localized: "%.1fmph", comment: "Speed in mph"), s * MFBConstants.KTS_TO_MPH)
+            return String.localizedStringWithFormat(String(localized: "%.1fmph", comment: "Speed in mph"), s * MFBConstants.MPS_TO_KNOTS * MFBConstants.KTS_TO_MPH)
         default:
             return ""
         }

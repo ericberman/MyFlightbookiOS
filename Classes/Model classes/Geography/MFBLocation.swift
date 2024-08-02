@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2017-2023 MyFlightbook, LLC
+ Copyright (C) 2017-2024 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -464,6 +464,7 @@ import Foundation
             sw.latDisplay = lastSeenLoc?.coordinate.latitude.asLatString() ?? ""
             sw.lonDisplay = lastSeenLoc?.coordinate.longitude.asLonString() ?? ""
             sw.flightstatus = currentFlightState.localizedName()
+            NSLog("setting speed for watch - %.1f (raw), %@", lastSeenLoc?.speed ?? 0, UserPreferences.current.speedUnits.formatSpeedMpS(lastSeenLoc?.speed ?? 0))
             sw.speedDisplay = UserPreferences.current.speedUnits.formatSpeedMpS((lastSeenLoc?.speed ?? 0))
             sw.altDisplay = UserPreferences.current.altitudeUnits.formatMetersAlt(lastSeenLoc?.altitude ?? 0)
             MFBAppDelegate.threadSafeAppDelegate.updateWatchContext()
