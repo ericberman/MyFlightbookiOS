@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2009-2023 MyFlightbook, LLC
+ Copyright (C) 2009-2024 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -428,7 +428,7 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
         if le.entryData.isNewFlight() || le.entryData.isAwaitingUpload() || le.entryData is MFBWebServiceSvc_PendingFlight {
             uac.addAction(UIAlertAction(title: String(localized: "flightActionAutoFill", comment: "Flight Action Autofill"), style:.default) { aa in
                 self.initLEFromForm()
-                if self.le.entryData.isNewFlight() && self.le.entryData.flightData.isEmpty {
+                if self.le.entryData.isNewFlight() && ((self.le.entryData.flightData ?? "").isEmpty) {
                     self.le.entryData.flightData = MFBAppDelegate.threadSafeAppDelegate.mfbloc.flightDataAsString();
                 }
                 GPSSim.autoFill(self.le)
