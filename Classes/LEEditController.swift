@@ -1142,7 +1142,8 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
     @objc public func startEngineExternal() {
         if !le.entryData.isKnownEngineStart() {
             resetDateOfFlight()
-            le.entryData.engineStart = Date()
+            // Issue #338 - need to truncate seconds
+            le.entryData.engineStart = NSDate().dateByTruncatingSeconds()
             startEngine()
         }
     }
@@ -1273,7 +1274,8 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
             return
         }
         
-        le.entryData.setPropertyValue(.blockOut, withDate: Date())
+        // Issue #338 - need to truncate seconds
+        le.entryData.setPropertyValue(.blockOut, withDate: NSDate().dateByTruncatingSeconds())
         
         if !le.entryData.isKnownEngineStart() && !le.entryData.isKnownFlightStart() {
             resetDateOfFlight()
