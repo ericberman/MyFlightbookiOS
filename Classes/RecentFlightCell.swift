@@ -165,8 +165,10 @@ public class RecentFlightCell : UITableViewCell {
         let ac = Aircraft.sharedAircraft.AircraftByID(le.aircraftID.intValue)
         let modelDesc = "(\(ac?.modelDescription ?? ""))"
         // Issue #330 - clean up redundancies - only show the tail number if it is distinct from the model description
-        if (modelDesc.compare(le.tailNumDisplay) != .orderedSame) {
-            attrString.append(AttributedString(" \(le.tailNumDisplay ?? "")", attributes: AttributeContainer([.font : largeBoldFont, .foregroundColor : textColor])))
+        // Issue #339 - le.tailNumDisplay can be null when offline.
+        let tailDisplay = le.tailNumDisplay ?? ac?.displayTailNumber ?? ""
+        if (modelDesc.compare(tailDisplay) != .orderedSame) {
+            attrString.append(AttributedString(" \(tailDisplay)", attributes: AttributeContainer([.font : largeBoldFont, .foregroundColor : textColor])))
         }
 
         if !(ac?.modelDescription ?? "").isEmpty {
