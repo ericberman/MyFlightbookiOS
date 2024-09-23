@@ -670,8 +670,11 @@ public class RecentFlights : PullRefreshTableViewControllerSW, LEEditDelegate, U
         // this will force a layout
         cell.setFlight(le!, image: ci, errorString: errString, tableView: tableView)
 
+        let flightColor = (le?.flightColorHex ?? "").isEmpty ? nil : UIColor(hex: le!.flightColorHex!)
         if section == .sectUnsubmittedFlights || section == .sectPendingFlights {
             cell.backgroundColor = UIColor.systemGray4
+        } else if flightColor != nil {
+            cell.backgroundColor = flightColor
         }
         
         return cell

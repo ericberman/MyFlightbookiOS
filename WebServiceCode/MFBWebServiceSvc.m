@@ -15100,6 +15100,8 @@ NSString * MFBWebServiceSvc_VideoSource_stringFromEnum(MFBWebServiceSvc_VideoSou
 		Comment = 0;
 		fIsPublic = 0;
 		Date = 0;
+		IsOverridden = 0;
+		FlightColorHex = 0;
 		ErrorString = 0;
 		FlightID = 0;
 		FlightStart = 0;
@@ -15223,6 +15225,12 @@ NSString * MFBWebServiceSvc_VideoSource_stringFromEnum(MFBWebServiceSvc_VideoSou
 	if(((__bridge void *)self.Date) != 0) {
 		xmlAddChild(node, [self.Date xmlNodeForDoc:node->doc elementName:@"Date" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
+	if(((__bridge void *)self.IsOverridden) != 0) {
+		xmlAddChild(node, [self.IsOverridden xmlNodeForDoc:node->doc elementName:@"IsOverridden" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
+	if(((__bridge void *)self.FlightColorHex) != 0) {
+		xmlAddChild(node, [self.FlightColorHex xmlNodeForDoc:node->doc elementName:@"FlightColorHex" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
 	if(((__bridge void *)self.ErrorString) != 0) {
 		xmlAddChild(node, [self.ErrorString xmlNodeForDoc:node->doc elementName:@"ErrorString" elementNSPrefix:@"MFBWebServiceSvc"]);
 	}
@@ -15300,6 +15308,8 @@ NSString * MFBWebServiceSvc_VideoSource_stringFromEnum(MFBWebServiceSvc_VideoSou
 @synthesize Comment;
 @synthesize fIsPublic;
 @synthesize Date;
+@synthesize IsOverridden;
+@synthesize FlightColorHex;
 @synthesize ErrorString;
 @synthesize FlightID;
 @synthesize FlightStart;
@@ -16141,6 +16151,72 @@ NSString * MFBWebServiceSvc_VideoSource_stringFromEnum(MFBWebServiceSvc_VideoSou
 				id newChild = [elementClass deserializeNode:cur];
 				
 				self.Date = newChild;
+			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "IsOverridden")) {
+				
+				Class elementClass = nil;
+				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if(instanceType == NULL) {
+					elementClass = [USBoolean class];
+				} else {
+					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
+					
+					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
+					
+					NSString *elementClassString = nil;
+					if([elementTypeArray count] > 1) {
+						NSString *prefix = [elementTypeArray objectAtIndex:0];
+						NSString *localName = [elementTypeArray objectAtIndex:1];
+						
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
+						
+						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
+						
+						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
+					} else {
+						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
+					}
+					
+					elementClass = NSClassFromString(elementClassString);
+					xmlFree(instanceType);
+				}
+				
+				id newChild = [elementClass deserializeNode:cur];
+				
+				self.IsOverridden = newChild;
+			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "FlightColorHex")) {
+				
+				Class elementClass = nil;
+				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if(instanceType == NULL) {
+					elementClass = [NSString class];
+				} else {
+					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
+					
+					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
+					
+					NSString *elementClassString = nil;
+					if([elementTypeArray count] > 1) {
+						NSString *prefix = [elementTypeArray objectAtIndex:0];
+						NSString *localName = [elementTypeArray objectAtIndex:1];
+						
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
+						
+						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
+						
+						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
+					} else {
+						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
+					}
+					
+					elementClass = NSClassFromString(elementClassString);
+					xmlFree(instanceType);
+				}
+				
+				id newChild = [elementClass deserializeNode:cur];
+				
+				self.FlightColorHex = newChild;
 			}
 			if(xmlStrEqual(cur->name, (const xmlChar *) "ErrorString")) {
 				
@@ -28699,11 +28775,11 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 }
 + (MFBWebServiceSoapBinding *)MFBWebServiceSoapBinding
 {
-	return [[MFBWebServiceSoapBinding alloc] initWithAddress:@"https://myflightbook.com/logbook/Public/webservice.asmx"];
+	return [[MFBWebServiceSoapBinding alloc] initWithAddress:@"https://developer.myflightbook.com/logbook/public/webservice.asmx"];
 }
 + (MFBWebServiceSoap12Binding *)MFBWebServiceSoap12Binding
 {
-	return [[MFBWebServiceSoap12Binding alloc] initWithAddress:@"https://myflightbook.com/logbook/Public/webservice.asmx"];
+	return [[MFBWebServiceSoap12Binding alloc] initWithAddress:@"https://developer.myflightbook.com/logbook/public/webservice.asmx"];
 }
 @end
 @implementation MFBWebServiceSoapBinding
