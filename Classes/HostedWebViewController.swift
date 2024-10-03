@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2023 MyFlightbook, LLC
+ Copyright (C) 2023-2024 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -25,8 +25,8 @@
 //
 
 import Foundation
-import WebKit
 import UIKit
+@preconcurrency import WebKit
 
 @objc public class HostedWebViewController : UIViewController, WKUIDelegate, WKNavigationDelegate {
     
