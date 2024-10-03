@@ -57,7 +57,7 @@ import Foundation
                      "OSAP",
                      "PAR",
                      "RNAV/GPS",
-                     "RNAV/GPS (RNP)",
+                     "RNAV/GPS (RNP)", 
                      "SDF",
                      "SRA/ASR",
                      "TACAN",
