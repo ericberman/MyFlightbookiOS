@@ -154,8 +154,8 @@ public class MyAircraft : PullRefreshTableViewControllerSW, AircraftViewControll
         let colorNotes = UIColor.secondaryLabel
         
 
-        let szTail = NSMutableAttributedString(string: ac.isAnonymous() ? "" : ac.displayTailNumber, attributes: [.font : boldFont, .foregroundColor : colorMain])
-        szTail.append(NSAttributedString(string: " " + "\(ac.modelFullDescription) \(ac.isSim() ? "\(Aircraft.aircraftInstanceTypeDisplay(ac.instanceType)) " : "")".trimmingCharacters(in: .whitespaces),
+        let szTail = NSMutableAttributedString(string: ac.displayTailNumber, attributes: [.font : boldFont, .foregroundColor : colorMain])
+        szTail.append(NSAttributedString(string: " " + "\(ac.isAnonymous() ? (ac.modelCommonName ?? "") : ac.modelFullDescription) \(ac.isSim() ? "\(Aircraft.aircraftInstanceTypeDisplay(ac.instanceType)) " : "")".trimmingCharacters(in: .whitespaces),
                                          attributes: [.font : italicFont, .foregroundColor : colorMain]))
         szTail.append(NSAttributedString(string: " " + "\(ac.privateNotes ?? "") \(ac.publicNotes ?? "")".trimmingCharacters(in: .whitespaces), attributes: [.font : baseFont, .foregroundColor : colorNotes]))
 
