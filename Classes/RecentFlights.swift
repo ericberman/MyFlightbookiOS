@@ -667,16 +667,19 @@ public class RecentFlights : PullRefreshTableViewControllerSW, LEEditDelegate, U
             le!.tailNumDisplay = Aircraft.sharedAircraft.AircraftByID(le!.aircraftID.intValue)?.tailNumber ?? ""
         }
         
-        // this will force a layout
-        cell.setFlight(le!, image: ci, errorString: errString, tableView: tableView)
+        var isColored = false
 
         let flightColor = (le?.flightColorHex ?? "").isEmpty ? nil : UIColor(hex: le!.flightColorHex!)
         if section == .sectUnsubmittedFlights || section == .sectPendingFlights {
             cell.backgroundColor = UIColor.systemGray4
         } else if flightColor != nil {
+            isColored = true
             cell.backgroundColor = flightColor
         }
-        
+
+        // this will force a layout
+        cell.setFlight(le!, image: ci, errorString: errString, tableView: tableView, isColored: isColored)
+
         return cell
     }
     
@@ -711,7 +714,7 @@ public class RecentFlights : PullRefreshTableViewControllerSW, LEEditDelegate, U
         let cell = offscreenCells[reuseIdentifier]! // had better be there now!
 
         // Configure the cell with content for the given indexPath.  This will force a layout
-        cell.setFlight(le, image: ci, errorString: "", tableView: tableView)
+        cell.setFlight(le, image: ci, errorString: "", tableView: tableView, isColored: false)
 
         // Get the actual height required for the cell's contentView
         var height = cell.contentView.systemLayoutSizeFitting(UIView.layoutFittingExpandedSize).height;

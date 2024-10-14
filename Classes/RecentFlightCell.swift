@@ -135,7 +135,10 @@ public class RecentFlightCell : UITableViewCell {
         layoutIfNeeded()
     }
     
-    public func setFlight(_ le : MFBWebServiceSvc_LogbookEntry, image ci : CommentedImage?, errorString : String?, tableView : UITableView) {
+    public func setFlight(_ le : MFBWebServiceSvc_LogbookEntry, image ci : CommentedImage?, errorString : String?, tableView : UITableView, isColored : Bool) {
+        if isColored {
+            self.overrideUserInterfaceStyle = .light
+        }
         let textColor = UIColor.label
         let dimmedColor = UIColor.secondaryLabel
         let redColor = UIColor.systemRed
