@@ -28,6 +28,7 @@ import Foundation
 @objc public class Aircraft : MFBAsyncOperation, MFBSoapCallDelegate {
     private var dictHighWaterHobbs : [NSNumber : NSNumber] = [:]
     private var dictHighWaterTach : [NSNumber : NSNumber] = [:]
+    private var dictHighWaterFlightMeter : [NSNumber : NSNumber] = [:]
     private var aircraftIDPreferred = -1
     
     @objc public var rgAircraftForUser : [MFBWebServiceSvc_Aircraft]? = nil
@@ -461,9 +462,24 @@ import Foundation
         return dictHighWaterHobbs[aircraftID] ?? NSNumber(floatLiteral: 0.0)
     }
     
+    @objc public func getHighWaterFlightMeter(_ aircraftID: NSNumber) -> NSNumber {
+        return dictHighWaterFlightMeter[aircraftID] ?? NSNumber(floatLiteral: 0.0)
+    }
+    
+    @objc public func setHighWaterFlightMeter(_ meter : NSNumber?, forAircraft aircraftID : NSNumber) {
+        if ((meter?.doubleValue) ?? 0.0) == 0.0 {
+            return
+        }
+        
+        if getHighWaterFlightMeter(aircraftID).doubleValue < meter!.doubleValue {
+            dictHighWaterFlightMeter[aircraftID] = meter!
+        }
+    }
+    
     public func clearHighWater() {
         dictHighWaterTach.removeAll()
         dictHighWaterHobbs.removeAll()
+        dictHighWaterFlightMeter.removeAll()
     }
 }
 

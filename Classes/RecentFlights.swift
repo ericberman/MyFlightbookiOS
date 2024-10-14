@@ -334,6 +334,9 @@ public class RecentFlights : PullRefreshTableViewControllerSW, LEEditDelegate, U
                 if let cfp = le.getExistingProperty(.tachEnd) {
                     aircraft.setHighWaterTach(cfp.decValue, forAircraft: le.aircraftID)
                 }
+                if let cfp = le.getExistingProperty(.flightMeterEnd) {
+                    aircraft.setHighWaterFlightMeter(cfp.decValue, forAircraft: le.aircraftID)
+                }
             }
             NSLog("RECENT FLIGHTS: Flight List Result Received")
 

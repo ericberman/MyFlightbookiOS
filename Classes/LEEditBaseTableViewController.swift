@@ -124,6 +124,8 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
     func setupForNewFlight() {
         let endingHobbs = le.entryData.hobbsEnd // remember ending hobbs for last flight...
         let endingTach = le.entryData.getExistingProperty(PropTypeID.tachEnd)?.decValue ?? 0
+        let endingFuel = le.entryData.getExistingProperty(PropTypeID.fuelAtEnd)?.decValue ?? 0
+        let endingFlightMeter = le.entryData.getExistingProperty(PropTypeID.flightMeterEnd)?.decValue ?? 0
         
         le = LogbookEntry()
         le.entryData.date = Date.distantPast    // Issue #306 - allow floating "Today"
@@ -151,6 +153,12 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
         le.entryData.hobbsStart = endingHobbs;
         if endingTach.doubleValue > 0 {
             le.entryData.setPropertyValue(.tachStart, withDecimal: endingTach.doubleValue)
+        }
+        if (endingFuel.doubleValue > 0) {
+            le.entryData.setPropertyValue(.fuelAtStart, withDecimal: endingFuel.doubleValue)
+        }
+        if (endingFlightMeter.doubleValue > 0) {
+            le.entryData.setPropertyValue(.flightMeterStart, withDecimal: endingFlightMeter.doubleValue)
         }
         saveState() // clean up any old state
         MFBAppDelegate.threadSafeAppDelegate.updateWatchContext()
@@ -604,6 +612,17 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
             if highWaterTach.doubleValue > 0 {
                 target.setValue(num: highWaterTach)
                 le.entryData.setPropertyValue(.tachStart, withDecimal: highWaterTach.doubleValue)
+            }
+        }
+    }
+    
+    @objc func setHighWaterFlightMeter(_ sender : UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            let target = sender.view as! UITextField
+            let highWaterMeter = Aircraft.sharedAircraft.getHighWaterFlightMeter(le.entryData.aircraftID)
+            if highWaterMeter.doubleValue > 0 {
+                target.setValue(num: highWaterMeter)
+                le.entryData.setPropertyValue(.flightMeterStart, withDecimal: highWaterMeter.doubleValue)
             }
         }
     }

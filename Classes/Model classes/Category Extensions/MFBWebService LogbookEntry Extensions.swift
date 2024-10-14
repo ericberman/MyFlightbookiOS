@@ -762,6 +762,10 @@ extension MFBWebServiceSvc_LogbookEntry : AutoDetectDelegate {
             return Aircraft.sharedAircraft.getHighWaterTachForAircraft(aircraftID)
         }
         
+        if cpt.propTypeID.intValue == PropTypeID.flightMeterStart.rawValue {
+            return Aircraft.sharedAircraft.getHighWaterFlightMeter(aircraftID)
+        }
+        
         // if it's a decimal but not a basic decimal
         if cpt.type == MFBWebServiceSvc_CFPPropertyType_cfpDecimal && (cpt.flags.intValue & 0x00200000) == 0 {
             return totalFlightTime

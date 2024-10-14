@@ -50,6 +50,8 @@ import SQLite3
     case fuelAtEnd = 72
     case fuelConsumed = 71
     case fuelBurnRate = 381
+    case flightMeterStart = 666
+    case flightMeterEnd = 667
     
     case NEW_PROP_ID = -1
 }
