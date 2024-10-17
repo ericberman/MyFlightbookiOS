@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2014-2023 MyFlightbook, LLC
+ Copyright (C) 2014-2024 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -305,7 +305,9 @@ import Foundation
         
         lst.append(contentsOf: rgPadding)
         
-        return Telemetry.telemetryWithString(CSVTelemetry.serializeFromPath(lst))
+        let t = Telemetry.telemetryWithString(CSVTelemetry.serializeFromPath(lst))
+        t?.hasSpeed = true
+        return t
     }
     
     // MARK: Conversion
