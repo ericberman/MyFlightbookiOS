@@ -355,7 +355,7 @@ public class SignInControllerViewController : CollapsibleTableSw, UITextFieldDel
         switch row {
         case .rowForgotPW:
             tableView.endEditing(true)
-            UIApplication.shared.open(URL(string: "http://\(MFBHOSTNAME)/logbook/Logon/ResetPass.aspx")!)
+            UIApplication.shared.open(URL(string: "http://\(MFBHOSTNAME)/logbook/mvc/auth/resetpass")!)
         case .rowContact:
             tableView.endEditing(true)
             contactUs()
