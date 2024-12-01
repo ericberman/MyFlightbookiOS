@@ -70,8 +70,8 @@ public class RecentFlightCell : UITableViewCell {
         let dimmedColor = UIColor.secondaryLabel
         
         if (num?.doubleValue ?? 0.0) != 0.0 {
-            var attrString = AttributedString(label, attributes: AttributeContainer([.font : font, .foregroundColor : dimmedColor]))
-            attrString.append(AttributedString(": \(num!.formatAs(Type: nt, inHHMM: useHHMM, useGrouping: true)) ", attributes: AttributeContainer([.font : font, .foregroundColor : textColor])))
+            var attrString = AttributedString("\(label): ", attributes: AttributeContainer([.font : font, .foregroundColor : dimmedColor]))
+            attrString.append(AttributedString("\(num!.formatAs(Type: nt, inHHMM: useHHMM, useGrouping: true)) ", attributes: AttributeContainer([.font : font, .foregroundColor : textColor])))
             return attrString
         } else {
             return AttributedString()
@@ -215,6 +215,17 @@ public class RecentFlightCell : UITableViewCell {
             attrString.append(attributedLabel(String(localized: "fieldPIC", comment: "Entry Field: PIC"), value: le.pic, font: boldFont, inHHMM: fUseHHMM, numType : .Time))
             
             if detail == .detailed {
+                if (le.hobbsStart.doubleValue > 0 && le.hobbsEnd.doubleValue > le.hobbsStart.doubleValue) {
+                    attrString.append(AttributedString("\(String(localized: "Hobbs", comment: "Elapsed Hobbs Label")): ", attributes: AttributeContainer([.font : baseFont, .foregroundColor : dimmedColor])))
+
+                    let elapsed = NSNumber(value: le.hobbsEnd.doubleValue - le.hobbsStart.doubleValue)
+                    let elapsedString = "\(le.hobbsStart!.formatAs(Type: .Decimal, inHHMM: false, useGrouping: true)) - \(le.hobbsEnd!.formatAs(Type: .Decimal, inHHMM: false, useGrouping: true)) (\(elapsed.formatAs(Type: .Decimal, inHHMM: false, useGrouping: true))) "
+                    attrString.append(AttributedString(elapsedString, attributes: AttributeContainer([.font : boldFont, .foregroundColor : textColor])))
+                } else {
+                    attrString.append(attributedLabel(String(localized: "Hobbs Start", comment: "Hobbs Start Label"), value: le.hobbsStart, font: boldFont, inHHMM: false, numType: .Decimal))
+                    attrString.append(attributedLabel(String(localized: "Hobbs End", comment: "Hobbs End Label"), value: le.hobbsEnd, font: boldFont, inHHMM: false, numType: .Decimal))
+                }
+                
                 let blockOut = le.getExistingProperty(.blockOut)
                 let blockIn = le.getExistingProperty(.blockIn)
                 
