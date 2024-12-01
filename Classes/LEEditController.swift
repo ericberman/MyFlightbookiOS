@@ -487,7 +487,7 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
                     // Have to show flight if present since it won't show in properties
                     return UserPreferences.current.showFlight || l.isKnownFlightStart() || l.isKnownFlightEnd()
                 case .rowGPS:
-                    return l.isNewFlight()
+                    return l.isNewFlight() && !(le.entryData is MFBWebServiceSvc_PendingFlight) // Issue #344: need to exclude pending flights from showing GPS as well
                 default:
                     return true
                 }
