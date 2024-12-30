@@ -278,7 +278,7 @@ extension NSDate {
         }
     }
         
-    @objc public func dateString() -> String! {
+    public func dateString() -> String! {
         let df:DateFormatter! = DateFormatter()
         df.dateStyle = .medium
         return df.string(from: self as Date)
