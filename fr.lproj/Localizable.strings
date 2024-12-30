@@ -1050,6 +1050,15 @@ Vous pouvez choisir un dans la liste fournie, le modifier, ou faire un de vos pr
 /* Tach Start prompt */
 "TachEnd" = "Fin tachymètre:";
 
+/* Tach Start Label - no colon */
+"TachStart2" = "Démarrage du tachymètre";
+
+/* Tach End Label - no colon */
+"TachEnd2" = "Fin tachymètre";
+
+/* Elapsed Tach */
+"ElapsedTach" = "Tach";
+
 /* Block Out prompt */
 "BlockOut" = "Hors bloc:";
 

@@ -96,6 +96,27 @@ public class RecentFlightCell : UITableViewCell {
         }
     }
     
+    func attributedDecRange(_ labelElapsed: String, labelStart: String, labelEnd: String, start : NSNumber?, end : NSNumber?, font : UIFont, boldFont : UIFont) -> AttributedString {
+        let startVal = start?.doubleValue ?? 0.0
+        let endVal = end?.doubleValue ?? 0.0
+        let textColor = UIColor.label
+        let dimmedColor = UIColor.secondaryLabel
+
+        var attrString = AttributedString()
+        
+        if (startVal > 0 && endVal > startVal) {
+            attrString.append(AttributedString("\(labelElapsed): ", attributes: AttributeContainer([.font : font, .foregroundColor : dimmedColor])))
+
+            let elapsed = NSNumber(value: endVal - startVal)
+            let elapsedString = "\(start!.formatAs(Type: .Decimal, inHHMM: false, useGrouping: true)) - \(end!.formatAs(Type: .Decimal, inHHMM: false, useGrouping: true)) (\(elapsed.formatAs(Type: .Decimal, inHHMM: false, useGrouping: true))) "
+            attrString.append(AttributedString(elapsedString, attributes: AttributeContainer([.foregroundColor : textColor])))
+        } else {
+            attrString.append(attributedLabel(labelStart, value: start, font: boldFont, inHHMM: false, numType: .Decimal))
+            attrString.append(attributedLabel(labelEnd, value: end, font: boldFont, inHHMM: false, numType: .Decimal))
+        }
+        return attrString
+    }
+    
     func layoutForTable(_ tableView : UITableView) {
         // Technique here from https://stackoverflow.com/questions/18746929/using-auto-layout-in-uitableview-for-dynamic-cell-layouts-variable-row-heights for
         // Make sure the constraints have been set up for this cell, since it
@@ -215,16 +236,14 @@ public class RecentFlightCell : UITableViewCell {
             attrString.append(attributedLabel(String(localized: "fieldPIC", comment: "Entry Field: PIC"), value: le.pic, font: boldFont, inHHMM: fUseHHMM, numType : .Time))
             
             if detail == .detailed {
-                if (le.hobbsStart.doubleValue > 0 && le.hobbsEnd.doubleValue > le.hobbsStart.doubleValue) {
-                    attrString.append(AttributedString("\(String(localized: "Hobbs", comment: "Elapsed Hobbs Label")): ", attributes: AttributeContainer([.font : baseFont, .foregroundColor : dimmedColor])))
-
-                    let elapsed = NSNumber(value: le.hobbsEnd.doubleValue - le.hobbsStart.doubleValue)
-                    let elapsedString = "\(le.hobbsStart!.formatAs(Type: .Decimal, inHHMM: false, useGrouping: true)) - \(le.hobbsEnd!.formatAs(Type: .Decimal, inHHMM: false, useGrouping: true)) (\(elapsed.formatAs(Type: .Decimal, inHHMM: false, useGrouping: true))) "
-                    attrString.append(AttributedString(elapsedString, attributes: AttributeContainer([.font : boldFont, .foregroundColor : textColor])))
-                } else {
-                    attrString.append(attributedLabel(String(localized: "Hobbs Start", comment: "Hobbs Start Label"), value: le.hobbsStart, font: boldFont, inHHMM: false, numType: .Decimal))
-                    attrString.append(attributedLabel(String(localized: "Hobbs End", comment: "Hobbs End Label"), value: le.hobbsEnd, font: boldFont, inHHMM: false, numType: .Decimal))
-                }
+                attrString.append(attributedDecRange(String(localized: "Hobbs", comment: "Elapsed Hobbs Label"), labelStart: String(localized: "Hobbs Start", comment: "Hobbs Start Label"), labelEnd: String(localized: "Hobbs End", comment: "Hobbs End Label"),
+                                                     start: le.hobbsStart, end: le.hobbsEnd, font: baseFont, boldFont: boldFont))
+                
+                let tachStart = le.getExistingProperty(.tachStart)
+                let tachEnd = le.getExistingProperty(.tachEnd)
+                
+                attrString.append(attributedDecRange(String(localized: "ElapsedTach", comment: "Elapsed Tach"), labelStart: String(localized: "TachStart2", comment: "Tach Start Label - no colon"), labelEnd: String(localized: "TachEnd2", comment: "Tach End Label - no colon"),
+                                                     start: tachStart?.decValue, end: tachEnd?.decValue, font: baseFont, boldFont: boldFont))
                 
                 let blockOut = le.getExistingProperty(.blockOut)
                 let blockIn = le.getExistingProperty(.blockIn)
@@ -238,9 +257,11 @@ public class RecentFlightCell : UITableViewCell {
                 
                 let spacer = AttributedString(" ")
                 
+                let handledProps : Set = [PropTypeID.blockIn.rawValue, PropTypeID.blockOut.rawValue, PropTypeID.flightNum.rawValue, PropTypeID.tachStart.rawValue, PropTypeID.tachEnd.rawValue]
+                
                 for cfp in le.customProperties.customFlightProperty {
                     let fp = cfp as! MFBWebServiceSvc_CustomFlightProperty
-                    if fp.propTypeID.intValue == PropTypeID.blockIn.rawValue || fp.propTypeID.intValue == PropTypeID.blockOut.rawValue || fp.propTypeID.intValue == PropTypeID.flightNum.rawValue {
+                    if handledProps.contains(fp.propTypeID.intValue) {
                         continue
                     }
                     attrString.append(fp.formatForDisplay(dimmedColor, valueColor: textColor, labelFont: baseFont, valueFont: boldFont))
