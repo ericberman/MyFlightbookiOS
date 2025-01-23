@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2010-2024 MyFlightbook, LLC
+ Copyright (C) 2010-2025 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -78,7 +78,7 @@ public class RecentFlightCell : UITableViewCell {
         }
     }
     
-    func attributedUTCDateRange(_ label : String, start dtStart : Date?, end dtEnd : Date?, font : UIFont) -> AttributedString {
+    func attributedUTCDateRange(_ label : String, start dtStart : Date?, end dtEnd : Date?, font : UIFont, boldFont : UIFont) -> AttributedString {
         let textColor = UIColor.label
         let dimmedColor = UIColor.secondaryLabel
         
@@ -91,7 +91,7 @@ public class RecentFlightCell : UITableViewCell {
             
             var attrString = AttributedString(label, attributes: AttributeContainer([.font : font, .foregroundColor : dimmedColor]))
             attrString.append(AttributedString(" \(dtStart!.utcString(useLocalTime: UserPreferences.current.UseLocalTime)) - \(dtEnd!.utcString(useLocalTime: UserPreferences.current.UseLocalTime))\(szInterval) ",
-                                               attributes: AttributeContainer([.font : font, .foregroundColor : textColor])))
+                                               attributes: AttributeContainer([.font : boldFont, .foregroundColor : textColor])))
             return attrString;
         }
     }
@@ -109,7 +109,7 @@ public class RecentFlightCell : UITableViewCell {
 
             let elapsed = NSNumber(value: endVal - startVal)
             let elapsedString = "\(start!.formatAs(Type: .Decimal, inHHMM: false, useGrouping: true)) - \(end!.formatAs(Type: .Decimal, inHHMM: false, useGrouping: true)) (\(elapsed.formatAs(Type: .Decimal, inHHMM: false, useGrouping: true))) "
-            attrString.append(AttributedString(elapsedString, attributes: AttributeContainer([.foregroundColor : textColor])))
+            attrString.append(AttributedString(elapsedString, attributes: AttributeContainer([.foregroundColor : textColor, .font : boldFont])))
         } else {
             attrString.append(attributedLabel(labelStart, value: start, font: boldFont, inHHMM: false, numType: .Decimal))
             attrString.append(attributedLabel(labelEnd, value: end, font: boldFont, inHHMM: false, numType: .Decimal))
@@ -249,11 +249,11 @@ public class RecentFlightCell : UITableViewCell {
                 let blockIn = le.getExistingProperty(.blockIn)
                 
                 if blockIn?.dateValue != nil && blockOut?.dateValue != nil {
-                    attrString.append(attributedUTCDateRange(String(localized: "Block Time", comment: "Auto-fill total based on block time"), start: blockOut!.dateValue, end: blockIn!.dateValue, font: baseFont))
+                    attrString.append(attributedUTCDateRange(String(localized: "Block Time", comment: "Auto-fill total based on block time"), start: blockOut!.dateValue, end: blockIn!.dateValue, font: baseFont, boldFont: boldFont))
                 }
                 
-                attrString.append(attributedUTCDateRange(String(localized: "Engine Time", comment: "Auto-fill based on engine time"), start: le.engineStart, end: le.engineEnd, font: baseFont))
-                attrString.append(attributedUTCDateRange(String(localized: "Flight Time", comment: "Auto-fill based on time in the air"), start: le.flightStart, end: le.flightEnd, font: baseFont))
+                attrString.append(attributedUTCDateRange(String(localized: "Engine Time", comment: "Auto-fill based on engine time"), start: le.engineStart, end: le.engineEnd, font: baseFont, boldFont: boldFont))
+                attrString.append(attributedUTCDateRange(String(localized: "Flight Time", comment: "Auto-fill based on time in the air"), start: le.flightStart, end: le.flightEnd, font: baseFont, boldFont: boldFont))
                 
                 let spacer = AttributedString(" ")
                 
