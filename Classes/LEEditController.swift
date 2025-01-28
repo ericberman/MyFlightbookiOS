@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2009-2024 MyFlightbook, LLC
+ Copyright (C) 2009-2025 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -255,6 +255,10 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
         super.viewWillDisappear(animated)
         tableView.endEditing(true)
         initLEFromForm()
+        // Issue #351 - need to distill the properties
+        let rgAllProps = flightProps.crossProduct(le.entryData.customProperties.customFlightProperty as! [MFBWebServiceSvc_CustomFlightProperty])
+        le.entryData.customProperties.setProperties(flightProps.distillList(rgAllProps as? [MFBWebServiceSvc_CustomFlightProperty], includeLockedProps:false, includeTemplates: nil))
+
         navigationController?.isToolbarHidden = true
         dictPropCells.removeAll()
         saveState()
