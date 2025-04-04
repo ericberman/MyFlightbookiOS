@@ -255,9 +255,6 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
         super.viewWillDisappear(animated)
         tableView.endEditing(true)
         initLEFromForm()
-        // Issue #351 - need to distill the properties
-        let rgAllProps = flightProps.crossProduct(le.entryData.customProperties.customFlightProperty as! [MFBWebServiceSvc_CustomFlightProperty])
-        le.entryData.customProperties.setProperties(flightProps.distillList(rgAllProps as? [MFBWebServiceSvc_CustomFlightProperty], includeLockedProps:false, includeTemplates: nil))
 
         navigationController?.isToolbarHidden = true
         dictPropCells.removeAll()
