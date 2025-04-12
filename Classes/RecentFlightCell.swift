@@ -261,7 +261,8 @@ public class RecentFlightCell : UITableViewCell {
                 
                 for cfp in le.customProperties.customFlightProperty {
                     let fp = cfp as! MFBWebServiceSvc_CustomFlightProperty
-                    if handledProps.contains(fp.propTypeID.intValue) {
+                    let cpt = FlightProps.propTypeFromID(fp.propTypeID.intValue)
+                    if handledProps.contains(fp.propTypeID.intValue) || (cpt != nil && fp.isDefaultForType(cpt!)) {
                         continue
                     }
                     attrString.append(fp.formatForDisplay(dimmedColor, valueColor: textColor, labelFont: baseFont, valueFont: boldFont))
