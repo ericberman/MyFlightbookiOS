@@ -60,6 +60,7 @@ import Foundation
     @objc public var szAuthToken : String? = nil
     @objc public var errorString = ""
     @objc public var gpxPath : String? = nil
+    @objc public var issues : [String] = []
     
     @objc public var progressLabel : UILabel? = nil
 
@@ -502,6 +503,9 @@ import Foundation
                 pf.pendingID.compare(szPending) == .orderedSame
             }!
             retVal = true
+        } else if let resp = body as? MFBWebServiceSvc_CheckFlightResponse {
+            issues = resp.checkFlightResult.string as? [String] ?? []
+            retVal = true
         } else  if body is MFBWebServiceSvc_CreatePendingFlightResponse {
             // Nothing to do here, really; flights will be picked up in a subsequent call
             retVal = true
@@ -552,6 +556,18 @@ import Foundation
 
         sc.makeCallAsync { b, sc in
             b.deleteLogbookEntryAsync(usingParameters: de, delegate: sc)
+        }
+    }
+    
+    @objc public func checkFlight() {
+        NSLog("checkFlight called")
+        let sc = MFBSoapCall()
+        sc.delegate = self
+        let cf = MFBWebServiceSvc_CheckFlight()
+        cf.szAuthUserToken = MFBProfile.sharedProfile.AuthToken
+        cf.le = entryData
+        sc.makeCallAsync { b, sc in
+            b.checkFlightAsync(usingParameters: cf, delegate: sc)
         }
     }
     

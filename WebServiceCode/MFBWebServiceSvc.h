@@ -71,6 +71,8 @@
 @class MFBWebServiceSvc_ArrayOfLatLong;
 @class MFBWebServiceSvc_FlightPathForFlightGPX;
 @class MFBWebServiceSvc_FlightPathForFlightGPXResponse;
+@class MFBWebServiceSvc_CheckFlight;
+@class MFBWebServiceSvc_CheckFlightResponse;
 @class MFBWebServiceSvc_CreatePendingFlight;
 @class MFBWebServiceSvc_CreatePendingFlightResponse;
 @class MFBWebServiceSvc_ArrayOfPendingFlight;
@@ -2097,6 +2099,46 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
+@interface MFBWebServiceSvc_CheckFlight : NSObject <NSCoding, NSSecureCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	NSString * szAuthUserToken;
+	MFBWebServiceSvc_LogbookEntry * le;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_CheckFlight *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (strong) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, strong) NSString * szAuthUserToken;
+@property (nonatomic, strong) MFBWebServiceSvc_LogbookEntry * le;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_CheckFlightResponse : NSObject <NSCoding, NSSecureCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	MFBWebServiceSvc_ArrayOfString * CheckFlightResult;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_CheckFlightResponse *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (strong) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, strong) MFBWebServiceSvc_ArrayOfString * CheckFlightResult;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
 @interface MFBWebServiceSvc_CreatePendingFlight : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
@@ -3186,6 +3228,7 @@ SOAPSigner *soapSigner;
 - (void)CommitFlightWithOptionsAsyncUsingParameters:(MFBWebServiceSvc_CommitFlightWithOptions *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (void)FlightPathForFlightAsyncUsingParameters:(MFBWebServiceSvc_FlightPathForFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (void)FlightPathForFlightGPXAsyncUsingParameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
+- (void)CheckFlightAsyncUsingParameters:(MFBWebServiceSvc_CheckFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (void)CreatePendingFlightAsyncUsingParameters:(MFBWebServiceSvc_CreatePendingFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (void)PendingFlightsForUserAsyncUsingParameters:(MFBWebServiceSvc_PendingFlightsForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (void)UpdatePendingFlightAsyncUsingParameters:(MFBWebServiceSvc_UpdatePendingFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
@@ -3357,6 +3400,14 @@ SOAPSigner *soapSigner;
 @property (nonatomic, strong) MFBWebServiceSvc_FlightPathForFlightGPX * parameters;
 - (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)aDelegate
 	parameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters
+;
+@end
+@interface MFBWebServiceSoapBinding_CheckFlight : MFBWebServiceSoapBindingOperation {
+	MFBWebServiceSvc_CheckFlight * parameters;
+}
+@property (nonatomic, strong) MFBWebServiceSvc_CheckFlight * parameters;
+- (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_CheckFlight *)aParameters
 ;
 @end
 @interface MFBWebServiceSoapBinding_CreatePendingFlight : MFBWebServiceSoapBindingOperation {
@@ -3587,6 +3638,7 @@ SOAPSigner *soapSigner;
 - (void)CommitFlightWithOptionsAsyncUsingParameters:(MFBWebServiceSvc_CommitFlightWithOptions *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (void)FlightPathForFlightAsyncUsingParameters:(MFBWebServiceSvc_FlightPathForFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (void)FlightPathForFlightGPXAsyncUsingParameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
+- (void)CheckFlightAsyncUsingParameters:(MFBWebServiceSvc_CheckFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (void)CreatePendingFlightAsyncUsingParameters:(MFBWebServiceSvc_CreatePendingFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (void)PendingFlightsForUserAsyncUsingParameters:(MFBWebServiceSvc_PendingFlightsForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (void)UpdatePendingFlightAsyncUsingParameters:(MFBWebServiceSvc_UpdatePendingFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
@@ -3758,6 +3810,14 @@ SOAPSigner *soapSigner;
 @property (nonatomic, strong) MFBWebServiceSvc_FlightPathForFlightGPX * parameters;
 - (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)aDelegate
 	parameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters
+;
+@end
+@interface MFBWebServiceSoap12Binding_CheckFlight : MFBWebServiceSoap12BindingOperation {
+	MFBWebServiceSvc_CheckFlight * parameters;
+}
+@property (nonatomic, strong) MFBWebServiceSvc_CheckFlight * parameters;
+- (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_CheckFlight *)aParameters
 ;
 @end
 @interface MFBWebServiceSoap12Binding_CreatePendingFlight : MFBWebServiceSoap12BindingOperation {

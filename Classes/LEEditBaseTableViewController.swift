@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2009-2024 MyFlightbook, LLC
+ Copyright (C) 2009-2025 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -306,6 +306,20 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
         submitFlightInternal(asPending: true)
     }
     
+    func checkFlight(_ sender : Any) {
+        tableView.endEditing(true)
+        initLEFromForm()
+
+        le.setDelegate(self) { sc, ao in
+            let issues = self.le.issues
+            if (issues.count == 0) {
+                WPSAlertController.presentOkayAlertWithTitle("", message: String(localized: "flightActionCheckFlightNoIssues", comment: "Flight Action - check flight, no issues found"))
+            }
+            self.reload()
+        }
+        le.checkFlight()
+    }
+    
     // MARK: - Binding data to UI
     public func initLEFromForm() {
         let entryData = le.entryData
@@ -482,6 +496,12 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
                     self.le.entryData.shareFlight(sender, fromViewController: self)
                 })
             }
+        }
+        
+        if MFBNetworkManager.shared.isOnLine {
+            uac.addAction(UIAlertAction(title: String(localized: "flightActionCheckFlight", comment: "Flight Action - check flight"), style:.default) { aa in
+                self.checkFlight(sender)
+            })
         }
 
         uac.addAction(UIAlertAction(title: String(localized: "Cancel", comment: "Cancel (button)"), style:.cancel) { aa in

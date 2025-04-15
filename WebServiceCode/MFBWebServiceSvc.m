@@ -19798,6 +19798,356 @@ NSString * MFBWebServiceSvc_SignatureState_stringFromEnum(MFBWebServiceSvc_Signa
 	return YES;
 }
 @end
+@implementation MFBWebServiceSvc_CheckFlight
+@synthesize soapSigner;
+- (id)init
+{
+	if((self = [super init])) {
+		szAuthUserToken = 0;
+		le = 0;
+	}
+	
+	return self;
+}
+- (NSString *)nsPrefix
+{
+	return @"MFBWebServiceSvc";
+}
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
+{
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"MFBWebServiceSvc", elName];
+	}
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
+	
+	[self addAttributesToNode:node];
+	
+	[self addElementsToNode:node];
+	
+	return node;
+}
+- (void)addAttributesToNode:(xmlNodePtr)node
+{
+	
+}
+- (void)addElementsToNode:(xmlNodePtr)node
+{
+	
+	if(((__bridge void *)self.szAuthUserToken) != 0) {
+		xmlAddChild(node, [self.szAuthUserToken xmlNodeForDoc:node->doc elementName:@"szAuthUserToken" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
+	if(((__bridge void *)self.le) != 0) {
+		xmlAddChild(node, [self.le xmlNodeForDoc:node->doc elementName:@"le" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
+}
+/* elements */
+@synthesize szAuthUserToken;
+@synthesize le;
+/* attributes */
+- (NSDictionary *)attributes
+{
+	NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+	
+	return attributes;
+}
++ (MFBWebServiceSvc_CheckFlight *)deserializeNode:(xmlNodePtr)cur
+{
+	MFBWebServiceSvc_CheckFlight *newObject = [MFBWebServiceSvc_CheckFlight new];
+	
+	[newObject deserializeAttributesFromNode:cur];
+	[newObject deserializeElementsFromNode:cur];
+	
+	return newObject;
+}
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur
+{
+}
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur
+{
+	
+	
+	for( cur = cur->children ; cur != NULL ; cur = cur->next ) {
+		if(cur->type == XML_ELEMENT_NODE) {
+			xmlChar *elementText = xmlNodeListGetString(cur->doc, cur->children, 1);
+			NSString *elementString = nil;
+			
+			if(elementText != NULL) {
+				elementString = [NSString stringWithCString:(char*)elementText encoding:NSUTF8StringEncoding];
+				[elementString self]; // avoid compiler warning for unused var
+				xmlFree(elementText);
+			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "szAuthUserToken")) {
+				
+				Class elementClass = nil;
+				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if(instanceType == NULL) {
+					elementClass = [NSString class];
+				} else {
+					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
+					
+					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
+					
+					NSString *elementClassString = nil;
+					if([elementTypeArray count] > 1) {
+						NSString *prefix = [elementTypeArray objectAtIndex:0];
+						NSString *localName = [elementTypeArray objectAtIndex:1];
+						
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
+						
+						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
+						
+						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
+					} else {
+						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
+					}
+					
+					elementClass = NSClassFromString(elementClassString);
+					xmlFree(instanceType);
+				}
+				
+				id newChild = [elementClass deserializeNode:cur];
+				
+				self.szAuthUserToken = newChild;
+			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "le")) {
+				
+				Class elementClass = nil;
+				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if(instanceType == NULL) {
+					elementClass = [MFBWebServiceSvc_LogbookEntry class];
+				} else {
+					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
+					
+					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
+					
+					NSString *elementClassString = nil;
+					if([elementTypeArray count] > 1) {
+						NSString *prefix = [elementTypeArray objectAtIndex:0];
+						NSString *localName = [elementTypeArray objectAtIndex:1];
+						
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
+						
+						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
+						
+						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
+					} else {
+						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
+					}
+					
+					elementClass = NSClassFromString(elementClassString);
+					xmlFree(instanceType);
+				}
+				
+				id newChild = [elementClass deserializeNode:cur];
+				
+				self.le = newChild;
+			}
+		}
+	}
+}
+/* NSCoder functions taken from:
+ * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
+ */
+- (id) initWithCoder:(NSCoder *)decoder {
+	self = [super init];
+	if (self == nil) { return nil; }
+ 
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
+	}
+}
+- (void) encodeWithCoder:(NSCoder *)encoder {
+	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
+		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
+	}
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+	}
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
+@end
+@implementation MFBWebServiceSvc_CheckFlightResponse
+@synthesize soapSigner;
+- (id)init
+{
+	if((self = [super init])) {
+		CheckFlightResult = 0;
+	}
+	
+	return self;
+}
+- (NSString *)nsPrefix
+{
+	return @"MFBWebServiceSvc";
+}
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
+{
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"MFBWebServiceSvc", elName];
+	}
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
+	
+	[self addAttributesToNode:node];
+	
+	[self addElementsToNode:node];
+	
+	return node;
+}
+- (void)addAttributesToNode:(xmlNodePtr)node
+{
+	
+}
+- (void)addElementsToNode:(xmlNodePtr)node
+{
+	
+	if(((__bridge void *)self.CheckFlightResult) != 0) {
+		xmlAddChild(node, [self.CheckFlightResult xmlNodeForDoc:node->doc elementName:@"CheckFlightResult" elementNSPrefix:@"MFBWebServiceSvc"]);
+	}
+}
+/* elements */
+@synthesize CheckFlightResult;
+/* attributes */
+- (NSDictionary *)attributes
+{
+	NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+	
+	return attributes;
+}
++ (MFBWebServiceSvc_CheckFlightResponse *)deserializeNode:(xmlNodePtr)cur
+{
+	MFBWebServiceSvc_CheckFlightResponse *newObject = [MFBWebServiceSvc_CheckFlightResponse new];
+	
+	[newObject deserializeAttributesFromNode:cur];
+	[newObject deserializeElementsFromNode:cur];
+	
+	return newObject;
+}
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur
+{
+}
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur
+{
+	
+	
+	for( cur = cur->children ; cur != NULL ; cur = cur->next ) {
+		if(cur->type == XML_ELEMENT_NODE) {
+			xmlChar *elementText = xmlNodeListGetString(cur->doc, cur->children, 1);
+			NSString *elementString = nil;
+			
+			if(elementText != NULL) {
+				elementString = [NSString stringWithCString:(char*)elementText encoding:NSUTF8StringEncoding];
+				[elementString self]; // avoid compiler warning for unused var
+				xmlFree(elementText);
+			}
+			if(xmlStrEqual(cur->name, (const xmlChar *) "CheckFlightResult")) {
+				
+				Class elementClass = nil;
+				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				if(instanceType == NULL) {
+					elementClass = [MFBWebServiceSvc_ArrayOfString class];
+				} else {
+					NSString *elementTypeString = [NSString stringWithCString:(char*)instanceType encoding:NSUTF8StringEncoding];
+					
+					NSArray *elementTypeArray = [elementTypeString componentsSeparatedByString:@":"];
+					
+					NSString *elementClassString = nil;
+					if([elementTypeArray count] > 1) {
+						NSString *prefix = [elementTypeArray objectAtIndex:0];
+						NSString *localName = [elementTypeArray objectAtIndex:1];
+						
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
+						
+						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
+						
+						elementClassString = [NSString stringWithFormat:@"%@_%@", standardPrefix, localName];
+					} else {
+						elementClassString = [elementTypeString stringByReplacingOccurrencesOfString:@":" withString:@"_" options:0 range:NSMakeRange(0, [elementTypeString length])];
+					}
+					
+					elementClass = NSClassFromString(elementClassString);
+					xmlFree(instanceType);
+				}
+				
+				id newChild = [elementClass deserializeNode:cur];
+				
+				self.CheckFlightResult = newChild;
+			}
+		}
+	}
+}
+/* NSCoder functions taken from:
+ * http://davedelong.com/blog/2009/04/13/aspect-oriented-programming-objective-c
+ */
+- (id) initWithCoder:(NSCoder *)decoder {
+	self = [super init];
+	if (self == nil) { return nil; }
+ 
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for(int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [decoder decodeObjectForKey:key];
+			if (value == nil) { value = [NSNumber numberWithFloat:0.0]; }
+			[self setValue:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+		return self;
+	}
+}
+- (void) encodeWithCoder:(NSCoder *)encoder {
+	if ([super respondsToSelector:@selector(encodeWithCoder:)] && ![self isKindOfClass:[super class]]) {
+		[super performSelector:@selector(encodeWithCoder:) withObject:encoder];
+	}
+	@autoreleasepool {
+		unsigned int numIvars = 0;
+		Ivar * ivars = class_copyIvarList([self class], &numIvars);
+		for (int i = 0; i < numIvars; i++) {
+			Ivar thisIvar = ivars[i];
+			NSString * key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+			id value = [self valueForKey:key];
+			[encoder encodeObject:value forKey:key];
+		}
+		if (numIvars > 0) { free(ivars); }
+	}
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
+@end
 @implementation MFBWebServiceSvc_CreatePendingFlight
 @synthesize soapSigner;
 - (id)init
@@ -28937,6 +29287,12 @@ NSString * MFBWebServiceSvc_MembershipCreateStatus_stringFromEnum(MFBWebServiceS
 																							 parameters:aParameters
 																							 ]];
 }
+- (void)CheckFlightAsyncUsingParameters:(MFBWebServiceSvc_CheckFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
+{
+	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_CheckFlight*)[MFBWebServiceSoapBinding_CheckFlight alloc] initWithBinding:self delegate:responseDelegate
+																							 parameters:aParameters
+																							 ]];
+}
 - (void)CreatePendingFlightAsyncUsingParameters:(MFBWebServiceSvc_CreatePendingFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoapBinding_CreatePendingFlight*)[MFBWebServiceSoapBinding_CreatePendingFlight alloc] initWithBinding:self delegate:responseDelegate
@@ -30826,6 +31182,104 @@ parameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters
 							if(cur->type == XML_ELEMENT_NODE) {
 								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "FlightPathForFlightGPXResponse")) {
 									MFBWebServiceSvc_FlightPathForFlightGPXResponse *bodyObject = [MFBWebServiceSvc_FlightPathForFlightGPXResponse deserializeNode:bodyNode];
+									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
+									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
+								}
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
+									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
+									NSDictionary *exceptions = [NSDictionary dictionary];
+									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
+									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
+									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
+								}
+							}
+						}
+						
+						response.bodyParts = responseBodyParts;
+					}
+				}
+			}
+			
+			xmlFreeDoc(doc);
+		}
+		
+		xmlCleanupParser();
+		[delegate operation:self completedWithResponse:response];
+	}
+}
+@end
+@implementation MFBWebServiceSoapBinding_CheckFlight
+@synthesize parameters;
+- (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate
+parameters:(MFBWebServiceSvc_CheckFlight *)aParameters
+{
+	if((self = [super initWithBinding:aBinding delegate:responseDelegate])) {
+		self.parameters = aParameters;
+	}
+	
+	return self;
+}
+- (void)main
+{
+	response = [MFBWebServiceSoapBindingResponse new];
+	
+	MFBWebServiceSoapBinding_envelope *envelope = [MFBWebServiceSoapBinding_envelope sharedInstance];
+	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
+	NSMutableDictionary *bodyElements = nil;
+	NSMutableArray *bodyKeys = nil;
+	bodyElements = [NSMutableDictionary dictionary];
+	bodyKeys = [NSMutableArray array];
+	id obj = nil;
+	if(parameters != nil) obj = parameters;
+	if(obj != nil) {
+		[bodyElements setObject:obj forKey:@"CheckFlight"];
+		[bodyKeys addObject:@"CheckFlight"];
+	}
+	
+	NSString *operationXMLString = [envelope serializedFormUsingHeaderElements:headerElements bodyElements:bodyElements bodyKeys:bodyKeys];
+	operationXMLString = binding.soapSigner ? [binding.soapSigner signRequest:operationXMLString] : operationXMLString;
+	
+	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/CheckFlight" forOperation:self];
+}
+- (void)connectionDidFinishLoading
+{
+	if (responseData != nil && delegate != nil)
+	{
+		xmlDocPtr doc;
+		xmlNodePtr cur;
+		
+		if (binding.logXMLInOut) {
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
+		}
+		
+#if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
+	// Not yet defined in 10.5 libxml
+	#define XML_PARSE_COMPACT 0
+#endif
+    // EricBe: Put explicit conversion since [responseData length] is NSInteger but xmlReadMemory wants int.
+	doc = xmlReadMemory([responseData bytes], (int) [responseData length], NULL, NULL, XML_PARSE_COMPACT | XML_PARSE_NOBLANKS);
+		
+		if (doc == NULL) {
+			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Errors while parsing returned XML" forKey:NSLocalizedDescriptionKey];
+			
+			response.error = [NSError errorWithDomain:@"MFBWebServiceSoapBindingResponseXML" code:1 userInfo:userInfo];
+			[delegate operation:self completedWithResponse:response];
+		} else {
+			cur = xmlDocGetRootElement(doc);
+			cur = cur->children;
+			
+			for( ; cur != NULL ; cur = cur->next) {
+				if(cur->type == XML_ELEMENT_NODE) {
+					
+					if(xmlStrEqual(cur->name, (const xmlChar *) "Body")) {
+						NSMutableArray *responseBodyParts = [NSMutableArray array];
+						
+						xmlNodePtr bodyNode;
+						for(bodyNode=cur->children ; bodyNode != NULL ; bodyNode = bodyNode->next) {
+							if(cur->type == XML_ELEMENT_NODE) {
+								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "CheckFlightResponse")) {
+									MFBWebServiceSvc_CheckFlightResponse *bodyObject = [MFBWebServiceSvc_CheckFlightResponse deserializeNode:bodyNode];
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
@@ -33047,6 +33501,12 @@ static MFBWebServiceSoapBinding_envelope *MFBWebServiceSoapBindingSharedEnvelope
 																							 parameters:aParameters
 																							 ]];
 }
+- (void)CheckFlightAsyncUsingParameters:(MFBWebServiceSvc_CheckFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
+{
+	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_CheckFlight*)[MFBWebServiceSoap12Binding_CheckFlight alloc] initWithBinding:self delegate:responseDelegate
+																							 parameters:aParameters
+																							 ]];
+}
 - (void)CreatePendingFlightAsyncUsingParameters:(MFBWebServiceSvc_CreatePendingFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
 {
 	[self performAsynchronousOperation: [(MFBWebServiceSoap12Binding_CreatePendingFlight*)[MFBWebServiceSoap12Binding_CreatePendingFlight alloc] initWithBinding:self delegate:responseDelegate
@@ -34936,6 +35396,104 @@ parameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters
 							if(cur->type == XML_ELEMENT_NODE) {
 								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "FlightPathForFlightGPXResponse")) {
 									MFBWebServiceSvc_FlightPathForFlightGPXResponse *bodyObject = [MFBWebServiceSvc_FlightPathForFlightGPXResponse deserializeNode:bodyNode];
+									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
+									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
+								}
+								if ((bodyNode->ns != nil && xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix)) &&
+									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
+									NSDictionary *exceptions = [NSDictionary dictionary];
+									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode expectedExceptions:exceptions];
+									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
+									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
+								}
+							}
+						}
+						
+						response.bodyParts = responseBodyParts;
+					}
+				}
+			}
+			
+			xmlFreeDoc(doc);
+		}
+		
+		xmlCleanupParser();
+		[delegate operation:self completedWithResponse:response];
+	}
+}
+@end
+@implementation MFBWebServiceSoap12Binding_CheckFlight
+@synthesize parameters;
+- (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate
+parameters:(MFBWebServiceSvc_CheckFlight *)aParameters
+{
+	if((self = [super initWithBinding:aBinding delegate:responseDelegate])) {
+		self.parameters = aParameters;
+	}
+	
+	return self;
+}
+- (void)main
+{
+	response = [MFBWebServiceSoap12BindingResponse new];
+	
+	MFBWebServiceSoap12Binding_envelope *envelope = [MFBWebServiceSoap12Binding_envelope sharedInstance];
+	
+	NSMutableDictionary * headerElements = [NSMutableDictionary dictionary];
+	NSMutableDictionary *bodyElements = nil;
+	NSMutableArray *bodyKeys = nil;
+	bodyElements = [NSMutableDictionary dictionary];
+	bodyKeys = [NSMutableArray array];
+	id obj = nil;
+	if(parameters != nil) obj = parameters;
+	if(obj != nil) {
+		[bodyElements setObject:obj forKey:@"CheckFlight"];
+		[bodyKeys addObject:@"CheckFlight"];
+	}
+	
+	NSString *operationXMLString = [envelope serializedFormUsingHeaderElements:headerElements bodyElements:bodyElements bodyKeys:bodyKeys];
+	operationXMLString = binding.soapSigner ? [binding.soapSigner signRequest:operationXMLString] : operationXMLString;
+	
+	[binding sendHTTPCallUsingBody:operationXMLString soapAction:@"http://myflightbook.com/CheckFlight" forOperation:self];
+}
+- (void)connectionDidFinishLoading
+{
+	if (responseData != nil && delegate != nil)
+	{
+		xmlDocPtr doc;
+		xmlNodePtr cur;
+		
+		if (binding.logXMLInOut) {
+			NSLog(@"ResponseBody:\n%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
+		}
+		
+#if !TARGET_OS_IPHONE && (!defined(MAC_OS_X_VERSION_10_6) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6)
+	// Not yet defined in 10.5 libxml
+	#define XML_PARSE_COMPACT 0
+#endif
+    // EricBe: Put explicit conversion since [responseData length] is NSInteger but xmlReadMemory wants int.
+	doc = xmlReadMemory([responseData bytes], (int) [responseData length], NULL, NULL, XML_PARSE_COMPACT | XML_PARSE_NOBLANKS);
+		
+		if (doc == NULL) {
+			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Errors while parsing returned XML" forKey:NSLocalizedDescriptionKey];
+			
+			response.error = [NSError errorWithDomain:@"MFBWebServiceSoap12BindingResponseXML" code:1 userInfo:userInfo];
+			[delegate operation:self completedWithResponse:response];
+		} else {
+			cur = xmlDocGetRootElement(doc);
+			cur = cur->children;
+			
+			for( ; cur != NULL ; cur = cur->next) {
+				if(cur->type == XML_ELEMENT_NODE) {
+					
+					if(xmlStrEqual(cur->name, (const xmlChar *) "Body")) {
+						NSMutableArray *responseBodyParts = [NSMutableArray array];
+						
+						xmlNodePtr bodyNode;
+						for(bodyNode=cur->children ; bodyNode != NULL ; bodyNode = bodyNode->next) {
+							if(cur->type == XML_ELEMENT_NODE) {
+								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "CheckFlightResponse")) {
+									MFBWebServiceSvc_CheckFlightResponse *bodyObject = [MFBWebServiceSvc_CheckFlightResponse deserializeNode:bodyNode];
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}

@@ -51,14 +51,14 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
     private let dfSunriseSunset = DateFormatter()
 
     enum leSection : Int, CaseIterable {
-        case sectGeneral = 0, sectInCockpit, sectTimes, sectProperties, sectSignature, sectImages, sectSharing
+        case sectGeneral = 0, sectInCockpit, sectTimes, sectProperties, sectSignature, sectImages, sectSharing, sectIssues
     }
     
     enum  leRow : Int, CaseIterable {
         case rowDateTail = 0, rowComments, rowRoute, rowLandings,
         rowCockpitHeader, rowGPS, rowTachStart, rowHobbsStart, rowEngineStart, rowBlockOut, rowFlightStart, rowFlightEnd, rowBlockIn, rowEngineEnd, rowHobbsEnd, rowTachEnd,
         rowTimes, rowPropertiesHeader, rowNthProperty, rowAddProperties, rowSigHeader, rowSigState, rowSigComment, rowSigValidity,
-        rowImagesHeader, rowNthImage, rowSharingHeader, rowSharing
+        rowImagesHeader, rowNthImage, rowSharingHeader, rowSharing, rowNthIssue
     }
     
     enum nextTime : Int, CaseIterable {
@@ -143,7 +143,6 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
         if le.rgPicsForFlight.count > 0 {
             expandedSections.insert(leSection.sectImages.rawValue)
         }
-        
         if le.entryData.isNewFlight() {
             if !UserDefaults.standard.bool(forKey: _szkeyITCCollapseState) {
                 
@@ -531,13 +530,20 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
             return .rowTimes
         case .sectSignature:
             return leRow(rawValue: leRow.rowSigHeader.rawValue + row)!
+        case .sectIssues:
+            return .rowNthIssue
         case .none:
             fatalError("Invalid section \(ip.section) passed to cellIDFromIndexPath")
         }
     }
     
     public override func numberOfSections(in tableView: UITableView) -> Int {
-        return leSection.allCases.count
+        let issueAdjust = if le.issues.isEmpty {
+            -1
+        } else {
+            0
+        }
+        return leSection.allCases.count + issueAdjust
     }
     
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -556,14 +562,21 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
             return 1
         case .sectSignature:
             return le.entryData.isSigned() ? (isExpanded(leSection.sectSignature.rawValue) ? rowSigLast - rowSigFirst + 1 : 1) : 0
+        case .sectIssues:
+            return le.issues.count
         default:
             return 0
         }
     }
     
     public override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section == leSection.sectSignature.rawValue ?
-        (le.entryData.cfiSignatureState == MFBWebServiceSvc_SignatureState_None ? nil : "") : ""
+        if section == leSection.sectSignature.rawValue {
+            return le.entryData.cfiSignatureState == MFBWebServiceSvc_SignatureState_None ? nil : ""
+        } else if section == leSection.sectIssues.rawValue {
+            return String(localized: "flightActionCheckFlightsPotentialIssues", comment: "Header for results of check flight")
+        } else {
+            return ""
+        }
     }
     
     @objc func hobbsChanged(_ sender : UITextField) {
@@ -604,6 +617,10 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
             return cell
         case .rowSigHeader:
             return ExpandHeaderCell.getHeaderCell(tableView, withTitle:String(localized: "sigHeader", comment: "Signature Section Title"), forSection:leSection.sectSignature.rawValue, initialState:true)
+        case .rowNthIssue:
+            let cell = TextCell.getTextCell(tableView)
+            cell.txt.text = le.issues[indexPath.row]
+            return cell
         case .rowDateTail:
             return cellDateAndTail
         case .rowComments:
@@ -818,7 +835,7 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
             }
         }
     }
-    
+        
     public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let row = cellIDFromIndexPath(indexPath)
         let cell = tableView.cellForRow(at: indexPath)
