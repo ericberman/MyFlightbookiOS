@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2013-2023 MyFlightbook, LLC
+ Copyright (C) 2013-2025 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -35,14 +35,14 @@ import Foundation
     enum aircraftRow : Int, CaseIterable {
         case rowStaticDesc = 0, rowFavorite, rowPrefsHeader, rowRoleNone, rowRolePIC, rowRoleSIC, rowRoleCFI,
         rowNotesHeader, rowNotesPublic, rowNotesPrivate,
-        rowMaintHeader, rowAnnual, rowXPnder, rowPitot, rowAltimeter, rowELT, rowVOR, row100hr, rowOil, rowEngine, rowRegistration, rowMaintNotes,
+        rowMaintHeader, rowAnnual, rowXPnder, rowPitot, rowAltimeter, rowELT, rowVOR, row100hr, rowOil, rowEngine, rowRegistration, rowMaintNotes, rowMaintDeadlines,
         rowImageHeader
     }
     
     let rowPrefFirst = aircraftRow.rowPrefsHeader.rawValue
     let rowPrefLast = aircraftRow.rowRoleCFI.rawValue
     let rowMaintFirst = aircraftRow.rowMaintHeader.rawValue
-    let rowMaintLast = aircraftRow.rowMaintNotes.rawValue
+    let rowMaintLast = aircraftRow.rowMaintDeadlines.rawValue
     let rowNotesFirst = aircraftRow.rowNotesHeader.rawValue
     let rowNotesLast = aircraftRow.rowNotesPrivate.rawValue
 
@@ -320,6 +320,12 @@ import Foundation
             let tc = textCell("", prompt: String(localized: "MaintenanceNotes", comment: "Maintenance Notes"), placeholder: String(localized: "MaintenanceNotesPrompt", comment: "Maintenance Notes Prompt"), tableView: tableView)
             tc.txt.autocorrectionType = .no
             return tc
+        case .rowMaintDeadlines:
+            let cellID = "CustDeadlinesID"
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellID) ?? UITableViewCell(style: .subtitle, reuseIdentifier: cellID)
+            cell.textLabel?.text = String(localized: "MaintenanceDeadlines", comment: "Maintenance Deadlines")
+            cell.accessoryType = .disclosureIndicator
+            return cell
         case .rowFavorite:
             let cc = CheckboxCell.getButtonCell(tableView)
             cc.btn.setTitle(String(localized: "ShowAircraft", comment: "Aircraft - Show Aircraft"), for:[])
@@ -448,6 +454,10 @@ import Foundation
             (tableView.cellForRow(at: indexPath) as! EditCell).txt.becomeFirstResponder()
         case .rowMaintNotes:
             (tableView.cellForRow(at: indexPath) as! EditCell).txt.becomeFirstResponder()
+        case .rowMaintDeadlines:
+            let szURL = MFBProfile.sharedProfile.authRedirForUser(params: "d=DEADLINEEDIT&naked=1&id=\(ac.aircraftID.intValue)")
+            let vwWeb = HostedWebViewController(url: szURL)
+            navigationController?.pushViewController(vwWeb, animated: true)
         case .rowMaintHeader, .rowPrefsHeader, .rowNotesHeader:
             self.tableView.endEditing(true)
             toggleSection(indexPath.section)

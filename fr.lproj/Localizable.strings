@@ -975,6 +975,9 @@ Vous pouvez choisir un dans la liste fournie, le modifier, ou faire un de vos pr
 /* Maintenance Notes Prompt */
 "MaintenanceNotesPrompt" = "Par exemple, emplacement / type / erreur de vérification VOR";
 
+/* Maintenance Deadlines */
+"MaintenanceDeadlines" = "Délais personnalisés";
+
 /* Sign in and account Placeholder strings */
 /* E-Mail Placeholder */
 "E-Mail Placeholder" = "EMail";
