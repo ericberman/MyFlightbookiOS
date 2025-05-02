@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2009-2024 MyFlightbook, LLC
+ Copyright (C) 2009-2025 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -298,7 +298,7 @@ import Foundation
         var components = URLComponents()
         components.scheme = "https"
         components.host = MFBHOSTNAME
-        components.path = "/logbook/public/authredir.aspx"
+        components.path = "/logbook/mvc/auth/authredir"
         var queryItems = components.queryItems ?? []
         queryItems.append(URLQueryItem(name: "u", value: UserName))
         queryItems.append(URLQueryItem(name: "p", value: Password))
