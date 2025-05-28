@@ -58,7 +58,7 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
         case rowDateTail = 0, rowComments, rowRoute, rowLandings,
         rowCockpitHeader, rowGPS, rowTachStart, rowHobbsStart, rowEngineStart, rowBlockOut, rowFlightStart, rowFlightEnd, rowBlockIn, rowEngineEnd, rowHobbsEnd, rowTachEnd,
         rowTimes, rowPropertiesHeader, rowNthProperty, rowAddProperties, rowSigHeader, rowSigState, rowSigComment, rowSigValidity,
-        rowImagesHeader, rowNthImage, rowSharingHeader, rowSharing, rowNthIssue
+        rowImagesHeader, rowNthImage, rowSharingHeader, rowSharing, rowIssueHeader, rowNthIssue
     }
     
     enum nextTime : Int, CaseIterable {
@@ -156,6 +156,7 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
         }
         
         expandedSections.insert(leSection.sectSharing.rawValue)
+        expandedSections.insert(leSection.sectIssues.rawValue)
         
         
         /* Set up toolbar and submit buttons */
@@ -531,7 +532,7 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
         case .sectSignature:
             return leRow(rawValue: leRow.rowSigHeader.rawValue + row)!
         case .sectIssues:
-            return .rowNthIssue
+            return (row == 0) ? .rowIssueHeader : .rowNthIssue
         case .none:
             fatalError("Invalid section \(ip.section) passed to cellIDFromIndexPath")
         }
@@ -563,7 +564,7 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
         case .sectSignature:
             return le.entryData.isSigned() ? (isExpanded(leSection.sectSignature.rawValue) ? rowSigLast - rowSigFirst + 1 : 1) : 0
         case .sectIssues:
-            return le.issues.count
+            return isExpanded(leSection.sectIssues.rawValue) ? le.issues.count + 1 : 1
         default:
             return 0
         }
@@ -617,9 +618,11 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
             return cell
         case .rowSigHeader:
             return ExpandHeaderCell.getHeaderCell(tableView, withTitle:String(localized: "sigHeader", comment: "Signature Section Title"), forSection:leSection.sectSignature.rawValue, initialState:true)
+        case .rowIssueHeader:
+            return ExpandHeaderCell.getHeaderCell(tableView, withTitle: String(localized: "flightActionCheckFlightsPotentialIssues", comment: "Header for results of check flight"), forSection: leSection.sectIssues.rawValue, initialState: true)
         case .rowNthIssue:
             let cell = TextCell.getTextCell(tableView)
-            cell.txt.text = le.issues[indexPath.row]
+            cell.txt.text = le.issues[indexPath.row - 1]
             return cell
         case .rowDateTail:
             return cellDateAndTail
@@ -847,7 +850,7 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
             vwProps.delegate = self
             tableView.endEditing(true)
             pushOrPopView(target: vwProps, sender: cell!, delegate: self)
-        case .rowPropertiesHeader, .rowCockpitHeader, .rowImagesHeader, .rowSharingHeader, .rowSigHeader:
+        case .rowPropertiesHeader, .rowCockpitHeader, .rowImagesHeader, .rowSharingHeader, .rowSigHeader, .rowIssueHeader:
             toggleSection(indexPath.section)
             
             // preserve the state of ITC expansion

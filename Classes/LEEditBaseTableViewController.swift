@@ -312,10 +312,12 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
 
         le.setDelegate(self) { sc, ao in
             let issues = self.le.issues
+            self.reload()
             if (issues.count == 0) {
                 WPSAlertController.presentOkayAlertWithTitle("", message: String(localized: "flightActionCheckFlightNoIssues", comment: "Flight Action - check flight, no issues found"))
+            } else {
+                self.tableView.setContentOffset(CGPoint(x: 0, y: CGFloat.greatestFiniteMagnitude), animated: false)
             }
-            self.reload()
         }
         le.checkFlight()
     }
