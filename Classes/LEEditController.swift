@@ -1226,7 +1226,8 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
     
     @objc public func stopEngineExternal() {
         if !le.entryData.isKnownEngineEnd() {
-            le.entryData.engineEnd = Date()
+            // Issue #358 - need to truncate seconds at engine stop too
+            le.entryData.engineEnd = NSDate().dateByTruncatingSeconds()
             stopEngine()
             le.entryData.flightID = LogbookEntry.QUEUED_FLIGHT_UNSUBMITTED   // don't auto-submit this flight!
             MFBAppDelegate.threadSafeAppDelegate.queueFlightForLater(le)
@@ -1238,7 +1239,8 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
     
     @objc public func stopEngineExternalNoSubmit() {
         if !le.entryData.isKnownEngineEnd() {
-            le.entryData.engineEnd = Date()
+            // Issue #358 - need to truncate seconds at engine stop too
+            le.entryData.engineEnd = NSDate().dateByTruncatingSeconds()
             stopEngine()
         }
     }
