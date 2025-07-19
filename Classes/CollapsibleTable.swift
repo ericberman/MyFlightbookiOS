@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2013-2023 MyFlightbook, LLC
+ Copyright (C) 2013-2025 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -26,6 +26,7 @@
 
 import Foundation
 import Photos
+import PhotosUI
 
 /// Swift version of the CollapsibleTable class
 /// MUST coexist with CollapsibleTable during swift transition because it relies on Swift protocols/classes
@@ -35,7 +36,7 @@ import Photos
 /// So this will duplicate the objc class, and swift classes can inherit from this.
 /// We will do the same for pullrefreshtableviewcontroller
 
-public class CollapsibleTableSw : UITableViewController, UIImagePickerControllerDelegate, AccessoryBarDelegate, Invalidatable, UINavigationControllerDelegate, UIPopoverPresentationControllerDelegate {
+public class CollapsibleTableSw : UITableViewController, UIImagePickerControllerDelegate, PHPickerViewControllerDelegate, AccessoryBarDelegate, Invalidatable, UINavigationControllerDelegate, UIPopoverPresentationControllerDelegate {
     public var expandedSections : Set<Int> = []
     public var ipActive : IndexPath? = nil
     public var fIsValid = false
@@ -293,29 +294,40 @@ public class CollapsibleTableSw : UITableViewController, UIImagePickerController
         return UIImagePickerController.isSourceTypeAvailable(.camera)
     }
     
-    // TODO: Migrate to PHPicker from UIImagePicker?
     public func canUsePhotoLibrary() -> Bool {
         return UIImagePickerController.isSourceTypeAvailable(.photoLibrary)
     }
     
     func addImages(_ usingCamera : Bool, fromButton btn: UIBarButtonItem?) {
-        let imgView = UIImagePickerController()
-        imgView.delegate = self
-        
-        let fIsCameraAvailable = canUseCamera()
-        let fIsGalleryAvailable = canUsePhotoLibrary()
-        if usingCamera && !fIsCameraAvailable || !usingCamera && !fIsGalleryAvailable {
-            return
-        }
-        
-        imgView.sourceType = usingCamera && fIsCameraAvailable ? .camera : .photoLibrary
-        imgView.mediaTypes = UIImagePickerController.availableMediaTypes(for: imgView.sourceType) ?? []
-        
-        imgView.modalPresentationStyle = .popover
-        let ppc = imgView.popoverPresentationController
-        ppc?.barButtonItem = btn
-        ppc?.delegate = self
-        present(imgView, animated: true)
+        if usingCamera {
+                guard canUseCamera() else {
+                    // Show alert
+                    return
+                }
+                let imgPicker = UIImagePickerController()
+                imgPicker.delegate = self
+                imgPicker.sourceType = .camera
+                imgPicker.mediaTypes = ["public.image", "public.movie"]
+                imgPicker.modalPresentationStyle = .popover
+                if let ppc = imgPicker.popoverPresentationController {
+                    ppc.barButtonItem = btn
+                    ppc.delegate = self
+                }
+                present(imgPicker, animated: true)
+            } else {
+                guard canUsePhotoLibrary() else {
+                    // Show alert
+                    return
+                }
+
+                var config = PHPickerConfiguration()
+                config.selectionLimit = 0 // 0 means no limit
+                config.filter = .any(of: [.images, .videos])
+
+                let picker = PHPickerViewController(configuration: config)
+                picker.delegate = self
+                present(picker, animated: true)
+            }
     }
     
     @IBAction public func pickImages(_ sender : Any) {
@@ -386,6 +398,73 @@ public class CollapsibleTableSw : UITableViewController, UIImagePickerController
             stopPickingPictures()
         }
     }
+    
+    public func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+
+        for result in results {
+            let provider = result.itemProvider
+
+            if provider.hasItemConformingToTypeIdentifier(UTType.image.identifier) {
+                provider.loadFileRepresentation(forTypeIdentifier: UTType.image.identifier) { url, error in
+                        guard let fileURL = url else { return }
+
+                        // Copy it, because the original is temporary
+                        let tmpURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".jpg")
+                        try? FileManager.default.copyItem(at: fileURL, to: tmpURL)
+
+                        // Load EXIF metadata
+                        if let imageSource = CGImageSourceCreateWithURL(tmpURL as CFURL, nil),
+                           let imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, nil) as? [CFString: Any],
+                           let gps = imageProperties[kCGImagePropertyGPSDictionary] as? [CFString: Any],
+                           let lat = gps[kCGImagePropertyGPSLatitude] as? Double,
+                           let latRef = gps[kCGImagePropertyGPSLatitudeRef] as? String,
+                           let lon = gps[kCGImagePropertyGPSLongitude] as? Double,
+                           let lonRef = gps[kCGImagePropertyGPSLongitudeRef] as? String {
+
+                            let finalLat = latRef == "S" ? -lat : lat
+                            let finalLon = lonRef == "W" ? -lon : lon
+                            let location = CLLocation(latitude: finalLat, longitude: finalLon)
+
+                            DispatchQueue.main.async {
+                                let ci = CommentedImage()
+                                ci.imgInfo?.location = MFBWebServiceSvc_LatLong(coord: location.coordinate)
+                                if let uiImage = UIImage(contentsOfFile: tmpURL.path) {
+                                    ci.SetImage(uiImage, fromCamera: false, withMetaData: [:])
+                                    self.addImage(ci)
+                                    try? FileManager.default.removeItem(at: tmpURL)
+                                }
+                            }
+                        } else {
+                            // fallback: just load image without location
+                            DispatchQueue.main.async {
+                                let ci = CommentedImage()
+                                if let uiImage = UIImage(contentsOfFile: tmpURL.path) {
+                                    ci.SetImage(uiImage, fromCamera: false, withMetaData: [:])
+                                    self.addImage(ci)
+                                    try? FileManager.default.removeItem(at: tmpURL)
+                                }
+                            }
+                        }
+                    }
+            } else if provider.hasItemConformingToTypeIdentifier(UTType.movie.identifier) {
+                provider.loadFileRepresentation(forTypeIdentifier: UTType.movie.identifier) { url, error in
+                    guard let fileURL = url else { return }
+
+                    let tempURL = FileManager.default.temporaryDirectory.appendingPathComponent(fileURL.lastPathComponent)
+                    try? FileManager.default.copyItem(at: fileURL, to: tempURL)
+
+                    DispatchQueue.main.async {
+                        let ci = CommentedImage()
+                        ci.SetVideo(tempURL, fromCamera: false)
+                        self.addImage(ci)
+                    }
+                }
+            }
+        }
+    }
+
+
     
     public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         stopPickingPictures()
