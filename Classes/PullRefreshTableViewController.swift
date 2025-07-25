@@ -4,7 +4,7 @@
 //
 //  Created by Leah Culver on 7/2/10.
 //  Copyright (c) 2010 Leah Culver
-//  Adapted to swift (c) 2023 by Eric Berman
+//  Adapted to swift (c) 2023-2025 by Eric Berman
 //
 //  Permission is hereby granted, free of charge, to any person
 //  obtaining a copy of this software and associated documentation
@@ -56,6 +56,7 @@ public class PullRefreshTableViewControllerSW : CollapsibleTableSw {
     public override func viewDidLoad() {
         super.viewDidLoad()
         addPullToRefreshHeader()
+        tableView.alwaysBounceVertical = true
     }
     
     func addPullToRefreshHeader() {
