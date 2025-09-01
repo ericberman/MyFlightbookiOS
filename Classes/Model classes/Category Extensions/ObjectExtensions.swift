@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2023-2024 MyFlightbook, LLC
+ Copyright (C) 2023-2025 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -36,7 +36,11 @@ import Foundation
 
 extension NSNumber {
     @objc public func formatAsInteger() -> NSString {
-        return NSString.init(format: "%d", intValue)
+        let nf = NumberFormatter()
+        nf.usesGroupingSeparator = true
+        nf.numberStyle = .decimal
+        nf.maximumFractionDigits = 0
+        return nf.string(from: self)! as NSString
     }
     
     @objc public func formatAsTime(fHHMM: Bool, fGroup: Bool) -> NSString {
