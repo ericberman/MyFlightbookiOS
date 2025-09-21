@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2023-2024 MyFlightbook, LLC
+ Copyright (C) 2023-2025 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -67,9 +67,6 @@ import UIKit
         super.viewWillAppear(animated)
         
         edgesForExtendedLayout = []
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.toolbar.isTranslucent = false
-        navigationController?.isToolbarHidden = false
         
         let imgBack = UIImage(named: "btnBack.png")
         let imgForward = UIImage(named: "btnForward.png")
@@ -83,8 +80,14 @@ import UIKit
         bbStop.style = .plain
         bbReload.style = .plain
         
-        self.toolbarItems = [bbBack, bbForward, bbSpacer, bbStop, bbReload]
-
+//        self.toolbarItems = [bbBack, bbForward, bbSpacer, bbStop, bbReload]
+        setCompatibleToolbarItems([bbBack, bbForward, bbSpacer, bbStop, bbReload])
+        setCompatibleToolbarHidden(false)
+    }
+    
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        setCompatibleToolbarHidden(true)
     }
     
     // MARK: - Navigation

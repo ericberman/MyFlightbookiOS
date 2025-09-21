@@ -118,10 +118,7 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
         if le == nil {
             restoreFlightInProgress()
         }
-        
-        // Check to see if this is a pending flight
-        let fIsPendingFlight = le.entryData is MFBWebServiceSvc_PendingFlight
-        
+                
         // If we have an unknown aircraft and just popped from creating one, then reset preferred aircraft
         if le.entryData.aircraftID.intValue <= 0 {
             setCurrentAircraft(Aircraft.sharedAircraft.preferredAircraft)
@@ -157,52 +154,6 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
         
         expandedSections.insert(leSection.sectSharing.rawValue)
         expandedSections.insert(leSection.sectIssues.rawValue)
-        
-        
-        /* Set up toolbar and submit buttons */
-        let biSign = UIBarButtonItem(title: String(localized: "SignFlight", comment: "Let a CFI sign this flight"),
-                                     style: .plain,
-                                     target: self,
-                                     action: #selector(signFlight))
-        
-        let biSpacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
-        
-        let biOptions = UIBarButtonItem(title: String(localized: "Options", comment: "Options button for autodetect, etc."),
-                                        style: .plain,
-                                        target: self,
-                                        action: #selector(configAutoDetect))
-        
-        let bbGallery = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pickImages))
-        let bbCamera = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(takePictures))
-        let bbSend = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(sendFlight))
-        
-        bbGallery.isEnabled = canUsePhotoLibrary()
-        bbCamera.isEnabled = canUseCamera()
-        
-        bbGallery.style = .plain
-        bbCamera.style = .plain
-        bbSend.style = .plain
-        
-        var ar : [UIBarButtonItem] = []
-        
-        if fIsPendingFlight {
-            // Pending flight: Only option other than "Add" is "Add Pending"
-            ar.append(bbSend)
-        }
-        else {
-            if le.entryData.isNewFlight() {
-                ar.append(biOptions)
-            }
-            
-            if !le.entryData.isNewOrAwaitingUpload() && le.entryData.cfiSignatureState != MFBWebServiceSvc_SignatureState_Valid {
-                ar.append(biSign)
-            }
-            
-            ar.append(contentsOf: [bbSend, biSpacer, bbGallery, bbCamera])
-        }
-        
-        navigationController?.isToolbarHidden = false
-        toolbarItems = ar
         
         // Submit button
         let bbSubmit = UIBarButtonItem(title: le.entryData.isNewOrAwaitingUpload() ? String(localized: "Add", comment: "Generic Add") : String(localized: "Update", comment: "Update"),
@@ -255,16 +206,9 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
         super.viewWillDisappear(animated)
         tableView.endEditing(true)
         initLEFromForm()
-
-        navigationController?.isToolbarHidden = true
+        setCompatibleToolbarHidden(true)
         dictPropCells.removeAll()
         saveState()
-    }
-    
-    public override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        navigationController?.isToolbarHidden = false
-        navigationController?.toolbar.isTranslucent = false
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -308,6 +252,58 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
 
         tableView.reloadData()
         app.ensureWarningShownForUser()
+        
+        /* Set up toolbar */
+        let biSign = UIBarButtonItem(title: String(localized: "SignFlight", comment: "Let a CFI sign this flight"),
+                                     style: .plain,
+                                     target: self,
+                                     action: #selector(signFlight))
+        
+        let biSpacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        
+        let biOptions = UIBarButtonItem(title: String(localized: "Options", comment: "Options button for autodetect, etc."),
+                                        style: .plain,
+                                        target: self,
+                                        action: #selector(configAutoDetect))
+        
+        let bbGallery = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pickImages))
+        let bbCamera = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(takePictures))
+        let bbSend = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(sendFlight))
+        
+        bbGallery.isEnabled = canUsePhotoLibrary()
+        bbCamera.isEnabled = canUseCamera()
+        
+        bbGallery.style = .plain
+        bbCamera.style = .plain
+        bbSend.style = .plain
+        
+        var ar : [UIBarButtonItem] = []
+        
+        // Check to see if this is a pending flight
+        let fIsPendingFlight = le.entryData is MFBWebServiceSvc_PendingFlight
+
+        if fIsPendingFlight {
+            // Pending flight: Only option other than "Add" is "Add Pending"
+            ar.append(bbSend)
+        }
+        else {
+            if le.entryData.isNewFlight() {
+                ar.append(biOptions)
+            }
+            
+            if !le.entryData.isNewOrAwaitingUpload() && le.entryData.cfiSignatureState != MFBWebServiceSvc_SignatureState_Valid {
+                ar.append(biSign)
+            }
+            
+            ar.append(contentsOf: [bbSend, biSpacer, bbGallery, bbCamera])
+        }
+        
+        setCompatibleToolbarItems(ar)
+        
+        navigationController?.isToolbarHidden = true
+//        toolbarItems = ar
+        setCompatibleToolbarItems(ar)
+        
     }
     
     @objc public func flightCouldBeInProgress() -> Bool {

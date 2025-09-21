@@ -727,3 +727,168 @@ extension UIColor {
         return hexString
     }
 }
+// MARK: - Extension for UIViewController
+// Because Apple with iOS 26 completely broke toolbars, we need this Claude-generated extension to preserve basic functionality.  FUCK APPLE for not caring about backwards compatibility.
+extension UIViewController {
+    
+    private static var customToolbarKey: UInt8 = 0
+    private static var tabControllerToolbarKey: UInt8 = 1
+    
+    // Associated object to store the custom toolbar per tab bar controller
+    private var sharedCustomToolbar: UIToolbar? {
+        get {
+            guard let tabController = tabBarController else { return nil }
+            return objc_getAssociatedObject(tabController, &Self.tabControllerToolbarKey) as? UIToolbar
+        }
+        set {
+            guard let tabController = tabBarController else { return }
+            objc_setAssociatedObject(tabController, &Self.tabControllerToolbarKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
+    // Associated object to store the custom toolbar
+    private var customToolbar: UIToolbar? {
+        get {
+            return sharedCustomToolbar
+        }
+        set {
+            sharedCustomToolbar = newValue
+        }
+    }
+    
+    /// Call this in viewDidLoad to set up toolbar compatibility
+    func setupToolbarCompatibility() {
+        // Remove this method - toolbar creation is now handled automatically
+        // when setCompatibleToolbarItems is called
+    }
+    
+    /// Call this in viewWillAppear instead of setting toolbarItems directly
+    func setCompatibleToolbarItems(_ items: [UIBarButtonItem], animated: Bool = false) {
+        if #available(iOS 26.0, *) {
+            // For iOS 26, completely disable the system toolbar
+            navigationController?.isToolbarHidden = true
+            
+            // If this is a table view controller, we need to adjust content insets
+            if let tableVC = self as? UITableViewController {
+                tableVC.tableView.contentInsetAdjustmentBehavior = .never
+                // Manually set bottom inset to account for tab bar + our toolbar
+                let tabBarHeight = tabBarController?.tabBar.frame.height ?? 0
+                let toolbarHeight = UIToolbar().intrinsicContentSize.height
+                tableVC.tableView.contentInset.bottom = tabBarHeight + toolbarHeight
+                tableVC.tableView.verticalScrollIndicatorInsets.bottom = tabBarHeight + toolbarHeight
+            }
+            
+            // Always ensure custom toolbar exists when we need to set items
+            if customToolbar == nil {
+                setupCustomToolbar()
+            }
+            
+            // Show and configure the toolbar
+            customToolbar?.setItems(items, animated: animated)
+            customToolbar?.isHidden = false
+        } else {
+            navigationController?.isToolbarHidden = false
+            if animated {
+                setToolbarItems(items, animated: true)
+            } else {
+                toolbarItems = items
+            }
+        }
+    }
+    
+    /// Call this to hide/show the toolbar
+    func setCompatibleToolbarHidden(_ hidden: Bool, animated: Bool = false) {
+        if #available(iOS 26.0, *) {
+            if animated {
+                UIView.animate(withDuration: 0.3) {
+                    self.customToolbar?.alpha = hidden ? 0 : 1
+                }
+            } else {
+                customToolbar?.isHidden = hidden
+            }
+            
+            // If hiding and this is a table view controller, reset content insets
+            if hidden, let tableVC = self as? UITableViewController {
+                let tabBarHeight = tabBarController?.tabBar.frame.height ?? 0
+                tableVC.tableView.contentInset.bottom = tabBarHeight
+                tableVC.tableView.verticalScrollIndicatorInsets.bottom = tabBarHeight
+            }
+        } else {
+            navigationController?.setToolbarHidden(hidden, animated: animated)
+        }
+    }
+    
+    // MARK: - Private Implementation
+    
+    private func setupCustomToolbar() {
+        // Don't create if already exists
+        guard customToolbar == nil else { return }
+        
+        // Ensure we have a view hierarchy
+        guard view.superview != nil || isViewLoaded else {
+            print("View not ready, deferring toolbar setup")
+            return
+        }
+        
+        let toolbar = UIToolbar()
+        toolbar.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Configure appearance to match system toolbar
+        if #available(iOS 15.0, *) {
+            let appearance = UIToolbarAppearance()
+            appearance.configureWithOpaqueBackground()
+            toolbar.standardAppearance = appearance
+            toolbar.compactAppearance = appearance
+            toolbar.scrollEdgeAppearance = appearance
+        } else {
+            toolbar.isTranslucent = false
+            toolbar.barTintColor = UIColor.systemBackground
+        }
+        
+        // Always add to the tab bar controller's view for consistency
+        guard let targetView = tabBarController?.view ?? navigationController?.view ?? view else {
+            print("No target view available for toolbar")
+            return
+        }
+        
+        print("Adding toolbar to tab bar controller view: \(targetView.frame)")
+        targetView.addSubview(toolbar)
+        print("Toolbar superview after adding: \(String(describing: toolbar.superview))")
+        
+        // Get dynamic toolbar height
+        let toolbarHeight = toolbar.intrinsicContentSize.height
+        
+        // Position relative to the target view, using safe area to avoid constraint conflicts
+        let bottomConstraint: NSLayoutConstraint
+        if let tabBar = tabBarController?.tabBar {
+            print("Tab bar frame: \(tabBar.frame)")
+            // Calculate offset from safe area to position above tab bar
+            let tabBarHeight = tabBar.frame.height
+            bottomConstraint = toolbar.bottomAnchor.constraint(equalTo: targetView.safeAreaLayoutGuide.bottomAnchor, constant: -tabBarHeight)
+            print("Using calculated offset: -\(tabBarHeight)")
+        } else {
+            // Fallback to safe area
+            bottomConstraint = toolbar.bottomAnchor.constraint(equalTo: targetView.safeAreaLayoutGuide.bottomAnchor)
+            print("Using safe area bottom")
+        }
+        
+        NSLayoutConstraint.activate([
+            toolbar.leadingAnchor.constraint(equalTo: targetView.leadingAnchor),
+            toolbar.trailingAnchor.constraint(equalTo: targetView.trailingAnchor),
+            bottomConstraint,
+            toolbar.heightAnchor.constraint(equalToConstant: toolbarHeight)
+        ])
+        
+        customToolbar = toolbar
+        
+        // Force layout immediately
+        targetView.layoutIfNeeded()
+        
+        // Debug output
+        print("Custom toolbar created with frame: \(toolbar.frame)")
+        DispatchQueue.main.async {
+            print("Custom toolbar final frame: \(toolbar.frame)")
+            print("Toolbar items count: \(toolbar.items?.count ?? 0)")
+        }
+    }
+}

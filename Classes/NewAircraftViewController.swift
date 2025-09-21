@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2013-2023 MyFlightbook, LLC
+ Copyright (C) 2013-2025 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -85,7 +85,8 @@ import Foundation
         
         bbGallery.style = .plain
         bbCamera.style = .plain;
-        toolbarItems = [bbSpacer, bbGallery, bbCamera]
+//        toolbarItems = [bbSpacer, bbGallery, bbCamera]
+        setCompatibleToolbarItems([bbSpacer, bbGallery, bbCamera])
         
         // Submit button
         let bbSubmit = UIBarButtonItem(title: String(localized: "Add", comment: "Generic Add"),
@@ -102,16 +103,15 @@ import Foundation
     }
     
     public override func viewWillAppear(_ animated: Bool) {
-        navigationController?.isToolbarHidden = false
-        navigationController?.toolbar.isTranslucent = false
         super.viewWillAppear(animated)
         tableView.reloadData()
+        setCompatibleToolbarHidden(false)
     }
     
     public override func viewWillDisappear(_ animated: Bool) {
-        progress = nil
-        navigationController?.isToolbarHidden = true
         super.viewWillDisappear(animated)
+        progress = nil
+        setCompatibleToolbarHidden(true)
     }
     
     public override func didReceiveMemoryWarning() {

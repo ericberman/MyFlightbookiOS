@@ -70,22 +70,6 @@ import Foundation
         vwAccessory = AccessoryBar.getAccessoryBar(self)
         navigationItem.title = ac.tailNumber
         
-        // set up for camera/images
-        let bbSearch = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(findFlights))
-        let bbSchedule = UIBarButtonItem(image: UIImage(named: "schedule"), style: .plain, target: self, action: #selector(viewSchedule))
-        let bbSpacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
-        let bbGallery = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pickImages))
-        let bbCamera = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(takePictures))
-        
-        bbGallery.isEnabled = canUsePhotoLibrary()
-        bbCamera.isEnabled = canUseCamera()
-        
-        bbGallery.style = .plain
-        bbCamera.style = .plain
-        bbSearch.style = .plain
-        
-        toolbarItems = [bbSearch, bbSchedule, bbSpacer, bbGallery, bbCamera]
-        
         // Submit button
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: String(localized: "Update", comment: "Update"),
                                                             style: .plain,
@@ -123,16 +107,32 @@ import Foundation
     }
     
     public override func viewWillAppear(_ animated: Bool) {
-        navigationController?.isToolbarHidden = false
         navigationController?.toolbar.isTranslucent = false
         super.viewWillAppear(animated)
         tableView.reloadData()
+        
+        // set up for camera/images
+        let bbSearch = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(findFlights))
+        let bbSchedule = UIBarButtonItem(image: UIImage(named: "schedule"), style: .plain, target: self, action: #selector(viewSchedule))
+        let bbSpacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        let bbGallery = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pickImages))
+        let bbCamera = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(takePictures))
+        
+        bbGallery.isEnabled = canUsePhotoLibrary()
+        bbCamera.isEnabled = canUseCamera()
+        
+        bbGallery.style = .plain
+        bbCamera.style = .plain
+        bbSearch.style = .plain
+        
+//        toolbarItems = [bbSearch, bbSchedule, bbSpacer, bbGallery, bbCamera]
+        setCompatibleToolbarItems([bbSearch, bbSchedule, bbSpacer, bbGallery, bbCamera])
     }
     
     public override func viewWillDisappear(_ animated: Bool) {
-        progress = nil
-        navigationController?.isToolbarHidden = true
         super.viewWillDisappear(animated)
+        progress = nil
+        setCompatibleToolbarHidden(true)
     }
     
     public override func didReceiveMemoryWarning() {
