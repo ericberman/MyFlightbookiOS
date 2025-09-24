@@ -204,11 +204,11 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
             // just notify the delegate; let them handle things - only do the animation if it's a new flight
             delegate?.flightUpdated(self)
         } else {
-            let targetView = app.tabRecents.viewControllers[0].view!
+            let targetView = app.getActiveTabBar()!.tabRecents.viewControllers[0].view!
             UIView.transition(from: navigationController!.view, to: targetView, duration: 0.75, options: .transitionCurlUp) { fFinished in
                 if (fFinished) {
                     // Could this be where the recents view isn't loaded?
-                    MFBAppDelegate.threadSafeAppDelegate.tabBarController.selectedViewController = MFBAppDelegate.threadSafeAppDelegate.tabRecents
+                    app.getActiveTabBar()!.selectedViewController = app.getActiveTabBar()!.tabRecents
                     self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at:.top, animated:true)
                 }
             }

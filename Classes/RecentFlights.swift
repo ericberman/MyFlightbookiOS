@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2010-2024 MyFlightbook, LLC
+ Copyright (C) 2010-2025 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -887,7 +887,7 @@ public class RecentFlights : PullRefreshTableViewControllerSW, LEEditDelegate, U
                     
                     // Check for an existing new flight in-progress.
                     // If the new flight screen is sitting with an initial hobbs but otherwise empty, then use its starting hobbs and then reset it.
-                    let leMain = (MFBAppDelegate.threadSafeAppDelegate.leMain as? LEEditController)!
+                    let leMain = (MFBAppDelegate.threadSafeAppDelegate.getActiveTabBar()!.leMain as? LEEditController)!
                     let leActiveNew = leMain.le.entryData
                     let fIsInInitialState = leActiveNew.isInInitialState()
                     let initHobbs = fIsInInitialState ? leActiveNew.hobbsStart : NSNumber(floatLiteral: 0.0)

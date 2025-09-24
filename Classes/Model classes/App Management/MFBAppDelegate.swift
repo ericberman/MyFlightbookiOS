@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2009-2024 MyFlightbook, LLC
+ Copyright (C) 2009-2025 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -39,43 +39,18 @@ import WidgetKit
     @objc func invalidateViewController()
 }
 
-@objc public class MFBAppDelegate : NSObject, UIApplicationDelegate, UITabBarControllerDelegate, WCSessionDelegate {    
-    private static let _szKeySelectedTab = "_prefSelectedTab"
-    private static let _szKeyTabOrder = "keyTabOrder2"
-    private static let _szNewFlightTitle = "newFlight"
-    private static let _szMyAircraftTitle = "MyAircraft"
-    private static let _szProfileTitle = "Profile"
-    private static let _szNearestTitle = "Nearest"
-    private static let _szMoreTitle = "More"
+@objc public class MFBAppDelegate : NSObject, UIApplicationDelegate, WCSessionDelegate {
     private static let _szKeyHasSeenDisclaimer = "keySeenDisclaimer"
-    private static let _szKeyPrefUnsubmittedFlights = "keyPendingFlights"
-    private static let _szKeyPrefLastInstalledVersion = "keyLastVersion"
     private static let _szKeyPrefDebugMode = "keyDebugMode"
-    
-    private static var urlLaunchURL : URL? = nil
-    private static var fAppLaunchFinished = false
     
     @objc public var rgUnsubmittedFlights : NSMutableArray
     @objc public var mfbloc : MFBLocation
     @objc public var fDebugMode = false
 
-    @IBOutlet weak public var window : UIWindow?
-    @IBOutlet weak var tabBarController : UITabBarController!
-    @IBOutlet weak var leMain : UITableViewController!
-    @IBOutlet weak var tabNewFlight : UINavigationController!
-    @IBOutlet weak var tabRecents : UINavigationController!
-    @IBOutlet weak var tabProfile : UINavigationController!
-    @IBOutlet weak var tabTotals : UINavigationController!
-    @IBOutlet weak var tabCurrency : UINavigationController!
-    @IBOutlet weak var tbiRecent : UITabBarItem!
-
     @objc public var watchData : SharedWatch? = nil
     
-    @objc public var timerSyncState : Timer? = nil
-
-    @objc public var notifyDataChanged : [Invalidatable] = []
-    @objc public var notifyResetAll : [Invalidatable] = []
-    @objc public var progressAlert : UIAlertController? = nil
+    private var notifyDataChanged : [Invalidatable] = []
+    private var notifyResetAll : [Invalidatable] = []
 
     // Watch properties
     @objc public var watchSession : WCSession? = nil
@@ -91,62 +66,20 @@ import WidgetKit
         // Make sure that Network Management is started
         let _ = MFBNetworkManager.shared
     }
-            
-    // MARK: Tab management
-    private func checkNoAircraft() -> Bool {
-        return (Aircraft.sharedAircraft.rgAircraftForUser ?? []).isEmpty
+    
+    // MARK: - connect to active scene
+    public func getActiveScene() -> UIWindowScene? {
+        return UIApplication.shared.connectedScenes.first as? UIWindowScene
     }
     
-    // returns the index of the default tab to select
-    // if the user has airplanes, it's
-    private func defaultTab() -> UIViewController {
-        return MFBProfile.sharedProfile.isValid() ? tabNewFlight! : tabProfile!
-    }
-
-    private func setCustomizableViewControllers() {
-        tabBarController!.customizableViewControllers = tabBarController.viewControllers
+    public func getActiveSceneDelegate() -> SceneDelegate? {
+        return (getActiveScene()?.delegate) as? SceneDelegate
     }
     
-    @objc public func DefaultPage()  {
-        tabBarController!.selectedViewController = defaultTab()
+    public func getActiveTabBar() -> MFBTabBarController? {
+        return getActiveSceneDelegate()?.tabBarController
     }
     
-    // MARK: Save State
-    private func saveTabState() {
-        // Remember the last-used tab, but not if it is the "More" tab (button #5)
-        let i = tabBarController!.selectedIndex
-        
-        let def = UserDefaults.standard
-
-        // if iPad, override the above line - we can store any saved tab
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            def.set(i, forKey: MFBAppDelegate._szKeySelectedTab)
-        } else {
-            def.set(i < 4 ? i : 0, forKey: MFBAppDelegate._szKeySelectedTab)
-        }
-        def.synchronize()
-    }
-    
-    
-    @objc private func saveState() {
-        if !checkNoAircraft() {
-            leProtocolHandler.saveState()
-        }
-
-        if Thread.isMainThread {
-            saveTabState()
-        } else {
-            performSelector(onMainThread: #selector(saveState), with: nil, waitUntilDone: false)
-        }
-
-        let def = UserDefaults.standard
-        // remember whether or not we were flying and recording flight data.
-        mfbloc.saveState()
-        try! def.set(NSKeyedArchiver.archivedData(withRootObject: rgUnsubmittedFlights, requiringSecureCoding: true), forKey: MFBAppDelegate._szKeyPrefUnsubmittedFlights)
-        def.synchronize()
-        NSLog("saveState - done and synchronized")
-    }
-                
     // MARK: App life cycle
     @objc public func ensureWarningShownForUser() {
         let defs = UserDefaults.standard
@@ -167,274 +100,42 @@ import WidgetKit
             defs.synchronize()
         }
     }
-    
-    @objc public func openURL(_ url : URL) {
-        if (url.isFileURL) {
-            NSLog("Loaded with URL: %@", url.absoluteString)
-            tabBarController!.selectedViewController = tabRecents
-            recentsView.addTelemetryFlight(url)
-        }
-        else if (url.host != nil) {
-            let host = url.host!
-            switch host {
-            case "addFlights":
-                var szJSON = url.path
-                if !szJSON.isEmpty {
-                    szJSON = String(szJSON[szJSON.index(szJSON.startIndex, offsetBy: 1)..<szJSON.endIndex]) as String
-                }
-                
-                if !szJSON.isEmpty && szJSON.hasPrefix("{") {
-                    tabBarController?.selectedViewController = tabRecents
-                    recentsView.addJSONFlight(szJSON)
-                }
-            case "totals":
-                tabBarController!.selectedViewController = tabTotals
-            case "currency":
-                tabBarController!.selectedViewController = tabCurrency
-            case "newflight":
-                tabBarController!.selectedViewController = tabNewFlight
-            case "app.startEngine":
-                leProtocolHandler.startEngineExternal()
-            case "app.stopEngine":
-                leProtocolHandler.stopEngineExternalNoSubmit()
-            case "app.startFlight":
-                leProtocolHandler.startFlightExternal()
-            case "app.stopFlight":
-                leProtocolHandler.stopFlightExternal()
-            case "app.blockOut":
-                leProtocolHandler.blockOutExternal()
-            case "app.blockIn":
-                leProtocolHandler.blockInExternal()
-            case "app.resume":
-                leProtocolHandler.resumeFlightExternal()
-            case "app.pause":
-                leProtocolHandler.pauseFlightExternal()
-            case "app.togglePause":
-                leProtocolHandler.toggleFlightPause()
-            default:
-                break
-            }
-        }
-    }
-    
-    public func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
-        switch shortcutItem.type {
-        case "app.currency":
-            if (MFBAppDelegate.fAppLaunchFinished) {
-                tabBarController!.selectedViewController = tabCurrency
-            } else {
-                MFBAppDelegate.urlLaunchURL = URL(string: "myflightbook://currency")
-            }
-        case "app.totals":
-            if (MFBAppDelegate.fAppLaunchFinished) {
-                tabBarController!.selectedViewController = tabTotals
-            } else {
-                MFBAppDelegate.urlLaunchURL = URL(string: "myflightbook://totals")
-            }
-        case "app.current":
-            if (MFBAppDelegate.fAppLaunchFinished) {
-                tabBarController!.selectedViewController = tabNewFlight
-            } else {
-                MFBAppDelegate.urlLaunchURL = URL(string: "myflightbook://newflight")
-            }
-        case "app.blockOut":
-            leProtocolHandler.blockOutExternal()
-        case "app.blockIn":
-            leProtocolHandler.blockInExternal()
-        case "app.startEngine":
-            leProtocolHandler.startEngineExternal()
-        case "app.stopEngine":
-            leProtocolHandler.stopEngineExternalNoSubmit()
-        case "app.resume", "app.pause":
-            leProtocolHandler.toggleFlightPause()
-        default:
-            completionHandler(false)
-            return
-        }
-        completionHandler(true)
-    }
-    
-    public func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        NSLog("application:openURL: with %@, %@", url.absoluteString, MFBAppDelegate.fAppLaunchFinished ? "app launch is finished, opening" : "Queueing to open when launch is finished.")
-        if (MFBAppDelegate.fAppLaunchFinished) {
-            openURL(url)
-        } else {
-            MFBAppDelegate.urlLaunchURL = url
-        }
-        return true
-    }
+
     
     // MARK: UIApplication delegate methods
-    func createLocManager() {
+    public func createLocManager() {
         mfbloc.restoreState()
         mfbloc.delegate = leProtocolHandler
     }
-    
-    /*
-     OBSOLETE - now doing this directly in iRate
-     + (void) initialize
-     {
-         [iRate sharedInstance].eventsUntilPrompt = MIN_IRATE_EVENTS;
-         [iRate sharedInstance].usesUntilPrompt = MIN_IRATE_USES;
-         [iRate sharedInstance].daysUntilPrompt = MIN_IRATE_DAYS;
-         [iRate sharedInstance].verboseLogging = YES;
-         [iRate sharedInstance].ratingsURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/us/app/myflightbook/id%d?mt=8&action=write-review", _appStoreID]];
-     }
-     */
-    
+        
     static var _mainApp : MFBAppDelegate? = nil
     @objc public static var threadSafeAppDelegate : MFBAppDelegate {
         return _mainApp!    // should ALWAYS be non-nil
     }
-    
-    /*
-     OBSOLETE - version 1.85 was ancient history...
-     - (void) upgradeOldVersion {
-         NSUserDefaults * defs = [NSUserDefaults standardUserDefaults];
-         
-         // Check for any upgrades that are needed.
-         NSNumberFormatter * nf = [NSNumberFormatter new];
-         [nf setDecimalSeparator:@"."]; // CFBundleVersion ALWAYS uses a decimal
-         NSString * szCurVer = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-         double curVer = [[nf numberFromString:[szCurVer substringToIndex:3]] doubleValue];
-         double lastVer = [defs doubleForKey:_szKeyPrefLastInstalledVersion];
-
-         // post-1.85, cached imageinfo has fullURL;
-         // ensure we reload aircraft, so images work
-         if (lastVer <= 1.85)
-         {
-             NSLog(@"Last ver (%f) < 1.85, curVer = %f, invalidating cached aircraft", lastVer, curVer);
-             [[Aircraft sharedAircraft] invalidateCachedAircraft];
-             [self invalidateCachedTotals];
-         }
-         // don't do any upgrades next time.
-         if (lastVer < curVer)
-         {
-             [defs setDouble:curVer forKey:_szKeyPrefLastInstalledVersion];
-             [defs synchronize];
-         }
-     }
-     */
     
     public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         NSLog("MyFlightbook: hello - launch, baseURL is %@", MFBHOSTNAME)
         
         MFBAppDelegate._mainApp = self;
         MFBTheme.setMFBTheme()
-        
-        tabBarController!.moreNavigationController.navigationBar.tintColor = MFBTheme.MFBBrandColor()
-        
-        if let w = window {
-            w.makeKeyAndVisible()
-            // w.frame = UIScreen.main.bounds   // Issue #307 - this doesn't do the right thing if launching into a split view.
-            w.rootViewController = tabBarController
-            progressAlert = WPSAlertController.presentProgressAlertWithTitle(String(localized: "Loading; please wait...", comment:"Status message at app startup"),
-                                                                             onViewController: tabBarController)
-        }
-        
-        createLocManager()
-        
-        mfbloc.cSamplesSinceWaking = 0
-        mfbloc.fRecordingIsPaused = false
-                
-        // Ensure that a profile object is set up
-        let _ = MFBProfile.sharedProfile;
-        
+                      
         // Apple Watch support
         watchData = SharedWatch()
         let _ = setUpWatchSession()
-        
-        leMain!.view = leMain!.view // force view to load to ensure it is valid.  Also initializes for shared watch.
-        
-        //        [self upgradeOldVersion];
-        
+
         invalidateCachedTotals()
-        
-        // recover unsubmitted flights (for count to add to recent-flights tab)
-        if let ar = UserDefaults.standard.object(forKey: MFBAppDelegate._szKeyPrefUnsubmittedFlights) as? Data {
-            try! rgUnsubmittedFlights = NSMutableArray(array: NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self, NSString.self, NSNumber.self, NSMutableString.self, LogbookEntry.self, MFBWebServiceSvc_PendingFlight.self, MFBWebServiceSvc_LogbookEntry.self],
-                                                                                            from: ar) as! NSArray)
-        }
-        
-        // set a badge for the # of unsubmitted flights.
-        addBadgeForUnsubmittedFlights()
-        
-        // reload persisted state of tabs, if needed.
-        
-        if let rgPresistedTabs = UserDefaults.standard.object(forKey: MFBAppDelegate._szKeyTabOrder) as? [String] {
-            let controllers = tabBarController!.viewControllers!
-            var rg : [UIViewController] = []
-            
-            for szTitle in rgPresistedTabs {
-                // find the view with this title in the viewcontrollers array
-                if let vw = controllers.first(where: { vc in
-                    return vc.title == szTitle
-                }) {
-                    rg.append(vw)
-                }
-            }
-            
-            // if somehow things didn't mesh up, don't try to restore the tabs!!!
-            if rg.count == controllers.count {
-                tabBarController?.viewControllers = rg
-            }
-            setCustomizableViewControllers()
-        }
-        
-        var rgImages = Array(leProtocolHandler.le.rgPicsForFlight)
-
-        // Now get any additional images
-        for lbe in self.rgUnsubmittedFlights as! [LogbookEntry] {
-            rgImages.append(contentsOf: lbe.rgPicsForFlight)
-        }
-        CommentedImage.cleanupObsoleteFiles(rgImages as! [CommentedImage])
-        
-        // set a timer to save state every 5 minutes or so
-        timerSyncState = Timer(fireAt: Date.init(timeIntervalSinceNow: 300),
-                               interval: 300,
-                               target: self,
-                               selector: #selector(saveState),
-                               userInfo: nil,
-                               repeats: true)
-
-        RunLoop.current.add(timerSyncState!, forMode: .default)
-        
-        ensureWarningShownForUser()
-
-        if progressAlert != nil {
-            tabBarController?.dismiss(animated: true, completion: {
-                if MFBProfile.sharedProfile.isValid() {
-                    let iTab = UserDefaults.standard.integer(forKey: MFBAppDelegate._szKeySelectedTab)
-                    if (iTab == 0 && self.checkNoAircraft()) {
-                        self.DefaultPage()
-                    } else {
-                        self.tabBarController!.selectedIndex = iTab
-                    }
-                } else {
-                    self.tabBarController!.selectedViewController = self.tabProfile
-                }
-                
-                MFBAppDelegate.fAppLaunchFinished = true
-                if MFBAppDelegate.urlLaunchURL != nil {
-                    NSLog("Opening URL from AppDidFinishLaunching")
-                    self.openURL(MFBAppDelegate.urlLaunchURL!)
-                    MFBAppDelegate.urlLaunchURL = nil
-                }
-            })
-            progressAlert = nil
-        }
         
         return true
     }
     
     public func applicationWillTerminate(_ application: UIApplication) {
         NSLog("MyFlightbook terminating")
-        saveState()
+        getActiveSceneDelegate()?.saveState()
         MFBSqlLite.closeDB()
         MFBAppDelegate._mainApp = nil
     }
     
-    @objc public func updateShortCutItems() {
+    @objc func updateShortCutItems() {
         // Update 3D touch actions
         var rgShortcuts : [UIApplicationShortcutItem] = []
         
@@ -554,70 +255,18 @@ import WidgetKit
         }
     }
     
-    public func applicationWillResignActive(_ application: UIApplication) {
-        saveState()
-        HTTPCookieStorage.shared.saveToUserDefaults()     // save any cookies.
-        WidgetCenter.shared.reloadAllTimelines()    // in case anything changed, force the widgets to reload.
-    }
-    
     public func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         return .all
     }
     
-    // MARK: TabBarController delegate
-    public func tabBarController(_ tabBarController: UITabBarController, willEndCustomizing viewControllers: [UIViewController], changed: Bool) {
-        if (changed) {
-            // we would get each of the views, in order, but not all of the views have been loaded.
-            // hence, we cannot rely on their titles.
-            // Instead, we will get the tags of the first few tab bar items, and pad out the list with the leftovers.
-            // Get the titles of the views, in their current order
-            var rgIndices : [String] = []
-
-            for vw in tabBarController.viewControllers! {
-                let szTitle = vw.title;
-                if (szTitle == nil) {
-                    NSLog("Can't persist tabs with a nil title")
-                    return
-                }
-                rgIndices.append(szTitle!)
-            }
-            
-            UserDefaults.standard.set(rgIndices, forKey: MFBAppDelegate._szKeyTabOrder)
-            UserDefaults.standard.synchronize()
-
-            setCustomizableViewControllers()
-        }
-    }
-    
-    public func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        if viewController == tabNewFlight && checkNoAircraft() {
-            WPSAlertController.presentOkayAlertWithTitle(String(localized: "No Aircraft", comment: "Title for No Aircraft error"),
-                                                         message: String(localized: "You must set up at least one aircraft before you can enter flights", comment: "No aircraft error message"))
-        }
-        
-        return true
-    }
-    
     // MARK: Object Lifecycle
     deinit {
-        timerSyncState?.invalidate()
         NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: Misc.
-    var recentsView : RecentFlightsProtocol {
-        let rf = tabRecents!.viewControllers.first! // definitely want to crash if this is null!
-        if !rf.isViewLoaded {   // force the view to load if needed.
-            var v = rf.view
-            if (v != nil) {
-                v = nil
-            }
-        }
-        return rf as! RecentFlightsProtocol
-    }
-    
     var leProtocolHandler : LEControllerProtocol {
-        return leMain as! LEControllerProtocol  // this should always succeed; bad juju if not.
+        return getActiveTabBar()!.leMain as! LEControllerProtocol  // this should always succeed; bad juju if not.
     }
     
     @objc public func registerNotifyDataChanged(_ sender : Invalidatable) {
@@ -648,13 +297,11 @@ import WidgetKit
     // MARK: Unsubmitted Flights
     @objc func setBadgeCount() {
         let cUnsubmittedFlights = rgUnsubmittedFlights.count
-        if tbiRecent != nil {
-            self.tbiRecent!.badgeValue = (cUnsubmittedFlights == 0) ? nil : String(format: "%ld", cUnsubmittedFlights)
-        }
+        getActiveTabBar()?.tbiRecent?.badgeValue = (cUnsubmittedFlights == 0) ? nil : String(format: "%ld", cUnsubmittedFlights)
         UIApplication.shared.applicationIconBadgeNumber = cUnsubmittedFlights
     }
     
-    @objc func addBadgeForUnsubmittedFlights() {
+    @objc public func addBadgeForUnsubmittedFlights() {
         UNUserNotificationCenter.current().getNotificationSettings { settings in
             if settings.badgeSetting == .enabled {
                 self.performSelector(onMainThread: #selector(self.setBadgeCount), with: nil, waitUntilDone: false)
@@ -674,7 +321,7 @@ import WidgetKit
         if !rgUnsubmittedFlights.contains(le) {
             rgUnsubmittedFlights.add(le)
             invalidateCachedTotals()
-            saveState()
+            getActiveSceneDelegate()?.saveState()
             performSelector(onMainThread: #selector(addBadgeForUnsubmittedFlights), with: nil, waitUntilDone: false)
         }
     }
@@ -683,7 +330,7 @@ import WidgetKit
         rgUnsubmittedFlights.remove(le)
         // force a reload
         invalidateCachedTotals()
-        saveState()
+        getActiveSceneDelegate()?.saveState()
         performSelector(onMainThread: #selector(addBadgeForUnsubmittedFlights), with: nil, waitUntilDone: false)
     }
     

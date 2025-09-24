@@ -49,12 +49,19 @@ import Foundation
     }
     
     @objc public func showAnimated(_ animated : Bool) {
+        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let root = scene.windows.first(where: { $0.isKeyWindow })?.rootViewController {
+            root.present(self, animated: animated)
+            return
+        }
+        
+        // fallback if no active scene window
         let blankViewController = UIViewController()
-        blankViewController.view.backgroundColor = UIColor.clear
+        blankViewController.view.backgroundColor = .clear
         
         let window = UIWindow(frame: UIScreen.main.bounds)
         window.rootViewController = blankViewController
-        window.backgroundColor = UIColor.clear
+        window.backgroundColor = .clear
         window.windowLevel = .alert + 1
         window.makeKeyAndVisible()
         alertWindow = window
@@ -62,7 +69,10 @@ import Foundation
         blankViewController.present(self, animated: animated)
     }
     
-    @objc @discardableResult public static func presentProgressAlertWithTitle(_ message : String?, onViewController parent: UIViewController?) -> UIAlertController {
+    @objc @discardableResult public static func presentProgressAlertWithTitle(
+        _ message : String?,
+        onViewController parent: UIViewController? = nil
+    ) -> UIAlertController {
         let alert = (parent == nil) ?
         WPSAlertController(title: message, message: nil, preferredStyle: .alert) :
             UIAlertController(title: message, message: nil, preferredStyle: .alert)
@@ -71,37 +81,30 @@ import Foundation
         spinner.startAnimating()
         
         let customVC = UIViewController()
+        spinner.translatesAutoresizingMaskIntoConstraints = false
         customVC.view.addSubview(spinner)
-
-        customVC.view.addConstraint(NSLayoutConstraint(item: spinner,
-                                                       attribute: .centerX,
-                                                       relatedBy: .equal,
-                                                       toItem: customVC.view,
-                                                       attribute: .centerX,
-                                                       multiplier: 1.0,
-                                                       constant: 0.0))
-        
-        customVC.view.addConstraint(NSLayoutConstraint(
-                                      item: spinner,
-                                     attribute:.centerY,
-                                      relatedBy:.equal,
-                                      toItem:customVC.view,
-                                      attribute:.centerY,
-                                      multiplier:1.0,
-                                      constant:0.0))
+        NSLayoutConstraint.activate([
+            spinner.centerXAnchor.constraint(equalTo: customVC.view.centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: customVC.view.centerYAnchor)
+        ])
         
         alert.setValue(customVC, forKey: "contentViewController")
+        
         if let a = alert as? WPSAlertController {
             a.show()
+        } else if let parent = parent {
+            parent.present(alert, animated: true)
+        } else if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                  let root = scene.windows.first(where: { $0.isKeyWindow })?.rootViewController {
+            root.present(alert, animated: true)
         }
-        else {
-            parent?.present(alert, animated: true)
-        }
-
-        return alert;
+        
+        return alert
     }
     
-    @objc public static func  presentOkayAlertWithTitle(_ title : String?, message : String?, button buttonTitle:String) {
+    @objc public static func presentOkayAlertWithTitle(
+        _ title : String?, message : String?, button buttonTitle:String
+    ) {
         let alertController = WPSAlertController(title: title, message: message, preferredStyle: .alert)
         let okayAction = UIAlertAction(title: buttonTitle, style: .default)
         alertController.addAction(okayAction)

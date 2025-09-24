@@ -1,42 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24127" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UIApplication">
-            <connections>
-                <outlet property="delegate" destination="3" id="99"/>
-            </connections>
-        </placeholder>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <customObject id="3" customClass="MFBAppDelegate" customModule="MyFlightbook">
-            <connections>
-                <outlet property="leMain" destination="183" id="190"/>
-                <outlet property="tabBarController" destination="106" id="113"/>
-                <outlet property="tabCurrency" destination="219" id="Tzr-pV-EO2"/>
-                <outlet property="tabNewFlight" destination="181" id="253"/>
-                <outlet property="tabProfile" destination="234" id="254"/>
-                <outlet property="tabRecents" destination="201" id="255"/>
-                <outlet property="tabTotals" destination="223" id="9dU-fC-Paf"/>
-                <outlet property="tbiRecent" destination="202" id="240"/>
-                <outlet property="window" destination="2" id="9"/>
-            </connections>
-        </customObject>
-        <window opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" visibleAtLaunch="YES" id="2">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <connections>
-                <outlet property="rootViewController" destination="106" id="259"/>
-            </connections>
-            <point key="canvasLocation" x="662" y="142"/>
-        </window>
-        <tabBarController id="106">
+        <tabBarController id="106" customClass="MFBTabBarController" customModule="MyFlightbook" customModuleProvider="target">
             <extendedEdge key="edgesForExtendedLayout"/>
             <tabBar key="tabBar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" selectedItem="Myn-AJ-tv7" id="107">
                 <rect key="frame" x="0.0" y="519" width="320" height="49"/>
@@ -208,7 +182,13 @@
                 </navigationController>
             </viewControllers>
             <connections>
-                <outlet property="delegate" destination="3" id="168"/>
+                <outlet property="leMain" destination="183" id="0ha-lb-J3p"/>
+                <outlet property="tabCurrency" destination="219" id="TTS-ZQ-cR2"/>
+                <outlet property="tabNewFlight" destination="181" id="cok-AJ-mQT"/>
+                <outlet property="tabProfile" destination="234" id="vAB-UG-NqB"/>
+                <outlet property="tabRecents" destination="201" id="SB4-yn-Byf"/>
+                <outlet property="tabTotals" destination="223" id="qYb-kr-Ayi"/>
+                <outlet property="tbiRecent" destination="202" id="T8u-ur-CF3"/>
             </connections>
             <point key="canvasLocation" x="140" y="143"/>
         </tabBarController>
@@ -223,7 +203,7 @@
         <image name="totals.png" width="45" height="45"/>
         <image name="training.png" width="45" height="45"/>
         <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

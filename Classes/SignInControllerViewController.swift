@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2013-2024 MyFlightbook, LLC
+ Copyright (C) 2013-2025 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -114,7 +114,7 @@ public class SignInControllerViewController : CollapsibleTableSw, UITextFieldDel
                     self.tableView.reloadData()
                     
                     Aircraft.sharedAircraft.refreshIfNeeded()
-                    app.DefaultPage()
+                    app.getActiveSceneDelegate()?.DefaultPage()
                 } else if (result == MFBWebServiceSvc_AuthStatus_TwoFactorCodeRequired) {
                     self.get2FA()
                 } else {
