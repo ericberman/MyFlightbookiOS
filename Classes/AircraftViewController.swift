@@ -126,7 +126,7 @@ import Foundation
         bbSearch.style = .plain
         
 //        toolbarItems = [bbSearch, bbSchedule, bbSpacer, bbGallery, bbCamera]
-        setCompatibleToolbarItems([bbSearch, bbSchedule, bbSpacer, bbGallery, bbCamera])
+        setCompatibleToolbarItems([bbSearch, bbSchedule, bbSpacer, bbGallery, bbCamera], tintColor:MFBTheme.MFBBrandColor())
     }
     
     public override func viewWillDisappear(_ animated: Bool) {

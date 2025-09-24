@@ -47,7 +47,7 @@ public class SignInControllerViewController : CollapsibleTableSw, UITextFieldDel
         super.viewDidLoad()
         vwAccessory = AccessoryBar.getAccessoryBar(self)
         defSectionFooterHeight = 5.0
-//        defSectionHeaderHeight = 5.0
+        defSectionHeaderHeight = 18.0
     }
     
     public override func viewWillAppear(_ animated: Bool) {

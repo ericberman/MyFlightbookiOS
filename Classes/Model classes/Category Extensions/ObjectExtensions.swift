@@ -763,7 +763,7 @@ extension UIViewController {
     }
     
     /// Call this in viewWillAppear instead of setting toolbarItems directly
-    func setCompatibleToolbarItems(_ items: [UIBarButtonItem], animated: Bool = false) {
+    func setCompatibleToolbarItems(_ items: [UIBarButtonItem], tintColor: UIColor, animated: Bool = false) {
         if #available(iOS 26.0, *) {
             // For iOS 26, completely disable the system toolbar
             navigationController?.isToolbarHidden = true
@@ -786,6 +786,15 @@ extension UIViewController {
             // Show and configure the toolbar
             customToolbar?.setItems(items, animated: animated)
             customToolbar?.isHidden = false
+            
+            // Set tint color after items are set
+            customToolbar?.tintColor = tintColor
+            // iOS 26 might have broken tintColor inheritance, so also set on individual items
+            customToolbar?.items?.forEach { item in
+                item.tintColor = tintColor
+            }
+            
+            
         } else {
             navigationController?.isToolbarHidden = false
             if animated {
@@ -837,6 +846,7 @@ extension UIViewController {
         if #available(iOS 15.0, *) {
             let appearance = UIToolbarAppearance()
             appearance.configureWithOpaqueBackground()
+            // Don't override button appearance - let tintColor work
             toolbar.standardAppearance = appearance
             toolbar.compactAppearance = appearance
             toolbar.scrollEdgeAppearance = appearance

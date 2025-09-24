@@ -298,12 +298,7 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
             ar.append(contentsOf: [bbSend, biSpacer, bbGallery, bbCamera])
         }
         
-        setCompatibleToolbarItems(ar)
-        
-        navigationController?.isToolbarHidden = true
-//        toolbarItems = ar
-        setCompatibleToolbarItems(ar)
-        
+        setCompatibleToolbarItems(ar, tintColor:MFBTheme.MFBBrandColor())
     }
     
     @objc public func flightCouldBeInProgress() -> Bool {

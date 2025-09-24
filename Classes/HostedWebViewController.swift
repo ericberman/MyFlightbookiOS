@@ -81,7 +81,7 @@ import UIKit
         bbReload.style = .plain
         
 //        self.toolbarItems = [bbBack, bbForward, bbSpacer, bbStop, bbReload]
-        setCompatibleToolbarItems([bbBack, bbForward, bbSpacer, bbStop, bbReload])
+        setCompatibleToolbarItems([bbBack, bbForward, bbSpacer, bbStop, bbReload], tintColor:MFBTheme.MFBBrandColor())
         setCompatibleToolbarHidden(false)
     }
     

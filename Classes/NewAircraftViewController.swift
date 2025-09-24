@@ -86,7 +86,7 @@ import Foundation
         bbGallery.style = .plain
         bbCamera.style = .plain;
 //        toolbarItems = [bbSpacer, bbGallery, bbCamera]
-        setCompatibleToolbarItems([bbSpacer, bbGallery, bbCamera])
+        setCompatibleToolbarItems([bbSpacer, bbGallery, bbCamera], tintColor:MFBTheme.MFBBrandColor())
         
         // Submit button
         let bbSubmit = UIBarButtonItem(title: String(localized: "Add", comment: "Generic Add"),
