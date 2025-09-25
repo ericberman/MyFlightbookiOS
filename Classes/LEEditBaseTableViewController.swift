@@ -34,6 +34,7 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
     @objc public var le : LogbookEntry!
     public var flightProps = FlightProps()
     public var activeTemplates : Set<MFBWebServiceSvc_PropertyTemplate> = []
+    public var priorAircraft : [MFBWebServiceSvc_Aircraft] = []
     @IBOutlet var delegate : LEEditDelegate? = nil
     
     private let _szKeyCurrentFlight = "keyCurrentNewFlight"
@@ -520,6 +521,8 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
     // MARK: - New Aircraft
     @IBAction func newAircraft() {
         tableView.endEditing(true)
+        priorAircraft = []
+        priorAircraft.append(contentsOf: Aircraft.sharedAircraft.rgAircraftForUser ?? [])
         MyAircraft.pushNewAircraftOnViewController(self.navigationController!)
     }
     

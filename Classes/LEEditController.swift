@@ -215,15 +215,34 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
         
         let app = MFBAppDelegate.threadSafeAppDelegate
         
+        var acNew : MFBWebServiceSvc_Aircraft? = nil
+        
         // Pick up an aircraft if one was added and none had been selected
         if (idPopAircraft.text ?? "").isEmpty {
-            if let ac = Aircraft.sharedAircraft.preferredAircraft {
-                idPopAircraft.text = ac.displayTailNumber
-                le.entryData.aircraftID = ac.aircraftID
-                le.entryData.tailNumDisplay = ac.displayTailNumber
-            }
+            acNew = Aircraft.sharedAircraft.preferredAircraft
         }
-        
+        // Otherwise, see if a new aircraft was added and try to descern that (issue #348)
+        if (!priorAircraft.isEmpty) {
+            // see if anything was added
+            var newAircraft : [MFBWebServiceSvc_Aircraft] = []
+            newAircraft.append(contentsOf: Aircraft.sharedAircraft.rgAircraftForUser ?? [])
+
+            // Now remove everything that we previously had
+            for a in priorAircraft {
+                newAircraft.removeAll { $0.aircraftID.intValue == a.aircraftID.intValue }
+            }
+            
+            // if anything is left, that's what we should use
+            acNew = newAircraft.first
+        }
+        priorAircraft.removeAll()
+
+        if (acNew != nil) {
+            idPopAircraft.text = acNew!.displayTailNumber
+            le.entryData.aircraftID = acNew!.aircraftID
+            le.entryData.tailNumDisplay = acNew!.displayTailNumber
+        }
+
         initFormFromLE() // pick up any potential changes
         
         saveState() // keep things in sync with any changes
