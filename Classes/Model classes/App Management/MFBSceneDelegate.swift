@@ -32,7 +32,6 @@ public class SceneDelegate: UIResponder, UIWindowSceneDelegate, UITabBarControll
     public var window : UIWindow?
     public var tabBarController : MFBTabBarController!
     public var timerSyncState : Timer? = nil
-    var progressAlert : UIAlertController? = nil
 
     private static let _szKeySelectedTab = "_prefSelectedTab"
     private static let _szKeyTabOrder = "keyTabOrder2"
@@ -79,7 +78,8 @@ public class SceneDelegate: UIResponder, UIWindowSceneDelegate, UITabBarControll
         
         setCustomizableViewControllers()
         
-        progressAlert = WPSAlertController.presentProgressAlertWithTitle(String(localized: "Loading; please wait...", comment:"Status message at app startup"),                                                                             onViewController: tabBarController)
+        self.tabBarController.presentProgressAlert(message: String(localized: "Loading; please wait...", comment:"Status message at app startup"))
+
         // reload persisted state of tabs, if needed.
         if let rgPresistedTabs = UserDefaults.standard.object(forKey: SceneDelegate._szKeyTabOrder) as? [String] {
             let controllers = tabBarController!.viewControllers!
@@ -108,8 +108,6 @@ public class SceneDelegate: UIResponder, UIWindowSceneDelegate, UITabBarControll
         }
 
         let app = MFBAppDelegate.threadSafeAppDelegate
-        app.ensureWarningShownForUser()
-        
         app.createLocManager()
         
         app.mfbloc.cSamplesSinceWaking = 0
@@ -132,22 +130,19 @@ public class SceneDelegate: UIResponder, UIWindowSceneDelegate, UITabBarControll
         }
         CommentedImage.cleanupObsoleteFiles(rgImages as! [CommentedImage])
         
-        if progressAlert != nil {
-            tabBarController?.dismiss(animated: true, completion: {
-                if MFBProfile.sharedProfile.isValid() {
-                    let iTab = UserDefaults.standard.integer(forKey: SceneDelegate._szKeySelectedTab)
-                    if (iTab == 0 && self.checkNoAircraft()) {
-                        self.DefaultPage()
-                    } else {
-                        self.tabBarController!.selectedIndex = iTab
-                    }
+        tabBarController?.dismiss(animated: true, completion: {
+            if MFBProfile.sharedProfile.isValid() {
+                let iTab = UserDefaults.standard.integer(forKey: SceneDelegate._szKeySelectedTab)
+                if (iTab == 0 && self.checkNoAircraft()) {
+                    self.DefaultPage()
                 } else {
-                    self.tabBarController!.selectedViewController = self.tabBarController.tabProfile
+                    self.tabBarController!.selectedIndex = iTab
                 }
-                
-            })
-            progressAlert = nil
-        }
+            } else {
+                self.tabBarController!.selectedViewController = self.tabBarController.tabProfile
+            }
+            app.ensureWarningShownForUser(self.tabBarController)
+        })
     }
     
     // Programmatic alternative to set up tabs, but this is not yet localized
@@ -444,8 +439,7 @@ public class SceneDelegate: UIResponder, UIWindowSceneDelegate, UITabBarControll
     
     public func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         if viewController ==  self.tabBarController.tabNewFlight && checkNoAircraft() {
-            WPSAlertController.presentOkayAlertWithTitle(String(localized: "No Aircraft", comment: "Title for No Aircraft error"),
-                                                         message: String(localized: "You must set up at least one aircraft before you can enter flights", comment: "No aircraft error message"))
+            tabBarController.presentAlert(title: String(localized: "No Aircraft", comment: "Title for No Aircraft error"), message: String(localized: "You must set up at least one aircraft before you can enter flights", comment: "No aircraft error message"), buttonTitle: nil)
         }
         
         return true

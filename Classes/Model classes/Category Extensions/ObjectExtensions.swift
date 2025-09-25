@@ -902,3 +902,76 @@ extension UIViewController {
         }
     }
 }
+
+// MARK: - UIAlert Extensions
+extension UIViewController {
+    // Present a progress alert from this view controller
+    @discardableResult
+    public func presentProgressAlert(message: String?, onPresent: (() -> Void)? = nil) -> UIAlertController {
+        let alert = UIAlertController(title: message, message: "\n\n", preferredStyle: .alert)
+        
+        let spinner = UIActivityIndicatorView(style: .medium)
+        spinner.startAnimating()
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        
+        alert.view.addSubview(spinner)
+        NSLayoutConstraint.activate([
+            spinner.centerXAnchor.constraint(equalTo: alert.view.centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: alert.view.centerYAnchor, constant: 25)
+        ])
+        
+        self.present(alert, animated: true) {
+            onPresent?()
+        }
+        return alert
+    }
+    
+    // Present a single-button alert from this view controller
+    @discardableResult
+    @objc public func presentAlert(title: String?, message: String?, buttonTitle: String?, onOK: ((UIAlertAction) -> Void)? = nil, onPresent: (() -> Void)? = nil) -> UIAlertController {
+        let alert = UIAlertController(title: title ?? String(localized:"Error", comment: "Title for generic error message"), message: message ?? "", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: buttonTitle ?? String(localized: "Close", comment: "Close button on error message"), style: .default) { uaa in
+            onOK?(uaa)
+        }
+        alert.addAction(okAction)
+        
+        self.present(alert, animated: true) {
+            onPresent?()
+        }
+        return alert
+    }
+    
+    @objc public static func topViewControllerForScenes(_ scenes : Set<UIScene>) -> UIViewController? {
+        // 1. Get the active UIWindowScene
+        guard let windowScene = scenes
+            .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene else {
+            return nil
+        }
+
+        // 2. Get the key window for that scene
+        // For iOS 15+, 'keyWindow' is a direct property.
+        // For older versions, we find the first key window in the 'windows' array.
+        let keyWindow = windowScene.windows.first(where: { $0.isKeyWindow }) ?? windowScene.windows.first
+
+        // 3. Get the rootViewController and traverse the hierarchy
+        guard var topController = keyWindow?.rootViewController else {
+            return nil
+        }
+
+        // Traverse to find the topmost controller (e.g., modals)
+        while let presentedViewController = topController.presentedViewController {
+            topController = presentedViewController
+        }
+
+        // Handle container view controllers
+        if let navigationController = topController as? UINavigationController {
+            return navigationController.topViewController
+        }
+        if let tabBarController = topController as? UITabBarController {
+            return tabBarController.selectedViewController
+        }
+
+        return topController
+    }
+}
+

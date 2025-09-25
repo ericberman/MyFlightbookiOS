@@ -508,7 +508,7 @@ import Foundation
             return
         }
         
-        progress = WPSAlertController.presentProgressAlertWithTitle(String(localized: "Uploading aircraft data...", comment: "Progress: uploading aircraft data"), onViewController:self)
+        progress = presentProgressAlert(message: String(localized: "Uploading aircraft data...", comment: "Progress: uploading aircraft data"))
         
         commitAircraft()
     }

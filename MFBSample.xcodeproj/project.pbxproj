@@ -384,7 +384,6 @@
 		9AC88C0B29BFAD6800841C0A /* MFBAsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC88C0A29BFAD6800841C0A /* MFBAsyncOperation.swift */; };
 		9AC88C0D29BFAD8300841C0A /* Logbook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC88C0C29BFAD8300841C0A /* Logbook.swift */; };
 		9AC88C0F29BFAD8B00841C0A /* Aircraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC88C0E29BFAD8B00841C0A /* Aircraft.swift */; };
-		9AC88C1129BFD54600841C0A /* WPSAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC88C1029BFD54600841C0A /* WPSAlertController.swift */; };
 		9ACC119119E232FF00AA4E3C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9ACC118F19E232FF00AA4E3C /* InfoPlist.strings */; };
 		9ACD18BC11023CEE00B294F7 /* btnBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACD18BA11023CEE00B294F7 /* btnBack.png */; };
 		9ACD18BD11023CEE00B294F7 /* btnForward.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACD18BB11023CEE00B294F7 /* btnForward.png */; };
@@ -934,7 +933,6 @@
 		9AC88C0A29BFAD6800841C0A /* MFBAsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFBAsyncOperation.swift; sourceTree = "<group>"; };
 		9AC88C0C29BFAD8300841C0A /* Logbook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logbook.swift; sourceTree = "<group>"; };
 		9AC88C0E29BFAD8B00841C0A /* Aircraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Aircraft.swift; sourceTree = "<group>"; };
-		9AC88C1029BFD54600841C0A /* WPSAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WPSAlertController.swift; sourceTree = "<group>"; };
 		9ACC119019E232FF00AA4E3C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9ACC119219E2331700AA4E3C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9ACD18BA11023CEE00B294F7 /* btnBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btnBack.png; sourceTree = "<group>"; };
@@ -1310,7 +1308,6 @@
 				9A03F50B29D4CBC80047807E /* ImageComment.swift */,
 				9A03F50929D489520047807E /* NearbyAirports.swift */,
 				9A2649FF29D25B0B00C0D176 /* PullRefreshTableViewController.swift */,
-				9AC88C1029BFD54600841C0A /* WPSAlertController.swift */,
 			);
 			name = "UI Utility Classes";
 			sourceTree = "<group>";
@@ -2401,7 +2398,6 @@
 				9A03F50A29D489520047807E /* NearbyAirports.swift in Sources */,
 				9AA9791D29E328BE00D56DC4 /* RecentFlightCell.swift in Sources */,
 				9A27223029B53861006AE702 /* FlightProps.swift in Sources */,
-				9AC88C1129BFD54600841C0A /* WPSAlertController.swift in Sources */,
 				9A20B152192D34D300A8F64F /* iRate.m in Sources */,
 				9AEFF6E329BD2A4600B07B13 /* MFBWebService PropertyExtensions.swift in Sources */,
 				9A0E794029BE2F4F005EF4D6 /* MFBWebService LogbookEntry Extensions.swift in Sources */,

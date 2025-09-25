@@ -4,7 +4,7 @@
 //  Version 1.10.3
 //
 //  Created by Nick Lockwood on 26/01/2011.
-//  Copyright 2011 Charcoal Design
+//  Copyright 2011-2025 Charcoal Design
 //
 //  Distributed under the permissive zlib license
 //  Get the latest version from here:
@@ -813,8 +813,7 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
         NSString *message = self.ratedAnyVersion? self.updateMessage: self.message;
     
 #if TARGET_OS_IPHONE
-        
-        WPSAlertController * alert = [WPSAlertController alertControllerWithTitle:self.messageTitle message:message preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController * alert = [UIAlertController alertControllerWithTitle:_messageTitle message:message preferredStyle:UIAlertControllerStyleAlert];
         if (self.cancelButtonLabel.length)
             [alert addAction:[UIAlertAction actionWithTitle:self.cancelButtonLabel style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 [self declineThisVersion];
@@ -831,7 +830,9 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
             }]];
         
         self.visibleAlert = alert;
-        [alert show];
+        
+        UIViewController * vc = [UIViewController topViewControllerForScenes:UIApplication.sharedApplication.connectedScenes];
+        [vc presentViewController:alert animated:true completion:nil];
         
 #else
 

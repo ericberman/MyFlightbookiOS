@@ -714,7 +714,7 @@ import Foundation
     
     @IBAction @objc func updateAircraft() {
         tableView.endEditing(true)
-        progress = WPSAlertController.presentProgressAlertWithTitle(String(localized: "Updating aircraft...", comment: "Progress: updating aircraft"), onViewController:self)
+        progress = presentProgressAlert(message: String(localized: "Updating aircraft...", comment: "Progress: updating aircraft"))
         commitAircraft()
     }
 }

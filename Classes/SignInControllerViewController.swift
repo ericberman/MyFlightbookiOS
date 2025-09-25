@@ -109,7 +109,7 @@ public class SignInControllerViewController : CollapsibleTableSw, UITextFieldDel
                     let app = MFBAppDelegate.threadSafeAppDelegate
                     self.sz2fa = ""
                     
-                    app.ensureWarningShownForUser()
+                    app.ensureWarningShownForUser(self)
                     MFBProfile.sharedProfile.SavePrefs()
                     self.tableView.reloadData()
                     
@@ -123,7 +123,7 @@ public class SignInControllerViewController : CollapsibleTableSw, UITextFieldDel
             }
         }) {
             // successfully started the sign-in, so show progress...
-            WPSAlertController.presentProgressAlertWithTitle(String(localized: "Signing in...", comment: "Progress: Signing In"), onViewController:self)
+            presentProgressAlert(message: String(localized: "Signing in...", comment: "Progress: Signing In"))
         } else {
             showError(MFBProfile.sharedProfile.ErrorString)
         }
@@ -331,7 +331,7 @@ public class SignInControllerViewController : CollapsibleTableSw, UITextFieldDel
     func packAndGo() {
         tableView.endEditing(true)
 
-        let uac = WPSAlertController.presentProgressAlertWithTitle(String(localized: "PackAndGoInProgress", comment: "Pack and go - downloaded"), onViewController:self)
+        let uac = presentProgressAlert(message: String(localized: "PackAndGoInProgress", comment: "Pack and go - downloaded"))
         
         let p = PackAndGo()
         p.authToken = MFBProfile.sharedProfile.AuthToken

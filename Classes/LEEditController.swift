@@ -251,7 +251,6 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
         pickerView.reloadAllComponents()
 
         tableView.reloadData()
-        app.ensureWarningShownForUser()
         
         /* Set up toolbar */
         let biSign = UIBarButtonItem(title: String(localized: "SignFlight", comment: "Let a CFI sign this flight"),

@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2010-2023 MyFlightbook, LLC
+ Copyright (C) 2010-2025 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -608,7 +608,7 @@ import Security
                             completionHandler()
                             if (cErrors > 0) {
                                 let szText = String(format: String(localized: "%d of %d images uploaded.  Error: %@", comment: "Status after uploading images; %d and %@ get replaced by numbers and the error message, respectively; keep them"), (cImages - cErrors), cImages, szLastErr)
-                                WPSAlertController.presentOkayAlertWithTitle(String(localized: "Error uploading Pictures", comment: "Error message if there were errors uploading an image"), message:szText)
+                                UIViewController.topViewControllerForScenes(UIApplication.shared.connectedScenes)?.showErrorAlertWithMessage(msg: szText)
                             }
                         }
                     }

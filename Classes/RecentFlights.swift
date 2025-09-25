@@ -876,7 +876,7 @@ public class RecentFlights : PullRefreshTableViewControllerSW, LEEditDelegate, U
         let alert = UIAlertController(title: "", message: String(localized: "InitFromTelemetry", comment: "Import Flight Telemetry"), preferredStyle:.alert)
         alert.addAction(UIAlertAction(title: String(localized: "Cancel", comment: "Cancel (button)"), style:.cancel))
         alert.addAction(UIAlertAction(title: String(localized: "OK", comment: "OK"), style:.default) { uaa in
-            WPSAlertController.presentProgressAlertWithTitle(String(localized: "ActivityInProgress", comment: "Activity In Progress"), onViewController:self)
+            self.presentProgressAlert(message: String(localized: "ActivityInProgress", comment: "Activity In Progress"))
             DispatchQueue.global().async {
                 let le = GPSSim.ImportTelemetry(self.urlTelemetry!)
                 DispatchQueue.main.async {

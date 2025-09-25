@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2009-2024 MyFlightbook, LLC
+ Copyright (C) 2009-2025 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -145,7 +145,10 @@ import Foundation
             if (sc?.errorString ?? "").isEmpty {
                 Aircraft.sharedAircraft.checkAircraftID()
             } else {
-                WPSAlertController.presentAlertWithErrorMessage(sc!.errorString)
+                // display this after a pause
+                DispatchQueue.main.async {
+                    UIViewController.topViewControllerForScenes(UIApplication.shared.connectedScenes)?.showErrorAlertWithMessage(msg: sc!.errorString)
+                }
             }
         }
         loadAircraftForUser(false)

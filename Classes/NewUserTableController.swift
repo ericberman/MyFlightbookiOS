@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2013-2023 MyFlightbook, LLC
+ Copyright (C) 2013-2025 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -290,7 +290,7 @@ public class NewUserTableController : CollapsibleTableSw, UITextFieldDelegate {
             }
         }) {
             // successfully started create user, show progress.
-            WPSAlertController.presentProgressAlertWithTitle(String(localized: "Creating Account...", comment: "Progress indicator"), onViewController:self)
+            presentProgressAlert(message: String(localized: "Creating Account...", comment: "Progress indicator"))
         } else {
             showErrorAlertWithMessage(msg: MFBProfile.sharedProfile.ErrorString)
         }

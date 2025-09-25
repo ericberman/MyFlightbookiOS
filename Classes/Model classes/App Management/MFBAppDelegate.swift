@@ -81,7 +81,7 @@ import WidgetKit
     }
     
     // MARK: App life cycle
-    @objc public func ensureWarningShownForUser() {
+    @objc public func ensureWarningShownForUser(_ viewController : UIViewController) {
         let defs = UserDefaults.standard
         let szUser = MFBProfile.sharedProfile.UserName
         
@@ -92,12 +92,13 @@ import WidgetKit
         let szUserWarning = defs.string(forKey: MFBAppDelegate._szKeyHasSeenDisclaimer) ?? ""
         
         if szUser.compare(szUserWarning) != .orderedSame {
-            WPSAlertController.presentOkayAlertWithTitle(String(localized: "Important", comment:"Disclaimer warning message title"),
-                                                         message: String(localized: "Use of this during flight could be a distraction and could violate regulations, including 14 CFR 91.21 and 47 CFR 22.925.\r\nYou are responsible for the consequences of any use of this software.", comment: "Use in flight disclaimer"),
-                                                         button: String(localized: "Accept", comment: "Disclaimer acceptance button title"))
-            
-            defs.set(szUser, forKey: MFBAppDelegate._szKeyHasSeenDisclaimer)
-            defs.synchronize()
+            viewController.presentAlert(title: String(localized: "Important", comment:"Disclaimer warning message title"),
+                                        message: String(localized: "Use of this during flight could be a distraction and could violate regulations, including 14 CFR 91.21 and 47 CFR 22.925.\r\nYou are responsible for the consequences of any use of this software.", comment: "Use in flight disclaimer"),
+                                        buttonTitle: String(localized: "Accept", comment: "Disclaimer acceptance button title"),
+                onOK: { uaa in
+                defs.set(szUser, forKey: MFBAppDelegate._szKeyHasSeenDisclaimer)
+                defs.synchronize()
+            })
         }
     }
 
