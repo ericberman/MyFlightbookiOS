@@ -76,11 +76,11 @@ public class SignInControllerViewController : CollapsibleTableSw, UITextFieldDel
         }
         
         alert.addAction(UIAlertAction(title: String(localized: "Cancel", comment: "Cancel (button)"), style:.cancel) { uaa in
-            self.navigationController?.popViewController(animated: true)
+            self.dismiss(animated: true)
         })
         alert.addAction(UIAlertAction(title: String(localized: "OK", comment: "OK"), style:.default) { uaa in
+            self.dismiss(animated: true)
             self.sz2fa = alert.textFields?[0].text ?? ""
-            self.navigationController?.popViewController(animated: true)
             self.updateProfile()
         })
         present(alert, animated: true)
