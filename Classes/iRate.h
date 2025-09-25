@@ -154,6 +154,7 @@ typedef NS_ENUM(NSUInteger, iRateErrorCode)
 - (void)promptIfNetworkAvailable;
 - (void)openRatingsPageInAppStore;
 - (void)logEvent:(BOOL)deferPrompt;
+- (void) applicationLaunched;
 
 @end
 

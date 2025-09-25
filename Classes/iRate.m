@@ -214,8 +214,8 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
         
 #endif
         
-        //app launched
-        [self performSelectorOnMainThread:@selector(applicationLaunched) withObject:nil waitUntilDone:NO];
+        //app launched - need to wait for scene to be set up so don't call applicationLaunched yet; let the scene call it.
+//        [self performSelectorOnMainThread:@selector(applicationLaunched) withObject:nil waitUntilDone:NO];
     }
     return self;
 }

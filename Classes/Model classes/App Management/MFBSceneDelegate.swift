@@ -142,6 +142,7 @@ public class SceneDelegate: UIResponder, UIWindowSceneDelegate, UITabBarControll
                 self.tabBarController!.selectedViewController = self.tabBarController.tabProfile
             }
             app.ensureWarningShownForUser(self.tabBarController)
+            iRate.sharedInstance().applicationLaunched()
         })
     }
     
