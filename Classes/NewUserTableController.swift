@@ -127,6 +127,7 @@ public class NewUserTableController : CollapsibleTableSw, UITextFieldDelegate {
             let cell = TextCell.getTextCellTransparent(tableView)
             var config = cell.defaultContentConfiguration()
             config.text = String(localized: "By creating an account, you are agreeing to the terms and conditions.", comment: "Terms and Conditions agreement")
+            config.textProperties.adjustsFontSizeToFitWidth = true
             cell.contentConfiguration = config
             return cell
         case .rowQuestion:
