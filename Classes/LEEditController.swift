@@ -34,7 +34,6 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
     private var dictPropCells : [NSNumber : PropertyCell] = [:]
     private var digitizedSig : UIImage? = nil
     private var selectibleAircraft : [MFBWebServiceSvc_Aircraft] = []
-    private var propDatePicker = UIDatePicker()
     
     private let _szKeyCachedImageArray = "cachedImageArrayKey"
     private let _szkeyITCCollapseState = "keyITCCollapseState"
@@ -100,8 +99,8 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
         
         // And set up remaining inputviews/accessory views
         idDate.inputView = datePicker
-        datePicker.preferredDatePickerStyle = .wheels
-        propDatePicker.preferredDatePickerStyle = .wheels
+//        datePicker.preferredDatePickerStyle = .wheels
+//        propDatePicker.preferredDatePickerStyle = .wheels
         
         idPopAircraft.inputView = pickerView
         idComments.inputAccessoryView = vwAccessory
@@ -752,7 +751,7 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
             
             pc.txt.delegate = self
             pc.flightPropDelegate = flightProps
-            pc.configureCell(vwAccessory, andDatePicker: propDatePicker, defValue: le.entryData.xfillValueForPropType(cpt) ?? NSNumber(integerLiteral: 0))
+            pc.configureCell(vwAccessory, andDatePicker: datePicker, defValue: le.entryData.xfillValueForPropType(cpt) ?? NSNumber(integerLiteral: 0))
             return pc
         }
     }
@@ -881,7 +880,7 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
     // MARK: - UITextFieldDelegate
     @discardableResult func dateClick(_ dtIn : Date?, onInit completionBlock : (Date)->Void) -> Bool {
         datePicker.datePickerMode = .dateAndTime
-        self.datePicker.preferredDatePickerStyle = .wheels
+//        self.datePicker.preferredDatePickerStyle = .wheels
         
         var dt = dtIn ?? Date.distantPast // Web issue #1099 - want to ensure trunaction of seconds.
 

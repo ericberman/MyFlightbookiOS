@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2017-2024 MyFlightbook, LLC
+ Copyright (C) 2017-2025 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -135,7 +135,7 @@ import Foundation
             dp.datePickerMode = fDateOnly ? .date : .dateAndTime
             dp.timeZone = fDateOnly || UserPreferences.current.UseLocalTime ? TimeZone.current : TimeZone(secondsFromGMT: 0)
             dp.locale = fDateOnly || UserPreferences.current.UseLocalTime ? Locale.current : Locale(identifier: "en-GB")
-            dp.preferredDatePickerStyle = .wheels
+//            dp.preferredDatePickerStyle = .wheels
             
             dp.removeTarget(nil, action: #selector(dateChanged), for: .valueChanged)
             if (txt.text ?? "").isEmpty {
