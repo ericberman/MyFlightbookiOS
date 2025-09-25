@@ -38,6 +38,7 @@
                     </button>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="height" constant="44" priority="999" id="height-44"/>
                     <constraint firstAttribute="trailing" secondItem="nOp-6r-rKv" secondAttribute="trailing" constant="8" id="3Vh-oH-ZFC"/>
                     <constraint firstAttribute="trailing" secondItem="4" secondAttribute="trailing" constant="45" id="8hf-Df-6D7"/>
                     <constraint firstItem="nOp-6r-rKv" firstAttribute="centerY" secondItem="BRr-Ns-cOm" secondAttribute="centerY" id="LZa-Kv-hZu"/>
