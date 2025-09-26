@@ -395,10 +395,8 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
     }
     
     @IBAction public func toggleFlightPause() {
-        let totalsMode = UserPreferences.current.autoTotalMode;
-        
         // don't pause or play if we're not flying/engine started
-        if le.entryData.isKnownFlightStart() || (totalsMode != .flight && le.entryData.isKnownEngineStart()) {
+        if le.entryData.flightCouldBeInProgress() {
             if le.fIsPaused {
                 le.unPauseFlight()
             } else {
