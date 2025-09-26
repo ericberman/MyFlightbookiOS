@@ -213,6 +213,10 @@
 		9A70E34729D4F9FA0068B0E6 /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A70E34629D4F9FA0068B0E6 /* ButtonCell.swift */; };
 		9A70E34929D4FB7B0068B0E6 /* CheckboxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A70E34829D4FB7B0068B0E6 /* CheckboxCell.swift */; };
 		9A77CF97110569D0006E7531 /* airport.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A77CF96110569D0006E7531 /* airport.png */; };
+		9A7832292E86389F00A0E0BA /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 9A7832282E86389F00A0E0BA /* AppIcon.icon */; };
+		9A78322A2E86389F00A0E0BA /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 9A7832282E86389F00A0E0BA /* AppIcon.icon */; };
+		9A78322B2E86389F00A0E0BA /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 9A7832282E86389F00A0E0BA /* AppIcon.icon */; };
+		9A78322C2E86389F00A0E0BA /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 9A7832282E86389F00A0E0BA /* AppIcon.icon */; };
 		9A7A7D96147F4DD0003A6912 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9A7A7D98147F4DD0003A6912 /* Localizable.strings */; };
 		9A7C143C1533D660007EB69A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9A7C143B1533D660007EB69A /* Settings.bundle */; };
 		9A804AF716EE445F002F77CA /* DateRangeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A804AF516EE445F002F77CA /* DateRangeViewController.xib */; };
@@ -749,6 +753,7 @@
 		9A73C84121AF51CF00AE1221 /* MyFlightbookWatch Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MyFlightbookWatch Extension.entitlements"; sourceTree = "<group>"; };
 		9A73C84721AF51F400AE1221 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		9A77CF96110569D0006E7531 /* airport.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = airport.png; sourceTree = "<group>"; };
+		9A7832282E86389F00A0E0BA /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		9A7A7D97147F4DD0003A6912 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9A7C143B1533D660007EB69A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		9A7E42B611810DBF002000A4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -1102,6 +1107,7 @@
 				9A48E28E29A16EE400511D99 /* MFBSoapCallLibrary */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				9A7832282E86389F00A0E0BA /* AppIcon.icon */,
 			);
 			name = MFBSample;
 			sourceTree = "<group>";
@@ -2061,6 +2067,7 @@
 				9A5A0875147ED35300C05C50 /* MyAircraft.xib in Resources */,
 				9A5A0876147ED35300C05C50 /* NearbyAirports.xib in Resources */,
 				9A6DFCF8224306B30061FE86 /* Launch Screen.storyboard in Resources */,
+				9A7832292E86389F00A0E0BA /* AppIcon.icon in Resources */,
 				9A5A087F147ED35300C05C50 /* RecentFlights.xib in Resources */,
 				9A5A0880147ED35300C05C50 /* Totals.xib in Resources */,
 				9A5A0881147ED35300C05C50 /* TotalsRow.xib in Resources */,
@@ -2261,6 +2268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9AA723B12BA7522C0045BE63 /* PrivacyInfo.xcprivacy in Resources */,
+				9A78322C2E86389F00A0E0BA /* AppIcon.icon in Resources */,
 				9A48E27129A1686000511D99 /* Assets.xcassets in Resources */,
 				9A5F990629A2A64E00692E27 /* Localizable.strings in Resources */,
 			);
@@ -2271,6 +2279,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9AD2FFC51BE1AF4600A9B21B /* Pause@3x.png in Resources */,
+				9A78322B2E86389F00A0E0BA /* AppIcon.icon in Resources */,
 				9AD2FFC21BE1AF3E00A9B21B /* Play.png in Resources */,
 				9AD2FFC61BE1AF4600A9B21B /* Play@2x.png in Resources */,
 				9AD2FFC41BE1AF4600A9B21B /* Pause@2x.png in Resources */,
@@ -2313,6 +2322,7 @@
 				9AD2FFE01BE1AF5400A9B21B /* icon-small.png in Resources */,
 				9AC264381BE6CEAA00914D30 /* Recording@2x.png in Resources */,
 				9AD2FFC91BE1AF4700A9B21B /* Pause@2x.png in Resources */,
+				9A78322A2E86389F00A0E0BA /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
