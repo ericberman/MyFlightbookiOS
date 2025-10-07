@@ -370,6 +370,19 @@ public class RecentFlights : PullRefreshTableViewControllerSW, LEEditDelegate, U
         if fq.isUnrestricted() && !rgFlights.isEmpty {
             MFBAppDelegate.threadSafeAppDelegate.watchData?.latestFlight = rgFlights[0].toSimpleItem(fHHMM: UserPreferences.current.HHMMPref)
         }
+        // Issue #380 - look for newly added aircraft
+        let ac = Aircraft.sharedAircraft
+        var needsRefresh = false
+        for f in rgFlights {
+            if ac.indexOfAircraftID(f.aircraftID.intValue) < 0 {
+                needsRefresh = true
+                break
+            }
+        }
+        if needsRefresh {
+            ac.invalidateCachedAircraft()
+            ac.refreshIfNeeded()
+        }
     }
     
     // MARK: - Thumbnails
