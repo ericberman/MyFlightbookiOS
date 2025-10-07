@@ -99,7 +99,6 @@
 		9A357D2929E5F00A009B8344 /* MyFlightbookWidgets.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 9A357D2C29E5F00A009B8344 /* MyFlightbookWidgets.intentdefinition */; };
 		9A357D2A29E5F00A009B8344 /* MyFlightbookWidgets.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 9A357D2C29E5F00A009B8344 /* MyFlightbookWidgets.intentdefinition */; };
 		9A3A27331573F062009AE0F6 /* WaitCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A3A27321573F062009AE0F6 /* WaitCell.xib */; };
-		9A3A694F11B85C72009A5C88 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3A694E11B85C72009A5C88 /* libsqlite3.0.dylib */; };
 		9A3AE5C829D5E6EE0058EE45 /* FlightQueryForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3AE5C729D5E6EE0058EE45 /* FlightQueryForm.swift */; };
 		9A3AE5CA29D66DD70058EE45 /* TextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3AE5C929D66DD70058EE45 /* TextCell.swift */; };
 		9A3E9D712E8077540094506D /* MFBSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3E9D702E80774E0094506D /* MFBSceneDelegate.swift */; };
@@ -638,7 +637,6 @@
 		9A357D2E29E5F00F009B8344 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MyFlightbookWidgets.strings; sourceTree = "<group>"; };
 		9A357D3029E5F010009B8344 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MyFlightbookWidgets.strings; sourceTree = "<group>"; };
 		9A3A27321573F062009AE0F6 /* WaitCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WaitCell.xib; sourceTree = "<group>"; };
-		9A3A694E11B85C72009A5C88 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		9A3AE5C729D5E6EE0058EE45 /* FlightQueryForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightQueryForm.swift; sourceTree = "<group>"; };
 		9A3AE5C929D66DD70058EE45 /* TextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCell.swift; sourceTree = "<group>"; };
 		9A3E12F1127DD633008D672E /* EXF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXF.h; sourceTree = "<group>"; };
@@ -714,9 +712,6 @@
 		9A61876B1711DFC4007C7754 /* twitter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter@2x.png"; sourceTree = "<group>"; };
 		9A6247A21AA509A3002A8E0B /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		9A6414C129ECAE6C00AAE878 /* ExifLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = ExifLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		9A6414D329ECAEF600AAE878 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk/System/Library/Frameworks/CoreFoundation.framework; sourceTree = DEVELOPER_DIR; };
-		9A6414D529ECAF2000AAE878 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk/System/iOSSupport/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		9A6414D729ECAF2700AAE878 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk/System/Library/Frameworks/AppKit.framework; sourceTree = DEVELOPER_DIR; };
 		9A6590D329DA517900917FCD /* FlightProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightProperties.swift; sourceTree = "<group>"; };
 		9A69202010CCBD8800DF1CA6 /* NSDate+ISO8601Parsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+ISO8601Parsing.h"; sourceTree = "<group>"; };
 		9A69202110CCBD8900DF1CA6 /* NSDate+ISO8601Parsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+ISO8601Parsing.m"; sourceTree = "<group>"; };
@@ -954,7 +949,6 @@
 		9ACDC8E71BDFEA1400B0A077 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9ACDC8E91BDFEA1400B0A077 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9ACDC8FF1BE01BC600B0A077 /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = System/Library/Frameworks/WatchConnectivity.framework; sourceTree = SDKROOT; };
-		9ACDC9001BE01BC600B0A077 /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = System/Library/Frameworks/WatchKit.framework; sourceTree = SDKROOT; };
 		9ACE9E8B1D075299004274F9 /* MyFlightbook-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MyFlightbook-Bridging-Header.h"; sourceTree = "<group>"; };
 		9ACED2961337C66F00E3DC8F /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		9AD2FFE51BE2AB4C00A9B21B /* CurrencyTableRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyTableRowController.swift; sourceTree = "<group>"; };
@@ -1023,7 +1017,6 @@
 				9AA09D6C14684DF400192184 /* AVFoundation.framework in Frameworks */,
 				9AA09D6B14684DE600192184 /* UIKit.framework in Frameworks */,
 				9A170C982437FCF600CDECCF /* CoreServices.framework in Frameworks */,
-				9A3A694F11B85C72009A5C88 /* libsqlite3.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1142,21 +1135,16 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9A6414D729ECAF2700AAE878 /* AppKit.framework */,
-				9A6414D529ECAF2000AAE878 /* UIKit.framework */,
-				9A6414D329ECAEF600AAE878 /* CoreFoundation.framework */,
 				9A170C972437FCF600CDECCF /* CoreServices.framework */,
 				9AA94A65220F63880056AED3 /* ExternalAccessory.framework */,
 				9A050D282138790000B3F794 /* Photos.framework */,
 				9ACDC8FF1BE01BC600B0A077 /* WatchConnectivity.framework */,
-				9ACDC9001BE01BC600B0A077 /* WatchKit.framework */,
 				9AFEFF9E1BD02E1E0083043A /* CoreMedia.framework */,
 				9A6247A21AA509A3002A8E0B /* MediaPlayer.framework */,
 				9AC7B8C214D0AEF0009139BF /* QuartzCore.framework */,
 				9AA09D6D14684E3A00192184 /* Security.framework */,
 				9AA09D6814684DC800192184 /* AudioToolbox.framework */,
 				9ACED2961337C66F00E3DC8F /* AssetsLibrary.framework */,
-				9A3A694E11B85C72009A5C88 /* libsqlite3.0.dylib */,
 				9A7E42B611810DBF002000A4 /* SystemConfiguration.framework */,
 				9AA06CB810F3C27E00D635C1 /* MobileCoreServices.framework */,
 				9AFAC10010E5C7CD00225E90 /* CoreLocation.framework */,
