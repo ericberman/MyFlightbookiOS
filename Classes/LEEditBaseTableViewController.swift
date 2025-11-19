@@ -162,6 +162,7 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
             le.entryData.setPropertyValue(.flightMeterStart, withDecimal: endingFlightMeter.doubleValue)
         }
         saveState() // clean up any old state
+        ApproachEditor.clearRecent()
         MFBAppDelegate.threadSafeAppDelegate.updateWatchContext()
     }
     

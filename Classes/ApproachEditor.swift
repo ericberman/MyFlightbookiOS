@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2017-2023 MyFlightbook, LLC
+ Copyright (C) 2017-2025 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -31,10 +31,21 @@ import Foundation
 }
 
 @objc public class ApproachEditor : CollapsibleTableSw, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
-    @objc public var approachDescription = ApproachDescription()
+    private static var approachDescription = ApproachDescription()
     @objc public var delegate : ApproachEditorDelegate? = nil
     
+    private static var lastApproachRow = 0
+    private static var lastApproachSuffixRow = 0
+    private static var lastRunwayRow = 0
+    private static var lastRunwaySuffixRow = 0
     
+    public static func clearRecent() {
+        lastApproachRow = 0
+        lastApproachSuffixRow = 0
+        lastRunwayRow = 0
+        lastRunwaySuffixRow = 0
+        approachDescription = ApproachDescription()
+    }
     
     @objc public var airports : [String] {
         get {
@@ -42,7 +53,7 @@ import Foundation
         }
         set (val) {
             _rgAirports = val
-            approachDescription.airportName = val.isEmpty ? "" : val[val.count - 1]
+            ApproachEditor.approachDescription.airportName = val.isEmpty ? "" : val[val.count - 1]
         }
     }
     
@@ -66,7 +77,9 @@ import Foundation
         vwPickerRunway = UIPickerView()
         vwPickerRunway.dataSource = self
         vwPickerRunway.delegate = self
+        ApproachEditor.approachDescription.approachCount = 0
     }
+
     public override init(style: UITableView.Style) {
         super.init(style: style)
         initLocals()
@@ -82,10 +95,18 @@ import Foundation
         initLocals()
     }
     
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        vwPickerApproach.selectRow(ApproachEditor.lastApproachRow, inComponent: 0, animated: false)
+        vwPickerApproach.selectRow(ApproachEditor.lastApproachSuffixRow, inComponent: 1, animated: false)
+        vwPickerRunway.selectRow(ApproachEditor.lastRunwayRow, inComponent: 0, animated: false)
+        vwPickerRunway.selectRow(ApproachEditor.lastRunwaySuffixRow, inComponent: 1, animated: false)
+    }
+    
     // MARK: - View Lifecycle
     public override func viewWillDisappear(_ animated: Bool) {
         tableView.endEditing(true)
-        delegate?.addApproachDescription(approachDescription)
+        delegate?.addApproachDescription(ApproachEditor.approachDescription)
         super.viewWillDisappear(animated)
     }
 
@@ -115,7 +136,7 @@ import Foundation
         switch cellIDFromIndexPath(indexPath) {
         case .rowCount:
             ec.txt.keyboardType = .numberPad
-            ec.txt.text = approachDescription.approachCount == 0 ? "" : String(format: "%ld", approachDescription.approachCount)
+            ec.txt.text = ApproachEditor.approachDescription.approachCount == 0 ? "" : String(format: "%ld", ApproachEditor.approachDescription.approachCount)
             ec.txt.setType(numericType: .Integer, fHHMM: false)
             ec.txt.placeholder = String(localized: "NumApproaches", comment: "Approach Helper - Quantity")
             ec.txt.returnKeyType = .next
@@ -124,23 +145,23 @@ import Foundation
             var config = cell.defaultContentConfiguration()
             config.text = String(localized: "ApproachAddToCount", comment: "Approach Helper - Add to approach count")
             cell.contentConfiguration = config
-            cell.accessoryType = approachDescription.addToTotals ? .checkmark : .none
+            cell.accessoryType = ApproachEditor.approachDescription.addToTotals ? .checkmark : .none
             return cell
         case .rowApproachType:
             ec.txt.keyboardType = .default
-            ec.txt.text = approachDescription.approachName
+            ec.txt.text = ApproachEditor.approachDescription.approachName
             ec.txt.placeholder = String(localized: "ApproachType", comment: "Approach Helper - Approach Name")
             ec.txt.returnKeyType = .next
             ec.txt.inputView = vwPickerApproach
         case .rowRunway:
             ec.txt.keyboardType = .default
-            ec.txt.text = approachDescription.runwayName
+            ec.txt.text = ApproachEditor.approachDescription.runwayName
             ec.txt.placeholder = String(localized: "ApproachRunway", comment: "Approach Helper - Runway")
             ec.txt.returnKeyType = .next
             ec.txt.inputView = vwPickerRunway
         case .rowAirport:
             ec.txt.keyboardType = .default
-            ec.txt.text = approachDescription.airportName
+            ec.txt.text = ApproachEditor.approachDescription.airportName
             ec.txt.placeholder = String(localized: "ApproachAirport", comment: "Approach Helper - Airport")
             ec.txt.returnKeyType = .go
         }
@@ -153,7 +174,7 @@ import Foundation
     
     public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if appchRow(rawValue: indexPath.row) == .rowAddToTotals {
-            approachDescription.addToTotals = !approachDescription.addToTotals
+            ApproachEditor.approachDescription.addToTotals = !ApproachEditor.approachDescription.addToTotals
             tableView.reloadData()
         }
     }
@@ -162,13 +183,13 @@ import Foundation
     public func textFieldDidEndEditing(_ textField: UITextField) {
         switch cellIDFromIndexPath(tableView.indexPath(for: owningCell(textField)!)!) {
         case .rowCount:
-            approachDescription.approachCount = textField.getValue().intValue
+            ApproachEditor.approachDescription.approachCount = textField.getValue().intValue
         case .rowApproachType:
-            approachDescription.approachName = textField.text ?? ""
+            ApproachEditor.approachDescription.approachName = textField.text ?? ""
         case .rowRunway:
-            approachDescription.runwayName = textField.text ?? ""
+            ApproachEditor.approachDescription.runwayName = textField.text ?? ""
         case .rowAirport:
-            approachDescription.airportName = textField.text ?? ""
+            ApproachEditor.approachDescription.airportName = textField.text ?? ""
         default:
             break
         }
@@ -187,7 +208,7 @@ import Foundation
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         let row = cellIDFromIndexPath(tableView.indexPath(for: owningCell(textField)!)!)
         if row == .rowAirport {
-            approachDescription.airportName = textField.text ?? "" // in case we hadn't picked it up before
+            ApproachEditor.approachDescription.airportName = textField.text ?? "" // in case we hadn't picked it up before
             navigationController?.popViewController(animated: true)
         } else {
             nextClicked()
@@ -274,8 +295,13 @@ import Foundation
                 let row = pickerView.selectedRow(inComponent: i)
                 sz += self.pickerView(pickerView, titleForRow: row, forComponent: i)!
             }
+            if (component == 0) {
+                ApproachEditor.lastRunwayRow = row
+            } else {
+                ApproachEditor.lastRunwaySuffixRow = row
+            }
             ec.txt.text = sz
-            approachDescription.runwayName = sz
+            ApproachEditor.approachDescription.runwayName = sz
         case .rowApproachType:
             let ec = tableView.cellForRow(at: ipActive!) as! EditCell
             var sz = ""
@@ -283,8 +309,13 @@ import Foundation
                 let row = pickerView.selectedRow(inComponent: i)
                 sz += self.pickerView(pickerView, titleForRow: row, forComponent: i)!
             }
+            if (component == 0) {
+                ApproachEditor.lastApproachRow = row
+            } else {
+                ApproachEditor.lastApproachSuffixRow = row
+            }
             ec.txt.text = sz
-            approachDescription.approachName = sz
+            ApproachEditor.approachDescription.approachName = sz
         default:
             break
         }
