@@ -194,22 +194,15 @@ import Foundation
         return s == .sectImages && indexPath.row > 0 ? 100.0 : (s == .sectNotes && indexPath.row > 0 ? 120.0 : UITableView.automaticDimension)
     }
     
-    func utcShortDate(_ dt : Date) -> String {
-        let df = DateFormatter()
-        df.timeZone = TimeZone(secondsFromGMT: 0)
-        df.dateStyle = .short
-        return df.string(from: dt)
-    }
-    
     func setDate(_ dt : Date, expiration dtExpiration : Date?, cell ec : EditCell) {
-        ec.txt.text = NSDate.isUnknownDate(dt: dt) ? "" : utcShortDate(dt)
+        ec.txt.text = NSDate.isUnknownDate(dt: dt) ? "" : (dt as NSDate).dateStringUtc()
         
         if (NSDate.isUnknownDate(dt: dtExpiration)) {
             ec.lblDetail.text = ""
         } else  {
-            let fIsExpired = dtExpiration!.compare(Date()) == .orderedAscending;
+            let fIsExpired = dtExpiration!.compare(Date().UTCDateFromLocalDate()) == .orderedAscending;
             ec.lblDetail.text = String(format: fIsExpired ? String(localized: "CurrencyExpired", comment: "Currency Expired format string") : String(localized: "CurrencyValid", comment: "Currency Valid format string"),
-                                       utcShortDate(dtExpiration!))
+                                       (dtExpiration! as NSDate).dateStringUtc())
             ec.lblDetail.textColor = fIsExpired ? .systemRed : .secondaryLabel
         }
     }
@@ -495,27 +488,28 @@ import Foundation
     @IBAction @objc func dateChanged(_ sender : UIDatePicker) {
         let row = cellIDFromIndexPath(ipActive!)
         let ec = self.tableView.cellForRow(at: ipActive!) as! EditCell
+        let dt = sender.date.UTCDateFromLocalDate()
         switch row {
         case .rowAltimeter:
-            ac.lastAltimeter = sender.date
+            ac.lastAltimeter = dt
             setDate(ac.lastAltimeter, expiration: ac.nextAltimeter(), cell: ec)
         case .rowAnnual:
-            ac.lastAnnual = sender.date
+            ac.lastAnnual = dt
             setDate(ac.lastAnnual, expiration: ac.nextAnnual(), cell: ec)
         case .rowELT:
-            ac.lastELT = sender.date
+            ac.lastELT = dt
             setDate(ac.lastELT, expiration: ac.nextELT(), cell: ec)
         case .rowPitot:
-            ac.lastStatic = sender.date
+            ac.lastStatic = dt
             setDate(ac.lastStatic, expiration: ac.nextPitotStatic(), cell: ec)
         case .rowVOR:
-            ac.lastVOR = sender.date
+            ac.lastVOR = dt
             setDate(ac.lastVOR, expiration: ac.nextVOR(), cell: ec)
         case .rowXPnder:
-            ac.lastTransponder = sender.date
+            ac.lastTransponder = dt
             setDate(ac.lastTransponder, expiration: ac.nextTransponder(), cell: ec)
         case .rowRegistration:
-            ac.registrationDue = sender.date
+            ac.registrationDue = dt
             setDate(ac.registrationDue, expiration: nil, cell: ec)
         default:
             break
@@ -569,7 +563,7 @@ import Foundation
         let ec = tableView.cellForRow(at: ipActive!) as! EditCell
         // see if this is a "Tap for today" click - if so, set it to today and resign
         if (ec.txt.text ?? "").isEmpty || NSDate.isUnknownDate(dt: dt) {
-            datePicker.date = Date()
+            datePicker.date = Date().UTCDateFromLocalDate()
             initializer(datePicker.date, ec)
             tableView.endEditing(true)
             return false

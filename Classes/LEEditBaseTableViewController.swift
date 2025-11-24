@@ -272,7 +272,7 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
         
         // Issue #306: handle "floating" date
         if NSDate.isUnknownDate(dt: le.entryData.date) {
-            le.entryData.date = Date()
+            le.entryData.date = Date().UTCDateFromLocalDate()
             setDisplayDate(le.entryData.date)
         }
         
@@ -355,7 +355,7 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
     }
     
     func setDisplayDate(_ dt : NSDate) {
-        idDate.text = NSDate.isUnknownDate(dt: dt as Date) ? String(localized: "lblToday", comment: "Prompt indicating a floating date of TODAY") :  dt.dateString()
+        idDate.text = NSDate.isUnknownDate(dt: dt as Date) ? String(localized: "lblToday", comment: "Prompt indicating a floating date of TODAY") :  dt.dateStringUtc()
     }
     
     func setDisplayDate(_ dt : Date) {
@@ -376,8 +376,8 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
             if (cfp?.dateValue ?? .distantFuture).compare(dt) == .orderedAscending {
                 dt = cfp!.dateValue as Date
             }
-            le.entryData.date = dt
-            setDisplayDate(dt as NSDate)
+            le.entryData.date = dt.UTCDateFromLocalDate()
+            setDisplayDate(le.entryData.date)
         }
     }
     

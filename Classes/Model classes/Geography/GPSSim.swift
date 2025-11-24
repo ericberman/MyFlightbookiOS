@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2017-2023 MyFlightbook, LLC
+ Copyright (C) 2017-2025 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -74,11 +74,11 @@ import Foundation
             if t.hasSpeed {
                 // Issue #151: drop seconds from engine start/end
                 let dt = (firstLoc.timestamp as NSDate).dateByTruncatingSeconds()
-                self.leDelegate?.date = dt!
+                self.leDelegate?.date = dt!.UTCDateFromLocalDate()
                 self.leDelegate?.engineStart = dt!
             }
             else {
-                leDelegate?.date = Date()
+                leDelegate?.date = Date().UTCDateFromLocalDate()
                 leDelegate?.route = Airports.appendNearestAirport("")
             }
         }

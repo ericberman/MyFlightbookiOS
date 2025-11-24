@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2009-2024 MyFlightbook, LLC
+ Copyright (C) 2009-2025 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -365,7 +365,7 @@ extension MFBWebServiceSvc_LogbookEntry : AutoDetectDelegate {
                 }
             }
             
-            leNew.date = Date()
+            leNew.date = Date().UTCDateFromLocalDate()
             leNew.engineStart = Date.distantPast
             leNew.engineEnd = Date.distantPast
             leNew.flightStart = Date.distantPast
@@ -611,7 +611,7 @@ extension MFBWebServiceSvc_LogbookEntry : AutoDetectDelegate {
         hobbsStart = parseNum(dict["flight_hobbsStart"], numType: .Decimal)
         hobbsEnd = parseNum(dict["flight_hobbsStop"], numType: .Decimal)
         
-        date = parseDate(dict["flight_flightDate"], withFormatter:dfDate)
+        date = parseDate(dict["flight_flightDate"], withFormatter:dfDate)?.UTCDateFromLocalDate()
         flightStart = parseDate(dict["flight_takeoffTime"], withFormatter:dfDateTime)
         flightEnd = parseDate(dict["flight_landingTime"], withFormatter:dfDateTime)
         

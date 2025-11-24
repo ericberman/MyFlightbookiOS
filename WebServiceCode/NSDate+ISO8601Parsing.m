@@ -536,6 +536,7 @@ static BOOL is_leap_year(NSUInteger year) {
         }
         
         switch(*ch) {
+          case '\0':	// If unterminated, it's a floating date (no specific timezone); treat it as if it were UTC.
           case 'Z':
             timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
             break;

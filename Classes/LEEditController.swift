@@ -99,8 +99,6 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
         
         // And set up remaining inputviews/accessory views
         idDate.inputView = datePicker
-//        datePicker.preferredDatePickerStyle = .wheels
-//        propDatePicker.preferredDatePickerStyle = .wheels
         
         idPopAircraft.inputView = pickerView
         idComments.inputAccessoryView = vwAccessory
@@ -897,7 +895,7 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
     // MARK: - UITextFieldDelegate
     @discardableResult func dateClick(_ dtIn : Date?, onInit completionBlock : (Date)->Void) -> Bool {
         datePicker.datePickerMode = .dateAndTime
-//        self.datePicker.preferredDatePickerStyle = .wheels
+        
         
         var dt = dtIn ?? Date.distantPast // Web issue #1099 - want to ensure trunaction of seconds.
 
@@ -1023,12 +1021,13 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
         
         if textField == idDate {
             if NSDate.isUnknownDate(dt: le.entryData.date) {
-                le.entryData.date = Date()
+                le.entryData.date = Date().UTCDateFromLocalDate()
                 setDisplayDate(le.entryData.date)
                 return false
             }
             datePicker.date = le.entryData.date
             datePicker.datePickerMode = .date
+            datePicker.timeZone = TimeZone(secondsFromGMT: 0)   // Issue #350 - treat date-of-flight always in UTC
         } else if textField == idPopAircraft {
             if le.entryData.aircraftID.intValue > 0 {
                 for i in 0..<selectibleAircraft.count {

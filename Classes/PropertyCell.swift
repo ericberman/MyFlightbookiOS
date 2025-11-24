@@ -135,7 +135,6 @@ import Foundation
             dp.datePickerMode = fDateOnly ? .date : .dateAndTime
             dp.timeZone = fDateOnly || UserPreferences.current.UseLocalTime ? TimeZone.current : TimeZone(secondsFromGMT: 0)
             dp.locale = fDateOnly || UserPreferences.current.UseLocalTime ? Locale.current : Locale(identifier: "en-GB")
-//            dp.preferredDatePickerStyle = .wheels
             
             dp.removeTarget(nil, action: #selector(dateChanged), for: .valueChanged)
             if (txt.text ?? "").isEmpty {

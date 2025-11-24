@@ -64,7 +64,6 @@ import Foundation
     
     @objc public var progressLabel : UILabel? = nil
 
-    private var stashedDate : Date? = nil
     private var retVal = false
 
     private let _szKeyPendingFlightsArray = "pref_pendingFlightsArray"
@@ -389,16 +388,6 @@ import Foundation
                 let addPF = MFBWebServiceSvc_CreatePendingFlight()
                 addPF.szAuthUserToken = szAuthToken ?? MFBProfile.sharedProfile.AuthToken
                 addPF.le = entryData
-                
-                // Issue #321:
-                // Date in the entry data was done in local time; will be converted here to UTC, which could be different from
-                // actual date of flight.
-                // We only really have to do this because we have a mix of UTC and "local" dates
-                // SOOO....
-                // adjust the date to a UTC date that looks like the right date
-                stashedDate = entryData.date
-                addPF.le.date = MFBSoapCall.UTCDateFromLocalDate(dt: addPF.le.date)
-
                 sc.makeCallAsync { b, sc in
                     b.createPendingFlightAsync(usingParameters: addPF, delegate: sc)
                 }
@@ -412,16 +401,6 @@ import Foundation
                     let  updPF = MFBWebServiceSvc_UpdatePendingFlight()
                     updPF.szAuthUserToken = szAuthToken ?? MFBProfile.sharedProfile.AuthToken
                     updPF.pf = pf
-
-                    // Issue #323:
-                    // Date in the entry data was done in local time; will be converted here to UTC, which could be different from
-                    // actual date of flight.
-                    // We only really have to do this because we have a mix of UTC and "local" dates
-                    // SOOO....
-                    // adjust the date to a UTC date that looks like the right date
-                    stashedDate = entryData.date
-                    updPF.pf.date = MFBSoapCall.UTCDateFromLocalDate(dt: updPF.pf.date)
-
                     sc.makeCallAsync { b, sc in
                         b.updatePendingFlightAsync(usingParameters: updPF, delegate: sc)
                     }
@@ -437,15 +416,6 @@ import Foundation
                 let commitPF = MFBWebServiceSvc_CommitPendingFlight()
                 commitPF.szAuthUserToken = szAuthToken ?? MFBProfile.sharedProfile.AuthToken
                 commitPF.pf = pf
-                
-                // Issue #323:
-                // Date in the entry data was done in local time; will be converted here to UTC, which could be different from
-                // actual date of flight.
-                // We only really have to do this because we have a mix of UTC and "local" dates
-                // SOOO....
-                // adjust the date to a UTC date that looks like the right date
-                stashedDate = entryData.date
-                commitPF.pf.date = MFBSoapCall.UTCDateFromLocalDate(dt: commitPF.pf.date)
                 
                 sc.makeCallAsync { b, sc in
                     b.commitPendingFlightAsync(usingParameters: commitPF, delegate: sc)
@@ -463,15 +433,7 @@ import Foundation
                 commitFlight.le = entryData;
                 commitFlight.po = nil;
                 commitFlight.szAuthUserToken = szAuthToken ?? MFBProfile.sharedProfile.AuthToken
-                
-                // Date in the entry data was done in local time; will be converted here to UTC, which could be different from
-                // actual date of flight.
-                // We only really have to do this because we have a mix of UTC and "local" dates
-                // SOOO....
-                // adjust the date to a UTC date that looks like the right date
-                stashedDate = entryData.date
-                commitFlight.le.date = MFBSoapCall.UTCDateFromLocalDate(dt: commitFlight.le.date)
-                
+                                
                 sc.contextFlag = CONTEXT_FLAG_COMMIT;
 
                 sc.makeCallAsync { b, sc in
@@ -484,7 +446,6 @@ import Foundation
     @objc public func BodyReturned(body : AnyObject) {
         if let resp = body as? MFBWebServiceSvc_CommitFlightWithOptionsResponse {
             entryData = resp.commitFlightWithOptionsResult
-            stashedDate = nil
             retVal = true
         } else if let resp = body as? MFBWebServiceSvc_DeleteLogbookEntryResponse {
             retVal = resp.deleteLogbookEntryResult.boolValue
@@ -514,11 +475,6 @@ import Foundation
         
     @objc public func ResultCompleted(sc: MFBSoapCall) {
         errorString = sc.errorString
-        
-        if stashedDate != nil {
-            entryData.date = stashedDate
-            stashedDate = nil
-        }
         
         if sc.contextFlag == CONTEXT_FLAG_COMMIT {
             if sc.errorString.isEmpty {
@@ -626,13 +582,7 @@ import Foundation
     
     @objc public func encode(with coder: NSCoder) {
         // Be sure NOT to encode this with the UTCDateFromLocalDate version from commitFlight
-        // So if there is a stashed date, use that.
-        let dtTemp = entryData.date
-        if stashedDate != nil {
-            entryData.date = stashedDate
-        }
         coder.encode(entryData, forKey: _szkeyEntryData)
-        entryData.date = dtTemp
         
         coder.encode(rgPicsForFlight, forKey:_szkeyImages)
         coder.encode(fIsPaused, forKey:_szkeyIsPaused)

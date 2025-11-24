@@ -287,6 +287,15 @@ extension NSDate {
         df.dateStyle = .medium
         return df.string(from: self as Date)
     }
+    
+    /// Format the date in local conventions but treating it as a UTC date.
+    /// Useful for LOCAL dates - e.g., date-of-flight
+    public func dateStringUtc() -> String! {
+        let df:DateFormatter! = DateFormatter()
+        df.dateStyle = .medium
+        df.timeZone = TimeZone.init(secondsFromGMT: 0)
+        return df.string(from: self as Date)
+    }
 
     @objc(isUnknownDate:) static func isUnknownDate(dt : Date?) -> Bool {
         if dt == nil {
@@ -419,7 +428,11 @@ extension Date {
     public func utcString(useLocalTime: Bool) -> String {
         return (self as NSDate).utcString(useLocalTime: useLocalTime)
     }
-}
+    
+    /// Returns a Date representing the same calendar day, but at 00:00 UTC.
+    func UTCDateFromLocalDate() -> Date {
+        return (self as NSDate).UTCDateFromLocalDate()
+    }}
 
 // MARK: UIViewController
 extension UIViewController {    

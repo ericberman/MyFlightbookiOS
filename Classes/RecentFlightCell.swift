@@ -174,6 +174,7 @@ public class RecentFlightCell : UITableViewCell {
         
         let df = DateFormatter()
         df.dateStyle = .short
+        df.timeZone = TimeZone(secondsFromGMT: 0)
         
         let szErr = (errorString ?? "").trimmingCharacters(in: .whitespaces)
         if !szErr.isEmpty {
@@ -181,7 +182,7 @@ public class RecentFlightCell : UITableViewCell {
         }
         
         attrString.append(AttributedString(df.string(from: le.date), attributes: AttributeContainer([.font : largeBoldFont, .foregroundColor : textColor])))
-
+ 
         // Issue #326, #330 - show flight number early
         let flightnum = le.getExistingProperty(.flightNum)
         attrString.append(AttributedString(" \(flightnum?.textValue ?? "")", attributes: AttributeContainer([.font : largeBoldFont, .foregroundColor : textColor])))
