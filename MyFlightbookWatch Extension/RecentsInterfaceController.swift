@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2018 MyFlightbook, LLC
+ Copyright (C) 2017-2023 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -64,6 +64,7 @@ class RecentsInterfaceController: RefreshableTableController {
             
             let df = DateFormatter()
             df.dateStyle = DateFormatter.Style.short
+            df.timeZone = TimeZone(secondsFromGMT: 0)
             
             for (index, item) in items.enumerated() {
                 let row = self.table.rowController(at: index) as! RecentsTableRowController
