@@ -51,7 +51,7 @@ import Foundation
         super.init(with: acIn, delegate: d, style: .plain)
         imagesSection = aircraftSection.sectImages.rawValue
         datePicker.datePickerMode = .date
-        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.preferredDatePickerStyle = .inline
         datePicker.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
         datePicker.timeZone = TimeZone(secondsFromGMT: 0)
         delegate = d

@@ -133,6 +133,7 @@ import Foundation
             let dp = txt.inputView as! UIDatePicker
             let fDateOnly = cpt.type == MFBWebServiceSvc_CFPPropertyType_cfpDate
             dp.datePickerMode = fDateOnly ? .date : .dateAndTime
+            dp.preferredDatePickerStyle = (cpt.type == MFBWebServiceSvc_CFPPropertyType_cfpDate) ? .inline : .compact
             dp.timeZone = fDateOnly || UserPreferences.current.UseLocalTime ? TimeZone.current : TimeZone(secondsFromGMT: 0)
             dp.locale = fDateOnly || UserPreferences.current.UseLocalTime ? Locale.current : Locale(identifier: "en-GB")
             

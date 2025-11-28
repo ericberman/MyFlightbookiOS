@@ -952,6 +952,7 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
         datePicker.date = dt;
         datePicker.timeZone = UserPreferences.current.UseLocalTime ? TimeZone.current : TimeZone(secondsFromGMT: 0)
         datePicker.locale = UserPreferences.current.UseLocalTime ? Locale.current : Locale(identifier: "en-GB")
+        datePicker.preferredDatePickerStyle = .compact
         return true
     }
     
@@ -1028,6 +1029,7 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
             datePicker.date = le.entryData.date
             datePicker.datePickerMode = .date
             datePicker.timeZone = TimeZone(secondsFromGMT: 0)   // Issue #350 - treat date-of-flight always in UTC
+            datePicker.preferredDatePickerStyle = .inline
         } else if textField == idPopAircraft {
             if le.entryData.aircraftID.intValue > 0 {
                 for i in 0..<selectibleAircraft.count {
