@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24412" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -23,7 +23,7 @@
                             <constraint firstAttribute="width" constant="96" id="S1g-bG-GQG"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lff-iD-Q6i">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lff-iD-Q6i">
                         <rect key="frame" x="102" y="3" width="288" height="80"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
@@ -31,13 +31,12 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="lff-iD-Q6i" firstAttribute="top" secondItem="biV-0S-A7p" secondAttribute="top" id="9N9-Wj-w2X"/>
+                    <constraint firstItem="lff-iD-Q6i" firstAttribute="top" secondItem="zOd-wX-Zzx" secondAttribute="top" constant="3" id="Fmo-Xh-EAU"/>
                     <constraint firstItem="biV-0S-A7p" firstAttribute="top" secondItem="zOd-wX-Zzx" secondAttribute="top" constant="3" id="H3E-tK-qHL"/>
-                    <constraint firstAttribute="bottom" secondItem="biV-0S-A7p" secondAttribute="bottom" constant="3" id="HUG-fN-ay8"/>
-                    <constraint firstAttribute="trailing" secondItem="lff-iD-Q6i" secondAttribute="trailing" constant="3" id="k1u-bB-rcf"/>
+                    <constraint firstItem="lff-iD-Q6i" firstAttribute="bottom" secondItem="zOd-wX-Zzx" secondAttribute="bottom" priority="999" constant="-3" id="Ihf-Ku-5kx"/>
+                    <constraint firstItem="lff-iD-Q6i" firstAttribute="trailing" secondItem="zOd-wX-Zzx" secondAttribute="trailing" constant="-3" id="k1u-bB-rcf"/>
                     <constraint firstItem="lff-iD-Q6i" firstAttribute="leading" secondItem="biV-0S-A7p" secondAttribute="trailing" constant="3" id="tcr-yU-TGx"/>
                     <constraint firstItem="biV-0S-A7p" firstAttribute="leading" secondItem="zOd-wX-Zzx" secondAttribute="leading" constant="3" id="uhU-O0-hzh"/>
-                    <constraint firstItem="lff-iD-Q6i" firstAttribute="bottom" secondItem="biV-0S-A7p" secondAttribute="bottom" id="yYH-eC-kRJ"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

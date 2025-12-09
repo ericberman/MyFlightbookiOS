@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2010-2024 MyFlightbook, LLC
+ Copyright (C) 2010-2025 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -32,6 +32,7 @@ public class MyAircraft : PullRefreshTableViewControllerSW, AircraftViewControll
     var rgFavoriteAircraft : [MFBWebServiceSvc_Aircraft] = []
     var rgArchivedAircraft : [MFBWebServiceSvc_Aircraft] = []
     var fNeedsRefresh = false
+    private var sizingCell: FixedImageCell?
     
     let hasRefreshedSinceSwiftConversionKey = "keyHasRefreshed"
     
@@ -85,7 +86,8 @@ public class MyAircraft : PullRefreshTableViewControllerSW, AircraftViewControll
             UserDefaults.standard.set(true, forKey: hasRefreshedSinceSwiftConversionKey)
         }
         
-        tableView.rowHeight = 86
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 100
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -131,25 +133,13 @@ public class MyAircraft : PullRefreshTableViewControllerSW, AircraftViewControll
         return callInProgress ? 1 : (hasFavoriteAircraft && aircraftSections(rawValue: section) == .sectArchived ? rgArchivedAircraft.count : rgFavoriteAircraft.count)
     }
     
-    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellIdentifier = "AircraftCellID"
-        
-        if self.callInProgress {
-            return waitCellWithText(String(localized: "Retrieving aircraft list...", comment: "status message while retrieving user aircraft"))
-        }
-        
-        let cell = (tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? FixedImageCell ?? FixedImageCell.getFixedImageCell(tableView))
-        
-        cell.accessoryType = .disclosureIndicator;
+    private func configureCell(_ cell: FixedImageCell, at indexPath: IndexPath) {
+        cell.accessoryType = .disclosureIndicator
         
         let ac = aircraftAt(indexPath: indexPath)
-
-        let textSizeLabel = cell.lblMain.font.pointSize
-        let textSizeDetail = textSizeLabel * 0.8
-        
-        let baseFont = UIFont.systemFont(ofSize: textSizeDetail)
-        let boldFont = UIFont(descriptor: baseFont.fontDescriptor.withSymbolicTraits(.traitBold)!, size: textSizeLabel)
-        let italicFont = UIFont(descriptor: baseFont.fontDescriptor.withSymbolicTraits(.traitItalic)!, size: textSizeDetail)
+        let baseFont = UIFont.preferredFont(forTextStyle: .caption1)
+        let boldFont = UIFont(descriptor: baseFont.fontDescriptor.withSymbolicTraits(.traitBold)!, size: baseFont.pointSize)
+        let italicFont = UIFont(descriptor: baseFont.fontDescriptor.withSymbolicTraits(.traitItalic)!, size: baseFont.pointSize)
         let colorMain = UIColor.label
         let colorNotes = UIColor.secondaryLabel
         
@@ -160,13 +150,45 @@ public class MyAircraft : PullRefreshTableViewControllerSW, AircraftViewControll
         szTail.append(NSAttributedString(string: " " + "\(ac.privateNotes ?? "") \(ac.publicNotes ?? "")".trimmingCharacters(in: .whitespaces), attributes: [.font : baseFont, .foregroundColor : colorNotes]))
 
         cell.lblMain.attributedText = szTail
-        
 
         let ci = imageForAircraft(ac.aircraftID)
         let opacity = ac.hideFromSelection.boolValue ? 0.5 : 1.0
         cell.lblMain.alpha = opacity
         cell.imgView.alpha = opacity
         cell.imgView.image = ((ci?.hasThumbnailCache ?? false) ? ci!.GetThumbnail() : nil) ?? UIImage(named: "noimage")
+    }
+    
+    private func heightForDynamicCell(at indexPath: IndexPath) -> CGFloat {
+        if sizingCell == nil {
+            sizingCell = FixedImageCell.getFixedImageCell(tableView)
+        }
+        let cell = sizingCell!
+        configureCell(cell, at: indexPath)
+
+        cell.setNeedsLayout()
+        cell.layoutIfNeeded()
+
+        return cell.contentView.systemLayoutSizeFitting(
+            UIView.layoutFittingCompressedSize
+        ).height
+    }
+    
+    public override func tableView(_ tableView: UITableView,
+                            heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let height = self.heightForDynamicCell(at: indexPath)
+        return max(86, min(258, height))
+    }
+
+    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cellIdentifier = "AircraftCellID"
+        
+        if self.callInProgress {
+            return waitCellWithText(String(localized: "Retrieving aircraft list...", comment: "status message while retrieving user aircraft"))
+        }
+        
+        let cell = (tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? FixedImageCell ?? FixedImageCell.getFixedImageCell(tableView))
+        
+        configureCell(cell, at: indexPath)
         
         return cell;
     }
