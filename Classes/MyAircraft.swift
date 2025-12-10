@@ -138,7 +138,7 @@ public class MyAircraft : PullRefreshTableViewControllerSW, AircraftViewControll
         
         let ac = aircraftAt(indexPath: indexPath)
         let baseFont = UIFont.preferredFont(forTextStyle: .caption1)
-        let boldFont = UIFont(descriptor: baseFont.fontDescriptor.withSymbolicTraits(.traitBold)!, size: baseFont.pointSize)
+        let boldFont = UIFont.preferredFont(forTextStyle: .headline)
         let italicFont = UIFont(descriptor: baseFont.fontDescriptor.withSymbolicTraits(.traitItalic)!, size: baseFont.pointSize)
         let colorMain = UIColor.label
         let colorNotes = UIColor.secondaryLabel
