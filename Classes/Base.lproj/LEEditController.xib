@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24128" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,6 +18,7 @@
                 <outlet property="cellSharing" destination="322" id="480"/>
                 <outlet property="cellTimeBlock" destination="315" id="481"/>
                 <outlet property="datePicker" destination="472" id="482"/>
+                <outlet property="dateTimePicker" destination="PnY-CJ-OXH" id="UwK-e1-gNM"/>
                 <outlet property="idApproaches" destination="378" id="484"/>
                 <outlet property="idCFI" destination="455" id="486"/>
                 <outlet property="idComments" destination="333" id="487"/>
@@ -69,6 +70,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
             <connections>
                 <action selector="dateChanged:" destination="-1" eventType="valueChanged" id="533"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="256"/>
+        </datePicker>
+        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" style="compact" id="PnY-CJ-OXH" userLabel="datePicker">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+            <connections>
+                <action selector="dateChanged:" destination="-1" eventType="valueChanged" id="EkN-3F-Fm9"/>
             </connections>
             <point key="canvasLocation" x="139" y="256"/>
         </datePicker>
@@ -182,7 +191,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="337" userLabel="txtRoute">
-                        <rect key="frame" x="16" y="26" width="212" height="16"/>
+                        <rect key="frame" x="16" y="26" width="212" height="22"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no"/>
                         <connections>
@@ -279,7 +288,7 @@
                         </state>
                     </button>
                     <textField opaque="NO" clearsContextBeforeDrawing="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="378" userLabel="txtApproaches">
-                        <rect key="frame" x="250" y="19.5" width="30" height="16"/>
+                        <rect key="frame" x="250" y="16.5" width="30" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="30" id="qVW-rZ-kdf"/>
                         </constraints>
@@ -290,7 +299,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clearsContextBeforeDrawing="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="381" userLabel="txtLandings">
-                        <rect key="frame" x="124" y="19.5" width="40" height="16"/>
+                        <rect key="frame" x="124" y="16.5" width="40" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="9dF-O8-Yzc"/>
                         </constraints>
@@ -301,7 +310,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clearsContextBeforeDrawing="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="384" userLabel="txtDayLandings">
-                        <rect key="frame" x="124" y="46.5" width="40" height="16"/>
+                        <rect key="frame" x="124" y="43.5" width="40" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="9cT-R3-7ac"/>
                         </constraints>
@@ -312,7 +321,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clearsContextBeforeDrawing="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="387" userLabel="txtNightLandings">
-                        <rect key="frame" x="124" y="74" width="40" height="16"/>
+                        <rect key="frame" x="124" y="71" width="40" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="bam-Cn-nbW"/>
                         </constraints>
@@ -689,7 +698,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="452" userLabel="txtNight">
-                        <rect key="frame" x="96" y="13" width="40" height="18.5"/>
+                        <rect key="frame" x="96" y="11.5" width="40" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="rEn-Wd-HWy"/>
                         </constraints>
@@ -700,7 +709,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="453" userLabel="txtIMC">
-                        <rect key="frame" x="96" y="42.5" width="40" height="18.5"/>
+                        <rect key="frame" x="96" y="41" width="40" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="P3b-ys-B0g"/>
                         </constraints>
@@ -711,7 +720,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="454" userLabel="txtDual">
-                        <rect key="frame" x="96" y="72" width="40" height="18.5"/>
+                        <rect key="frame" x="96" y="70.5" width="40" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="BDo-9L-q2s"/>
                         </constraints>
@@ -722,7 +731,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="455" userLabel="txtCFI">
-                        <rect key="frame" x="96" y="101.5" width="40" height="18.5"/>
+                        <rect key="frame" x="96" y="100" width="40" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="RlV-mu-zNT"/>
                         </constraints>
@@ -733,7 +742,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="456" userLabel="txtPIC">
-                        <rect key="frame" x="96" y="131" width="40" height="18.5"/>
+                        <rect key="frame" x="96" y="129.5" width="40" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="eRd-8e-KAz"/>
                         </constraints>
@@ -744,7 +753,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="457" userLabel="txtSIMIMC">
-                        <rect key="frame" x="240" y="13" width="40" height="18.5"/>
+                        <rect key="frame" x="240" y="11.5" width="40" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="4my-0g-mRG"/>
                         </constraints>
@@ -755,7 +764,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="458" userLabel="txtXC">
-                        <rect key="frame" x="240" y="42.5" width="40" height="18.5"/>
+                        <rect key="frame" x="240" y="41" width="40" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="J7M-UY-qk5"/>
                         </constraints>
@@ -766,7 +775,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="459" userLabel="txtGrndSim">
-                        <rect key="frame" x="240" y="72" width="40" height="18.5"/>
+                        <rect key="frame" x="240" y="70.5" width="40" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="Ksz-fX-B3Y"/>
                         </constraints>
@@ -777,7 +786,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="460" userLabel="txtSIC">
-                        <rect key="frame" x="240" y="101.5" width="40" height="18.5"/>
+                        <rect key="frame" x="240" y="100" width="40" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="Zd0-UP-1cj"/>
                         </constraints>
@@ -788,7 +797,7 @@
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="461" userLabel="txtTotal">
-                        <rect key="frame" x="240" y="131" width="40" height="18.5"/>
+                        <rect key="frame" x="240" y="129.5" width="40" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="z8C-sA-Haa"/>
                         </constraints>
@@ -864,10 +873,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="MFBLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="463">
-                        <rect key="frame" x="16" y="3.5" width="48" height="48"/>
+                        <rect key="frame" x="16" y="-4.5" width="64" height="64"/>
                     </imageView>
                     <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="466">
-                        <rect key="frame" x="72" y="14" width="163" height="27"/>
+                        <rect key="frame" x="88" y="14" width="163" height="27"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="105" id="Ol2-8K-JgV"/>
                         </constraints>

@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2009-2023 MyFlightbook, LLC
+ Copyright (C) 2009-2025 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -73,6 +73,7 @@ public class FlightEditorBaseTableViewController : CollapsibleTableSw, UIGesture
     @IBOutlet public var cellSharing : UITableViewCell!
 
     @IBOutlet public var datePicker : UIDatePicker!
+    @IBOutlet public var dateTimePicker : UIDatePicker!
     @IBOutlet public var pickerView : UIPickerView!
     
     public var vwAccessory : AccessoryBar!
@@ -98,7 +99,7 @@ public class FlightEditorBaseTableViewController : CollapsibleTableSw, UIGesture
     
     public func dateCell(_ dt : NSDate?, prompt szPrompt : String, tableView : UITableView) -> EditCell {
         let ec = EditCell.getEditCell(tableView, withAccessory:self.vwAccessory)
-        ec.txt.inputView = datePicker
+        ec.txt.inputView = dateTimePicker
         ec.txt.placeholder = String(localized: "(Tap for Now)", comment: "Prompt UTC Date/Time that is currently un-set (tapping sets it to NOW in UTC)")
         ec.txt.delegate = self
         ec.lbl.text = szPrompt

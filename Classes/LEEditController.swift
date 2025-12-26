@@ -766,7 +766,7 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
             
             pc.txt.delegate = self
             pc.flightPropDelegate = flightProps
-            pc.configureCell(vwAccessory, andDatePicker: datePicker, defValue: le.entryData.xfillValueForPropType(cpt) ?? NSNumber(integerLiteral: 0))
+            pc.configureCell(vwAccessory, andDatePicker: cpt.type == MFBWebServiceSvc_CFPPropertyType_cfpDate ? datePicker : dateTimePicker, defValue: le.entryData.xfillValueForPropType(cpt) ?? NSNumber(integerLiteral: 0))
             return pc
         }
     }
@@ -894,9 +894,11 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
     
     // MARK: - UITextFieldDelegate
     @discardableResult func dateClick(_ dtIn : Date?, onInit completionBlock : (Date)->Void) -> Bool {
-        datePicker.datePickerMode = .dateAndTime
-        
-        
+        dateTimePicker.datePickerMode = .dateAndTime
+        dateTimePicker.timeZone = UserPreferences.current.UseLocalTime ? TimeZone.current : TimeZone(secondsFromGMT: 0)
+        dateTimePicker.locale = UserPreferences.current.UseLocalTime ? Locale.current : Locale(identifier: "en-GB")
+        dateTimePicker.preferredDatePickerStyle = .compact
+
         var dt = dtIn ?? Date.distantPast // Web issue #1099 - want to ensure trunaction of seconds.
 
         let ec = tableView.cellForRow(at: ipActive!) as! EditCell
@@ -912,7 +914,7 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
             // By truncating the time, we go straight to 12:13:00 and 12:15:00, which will even yield 2 minutes.
             if NSDate.isUnknownDate(dt: dt) {
                 dt = NSDate().dateByTruncatingSeconds()
-                datePicker.date = dt
+                dateTimePicker.date = dt
             }
             
             completionBlock(dt)
@@ -949,10 +951,8 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
             return false
         }
         
-        datePicker.date = dt;
-        datePicker.timeZone = UserPreferences.current.UseLocalTime ? TimeZone.current : TimeZone(secondsFromGMT: 0)
-        datePicker.locale = UserPreferences.current.UseLocalTime ? Locale.current : Locale(identifier: "en-GB")
-        datePicker.preferredDatePickerStyle = .compact
+        dateTimePicker.date = dt;
+
         return true
     }
     
