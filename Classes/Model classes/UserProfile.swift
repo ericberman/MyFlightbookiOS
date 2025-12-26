@@ -39,6 +39,7 @@ import Foundation
     private let _szKeyAuth = "AuthKey"
     private let _szKeyPrefEmail = "keyEmail"
     private let _szKeyPrefPass = "keyPass"
+    private let _szKeyIsDisabled = "keyAccountDisabled"
 
     private let _szKeyCachedToken = "keyCacheAuthToken"
     private let _szKeyCachedUser = "keyCacheAuthUser"
@@ -61,6 +62,16 @@ import Foundation
         Password = ud.string(forKey: _szKeyPrefPass) ?? ""
         AuthToken = ud.string(forKey: _szKeyCachedToken) ?? ""
         super.init()
+    }
+    
+    public func isDisabled() -> Bool {
+        let ud = UserDefaults.standard
+        return ud.object(forKey: _szKeyIsDisabled) as? Bool ?? false
+    }
+    
+    public func setIsDisabled(_ isDisabled: Bool) -> Void {
+        let ud = UserDefaults.standard
+        ud.set(isDisabled, forKey: _szKeyIsDisabled)
     }
     
     @objc public func SavePrefs() -> Void {

@@ -139,6 +139,9 @@
 /* Title for create account screen */
 "Create Account" = "Créer un compte";
 
+/* Error message if you are age restricted */
+"AgeRestricted" = "Selon l'App Store d'Apple, vous devez avoir 16 ans ou plus, ou avoir l'autorisation parentale, pour utiliser cette application.";
+
 /* Progress indicator */
 "Creating Account..." = "Création du compte en cours";
 

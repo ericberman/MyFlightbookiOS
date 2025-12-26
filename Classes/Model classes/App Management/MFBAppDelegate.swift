@@ -27,12 +27,24 @@
 import Foundation
 import WatchConnectivity
 import WidgetKit
+#if canImport(DeviceActivity)
+import DeviceActivity
+#endif
+
+#if canImport(DeclaredAgeRange)
+import DeclaredAgeRange
+#endif
+
+#if canImport(PrivacySensitiveData)
+import PrivacySensitiveData
+#endif
 
 #if DEBUG
 #warning("DEBUG BUILD")
 #else
 #warning("RELEASE BUILD")
 #endif
+
 
 
 @objc public protocol Invalidatable {
@@ -125,8 +137,40 @@ import WidgetKit
         let _ = setUpWatchSession()
 
         invalidateCachedTotals()
+
+        /*
+         // Hold off on doing age gating until the courts rule things one way or the other.
+        if #available(iOS 26, *) {
+            Task {
+                do {
+                    MFBProfile.sharedProfile.setIsDisabled(false)   // assunme that we will pass the test
+                    let response = try await AgeRangeService.shared.requestAgeRange(ageGates: 16, in: getActiveTabBar()!)
+                    
+                    switch response {
+                    case .declinedSharing:
+                        return
+                    case .sharing(let range):
+                        handleAgeRangeResult(meetsRequirement: (range.lowerBound ?? 18) >= 16)
+                    default:
+                        return
+                    }
+                } catch {
+                    print("Age range request failed: \(error)")
+                }
+            }
+        }
+         */
         
         return true
+    }
+    
+    @MainActor
+    private func handleAgeRangeResult(meetsRequirement: Bool) {
+        if !meetsRequirement {
+            let tb = getActiveTabBar()!
+            (tb.tabProfile.viewControllers.first as! SignInControllerViewController).disableSignIn()
+            MFBAppDelegate.threadSafeAppDelegate.getActiveSceneDelegate()?.DefaultPage()
+        }
     }
     
     public func applicationWillTerminate(_ application: UIApplication) {

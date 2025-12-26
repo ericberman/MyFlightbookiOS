@@ -86,6 +86,10 @@ public class SignInControllerViewController : CollapsibleTableSw, UITextFieldDel
         present(alert, animated: true)
     }
     
+    @objc func showAgeRestrictedAlert() {
+        showAlertWithTitle(title: String(localized: "Create User"), message: String(localized: "AgeRestricted"))
+    }
+    
     @objc func updateProfile() {
         tableView.endEditing(true)
         
@@ -144,6 +148,12 @@ public class SignInControllerViewController : CollapsibleTableSw, UITextFieldDel
         FlightProps.clearAllLocked()
         PackAndGo.clearPackedData()
         tableView.reloadData()
+    }
+    
+    public func disableSignIn() {
+        let sp = MFBProfile.sharedProfile
+        sp.setIsDisabled(true)
+        signOut(self)
     }
     
     // MARK: - Table view data source
@@ -261,7 +271,7 @@ public class SignInControllerViewController : CollapsibleTableSw, UITextFieldDel
                 cell.btn.addTarget(self, action: #selector(signOut), for: .touchUpInside)
             } else {
                 cell.btn.setTitle(String(localized: "Sign-in", comment: "Sign-in"), for:[])
-                cell.btn.addTarget(self, action: #selector(updateProfile), for: .touchUpInside)
+                cell.btn.addTarget(self, action: MFBProfile.sharedProfile.isDisabled() ? #selector(showAgeRestrictedAlert) : #selector(updateProfile), for: .touchUpInside)
             }
             return cell
         case .rowEmail, .rowPass:
@@ -325,7 +335,11 @@ public class SignInControllerViewController : CollapsibleTableSw, UITextFieldDel
     }
     
     func createUser() {
-        navigationController?.pushViewController(NewUserTableController(nibName: "NewUserTableController", bundle: nil), animated: true)
+        if (MFBProfile.sharedProfile.isDisabled()) {
+            showAgeRestrictedAlert()
+        } else {
+            navigationController?.pushViewController(NewUserTableController(nibName: "NewUserTableController", bundle: nil), animated: true)
+        }
     }
     
     func packAndGo() {
