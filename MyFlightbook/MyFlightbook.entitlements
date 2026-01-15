@@ -4,5 +4,9 @@
 <dict>
 	<key>com.apple.developer.declared-age-range</key>
 	<true/>
+	<key>com.apple.security.application-groups</key>
+	<array>
+		<string>group.com.myflightbook.mfbapps</string>
+	</array>
 </dict>
 </plist>
