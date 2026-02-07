@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2017-2024 MyFlightbook, LLC
+ Copyright (C) 2017-2026 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -258,7 +258,7 @@ import Foundation
      }
      */
     
-    func recordLocation(_ loc : CLLocation, withEvent szEvent : String) {
+    func recordLocation(_ loc : CLLocation, withEvent szEvent : String) -> Bool {
         let s = loc.speed * MFBConstants.MPS_TO_KNOTS
         if (fRecordFlightData && !fRecordingIsPaused && !fSuppressAllRecording) {
             // write a header row if none present
@@ -280,7 +280,9 @@ import Foundation
                                -df.timeZone.secondsFromGMT() / 60,
                                szEvent)
             flightTrackData.append(szRow)
+            return true;
         }
+        return false;
     }
     
     @objc public func startRecordingFlightData() {
@@ -434,8 +436,11 @@ import Foundation
         // record this if appropriate - we do the valid time check here to avoid too tightly clustered
         // samples, but any event (landing/takeoff) will set it to be true.
         if fRecordable && ((fRecordHighRes && fValidSpeed) || fForceRecord || (fValidTime && fValidSample)) {
-            recordLocation(newLocation, withEvent: szEvent)
+            fForceRecord = recordLocation(newLocation, withEvent: szEvent) || fForceRecord
         }
+//        else {
+//            NSLog("Recording skipped: flightInProgress: \(fFlightInProgress) fRecordFlightData: \(fRecordFlightData) fSuppressAllRecording: \(fSuppressAllRecording) fRecordable: \(fRecordable), fValidSpeed: \(fValidSpeed), fValidTime: \(fValidTime), fValidSample: \(fValidSample)")
+//        }
         
         if (fRecordable) {
             rgAllSamples.append(String(format: "%.8F\t%.8F\t%.1F\t%.2F\t%F",
@@ -464,7 +469,7 @@ import Foundation
             sw.latDisplay = lastSeenLoc?.coordinate.latitude.asLatString() ?? ""
             sw.lonDisplay = lastSeenLoc?.coordinate.longitude.asLonString() ?? ""
             sw.flightstatus = currentFlightState.localizedName()
-            NSLog("setting speed for watch - %.1f (raw), %@", lastSeenLoc?.speed ?? 0, UserPreferences.current.speedUnits.formatSpeedMpS(lastSeenLoc?.speed ?? 0))
+//            NSLog("setting speed for watch - %.1f (raw), %@", lastSeenLoc?.speed ?? 0, UserPreferences.current.speedUnits.formatSpeedMpS(lastSeenLoc?.speed ?? 0))
             sw.speedDisplay = UserPreferences.current.speedUnits.formatSpeedMpS((lastSeenLoc?.speed ?? 0))
             sw.altDisplay = UserPreferences.current.altitudeUnits.formatMetersAlt(lastSeenLoc?.altitude ?? 0)
             MFBAppDelegate.threadSafeAppDelegate.updateWatchContext()
