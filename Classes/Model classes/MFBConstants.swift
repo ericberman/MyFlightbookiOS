@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2017-2023 MyFlightbook, LLC
+ Copyright (C) 2017-2026 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -54,9 +54,9 @@ import Foundation
         }
     }
     
-    @objc public static let MFBFLIGHTIMAGEUPLOADPAGE = "/logbook/public/uploadpicture.aspx"
-    @objc public static let MFBAIRCRAFTIMAGEUPLOADPAGE = "/logbook/public/uploadairplanepicture.aspx?id=1"
-    @objc public static let MFBAIRCRAFTIMAGEUPLOADPAGENEW = "/logbook/public/uploadairplanepicture.aspx"
+    @objc public static let MFBFLIGHTIMAGEUPLOADPAGE = "/logbook/mvc/image/UploadFlightImage"
+    @objc public static let MFBAIRCRAFTIMAGEUPLOADPAGE = "/logbook/mvc/image/UploadAircraftImage?id=1"
+    @objc public static let MFBAIRCRAFTIMAGEUPLOADPAGENEW = "/logbook/mvc/image/UploadAircraftImage"
     @objc public static let MFB_KEYFLIGHTIMAGE = "idFlight"
     @objc public static let MFB_KEYAIRCRAFTIMAGE = "txtAircraft"
 

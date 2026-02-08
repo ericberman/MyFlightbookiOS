@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2010-2025 MyFlightbook, LLC
+ Copyright (C) 2010-2026 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -320,7 +320,7 @@ import Security
             }
             
             let s = img.size
-            szCacheFileName = String(format: "%d%d-%d%d%d%d%@", s.height, s.width, bytes[0], bytes[1], bytes[2], bytes[3], CommentedImage.szTmpExtension)
+            szCacheFileName = String(format: "%d%d-%hhu%hhu%hhu%hhu%@", Int(s.height), Int(s.width), bytes[0], bytes[1], bytes[2], bytes[3], CommentedImage.szTmpExtension)
             
             // if it's from the camera, geotag it and save it to the album
             // else, just save it so that we have it.
