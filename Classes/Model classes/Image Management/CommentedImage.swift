@@ -488,135 +488,38 @@ import Security
         })
     }
     
-    @objc public static func uploadImages(_ rgImages : [AnyObject]?,
-                                          progressUpdate progress : @escaping (_ : String) -> Void,
-                                          toPage pageName :String,
-                                          authString szAuth : String,
+    @objc public static func uploadImages(_ rgImages: [AnyObject]?,
+                                          progressUpdate progress: @escaping (String) -> Void,
+                                          toPage pageName: String,
+                                          authString szAuth: String,
                                           keyName: String,
-                                          keyValue : String,
+                                          keyValue: String,
                                           completionHandler: @escaping () -> Void) {
-        var cImages = 0
-        var cErrors = 0;
-        var szLastErr = ""
         
-        let rg = rgImages ?? []
+        let images = (rgImages as? [CommentedImage])?.filter {
+            !($0.imgInfo?.livesOnServer ?? true) && !$0.szCacheFileName.isEmpty
+        } ?? []
         
-        if pageName.isEmpty || rg.isEmpty {
+        guard !pageName.isEmpty, !images.isEmpty else {
             completionHandler()
             return
         }
         
-        // We will first build up an array of uploads that need to happen
-        // We will then call them, OR we will call completion handler
-        var rgPendingUploads : [URLRequest] = []
+        progress(String(localized: "UploadingImagesStart"))
         
-        progress(String(localized: "UploadingImagesStart", comment: "Progress message when starting upload of images"))
+        let uploadManager = ImageUploadManager(
+            images: images,
+            pageName: pageName,
+            authString: szAuth,
+            keyName: keyName,
+            keyValue: keyValue,
+            progress: progress,
+            completion: completionHandler
+        )
         
-        for x in rg {
-            // skip if this isn't a commented image
-            guard let ci = x as? CommentedImage else {
-                continue
-            }
-            
-            // skip if this isn't a new file
-            if ci.imgInfo?.livesOnServer ?? true {
-                continue
-            }
-            
-            // skip if this isn't a file on disk
-            if ci.szCacheFileName.isEmpty {
-                continue
-            }
-            
-            let fVideo = ci.isVideo
-            
-            let szBase = "https://\(MFBHOSTNAME)"
-            let szURL = "\(szBase)\(pageName)"
-            let boundary = "IMAGEBOUNDARY"
-            
-            let url = URL(string: szURL)!
-            var req = URLRequest(url: url)
-            req.httpMethod = "POST"
-            
-            let contentType = "multipart/form-data; boundary=\(boundary)"
-            req.setValue(contentType, forHTTPHeaderField: "Content-Type")
-            
-            //adding the body:
-            var postBody = Data()
-            postBody.append("--\(boundary)\r\n".data(using: .utf8)!)
-            postBody.append("Content-Disposition: form-data; name=\"txtAuthToken\"\r\n\r\n".data(using: .utf8)!)
-            postBody.append(szAuth.data(using: .utf8)!)
-            
-            postBody.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
-            postBody.append("Content-Disposition: form-data; name=\"txtComment\"\r\n\r\n".data(using: .utf8)!)
-            postBody.append((ci.imgInfo!.comment ?? "").data(using: .utf8)!)
-            
-            postBody.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
-            postBody.append("Content-Disposition: form-data; name=\"\(keyName)\"\r\n\r\n".data(using: .utf8)!)
-            postBody.append(keyValue.data(using: .utf8)!)
-            
-            postBody.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
-            let szFileNameUpload = fVideo ? "myvideo.mov" : "myimage.jpg"
-            postBody.append("Content-Disposition: form-data; name=\"imgPicture\"; filename=\"\(szFileNameUpload)\"\r\n".data(using: .utf8)!)
-            postBody.append("Content-Type: \(fVideo ? "video/mp4" : "image/jpeg")\r\nContent-Transfer-Encoding: binary\r\n\r\n".data(using: .utf8)!)
-            
-            guard let imgData = NSData(contentsOfFile: ci.FullFilePathName()) as? Data else {
-                continue
-            }
-            
-            postBody.append(imgData)
-            
-            // save some memory
-            ci.flushCachedImage()
-            
-            postBody.append("\r\n\r\n--\(boundary)--\r\n".data(using: .utf8)!)
-            
-            req.httpBody = postBody
-            
-            // We'll do these all in parallel, completing when we've done all of them
-            // But for now, hold on to the request - we'll send it below asynchronously.
-            rgPendingUploads.append(req)
-        }
-        
-        let cTotalImages = rgPendingUploads.count
-        
-        if rgPendingUploads.isEmpty {
-            // Make sure completion handler is called!!!
-            completionHandler()
-        } else {
-            for req in rgPendingUploads {
-                let sess = URLSession(configuration: .default)
-                sess.dataTask(with: req) { data, response, error in
-                    DispatchQueue.main.async {
-                        cImages += 1
-                        
-                        progress(String(format: String(localized: "Uploading Image %d of %lu", comment: "Progress message when uploading an image; the %d is replaced by numbers (e.g. '2 of 4')"),
-                                        cImages, cTotalImages))
-                        
-                        var szResponse : String? = nil
-                        if (data != nil) {
-                            szResponse = String(data: data!, encoding: .utf8)
-                        }
-                        
-                        if (szResponse ?? "").isEmpty || !szResponse!.contains("OK") {
-                            cErrors += 1
-                            szLastErr = szResponse ?? error!.localizedDescription
-                        }
-                        
-                        if (cImages == cTotalImages) {
-                            // Done!
-                            completionHandler()
-                            if (cErrors > 0) {
-                                let szText = String(format: String(localized: "%d of %d images uploaded.  Error: %@", comment: "Status after uploading images; %d and %@ get replaced by numbers and the error message, respectively; keep them"), (cImages - cErrors), cImages, szLastErr)
-                                UIViewController.topViewControllerForScenes(UIApplication.shared.connectedScenes)?.showErrorAlertWithMessage(msg: szText)
-                            }
-                        }
-                    }
-                }.resume()
-            }
-        }
+        uploadManager.start()
     }
- 
+     
     @objc public static func initCommentedImagesFromMFBII(_ rgmfbii : [MFBWebServiceSvc_MFBImageInfo], toArray rgImages: NSMutableArray) -> Bool {
         var fResult = false
         
@@ -676,26 +579,7 @@ import Security
         // Return the new image.
         return newImage
     }
-    
-    /*
-    // code below appears unused
-     
-    static func addCommentedImages(_ rgImages : [CommentedImage], toImageView imgView : UIImageView) {
-        // the objects here are commented images, so we need to create an array of the actual images.
-        var rgImg : [UIImage] = []
 
-        for ci in rgImages {
-            /// create a resized image to store.
-            if let imgNew = ci.GetThumbnail() {
-                rgImg.append(imgNew)
-            }
-        }
-        
-        imgView.animationImages = rgImg;
-        imgView.animationDuration = 2.0 * Double(rgImg.count) // 2 seconds/image
-        imgView.startAnimating()
-    }
-     */
  
     // MARK: Coding support
     static public var supportsSecureCoding: Bool {
@@ -717,5 +601,339 @@ import Security
         imgInfo = coder.decodeObject(of: MFBWebServiceSvc_MFBImageInfo.self, forKey: keyMFBII) ?? MFBWebServiceSvc_MFBImageInfo()
         szCacheFileName = coder.decodeObject(of: NSString.self, forKey: keyCacheFileName) as? String ?? ""
         
+    }
+}
+
+// MARK: - Upload Manager
+
+// MARK: - Upload Manager
+
+private class ImageUploadManager: NSObject, @unchecked Sendable {
+    private let images: [CommentedImage]
+    private let pageName: String
+    private let authString: String
+    private let keyName: String
+    private let keyValue: String
+    private let progress: (String) -> Void
+    private let completion: () -> Void
+    
+    private let operationQueue: OperationQueue
+    private var completedCount = 0
+    private var errorCount = 0
+    private var lastError = ""
+    private let lock = NSLock()
+    
+    init(images: [CommentedImage],
+         pageName: String,
+         authString: String,
+         keyName: String,
+         keyValue: String,
+         progress: @escaping (String) -> Void,
+         completion: @escaping () -> Void) {
+        
+        self.images = images
+        self.pageName = pageName
+        self.authString = authString
+        self.keyName = keyName
+        self.keyValue = keyValue
+        self.progress = progress
+        self.completion = completion
+        
+        self.operationQueue = OperationQueue()
+        self.operationQueue.maxConcurrentOperationCount = 3
+        self.operationQueue.qualityOfService = .userInitiated
+        
+        super.init()
+    }
+    
+    func start() {
+        // Retain self until all operations complete
+        var retainedSelf: ImageUploadManager? = self
+        
+        for (index, image) in images.enumerated() {
+            let operation = ImageUploadOperation(
+                image: image,
+                index: index,
+                totalCount: images.count,
+                pageName: pageName,
+                authString: authString,
+                keyName: keyName,
+                keyValue: keyValue
+            ) { success, error in
+                // Use the retained self directly
+                retainedSelf?.handleCompletion(success: success, error: error)
+            }
+            operationQueue.addOperation(operation)
+        }
+        
+        // Add a barrier operation that releases the retain
+        operationQueue.addBarrierBlock {
+            DispatchQueue.main.async {
+                // This ensures retainedSelf lives until all operations complete
+                _ = retainedSelf
+                retainedSelf = nil
+            }
+        }
+    }
+    
+    private func handleCompletion(success: Bool, error: String?) {
+        lock.lock()
+        completedCount += 1
+        if !success {
+            errorCount += 1
+            lastError = error ?? "Unknown error"
+        }
+        let current = completedCount
+        let total = images.count
+        let errors = errorCount
+        let errorMsg = lastError
+        lock.unlock()
+        
+        DispatchQueue.main.async {
+            self.progress(String(format: String(localized: "Uploading Image %d of %d", comment: "Progress"), current, total))
+            
+            if current == total {
+                self.completion()
+                if errors > 0 {
+                    let message = String(format: String(localized: "%d of %d images uploaded. Error: %@", comment: "Status"),
+                                       (total - errors), total, errorMsg)
+                    UIViewController.topViewControllerForScenes(UIApplication.shared.connectedScenes)?
+                        .showErrorAlertWithMessage(msg: message)
+                }
+            }
+        }
+    }
+}
+
+// MARK: - Upload Operation
+private class ImageUploadOperation: Operation, @unchecked Sendable {
+    private let image: CommentedImage
+    private let index: Int
+    private let totalCount: Int
+    private let pageName: String
+    private let authString: String
+    private let keyName: String
+    private let keyValue: String
+    private let completionHandler: (Bool, String?) -> Void
+    
+    private var task: URLSessionUploadTask?
+    private var tempFileURL: URL?
+    private lazy var session: URLSession = {
+        let config = URLSessionConfiguration.ephemeral
+        let queue = OperationQueue()
+        queue.maxConcurrentOperationCount = 1
+        queue.qualityOfService = .userInitiated
+        return URLSession(configuration: config, delegate: nil, delegateQueue: queue)
+    }()
+    
+    init(image: CommentedImage,
+         index: Int,
+         totalCount: Int,
+         pageName: String,
+         authString: String,
+         keyName: String,
+         keyValue: String,
+         completionHandler: @escaping (Bool, String?) -> Void) {
+        
+        self.image = image
+        self.index = index
+        self.totalCount = totalCount
+        self.pageName = pageName
+        self.authString = authString
+        self.keyName = keyName
+        self.keyValue = keyValue
+        self.completionHandler = completionHandler
+    }
+    
+    override func main() {
+        guard !isCancelled else {
+            completionHandler(false, "Cancelled")
+            return
+        }
+        
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        autoreleasepool {
+            performUpload(semaphore: semaphore)
+        }
+        
+        semaphore.wait()
+        
+        // Clean up
+        session.finishTasksAndInvalidate()
+        if let tempURL = tempFileURL {
+            try? FileManager.default.removeItem(at: tempURL)
+        }
+    }
+    
+    private func performUpload(semaphore: DispatchSemaphore) {
+        let fileURL = URL(fileURLWithPath: image.FullFilePathName())
+        
+        guard FileManager.default.fileExists(atPath: fileURL.path) else {
+            completionHandler(false, "File not found")
+            semaphore.signal()
+            return
+        }
+        
+        // Build multipart body to disk
+        let boundary = "IMAGEBOUNDARY"
+        let filename = image.isVideo ? "myvideo.mov" : "myimage.jpg"
+        let mimeType = image.isVideo ? "video/mp4" : "image/jpeg"
+        
+        guard let multipartFileURL = createMultipartFile(
+            boundary: boundary,
+            authString: authString,
+            comment: image.imgInfo?.comment ?? "",
+            keyName: keyName,
+            keyValue: keyValue,
+            fileName: filename,
+            mimeType: mimeType,
+            sourceFileURL: fileURL
+        ) else {
+            completionHandler(false, "Failed to create multipart file")
+            semaphore.signal()
+            return
+        }
+        
+        self.tempFileURL = multipartFileURL
+        
+        // Create request
+        let urlString = "https://\(MFBHOSTNAME)\(pageName)"
+        var request = URLRequest(url: URL(string: urlString)!)
+        request.httpMethod = "POST"
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        
+        // Use our custom session (not .shared!)
+        task = session.uploadTask(with: request, fromFile: multipartFileURL) { [weak self] data, response, error in
+            defer { semaphore.signal() }
+            
+            guard let self = self, !self.isCancelled else {
+                self?.completionHandler(false, "Cancelled")
+                return
+            }
+            
+            // Free up memory
+            self.image.flushCachedImage()
+            
+            if let error = error {
+                self.completionHandler(false, error.localizedDescription)
+                return
+            }
+            
+            if let data = data,
+               let responseString = String(data: data, encoding: .utf8),
+               responseString.contains("OK") {
+                self.completionHandler(true, nil)
+            } else {
+                let errorMsg = String(data: data ?? Data(), encoding: .utf8) ?? "Invalid response"
+                self.completionHandler(false, errorMsg)
+            }
+        }
+        task?.resume()
+    }
+    
+    private func createMultipartFile(
+        boundary: String,
+        authString: String,
+        comment: String,
+        keyName: String,
+        keyValue: String,
+        fileName: String,
+        mimeType: String,
+        sourceFileURL: URL
+    ) -> URL? {
+        
+        // Create temp file
+        let tempDir = FileManager.default.temporaryDirectory
+        let tempFileURL = tempDir.appendingPathComponent(UUID().uuidString).appendingPathExtension("multipart")
+        
+        guard let outputStream = OutputStream(url: tempFileURL, append: false) else {
+            return nil
+        }
+        
+        outputStream.open()
+        defer { outputStream.close() }
+        
+        // Write form fields
+        writeFormField(name: "txtAuthToken", value: authString, boundary: boundary, to: outputStream)
+        writeFormField(name: "txtComment", value: comment, boundary: boundary, to: outputStream)
+        writeFormField(name: keyName, value: keyValue, boundary: boundary, to: outputStream)
+        
+        // Write file header
+        var fileHeader = ""
+        fileHeader += "--\(boundary)\r\n"
+        fileHeader += "Content-Disposition: form-data; name=\"imgPicture\"; filename=\"\(fileName)\"\r\n"
+        fileHeader += "Content-Type: \(mimeType)\r\n"
+        fileHeader += "Content-Transfer-Encoding: binary\r\n\r\n"
+        
+        guard let headerData = fileHeader.data(using: .utf8) else { return nil }
+        headerData.withUnsafeBytes { bytes in
+            if let baseAddress = bytes.baseAddress?.assumingMemoryBound(to: UInt8.self) {
+                outputStream.write(baseAddress, maxLength: bytes.count)
+            }
+        }
+        
+        // Stream the actual file data in chunks
+        guard let inputStream = InputStream(url: sourceFileURL) else {
+            return nil
+        }
+        
+        inputStream.open()
+        defer { inputStream.close() }
+        
+        let bufferSize = 65536 // 64KB chunks
+        let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: bufferSize)
+        defer { buffer.deallocate() }
+        
+        while inputStream.hasBytesAvailable {
+            let bytesRead = inputStream.read(buffer, maxLength: bufferSize)
+            if bytesRead > 0 {
+                var bytesWritten = 0
+                while bytesWritten < bytesRead {
+                    let result = outputStream.write(buffer.advanced(by: bytesWritten), maxLength: bytesRead - bytesWritten)
+                    if result <= 0 {
+                        return nil
+                    }
+                    bytesWritten += result
+                }
+            } else if bytesRead < 0 {
+                // Error reading
+                return nil
+            } else {
+                // End of stream
+                break
+            }
+        }
+        
+        // Write closing boundary
+        let footer = "\r\n--\(boundary)--\r\n"
+        guard let footerData = footer.data(using: .utf8) else { return nil }
+        footerData.withUnsafeBytes { bytes in
+            if let baseAddress = bytes.baseAddress?.assumingMemoryBound(to: UInt8.self) {
+                outputStream.write(baseAddress, maxLength: bytes.count)
+            }
+        }
+        
+        return tempFileURL
+    }
+    
+    private func writeFormField(name: String, value: String, boundary: String, to stream: OutputStream) {
+        var field = ""
+        field += "--\(boundary)\r\n"
+        field += "Content-Disposition: form-data; name=\"\(name)\"\r\n\r\n"
+        field += value
+        field += "\r\n"
+        
+        guard let data = field.data(using: .utf8) else { return }
+        data.withUnsafeBytes { bytes in
+            if let baseAddress = bytes.baseAddress?.assumingMemoryBound(to: UInt8.self) {
+                stream.write(baseAddress, maxLength: bytes.count)
+            }
+        }
+    }
+    
+    override func cancel() {
+        task?.cancel()
+        super.cancel()
     }
 }
