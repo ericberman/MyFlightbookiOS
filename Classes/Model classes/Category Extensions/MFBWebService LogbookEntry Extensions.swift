@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2009-2025 MyFlightbook, LLC
+ Copyright (C) 2009-2026 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -644,6 +644,7 @@ extension MFBWebServiceSvc_LogbookEntry : AutoDetectDelegate {
         addProperty(NSNumber(integerLiteral: PropTypeID.nameOfSIC.rawValue), withString:dict["flight_selectedCrewSIC"] as? String)
         addProperty(NSNumber(integerLiteral: PropTypeID.nameOfCFI.rawValue), withString:dict["flight_selectedCrewInstructor"] as? String)
         addProperty(NSNumber(integerLiteral: PropTypeID.nameOfStudent.rawValue), withString:dict["flight_selectedCrewStudent"] as? String)
+        addProperty(NSNumber(integerLiteral: PropTypeID.flightNum.rawValue), withString: dict["flight_flightNumber"] as? String])
         
         aircraftID = NSNumber(integerLiteral: -1)
         if let ac = Aircraft.sharedAircraft.AircraftByTail((dict["flight_selectedAircraftID"] as? String) ?? "") {
