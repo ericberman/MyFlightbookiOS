@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2009-2025 MyFlightbook, LLC
+ Copyright (C) 2009-2026 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -688,15 +688,13 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
             let cell = tableView.dequeueReusableCell(withIdentifier: cellID) ?? UITableViewCell.init(style: .subtitle, reuseIdentifier: cellID)
             cell.accessoryType = .none
             cell.selectionStyle = .none
-            let df = DateFormatter()
-            df.dateStyle = .short
             
             var config = cell.defaultContentConfiguration()
             
-            config.text = String(format:String(localized: "sigStateTemplate1", comment: "Signature Status - date and CFI"), df.string(from: le.entryData.cfiSignatureDate), le.entryData.cfiName)
+            config.text = String(format:String(localized: "sigStateTemplate1", comment: "Signature Status - date and CFI"), (le.entryData.cfiSignatureDate! as NSDate).dateStringUtc(), le.entryData.cfiName)
             config.secondaryText = NSDate.isUnknownDate(dt: le.entryData.cfiExpiration) ?
             String(format:String(localized: "sigStateTemplate2NoExp", comment: "Signature Status - certificate & No Expiration"), le.entryData.cfiCertificate) :
-            String(format:String(localized: "sigStateTemplate2", comment: "Signature Status - certificate & Expiration"), le.entryData.cfiCertificate, df.string(from: le.entryData.cfiExpiration))
+            String(format:String(localized: "sigStateTemplate2", comment: "Signature Status - certificate & Expiration"), le.entryData.cfiCertificate, (le.entryData.cfiExpiration! as NSDate).dateStringUtc())
             config.textProperties.adjustsFontSizeToFitWidth = true
             config.image = UIImage(named: le.entryData.cfiSignatureState == MFBWebServiceSvc_SignatureState_Valid ? "sigok" : "siginvalid")
             cell.contentConfiguration = config
@@ -789,6 +787,8 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
             return heightTimes
         case .rowSharing:
             return heightSharing
+        case .rowSigState:
+            return 114.0;
         case .rowSigComment:
             return (le.entryData.cfiComments ?? "").isEmpty ? 0 : UITableView.automaticDimension
         case .rowNthImage:
