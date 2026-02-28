@@ -344,6 +344,9 @@ public class SceneDelegate: UIResponder, UIWindowSceneDelegate, UITabBarControll
     public func setCustomizableViewControllers() {
         if #available(iOS 26.0, *) {
             tabBarController!.customizableViewControllers = []  // TODO: Remove this when Apple fixes their buggy shitty software
+            if let moreNav = tabBarController.moreNavigationController as? UINavigationController {
+                moreNav.topViewController?.navigationItem.rightBarButtonItem = nil
+            }
         } else {
             tabBarController!.customizableViewControllers = tabBarController.viewControllers
         }
