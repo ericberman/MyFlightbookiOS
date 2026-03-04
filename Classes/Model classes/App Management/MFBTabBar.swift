@@ -41,6 +41,16 @@ public class MFBTabBarController: UITabBarController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
     
+    public override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // On iOS 26 iPad, the tab bar moved to the top as a floating pill.
+        // The XIB-defined tab bar still autoresizes to the bottom and steals space.
+        // Move it completely off screen.
+        if #available(iOS 26, *) {
+            tabBar.frame = CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: 0)
+        }
+    }
+    
     @objc func keyboardWillChange(notification: NSNotification) {
         // 1. Extract keyboard frame and handle coordinate conversion
         guard let userInfo = notification.userInfo,
