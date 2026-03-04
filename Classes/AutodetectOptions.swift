@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2023 MyFlightbook, LLC
+ Copyright (C) 2023-2026 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -31,6 +31,7 @@ import MapKit
     @IBOutlet public var idswAutoDetect : UISwitch?
     @IBOutlet public var idswRecordFlight : UISwitch?
     @IBOutlet public var idswRecordHighRes : UISwitch?
+    @IBOutlet public var idswUseSimGPS : UISwitch?
     @IBOutlet public var idswUseHHMM : UISwitch?
     @IBOutlet public var idswRoundNearestTenth : UISwitch?
     @IBOutlet public var idswUseLocal : UISwitch?
@@ -124,6 +125,7 @@ import MapKit
         idswAutoDetect?.isOn = up.autodetectTakeoffs
         idswRecordFlight?.isOn = up.recordTelemetry
         idswRecordHighRes?.isOn = up.recordHighRes
+        idswUseSimGPS?.isOn = up.useSimGPS
         idswUseHeliports?.isOn = up.includeHeliports
         idswUseHHMM?.isOn = up.HHMMPref
         idswUseLocal?.isOn = up.UseLocalTime
@@ -477,6 +479,11 @@ import MapKit
     @IBAction public func recordHighResClicked(_ sender : UISwitch) {
         UserPreferences.current.recordHighRes = sender.isOn
         MFBAppDelegate.threadSafeAppDelegate.mfbloc.fRecordHighRes = sender.isOn
+    }
+    
+    @IBAction public func useSimGPSClicked(_ sender : UISwitch) {
+        UserPreferences.current.useSimGPS = sender.isOn
+        MFBAppDelegate.threadSafeAppDelegate.mfbloc.setSource(sender.isOn ? .simulator : .physical)
     }
     
     @IBAction public func roundNearestTenthClicked(_ sender : UISwitch) {

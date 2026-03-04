@@ -1429,12 +1429,18 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
         var fValidQuality = false
         let acc = newLocation.horizontalAccuracy
 
-        if acc > MFBLocation.MIN_ACCURACY || acc < 0 {
-            idLblQuality.text = String(localized: "Poor", comment: "Poor GPS quality")
-            fValidQuality = false
-        } else {
-            idLblQuality.text = (acc < (MFBLocation.MIN_ACCURACY / 2)) ? String(localized: "Excellent", comment: "Excellent GPS quality") : String(localized: "Good", comment: "Good GPS quality")
+        if (MFBAppDelegate.threadSafeAppDelegate.mfbloc.getSource() == .simulator && MFBAppDelegate.threadSafeAppDelegate.mfbloc.lastSeenLoc != nil) {
             fValidQuality = true
+            idLblQuality.text = "🛜"
+        }
+        else {
+            if acc > MFBLocation.MIN_ACCURACY || acc < 0 {
+                idLblQuality.text = String(localized: "Poor", comment: "Poor GPS quality")
+                fValidQuality = false
+            } else {
+                idLblQuality.text = (acc < (MFBLocation.MIN_ACCURACY / 2)) ? String(localized: "Excellent", comment: "Excellent GPS quality") : String(localized: "Good", comment: "Good GPS quality")
+                fValidQuality = true
+            }
         }
         
         let app = MFBAppDelegate.threadSafeAppDelegate;

@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2023-2024 MyFlightbook, LLC
+ Copyright (C) 2023-2026 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -224,6 +224,7 @@ import MapKit
     @objc public let keyPrefRecordFlightData = "keyAutoDetectRoute"
     @objc public let keyPrefRecordHighRes = "keyRecordHighRes"
     @objc public let keyPrefAutoDetect = "keyAutoDetectTakeOffAndLanding"
+    @objc public let keyPrefUseSimGPS = "keyUseSimulatorGPS"
     @objc public let keyPrefIsRecording = "keyPrefIsRecording"
     
     @objc public static let toSpeeds = [20, 40, 55, 70, 85, 100]
@@ -263,6 +264,7 @@ import MapKit
         autodetectTakeoffs = ud.bool(forKey: keyPrefAutoDetect)
         recordTelemetry = ud.bool(forKey: keyPrefRecordFlightData)
         recordHighRes = ud.bool(forKey: keyPrefRecordHighRes)
+        useSimGPS = ud.bool(forKey: keyPrefUseSimGPS)
         includeHeliports = ud.bool(forKey: keyIncludeHeliports)
         showFlightImages = !ud.bool(forKey: keyShowImages)  // true by default
         showTach = ud.integer(forKey: keyShowTach) != 0
@@ -298,6 +300,7 @@ import MapKit
         ud.set(autodetectTakeoffs, forKey: keyPrefAutoDetect)
         ud.set(recordTelemetry, forKey: keyPrefRecordFlightData)
         ud.set(recordHighRes, forKey: keyPrefRecordHighRes)
+        ud.set(useSimGPS, forKey: keyPrefUseSimGPS)
         ud.set(includeHeliports, forKey: keyIncludeHeliports)
         ud.set(!showFlightImages, forKey: keyShowImages)
         ud.set(showTach ? 1 : 0, forKey: keyShowTach)
@@ -327,6 +330,7 @@ import MapKit
     @objc public var autodetectTakeoffs : Bool
     @objc public var recordTelemetry : Bool
     @objc public var recordHighRes : Bool
+    @objc public var useSimGPS : Bool
     @objc public var includeHeliports : Bool
     @objc public var showFlightImages : Bool
     @objc public var showTach : Bool

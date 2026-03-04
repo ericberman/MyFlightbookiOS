@@ -94,3 +94,13 @@
 
 /* Class = "UISegmentedControl";  TTD-gB-ODv.segmentTitles[2] = "Haut"; ObjectID="TTD-gB-ODv"; */
 "TTD-gB-ODv.segmentTitles[2]" = "Haut";
+
+/* Class = "UILabel"; text = "Some simulators like X-Plane can simulate your position; this overrides a GPS"; ObjectID = "hqO-8Z-1tC"; */
+"hqO-8Z-1tC.text" = "Certains simulateurs, comme X-Plane, peuvent simuler votre position ; cela remplace les données GPS.";
+
+/* Class = "UILabel"; text = "Use Simulator Provided Location"; ObjectID = "rv5-Mb-MLT"; */
+"rv5-Mb-MLT.text" = "Utiliser l'emplacement fourni par le simulateur";
+
+/* Class = "UILabel"; text = "Route Color"; ObjectID = "uDa-Ul-ttV"; */
+"uDa-Ul-ttV.text" = "couleur de la route";
+

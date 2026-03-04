@@ -40,6 +40,11 @@ import Foundation
     }
 }
 
+public enum GPSSource {
+    case physical   // use the hardware GPS for actual location
+    case simulator  // use a broadcast location from a simulator
+}
+
 @objc public protocol AutoDetectDelegate {
     @objc @discardableResult func takeoffDetected() -> NSString
     @objc @discardableResult func nightTakeoffDetected() -> NSString
@@ -106,6 +111,8 @@ import Foundation
     @objc public var lastSeenLoc : CLLocation? = nil
     @objc public var currentLoc : CLLocation? = nil
     @objc public var currentFlightState = FlightState.fsOnGround
+    private var gpsSource : GPSSource = UserPreferences.current.useSimGPS ? .simulator : .physical
+    private static let gpsSimulator = SimulatorGPSReceiver()
     
     
     // MARK: private properties
@@ -171,9 +178,26 @@ import Foundation
         rgAllSamples = (defs.object(forKey: MFBLocation._szKeyPrefFlightSamples) as? [String]) ?? []
         
         fRecordHighRes = UserPreferences.current.recordHighRes
+        gpsSource = UserPreferences.current.useSimGPS ? .simulator : .physical
         MFBLocation.refreshTakeoffSpeed()
     }
     
+    public func setSource(_ src : GPSSource) {
+        gpsSource = src
+        if (gpsSource == .simulator) {
+            MFBLocation.gpsSimulator.startListening()
+        }
+        else {
+            MFBLocation.gpsSimulator.stopListening()
+        }
+        lastSeenLoc = nil
+        currentLoc = nil
+    }
+    
+    public func getSource() -> GPSSource {
+        return gpsSource
+    }
+        
     // MARK: night flight options
     var NightFlightSunsetOffset : Int {
         get {
@@ -230,9 +254,14 @@ import Foundation
         if (startUpdating) {
             locManager!.startUpdatingLocation()
         }
+        if (gpsSource == .simulator) {
+            MFBLocation.gpsSimulator.startListening()
+        }
+            
         locManager!.allowsBackgroundLocationUpdates = true
     }
     
+    // MARK: CLLocaitonManagerDelegate
     public func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         if (manager.authorizationStatus == .denied || manager.authorizationStatus == .restricted) {
             locManager = nil
@@ -245,6 +274,26 @@ import Foundation
         locManager!.allowsBackgroundLocationUpdates = true
     }
     
+    public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        
+    }
+    
+    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if (gpsSource == .simulator) {    // simulator will call newlocation directly
+            return
+        }
+            
+        for loc in locations {
+#if DEBUG
+            if self.fIsBlessed {
+//                NSLog("Received REAL location %8f, %8f", loc.coordinate.latitude, loc.coordinate.longitude)
+            }
+#endif
+            self.newLocation(loc)
+        }
+    }
+    
+    // MARK: start/stop
     @objc public var isLocationServicesEnabled : Bool {
         get {
             locManager = locManager ?? CLLocationManager() // ensure it's not nil
@@ -473,21 +522,6 @@ import Foundation
             sw.speedDisplay = UserPreferences.current.speedUnits.formatSpeedMpS((lastSeenLoc?.speed ?? 0))
             sw.altDisplay = UserPreferences.current.altitudeUnits.formatMetersAlt(lastSeenLoc?.altitude ?? 0)
             MFBAppDelegate.threadSafeAppDelegate.updateWatchContext()
-        }
-    }
-    
-    public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        
-    }
-    
-    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        for loc in locations {
-#if DEBUG
-            if self.fIsBlessed {
-//                NSLog("Received REAL location %8f, %8f", loc.coordinate.latitude, loc.coordinate.longitude)
-            }
-#endif
-            self.newLocation(loc)
         }
     }
     

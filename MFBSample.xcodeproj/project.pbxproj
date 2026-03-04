@@ -192,6 +192,9 @@
 		9A6414D129ECAE9300AAE878 /* EXFHandlers.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3E136F127DE704008D672E /* EXFHandlers.m */; };
 		9A6414D229ECAEBC00AAE878 /* ExifLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A6414C129ECAE6C00AAE878 /* ExifLibrary.a */; };
 		9A6590D429DA517900917FCD /* FlightProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6590D329DA517900917FCD /* FlightProperties.swift */; };
+		9A692F382F57A6E1005DE4A6 /* GPSSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A692F372F57A6DB005DE4A6 /* GPSSimulator.swift */; };
+		9A692F3A2F57B352005DE4A6 /* XPlaneDataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A692F392F57B34D005DE4A6 /* XPlaneDataParser.swift */; };
+		9A692F3D2F58B0B7005DE4A6 /* CocoaAsyncSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 9A692F3C2F58B0B7005DE4A6 /* CocoaAsyncSocket */; };
 		9A6BDE10157092D600F715E1 /* EditCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A6BDE0F157092D600F715E1 /* EditCell.xib */; };
 		9A6C3B4315728F27004EB8FA /* ExpandHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A6C3B4215728F27004EB8FA /* ExpandHeaderCell.xib */; };
 		9A6DDB9511A8547D0053C8AA /* MFBIcon.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9A6DDB9111A8547D0053C8AA /* MFBIcon.gif */; };
@@ -724,6 +727,8 @@
 		9A69202810CCBD8A00DF1CA6 /* xsd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xsd.h; sourceTree = "<group>"; };
 		9A69202910CCBD8B00DF1CA6 /* xsd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = xsd.m; sourceTree = "<group>"; };
 		9A69203A10CCC08200DF1CA6 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		9A692F372F57A6DB005DE4A6 /* GPSSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSSimulator.swift; sourceTree = "<group>"; };
+		9A692F392F57B34D005DE4A6 /* XPlaneDataParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPlaneDataParser.swift; sourceTree = "<group>"; };
 		9A6BDE0F157092D600F715E1 /* EditCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditCell.xib; sourceTree = "<group>"; };
 		9A6C3B4215728F27004EB8FA /* ExpandHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpandHeaderCell.xib; sourceTree = "<group>"; };
 		9A6DDB9111A8547D0053C8AA /* MFBIcon.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = MFBIcon.gif; sourceTree = "<group>"; };
@@ -1005,6 +1010,7 @@
 				9AFEFF9F1BD02E1E0083043A /* CoreMedia.framework in Frameworks */,
 				9A25F249235A5A3B002B3B48 /* NotificationCenter.framework in Frameworks */,
 				9A6247A31AA509A3002A8E0B /* MediaPlayer.framework in Frameworks */,
+				9A692F3D2F58B0B7005DE4A6 /* CocoaAsyncSocket in Frameworks */,
 				9AC7B8C314D0AEF0009139BF /* QuartzCore.framework in Frameworks */,
 				9AA09D7514684EBA00192184 /* AudioToolbox.framework in Frameworks */,
 				9AA09D7614684EBA00192184 /* SystemConfiguration.framework in Frameworks */,
@@ -1782,6 +1788,8 @@
 		9AE39A4829ABC1DA002A6496 /* Geography */ = {
 			isa = PBXGroup;
 			children = (
+				9A692F392F57B34D005DE4A6 /* XPlaneDataParser.swift */,
+				9A692F372F57A6DB005DE4A6 /* GPSSimulator.swift */,
 				9AE39A4629ABC1C5002A6496 /* Airports.swift */,
 				9AE39A4929ABD008002A6496 /* LatLongBox.swift */,
 				9AE39A4B29ABE29D002A6496 /* WebServiceMappingExtensions.swift */,
@@ -1973,6 +1981,9 @@
 				Base,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* MFBSample */;
+			packageReferences = (
+				9A692F3B2F58B0B7005DE4A6 /* XCRemoteSwiftPackageReference "CocoaAsyncSocket" */,
+			);
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -2360,6 +2371,7 @@
 				9A3E9D712E8077540094506D /* MFBSceneDelegate.swift in Sources */,
 				9AE39A4729ABC1C5002A6496 /* Airports.swift in Sources */,
 				9AE39A4129AAA40D002A6496 /* MultiValOptionSelector.swift in Sources */,
+				9A692F382F57A6E1005DE4A6 /* GPSSimulator.swift in Sources */,
 				9A0DB05C29DF3737005CEC20 /* LEEditController.swift in Sources */,
 				9AE39A4329AAA456002A6496 /* OptionSelection.swift in Sources */,
 				9AA9791F29E328CC00D56DC4 /* RecentFlights.swift in Sources */,
@@ -2369,6 +2381,7 @@
 				9A89C1AF29B8F45300848A6B /* About.swift in Sources */,
 				9AC6F0D229D9D332007D0044 /* SelectTemplates.swift in Sources */,
 				9AE39A3F29AAA2D0002A6496 /* AutodetectOptions.swift in Sources */,
+				9A692F3A2F57B352005DE4A6 /* XPlaneDataParser.swift in Sources */,
 				9A70E34529D4F5AE0068B0E6 /* ConjunctionCell.swift in Sources */,
 				9A0DB05629DCC526005CEC20 /* NewAircraftViewController.swift in Sources */,
 				9A06E7AA29D0C41A0093A384 /* PackAndGo.swift in Sources */,
@@ -4332,6 +4345,25 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9A692F3B2F58B0B7005DE4A6 /* XCRemoteSwiftPackageReference "CocoaAsyncSocket" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/robbiehanson/CocoaAsyncSocket";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.6.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9A692F3C2F58B0B7005DE4A6 /* CocoaAsyncSocket */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9A692F3B2F58B0B7005DE4A6 /* XCRemoteSwiftPackageReference "CocoaAsyncSocket" */;
+			productName = CocoaAsyncSocket;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
 }
