@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2009-2025 MyFlightbook, LLC
+ Copyright (C) 2009-2026 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -344,9 +344,7 @@ public class SceneDelegate: UIResponder, UIWindowSceneDelegate, UITabBarControll
     public func setCustomizableViewControllers() {
         if #available(iOS 26.0, *) {
             tabBarController!.customizableViewControllers = []  // TODO: Remove this when Apple fixes their buggy shitty software
-            if let moreNav = tabBarController.moreNavigationController as? UINavigationController {
-                moreNav.topViewController?.navigationItem.rightBarButtonItem = nil
-            }
+            tabBarController.moreNavigationController.topViewController?.navigationItem.rightBarButtonItem = nil
         } else {
             tabBarController!.customizableViewControllers = tabBarController.viewControllers
         }
