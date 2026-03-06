@@ -47,7 +47,9 @@ public class MFBTabBarController: UITabBarController {
         // The XIB-defined tab bar still autoresizes to the bottom and steals space.
         // Move it completely off screen.
         if #available(iOS 26, *) {
-            tabBar.frame = CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: 0)
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                tabBar.frame = CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: 0)
+            }
         }
     }
     
