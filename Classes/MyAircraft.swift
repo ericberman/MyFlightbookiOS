@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2010-2025 MyFlightbook, LLC
+ Copyright (C) 2010-2026 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -159,6 +159,9 @@ public class MyAircraft : PullRefreshTableViewControllerSW, AircraftViewControll
     }
     
     private func heightForDynamicCell(at indexPath: IndexPath) -> CGFloat {
+        if callInProgress {
+            return self.tableView.rowHeight
+        }
         if sizingCell == nil {
             sizingCell = FixedImageCell.getFixedImageCell(tableView)
         }
