@@ -25,61 +25,89 @@
 
 import Network
 import CocoaAsyncSocket
+import AVFAudio
 
 /*
    Implement a listener for a simulated GPS signal from a flight simulator.  Unlike GPSSim, which is a testing tool to rapidly feed a set of GPS events, this
    replaces the hardware GPS signal for a network provided one.
  */
 class SimulatorGPSReceiver: NSObject, GCDAsyncUdpSocketDelegate {
+    private let minSampleInterval = 0.5 // half a second per sample
     private var socket4902: GCDAsyncUdpSocket?
-     private var socket4900: GCDAsyncUdpSocket?
-     private let parser = XPlaneDataParser()
-     private var lastPosition = XPlanePosition(
-         latitude: 0, longitude: 0, altitudeFeet: 0,
-         groundspeedKnots: 0, headingTrue: 0, pitch: 0, roll: 0
-     )
-     
-     func startListening() {
-         socket4902 = makeSocket(on: 49002)
-         socket4900 = makeSocket(on: 49000)
-     }
-     
-     func stopListening() {
-         socket4902?.close()
-         socket4902 = nil
-         socket4900?.close()
-         socket4900 = nil
-         print("🔴 Simulator GPS stopped")
-     }
-     
-     private func makeSocket(on port: UInt16) -> GCDAsyncUdpSocket? {
-         let socket = GCDAsyncUdpSocket(delegate: self, delegateQueue: .global())
-         do {
-             try socket.enableReusePort(true)      // allow multiple apps on same port
-             try socket.bind(toPort: port)
-             try socket.enableBroadcast(true)      // receive broadcast packets
-             try socket.beginReceiving()
-             print("✅ Listening on UDP port \(port)")
-             return socket
-         } catch {
-             print("❌ Failed to bind port \(port): \(error)")
-             return nil
-         }
-     }
-     
-     // MARK: - GCDAsyncUdpSocketDelegate
-     
-     func udpSocket(_ sock: GCDAsyncUdpSocket,
-                    didReceive data: Data,
-                    fromAddress address: Data,
-                    withFilterContext filterContext: Any?) {
-         parsePacket(data)
-     }
-     
-     func udpSocket(_ sock: GCDAsyncUdpSocket, didNotBindToPort port: UInt16, error: Error?) {
-         print("❌ Could not bind to port \(port): \(error?.localizedDescription ?? "unknown")")
-     }
-            
+    private var socket4900: GCDAsyncUdpSocket?
+    private var lastSample = Date().addingTimeInterval(-1)
+    private let parser = XPlaneDataParser()
+    private var lastPosition = XPlanePosition(
+        latitude: 0, longitude: 0, altitudeFeet: 0,
+        groundspeedKnots: 0, headingTrue: 0, pitch: 0, roll: 0
+    )
+    private var silentAudioActive = false
+    
+    func startListening() {
+        startSilentAudio()
+        socket4902 = makeSocket(on: 49002)
+        socket4900 = makeSocket(on: 49000)
+    }
+    
+    func stopListening() {
+        stopSilentAudio()
+        socket4902?.close()
+        socket4902 = nil
+        socket4900?.close()
+        socket4900 = nil
+        print("🔴 Simulator GPS stopped")
+    }
+    
+    private func makeSocket(on port: UInt16) -> GCDAsyncUdpSocket? {
+        let socket = GCDAsyncUdpSocket(delegate: self, delegateQueue: .global())
+        do {
+            try socket.enableReusePort(true)      // allow multiple apps on same port
+            try socket.bind(toPort: port)
+            try socket.enableBroadcast(true)      // receive broadcast packets
+            try socket.beginReceiving()
+            print("✅ Listening on UDP port \(port)")
+            return socket
+        } catch {
+            print("❌ Failed to bind port \(port): \(error)")
+            return nil
+        }
+    }
+    
+    func startSilentAudio() {
+        guard !silentAudioActive else { return }
+        do {
+            let session = AVAudioSession.sharedInstance()
+            try session.setCategory(.playback, options: .mixWithOthers)
+            try session.setActive(true)
+            silentAudioActive = true
+        } catch {
+            print("Audio session start error: \(error)")
+        }
+    }
+
+    func stopSilentAudio() {
+        guard silentAudioActive else { return }
+        do {
+            try AVAudioSession.sharedInstance().setActive(false)
+            silentAudioActive = false
+        } catch {
+            print("Audio session stop error: \(error)")
+        }
+    }
+    
+    // MARK: - GCDAsyncUdpSocketDelegate
+    
+    func udpSocket(_ sock: GCDAsyncUdpSocket,
+                   didReceive data: Data,
+                   fromAddress address: Data,
+                   withFilterContext filterContext: Any?) {
+        parsePacket(data)
+    }
+    
+    func udpSocket(_ sock: GCDAsyncUdpSocket, didNotBindToPort port: UInt16, error: Error?) {
+        print("❌ Could not bind to port \(port): \(error?.localizedDescription ?? "unknown")")
+    }
+    
     func parsePacket(_ data: Data) {
         // Try ForeFlight JSON first (port 49002)
         if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
@@ -89,8 +117,11 @@ class SimulatorGPSReceiver: NSObject, GCDAsyncUdpSocketDelegate {
             let alt  = xgps["Altitude"] ?? 0   // feet MSL
             let trk  = xgps["Track"] ?? 0      // degrees true
             let spd  = xgps["Speed"] ?? 0      // knots
-            DispatchQueue.main.async {
-                self.updatePosition(lat: lat, lon: lon, alt: alt, track: trk, speed: spd)
+            if (Date().timeIntervalSince(lastSample) > minSampleInterval) {
+                lastSample = Date()
+                DispatchQueue.main.async {
+                    self.updatePosition(lat: lat, lon: lon, alt: alt, track: trk, speed: spd)
+                }
             }
             
             return
@@ -117,8 +148,11 @@ class SimulatorGPSReceiver: NSObject, GCDAsyncUdpSocketDelegate {
             
             // Only emit a location when we have a valid position
             guard lastPosition.latitude != 0 || lastPosition.longitude != 0 else { return }
-            DispatchQueue.main.async {
-                MFBAppDelegate.threadSafeAppDelegate.mfbloc.newLocation(parser.toCLLocation(self.lastPosition))
+            if (Date().timeIntervalSince(lastSample) > minSampleInterval) {
+                lastSample = Date()
+                DispatchQueue.main.async {
+                    MFBAppDelegate.threadSafeAppDelegate.mfbloc.newLocation(parser.toCLLocation(self.lastPosition))
+                }
             }
         }
     }

@@ -253,9 +253,9 @@ public enum GPSSource {
         
         if (startUpdating) {
             locManager!.startUpdatingLocation()
-        }
-        if (gpsSource == .simulator) {
-            MFBLocation.gpsSimulator.startListening()
+            if (gpsSource == .simulator) {
+                MFBLocation.gpsSimulator.startListening()
+            }
         }
             
         locManager!.allowsBackgroundLocationUpdates = true
@@ -625,11 +625,15 @@ public enum GPSSource {
     @objc public func stopUpdatingLocation() {
         locManager?.stopUpdatingLocation()
         locManager?.allowsBackgroundLocationUpdates = false
+        MFBLocation.gpsSimulator.stopListening()    // stop listening on this, if we are listening.
     }
     
     @objc public func startUpdatingLocation() {
         locManager?.startUpdatingLocation()
         locManager?.allowsBackgroundLocationUpdates = true
+        if (gpsSource == .simulator) {
+            MFBLocation.gpsSimulator.startListening()
+        }
     }
     
     @objc public func feedEvent(_ loc : CLLocation) {
