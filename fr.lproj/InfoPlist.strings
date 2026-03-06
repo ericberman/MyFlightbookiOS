@@ -12,5 +12,6 @@
 "NSPhotoLibraryUsageDescription" = "MyFlightbook vous permet de joindre des photos à vos vols ou à un aéronef que vous pilotez.";
 "NSPhotoLibraryAddUsageDescription" = "MyFlightbook enregistre les photos que vous prenez dans votre bibliothèque afin que vous en ayez votre propre copie.";
 "NSMicrophoneUsageDescription" = "MyFlightbook utilise le microphone lorsque vous joignez une vidéo à un vol.";
+"NSLocalNetworkUsageDescription" = "Si vous utilisez un simulateur de vol qui fournit des coordonnées de position sur le réseau, MyFlightbook peut les utiliser pour vous aider à suivre votre vol et à détecter les décollages/atterrissages/vols de nuit/etc.";
 "CURRENCY_SHORTCUT_TITLE" = "Statut";
 "TOTALS_SHORTCUT_TITLE" = "Totaux";
