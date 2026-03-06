@@ -172,7 +172,7 @@ extension UITextField {
             // otherwise it is either explicitly a decimal, or it is a time but HHMM is false.
             let nf = NumberFormatter()
             nf.numberStyle = .decimal
-            return nf.number(from: sz!)!
+            return nf.number(from: sz!) ?? 0
         }
         
         return NSNumber()
