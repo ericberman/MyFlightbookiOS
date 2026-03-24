@@ -4,10 +4,10 @@
 <dict>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>If you are using a flight simulator that provides position coordinates on the network, MyFlightbook can use this to help track your flight and detect takeoffs/landings/night/etc.</string>
-    <key>NSBonjourServices</key>
-    <array>
-        <string>_xgps._udp</string>
-    </array>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_xgps._udp</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleDisplayName</key>
@@ -181,7 +181,6 @@
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
-        <string>audio</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>Launch Screen</string>

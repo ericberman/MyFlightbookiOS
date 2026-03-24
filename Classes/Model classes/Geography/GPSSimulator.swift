@@ -25,7 +25,6 @@
 
 import Network
 import CocoaAsyncSocket
-import AVFAudio
 
 /*
    Implement a listener for a simulated GPS signal from a flight simulator.  Unlike GPSSim, which is a testing tool to rapidly feed a set of GPS events, this
@@ -44,13 +43,11 @@ class SimulatorGPSReceiver: NSObject, GCDAsyncUdpSocketDelegate {
     private var silentAudioActive = false
     
     func startListening() {
-        startSilentAudio()
         socket4902 = makeSocket(on: 49002)
         socket4900 = makeSocket(on: 49000)
     }
     
     func stopListening() {
-        stopSilentAudio()
         socket4902?.close()
         socket4902 = nil
         socket4900?.close()
@@ -70,28 +67,6 @@ class SimulatorGPSReceiver: NSObject, GCDAsyncUdpSocketDelegate {
         } catch {
             print("❌ Failed to bind port \(port): \(error)")
             return nil
-        }
-    }
-    
-    func startSilentAudio() {
-        guard !silentAudioActive else { return }
-        do {
-            let session = AVAudioSession.sharedInstance()
-            try session.setCategory(.playback, options: .mixWithOthers)
-            try session.setActive(true)
-            silentAudioActive = true
-        } catch {
-            print("Audio session start error: \(error)")
-        }
-    }
-
-    func stopSilentAudio() {
-        guard silentAudioActive else { return }
-        do {
-            try AVAudioSession.sharedInstance().setActive(false)
-            silentAudioActive = false
-        } catch {
-            print("Audio session stop error: \(error)")
         }
     }
     

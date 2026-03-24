@@ -483,7 +483,7 @@ import MapKit
     
     @IBAction public func useSimGPSClicked(_ sender : UISwitch) {
         UserPreferences.current.useSimGPS = sender.isOn
-        MFBAppDelegate.threadSafeAppDelegate.mfbloc.setSource(sender.isOn ? .simulator : .physical)
+        MFBAppDelegate.threadSafeAppDelegate.mfbloc.setSource(.physical /* sender.isOn ? .simulator : .physical */)
     }
     
     @IBAction public func roundNearestTenthClicked(_ sender : UISwitch) {

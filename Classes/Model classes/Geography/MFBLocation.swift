@@ -111,7 +111,7 @@ public enum GPSSource {
     @objc public var lastSeenLoc : CLLocation? = nil
     @objc public var currentLoc : CLLocation? = nil
     @objc public var currentFlightState = FlightState.fsOnGround
-    private var gpsSource : GPSSource = UserPreferences.current.useSimGPS ? .simulator : .physical
+    private var gpsSource : GPSSource = .physical // UserPreferences.current.useSimGPS ? .simulator : .physical
     private static let gpsSimulator = SimulatorGPSReceiver()
     
     
@@ -178,7 +178,7 @@ public enum GPSSource {
         rgAllSamples = (defs.object(forKey: MFBLocation._szKeyPrefFlightSamples) as? [String]) ?? []
         
         fRecordHighRes = UserPreferences.current.recordHighRes
-        gpsSource = UserPreferences.current.useSimGPS ? .simulator : .physical
+        gpsSource = .physical // UserPreferences.current.useSimGPS ? .simulator : .physical
         MFBLocation.refreshTakeoffSpeed()
     }
     
