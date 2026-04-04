@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2009-2025 MyFlightbook, LLC
+ Copyright (C) 2009-2026 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -666,11 +666,14 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
         idRoute.text = r
     }
 
-    @objc func appendAdHoc(_ sender : Any) {
-        if let coord = MFBAppDelegate.threadSafeAppDelegate.mfbloc.lastSeenLoc?.coordinate {
-            let szLatLong =  MFBWebServiceSvc_LatLong(coord: coord).toAdhocString()
-            le.entryData.route = szLatLong
-            idRoute.text = szLatLong
+    @objc func appendAdHoc(gesture: UILongPressGestureRecognizer) {
+        if gesture.state == .began {
+            if let coord = MFBAppDelegate.threadSafeAppDelegate.mfbloc.lastSeenLoc?.coordinate {
+                let adhocAirport = MFBWebServiceSvc_airport.getAdHoc(MFBWebServiceSvc_LatLong(coord: coord).toAdhocString())
+                let newRoute = Airports.appendAirport(adhocAirport, szRouteSoFar: idRoute.text)
+                le.entryData.route = newRoute
+                idRoute.text = newRoute
+            }
         }
     }
     

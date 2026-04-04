@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2023 MyFlightbook, LLC
+ Copyright (C) 2023-2026 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -204,8 +204,11 @@ extension MFBWebServiceSvc_LatLong {
                 let szLatNS = sz[Range(tcr.range(at: 2), in: sz)!]
                 let szLonString = sz[Range(tcr.range(at: 3), in: sz)!]
                 let szLonEW = sz[Range(tcr.range(at: 4), in: sz)!]
-                ll.latitude = NSNumber(floatLiteral: (Double(szLatString) ?? 0.0) * (szLatNS == "N" ? 1 : -1))
-                ll.longitude = NSNumber(floatLiteral: (Double(szLonString) ?? 0.0) * (szLonEW == "E" ? 1 : -1))
+                let nf = NumberFormatter()
+                let lat = nf.number(from: String(szLatString))
+                let lon = nf.number(from: String(szLonString))
+                ll.latitude = NSNumber(floatLiteral: (lat?.doubleValue ?? 0.0) * (szLatNS == "N" ? 1 : -1))
+                ll.longitude = NSNumber(floatLiteral: (lon?.doubleValue ?? 0.0) * (szLonEW == "E" ? 1 : -1))
                 return ll
             }
         }
