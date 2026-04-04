@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2013-2025 MyFlightbook, LLC
+ Copyright (C) 2013-2026 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -48,6 +48,25 @@ public class SignInControllerViewController : CollapsibleTableSw, UITextFieldDel
         vwAccessory = AccessoryBar.getAccessoryBar(self)
         defSectionFooterHeight = 5.0
         defSectionHeaderHeight = 18.0
+
+        // Issue #398: username/password fields scroll up too high because fuck apple's iOS 26 breaking everything...
+        // This is what's adding the 352pt inset automatically —
+        // it's UIScrollView's automatic keyboard inset adjustment.
+        // Your tab bar controller handles this manually, so disable it here.
+        tableView.automaticallyAdjustsScrollIndicatorInsets = false
+        tableView.contentInsetAdjustmentBehavior = .never
+        
+        if #available(iOS 17.0, *) {
+            tableView.keyboardLayoutGuide.followsUndockedKeyboard = false
+            tableView.keyboardLayoutGuide.usesBottomSafeArea = false
+        }
+        
+        NotificationCenter.default.removeObserver(self,
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil)
+        NotificationCenter.default.removeObserver(self,
+            name: UIResponder.keyboardDidShowNotification,
+            object: nil)
     }
     
     public override func viewWillAppear(_ animated: Bool) {
