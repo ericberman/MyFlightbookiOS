@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2017-2023 MyFlightbook, LLC
+ Copyright (C) 2017-2026 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -196,7 +196,9 @@ import CoreLocation
     
     // MARK: - Add airports and images
     func refreshAirportsOnMap(_ mcr : MKCoordinateRegion) {
-        if showNearbyAirports {
+        let fShowNearby = showNearbyAirports
+        searchBar.isHidden = fShowNearby
+        if fShowNearby {
             // remove all previous annotations
             mapView.removeAnnotations(mapView.annotations)
             mapView.removeOverlays(mapView.overlays)
