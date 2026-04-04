@@ -130,19 +130,29 @@ public class SceneDelegate: UIResponder, UIWindowSceneDelegate, UITabBarControll
         }
         CommentedImage.cleanupObsoleteFiles(rgImages as! [CommentedImage])
         
-        tabBarController?.dismiss(animated: true, completion: {
+        tabBarController?.dismiss(animated: true, completion: { [weak self] in
+            // 1. Check if the SceneDelegate still exists
+            guard let strongSelf = self else { return }
+            
+            // 2. Safely unwrap the '!' property to be 100% sure it's not nil
+            guard let tb = strongSelf.tabBarController else { return }
+            
             if MFBProfile.sharedProfile.isValid() {
                 let iTab = UserDefaults.standard.integer(forKey: SceneDelegate._szKeySelectedTab)
-                if (iTab == 0 && self.checkNoAircraft()) {
-                    self.DefaultPage()
+                if (iTab == 0 && strongSelf.checkNoAircraft()) {
+                    strongSelf.DefaultPage()
                 } else {
-                    self.tabBarController!.selectedIndex = iTab
+                    tb.selectedIndex = iTab
                 }
             } else {
-                self.tabBarController!.selectedViewController = self.tabBarController.tabProfile
+                tb.selectedViewController = tb.tabProfile
             }
-            app.ensureWarningShownForUser(self.tabBarController)
-            iRate.sharedInstance().applicationLaunched()
+            
+            // 3. The "Anti-SIGABRT" delay
+            DispatchQueue.main.async {
+                app.ensureWarningShownForUser(tb)
+                iRate.sharedInstance().applicationLaunched()
+            }
         })
     }
     
