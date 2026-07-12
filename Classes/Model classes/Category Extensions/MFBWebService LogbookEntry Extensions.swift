@@ -785,15 +785,21 @@ extension MFBWebServiceSvc_LogbookEntry : AutoDetectDelegate {
 
     }
     
-    @objc public func sendFlight() {
+    @objc public func sendFlight(_ sender : UIBarButtonItem, fromViewController source : UIViewController) {
         if (sendFlightLink ?? "").isEmpty {
             return
         }
         
-        let szEncodedSubject = String(localized: "flightActionSendSubject", comment: "Flight Action - Send Subject").addingPercentEncoding(withAllowedCharacters: .alphanumerics)
-        let szEncodeBody = String(format: String(localized: "flightActionSendBody", comment:"Flight Action - Send Body"), sendFlightLink!).addingPercentEncoding(withAllowedCharacters: .alphanumerics)
-        let szURL = "mailto:?subject=\(szEncodedSubject!)&body=\(szEncodeBody!)"
-        UIApplication.shared.open(URL(string: szURL)!)
+        let url = URL(string: sendFlightLink!)!
+        let avc = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        
+        let bbi = sender
+        let bbiView = bbi.value(forKey: "view") as! UIView
+        avc.popoverPresentationController?.sourceView = bbiView
+        avc.popoverPresentationController?.sourceRect = bbiView.frame
+        
+        avc.excludedActivityTypes = [.airDrop, .print, .assignToContact, .saveToCameraRoll,.addToReadingList, .postToFlickr, .postToVimeo]
+        source.present(avc, animated: true)
     }
     
     @objc public func shareFlight(_ sender : UIBarButtonItem, fromViewController source : UIViewController) {

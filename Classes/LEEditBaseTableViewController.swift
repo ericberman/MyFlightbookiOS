@@ -491,7 +491,7 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
             
             if !le.entryData.sendFlightLink.isEmpty {
                 uac.addAction(UIAlertAction(title: String(localized: "flightActionSend", comment: "Flight Action - Send"), style:.default) { aa in
-                    self.le.entryData.sendFlight()
+                    self.le.entryData.sendFlight(sender, fromViewController: self)
                 })
             }
             
