@@ -798,7 +798,7 @@ extension MFBWebServiceSvc_LogbookEntry : AutoDetectDelegate {
         avc.popoverPresentationController?.sourceView = bbiView
         avc.popoverPresentationController?.sourceRect = bbiView.frame
         
-        avc.excludedActivityTypes = [.airDrop, .print, .assignToContact, .saveToCameraRoll,.addToReadingList, .postToFlickr, .postToVimeo]
+        avc.excludedActivityTypes = [.print, .assignToContact, .saveToCameraRoll,.addToReadingList, .postToFlickr, .postToVimeo]
         source.present(avc, animated: true)
     }
     
@@ -816,7 +816,7 @@ extension MFBWebServiceSvc_LogbookEntry : AutoDetectDelegate {
         avc.popoverPresentationController?.sourceView = bbiView
         avc.popoverPresentationController?.sourceRect = bbiView.frame
         
-        avc.excludedActivityTypes = [.airDrop, .print, .assignToContact, .saveToCameraRoll,.addToReadingList, .postToFlickr, .postToVimeo]
+        avc.excludedActivityTypes = [.print, .assignToContact, .saveToCameraRoll,.addToReadingList, .postToFlickr, .postToVimeo]
         source.present(avc, animated: true)
     }
 }
