@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2023-2025 MyFlightbook, LLC
+ Copyright (C) 2023-2026 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -86,10 +86,10 @@ extension UITextField {
     @objc(updateKeyboardForNumericType: fIsHHMM:) public func updateKeyboardType(numericType : NumericType, fIsHHMM : Bool) -> Void {
         switch (numericType) {
         case .Integer:
-            keyboardType = .numberPad
+            keyboardType = UIDevice.current.userInterfaceIdiom == .phone ? .numberPad : .asciiCapableNumberPad
             break
         case .Decimal:
-            keyboardType = .decimalPad
+            keyboardType = UIDevice.current.userInterfaceIdiom == .phone ? .decimalPad : .asciiCapableNumberPad
             break
         case .Time:
             keyboardType = fIsHHMM ? .numbersAndPunctuation : .decimalPad
