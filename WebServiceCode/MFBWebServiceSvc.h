@@ -26,18 +26,21 @@
 @class MFBWebServiceSvc_MakesAndModelsResponse;
 @class MFBWebServiceSvc_ArrayOfSimpleMakeModel;
 @class MFBWebServiceSvc_SimpleMakeModel;
+@class MFBWebServiceSvc_ModelsWithIDs;
+@class MFBWebServiceSvc_ModelsWithIDsResponse;
+@class MFBWebServiceSvc_ArrayOfMakeModel;
+@class MFBWebServiceSvc_MakeModel;
 @class MFBWebServiceSvc_GetCurrencyForUser;
 @class MFBWebServiceSvc_GetCurrencyForUserResponse;
 @class MFBWebServiceSvc_ArrayOfCurrencyStatusItem;
 @class MFBWebServiceSvc_CurrencyStatusItem;
+@class MFBWebServiceSvc_CurrencyStatusItemBase;
 @class MFBWebServiceSvc_FlightQuery;
 @class MFBWebServiceSvc_ArrayOfCategoryClass;
 @class MFBWebServiceSvc_ArrayOfCustomPropertyType;
 @class MFBWebServiceSvc_ArrayOfString;
-@class MFBWebServiceSvc_ArrayOfMakeModel;
 @class MFBWebServiceSvc_CategoryClass;
 @class MFBWebServiceSvc_CustomPropertyType;
-@class MFBWebServiceSvc_MakeModel;
 @class MFBWebServiceSvc_TotalsForUser;
 @class MFBWebServiceSvc_TotalsForUserResponse;
 @class MFBWebServiceSvc_ArrayOfTotalsItem;
@@ -73,6 +76,11 @@
 @class MFBWebServiceSvc_FlightPathForFlightGPXResponse;
 @class MFBWebServiceSvc_CheckFlight;
 @class MFBWebServiceSvc_CheckFlightResponse;
+@class MFBWebServiceSvc_AutofillFlight;
+@class MFBWebServiceSvc_AutoFillOptions;
+@class MFBWebServiceSvc_AutofillFlightResponse;
+@class MFBWebServiceSvc_InitFlightFromFlightDeckScan;
+@class MFBWebServiceSvc_InitFlightFromFlightDeckScanResponse;
 @class MFBWebServiceSvc_CreatePendingFlight;
 @class MFBWebServiceSvc_CreatePendingFlightResponse;
 @class MFBWebServiceSvc_ArrayOfPendingFlight;
@@ -696,6 +704,181 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
+@interface MFBWebServiceSvc_ModelsWithIDs : NSObject <NSCoding, NSSecureCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	NSString * szAuthToken;
+	MFBWebServiceSvc_ArrayOfInt * rgIDs;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_ModelsWithIDs *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (strong) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, strong) NSString * szAuthToken;
+@property (nonatomic, strong) MFBWebServiceSvc_ArrayOfInt * rgIDs;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+typedef enum {
+	MFBWebServiceSvc_AllowedAircraftTypes_none = 0,
+	MFBWebServiceSvc_AllowedAircraftTypes_Any,
+	MFBWebServiceSvc_AllowedAircraftTypes_SimulatorOnly,
+	MFBWebServiceSvc_AllowedAircraftTypes_SimOrAnonymous,
+} MFBWebServiceSvc_AllowedAircraftTypes;
+MFBWebServiceSvc_AllowedAircraftTypes MFBWebServiceSvc_AllowedAircraftTypes_enumFromString(NSString *string);
+NSString * MFBWebServiceSvc_AllowedAircraftTypes_stringFromEnum(MFBWebServiceSvc_AllowedAircraftTypes enumValue);
+typedef enum {
+	MFBWebServiceSvc_CatClassID_none = 0,
+	MFBWebServiceSvc_CatClassID_ASEL,
+	MFBWebServiceSvc_CatClassID_AMEL,
+	MFBWebServiceSvc_CatClassID_ASES,
+	MFBWebServiceSvc_CatClassID_AMES,
+	MFBWebServiceSvc_CatClassID_Glider,
+	MFBWebServiceSvc_CatClassID_Helicopter,
+	MFBWebServiceSvc_CatClassID_Gyroplane,
+	MFBWebServiceSvc_CatClassID_PoweredLift,
+	MFBWebServiceSvc_CatClassID_Airship,
+	MFBWebServiceSvc_CatClassID_HotAirBalloon,
+	MFBWebServiceSvc_CatClassID_GasBalloon,
+	MFBWebServiceSvc_CatClassID_PoweredParachuteLand,
+	MFBWebServiceSvc_CatClassID_PoweredParachuteSea,
+	MFBWebServiceSvc_CatClassID_WeightShiftControlLand,
+	MFBWebServiceSvc_CatClassID_WeightShiftControlSea,
+	MFBWebServiceSvc_CatClassID_UnmannedAerialSystem,
+	MFBWebServiceSvc_CatClassID_PoweredParaglider,
+} MFBWebServiceSvc_CatClassID;
+MFBWebServiceSvc_CatClassID MFBWebServiceSvc_CatClassID_enumFromString(NSString *string);
+NSString * MFBWebServiceSvc_CatClassID_stringFromEnum(MFBWebServiceSvc_CatClassID enumValue);
+typedef enum {
+	MFBWebServiceSvc_HighPerfType_none = 0,
+	MFBWebServiceSvc_HighPerfType_NotHighPerf,
+	MFBWebServiceSvc_HighPerfType_HighPerf,
+	MFBWebServiceSvc_HighPerfType_Is200HP,
+} MFBWebServiceSvc_HighPerfType;
+MFBWebServiceSvc_HighPerfType MFBWebServiceSvc_HighPerfType_enumFromString(NSString *string);
+NSString * MFBWebServiceSvc_HighPerfType_stringFromEnum(MFBWebServiceSvc_HighPerfType enumValue);
+typedef enum {
+	MFBWebServiceSvc_TurbineLevel_none = 0,
+	MFBWebServiceSvc_TurbineLevel_Piston,
+	MFBWebServiceSvc_TurbineLevel_TurboProp,
+	MFBWebServiceSvc_TurbineLevel_Jet,
+	MFBWebServiceSvc_TurbineLevel_UnspecifiedTurbine,
+	MFBWebServiceSvc_TurbineLevel_Electric,
+} MFBWebServiceSvc_TurbineLevel;
+MFBWebServiceSvc_TurbineLevel MFBWebServiceSvc_TurbineLevel_enumFromString(NSString *string);
+NSString * MFBWebServiceSvc_TurbineLevel_stringFromEnum(MFBWebServiceSvc_TurbineLevel enumValue);
+@interface MFBWebServiceSvc_MakeModel : NSObject <NSCoding, NSSecureCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	MFBWebServiceSvc_AllowedAircraftTypes AllowedTypes;
+	NSString * CategoryClassDisplay;
+	NSString * ManufacturerDisplay;
+	MFBWebServiceSvc_AvionicsTechnologyType AvionicsTechnology;
+	NSString * ArmyMDS;
+	NSString * ErrorString;
+	NSNumber * MakeModelID;
+	NSString * Model;
+	NSString * ModelName;
+	NSString * TypeName;
+	NSString * FamilyName;
+	MFBWebServiceSvc_CatClassID CategoryClassID;
+	NSNumber * ManufacturerID;
+	USBoolean * IsComplex;
+	USBoolean * IsHighPerf;
+	USBoolean * Is200HP;
+	MFBWebServiceSvc_HighPerfType PerformanceType;
+	USBoolean * IsTailWheel;
+	USBoolean * IsConstantProp;
+	USBoolean * HasFlaps;
+	USBoolean * IsRetract;
+	MFBWebServiceSvc_TurbineLevel EngineType;
+	USBoolean * IsCertifiedSinglePilot;
+	USBoolean * IsMotorGlider;
+	USBoolean * IsMultiEngineHelicopter;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_MakeModel *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (strong) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, assign) MFBWebServiceSvc_AllowedAircraftTypes AllowedTypes;
+@property (nonatomic, strong) NSString * CategoryClassDisplay;
+@property (nonatomic, strong) NSString * ManufacturerDisplay;
+@property (nonatomic, assign) MFBWebServiceSvc_AvionicsTechnologyType AvionicsTechnology;
+@property (nonatomic, strong) NSString * ArmyMDS;
+@property (nonatomic, strong) NSString * ErrorString;
+@property (nonatomic, strong) NSNumber * MakeModelID;
+@property (nonatomic, strong) NSString * Model;
+@property (nonatomic, strong) NSString * ModelName;
+@property (nonatomic, strong) NSString * TypeName;
+@property (nonatomic, strong) NSString * FamilyName;
+@property (nonatomic, assign) MFBWebServiceSvc_CatClassID CategoryClassID;
+@property (nonatomic, strong) NSNumber * ManufacturerID;
+@property (nonatomic, strong) USBoolean * IsComplex;
+@property (nonatomic, strong) USBoolean * IsHighPerf;
+@property (nonatomic, strong) USBoolean * Is200HP;
+@property (nonatomic, assign) MFBWebServiceSvc_HighPerfType PerformanceType;
+@property (nonatomic, strong) USBoolean * IsTailWheel;
+@property (nonatomic, strong) USBoolean * IsConstantProp;
+@property (nonatomic, strong) USBoolean * HasFlaps;
+@property (nonatomic, strong) USBoolean * IsRetract;
+@property (nonatomic, assign) MFBWebServiceSvc_TurbineLevel EngineType;
+@property (nonatomic, strong) USBoolean * IsCertifiedSinglePilot;
+@property (nonatomic, strong) USBoolean * IsMotorGlider;
+@property (nonatomic, strong) USBoolean * IsMultiEngineHelicopter;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_ArrayOfMakeModel : NSObject <NSCoding, NSSecureCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	NSMutableArray *MakeModel;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_ArrayOfMakeModel *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (strong) SOAPSigner *soapSigner;
+/* elements */
+- (void)addMakeModel:(MFBWebServiceSvc_MakeModel *)toAdd;
+@property (nonatomic, readonly) NSMutableArray * MakeModel;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_ModelsWithIDsResponse : NSObject <NSCoding, NSSecureCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	MFBWebServiceSvc_ArrayOfMakeModel * ModelsWithIDsResult;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_ModelsWithIDsResponse *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (strong) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, strong) MFBWebServiceSvc_ArrayOfMakeModel * ModelsWithIDsResult;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
 @interface MFBWebServiceSvc_GetCurrencyForUser : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
@@ -761,28 +944,6 @@ typedef enum {
 } MFBWebServiceSvc_FlightDistance;
 MFBWebServiceSvc_FlightDistance MFBWebServiceSvc_FlightDistance_enumFromString(NSString *string);
 NSString * MFBWebServiceSvc_FlightDistance_stringFromEnum(MFBWebServiceSvc_FlightDistance enumValue);
-typedef enum {
-	MFBWebServiceSvc_CatClassID_none = 0,
-	MFBWebServiceSvc_CatClassID_ASEL,
-	MFBWebServiceSvc_CatClassID_AMEL,
-	MFBWebServiceSvc_CatClassID_ASES,
-	MFBWebServiceSvc_CatClassID_AMES,
-	MFBWebServiceSvc_CatClassID_Glider,
-	MFBWebServiceSvc_CatClassID_Helicopter,
-	MFBWebServiceSvc_CatClassID_Gyroplane,
-	MFBWebServiceSvc_CatClassID_PoweredLift,
-	MFBWebServiceSvc_CatClassID_Airship,
-	MFBWebServiceSvc_CatClassID_HotAirBalloon,
-	MFBWebServiceSvc_CatClassID_GasBalloon,
-	MFBWebServiceSvc_CatClassID_PoweredParachuteLand,
-	MFBWebServiceSvc_CatClassID_PoweredParachuteSea,
-	MFBWebServiceSvc_CatClassID_WeightShiftControlLand,
-	MFBWebServiceSvc_CatClassID_WeightShiftControlSea,
-	MFBWebServiceSvc_CatClassID_UnmannedAerialSystem,
-	MFBWebServiceSvc_CatClassID_PoweredParaglider,
-} MFBWebServiceSvc_CatClassID;
-MFBWebServiceSvc_CatClassID MFBWebServiceSvc_CatClassID_enumFromString(NSString *string);
-NSString * MFBWebServiceSvc_CatClassID_stringFromEnum(MFBWebServiceSvc_CatClassID enumValue);
 @interface MFBWebServiceSvc_CategoryClass : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
@@ -926,119 +1087,6 @@ typedef enum {
 MFBWebServiceSvc_GroupConjunction MFBWebServiceSvc_GroupConjunction_enumFromString(NSString *string);
 NSString * MFBWebServiceSvc_GroupConjunction_stringFromEnum(MFBWebServiceSvc_GroupConjunction enumValue);
 typedef enum {
-	MFBWebServiceSvc_AllowedAircraftTypes_none = 0,
-	MFBWebServiceSvc_AllowedAircraftTypes_Any,
-	MFBWebServiceSvc_AllowedAircraftTypes_SimulatorOnly,
-	MFBWebServiceSvc_AllowedAircraftTypes_SimOrAnonymous,
-} MFBWebServiceSvc_AllowedAircraftTypes;
-MFBWebServiceSvc_AllowedAircraftTypes MFBWebServiceSvc_AllowedAircraftTypes_enumFromString(NSString *string);
-NSString * MFBWebServiceSvc_AllowedAircraftTypes_stringFromEnum(MFBWebServiceSvc_AllowedAircraftTypes enumValue);
-typedef enum {
-	MFBWebServiceSvc_HighPerfType_none = 0,
-	MFBWebServiceSvc_HighPerfType_NotHighPerf,
-	MFBWebServiceSvc_HighPerfType_HighPerf,
-	MFBWebServiceSvc_HighPerfType_Is200HP,
-} MFBWebServiceSvc_HighPerfType;
-MFBWebServiceSvc_HighPerfType MFBWebServiceSvc_HighPerfType_enumFromString(NSString *string);
-NSString * MFBWebServiceSvc_HighPerfType_stringFromEnum(MFBWebServiceSvc_HighPerfType enumValue);
-typedef enum {
-	MFBWebServiceSvc_TurbineLevel_none = 0,
-	MFBWebServiceSvc_TurbineLevel_Piston,
-	MFBWebServiceSvc_TurbineLevel_TurboProp,
-	MFBWebServiceSvc_TurbineLevel_Jet,
-	MFBWebServiceSvc_TurbineLevel_UnspecifiedTurbine,
-	MFBWebServiceSvc_TurbineLevel_Electric,
-} MFBWebServiceSvc_TurbineLevel;
-MFBWebServiceSvc_TurbineLevel MFBWebServiceSvc_TurbineLevel_enumFromString(NSString *string);
-NSString * MFBWebServiceSvc_TurbineLevel_stringFromEnum(MFBWebServiceSvc_TurbineLevel enumValue);
-@interface MFBWebServiceSvc_MakeModel : NSObject <NSCoding, NSSecureCoding> {
-SOAPSigner *soapSigner;
-/* elements */
-	MFBWebServiceSvc_AllowedAircraftTypes AllowedTypes;
-	NSString * CategoryClassDisplay;
-	NSString * ManufacturerDisplay;
-	MFBWebServiceSvc_AvionicsTechnologyType AvionicsTechnology;
-	NSString * ArmyMDS;
-	NSString * ErrorString;
-	NSNumber * MakeModelID;
-	NSString * Model;
-	NSString * ModelName;
-	NSString * TypeName;
-	NSString * FamilyName;
-	MFBWebServiceSvc_CatClassID CategoryClassID;
-	NSNumber * ManufacturerID;
-	USBoolean * IsComplex;
-	USBoolean * IsHighPerf;
-	USBoolean * Is200HP;
-	MFBWebServiceSvc_HighPerfType PerformanceType;
-	USBoolean * IsTailWheel;
-	USBoolean * IsConstantProp;
-	USBoolean * HasFlaps;
-	USBoolean * IsRetract;
-	MFBWebServiceSvc_TurbineLevel EngineType;
-	USBoolean * IsCertifiedSinglePilot;
-	USBoolean * IsMotorGlider;
-	USBoolean * IsMultiEngineHelicopter;
-/* attributes */
-}
-- (NSString *)nsPrefix;
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
-- (void)addAttributesToNode:(xmlNodePtr)node;
-- (void)addElementsToNode:(xmlNodePtr)node;
-+ (MFBWebServiceSvc_MakeModel *)deserializeNode:(xmlNodePtr)cur;
-- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
-- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
-@property (strong) SOAPSigner *soapSigner;
-/* elements */
-@property (nonatomic, assign) MFBWebServiceSvc_AllowedAircraftTypes AllowedTypes;
-@property (nonatomic, strong) NSString * CategoryClassDisplay;
-@property (nonatomic, strong) NSString * ManufacturerDisplay;
-@property (nonatomic, assign) MFBWebServiceSvc_AvionicsTechnologyType AvionicsTechnology;
-@property (nonatomic, strong) NSString * ArmyMDS;
-@property (nonatomic, strong) NSString * ErrorString;
-@property (nonatomic, strong) NSNumber * MakeModelID;
-@property (nonatomic, strong) NSString * Model;
-@property (nonatomic, strong) NSString * ModelName;
-@property (nonatomic, strong) NSString * TypeName;
-@property (nonatomic, strong) NSString * FamilyName;
-@property (nonatomic, assign) MFBWebServiceSvc_CatClassID CategoryClassID;
-@property (nonatomic, strong) NSNumber * ManufacturerID;
-@property (nonatomic, strong) USBoolean * IsComplex;
-@property (nonatomic, strong) USBoolean * IsHighPerf;
-@property (nonatomic, strong) USBoolean * Is200HP;
-@property (nonatomic, assign) MFBWebServiceSvc_HighPerfType PerformanceType;
-@property (nonatomic, strong) USBoolean * IsTailWheel;
-@property (nonatomic, strong) USBoolean * IsConstantProp;
-@property (nonatomic, strong) USBoolean * HasFlaps;
-@property (nonatomic, strong) USBoolean * IsRetract;
-@property (nonatomic, assign) MFBWebServiceSvc_TurbineLevel EngineType;
-@property (nonatomic, strong) USBoolean * IsCertifiedSinglePilot;
-@property (nonatomic, strong) USBoolean * IsMotorGlider;
-@property (nonatomic, strong) USBoolean * IsMultiEngineHelicopter;
-/* attributes */
-- (NSDictionary *)attributes;
-@end
-@interface MFBWebServiceSvc_ArrayOfMakeModel : NSObject <NSCoding, NSSecureCoding> {
-SOAPSigner *soapSigner;
-/* elements */
-	NSMutableArray *MakeModel;
-/* attributes */
-}
-- (NSString *)nsPrefix;
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
-- (void)addAttributesToNode:(xmlNodePtr)node;
-- (void)addElementsToNode:(xmlNodePtr)node;
-+ (MFBWebServiceSvc_ArrayOfMakeModel *)deserializeNode:(xmlNodePtr)cur;
-- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
-- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
-@property (strong) SOAPSigner *soapSigner;
-/* elements */
-- (void)addMakeModel:(MFBWebServiceSvc_MakeModel *)toAdd;
-@property (nonatomic, readonly) NSMutableArray * MakeModel;
-/* attributes */
-- (NSDictionary *)attributes;
-@end
-typedef enum {
 	MFBWebServiceSvc_EngineTypeRestriction_none = 0,
 	MFBWebServiceSvc_EngineTypeRestriction_AllEngines,
 	MFBWebServiceSvc_EngineTypeRestriction_Piston,
@@ -1170,7 +1218,7 @@ SOAPSigner *soapSigner;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
-@interface MFBWebServiceSvc_CurrencyStatusItem : NSObject <NSCoding, NSSecureCoding> {
+@interface MFBWebServiceSvc_CurrencyStatusItemBase : NSObject <NSCoding, NSSecureCoding> {
 SOAPSigner *soapSigner;
 /* elements */
 	NSString * Attribute;
@@ -1186,7 +1234,7 @@ SOAPSigner *soapSigner;
 - (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
 - (void)addAttributesToNode:(xmlNodePtr)node;
 - (void)addElementsToNode:(xmlNodePtr)node;
-+ (MFBWebServiceSvc_CurrencyStatusItem *)deserializeNode:(xmlNodePtr)cur;
++ (MFBWebServiceSvc_CurrencyStatusItemBase *)deserializeNode:(xmlNodePtr)cur;
 - (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
 - (void)deserializeElementsFromNode:(xmlNodePtr)cur;
 @property (strong) SOAPSigner *soapSigner;
@@ -1198,6 +1246,21 @@ SOAPSigner *soapSigner;
 @property (nonatomic, strong) NSNumber * AssociatedResourceID;
 @property (nonatomic, assign) MFBWebServiceSvc_CurrencyGroups CurrencyGroup;
 @property (nonatomic, strong) MFBWebServiceSvc_FlightQuery * Query;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_CurrencyStatusItem : MFBWebServiceSvc_CurrencyStatusItemBase {
+/* elements */
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_CurrencyStatusItem *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+/* elements */
 /* attributes */
 - (NSDictionary *)attributes;
 @end
@@ -2136,6 +2199,165 @@ SOAPSigner *soapSigner;
 @property (strong) SOAPSigner *soapSigner;
 /* elements */
 @property (nonatomic, strong) MFBWebServiceSvc_ArrayOfString * CheckFlightResult;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+typedef enum {
+	MFBWebServiceSvc_AutoFillTotalOption_none = 0,
+	MFBWebServiceSvc_AutoFillTotalOption_None,
+	MFBWebServiceSvc_AutoFillTotalOption_FlightTime,
+	MFBWebServiceSvc_AutoFillTotalOption_EngineTime,
+	MFBWebServiceSvc_AutoFillTotalOption_HobbsTime,
+	MFBWebServiceSvc_AutoFillTotalOption_BlockTime,
+} MFBWebServiceSvc_AutoFillTotalOption;
+MFBWebServiceSvc_AutoFillTotalOption MFBWebServiceSvc_AutoFillTotalOption_enumFromString(NSString *string);
+NSString * MFBWebServiceSvc_AutoFillTotalOption_stringFromEnum(MFBWebServiceSvc_AutoFillTotalOption enumValue);
+typedef enum {
+	MFBWebServiceSvc_AutoFillHobbsOption_none = 0,
+	MFBWebServiceSvc_AutoFillHobbsOption_None,
+	MFBWebServiceSvc_AutoFillHobbsOption_FlightTime,
+	MFBWebServiceSvc_AutoFillHobbsOption_EngineTime,
+	MFBWebServiceSvc_AutoFillHobbsOption_TotalTime,
+} MFBWebServiceSvc_AutoFillHobbsOption;
+MFBWebServiceSvc_AutoFillHobbsOption MFBWebServiceSvc_AutoFillHobbsOption_enumFromString(NSString *string);
+NSString * MFBWebServiceSvc_AutoFillHobbsOption_stringFromEnum(MFBWebServiceSvc_AutoFillHobbsOption enumValue);
+typedef enum {
+	MFBWebServiceSvc_NightCritera_none = 0,
+	MFBWebServiceSvc_NightCritera_EndOfCivilTwilight,
+	MFBWebServiceSvc_NightCritera_Sunset,
+	MFBWebServiceSvc_NightCritera_SunsetPlus15,
+	MFBWebServiceSvc_NightCritera_SunsetPlus30,
+	MFBWebServiceSvc_NightCritera_SunsetPlus60,
+} MFBWebServiceSvc_NightCritera;
+MFBWebServiceSvc_NightCritera MFBWebServiceSvc_NightCritera_enumFromString(NSString *string);
+NSString * MFBWebServiceSvc_NightCritera_stringFromEnum(MFBWebServiceSvc_NightCritera enumValue);
+typedef enum {
+	MFBWebServiceSvc_NightLandingCriteria_none = 0,
+	MFBWebServiceSvc_NightLandingCriteria_SunsetPlus60,
+	MFBWebServiceSvc_NightLandingCriteria_Night,
+} MFBWebServiceSvc_NightLandingCriteria;
+MFBWebServiceSvc_NightLandingCriteria MFBWebServiceSvc_NightLandingCriteria_enumFromString(NSString *string);
+NSString * MFBWebServiceSvc_NightLandingCriteria_stringFromEnum(MFBWebServiceSvc_NightLandingCriteria enumValue);
+@interface MFBWebServiceSvc_AutoFillOptions : NSObject <NSCoding, NSSecureCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	NSNumber * TimeZoneOffset;
+	MFBWebServiceSvc_AutoFillTotalOption AutoFillTotal;
+	MFBWebServiceSvc_AutoFillHobbsOption AutoFillHobbs;
+	MFBWebServiceSvc_NightCritera Night;
+	MFBWebServiceSvc_NightLandingCriteria NightLanding;
+	NSNumber * CrossCountryThreshold;
+	NSNumber * TakeOffSpeed;
+	NSNumber * LandingSpeed;
+	USBoolean * IncludeHeliports;
+	USBoolean * AutoSynthesizePath;
+	USBoolean * RoundToTenth;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_AutoFillOptions *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (strong) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, strong) NSNumber * TimeZoneOffset;
+@property (nonatomic, assign) MFBWebServiceSvc_AutoFillTotalOption AutoFillTotal;
+@property (nonatomic, assign) MFBWebServiceSvc_AutoFillHobbsOption AutoFillHobbs;
+@property (nonatomic, assign) MFBWebServiceSvc_NightCritera Night;
+@property (nonatomic, assign) MFBWebServiceSvc_NightLandingCriteria NightLanding;
+@property (nonatomic, strong) NSNumber * CrossCountryThreshold;
+@property (nonatomic, strong) NSNumber * TakeOffSpeed;
+@property (nonatomic, strong) NSNumber * LandingSpeed;
+@property (nonatomic, strong) USBoolean * IncludeHeliports;
+@property (nonatomic, strong) USBoolean * AutoSynthesizePath;
+@property (nonatomic, strong) USBoolean * RoundToTenth;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_AutofillFlight : NSObject <NSCoding, NSSecureCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	NSString * szAuthUserToken;
+	MFBWebServiceSvc_LogbookEntry * le;
+	MFBWebServiceSvc_AutoFillOptions * options;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_AutofillFlight *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (strong) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, strong) NSString * szAuthUserToken;
+@property (nonatomic, strong) MFBWebServiceSvc_LogbookEntry * le;
+@property (nonatomic, strong) MFBWebServiceSvc_AutoFillOptions * options;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_AutofillFlightResponse : NSObject <NSCoding, NSSecureCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	MFBWebServiceSvc_LogbookEntry * AutofillFlightResult;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_AutofillFlightResponse *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (strong) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, strong) MFBWebServiceSvc_LogbookEntry * AutofillFlightResult;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_InitFlightFromFlightDeckScan : NSObject <NSCoding, NSSecureCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	NSString * szAuthUserToken;
+	MFBWebServiceSvc_LogbookEntry * le;
+	NSString * szScannedFlight;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_InitFlightFromFlightDeckScan *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (strong) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, strong) NSString * szAuthUserToken;
+@property (nonatomic, strong) MFBWebServiceSvc_LogbookEntry * le;
+@property (nonatomic, strong) NSString * szScannedFlight;
+/* attributes */
+- (NSDictionary *)attributes;
+@end
+@interface MFBWebServiceSvc_InitFlightFromFlightDeckScanResponse : NSObject <NSCoding, NSSecureCoding> {
+SOAPSigner *soapSigner;
+/* elements */
+	MFBWebServiceSvc_LogbookEntry * InitFlightFromFlightDeckScanResult;
+/* attributes */
+}
+- (NSString *)nsPrefix;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
+- (void)addAttributesToNode:(xmlNodePtr)node;
+- (void)addElementsToNode:(xmlNodePtr)node;
++ (MFBWebServiceSvc_InitFlightFromFlightDeckScanResponse *)deserializeNode:(xmlNodePtr)cur;
+- (void)deserializeAttributesFromNode:(xmlNodePtr)cur;
+- (void)deserializeElementsFromNode:(xmlNodePtr)cur;
+@property (strong) SOAPSigner *soapSigner;
+/* elements */
+@property (nonatomic, strong) MFBWebServiceSvc_LogbookEntry * InitFlightFromFlightDeckScanResult;
 /* attributes */
 - (NSDictionary *)attributes;
 @end
@@ -3218,6 +3440,7 @@ SOAPSigner *soapSigner;
 - (void)UpdateMaintenanceForAircraftWithFlagsAndNotesAsyncUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (void)DeleteAircraftForUserAsyncUsingParameters:(MFBWebServiceSvc_DeleteAircraftForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (void)MakesAndModelsAsyncUsingParameters:(MFBWebServiceSvc_MakesAndModels *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
+- (void)ModelsWithIDsAsyncUsingParameters:(MFBWebServiceSvc_ModelsWithIDs *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (void)GetCurrencyForUserAsyncUsingParameters:(MFBWebServiceSvc_GetCurrencyForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (void)TotalsForUserAsyncUsingParameters:(MFBWebServiceSvc_TotalsForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (void)TotalsForUserWithQueryAsyncUsingParameters:(MFBWebServiceSvc_TotalsForUserWithQuery *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
@@ -3229,6 +3452,8 @@ SOAPSigner *soapSigner;
 - (void)FlightPathForFlightAsyncUsingParameters:(MFBWebServiceSvc_FlightPathForFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (void)FlightPathForFlightGPXAsyncUsingParameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (void)CheckFlightAsyncUsingParameters:(MFBWebServiceSvc_CheckFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
+- (void)AutofillFlightAsyncUsingParameters:(MFBWebServiceSvc_AutofillFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
+- (void)InitFlightFromFlightDeckScanAsyncUsingParameters:(MFBWebServiceSvc_InitFlightFromFlightDeckScan *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (void)CreatePendingFlightAsyncUsingParameters:(MFBWebServiceSvc_CreatePendingFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (void)PendingFlightsForUserAsyncUsingParameters:(MFBWebServiceSvc_PendingFlightsForUser *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
 - (void)UpdatePendingFlightAsyncUsingParameters:(MFBWebServiceSvc_UpdatePendingFlight *)aParameters  delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)responseDelegate;
@@ -3322,6 +3547,14 @@ SOAPSigner *soapSigner;
 	parameters:(MFBWebServiceSvc_MakesAndModels *)aParameters
 ;
 @end
+@interface MFBWebServiceSoapBinding_ModelsWithIDs : MFBWebServiceSoapBindingOperation {
+	MFBWebServiceSvc_ModelsWithIDs * parameters;
+}
+@property (nonatomic, strong) MFBWebServiceSvc_ModelsWithIDs * parameters;
+- (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_ModelsWithIDs *)aParameters
+;
+@end
 @interface MFBWebServiceSoapBinding_GetCurrencyForUser : MFBWebServiceSoapBindingOperation {
 	MFBWebServiceSvc_GetCurrencyForUser * parameters;
 }
@@ -3408,6 +3641,22 @@ SOAPSigner *soapSigner;
 @property (nonatomic, strong) MFBWebServiceSvc_CheckFlight * parameters;
 - (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)aDelegate
 	parameters:(MFBWebServiceSvc_CheckFlight *)aParameters
+;
+@end
+@interface MFBWebServiceSoapBinding_AutofillFlight : MFBWebServiceSoapBindingOperation {
+	MFBWebServiceSvc_AutofillFlight * parameters;
+}
+@property (nonatomic, strong) MFBWebServiceSvc_AutofillFlight * parameters;
+- (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_AutofillFlight *)aParameters
+;
+@end
+@interface MFBWebServiceSoapBinding_InitFlightFromFlightDeckScan : MFBWebServiceSoapBindingOperation {
+	MFBWebServiceSvc_InitFlightFromFlightDeckScan * parameters;
+}
+@property (nonatomic, strong) MFBWebServiceSvc_InitFlightFromFlightDeckScan * parameters;
+- (id)initWithBinding:(MFBWebServiceSoapBinding *)aBinding delegate:(id<MFBWebServiceSoapBindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_InitFlightFromFlightDeckScan *)aParameters
 ;
 @end
 @interface MFBWebServiceSoapBinding_CreatePendingFlight : MFBWebServiceSoapBindingOperation {
@@ -3628,6 +3877,7 @@ SOAPSigner *soapSigner;
 - (void)UpdateMaintenanceForAircraftWithFlagsAndNotesAsyncUsingParameters:(MFBWebServiceSvc_UpdateMaintenanceForAircraftWithFlagsAndNotes *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (void)DeleteAircraftForUserAsyncUsingParameters:(MFBWebServiceSvc_DeleteAircraftForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (void)MakesAndModelsAsyncUsingParameters:(MFBWebServiceSvc_MakesAndModels *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
+- (void)ModelsWithIDsAsyncUsingParameters:(MFBWebServiceSvc_ModelsWithIDs *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (void)GetCurrencyForUserAsyncUsingParameters:(MFBWebServiceSvc_GetCurrencyForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (void)TotalsForUserAsyncUsingParameters:(MFBWebServiceSvc_TotalsForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (void)TotalsForUserWithQueryAsyncUsingParameters:(MFBWebServiceSvc_TotalsForUserWithQuery *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
@@ -3639,6 +3889,8 @@ SOAPSigner *soapSigner;
 - (void)FlightPathForFlightAsyncUsingParameters:(MFBWebServiceSvc_FlightPathForFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (void)FlightPathForFlightGPXAsyncUsingParameters:(MFBWebServiceSvc_FlightPathForFlightGPX *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (void)CheckFlightAsyncUsingParameters:(MFBWebServiceSvc_CheckFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
+- (void)AutofillFlightAsyncUsingParameters:(MFBWebServiceSvc_AutofillFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
+- (void)InitFlightFromFlightDeckScanAsyncUsingParameters:(MFBWebServiceSvc_InitFlightFromFlightDeckScan *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (void)CreatePendingFlightAsyncUsingParameters:(MFBWebServiceSvc_CreatePendingFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (void)PendingFlightsForUserAsyncUsingParameters:(MFBWebServiceSvc_PendingFlightsForUser *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
 - (void)UpdatePendingFlightAsyncUsingParameters:(MFBWebServiceSvc_UpdatePendingFlight *)aParameters  delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)responseDelegate;
@@ -3732,6 +3984,14 @@ SOAPSigner *soapSigner;
 	parameters:(MFBWebServiceSvc_MakesAndModels *)aParameters
 ;
 @end
+@interface MFBWebServiceSoap12Binding_ModelsWithIDs : MFBWebServiceSoap12BindingOperation {
+	MFBWebServiceSvc_ModelsWithIDs * parameters;
+}
+@property (nonatomic, strong) MFBWebServiceSvc_ModelsWithIDs * parameters;
+- (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_ModelsWithIDs *)aParameters
+;
+@end
 @interface MFBWebServiceSoap12Binding_GetCurrencyForUser : MFBWebServiceSoap12BindingOperation {
 	MFBWebServiceSvc_GetCurrencyForUser * parameters;
 }
@@ -3818,6 +4078,22 @@ SOAPSigner *soapSigner;
 @property (nonatomic, strong) MFBWebServiceSvc_CheckFlight * parameters;
 - (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)aDelegate
 	parameters:(MFBWebServiceSvc_CheckFlight *)aParameters
+;
+@end
+@interface MFBWebServiceSoap12Binding_AutofillFlight : MFBWebServiceSoap12BindingOperation {
+	MFBWebServiceSvc_AutofillFlight * parameters;
+}
+@property (nonatomic, strong) MFBWebServiceSvc_AutofillFlight * parameters;
+- (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_AutofillFlight *)aParameters
+;
+@end
+@interface MFBWebServiceSoap12Binding_InitFlightFromFlightDeckScan : MFBWebServiceSoap12BindingOperation {
+	MFBWebServiceSvc_InitFlightFromFlightDeckScan * parameters;
+}
+@property (nonatomic, strong) MFBWebServiceSvc_InitFlightFromFlightDeckScan * parameters;
+- (id)initWithBinding:(MFBWebServiceSoap12Binding *)aBinding delegate:(id<MFBWebServiceSoap12BindingResponseDelegate>)aDelegate
+	parameters:(MFBWebServiceSvc_InitFlightFromFlightDeckScan *)aParameters
 ;
 @end
 @interface MFBWebServiceSoap12Binding_CreatePendingFlight : MFBWebServiceSoap12BindingOperation {

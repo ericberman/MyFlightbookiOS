@@ -52,7 +52,7 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         // Issue #109 - stupid apple bug; button initially shows up as gray despite being enabled.
         navigationItem.rightBarButtonItem?.isEnabled = false
         navigationItem.rightBarButtonItem?.isEnabled = true
@@ -130,18 +130,18 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
         
         le = LogbookEntry()
         le.entryData.date = Date.distantPast    // Issue #306 - allow floating "Today"
-
+        
         // Add in any locked properties - but don't hit the web.
         let fp = FlightProps.getFlightPropsNoNet()
         le.entryData.customProperties.setProperties(fp.defaultPropList())
-
+        
         let ac = Aircraft.sharedAircraft.preferredAircraft
         
         // Initialize the active templates to the defaults, either for this aircraft or the ones you've indicated you want to use by default.
         let templates = (ac?.defaultTemplates.int_.count ?? 0) > 0 ? MFBWebServiceSvc_PropertyTemplate.templatesWithIDs(ac?.defaultTemplates.int_ as! [NSNumber]) : MFBWebServiceSvc_PropertyTemplate.defaultTemplates
         activeTemplates = Set(templates)
         templatesUpdated(activeTemplates)
-
+        
         setCurrentAircraft(ac)
         
         let mfbloc = MFBAppDelegate.threadSafeAppDelegate.mfbloc;
@@ -173,7 +173,7 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
     
     func resetFlightWithConfirmation() {
         let alert = UIAlertController(title: "", message: String(localized: "Are you sure you want to reset this flight?  This CANNOT be undone", comment: "Reset Flight confirmation"), preferredStyle: .alert)
-
+        
         alert.addAction(UIAlertAction(title: String(localized: "Cancel", comment: "Cancel (button)"), style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: String(localized: "OK", comment: "OK"), style: .destructive) { aa in
             self.resetFlight()
@@ -232,7 +232,7 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
             let alert = UIAlertController(title: String(localized: "No Aircraft", comment: "Title for No Aircraft error"),
                                           message: String(localized: "Each flight must specify an aircraft.  Create one now?", comment: "Error - must have aircraft"),
                                           preferredStyle: .alert)
-
+            
             alert.addAction(UIAlertAction(title: String(localized: "Cancel", comment: "Cancel (button)"), style:.cancel, handler:nil))
             alert.addAction(UIAlertAction(title: String(localized: "Create", comment: "Button title to create an aircraft"), style:.default, handler: { act in
                 self.newAircraft()
@@ -246,7 +246,7 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
             let alert = UIAlertController(title: String(localized: "ConfirmEdit", comment: "Confirm edit"),
                                           message: String(localized: "ConfirmModifySignedFlight", comment: "Modify signed flight confirmation"),
                                           preferredStyle: .alert)
-
+            
             alert.addAction(UIAlertAction(title: String(localized: "Cancel", comment: "Cancel (button)"), style:.cancel, handler:nil))
             alert.addAction(UIAlertAction(title: String(localized: "OK", comment: "OK"), style:.default, handler: { act in
                 self.submitFlightConfirmed(asPending : asPending)
@@ -311,7 +311,7 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
     func checkFlight(_ sender : Any) {
         tableView.endEditing(true)
         initLEFromForm()
-
+        
         le.setDelegate(self) { sc, ao in
             let issues = self.le.issues
             self.reload()
@@ -322,6 +322,16 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
             }
         }
         le.checkFlight()
+    }
+    
+    func initFromFlightDeck(_ sender : Any, scannedJSON : String) {
+        tableView.endEditing(true)
+        initLEFromForm()
+        
+        le.setDelegate(self) { sc, ao in
+            self.initFormFromLE()
+        }
+        le.initFromFlightDeckScan(scannedJSON)
     }
     
     // MARK: - Binding data to UI
@@ -436,14 +446,14 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
         
         leNew.entryData.flightID = LogbookEntry.QUEUED_FLIGHT_UNSUBMITTED  // don't auto-submit this flight!
         MFBAppDelegate.threadSafeAppDelegate.queueFlightForLater(leNew)
-
+        
         let alert = UIAlertController(title: String(localized: "flightActionComplete", comment: "Flight Action Complete Title"),
                                       message: String(localized: "flightActionRepeatComplete", comment: "Flight Action - repeated flight created"),
                                       preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: String(localized: "OK", comment: "OK"), style: .cancel) { _ in
             self.delegate?.flightUpdated(self)
         })
-
+        
         present(alert, animated: true)
     }
     
@@ -452,6 +462,18 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
         
         // New Flights
         if le.entryData.isNewFlight() || le.entryData.isAwaitingUpload() || le.entryData is MFBWebServiceSvc_PendingFlight {
+            uac.addAction(UIAlertAction(title: String(localized: "flightActionFlightDeck", comment: "Flight Action - From Flight Deck"), style: .default) { aa in
+                FlightDeckCapture.present(from: self) { result in
+                    switch result {
+                    case .success(let parsedResultsJSON):
+                        self.initFromFlightDeck(self, scannedJSON: parsedResultsJSON)
+                    case .failure(let error):
+                        if let message = error.errorDescription {
+                            self.showErrorAlertWithMessage(msg: message)
+                        } // .cancelled has nil errorDescription, so this silently no-ops
+                    }
+                }
+            })
             uac.addAction(UIAlertAction(title: String(localized: "flightActionAutoFill", comment: "Flight Action Autofill"), style:.default) { aa in
                 self.initLEFromForm()
                 if self.le.entryData.isNewFlight() && ((self.le.entryData.flightData ?? "").isEmpty) {
@@ -460,7 +482,7 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
                 GPSSim.autoFill(self.le)
                 self.initFormFromLE()
             })
-
+            
             if le.entryData is MFBWebServiceSvc_PendingFlight {
                 uac.addAction(UIAlertAction(title: String(localized: "flightActionRepeatFlight", comment: "Flight Action - repeat a flight"), style:.default) { aa in
                     self.repeatFlight(fReverse: false)
@@ -507,11 +529,11 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
                 self.checkFlight(sender)
             })
         }
-
+        
         uac.addAction(UIAlertAction(title: String(localized: "Cancel", comment: "Cancel (button)"), style:.cancel) { aa in
             uac.dismiss(animated: true)
         })
-
+        
         let bbiView = sender.value(forKey: "view") as! UIView
         uac.popoverPresentationController?.sourceView = bbiView;
         uac.popoverPresentationController?.sourceRect = bbiView.frame;
@@ -536,7 +558,7 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
         tableView.endEditing(true)
         navigationController?.pushViewController(vwWeb, animated:true)
     }
-
+    
     // MARK: - Templates
     func updateTemplatesForAircraft(_ ac: MFBWebServiceSvc_Aircraft) {
         let set = NSMutableSet(set: activeTemplates as! Set)
@@ -565,7 +587,7 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
             navigationController?.pushViewController(st, animated: true)
         }
     }
-
+    
     // MARK: - Approach Helper
     @IBAction func addApproach(_ sender : UIView) {
         let editor = ApproachEditor()
@@ -585,8 +607,8 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
         }
         tableView.reloadData()
     }
-
-
+    
+    
     // MARK: - Time calculator
     @objc func timeCalculator(_ sender : UILongPressGestureRecognizer) {
         if sender.state == .began {
@@ -658,14 +680,14 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
         idRoute.text = newRoute
         le.entryData.route = newRoute
     }
-
+    
     // MARK: Nearest airports and autofill
     @IBAction func autofillClosest() {
         let r = Airports.appendNearestAirport(idRoute.text ?? "")
         le.entryData.route = r
         idRoute.text = r
     }
-
+    
     @objc func appendAdHoc(gesture: UILongPressGestureRecognizer) {
         if gesture.state == .began {
             if let coord = MFBAppDelegate.threadSafeAppDelegate.mfbloc.lastSeenLoc?.coordinate {
@@ -711,7 +733,7 @@ public class LogbookEntryBaseTableViewController : FlightEditorBaseTableViewCont
         if le.entryData.isNewOrAwaitingUpload() && le.entryData.customProperties == nil {
             le.entryData.customProperties = MFBWebServiceSvc_ArrayOfCustomFlightProperty()
         }
-
+        
         // refresh will happen async
         let fp = FlightProps()
         fp.loadCustomPropertyTypes()

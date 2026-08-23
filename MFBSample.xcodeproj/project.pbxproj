@@ -133,6 +133,7 @@
 		9A48E2A129A16F0400511D99 /* xsd.h in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202810CCBD8A00DF1CA6 /* xsd.h */; };
 		9A48E2A229A16F0400511D99 /* xsd.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202910CCBD8B00DF1CA6 /* xsd.m */; };
 		9A48E2A329A16F4700511D99 /* MFBSoapCallLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A48E28D29A16EE400511D99 /* MFBSoapCallLibrary.a */; };
+		9A4D9263303BA6AA00D21015 /* FlightDeckScan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4D9262303BA6A100D21015 /* FlightDeckScan.swift */; };
 		9A4F3B5918177BA1009E575C /* Icon-iPad76x76.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4F3B5618177BA1009E575C /* Icon-iPad76x76.png */; };
 		9A4F3B5A18177BA1009E575C /* Icon-iPadRetina152x152.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4F3B5718177BA1009E575C /* Icon-iPadRetina152x152.png */; };
 		9A4F3B5B18177BA1009E575C /* Icon-iPhoneRetina120x120.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4F3B5818177BA1009E575C /* Icon-iPhoneRetina120x120.png */; };
@@ -681,6 +682,7 @@
 		9A48E28D29A16EE400511D99 /* MFBSoapCallLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = MFBSoapCallLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A48E2A529A1797900511D99 /* MyFlightbookWidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyFlightbookWidgetsExtension.entitlements; sourceTree = "<group>"; };
 		9A49D7172065AD9E0095D8B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AutodetectOptions.strings; sourceTree = "<group>"; };
+		9A4D9262303BA6A100D21015 /* FlightDeckScan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDeckScan.swift; sourceTree = "<group>"; };
 		9A4EC3101BE816FA008E2DF6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Interface.strings; sourceTree = "<group>"; };
 		9A4F3B5618177BA1009E575C /* Icon-iPad76x76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad76x76.png"; sourceTree = "<group>"; };
 		9A4F3B5718177BA1009E575C /* Icon-iPadRetina152x152.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPadRetina152x152.png"; sourceTree = "<group>"; };
@@ -1249,6 +1251,7 @@
 		9A518E46111F85EC004B4BF6 /* Flight Entry */ = {
 			isa = PBXGroup;
 			children = (
+				9A4D9262303BA6A100D21015 /* FlightDeckScan.swift */,
 				9AC6F0D329D9D33E007D0044 /* ApproachEditor.swift */,
 				9A0DB05729DF3717005CEC20 /* FlightEditorBaseTableViewController.swift */,
 				9A6590D329DA517900917FCD /* FlightProperties.swift */,
@@ -2409,6 +2412,7 @@
 				9A03F50A29D489520047807E /* NearbyAirports.swift in Sources */,
 				9AA9791D29E328BE00D56DC4 /* RecentFlightCell.swift in Sources */,
 				9A27223029B53861006AE702 /* FlightProps.swift in Sources */,
+				9A4D9263303BA6AA00D21015 /* FlightDeckScan.swift in Sources */,
 				9A20B152192D34D300A8F64F /* iRate.m in Sources */,
 				9AEFF6E329BD2A4600B07B13 /* MFBWebService PropertyExtensions.swift in Sources */,
 				9A0E794029BE2F4F005EF4D6 /* MFBWebService LogbookEntry Extensions.swift in Sources */,

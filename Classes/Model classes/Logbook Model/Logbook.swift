@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2009-2025 MyFlightbook, LLC
+ Copyright (C) 2009-2026 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -470,6 +470,9 @@ import Foundation
         } else  if body is MFBWebServiceSvc_CreatePendingFlightResponse {
             // Nothing to do here, really; flights will be picked up in a subsequent call
             retVal = true
+        } else if body is MFBWebServiceSvc_InitFlightFromFlightDeckScanResponse {
+            entryData = (body as! MFBWebServiceSvc_InitFlightFromFlightDeckScanResponse).initFlightFromFlightDeckScanResult
+            retVal = true
         }
     }
         
@@ -524,6 +527,19 @@ import Foundation
         cf.le = entryData
         sc.makeCallAsync { b, sc in
             b.checkFlightAsync(usingParameters: cf, delegate: sc)
+        }
+    }
+    
+    @objc public func initFromFlightDeckScan(_ szJSON : String) {
+        NSLog("initFromFlightDeckScan")
+        let sc = MFBSoapCall()
+        sc.delegate = self
+        let iffds = MFBWebServiceSvc_InitFlightFromFlightDeckScan()
+        iffds.szAuthUserToken = MFBProfile.sharedProfile.AuthToken
+        iffds.le = self.entryData
+        iffds.szScannedFlight = szJSON
+        sc.makeCallAsync { b, sc in
+            b.initFlightFromFlightDeckScanAsync(usingParameters: iffds, delegate: sc)
         }
     }
     

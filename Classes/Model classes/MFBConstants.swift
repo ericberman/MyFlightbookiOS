@@ -57,6 +57,7 @@ import Foundation
     @objc public static let MFBFLIGHTIMAGEUPLOADPAGE = "/logbook/mvc/image/UploadFlightImage"
     @objc public static let MFBAIRCRAFTIMAGEUPLOADPAGE = "/logbook/mvc/image/UploadAircraftImage?id=1"
     @objc public static let MFBAIRCRAFTIMAGEUPLOADPAGENEW = "/logbook/mvc/image/UploadAircraftImage"
+    @objc public static let MFBAIRCRAFTIMAGEFLIGHTDECK = "/logbook/mvc/Image/ScanFlightDeckImage"
     @objc public static let MFB_KEYFLIGHTIMAGE = "idFlight"
     @objc public static let MFB_KEYAIRCRAFTIMAGE = "txtAircraft"
 
