@@ -92,7 +92,7 @@ extension UITextField {
             keyboardType = UIDevice.current.userInterfaceIdiom == .phone ? .decimalPad : .asciiCapableNumberPad
             break
         case .Time:
-            keyboardType = fIsHHMM ? .numbersAndPunctuation : .decimalPad
+            keyboardType = fIsHHMM ? .numbersAndPunctuation : UIDevice.current.userInterfaceIdiom == .phone ? .decimalPad : .asciiCapableNumberPad
             break
         default:
             break
