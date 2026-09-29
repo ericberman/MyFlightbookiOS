@@ -934,7 +934,6 @@
 		9ACDC8E11BDFEA1400B0A077 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
 		9ACDC8E31BDFEA1400B0A077 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		9ACDC8E71BDFEA1400B0A077 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		9ACDC8E91BDFEA1400B0A077 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9ACDC8FF1BE01BC600B0A077 /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = System/Library/Frameworks/WatchConnectivity.framework; sourceTree = SDKROOT; };
 		9ACE9E8B1D075299004274F9 /* MyFlightbook-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MyFlightbook-Bridging-Header.h"; sourceTree = "<group>"; };
 		9ACED2961337C66F00E3DC8F /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
@@ -1702,7 +1701,6 @@
 				9AD2FFE71BE2AB5B00A9B21B /* TotalsTableRowController.swift */,
 				9A1860111BE7D5FE00E88A26 /* RecentsTableRowController.swift */,
 				9ACDC8E71BDFEA1400B0A077 /* Assets.xcassets */,
-				9ACDC8E91BDFEA1400B0A077 /* Info.plist */,
 				9ACDC8DD1BDFEA1400B0A077 /* Supporting Files */,
 			);
 			path = "MyFlightbookWatch Extension";
