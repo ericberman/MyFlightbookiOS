@@ -86,7 +86,7 @@ class RefreshableTableController : WKInterfaceController {
     }
     
     func getSession() -> WCSession {
-        let watchDelegate = WKExtension.shared().delegate as! ExtensionDelegate
+        let watchDelegate = WKApplication.shared().delegate as! ExtensionDelegate
         return watchDelegate.session
     }
     

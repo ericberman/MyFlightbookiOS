@@ -396,7 +396,6 @@
 		9ACD18BD11023CEE00B294F7 /* btnForward.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACD18BB11023CEE00B294F7 /* btnForward.png */; };
 		9ACDC8D01BDFEA1300B0A077 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9ACDC8CE1BDFEA1300B0A077 /* Interface.storyboard */; };
 		9ACDC8D21BDFEA1300B0A077 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9ACDC8D11BDFEA1300B0A077 /* Assets.xcassets */; };
-		9ACDC8D91BDFEA1400B0A077 /* MyFlightbookWatch Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9ACDC8D81BDFEA1400B0A077 /* MyFlightbookWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9ACDC8E01BDFEA1400B0A077 /* CockpitInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACDC8DF1BDFEA1400B0A077 /* CockpitInterfaceController.swift */; };
 		9ACDC8E21BDFEA1400B0A077 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACDC8E11BDFEA1400B0A077 /* ExtensionDelegate.swift */; };
 		9ACDC8E41BDFEA1400B0A077 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACDC8E31BDFEA1400B0A077 /* NotificationController.swift */; };
@@ -471,13 +470,6 @@
 			remoteGlobalIDString = 9A48E26429A1685E00511D99;
 			remoteInfo = MyFlightbookWidgetsExtension;
 		};
-		9ACDC8DA1BDFEA1400B0A077 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9ACDC8D71BDFEA1400B0A077;
-			remoteInfo = "MyFlightbookWatch Extension";
-		};
 		9ACDC8EA1BDFEA1400B0A077 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -513,17 +505,6 @@
 			dstSubfolderSpec = 13;
 			files = (
 				9A48E27729A1686000511D99 /* MyFlightbookWidgetsExtension.appex in Embed Foundation Extensions */,
-			);
-			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9ACDC8F41BDFEA1400B0A077 /* Embed Foundation Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				9ACDC8D91BDFEA1400B0A077 /* MyFlightbookWatch Extension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -948,7 +929,6 @@
 		9ACDC8CF1BDFEA1300B0A077 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		9ACDC8D11BDFEA1300B0A077 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9ACDC8D31BDFEA1300B0A077 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9ACDC8D81BDFEA1400B0A077 /* MyFlightbookWatch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "MyFlightbookWatch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9ACDC8DE1BDFEA1400B0A077 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		9ACDC8DF1BDFEA1400B0A077 /* CockpitInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CockpitInterfaceController.swift; sourceTree = "<group>"; };
 		9ACDC8E11BDFEA1400B0A077 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
@@ -1079,7 +1059,6 @@
 			children = (
 				9AFAC12E10E5CC9400225E90 /* MyFlightbook.app */,
 				9ACDC8CC1BDFEA1300B0A077 /* MyFlightbookWatch.app */,
-				9ACDC8D81BDFEA1400B0A077 /* MyFlightbookWatch Extension.appex */,
 				9A48E26529A1685E00511D99 /* MyFlightbookWidgetsExtension.appex */,
 				9A48E28D29A16EE400511D99 /* MFBSoapCallLibrary.a */,
 				9A6414C129ECAE6C00AAE878 /* ExifLibrary.a */,
@@ -1885,34 +1864,17 @@
 			buildConfigurationList = 9ACDC8F51BDFEA1400B0A077 /* Build configuration list for PBXNativeTarget "MyFlightbookWatch" */;
 			buildPhases = (
 				9ACDC8CA1BDFEA1300B0A077 /* Resources */,
-				9ACDC8F41BDFEA1400B0A077 /* Embed Foundation Extensions */,
+				9ACDC8D41BDFEA1400B0A077 /* Sources */,
+				9ACDC8D51BDFEA1400B0A077 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				9ACDC8DB1BDFEA1400B0A077 /* PBXTargetDependency */,
 			);
 			name = MyFlightbookWatch;
 			productName = MyFlightbookWatch;
 			productReference = 9ACDC8CC1BDFEA1300B0A077 /* MyFlightbookWatch.app */;
-			productType = "com.apple.product-type.application.watchapp2";
-		};
-		9ACDC8D71BDFEA1400B0A077 /* MyFlightbookWatch Extension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9ACDC8F31BDFEA1400B0A077 /* Build configuration list for PBXNativeTarget "MyFlightbookWatch Extension" */;
-			buildPhases = (
-				9ACDC8D41BDFEA1400B0A077 /* Sources */,
-				9ACDC8D51BDFEA1400B0A077 /* Frameworks */,
-				9ACDC8D61BDFEA1400B0A077 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "MyFlightbookWatch Extension";
-			productName = "MyFlightbookWatch Extension";
-			productReference = 9ACDC8D81BDFEA1400B0A077 /* MyFlightbookWatch Extension.appex */;
-			productType = "com.apple.product-type.watchkit2-extension";
+			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
@@ -1925,7 +1887,7 @@
 					New,
 				);
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 2600;
+				LastUpgradeCheck = 2700;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
 						DevelopmentTeam = 99X7N8Z9WP;
@@ -1961,17 +1923,6 @@
 							};
 						};
 					};
-					9ACDC8D71BDFEA1400B0A077 = {
-						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = 99X7N8Z9WP;
-						LastSwiftMigration = 1020;
-						ProvisioningStyle = Automatic;
-						SystemCapabilities = {
-							com.apple.ApplicationGroups.iOS = {
-								enabled = 1;
-							};
-						};
-					};
 				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MFBSample" */;
@@ -1992,7 +1943,6 @@
 			targets = (
 				1D6058900D05DD3D006BFB54 /* MyFlightbook */,
 				9ACDC8CB1BDFEA1300B0A077 /* MyFlightbookWatch */,
-				9ACDC8D71BDFEA1400B0A077 /* MyFlightbookWatch Extension */,
 				9A48E26429A1685E00511D99 /* MyFlightbookWidgetsExtension */,
 				9A48E28C29A16EE400511D99 /* MFBSoapCallLibrary */,
 				9A6414C029ECAE6C00AAE878 /* ExifLibrary */,
@@ -2281,50 +2231,43 @@
 			buildActionMask = 2147483647;
 			files = (
 				9AD2FFC51BE1AF4600A9B21B /* Pause@3x.png in Resources */,
+				9AD2FFDA1BE1AF5400A9B21B /* Icon-iPad-small@2x.png in Resources */,
+				9AD2FFCA1BE1AF4700A9B21B /* Pause@3x.png in Resources */,
+				9AD2FFE01BE1AF5400A9B21B /* icon-small.png in Resources */,
+				9AC264371BE6CEAA00914D30 /* Recording.png in Resources */,
+				9AD2FFE21BE1AF5400A9B21B /* Icon-small29x29.png in Resources */,
+				9AD2FFDE1BE1AF5400A9B21B /* Icon-iPadRetina152x152.png in Resources */,
+				9ACDC8E81BDFEA1400B0A077 /* Assets.xcassets in Resources */,
 				9A78322B2E86389F00A0E0BA /* AppIcon.icon in Resources */,
 				9AD2FFC21BE1AF3E00A9B21B /* Play.png in Resources */,
 				9AD2FFC61BE1AF4600A9B21B /* Play@2x.png in Resources */,
+				9AD2FFDF1BE1AF5400A9B21B /* Icon-iPhoneRetina120x120.png in Resources */,
+				9AD2FFC81BE1AF4700A9B21B /* Pause.png in Resources */,
 				9AD2FFC41BE1AF4600A9B21B /* Pause@2x.png in Resources */,
+				9AD2FFDC1BE1AF5400A9B21B /* Icon-iPad.png in Resources */,
+				9AD2FFD91BE1AF5400A9B21B /* Icon-iPad-small.png in Resources */,
 				9ACDC8D21BDFEA1300B0A077 /* Assets.xcassets in Resources */,
+				9AD2FFC91BE1AF4700A9B21B /* Pause@2x.png in Resources */,
+				9AD2FFE41BE1AF5400A9B21B /* Icon@2x.png in Resources */,
+				9A78322A2E86389F00A0E0BA /* AppIcon.icon in Resources */,
+				9AC264391BE6CEAA00914D30 /* Recording@3x.png in Resources */,
 				9AC264341BE6CEA900914D30 /* Recording.png in Resources */,
 				9AA723AF2BA7522C0045BE63 /* PrivacyInfo.xcprivacy in Resources */,
 				9AD2FFC31BE1AF4600A9B21B /* Pause.png in Resources */,
+				9AD2FFDD1BE1AF5400A9B21B /* Icon-iPad76x76.png in Resources */,
 				9AC264361BE6CEA900914D30 /* Recording@3x.png in Resources */,
+				9AD2FFDB1BE1AF5400A9B21B /* Icon-iPad@2x.png in Resources */,
 				9ACDC8D01BDFEA1300B0A077 /* Interface.storyboard in Resources */,
 				9AC264351BE6CEA900914D30 /* Recording@2x.png in Resources */,
-				9AD2FFC71BE1AF4600A9B21B /* Play@3x.png in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9ACDC8D61BDFEA1400B0A077 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9AD2FFE31BE1AF5400A9B21B /* Icon.png in Resources */,
-				9AD2FFD91BE1AF5400A9B21B /* Icon-iPad-small.png in Resources */,
-				9A1860131BE7FB6200E88A26 /* Localizable.strings in Resources */,
-				9AD2FFE21BE1AF5400A9B21B /* Icon-small29x29.png in Resources */,
-				9AD2FFDA1BE1AF5400A9B21B /* Icon-iPad-small@2x.png in Resources */,
-				9AD2FFDC1BE1AF5400A9B21B /* Icon-iPad.png in Resources */,
-				9AA723B02BA7522C0045BE63 /* PrivacyInfo.xcprivacy in Resources */,
-				9AD2FFC81BE1AF4700A9B21B /* Pause.png in Resources */,
-				9AD2FFCA1BE1AF4700A9B21B /* Pause@3x.png in Resources */,
-				9ACDC8E81BDFEA1400B0A077 /* Assets.xcassets in Resources */,
-				9AD2FFDE1BE1AF5400A9B21B /* Icon-iPadRetina152x152.png in Resources */,
-				9AC264391BE6CEAA00914D30 /* Recording@3x.png in Resources */,
-				9AD2FFDF1BE1AF5400A9B21B /* Icon-iPhoneRetina120x120.png in Resources */,
-				9AD2FFDB1BE1AF5400A9B21B /* Icon-iPad@2x.png in Resources */,
-				9AD2FFDD1BE1AF5400A9B21B /* Icon-iPad76x76.png in Resources */,
 				9AD2FFCC1BE1AF4700A9B21B /* Play@3x.png in Resources */,
-				9AC264371BE6CEAA00914D30 /* Recording.png in Resources */,
 				9AD2FFC11BE1AF3D00A9B21B /* Play.png in Resources */,
+				9A1860131BE7FB6200E88A26 /* Localizable.strings in Resources */,
+				9AD2FFE31BE1AF5400A9B21B /* Icon.png in Resources */,
+				9AA723B02BA7522C0045BE63 /* PrivacyInfo.xcprivacy in Resources */,
 				9AD2FFCB1BE1AF4700A9B21B /* Play@2x.png in Resources */,
-				9AD2FFE41BE1AF5400A9B21B /* Icon@2x.png in Resources */,
-				9AD2FFE11BE1AF5400A9B21B /* Icon-small@2x.png in Resources */,
-				9AD2FFE01BE1AF5400A9B21B /* icon-small.png in Resources */,
+				9AD2FFC71BE1AF4600A9B21B /* Play@3x.png in Resources */,
 				9AC264381BE6CEAA00914D30 /* Recording@2x.png in Resources */,
-				9AD2FFC91BE1AF4700A9B21B /* Pause@2x.png in Resources */,
-				9A78322A2E86389F00A0E0BA /* AppIcon.icon in Resources */,
+				9AD2FFE11BE1AF5400A9B21B /* Icon-small@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2501,11 +2444,6 @@
 			isa = PBXTargetDependency;
 			target = 9A48E26429A1685E00511D99 /* MyFlightbookWidgetsExtension */;
 			targetProxy = 9A48E27529A1686000511D99 /* PBXContainerItemProxy */;
-		};
-		9ACDC8DB1BDFEA1400B0A077 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9ACDC8D71BDFEA1400B0A077 /* MyFlightbookWatch Extension */;
-			targetProxy = 9ACDC8DA1BDFEA1400B0A077 /* PBXContainerItemProxy */;
 		};
 		9ACDC8EB1BDFEA1400B0A077 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3301,7 +3239,7 @@
 				GCC_PREFIX_HEADER = MFBSample_Prefix.pch;
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "MFBSample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3346,7 +3284,7 @@
 				GCC_PREFIX_HEADER = MFBSample_Prefix.pch;
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "MFBSample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3403,7 +3341,7 @@
 				INFOPLIST_FILE = MyFlightbookWidgets/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MyFlightbookWidgets;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3455,7 +3393,7 @@
 				INFOPLIST_FILE = MyFlightbookWidgets/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MyFlightbookWidgets;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3506,7 +3444,7 @@
 				INFOPLIST_FILE = MyFlightbookWidgets/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MyFlightbookWidgets;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3552,7 +3490,7 @@
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = "-ObjC";
@@ -3583,7 +3521,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = "-ObjC";
@@ -3615,7 +3553,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = "-ObjC";
@@ -3652,7 +3590,7 @@
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = "-ObjC";
@@ -3683,7 +3621,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = "-ObjC";
@@ -3715,7 +3653,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = "-ObjC";
@@ -3802,7 +3740,7 @@
 				GCC_PREFIX_HEADER = MFBSample_Prefix.pch;
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "MFBSample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3841,14 +3779,13 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = MyFlightbookWatch/MyFlightbookWatch.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = "MyFlightbookWatch Extension/MyFlightbookWatch Extension.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 2026.08.25.1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -3863,8 +3800,13 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				IBSC_MODULE = MyFlightbookWatch_Extension;
 				INFOPLIST_FILE = MyFlightbookWatch/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					/usr/lib/swift,
+				);
 				MARKETING_VERSION = 2026.08.25;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp;
@@ -3873,12 +3815,12 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Model Classes/MyFlightbookWatch Extension-Bridging-Header.h\n";
+				SWIFT_OBJC_BRIDGING_HEADER = "Classes/MyFlightbook-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 4.0;
+				WATCHOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_WATCHOS_DEPLOYMENT_TARGET)";
 			};
 			name = Debug;
 		};
@@ -3900,14 +3842,13 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = MyFlightbookWatch/MyFlightbookWatch.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = "MyFlightbookWatch Extension/MyFlightbookWatch Extension.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 2026.08.25.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -3917,8 +3858,13 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				IBSC_MODULE = MyFlightbookWatch_Extension;
 				INFOPLIST_FILE = MyFlightbookWatch/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					/usr/lib/swift,
+				);
 				MARKETING_VERSION = 2026.08.25;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp;
@@ -3927,12 +3873,13 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Model Classes/MyFlightbookWatch Extension-Bridging-Header.h\n";
+				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_OBJC_BRIDGING_HEADER = "Classes/MyFlightbook-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 4.0;
+				WATCHOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_WATCHOS_DEPLOYMENT_TARGET)";
 			};
 			name = Release;
 		};
@@ -3954,14 +3901,13 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = MyFlightbookWatch/MyFlightbookWatch.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = "MyFlightbookWatch Extension/MyFlightbookWatch Extension.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 2026.08.25.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -3971,8 +3917,13 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				IBSC_MODULE = MyFlightbookWatch_Extension;
 				INFOPLIST_FILE = MyFlightbookWatch/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					/usr/lib/swift,
+				);
 				MARKETING_VERSION = 2026.08.25;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp;
@@ -3981,186 +3932,12 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Model Classes/MyFlightbookWatch Extension-Bridging-Header.h\n";
+				SWIFT_OBJC_BRIDGING_HEADER = "Classes/MyFlightbook-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 4.0;
-			};
-			name = Distribution;
-		};
-		9ACDC8F01BDFEA1400B0A077 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = "MyFlightbookWatch Extension/MyFlightbookWatch Extension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2026.08.25.1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = "MyFlightbookWatch Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 2026.08.25;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_CFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp.watchkitextension;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Model Classes/MyFlightbookWatch Extension-Bridging-Header.h";
-				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "Classes/Model Classes/MyFlightbookWatch Extension-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 4.0;
-			};
-			name = Debug;
-		};
-		9ACDC8F11BDFEA1400B0A077 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = "MyFlightbookWatch Extension/MyFlightbookWatch Extension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2026.08.25.1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = "MyFlightbookWatch Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 2026.08.25;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_CFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp.watchkitextension;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Model Classes/MyFlightbookWatch Extension-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 4.0;
-			};
-			name = Release;
-		};
-		9ACDC8F21BDFEA1400B0A077 /* Distribution */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = "MyFlightbookWatch Extension/MyFlightbookWatch Extension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2026.08.25.1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = "MyFlightbookWatch Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 2026.08.25;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_CFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp.watchkitextension;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Model Classes/MyFlightbookWatch Extension-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 4.0;
+				WATCHOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_WATCHOS_DEPLOYMENT_TARGET)";
 			};
 			name = Distribution;
 		};
@@ -4317,16 +4094,6 @@
 				9A6414C829ECAE6C00AAE878 /* Debug */,
 				9A6414C929ECAE6C00AAE878 /* Release */,
 				9A6414CA29ECAE6C00AAE878 /* Distribution */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		9ACDC8F31BDFEA1400B0A077 /* Build configuration list for PBXNativeTarget "MyFlightbookWatch Extension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9ACDC8F01BDFEA1400B0A077 /* Debug */,
-				9ACDC8F11BDFEA1400B0A077 /* Release */,
-				9ACDC8F21BDFEA1400B0A077 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

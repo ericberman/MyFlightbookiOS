@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="21701" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="25098" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch42"/>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="21615"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="25017"/>
     </dependencies>
     <scenes>
         <!--New Flight-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller identifier="newFlightController" title="New Flight" id="AgC-eL-Hgc" customClass="CockpitInterfaceController" customModule="MyFlightbookWatch_Extension">
+                <controller identifier="newFlightController" title="New Flight" id="AgC-eL-Hgc" customClass="CockpitInterfaceController" customModule="MyFlightbookWatch">
                     <items>
                         <group width="1" alignment="left" id="XAW-rX-sCE" userLabel="grpUnstarted">
                             <items>
@@ -94,11 +94,11 @@
         <!--Totals-->
         <scene sceneID="AcB-q4-rW9">
             <objects>
-                <controller identifier="totalsController" title="Totals" id="tOL-R1-d3W" customClass="TotalsInterfaceController" customModule="MyFlightbookWatch_Extension">
+                <controller identifier="totalsController" title="Totals" id="tOL-R1-d3W" customClass="TotalsInterfaceController" customModule="MyFlightbookWatch">
                     <items>
                         <table alignment="left" id="Tfz-kD-CTx">
                             <items>
-                                <tableRow identifier="tblTotals" id="bQl-Sr-a8H" customClass="TotalsTableRowController" customModule="MyFlightbookWatch_Extension">
+                                <tableRow identifier="tblTotals" id="bQl-Sr-a8H" customClass="TotalsTableRowController" customModule="MyFlightbookWatch">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="LO0-4L-dhp">
                                         <items>
                                             <group width="120" alignment="left" layout="vertical" id="EtD-QV-eMo">
@@ -157,11 +157,11 @@
         <!--recentFlightsController-->
         <scene sceneID="SPD-H5-fCq">
             <objects>
-                <controller identifier="recentsController" title="Recents" id="nTf-GX-DXe" userLabel="recentFlightsController" customClass="RecentsInterfaceController" customModule="MyFlightbookWatch_Extension">
+                <controller identifier="recentsController" title="Recents" id="nTf-GX-DXe" userLabel="recentFlightsController" customClass="RecentsInterfaceController" customModule="MyFlightbookWatch">
                     <items>
                         <table alignment="left" id="ElS-fm-sFT">
                             <items>
-                                <tableRow identifier="tblRecents" id="JCU-Ll-iOg" customClass="RecentsTableRowController" customModule="MyFlightbookWatch_Extension">
+                                <tableRow identifier="tblRecents" id="JCU-Ll-iOg" customClass="RecentsTableRowController" customModule="MyFlightbookWatch">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="Oe9-yz-ed8">
                                         <items>
                                             <group width="1" alignment="left" id="joN-IV-PpX" userLabel="grpDateAndTime">
@@ -225,11 +225,11 @@
         <!--Currency-->
         <scene sceneID="Z8c-Ny-l0b">
             <objects>
-                <controller identifier="currencyController" title="Currency" id="jxf-FK-QQY" customClass="CurrencyInterfaceController" customModule="MyFlightbookWatch_Extension">
+                <controller identifier="currencyController" title="Currency" id="jxf-FK-QQY" customClass="CurrencyInterfaceController" customModule="MyFlightbookWatch">
                     <items>
                         <table alignment="left" id="UCK-9d-Di6">
                             <items>
-                                <tableRow identifier="tblCurrency" id="UNM-A7-wVd" customClass="CurrencyTableRowController" customModule="MyFlightbookWatch_Extension">
+                                <tableRow identifier="tblCurrency" id="UNM-A7-wVd" customClass="CurrencyTableRowController" customModule="MyFlightbookWatch">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="Klu-OL-v4A">
                                         <items>
                                             <label alignment="left" text="(Currency Attribute)" numberOfLines="2" id="kcd-ex-Ed6" userLabel="lblCurrencyTitle">

@@ -62,7 +62,7 @@ class CockpitInterfaceController: WKInterfaceController, WCSessionDelegate, Sess
      }
     
     func getSession() -> WCSession {
-        let watchDelegate = WKExtension.shared().delegate as! ExtensionDelegate
+        let watchDelegate = WKApplication.shared().delegate as! ExtensionDelegate
         return watchDelegate.session
     }
 
@@ -71,7 +71,7 @@ class CockpitInterfaceController: WKInterfaceController, WCSessionDelegate, Sess
         super.willActivate()
 
         // make sure that the extension delegate calls us for WATCH_RESPONSE_STATUS
-        let watchDelegate = WKExtension.shared().delegate as! ExtensionDelegate
+        let watchDelegate = WKApplication.shared().delegate as! ExtensionDelegate
         watchDelegate.setHandler(self, forMessage: WATCH_RESPONSE_STATUS)
         watchDelegate.setActivationHandler(self, forClient: WATCH_RESPONSE_STATUS)
         
@@ -89,7 +89,7 @@ class CockpitInterfaceController: WKInterfaceController, WCSessionDelegate, Sess
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
-        let watchDelegate = WKExtension.shared().delegate as! ExtensionDelegate
+        let watchDelegate = WKApplication.shared().delegate as! ExtensionDelegate
         watchDelegate.setHandler(nil, forMessage: WATCH_RESPONSE_STATUS)
         self.timer?.invalidate()
     }

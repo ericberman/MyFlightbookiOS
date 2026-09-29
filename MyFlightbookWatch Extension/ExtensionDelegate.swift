@@ -37,7 +37,7 @@ public protocol ActivationResponder {
     func handleActivation(_ session:WCSession)
 }
 
-open class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
+@main open class ExtensionDelegate: NSObject, WKApplicationDelegate, WCSessionDelegate {
     
     var session : WCSession!
     var messageHandlers = [String : SessionResponder]()

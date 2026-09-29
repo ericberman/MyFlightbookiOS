@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "2600"
+   LastUpgradeVersion = "2700"
    version = "2.0">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -62,7 +62,6 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9ACDC8CB1BDFEA1300B0A077"
             BuildableName = "MyFlightbookWatch.app"
-            BlueprintName = "MyFlightbookWatch"
             ReferencedContainer = "container:MFBSample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -81,7 +80,6 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9ACDC8CB1BDFEA1300B0A077"
             BuildableName = "MyFlightbookWatch.app"
-            BlueprintName = "MyFlightbookWatch"
             ReferencedContainer = "container:MFBSample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

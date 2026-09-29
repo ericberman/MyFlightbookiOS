@@ -474,11 +474,23 @@ import PrivacySensitiveData
                 // request for data
                 switch request as? String {
                 case WATCH_REQUEST_STATUS:
-                    dictResponse[WATCH_RESPONSE_STATUS] = try NSKeyedArchiver.archivedData(withRootObject: watchData!, requiringSecureCoding: true)
+                    if let wd = watchData {
+                        dictResponse[WATCH_RESPONSE_STATUS] = try NSKeyedArchiver.archivedData(withRootObject: wd, requiringSecureCoding: true)
+                    } else {
+                        NSLog("MFBWatch: (iOS): watchData not yet initialized; can't reply to WATCH_REQUEST_STATUS")
+                    }
                 case WATCH_REQUEST_CURRENCY:
-                    dictResponse[WATCH_RESPONSE_CURRENCY] = try NSKeyedArchiver.archivedData(withRootObject: SynchronousCalls().currency(forUserSynchronous: MFBProfile.sharedProfile.AuthToken)!, requiringSecureCoding: true)
+                    if let currency = SynchronousCalls().currency(forUserSynchronous: MFBProfile.sharedProfile.AuthToken) {
+                        dictResponse[WATCH_RESPONSE_CURRENCY] = try NSKeyedArchiver.archivedData(withRootObject: currency, requiringSecureCoding: true)
+                    } else {
+                        NSLog("MFBWatch: (iOS): No currency data available (not logged in, or auth token missing/expired)")
+                    }
                 case WATCH_REQUEST_TOTALS:
-                    dictResponse[WATCH_RESPONSE_TOTALS] = try NSKeyedArchiver.archivedData(withRootObject: SynchronousCalls().totals(forUserSynchronous: MFBProfile.sharedProfile.AuthToken)!, requiringSecureCoding: true)
+                    if let totals = SynchronousCalls().totals(forUserSynchronous: MFBProfile.sharedProfile.AuthToken) {
+                        dictResponse[WATCH_RESPONSE_TOTALS] = try NSKeyedArchiver.archivedData(withRootObject: totals, requiringSecureCoding: true)
+                    } else {
+                        NSLog("MFBWatch: (iOS): No totals data available (not logged in, or auth token missing/expired)")
+                    }
                 case WATCH_REQUEST_RECENTS:
                     dictResponse[WATCH_RESPONSE_RECENTS] = try NSKeyedArchiver.archivedData(withRootObject: refreshRecents(), requiringSecureCoding:true)
                 default:
@@ -516,7 +528,11 @@ import PrivacySensitiveData
             group.wait()
             
             do {
-                dictResponse[WATCH_RESPONSE_STATUS] = try NSKeyedArchiver.archivedData(withRootObject: watchData!, requiringSecureCoding: true)
+                if let wd = watchData {
+                    dictResponse[WATCH_RESPONSE_STATUS] = try NSKeyedArchiver.archivedData(withRootObject: wd, requiringSecureCoding: true)
+                } else {
+                    NSLog("MFBWatch: (iOS): watchData not yet initialized; can't reply with status after action")
+                }
             } catch {
                 NSLog("Error in action request  for data from the watch: \(error.localizedDescription)")
             }
