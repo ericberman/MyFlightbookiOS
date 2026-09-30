@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017-2023 MyFlightbook, LLC
+ Copyright (C) 2017-2026 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -86,10 +86,14 @@ class RecentsInterfaceController: RefreshableTableController {
     
     override func bindRefreshResult(_ dictResult: NSDictionary!) {
         if let statusData = dictResult[WATCH_RESPONSE_RECENTS] as? Data {
-            if let data = NSKeyedUnarchiver.unarchiveObject(with: statusData) as? [SimpleLogbookEntry] {
-                self.lastData = data
-                self.lastUpdate = Date()
-                self.updateTable()
+            do {
+                if let data = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self, SimpleLogbookEntry.self, NSDate.self, NSString.self], from: statusData) as? [SimpleLogbookEntry] {
+                    self.lastData = data
+                    self.lastUpdate = Date()
+                    self.updateTable()
+                }
+            } catch {
+                NSLog("Failed to unarchive WATCH_RESPONSE_RECENTS: \(error)")
             }
         }
     }

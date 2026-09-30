@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2015-2018 MyFlightbook, LLC
+ Copyright (C) 2015-2026 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -143,12 +143,15 @@ class CockpitInterfaceController: WKInterfaceController, WCSessionDelegate, Sess
     }
     
     func updateStatusMessage(_ dictResult: [String : Any]) {
-        NSLog("MFBWatch: Update Status Message")
         if let statusData = dictResult[WATCH_RESPONSE_STATUS] as? Data {
-            if let status = NSKeyedUnarchiver.unarchiveObject(with: statusData) as? SharedWatch {
-                self.latestData = status
-                self.updateScreen(status)
-                self.latestUpdate = Date()
+            do {
+                if let status = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self, SharedWatch.self, SimpleLogbookEntry.self, NSString.self, NSDate.self, NSNumber.self], from: statusData) as? SharedWatch  {
+                    self.latestData = status
+                    self.updateScreen(status)
+                    self.latestUpdate = Date()
+                }
+            } catch {
+                NSLog("Failed to unarchive WATCH_RESPONSE_STATUS: \(error)")
             }
         }
     }

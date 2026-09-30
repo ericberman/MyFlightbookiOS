@@ -1,7 +1,7 @@
 /*
 	MyFlightbook for iOS - provides native access to MyFlightbook
 	pilot's logbook
- Copyright (C) 2017 MyFlightbook, LLC
+ Copyright (C) 2017-2026 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -84,12 +84,16 @@ class CurrencyInterfaceController: RefreshableTableController {
     }
     
     override func bindRefreshResult(_ dictResult: NSDictionary!) {
-        if let statusData = dictResult[WATCH_RESPONSE_CURRENCY] as? Data {
-            if let data = NSKeyedUnarchiver.unarchiveObject(with: statusData) as? [SimpleCurrencyItem] {
-                self.lastData = data
-                self.lastUpdate = Date()
-                self.updateTable()
+            if let statusData = dictResult[WATCH_RESPONSE_CURRENCY] as? Data {
+                do {
+                    if let data = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self, SimpleCurrencyItem.self, NSString.self, NSNumber.self], from: statusData) as? [SimpleCurrencyItem] {
+                        self.lastData = data
+                        self.lastUpdate = Date()
+                        self.updateTable()
+                    }
+                } catch {
+                    NSLog("Failed to unarchive WATCH_RESPONSE_CURRENCY: \(error)")
+                }
             }
-        }
     }
 }
