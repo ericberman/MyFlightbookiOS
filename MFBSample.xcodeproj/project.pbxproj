@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		39BA285117EA67165579DC77 /* MyFlightbookWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E529CDC8AF39164928E62EA6 /* MyFlightbookWatchApp.swift */; };
+		A37289F523D98A693A247247 /* WatchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CE70DB2A25E575727CCD0D /* WatchModel.swift */; };
+		8A017E5F0B3870FFD9492D41 /* CockpitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6046830E9B3E6C273B105892 /* CockpitView.swift */; };
+		327F9027BAA5B2BCDC2B79A1 /* RemoteListViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0A09A1C98EFAF20BFA839C /* RemoteListViews.swift */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		9A03F50329D396BE0047807E /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A03F50229D396BE0047807E /* Currency.swift */; };
 		9A03F50829D3B51A0047807E /* Totals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A03F50729D3B51A0047807E /* Totals.swift */; };
@@ -50,8 +54,6 @@
 		9A16572014DC59B9004FDC35 /* sunset.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A16571E14DC59B9004FDC35 /* sunset.png */; };
 		9A170C982437FCF600CDECCF /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A170C972437FCF600CDECCF /* CoreServices.framework */; };
 		9A17C5F113E8952C00C47C82 /* airporttab.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A17C5F013E8952C00C47C82 /* airporttab.png */; };
-		9A1860101BE7D56700E88A26 /* RecentsInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A18600F1BE7D56700E88A26 /* RecentsInterfaceController.swift */; };
-		9A1860121BE7D5FE00E88A26 /* RecentsTableRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1860111BE7D5FE00E88A26 /* RecentsTableRowController.swift */; };
 		9A1860131BE7FB6200E88A26 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9A7A7D98147F4DD0003A6912 /* Localizable.strings */; };
 		9A196C30112312EB007A7DD1 /* Recording.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A196C2F112312EB007A7DD1 /* Recording.png */; };
 		9A1A8B951EAA560F008F938B /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 9A1A8B941EAA560F008F938B /* .gitignore */; };
@@ -389,11 +391,7 @@
 		9ACC119119E232FF00AA4E3C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9ACC118F19E232FF00AA4E3C /* InfoPlist.strings */; };
 		9ACD18BC11023CEE00B294F7 /* btnBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACD18BA11023CEE00B294F7 /* btnBack.png */; };
 		9ACD18BD11023CEE00B294F7 /* btnForward.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ACD18BB11023CEE00B294F7 /* btnForward.png */; };
-		9ACDC8D01BDFEA1300B0A077 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9ACDC8CE1BDFEA1300B0A077 /* Interface.storyboard */; };
 		9ACDC8D21BDFEA1300B0A077 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9ACDC8D11BDFEA1300B0A077 /* Assets.xcassets */; };
-		9ACDC8E01BDFEA1400B0A077 /* CockpitInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACDC8DF1BDFEA1400B0A077 /* CockpitInterfaceController.swift */; };
-		9ACDC8E21BDFEA1400B0A077 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACDC8E11BDFEA1400B0A077 /* ExtensionDelegate.swift */; };
-		9ACDC8E41BDFEA1400B0A077 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACDC8E31BDFEA1400B0A077 /* NotificationController.swift */; };
 		9ACDC8E81BDFEA1400B0A077 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9ACDC8E71BDFEA1400B0A077 /* Assets.xcassets */; };
 		9ACDC8EC1BDFEA1400B0A077 /* MyFlightbookWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 9ACDC8CC1BDFEA1300B0A077 /* MyFlightbookWatch.app */; };
 		9ACDC9011BE01BC600B0A077 /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ACDC8FF1BE01BC600B0A077 /* WatchConnectivity.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -415,10 +413,6 @@
 		9AD2FFE21BE1AF5400A9B21B /* Icon-small29x29.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4F3B5C18177BEE009E575C /* Icon-small29x29.png */; };
 		9AD2FFE31BE1AF5400A9B21B /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A1014BC10DD551800FA37D4 /* Icon.png */; };
 		9AD2FFE41BE1AF5400A9B21B /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AAA7CDC1715E4CA00429F78 /* Icon@2x.png */; };
-		9AD2FFE61BE2AB4C00A9B21B /* CurrencyTableRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD2FFE51BE2AB4C00A9B21B /* CurrencyTableRowController.swift */; };
-		9AD2FFE81BE2AB5B00A9B21B /* TotalsTableRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD2FFE71BE2AB5B00A9B21B /* TotalsTableRowController.swift */; };
-		9AD2FFEE1BE2C33D00A9B21B /* CurrencyInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD2FFED1BE2C33D00A9B21B /* CurrencyInterfaceController.swift */; };
-		9AD2FFF01BE2C34F00A9B21B /* TotalsInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD2FFEF1BE2C34F00A9B21B /* TotalsInterfaceController.swift */; };
 		9AD541BD1A17CB2400BD3850 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9AD541BC1A17CB2400BD3850 /* Images.xcassets */; };
 		9AD832F110E29D3F007817A4 /* currency.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AD832F010E29D3F007817A4 /* currency.png */; };
 		9AD92AE71E4CD57600A2FC49 /* noimage.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AD92AE61E4CD57600A2FC49 /* noimage.png */; };
@@ -446,7 +440,6 @@
 		9AEC4CA313AD4B7C0044897B /* Pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AEC4CA113AD4B7C0044897B /* Pause.png */; };
 		9AEC4CA413AD4B7C0044897B /* Play.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AEC4CA213AD4B7C0044897B /* Play.png */; };
 		9AEFF6E329BD2A4600B07B13 /* MFBWebService PropertyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEFF6E229BD2A4600B07B13 /* MFBWebService PropertyExtensions.swift */; };
-		9AF81C9C1BE6918B001FC0C8 /* RefreshableTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF81C9B1BE6918B001FC0C8 /* RefreshableTableController.swift */; };
 		9AFAC07110E594F000225E90 /* runway.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AFAC07010E594F000225E90 /* runway.png */; };
 		9AFEFF9F1BD02E1E0083043A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AFEFF9E1BD02E1E0083043A /* CoreMedia.framework */; };
 /* End PBXBuildFile section */
@@ -512,6 +505,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E529CDC8AF39164928E62EA6 /* MyFlightbookWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFlightbookWatchApp.swift; sourceTree = "<group>"; };
+		47CE70DB2A25E575727CCD0D /* WatchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchModel.swift; sourceTree = "<group>"; };
+		6046830E9B3E6C273B105892 /* CockpitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CockpitView.swift; sourceTree = "<group>"; };
+		1A0A09A1C98EFAF20BFA839C /* RemoteListViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteListViews.swift; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -563,8 +560,6 @@
 		9A16571E14DC59B9004FDC35 /* sunset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sunset.png; sourceTree = "<group>"; };
 		9A170C972437FCF600CDECCF /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		9A17C5F013E8952C00C47C82 /* airporttab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = airporttab.png; sourceTree = "<group>"; };
-		9A18600F1BE7D56700E88A26 /* RecentsInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentsInterfaceController.swift; sourceTree = "<group>"; };
-		9A1860111BE7D5FE00E88A26 /* RecentsTableRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentsTableRowController.swift; sourceTree = "<group>"; };
 		9A196C2F112312EB007A7DD1 /* Recording.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Recording.png; sourceTree = "<group>"; };
 		9A1A8B941EAA560F008F938B /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		9A1A8B971EAA5E5D008F938B /* ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = "<group>"; };
@@ -653,7 +648,6 @@
 		9A48E2A529A1797900511D99 /* MyFlightbookWidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyFlightbookWidgetsExtension.entitlements; sourceTree = "<group>"; };
 		9A49D7172065AD9E0095D8B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AutodetectOptions.strings; sourceTree = "<group>"; };
 		9A4D9262303BA6A100D21015 /* FlightDeckScan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDeckScan.swift; sourceTree = "<group>"; };
-		9A4EC3101BE816FA008E2DF6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Interface.strings; sourceTree = "<group>"; };
 		9A4F3B5618177BA1009E575C /* Icon-iPad76x76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad76x76.png"; sourceTree = "<group>"; };
 		9A4F3B5718177BA1009E575C /* Icon-iPadRetina152x152.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPadRetina152x152.png"; sourceTree = "<group>"; };
 		9A4F3B5818177BA1009E575C /* Icon-iPhoneRetina120x120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPhoneRetina120x120.png"; sourceTree = "<group>"; };
@@ -915,21 +909,13 @@
 		9ACD18BA11023CEE00B294F7 /* btnBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btnBack.png; sourceTree = "<group>"; };
 		9ACD18BB11023CEE00B294F7 /* btnForward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btnForward.png; sourceTree = "<group>"; };
 		9ACDC8CC1BDFEA1300B0A077 /* MyFlightbookWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFlightbookWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		9ACDC8CF1BDFEA1300B0A077 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		9ACDC8D11BDFEA1300B0A077 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9ACDC8D31BDFEA1300B0A077 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9ACDC8DE1BDFEA1400B0A077 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
-		9ACDC8DF1BDFEA1400B0A077 /* CockpitInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CockpitInterfaceController.swift; sourceTree = "<group>"; };
-		9ACDC8E11BDFEA1400B0A077 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
-		9ACDC8E31BDFEA1400B0A077 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		9ACDC8E71BDFEA1400B0A077 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9ACDC8FF1BE01BC600B0A077 /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = System/Library/Frameworks/WatchConnectivity.framework; sourceTree = SDKROOT; };
 		9ACE9E8B1D075299004274F9 /* MyFlightbook-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MyFlightbook-Bridging-Header.h"; sourceTree = "<group>"; };
 		9ACED2961337C66F00E3DC8F /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
-		9AD2FFE51BE2AB4C00A9B21B /* CurrencyTableRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyTableRowController.swift; sourceTree = "<group>"; };
-		9AD2FFE71BE2AB5B00A9B21B /* TotalsTableRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalsTableRowController.swift; sourceTree = "<group>"; };
-		9AD2FFED1BE2C33D00A9B21B /* CurrencyInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyInterfaceController.swift; sourceTree = "<group>"; };
-		9AD2FFEF1BE2C34F00A9B21B /* TotalsInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalsInterfaceController.swift; sourceTree = "<group>"; };
 		9AD541BC1A17CB2400BD3850 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MyFlightbook/Images.xcassets; sourceTree = "<group>"; };
 		9AD832F010E29D3F007817A4 /* currency.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = currency.png; sourceTree = "<group>"; };
 		9AD92AE61E4CD57600A2FC49 /* noimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noimage.png; sourceTree = "<group>"; };
@@ -958,7 +944,6 @@
 		9AEC4CA213AD4B7C0044897B /* Play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Play.png; sourceTree = "<group>"; };
 		9AEF733D127DE857004A0D6C /* EXFMutableMetaData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXFMutableMetaData.h; sourceTree = "<group>"; };
 		9AEFF6E229BD2A4600B07B13 /* MFBWebService PropertyExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MFBWebService PropertyExtensions.swift"; sourceTree = "<group>"; };
-		9AF81C9B1BE6918B001FC0C8 /* RefreshableTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshableTableController.swift; sourceTree = "<group>"; };
 		9AFAC07010E594F000225E90 /* runway.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = runway.png; sourceTree = "<group>"; };
 		9AFAC0BA10E5B32300225E90 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		9AFAC10010E5C7CD00225E90 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -1668,7 +1653,6 @@
 			isa = PBXGroup;
 			children = (
 				9A73C84021AF51C900AE1221 /* MyFlightbookWatch.entitlements */,
-				9ACDC8CE1BDFEA1300B0A077 /* Interface.storyboard */,
 				9ACDC8D11BDFEA1300B0A077 /* Assets.xcassets */,
 				9ACDC8D31BDFEA1300B0A077 /* Info.plist */,
 			);
@@ -1679,16 +1663,10 @@
 			isa = PBXGroup;
 			children = (
 				9A73C84121AF51CF00AE1221 /* MyFlightbookWatch Extension.entitlements */,
-				9ACDC8E11BDFEA1400B0A077 /* ExtensionDelegate.swift */,
-				9AF81C9B1BE6918B001FC0C8 /* RefreshableTableController.swift */,
-				9ACDC8DF1BDFEA1400B0A077 /* CockpitInterfaceController.swift */,
-				9AD2FFED1BE2C33D00A9B21B /* CurrencyInterfaceController.swift */,
-				9A18600F1BE7D56700E88A26 /* RecentsInterfaceController.swift */,
-				9AD2FFEF1BE2C34F00A9B21B /* TotalsInterfaceController.swift */,
-				9ACDC8E31BDFEA1400B0A077 /* NotificationController.swift */,
-				9AD2FFE51BE2AB4C00A9B21B /* CurrencyTableRowController.swift */,
-				9AD2FFE71BE2AB5B00A9B21B /* TotalsTableRowController.swift */,
-				9A1860111BE7D5FE00E88A26 /* RecentsTableRowController.swift */,
+				E529CDC8AF39164928E62EA6 /* MyFlightbookWatchApp.swift */,
+				47CE70DB2A25E575727CCD0D /* WatchModel.swift */,
+				6046830E9B3E6C273B105892 /* CockpitView.swift */,
+				1A0A09A1C98EFAF20BFA839C /* RemoteListViews.swift */,
 				9ACDC8E71BDFEA1400B0A077 /* Assets.xcassets */,
 				9ACDC8DD1BDFEA1400B0A077 /* Supporting Files */,
 			);
@@ -2240,7 +2218,6 @@
 				9AC264391BE6CEAA00914D30 /* Recording@3x.png in Resources */,
 				9AD2FFDD1BE1AF5400A9B21B /* Icon-iPad76x76.png in Resources */,
 				9AD2FFDB1BE1AF5400A9B21B /* Icon-iPad@2x.png in Resources */,
-				9ACDC8D01BDFEA1300B0A077 /* Interface.storyboard in Resources */,
 				9AA723B02BA7522C0045BE63 /* PrivacyInfo.xcprivacy in Resources */,
 				9A1860131BE7FB6200E88A26 /* Localizable.strings in Resources */,
 				9AD2FFE11BE1AF5400A9B21B /* Icon-small@2x.png in Resources */,
@@ -2398,17 +2375,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9ACDC8E41BDFEA1400B0A077 /* NotificationController.swift in Sources */,
-				9AD2FFE61BE2AB4C00A9B21B /* CurrencyTableRowController.swift in Sources */,
 				9A30201829CBE32A00115538 /* SimpleItems.swift in Sources */,
-				9AD2FFE81BE2AB5B00A9B21B /* TotalsTableRowController.swift in Sources */,
-				9ACDC8E21BDFEA1400B0A077 /* ExtensionDelegate.swift in Sources */,
-				9AD2FFEE1BE2C33D00A9B21B /* CurrencyInterfaceController.swift in Sources */,
-				9AD2FFF01BE2C34F00A9B21B /* TotalsInterfaceController.swift in Sources */,
-				9A1860121BE7D5FE00E88A26 /* RecentsTableRowController.swift in Sources */,
-				9ACDC8E01BDFEA1400B0A077 /* CockpitInterfaceController.swift in Sources */,
-				9AF81C9C1BE6918B001FC0C8 /* RefreshableTableController.swift in Sources */,
-				9A1860101BE7D56700E88A26 /* RecentsInterfaceController.swift in Sources */,
+				39BA285117EA67165579DC77 /* MyFlightbookWatchApp.swift in Sources */,
+				A37289F523D98A693A247247 /* WatchModel.swift in Sources */,
+				8A017E5F0B3870FFD9492D41 /* CockpitView.swift in Sources */,
+				327F9027BAA5B2BCDC2B79A1 /* RemoteListViews.swift in Sources */,
 				9A30201729CBE31400115538 /* SharedWatch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3182,15 +3153,6 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		9ACDC8CE1BDFEA1300B0A077 /* Interface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9ACDC8CF1BDFEA1300B0A077 /* Base */,
-				9A4EC3101BE816FA008E2DF6 /* fr */,
-			);
-			name = Interface.storyboard;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -3743,6 +3705,7 @@
 		9ACDC8ED1BDFEA1400B0A077 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENABLE_DEBUG_DYLIB = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -3797,7 +3760,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Classes/MyFlightbook-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_WATCHOS_DEPLOYMENT_TARGET)";
 			};
@@ -3855,7 +3818,7 @@
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OBJC_BRIDGING_HEADER = "Classes/MyFlightbook-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
 				WATCHOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_WATCHOS_DEPLOYMENT_TARGET)";
@@ -3913,7 +3876,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Classes/MyFlightbook-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
 				WATCHOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_WATCHOS_DEPLOYMENT_TARGET)";

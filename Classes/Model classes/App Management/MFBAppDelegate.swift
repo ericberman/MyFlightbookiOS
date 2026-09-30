@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2009-2025 MyFlightbook, LLC
+ Copyright (C) 2009-2026 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -465,6 +465,27 @@ import PrivacySensitiveData
         }
     }
     
+    /// Brings watchData's flight stage, pause state and elapsed time up to date from the current flight.
+    /// Normally LEEditController does this from its timer, but if the app was suspended or relaunched in the background
+    /// (e.g. by a watch request) that hasn't happened yet and the watch would be told the stage is unknown.
+    private func refreshWatchStatusFromFlight() {
+        let refresh = {
+            guard let wd = self.watchData,
+                  let handler = self.getActiveTabBar()?.leMain as? LEControllerProtocol,
+                  let le = handler.le else { return }
+            wd.isPaused = le.fIsPaused
+            wd.flightStage = le.entryData.isKnownEngineEnd() ? .done : (handler.flightCouldBeInProgress() ? .inprogress : .unstarted)
+            if let controller = handler as? LEEditController {
+                wd.elapsedSeconds = controller.elapsedTime
+            }
+        }
+        if Thread.isMainThread {
+            refresh()
+        } else {
+            DispatchQueue.main.sync(execute: refresh)
+        }
+    }
+    
     func replyForMessage(_ message : [AnyHashable : Any]?) -> [String : Any] {
         let request = message?[WATCH_MESSAGE_REQUEST_DATA]
         var dictResponse : [String : Any] = [:]
@@ -474,6 +495,7 @@ import PrivacySensitiveData
                 // request for data
                 switch request as? String {
                 case WATCH_REQUEST_STATUS:
+                    refreshWatchStatusFromFlight()
                     if let wd = watchData {
                         dictResponse[WATCH_RESPONSE_STATUS] = try NSKeyedArchiver.archivedData(withRootObject: wd, requiringSecureCoding: true)
                     } else {
@@ -527,6 +549,7 @@ import PrivacySensitiveData
             
             group.wait()
             
+            refreshWatchStatusFromFlight()
             do {
                 if let wd = watchData {
                     dictResponse[WATCH_RESPONSE_STATUS] = try NSKeyedArchiver.archivedData(withRootObject: wd, requiringSecureCoding: true)
