@@ -46,6 +46,15 @@ import Foundation
     @objc func addTelemetryFlight(_ url : URL)
 }
 
+/*
+ The generated WSDLToObjC code resolves xsi:type by calling NSClassFromString with the bare server type name when the
+ type attribute has no namespace prefix (e.g., "PendingFlight"), but the generated classes are all prefixed with
+ "MFBWebServiceSvc_".  Register an ObjC-visible alias with the bare name so that lookup succeeds.  The inherited
+ +deserializeNode: hard-codes MFBWebServiceSvc_PendingFlight, so the deserialized object is a real
+ MFBWebServiceSvc_PendingFlight; this alias is never instantiated.  Do not edit MFBWebServiceSvc.m; it is regenerated.
+ */
+@objc(PendingFlight) class PendingFlightXsiTypeAlias : MFBWebServiceSvc_PendingFlight {}
+
 @objc(LogbookEntry) public class LogbookEntry : MFBAsyncOperation, MFBSoapCallDelegate, NSCoding, NSSecureCoding {
     // TODO: Can any of these be made private
     @objc public var entryData = MFBWebServiceSvc_LogbookEntry.getNewLogbookEntry()
