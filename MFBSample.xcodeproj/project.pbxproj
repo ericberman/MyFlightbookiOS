@@ -7,11 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		39BA285117EA67165579DC77 /* MyFlightbookWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E529CDC8AF39164928E62EA6 /* MyFlightbookWatchApp.swift */; };
-		A37289F523D98A693A247247 /* WatchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CE70DB2A25E575727CCD0D /* WatchModel.swift */; };
-		8A017E5F0B3870FFD9492D41 /* CockpitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6046830E9B3E6C273B105892 /* CockpitView.swift */; };
-		327F9027BAA5B2BCDC2B79A1 /* RemoteListViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0A09A1C98EFAF20BFA839C /* RemoteListViews.swift */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
+		327F9027BAA5B2BCDC2B79A1 /* RemoteListViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0A09A1C98EFAF20BFA839C /* RemoteListViews.swift */; };
+		39BA285117EA67165579DC77 /* MyFlightbookWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E529CDC8AF39164928E62EA6 /* MyFlightbookWatchApp.swift */; };
+		8A017E5F0B3870FFD9492D41 /* CockpitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6046830E9B3E6C273B105892 /* CockpitView.swift */; };
 		9A03F50329D396BE0047807E /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A03F50229D396BE0047807E /* Currency.swift */; };
 		9A03F50829D3B51A0047807E /* Totals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A03F50729D3B51A0047807E /* Totals.swift */; };
 		9A03F50A29D489520047807E /* NearbyAirports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A03F50929D489520047807E /* NearbyAirports.swift */; };
@@ -442,6 +441,7 @@
 		9AEFF6E329BD2A4600B07B13 /* MFBWebService PropertyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEFF6E229BD2A4600B07B13 /* MFBWebService PropertyExtensions.swift */; };
 		9AFAC07110E594F000225E90 /* runway.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AFAC07010E594F000225E90 /* runway.png */; };
 		9AFEFF9F1BD02E1E0083043A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AFEFF9E1BD02E1E0083043A /* CoreMedia.framework */; };
+		A37289F523D98A693A247247 /* WatchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CE70DB2A25E575727CCD0D /* WatchModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -505,15 +505,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		E529CDC8AF39164928E62EA6 /* MyFlightbookWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFlightbookWatchApp.swift; sourceTree = "<group>"; };
-		47CE70DB2A25E575727CCD0D /* WatchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchModel.swift; sourceTree = "<group>"; };
-		6046830E9B3E6C273B105892 /* CockpitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CockpitView.swift; sourceTree = "<group>"; };
 		1A0A09A1C98EFAF20BFA839C /* RemoteListViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteListViews.swift; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AB4B0D9B1048005BE974 /* MFBSample_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFBSample_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		47CE70DB2A25E575727CCD0D /* WatchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchModel.swift; sourceTree = "<group>"; };
+		6046830E9B3E6C273B105892 /* CockpitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CockpitView.swift; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MFBSample-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MFBSample-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		9A03F50229D396BE0047807E /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		9A03F50729D3B51A0047807E /* Totals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Totals.swift; sourceTree = "<group>"; };
@@ -950,6 +949,7 @@
 		9AFAC12E10E5CC9400225E90 /* MyFlightbook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFlightbook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AFEFF9E1BD02E1E0083043A /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		9AFEFFA01BD03FE20083043A /* Icon-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad.png"; sourceTree = "<group>"; };
+		E529CDC8AF39164928E62EA6 /* MyFlightbookWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFlightbookWatchApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3169,7 +3169,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2026.08.25.1;
+				CURRENT_PROJECT_VERSION = 2026.09.30.1;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -3186,7 +3186,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Classes\"",
 				);
-				MARKETING_VERSION = 2026.08.25;
+				MARKETING_VERSION = 2026.09.30;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone;
 				PRODUCT_NAME = MyFlightbook;
 				PROVISIONING_PROFILE = "";
@@ -3212,7 +3212,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 2026.08.25.1;
+				CURRENT_PROJECT_VERSION = 2026.09.30.1;
 				EXCLUDED_SOURCE_FILE_NAMES = (
 					tracklog.gpx,
 					tracklog.kml,
@@ -3231,7 +3231,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Classes\"",
 				);
-				MARKETING_VERSION = 2026.08.25;
+				MARKETING_VERSION = 2026.09.30;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone;
 				PRODUCT_NAME = MyFlightbook;
 				PROVISIONING_PROFILE = "";
@@ -3264,7 +3264,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2026.08.25.1;
+				CURRENT_PROJECT_VERSION = 2026.09.30.1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -3285,7 +3285,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2026.08.25;
+				MARKETING_VERSION = 2026.09.30;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.MyFlightbookWidgets;
@@ -3321,7 +3321,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2026.08.25.1;
+				CURRENT_PROJECT_VERSION = 2026.09.30.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -3337,7 +3337,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2026.08.25;
+				MARKETING_VERSION = 2026.09.30;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.MyFlightbookWidgets;
@@ -3372,7 +3372,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2026.08.25.1;
+				CURRENT_PROJECT_VERSION = 2026.09.30.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -3388,7 +3388,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2026.08.25;
+				MARKETING_VERSION = 2026.09.30;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.MyFlightbookWidgets;
@@ -3671,7 +3671,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 2026.08.25.1;
+				CURRENT_PROJECT_VERSION = 2026.09.30.1;
 				EXCLUDED_SOURCE_FILE_NAMES = (
 					tracklog.gpx,
 					tracklog.kml,
@@ -3690,7 +3690,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Classes\"",
 				);
-				MARKETING_VERSION = 2026.08.25;
+				MARKETING_VERSION = 2026.09.30;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone;
 				PRODUCT_NAME = MyFlightbook;
 				PROVISIONING_PROFILE = "";
@@ -3705,7 +3705,6 @@
 		9ACDC8ED1BDFEA1400B0A077 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ENABLE_DEBUG_DYLIB = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -3725,9 +3724,10 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2026.08.25.1;
+				CURRENT_PROJECT_VERSION = 2026.09.30.1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
+				ENABLE_DEBUG_DYLIB = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -3749,7 +3749,7 @@
 					"@executable_path/Frameworks",
 					/usr/lib/swift,
 				);
-				MARKETING_VERSION = 2026.08.25;
+				MARKETING_VERSION = 2026.09.30;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3788,7 +3788,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2026.08.25.1;
+				CURRENT_PROJECT_VERSION = 2026.09.30.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3807,7 +3807,7 @@
 					"@executable_path/Frameworks",
 					/usr/lib/swift,
 				);
-				MARKETING_VERSION = 2026.08.25;
+				MARKETING_VERSION = 2026.09.30;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3847,7 +3847,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2026.08.25.1;
+				CURRENT_PROJECT_VERSION = 2026.09.30.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3866,7 +3866,7 @@
 					"@executable_path/Frameworks",
 					/usr/lib/swift,
 				);
-				MARKETING_VERSION = 2026.08.25;
+				MARKETING_VERSION = 2026.09.30;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";

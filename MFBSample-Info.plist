@@ -2,12 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSLocalNetworkUsageDescription</key>
-	<string>If you are using a flight simulator that provides position coordinates on the network, MyFlightbook can use this to help track your flight and detect takeoffs/landings/night/etc.</string>
-	<key>NSBonjourServices</key>
-	<array>
-		<string>_xgps._udp</string>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleDisplayName</key>
@@ -139,8 +133,14 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_xgps._udp</string>
+	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>MyFlightbook allows you to attach pictures or videos to your flights or to aircraft that you fly.</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>If you are using a flight simulator that provides position coordinates on the network, MyFlightbook can use this to help track your flight and detect takeoffs/landings/night/etc.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>MyFlightbook can use GPS to find nearest airports, detect takeoff and landing, and record your flight path.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
