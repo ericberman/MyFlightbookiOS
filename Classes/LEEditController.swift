@@ -1544,7 +1544,7 @@ public class LEEditController : LogbookEntryBaseTableViewController, EditPropert
         let sect = leSection(rawValue: ipActive!.section)
         if row == .rowDateTail {
             le.entryData.date = sender.date
-            idDate.text = (sender.date as NSDate).dateString()
+            idDate.text = (sender.date as NSDate).dateStringUtc()
             return
         }
 
