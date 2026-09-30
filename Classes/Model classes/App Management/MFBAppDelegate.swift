@@ -343,7 +343,13 @@ import PrivacySensitiveData
     @objc func setBadgeCount() {
         let cUnsubmittedFlights = rgUnsubmittedFlights.count
         getActiveTabBar()?.tbiRecent?.badgeValue = (cUnsubmittedFlights == 0) ? nil : String(format: "%ld", cUnsubmittedFlights)
-        UIApplication.shared.applicationIconBadgeNumber = cUnsubmittedFlights
+        Task {
+            do {
+                try await UNUserNotificationCenter.current().setBadgeCount(cUnsubmittedFlights)
+            } catch {
+                print("Failed to set badge count: \(error.localizedDescription)")
+            }
+        }
     }
     
     @objc public func addBadgeForUnsubmittedFlights() {
