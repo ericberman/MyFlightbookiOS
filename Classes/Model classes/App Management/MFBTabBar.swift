@@ -43,14 +43,24 @@ public class MFBTabBarController: UITabBarController {
     
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        // On iOS 26 iPad, the tab bar moved to the top as a floating pill.
+        // On iOS 26 iPad in regular width, the tab bar moved to the top as a floating pill.
         // The XIB-defined tab bar still autoresizes to the bottom and steals space.
         // Move it completely off screen.
-        if #available(iOS 26, *) {
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                tabBar.frame = CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: 0)
-            }
+        // In compact width (narrow window, Split View, Slide Over) UIKit uses the classic
+        // bottom tab bar, so leave it alone or it becomes unreachable.
+        if #available(iOS 26, *),
+           UIDevice.current.userInterfaceIdiom == .pad,
+           traitCollection.horizontalSizeClass == .regular {
+            tabBar.frame = CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: 0)
         }
+    }
+
+    public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        // Force a fresh layout pass so the tab bar frame is recomputed when the window is resized.
+        coordinator.animate(alongsideTransition: { [weak self] _ in
+            self?.view.setNeedsLayout()
+        })
     }
     
     @objc func keyboardWillChange(notification: NSNotification) {
