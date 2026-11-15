@@ -28,7 +28,7 @@ import Foundation
 @objc class ConjunctionCell : UITableViewCell {
     @IBOutlet weak var segConjunction : UISegmentedControl!
     
-    @objc public var conjunction : MFBWebServiceSvc_GroupConjunction {
+    public var conjunction : MFBWebServiceSvc_GroupConjunction {
         get {
             return MFBWebServiceSvc_GroupConjunction(MFBWebServiceSvc_GroupConjunction_Any.rawValue + UInt32(segConjunction.selectedSegmentIndex))
         }
@@ -37,7 +37,7 @@ import Foundation
         }
     }
     
-    @objc public static func getConjunctionCell(_ tableView : UITableView, withConjunction conj : MFBWebServiceSvc_GroupConjunction) -> ConjunctionCell {
+    public static func getConjunctionCell(_ tableView : UITableView, withConjunction conj : MFBWebServiceSvc_GroupConjunction) -> ConjunctionCell {
         let CellTextIdentifier = "ConjunctionCell"
         var _cell = tableView.dequeueReusableCell(withIdentifier: CellTextIdentifier) as? ConjunctionCell
         if (_cell == nil) {
