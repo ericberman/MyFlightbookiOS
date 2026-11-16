@@ -1852,7 +1852,7 @@
 					New,
 				);
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 2700;
+				LastUpgradeCheck = 2720;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
 						DevelopmentTeam = 99X7N8Z9WP;
@@ -3815,7 +3815,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OBJC_BRIDGING_HEADER = "Classes/MyFlightbook-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 5.0;
