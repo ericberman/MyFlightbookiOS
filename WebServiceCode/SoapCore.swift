@@ -339,6 +339,20 @@ public extension SoapEnum {
 
 // MARK: - Fields
 
+extension String {
+    /// The service double-encodes some text (e.g. it sends `&amp;quot;` for a quote), so after the XML parser has decoded once,
+    /// entities remain.  The old WSDLToObjC code unescaped every string a second time, which hid this; we do the same
+    /// (same replacement order as the original `stringByUnescapingXML`) so text such as "B787-8 \"Dreamliner\"" displays correctly.
+    var unescapingXMLEntities : String {
+        if !contains("&") { return self }
+        return self.replacingOccurrences(of: "&quot;", with: "\"")
+            .replacingOccurrences(of: "&apos;", with: "'")
+            .replacingOccurrences(of: "&lt;", with: "<")
+            .replacingOccurrences(of: "&gt;", with: ">")
+            .replacingOccurrences(of: "&amp;", with: "&")
+    }
+}
+
 /// One element of a complex type: how to write it to XML, read it from XML, and archive it.
 /// Build these with `SoapFieldBuilder` (see the file header).
 public struct SoapField {
@@ -371,7 +385,7 @@ public struct SoapFieldBuilder<R : SoapObject> {
     public func string(_ name: String, _ kp: ReferenceWritableKeyPath<R, String?>, key: String? = nil) -> SoapField {
         return field(name, key, kp,
                      write: { w, v in w.leaf(name, v) },
-                     read: { n in n.text },
+                     read: { n in n.text.unescapingXMLEntities },
                      decodeAs: { c, k in c.decodeObject(of: NSString.self, forKey: k) as String? },
                      empty: { "" })
     }
@@ -464,7 +478,7 @@ public struct SoapFieldBuilder<R : SoapObject> {
     public func strings(_ name: String, _ kp: ReferenceWritableKeyPath<R, NSMutableArray?>, key: String? = nil) -> SoapField {
         return list(name, key, kp,
                     write: { w, v in (v as? String).map { w.leaf(name, $0) } },
-                    read: { n in n.text as NSString },
+                    read: { n in n.text.unescapingXMLEntities as NSString },
                     classes: [NSString.self])
     }
 
