@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2010-2023 MyFlightbook, LLC
+ Copyright (C) 2010-2026 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -59,6 +59,41 @@ import Foundation
         
         setUpIndices()
         refreshFilteredProps("")
+        
+        // iOS 26+ auto-scroll-to-first-responder leaves the field just offscreen (custom accessory/inputView),
+        // so we handle keyboard avoidance ourselves.
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardFrameChanged(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    // MARK: - Keyboard avoidance
+    @objc private func keyboardFrameChanged(_ note : Notification) {
+        guard let endFrame = (note.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
+              tableView.window != nil else { return }
+        // Overlap between the keyboard (including its accessory bar) and the table, in table-view coordinates
+        let kbInTable = tableView.convert(endFrame, from: nil)
+        let overlap = max(0, tableView.bounds.intersection(kbInTable).height)
+        // Subtract the safe-area bottom, which the system already accounts for in adjustedContentInset
+        let bottom = max(0, overlap - tableView.safeAreaInsets.bottom)
+        tableView.contentInset.bottom = bottom
+        tableView.verticalScrollIndicatorInsets.bottom = bottom
+        
+        guard overlap > 0, let ip = ipActive, ip.section < tableView.numberOfSections, ip.row < tableView.numberOfRows(inSection: ip.section) else { return }
+        // Wait a runloop so the system's own (bad) scroll happens first, then correct it.
+        DispatchQueue.main.async { [weak self] in
+            guard let self, self.ipActive == ip else { return }
+            let rect = self.tableView.rectForRow(at: ip)
+            self.tableView.scrollRectToVisible(rect.insetBy(dx: 0, dy: -8), animated: true)
+        }
+    }
+    
+    @objc private func keyboardWillHide(_ note : Notification) {
+        tableView.contentInset.bottom = 0
+        tableView.verticalScrollIndicatorInsets.bottom = 0
     }
     
     public override func viewWillAppear(_ animated: Bool) {
