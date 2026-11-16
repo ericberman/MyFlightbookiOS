@@ -22,7 +22,7 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 11/28/09.
-//  Copyright-2009-2021 MyFlightbook LLC. All rights reserved.
+//  Copyright-2009-2026 MyFlightbook LLC. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

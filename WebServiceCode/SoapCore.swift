@@ -352,6 +352,10 @@ public struct SoapField {
     let read : (SoapObject, SoapXMLNode) -> Void
     let encode : (SoapObject, NSCoder) -> Void
     let decode : (SoapObject, NSCoder) -> Void
+    /// Called after reading when this element was absent from the XML (used to default arrays to empty instead of nil)
+    var missing : (SoapObject) -> Void = { _ in }
+    /// Called after reading a *Response* when this element (the operation's result) was absent: sets an empty value ("", 0, false, an empty object)
+    var missingResult : (SoapObject) -> Void = { _ in }
 }
 
 /// Creates the fields for properties of the class `R`.  Typical use (inside `soapFields`):
@@ -368,7 +372,8 @@ public struct SoapFieldBuilder<R : SoapObject> {
         return field(name, key, kp,
                      write: { w, v in w.leaf(name, v) },
                      read: { n in n.text },
-                     decodeAs: { c, k in c.decodeObject(of: NSString.self, forKey: k) as String? })
+                     decodeAs: { c, k in c.decodeObject(of: NSString.self, forKey: k) as String? },
+                     empty: { "" })
     }
 
     /// Numbers (int, long, decimal, double) are NSNumber, read as doubles
@@ -376,7 +381,8 @@ public struct SoapFieldBuilder<R : SoapObject> {
         return field(name, key, kp,
                      write: { w, v in w.leaf(name, v.stringValue) },
                      read: { n in NSNumber(value: Double(n.text.trimmingCharacters(in: .whitespacesAndNewlines)) ?? 0) },
-                     decodeAs: { c, k in c.decodeObject(of: NSNumber.self, forKey: k) })
+                     decodeAs: { c, k in c.decodeObject(of: NSNumber.self, forKey: k) },
+                     empty: { NSNumber(value: 0) })
     }
 
     public func bool(_ name: String, _ kp: ReferenceWritableKeyPath<R, USBoolean?>, key: String? = nil) -> SoapField {
@@ -389,7 +395,8 @@ public struct SoapFieldBuilder<R : SoapObject> {
                         default: return nil
                         }
                      },
-                     decodeAs: { c, k in c.decodeObject(of: USBoolean.self, forKey: k) })
+                     decodeAs: { c, k in c.decodeObject(of: USBoolean.self, forKey: k) },
+                     empty: { USBoolean(bool: false) })
     }
 
     public func date(_ name: String, _ kp: ReferenceWritableKeyPath<R, Date?>, key: String? = nil) -> SoapField {
@@ -431,10 +438,17 @@ public struct SoapFieldBuilder<R : SoapObject> {
     // MARK: nested objects
     /// A nested complex type.  If the XML says xsi:type="SomeSubclass", an instance of that subclass is created.
     public func object<T : SoapObject>(_ name: String, _ kp: ReferenceWritableKeyPath<R, T?>, key: String? = nil) -> SoapField {
-        return field(name, key, kp,
+        var f = field(name, key, kp,
                      write: { w, v in w.element(name) { v.writeFields(to: w) } },
                      read: { n in SoapObject.make(T.self, from: n) },
-                     decodeAs: { c, k in c.decodeObject(of: T.self, forKey: k) })
+                     decodeAs: { c, k in c.decodeObject(of: T.self, forKey: k) },
+                     empty: { (T.self as NSObject.Type).init() as? T })
+        // The server omits an empty array's element entirely (e.g. when the auth token is bad), and the old code tolerated nil
+        // there.  An absent "ArrayOf..." is semantically an empty list, so give callers an empty one rather than a nil to trip on.
+        if NSStringFromClass(T.self).hasPrefix(SoapNamespace.classPrefix + "ArrayOf") {
+            f.missing = { obj in (obj as! R)[keyPath: kp] = (T.self as NSObject.Type).init() as? T }
+        }
+        return f
     }
 
     // MARK: repeated elements (the contents of the "ArrayOf..." types)
@@ -468,9 +482,10 @@ public struct SoapFieldBuilder<R : SoapObject> {
     private func field<V>(_ name: String, _ key: String?, _ kp: ReferenceWritableKeyPath<R, V?>,
                           write: @escaping (SoapWriter, V) -> Void,
                           read: @escaping (SoapXMLNode) -> V?,
-                          decodeAs: @escaping (NSCoder, String) -> V?) -> SoapField {
+                          decodeAs: @escaping (NSCoder, String) -> V?,
+                          empty: (() -> V?)? = nil) -> SoapField {
         let k = key ?? name
-        return SoapField(name: name, key: k,
+        var f = SoapField(name: name, key: k,
             write: { obj, w in
                 if let v = (obj as! R)[keyPath: kp] { write(w, v) }
             },
@@ -479,6 +494,10 @@ public struct SoapFieldBuilder<R : SoapObject> {
                 if let v = (obj as! R)[keyPath: kp] { coder.encode(v, forKey: k) }
             },
             decode: { obj, coder in (obj as! R)[keyPath: kp] = decodeAs(coder, k) })
+        if let empty = empty {
+            f.missingResult = { obj in (obj as! R)[keyPath: kp] = empty() }
+        }
+        return f
     }
 
     private func list(_ name: String, _ key: String?, _ kp: ReferenceWritableKeyPath<R, NSMutableArray?>,
@@ -557,11 +576,20 @@ open class SoapObject : NSObject, NSSecureCoding {
     /// Populates this object from the child elements of `node`
     public func readFields(from node: SoapXMLNode) {
         let table = fields
+        var seen = Set<String>()
         for child in node.children {
             // Fields are mostly unique; the linear scan is fine for objects this small
             if let f = table.first(where: { $0.name == child.name }) {
                 f.read(self, child)
+                seen.insert(f.name)
             }
+        }
+        // Absent elements: arrays become empty lists everywhere; and an operation's result that the server left out
+        // (it does this on, e.g., a bad auth token) becomes an empty value, so callers never trip over a nil result.
+        let isResponse = NSStringFromClass(type(of: self)).hasSuffix("Response")
+        for f in table where !seen.contains(f.name) {
+            f.missing(self)
+            if isResponse { f.missingResult(self) }
         }
     }
 
