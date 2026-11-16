@@ -36,22 +36,56 @@ public class MFBTabBarController: UITabBarController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        tabBarFrameObserver = tabBar.observe(\.frame, options: [.new]) { [weak self] _, _ in
+            self?.fixTabBarFrame()
+        }
         
         // Listen for keyboard changes globally
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
     
+    // Set once UIKit has laid the XIB-defined tab bar out as a vertical bar (see below).
+    private var fTabBarIsVertical = false
+    private var tabBarFrameObserver : NSKeyValueObservation?
+
+    public override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        fixTabBarFrame()
+    }
+
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        // On iOS 26 iPad in regular width, the tab bar moved to the top as a floating pill.
-        // The XIB-defined tab bar still autoresizes to the bottom and steals space.
-        // Move it completely off screen.
-        // In compact width (narrow window, Split View, Slide Over) UIKit uses the classic
-        // bottom tab bar, so leave it alone or it becomes unreachable.
-        if #available(iOS 26, *),
-           UIDevice.current.userInterfaceIdiom == .pad,
-           traitCollection.horizontalSizeClass == .regular {
-            tabBar.frame = CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: 0)
+        fixTabBarFrame()
+    }
+
+    // On iOS 26 iPad in regular width, the tab bar moved to the top as a floating pill.
+    // The XIB-defined tab bar still autoresizes to the bottom and steals space.
+    // Move it completely off screen.
+    // In compact width (narrow window, Split View, Slide Over) UIKit uses the classic
+    // bottom tab bar, so leave it alone or it becomes unreachable.
+    //
+    // iPhone Duo: it reports an iPhone idiom (and is compact width when folded), but UIKit
+    // lays the XIB-defined tab bar out as a vertical strip along the trailing edge, in both
+    // poses, and then floats its own vertical bar. Because the XIBs use opaque bars with no
+    // extended layout edges, the strip is treated as a bottom bar and the content of every tab
+    // is squeezed to a sliver (a blank screen), and the opaque strip paints a blank band over the
+    // trailing edge. Detect that by the shape of the bar, and latch it since moving it off screen
+    // makes it non-vertical on the next layout pass.
+    // UIKit also re-sets the frame outside of layout (e.g. when switching tabs), so this is also
+    // called whenever the frame changes.
+    private func fixTabBarFrame() {
+        guard #available(iOS 26, *) else { return }
+
+        if tabBar.frame.height > tabBar.frame.width {
+            fTabBarIsVertical = true
+        }
+
+        if fTabBarIsVertical ||
+            (UIDevice.current.userInterfaceIdiom == .pad && traitCollection.horizontalSizeClass == .regular) {
+            let target = CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: 0)
+            if tabBar.frame != target {
+                tabBar.frame = target
+            }
         }
     }
 
