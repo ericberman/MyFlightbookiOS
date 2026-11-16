@@ -507,8 +507,8 @@
 		487AC330B35E36EDFE6FC7AA /* SoapClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoapClient.swift; sourceTree = "<group>"; };
 		6046830E9B3E6C273B105892 /* CockpitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CockpitView.swift; sourceTree = "<group>"; };
 		6ADA58A2E3FCEAFD46ADC51F /* MFBWebServiceTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFBWebServiceTypes.swift; sourceTree = "<group>"; };
-		8D1107310486CEB800E47090 /* MFBSample-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MFBSample-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		76329D7F93105507AE10308C /* NSDate+ISO8601.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSDate+ISO8601.swift"; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* MFBSample-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MFBSample-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		904D90E08CCDC364A83A6292 /* SoapCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoapCore.swift; sourceTree = "<group>"; };
 		9A03F50229D396BE0047807E /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		9A03F50729D3B51A0047807E /* Totals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Totals.swift; sourceTree = "<group>"; };
@@ -536,7 +536,6 @@
 		9A0EDBC01288FD9C00153C6E /* Default-Landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape.png"; sourceTree = "<group>"; };
 		9A0EDBC11288FD9C00153C6E /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = "<group>"; };
 		9A0EDBDE1289021100153C6E /* Default-PortraitUpsideDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-PortraitUpsideDown.png"; sourceTree = "<group>"; };
-		9A0F0E7213E88781007E54C1 /* MFBWebServiceSvc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFBWebServiceSvc.h; sourceTree = "<group>"; };
 		9A1014BC10DD551800FA37D4 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		9A1014C010DD56A500FA37D4 /* icon-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-small.png"; sourceTree = "<group>"; };
 		9A1014C210DD57DE00FA37D4 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
@@ -1257,7 +1256,6 @@
 		9A69201D10CCBD8800DF1CA6 /* WebServiceCode */ = {
 			isa = PBXGroup;
 			children = (
-				9A0F0E7213E88781007E54C1 /* MFBWebServiceSvc.h */,
 				76329D7F93105507AE10308C /* NSDate+ISO8601.swift */,
 				904D90E08CCDC364A83A6292 /* SoapCore.swift */,
 				487AC330B35E36EDFE6FC7AA /* SoapClient.swift */,
