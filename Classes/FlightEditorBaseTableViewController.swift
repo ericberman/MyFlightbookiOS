@@ -291,6 +291,25 @@ public class FlightEditorBaseTableViewController : CollapsibleTableSw, UIGesture
         idPublic.contentHorizontalAlignment = .left
     }
     
+    // iPhone Duo (iOS 26): the navigation bar is taller than UIKit accounts for in the table's adjusted
+    // content inset, so the first rows of the table end up hidden underneath it. Make up the difference.
+    public override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        guard let nav = navigationController, !nav.isNavigationBarHidden,
+              let navSuper = nav.navigationBar.superview, let tableSuper = tableView.superview else { return }
+        let navBottom = navSuper.convert(nav.navigationBar.frame, to: tableSuper).maxY
+        let overlap = max(0, navBottom - tableView.frame.minY)
+        let systemTop = tableView.adjustedContentInset.top - tableView.contentInset.top
+        let desired = max(0, overlap - systemTop)
+        guard abs(desired - tableView.contentInset.top) > 0.5 else { return }
+        let wasAtTop = tableView.contentOffset.y <= -tableView.adjustedContentInset.top + 0.5
+        tableView.contentInset.top = desired
+        tableView.verticalScrollIndicatorInsets.top = desired
+        if wasAtTop {
+            tableView.contentOffset.y = -tableView.adjustedContentInset.top
+        }
+    }
+
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         EAAccessoryManager.shared().registerForLocalNotifications()
