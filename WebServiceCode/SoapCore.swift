@@ -172,6 +172,19 @@ public final class SoapWriter {
         close(name)
     }
 
+    /// Writes a nested complex-type value.  Types that take part in inheritance carry an explicit xsi:type (see `SoapObject.soapXsiType`)
+    /// so the server instantiates the right class - without it, a PendingFlight sent where a LogbookEntry is declared arrives as a plain
+    /// LogbookEntry and its PendingID is lost.
+    public func element(_ name: String, object o: SoapObject) {
+        if let t = type(of: o).soapXsiType {
+            xml += "<\(SoapNamespace.servicePrefix):\(name) xsi:type=\"\(SoapNamespace.servicePrefix):\(t)\" xmlns=\"\(SoapNamespace.service)\">"
+        } else {
+            open(name)
+        }
+        o.writeFields(to: self)
+        close(name)
+    }
+
     fileprivate func raw(_ s: String) {
         xml += s
     }
@@ -453,7 +466,7 @@ public struct SoapFieldBuilder<R : SoapObject> {
     /// A nested complex type.  If the XML says xsi:type="SomeSubclass", an instance of that subclass is created.
     public func object<T : SoapObject>(_ name: String, _ kp: ReferenceWritableKeyPath<R, T?>, key: String? = nil) -> SoapField {
         var f = field(name, key, kp,
-                     write: { w, v in w.element(name) { v.writeFields(to: w) } },
+                     write: { w, v in w.element(name, object: v) },
                      read: { n in SoapObject.make(T.self, from: n) },
                      decodeAs: { c, k in c.decodeObject(of: T.self, forKey: k) },
                      empty: { (T.self as NSObject.Type).init() as? T })
@@ -486,7 +499,7 @@ public struct SoapFieldBuilder<R : SoapObject> {
     public func objects<T : SoapObject>(_ name: String, _ kp: ReferenceWritableKeyPath<R, NSMutableArray?>, of type: T.Type, key: String? = nil) -> SoapField {
         return list(name, key, kp,
                     write: { w, v in
-                        if let o = v as? SoapObject { w.element(name) { o.writeFields(to: w) } }
+                        if let o = v as? SoapObject { w.element(name, object: o) }
                     },
                     read: { n in SoapObject.make(T.self, from: n) },
                     classes: [NSArray.self, T.self])
@@ -552,6 +565,10 @@ open class SoapObject : NSObject, NSSecureCoding {
 
     /// The element name when this type is the top-level element of a request or response (e.g., "AircraftForUser").
     /// Message classes override this; data structures only need it when used as a message body.
+    /// The WSDL type name to send as xsi:type when this object is written as a nested value.  Only the types that participate in
+    /// inheritance need it (the same six the old generated code stamped): override and return the type's name.
+    open class var soapXsiType : String? { return nil }
+
     open class var soapElementName : String {
         return String(describing: self)
     }

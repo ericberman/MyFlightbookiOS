@@ -678,6 +678,7 @@ public class MFBWebServiceSvc_ArrayOfMFBImageInfo : SoapObject {
 /// WSDL type `MFBImageInfo` (extends `MFBImageInfoBase`)
 @objc(MFBWebServiceSvc_MFBImageInfo)
 public class MFBWebServiceSvc_MFBImageInfo : MFBWebServiceSvc_MFBImageInfoBase {
+    public override class var soapXsiType : String? { return "MFBImageInfo" }
     public override class var supportsSecureCoding : Bool { return true }   // required on each archivable class
 
 }
@@ -906,6 +907,7 @@ public class MFBWebServiceSvc_ArrayOfCurrencyStatusItem : SoapObject {
 /// WSDL type `CurrencyStatusItem` (extends `CurrencyStatusItemBase`)
 @objc(MFBWebServiceSvc_CurrencyStatusItem)
 public class MFBWebServiceSvc_CurrencyStatusItem : MFBWebServiceSvc_CurrencyStatusItemBase {
+    public override class var soapXsiType : String? { return "CurrencyStatusItem" }
     public override class var supportsSecureCoding : Bool { return true }   // required on each archivable class
 
 }
@@ -1334,6 +1336,7 @@ public class MFBWebServiceSvc_ArrayOfLogbookEntry : SoapObject {
 /// WSDL type `LogbookEntry` (extends `LogbookEntryBase`)
 @objc(MFBWebServiceSvc_LogbookEntry)
 public class MFBWebServiceSvc_LogbookEntry : MFBWebServiceSvc_LogbookEntryBase {
+    public override class var soapXsiType : String? { return "LogbookEntry" }
     public override class var supportsSecureCoding : Bool { return true }   // required on each archivable class
 
 }
@@ -1342,6 +1345,7 @@ public class MFBWebServiceSvc_LogbookEntry : MFBWebServiceSvc_LogbookEntryBase {
 /// WSDL type `LogbookEntryBase` (extends `LogbookEntryCore`)
 @objc(MFBWebServiceSvc_LogbookEntryBase)
 public class MFBWebServiceSvc_LogbookEntryBase : MFBWebServiceSvc_LogbookEntryCore {
+    public override class var soapXsiType : String? { return "LogbookEntryBase" }
     public var cfiComments : String!
     public var cfiSignatureDate : Date!
     public var cfiCertificate : String!
@@ -1652,6 +1656,7 @@ public class MFBWebServiceSvc_ArrayOfPendingFlight : SoapObject {
 /// WSDL type `PendingFlight` (extends `LogbookEntry`)
 @objc(MFBWebServiceSvc_PendingFlight)
 public class MFBWebServiceSvc_PendingFlight : MFBWebServiceSvc_LogbookEntry {
+    public override class var soapXsiType : String? { return "PendingFlight" }
     public var pendingID : String!
 
     public override class var supportsSecureCoding : Bool { return true }   // required on each archivable class
@@ -1796,6 +1801,7 @@ public class MFBWebServiceSvc_ArrayOfCannedQuery : SoapObject {
 /// WSDL type `CannedQuery` (extends `FlightQuery`)
 @objc(MFBWebServiceSvc_CannedQuery)
 public class MFBWebServiceSvc_CannedQuery : MFBWebServiceSvc_FlightQuery {
+    public override class var soapXsiType : String? { return "CannedQuery" }
     public var queryName : String!
     public var colorString : String!
 
