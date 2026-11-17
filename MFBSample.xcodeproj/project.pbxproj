@@ -3109,7 +3109,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2026.10.25.1;
+				CURRENT_PROJECT_VERSION = 2026.11.17.3;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -3126,7 +3126,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Classes\"",
 				);
-				MARKETING_VERSION = 2026.10.25;
+				MARKETING_VERSION = 2026.11.17;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone;
 				PRODUCT_NAME = MyFlightbook;
 				PROVISIONING_PROFILE = "";
@@ -3152,7 +3152,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 2026.10.25.1;
+				CURRENT_PROJECT_VERSION = 2026.11.17.3;
 				EXCLUDED_SOURCE_FILE_NAMES = (
 					tracklog.gpx,
 					tracklog.kml,
@@ -3171,7 +3171,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Classes\"",
 				);
-				MARKETING_VERSION = 2026.10.25;
+				MARKETING_VERSION = 2026.11.17;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone;
 				PRODUCT_NAME = MyFlightbook;
 				PROVISIONING_PROFILE = "";
@@ -3204,7 +3204,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2026.10.25.1;
+				CURRENT_PROJECT_VERSION = 2026.11.17.3;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -3225,7 +3225,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2026.10.25;
+				MARKETING_VERSION = 2026.11.17;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.MyFlightbookWidgets;
@@ -3261,7 +3261,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2026.10.25.1;
+				CURRENT_PROJECT_VERSION = 2026.11.17.3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -3277,7 +3277,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2026.10.25;
+				MARKETING_VERSION = 2026.11.17;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.MyFlightbookWidgets;
@@ -3312,7 +3312,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2026.10.25.1;
+				CURRENT_PROJECT_VERSION = 2026.11.17.3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -3328,7 +3328,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2026.10.25;
+				MARKETING_VERSION = 2026.11.17;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.MyFlightbookWidgets;
@@ -3508,7 +3508,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 2026.10.25.1;
+				CURRENT_PROJECT_VERSION = 2026.11.17.3;
 				EXCLUDED_SOURCE_FILE_NAMES = (
 					tracklog.gpx,
 					tracklog.kml,
@@ -3527,7 +3527,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Classes\"",
 				);
-				MARKETING_VERSION = 2026.10.25;
+				MARKETING_VERSION = 2026.11.17;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone;
 				PRODUCT_NAME = MyFlightbook;
 				PROVISIONING_PROFILE = "";
@@ -3561,7 +3561,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2026.10.25.1;
+				CURRENT_PROJECT_VERSION = 2026.11.17.3;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_DEBUG_DYLIB = YES;
@@ -3586,7 +3586,7 @@
 					"@executable_path/Frameworks",
 					/usr/lib/swift,
 				);
-				MARKETING_VERSION = 2026.10.25;
+				MARKETING_VERSION = 2026.11.17;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3625,7 +3625,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2026.10.25.1;
+				CURRENT_PROJECT_VERSION = 2026.11.17.3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3644,7 +3644,7 @@
 					"@executable_path/Frameworks",
 					/usr/lib/swift,
 				);
-				MARKETING_VERSION = 2026.10.25;
+				MARKETING_VERSION = 2026.11.17;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3684,7 +3684,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2026.10.25.1;
+				CURRENT_PROJECT_VERSION = 2026.11.17.3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 99X7N8Z9WP;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3703,7 +3703,7 @@
 					"@executable_path/Frameworks",
 					/usr/lib/swift,
 				);
-				MARKETING_VERSION = 2026.10.25;
+				MARKETING_VERSION = 2026.11.17;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.myflightbook.myflightbookiphone.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
