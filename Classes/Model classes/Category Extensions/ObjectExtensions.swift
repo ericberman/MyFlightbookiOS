@@ -740,12 +740,31 @@ extension UIColor {
         return hexString
     }
 }
+private final class WeakVCBox {
+    weak var vc: UIViewController?
+    init(_ vc: UIViewController?) { self.vc = vc }
+}
+
 // MARK: - Extension for UIViewController
 // Because Apple with iOS 26 completely broke toolbars, we need this Claude-generated extension to preserve basic functionality.  FUCK APPLE for not caring about backwards compatibility.
 extension UIViewController {
     
     private static var customToolbarKey: UInt8 = 0
     private static var tabControllerToolbarKey: UInt8 = 1
+    private static var toolbarOwnerKey: UInt8 = 2
+    
+    // The shared toolbar is used by many view controllers; track (weakly) which one most recently configured it,
+    // so that a controller that is disappearing doesn't hide a toolbar that a newly-appearing controller has set up.
+    private var toolbarOwner: UIViewController? {
+        get {
+            guard let tabController = tabBarController else { return nil }
+            return (objc_getAssociatedObject(tabController, &Self.toolbarOwnerKey) as? WeakVCBox)?.vc
+        }
+        set {
+            guard let tabController = tabBarController else { return }
+            objc_setAssociatedObject(tabController, &Self.toolbarOwnerKey, WeakVCBox(newValue), .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
     
     // Associated object to store the custom toolbar per tab bar controller
     private var sharedCustomToolbar: UIToolbar? {
@@ -797,6 +816,7 @@ extension UIViewController {
             }
             
             // Show and configure the toolbar
+            toolbarOwner = self
             customToolbar?.setItems(items, animated: animated)
             customToolbar?.isHidden = false
             
@@ -821,6 +841,10 @@ extension UIViewController {
     /// Call this to hide/show the toolbar
     func setCompatibleToolbarHidden(_ hidden: Bool, animated: Bool = false) {
         if #available(iOS 26.0, *) {
+            // Another controller has taken over the shared toolbar; don't hide it out from under them.
+            if hidden, let owner = toolbarOwner, owner !== self {
+                return
+            }
             if animated {
                 UIView.animate(withDuration: 0.3) {
                     self.customToolbar?.alpha = hidden ? 0 : 1
