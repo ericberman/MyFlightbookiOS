@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2019-2023 MyFlightbook, LLC
+ Copyright (C) 2019-2026 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@ import Foundation
 @objc class ConjunctionCell : UITableViewCell {
     @IBOutlet weak var segConjunction : UISegmentedControl!
     
-    @objc public var conjunction : MFBWebServiceSvc_GroupConjunction {
+    public var conjunction : MFBWebServiceSvc_GroupConjunction {
         get {
             return MFBWebServiceSvc_GroupConjunction(MFBWebServiceSvc_GroupConjunction_Any.rawValue + UInt32(segConjunction.selectedSegmentIndex))
         }
@@ -37,7 +37,7 @@ import Foundation
         }
     }
     
-    @objc public static func getConjunctionCell(_ tableView : UITableView, withConjunction conj : MFBWebServiceSvc_GroupConjunction) -> ConjunctionCell {
+    public static func getConjunctionCell(_ tableView : UITableView, withConjunction conj : MFBWebServiceSvc_GroupConjunction) -> ConjunctionCell {
         let CellTextIdentifier = "ConjunctionCell"
         var _cell = tableView.dequeueReusableCell(withIdentifier: CellTextIdentifier) as? ConjunctionCell
         if (_cell == nil) {

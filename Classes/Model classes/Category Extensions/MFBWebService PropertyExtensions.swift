@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2009-2024 MyFlightbook, LLC
+ Copyright (C) 2009-2026 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -34,12 +34,11 @@ extension MFBWebServiceSvc_ArrayOfCustomFlightProperty {
         }
     }
     
-    @objc public func encodeWithCoderMFB(_ encoder : NSCoder) {
+    public override func encodeFields(to encoder : NSCoder) {
         encoder.encode(self.customFlightProperty, forKey: MFBWebServiceSvc_ArrayOfCustomFlightProperty._szKeyPropArray)
     }
     
-    @objc(initWithCoderMFB:) public convenience init(_ decoder : NSCoder) {
-        self.init()
+    public override func decodeFields(from decoder : NSCoder) {
         do {
             let rgProps = try decoder.decodeTopLevelObject(of: [NSArray.self, MFBWebServiceSvc_CustomFlightProperty.self, MFBWebServiceSvc_CustomPropertyType.self],
                                                            forKey: MFBWebServiceSvc_ArrayOfCustomFlightProperty._szKeyPropArray) as? NSArray
@@ -102,7 +101,7 @@ extension MFBWebServiceSvc_CustomPropertyType {
         }
     }
 
-    @objc public func encodeWithCoderMFB(_ encoder : NSCoder) {
+    public override func encodeFields(to encoder : NSCoder) {
         encoder.encodeCInt(Int32(type.rawValue), forKey: "cptType")
         encoder.encode(title, forKey: "cptTitle")
         encoder.encode(sortKey, forKey: "cptSortKey")
@@ -114,8 +113,7 @@ extension MFBWebServiceSvc_CustomPropertyType {
         encoder.encode(isFavorite.boolValue, forKey: "cptFavoriteBOOL")
     }
     
-    @objc(initWithCoderMFB:) public convenience init(_ decoder : NSCoder) {
-        self.init()
+    public override func decodeFields(from decoder : NSCoder) {
 
         type = MFBWebServiceSvc_CFPPropertyType(rawValue: UInt32(decoder.decodeCInt(forKey: "cptType")))
         title = decoder.decodeObject(of: NSString.self, forKey: "cptTitle")! as String
@@ -225,7 +223,7 @@ extension MFBWebServiceSvc_CustomFlightProperty {
         return s
     }
 
-    @objc public func encodeWithCoderMFB(_ encoder : NSCoder) {
+    public override func encodeFields(to encoder : NSCoder) {
         encoder.encode(propID, forKey: _szKeyPropID)
         encoder.encode(flightID, forKey: _szKeyFlightID)
         encoder.encode(propTypeID, forKey: _szKeyPropTypeID)
@@ -236,8 +234,7 @@ extension MFBWebServiceSvc_CustomFlightProperty {
         encoder.encode(dateValue, forKey: _szKeyDateVal)
     }
     
-    @objc(initWithCoderMFB:) public convenience init(decoder : NSCoder) {
-        self.init()
+    public override func decodeFields(from decoder : NSCoder) {
         propID = decoder.decodeObject(of: NSNumber.self, forKey: _szKeyPropID)
         flightID = decoder.decodeObject(of: NSNumber.self, forKey: _szKeyFlightID)
         propTypeID = decoder.decodeObject(of: NSNumber.self, forKey: _szKeyPropTypeID)
@@ -261,7 +258,7 @@ private let _szKeyTemplatePropTypes = "keyTemplTypes"
 extension MFBWebServiceSvc_PropertyTemplate {
     @objc public static let GROUP_ID_AUTOMATIC=0
     
-    @objc public func encodeWithCoderMFB(_ encoder : NSCoder) {
+    public override func encodeFields(to encoder : NSCoder) {
         encoder.encode(id_, forKey: _szKeyTemplateID)
         encoder.encode(name, forKey: _szKeyTemplateName)
         encoder.encode(description, forKey: _szKeyTemplateDesc)
@@ -271,8 +268,7 @@ extension MFBWebServiceSvc_PropertyTemplate {
         encoder.encode(propertyTypes, forKey: _szKeyTemplatePropTypes)
     }
     
-    @objc(initWithCoderMFB:) public convenience init(_ decoder : NSCoder) {
-        self.init()
+    public override func decodeFields(from decoder : NSCoder) {
         id_ = decoder.decodeObject(of: NSNumber.self, forKey: _szKeyTemplateID)
         name = decoder.decodeObject(of: NSString.self, forKey: _szKeyTemplateName)! as String
         description = decoder.decodeObject(of: NSString.self, forKey: _szKeyTemplateDesc)! as String

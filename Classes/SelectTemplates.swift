@@ -43,11 +43,11 @@ import Foundation
         
         var config = cell.defaultContentConfiguration()
         config.text = pt.name
-        // Have to use "pt.description!" because FUCK APPLE decides to change the casing on a properties, causing
+        // Have to use "pt.description" because FUCK APPLE decides to change the casing on a properties, causing
         // "Description" to collide with the debug "description" computed var.  Adding the forced unwrapping should
         // work, but I have no way to know if that will change in the future.  Why, oh, way, do you enforce
         // casing changes??? Really, what f'ing problem are you solving???
-        config.secondaryText = pt.description!
+        config.secondaryText = pt.description
         cell.contentConfiguration = config
         cell.accessoryType = templateSet.contains(pt) ? .checkmark : .none
         return cell

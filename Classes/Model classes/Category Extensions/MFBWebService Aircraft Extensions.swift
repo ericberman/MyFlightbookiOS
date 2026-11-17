@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2009-2023 MyFlightbook, LLC
+ Copyright (C) 2009-2026 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -57,11 +57,11 @@ internal let _szEncodeKeyICAO = "ICAO"
 
 // MARK: MFBWebServiceSvc_Aircraft extensions
 extension MFBWebServiceSvc_Aircraft {
-    @objc public func instanceTypeIDFromInstanceType(_ instanceType : MFBWebServiceSvc_AircraftInstanceTypes) -> NSNumber {
+    public func instanceTypeIDFromInstanceType(_ instanceType : MFBWebServiceSvc_AircraftInstanceTypes) -> NSNumber {
         return NSNumber(integerLiteral: instanceType == MFBWebServiceSvc_AircraftInstanceTypes_RealAircraft || instanceType == MFBWebServiceSvc_AircraftInstanceTypes_none ? 1 : Int((instanceType.rawValue - MFBWebServiceSvc_AircraftInstanceTypes_Mintype.rawValue)) + 1)
     }
     
-    @objc public func encodeWithCoderMFB(_ encoder : NSCoder) {
+    public override func encodeFields(to encoder : NSCoder) {
         encoder.encode(aircraftID, forKey: _szEncodeKeyAircraftID)
         encoder.encode(Int32(instanceType.rawValue), forKey:_szEncodeKeyInstanceType)
         encoder.encode(last100, forKey: _szEncodeKeyLast100)
@@ -91,8 +91,7 @@ extension MFBWebServiceSvc_Aircraft {
         encoder.encode(icao, forKey: _szEncodeKeyICAO)
     }
     
-    @objc(initWithCoderMFB:) public convenience init(_ decoder : NSCoder) {
-        self.init()
+    public override func decodeFields(from decoder : NSCoder) {
         
         aircraftID = decoder.decodeObject(of: NSNumber.self, forKey: _szEncodeKeyAircraftID)
         instanceType = MFBWebServiceSvc_AircraftInstanceTypes(rawValue: UInt32(decoder.decodeInt32(forKey:_szEncodeKeyInstanceType)))
@@ -293,8 +292,8 @@ extension MFBWebServiceSvc_SimpleMakeModel {
         // "Description" on the simple make/model conflicts with "description" that gets bridging assigned.
         // I could use the NS_SWIFT_NAME macro to define an alternate name, but alas THAT has to be done in the auto-generated MFBWebServiceSvc.h
         // file, which means that whenever I update that file I'd break if I forget to edit it, which I don't want to do
-        // But it seems that using "description!" instead of "description" does the right thing...I don't know if I can count on that.
-        let d = self.description!
+        // But it seems that using "description" instead of "description" does the right thing...I don't know if I can count on that.
+        let d = self.description
         let regex = try! NSRegularExpression(pattern: #"([^(]+) (\(.*\) -.*)"#)
         if let m = regex.firstMatch(in: d, range: NSRange(location: 0, length: d.count)) {
             if (m.numberOfRanges == 3) {    // should always be true!!!
@@ -319,7 +318,7 @@ extension MFBWebServiceSvc_SimpleMakeModel {
     // See comment above - this avoids the conflicting upper/lowercase names on "description"
     public var unamibiguousDescription : String {
         get {
-            return description!
+            return description
         }
     }
 }

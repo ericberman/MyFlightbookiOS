@@ -1,7 +1,7 @@
 /*
  MyFlightbook for iOS - provides native access to MyFlightbook
  pilot's logbook
- Copyright (C) 2023 MyFlightbook, LLC
+ Copyright (C) 2023-2026 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -67,7 +67,7 @@ extension MFBWebServiceSvc_TotalsItem {
     
     @objc(toSimpleItem:) public func toSimpleItem(fHHMM : Bool) -> SimpleTotalItem {
         let sti = SimpleTotalItem()
-        sti.title = description!
+        sti.title = description
         sti.subDesc = subDescription
         sti.valueDisplay = formattedValue(fHHMM: fHHMM) as String
         return sti
@@ -110,7 +110,7 @@ extension MFBWebServiceSvc_CurrencyStatusItem {
         return arr
     }
     
-    @objc(colorForState:) public static func colorForState(state : MFBWebServiceSvc_CurrencyState) -> UIColor {
+    public static func colorForState(state : MFBWebServiceSvc_CurrencyState) -> UIColor {
         switch (state) {
         case MFBWebServiceSvc_CurrencyState_OK:
             return UIColor.systemGreen
@@ -128,7 +128,7 @@ extension MFBWebServiceSvc_CurrencyStatusItem {
 
 // MARK: - MFBWebServiceSvc_CategoryClass extensions
 extension MFBWebServiceSvc_CategoryClass {    
-    @objc(initWithID:) public convenience init(ccid : MFBWebServiceSvc_CatClassID) {
+    public convenience init(ccid : MFBWebServiceSvc_CatClassID) {
         self.init()
         idCatClass = ccid
     }
@@ -353,7 +353,7 @@ extension MFBWebServiceSvc_FlightQuery {
             hasCatClasses())
     }
     
-    @objc static public func stringForDateRange(_ dr : MFBWebServiceSvc_DateRanges) -> String {
+    static public func stringForDateRange(_ dr : MFBWebServiceSvc_DateRanges) -> String {
         switch (dr) {
             case MFBWebServiceSvc_DateRanges_AllTime, MFBWebServiceSvc_DateRanges_none:
                 return String(localized: "All Time", comment: "Totals - All Time")
@@ -383,11 +383,11 @@ extension MFBWebServiceSvc_FlightQuery {
 extension MFBWebServiceSvc_ArrayOfMFBImageInfo {
     static let imgKey = "RGMFBImages"
     
-    @objc public func encodeWithCoderMFB(_ encoder : NSCoder) {
+    public override func encodeFields(to encoder : NSCoder) {
         encoder.encode(mfbImageInfo, forKey: MFBWebServiceSvc_ArrayOfMFBImageInfo.imgKey)
     }
     
-    @objc(initWithCoderMFB:) convenience init(_ decoder : NSCoder) {
+    public override func decodeFields(from decoder : NSCoder) {
         var rgImages : [MFBWebServiceSvc_MFBImageInfo] = []
         do {
             let x = try decoder.decodeTopLevelObject(of: [NSArray.self, MFBWebServiceSvc_MFBImageInfo.self], forKey: MFBWebServiceSvc_ArrayOfMFBImageInfo.imgKey)
@@ -396,7 +396,6 @@ extension MFBWebServiceSvc_ArrayOfMFBImageInfo {
         catch {
             rgImages = []
         }
-        self.init()
         setImages(rgImages)
     }
     
@@ -426,7 +425,7 @@ extension MFBWebServiceSvc_MFBImageInfo {
         }
     }
     
-    @objc public func encodeWithCoderMFB(_ encoder : NSCoder) {
+    public override func encodeFields(to encoder : NSCoder) {
         encoder.encode(comment, forKey: MFBWebServiceSvc_MFBImageInfo.keyComment)
         encoder.encode(thumbnailFile, forKey: MFBWebServiceSvc_MFBImageInfo.keyThumbnailFile)
         encoder.encode(virtualPath, forKey: MFBWebServiceSvc_MFBImageInfo.keyVirtualPath)
@@ -436,8 +435,7 @@ extension MFBWebServiceSvc_MFBImageInfo {
         encoder.encode(urlThumbnail, forKey: MFBWebServiceSvc_MFBImageInfo.keyURLThumbnail)
     }
     
-    @objc(initWithCoderMFB:) convenience init(_ decoder : NSCoder) {
-        self.init()
+    public override func decodeFields(from decoder : NSCoder) {
         comment = decoder.decodeObject(of: NSString.self, forKey: MFBWebServiceSvc_MFBImageInfo.keyComment) as? String
         thumbnailFile = decoder.decodeObject(of: NSString.self, forKey: MFBWebServiceSvc_MFBImageInfo.keyThumbnailFile) as? String
         virtualPath = decoder.decodeObject(of: NSString.self, forKey: MFBWebServiceSvc_MFBImageInfo.keyVirtualPath) as? String

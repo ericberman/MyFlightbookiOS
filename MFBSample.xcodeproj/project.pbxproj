@@ -7,9 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04A13A951041B28C9BF812A7 /* MFBWebServiceMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B272C13DEF05A729C4B42B /* MFBWebServiceMessages.swift */; };
+		0B7AAFF01176FE8DCA6B43E9 /* MFBWebServiceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADA58A2E3FCEAFD46ADC51F /* MFBWebServiceTypes.swift */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
+		2006A2391164DE335F081945 /* MFBWebServiceMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B272C13DEF05A729C4B42B /* MFBWebServiceMessages.swift */; };
+		2B18FEFD61B6750C03C2AB74 /* SoapClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487AC330B35E36EDFE6FC7AA /* SoapClient.swift */; };
 		327F9027BAA5B2BCDC2B79A1 /* RemoteListViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0A09A1C98EFAF20BFA839C /* RemoteListViews.swift */; };
 		39BA285117EA67165579DC77 /* MyFlightbookWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E529CDC8AF39164928E62EA6 /* MyFlightbookWatchApp.swift */; };
+		39DC555CBCAD6305D2CD7EDB /* SoapClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487AC330B35E36EDFE6FC7AA /* SoapClient.swift */; };
+		5DB6A0ED87D07ABF4635C685 /* SoapCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904D90E08CCDC364A83A6292 /* SoapCore.swift */; };
+		605F74DA63B945648606FCF3 /* SoapClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487AC330B35E36EDFE6FC7AA /* SoapClient.swift */; };
+		74F67FC6323D3C4A17991384 /* SoapCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904D90E08CCDC364A83A6292 /* SoapCore.swift */; };
 		8A017E5F0B3870FFD9492D41 /* CockpitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6046830E9B3E6C273B105892 /* CockpitView.swift */; };
 		9A03F50329D396BE0047807E /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A03F50229D396BE0047807E /* Currency.swift */; };
 		9A03F50829D3B51A0047807E /* Totals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A03F50729D3B51A0047807E /* Totals.swift */; };
@@ -121,20 +129,10 @@
 		9A48E27729A1686000511D99 /* MyFlightbookWidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9A48E26529A1685E00511D99 /* MyFlightbookWidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9A48E27D29A1693B00511D99 /* WidgetSoapCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A48E27C29A1693B00511D99 /* WidgetSoapCall.swift */; };
 		9A48E27E29A1694500511D99 /* WidgetSoapCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A48E27C29A1693B00511D99 /* WidgetSoapCall.swift */; };
-		9A48E29729A16F0400511D99 /* MFBWebServiceSvc.h in Sources */ = {isa = PBXBuildFile; fileRef = 9A0F0E7213E88781007E54C1 /* MFBWebServiceSvc.h */; };
-		9A48E29829A16F0400511D99 /* MFBWebServiceSvc.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0F0E7313E88781007E54C1 /* MFBWebServiceSvc.m */; };
-		9A48E29929A16F0400511D99 /* NSDate+ISO8601Parsing.h in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202010CCBD8800DF1CA6 /* NSDate+ISO8601Parsing.h */; };
-		9A48E29A29A16F0400511D99 /* NSDate+ISO8601Parsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202110CCBD8900DF1CA6 /* NSDate+ISO8601Parsing.m */; };
-		9A48E29B29A16F0400511D99 /* NSDate+ISO8601Unparsing.h in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202210CCBD8900DF1CA6 /* NSDate+ISO8601Unparsing.h */; };
-		9A48E29C29A16F0400511D99 /* NSDate+ISO8601Unparsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202310CCBD8900DF1CA6 /* NSDate+ISO8601Unparsing.m */; };
-		9A48E29D29A16F0400511D99 /* USAdditions.h in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202410CCBD8900DF1CA6 /* USAdditions.h */; };
-		9A48E29E29A16F0400511D99 /* USAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202510CCBD8A00DF1CA6 /* USAdditions.m */; };
-		9A48E29F29A16F0400511D99 /* USGlobals.h in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202610CCBD8A00DF1CA6 /* USGlobals.h */; };
-		9A48E2A029A16F0400511D99 /* USGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202710CCBD8A00DF1CA6 /* USGlobals.m */; };
-		9A48E2A129A16F0400511D99 /* xsd.h in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202810CCBD8A00DF1CA6 /* xsd.h */; };
-		9A48E2A229A16F0400511D99 /* xsd.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A69202910CCBD8B00DF1CA6 /* xsd.m */; };
-		9A48E2A329A16F4700511D99 /* MFBSoapCallLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A48E28D29A16EE400511D99 /* MFBSoapCallLibrary.a */; };
 		9A4D9263303BA6AA00D21015 /* FlightDeckScan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4D9262303BA6A100D21015 /* FlightDeckScan.swift */; };
+		9A4DD1DA30AA60F600634318 /* NSDate+ISO8601.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76329D7F93105507AE10308C /* NSDate+ISO8601.swift */; };
+		9A4DD1DC30AA60F600634318 /* NSDate+ISO8601.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76329D7F93105507AE10308C /* NSDate+ISO8601.swift */; };
+		9A4DD1DE30AA60F600634318 /* NSDate+ISO8601.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76329D7F93105507AE10308C /* NSDate+ISO8601.swift */; };
 		9A4F3B5918177BA1009E575C /* Icon-iPad76x76.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4F3B5618177BA1009E575C /* Icon-iPad76x76.png */; };
 		9A4F3B5A18177BA1009E575C /* Icon-iPadRetina152x152.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4F3B5718177BA1009E575C /* Icon-iPadRetina152x152.png */; };
 		9A4F3B5B18177BA1009E575C /* Icon-iPhoneRetina120x120.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4F3B5818177BA1009E575C /* Icon-iPhoneRetina120x120.png */; };
@@ -147,7 +145,6 @@
 		9A503AA829CB702200D201C5 /* SynchronousCalls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A503AA729CB702200D201C5 /* SynchronousCalls.swift */; };
 		9A512DDB29D8892F004A222A /* MyAircraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A512DDA29D8892F004A222A /* MyAircraft.swift */; };
 		9A512DDF29D8D8F8004A222A /* FixedImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A512DDE29D8D8F8004A222A /* FixedImageCell.xib */; };
-		9A512EFF29EB14C000428C72 /* MFBSoapCallLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A48E28D29A16EE400511D99 /* MFBSoapCallLibrary.a */; };
 		9A52ECB21B6574D000DE8A83 /* schedule.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A52ECAF1B6574D000DE8A83 /* schedule.png */; };
 		9A52ECB31B6574D000DE8A83 /* schedule@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A52ECB01B6574D000DE8A83 /* schedule@2x.png */; };
 		9A52ECB41B6574D000DE8A83 /* schedule@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A52ECB11B6574D000DE8A83 /* schedule@3x.png */; };
@@ -442,6 +439,10 @@
 		9AFAC07110E594F000225E90 /* runway.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AFAC07010E594F000225E90 /* runway.png */; };
 		9AFEFF9F1BD02E1E0083043A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AFEFF9E1BD02E1E0083043A /* CoreMedia.framework */; };
 		A37289F523D98A693A247247 /* WatchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CE70DB2A25E575727CCD0D /* WatchModel.swift */; };
+		A91C8BC47B57D2DA9BF21E3D /* MFBWebServiceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADA58A2E3FCEAFD46ADC51F /* MFBWebServiceTypes.swift */; };
+		D3D16F744DDE0A9A9426CF6E /* MFBWebServiceMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B272C13DEF05A729C4B42B /* MFBWebServiceMessages.swift */; };
+		F88357F7A0D832CD02537449 /* SoapCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904D90E08CCDC364A83A6292 /* SoapCore.swift */; };
+		F9B02360B47392E0538A6D3C /* MFBWebServiceTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADA58A2E3FCEAFD46ADC51F /* MFBWebServiceTypes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -462,15 +463,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		9A48E28B29A16EE400511D99 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9A6414BF29ECAE6C00AAE878 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -512,8 +504,12 @@
 		28A0AB4B0D9B1048005BE974 /* MFBSample_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFBSample_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		47CE70DB2A25E575727CCD0D /* WatchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchModel.swift; sourceTree = "<group>"; };
+		487AC330B35E36EDFE6FC7AA /* SoapClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoapClient.swift; sourceTree = "<group>"; };
 		6046830E9B3E6C273B105892 /* CockpitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CockpitView.swift; sourceTree = "<group>"; };
+		6ADA58A2E3FCEAFD46ADC51F /* MFBWebServiceTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFBWebServiceTypes.swift; sourceTree = "<group>"; };
+		76329D7F93105507AE10308C /* NSDate+ISO8601.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSDate+ISO8601.swift"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MFBSample-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MFBSample-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		904D90E08CCDC364A83A6292 /* SoapCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoapCore.swift; sourceTree = "<group>"; };
 		9A03F50229D396BE0047807E /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		9A03F50729D3B51A0047807E /* Totals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Totals.swift; sourceTree = "<group>"; };
 		9A03F50929D489520047807E /* NearbyAirports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyAirports.swift; sourceTree = "<group>"; };
@@ -540,8 +536,6 @@
 		9A0EDBC01288FD9C00153C6E /* Default-Landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape.png"; sourceTree = "<group>"; };
 		9A0EDBC11288FD9C00153C6E /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = "<group>"; };
 		9A0EDBDE1289021100153C6E /* Default-PortraitUpsideDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-PortraitUpsideDown.png"; sourceTree = "<group>"; };
-		9A0F0E7213E88781007E54C1 /* MFBWebServiceSvc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFBWebServiceSvc.h; sourceTree = "<group>"; };
-		9A0F0E7313E88781007E54C1 /* MFBWebServiceSvc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFBWebServiceSvc.m; sourceTree = "<group>"; };
 		9A1014BC10DD551800FA37D4 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		9A1014C010DD56A500FA37D4 /* icon-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-small.png"; sourceTree = "<group>"; };
 		9A1014C210DD57DE00FA37D4 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
@@ -643,7 +637,6 @@
 		9A48E27029A1686000511D99 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9A48E27229A1686000511D99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A48E27C29A1693B00511D99 /* WidgetSoapCall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetSoapCall.swift; sourceTree = "<group>"; };
-		9A48E28D29A16EE400511D99 /* MFBSoapCallLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = MFBSoapCallLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A48E2A529A1797900511D99 /* MyFlightbookWidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyFlightbookWidgetsExtension.entitlements; sourceTree = "<group>"; };
 		9A49D7172065AD9E0095D8B6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AutodetectOptions.strings; sourceTree = "<group>"; };
 		9A4D9262303BA6A100D21015 /* FlightDeckScan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDeckScan.swift; sourceTree = "<group>"; };
@@ -681,16 +674,6 @@
 		9A6247A21AA509A3002A8E0B /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		9A6414C129ECAE6C00AAE878 /* ExifLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = ExifLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A6590D329DA517900917FCD /* FlightProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightProperties.swift; sourceTree = "<group>"; };
-		9A69202010CCBD8800DF1CA6 /* NSDate+ISO8601Parsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+ISO8601Parsing.h"; sourceTree = "<group>"; };
-		9A69202110CCBD8900DF1CA6 /* NSDate+ISO8601Parsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+ISO8601Parsing.m"; sourceTree = "<group>"; };
-		9A69202210CCBD8900DF1CA6 /* NSDate+ISO8601Unparsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+ISO8601Unparsing.h"; sourceTree = "<group>"; };
-		9A69202310CCBD8900DF1CA6 /* NSDate+ISO8601Unparsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+ISO8601Unparsing.m"; sourceTree = "<group>"; };
-		9A69202410CCBD8900DF1CA6 /* USAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USAdditions.h; sourceTree = "<group>"; };
-		9A69202510CCBD8A00DF1CA6 /* USAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USAdditions.m; sourceTree = "<group>"; };
-		9A69202610CCBD8A00DF1CA6 /* USGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USGlobals.h; sourceTree = "<group>"; };
-		9A69202710CCBD8A00DF1CA6 /* USGlobals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USGlobals.m; sourceTree = "<group>"; };
-		9A69202810CCBD8A00DF1CA6 /* xsd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xsd.h; sourceTree = "<group>"; };
-		9A69202910CCBD8B00DF1CA6 /* xsd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = xsd.m; sourceTree = "<group>"; };
 		9A69203A10CCC08200DF1CA6 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		9A692F372F57A6DB005DE4A6 /* GPSSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSSimulator.swift; sourceTree = "<group>"; };
 		9A692F392F57B34D005DE4A6 /* XPlaneDataParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPlaneDataParser.swift; sourceTree = "<group>"; };
@@ -949,6 +932,7 @@
 		9AFAC12E10E5CC9400225E90 /* MyFlightbook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFlightbook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AFEFF9E1BD02E1E0083043A /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		9AFEFFA01BD03FE20083043A /* Icon-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad.png"; sourceTree = "<group>"; };
+		D1B272C13DEF05A729C4B42B /* MFBWebServiceMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFBWebServiceMessages.swift; sourceTree = "<group>"; };
 		E529CDC8AF39164928E62EA6 /* MyFlightbookWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFlightbookWatchApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -958,7 +942,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A6414D229ECAEBC00AAE878 /* ExifLibrary.a in Frameworks */,
-				9A512EFF29EB14C000428C72 /* MFBSoapCallLibrary.a in Frameworks */,
 				9AA94A66220F63880056AED3 /* ExternalAccessory.framework in Frameworks */,
 				9A050D292138790100B3F794 /* Photos.framework in Frameworks */,
 				9ACDC9011BE01BC600B0A077 /* WatchConnectivity.framework in Frameworks */,
@@ -985,16 +968,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A48E2A329A16F4700511D99 /* MFBSoapCallLibrary.a in Frameworks */,
 				9A48E26929A1685E00511D99 /* SwiftUI.framework in Frameworks */,
 				9A48E26729A1685E00511D99 /* WidgetKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9A48E28A29A16EE400511D99 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1033,7 +1008,6 @@
 				9AFAC12E10E5CC9400225E90 /* MyFlightbook.app */,
 				9ACDC8CC1BDFEA1300B0A077 /* MyFlightbookWatch.app */,
 				9A48E26529A1685E00511D99 /* MyFlightbookWidgetsExtension.appex */,
-				9A48E28D29A16EE400511D99 /* MFBSoapCallLibrary.a */,
 				9A6414C129ECAE6C00AAE878 /* ExifLibrary.a */,
 			);
 			name = Products;
@@ -1282,18 +1256,11 @@
 		9A69201D10CCBD8800DF1CA6 /* WebServiceCode */ = {
 			isa = PBXGroup;
 			children = (
-				9A0F0E7213E88781007E54C1 /* MFBWebServiceSvc.h */,
-				9A0F0E7313E88781007E54C1 /* MFBWebServiceSvc.m */,
-				9A69202010CCBD8800DF1CA6 /* NSDate+ISO8601Parsing.h */,
-				9A69202110CCBD8900DF1CA6 /* NSDate+ISO8601Parsing.m */,
-				9A69202210CCBD8900DF1CA6 /* NSDate+ISO8601Unparsing.h */,
-				9A69202310CCBD8900DF1CA6 /* NSDate+ISO8601Unparsing.m */,
-				9A69202410CCBD8900DF1CA6 /* USAdditions.h */,
-				9A69202510CCBD8A00DF1CA6 /* USAdditions.m */,
-				9A69202610CCBD8A00DF1CA6 /* USGlobals.h */,
-				9A69202710CCBD8A00DF1CA6 /* USGlobals.m */,
-				9A69202810CCBD8A00DF1CA6 /* xsd.h */,
-				9A69202910CCBD8B00DF1CA6 /* xsd.m */,
+				76329D7F93105507AE10308C /* NSDate+ISO8601.swift */,
+				904D90E08CCDC364A83A6292 /* SoapCore.swift */,
+				487AC330B35E36EDFE6FC7AA /* SoapClient.swift */,
+				6ADA58A2E3FCEAFD46ADC51F /* MFBWebServiceTypes.swift */,
+				D1B272C13DEF05A729C4B42B /* MFBWebServiceMessages.swift */,
 			);
 			path = WebServiceCode;
 			sourceTree = "<group>";
@@ -1790,23 +1757,6 @@
 			productReference = 9A48E26529A1685E00511D99 /* MyFlightbookWidgetsExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		9A48E28C29A16EE400511D99 /* MFBSoapCallLibrary */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9A48E29329A16EE400511D99 /* Build configuration list for PBXNativeTarget "MFBSoapCallLibrary" */;
-			buildPhases = (
-				9A48E28929A16EE400511D99 /* Sources */,
-				9A48E28A29A16EE400511D99 /* Frameworks */,
-				9A48E28B29A16EE400511D99 /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = MFBSoapCallLibrary;
-			productName = MFBSoapCallLibrary;
-			productReference = 9A48E28D29A16EE400511D99 /* MFBSoapCallLibrary.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 		9A6414C029ECAE6C00AAE878 /* ExifLibrary */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9A6414C729ECAE6C00AAE878 /* Build configuration list for PBXNativeTarget "ExifLibrary" */;
@@ -1869,11 +1819,6 @@
 						DevelopmentTeam = 99X7N8Z9WP;
 						ProvisioningStyle = Automatic;
 					};
-					9A48E28C29A16EE400511D99 = {
-						CreatedOnToolsVersion = 14.2;
-						DevelopmentTeam = 99X7N8Z9WP;
-						ProvisioningStyle = Automatic;
-					};
 					9A6414C029ECAE6C00AAE878 = {
 						CreatedOnToolsVersion = 14.3;
 					};
@@ -1909,7 +1854,6 @@
 				1D6058900D05DD3D006BFB54 /* MyFlightbook */,
 				9ACDC8CB1BDFEA1300B0A077 /* MyFlightbookWatch */,
 				9A48E26429A1685E00511D99 /* MyFlightbookWidgetsExtension */,
-				9A48E28C29A16EE400511D99 /* MFBSoapCallLibrary */,
 				9A6414C029ECAE6C00AAE878 /* ExifLibrary */,
 			);
 		};
@@ -2231,6 +2175,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F88357F7A0D832CD02537449 /* SoapCore.swift in Sources */,
+				605F74DA63B945648606FCF3 /* SoapClient.swift in Sources */,
+				A91C8BC47B57D2DA9BF21E3D /* MFBWebServiceTypes.swift in Sources */,
+				D3D16F744DDE0A9A9426CF6E /* MFBWebServiceMessages.swift in Sources */,
 				9A2649FC29D1120700C0D176 /* PropertyCell.swift in Sources */,
 				9A512DDB29D8892F004A222A /* MyAircraft.swift in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
@@ -2271,6 +2219,7 @@
 				9AE39A4729ABC1C5002A6496 /* Airports.swift in Sources */,
 				9AE39A4129AAA40D002A6496 /* MultiValOptionSelector.swift in Sources */,
 				9A692F382F57A6E1005DE4A6 /* GPSSimulator.swift in Sources */,
+				9A4DD1DA30AA60F600634318 /* NSDate+ISO8601.swift in Sources */,
 				9A0DB05C29DF3737005CEC20 /* LEEditController.swift in Sources */,
 				9AE39A4329AAA456002A6496 /* OptionSelection.swift in Sources */,
 				9AA9791F29E328CC00D56DC4 /* RecentFlights.swift in Sources */,
@@ -2328,32 +2277,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74F67FC6323D3C4A17991384 /* SoapCore.swift in Sources */,
+				39DC555CBCAD6305D2CD7EDB /* SoapClient.swift in Sources */,
+				F9B02360B47392E0538A6D3C /* MFBWebServiceTypes.swift in Sources */,
+				2006A2391164DE335F081945 /* MFBWebServiceMessages.swift in Sources */,
 				9A30201929CBE32D00115538 /* SimpleItems.swift in Sources */,
 				9AC2C80329A3E3D600A702B2 /* ObjectExtensions.swift in Sources */,
 				9A48E26E29A1685F00511D99 /* MyFlightbookWidgets.swift in Sources */,
 				9A357D2A29E5F00A009B8344 /* MyFlightbookWidgets.intentdefinition in Sources */,
 				9A48E27E29A1694500511D99 /* WidgetSoapCall.swift in Sources */,
+				9A4DD1DE30AA60F600634318 /* NSDate+ISO8601.swift in Sources */,
 				9A14334729A54991007129A9 /* MFBWebServiceObjectExtensions.swift in Sources */,
 				9A48E26C29A1685F00511D99 /* MyFlightbookWidgetsBundle.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9A48E28929A16EE400511D99 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9A48E29729A16F0400511D99 /* MFBWebServiceSvc.h in Sources */,
-				9A48E29829A16F0400511D99 /* MFBWebServiceSvc.m in Sources */,
-				9A48E29929A16F0400511D99 /* NSDate+ISO8601Parsing.h in Sources */,
-				9A48E29A29A16F0400511D99 /* NSDate+ISO8601Parsing.m in Sources */,
-				9A48E29B29A16F0400511D99 /* NSDate+ISO8601Unparsing.h in Sources */,
-				9A48E29C29A16F0400511D99 /* NSDate+ISO8601Unparsing.m in Sources */,
-				9A48E29D29A16F0400511D99 /* USAdditions.h in Sources */,
-				9A48E29E29A16F0400511D99 /* USAdditions.m in Sources */,
-				9A48E29F29A16F0400511D99 /* USGlobals.h in Sources */,
-				9A48E2A029A16F0400511D99 /* USGlobals.m in Sources */,
-				9A48E2A129A16F0400511D99 /* xsd.h in Sources */,
-				9A48E2A229A16F0400511D99 /* xsd.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2375,9 +2310,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DB6A0ED87D07ABF4635C685 /* SoapCore.swift in Sources */,
+				2B18FEFD61B6750C03C2AB74 /* SoapClient.swift in Sources */,
+				0B7AAFF01176FE8DCA6B43E9 /* MFBWebServiceTypes.swift in Sources */,
+				04A13A951041B28C9BF812A7 /* MFBWebServiceMessages.swift in Sources */,
 				9A30201829CBE32A00115538 /* SimpleItems.swift in Sources */,
 				39BA285117EA67165579DC77 /* MyFlightbookWatchApp.swift in Sources */,
 				A37289F523D98A693A247247 /* WatchModel.swift in Sources */,
+				9A4DD1DC30AA60F600634318 /* NSDate+ISO8601.swift in Sources */,
 				8A017E5F0B3870FFD9492D41 /* CockpitView.swift in Sources */,
 				327F9027BAA5B2BCDC2B79A1 /* RemoteListViews.swift in Sources */,
 				9A30201729CBE31400115538 /* SharedWatch.swift in Sources */,
@@ -3402,109 +3342,6 @@
 			};
 			name = Distribution;
 		};
-		9A48E29429A16EE400511D99 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				OTHER_LDFLAGS = "-ObjC";
-				OTHER_LIBTOOLFLAGS = "-no_warning_for_no_symbols";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		9A48E29529A16EE400511D99 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				OTHER_LDFLAGS = "-ObjC";
-				OTHER_LIBTOOLFLAGS = "-no_warning_for_no_symbols";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		9A48E29629A16EE400511D99 /* Distribution */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				OTHER_LDFLAGS = "-ObjC";
-				OTHER_LIBTOOLFLAGS = "-no_warning_for_no_symbols";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Distribution;
-		};
 		9A6414C829ECAE6C00AAE878 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4016,16 +3853,6 @@
 				9A48E27829A1686100511D99 /* Debug */,
 				9A48E27929A1686100511D99 /* Release */,
 				9A48E27A29A1686100511D99 /* Distribution */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		9A48E29329A16EE400511D99 /* Build configuration list for PBXNativeTarget "MFBSoapCallLibrary" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9A48E29429A16EE400511D99 /* Debug */,
-				9A48E29529A16EE400511D99 /* Release */,
-				9A48E29629A16EE400511D99 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

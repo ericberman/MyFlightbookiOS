@@ -1,7 +1,7 @@
 /*
     MyFlightbook for iOS - provides native access to MyFlightbook
     pilot's logbook
- Copyright (C) 2009-2025 MyFlightbook, LLC
+ Copyright (C) 2009-2026 MyFlightbook, LLC
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -43,7 +43,7 @@ import Foundation
     private static let CONTEXT_DELETE_AIRCRAFT=1085683
     private static let CONTEXT_AIRCRAFTFORUSER=8503832
 
-    @objc public static func aircraftInstanceTypeDisplay(_ instanceType : MFBWebServiceSvc_AircraftInstanceTypes) -> String {
+    public static func aircraftInstanceTypeDisplay(_ instanceType : MFBWebServiceSvc_AircraftInstanceTypes) -> String {
         switch (instanceType) {
         case MFBWebServiceSvc_AircraftInstanceTypes_RealAircraft:
             return String(localized: "Real Aircraft", comment: "Indicates an actual aircraft")
@@ -386,8 +386,8 @@ import Foundation
                 // "Description" on the simple make/model conflicts with "description" that gets bridging assigned.
                 // I could use the NS_SWIFT_NAME macro to define an alternate name, but alas THAT has to be done in the auto-generated MFBWebServiceSvc.h
                 // file, which means that whenever I update that file I'd break if I forget to edit it, which I don't want to do
-                // But alas, it seems that using description! seems to do the trick of getting the correct property.
-                return smm.description!
+                // But alas, it seems that using description seems to do the trick of getting the correct property.
+                return smm.description
             }
         }
         return ""
@@ -431,8 +431,8 @@ import Foundation
             // "Description" on the simple make/model conflicts with "description" that gets bridging assigned.
             // I could use the NS_SWIFT_NAME macro to define an alternate name, but alas THAT has to be done in the auto-generated MFBWebServiceSvc.h
             // file, which means that whenever I update that file I'd break if I forget to edit it, which I don't want to do
-            // But alas, it seems that using description! seems to do the trick of getting the correct property.
-            smm1.description!.compare(smm2.description!) != .orderedDescending
+            // But alas, it seems that using description seems to do the trick of getting the correct property.
+            smm1.description.compare(smm2.description) != .orderedDescending
         }
     }
     

@@ -22,74 +22,14 @@
 //  MFBSample
 //
 //  Created by Eric Berman on 11/28/09.
-//  Copyright-2009-2021 MyFlightbook LLC. All rights reserved.
+//  Copyright-2009-2026 MyFlightbook LLC. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import <objc/runtime.h>
 #import <MyFlightbook-Swift.h>
-
-void Swizzle(Class c, SEL orig, SEL new)
-{
-    Method origMethod = class_getInstanceMethod(c, orig);
-    Method newMethod = class_getInstanceMethod(c, new);
-    if(class_addMethod(c, orig, method_getImplementation(newMethod), method_getTypeEncoding(newMethod)))
-        class_replaceMethod(c, new, method_getImplementation(origMethod), method_getTypeEncoding(origMethod));
-    else
-        method_exchangeImplementations(origMethod, newMethod);
-}
-
-void SwizzleArchivedClasses(void);
-
-void SwizzleArchivedClasses(void)
-{
-    /*
-     Swizzle the classes that where we replace initwithcoder/decode
-     
-     Way back when, I implemented my own initwithcoder/encodewithcoder category extensions on these
-     classes (before I knew what I was doing).  Alas, I need to keep those implementations, and furthermore
-     the ones that come from wsdl2objC don't seem to work (or at least aren't backwards compatible).  Subclassing
-     doesn't do what I want because the objects are created in the auto-generated code and hence aren't of the
-     subclass type; I need to extend the actual object.
-     
-     It all sorta worked for a few years, but the linker warnings got more and more annoying.
-     
-     The correct way, it seems, to do this is to "swizzle" the functions, effectively swapping their function
-     with mine.  This eliminates the linker warning (since there is no longer a name conflict) and calls my functionality
-     where I want it.
-     
-     Swizzling code & description described at https://nshipster.com/method-swizzling/
-    */
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        Swizzle([MFBWebServiceSvc_Aircraft class], @selector(initWithCoder:), @selector(initWithCoderMFB:));
-        Swizzle([MFBWebServiceSvc_Aircraft class], @selector(encodeWithCoder:), @selector(encodeWithCoderMFB:));
-        
-        Swizzle([MFBWebServiceSvc_MFBImageInfo class], @selector(initWithCoder:), @selector(initWithCoderMFB:));
-        Swizzle([MFBWebServiceSvc_MFBImageInfo class], @selector(encodeWithCoder:), @selector(encodeWithCoderMFB:));
-        Swizzle([MFBWebServiceSvc_ArrayOfMFBImageInfo class], @selector(initWithCoder:), @selector(initWithCoderMFB:));
-        Swizzle([MFBWebServiceSvc_ArrayOfMFBImageInfo class], @selector(encodeWithCoder:), @selector(encodeWithCoderMFB:));
-        
-        Swizzle([MFBWebServiceSvc_ArrayOfCustomFlightProperty class], @selector(initWithCoder:), @selector(initWithCoderMFB:));
-        Swizzle([MFBWebServiceSvc_ArrayOfCustomFlightProperty class], @selector(encodeWithCoder:), @selector(encodeWithCoderMFB:));
-        Swizzle([MFBWebServiceSvc_CustomPropertyType class], @selector(initWithCoder:), @selector(initWithCoderMFB:));
-        Swizzle([MFBWebServiceSvc_CustomPropertyType class], @selector(encodeWithCoder:), @selector(encodeWithCoderMFB:));
-        Swizzle([MFBWebServiceSvc_CustomFlightProperty class], @selector(initWithCoder:), @selector(initWithCoderMFB:));
-        Swizzle([MFBWebServiceSvc_CustomFlightProperty class], @selector(encodeWithCoder:), @selector(encodeWithCoderMFB:));
-        
-        Swizzle([MFBWebServiceSvc_LogbookEntry class], @selector(initWithCoder:), @selector(initWithCoderMFB:));
-        Swizzle([MFBWebServiceSvc_LogbookEntry class], @selector(encodeWithCoder:), @selector(encodeWithCoderMFB:));
-        Swizzle([MFBWebServiceSvc_PendingFlight class], @selector(initWithCoder:), @selector(initWithCoderMFB:));
-        Swizzle([MFBWebServiceSvc_PendingFlight class], @selector(encodeWithCoder:), @selector(encodeWithCoderMFB:));
-
-        Swizzle([MFBWebServiceSvc_PropertyTemplate class], @selector(initWithCoder:), @selector(initWithCoderMFB:));
-        Swizzle([MFBWebServiceSvc_PropertyTemplate class], @selector(encodeWithCoder:), @selector(encodeWithCoderMFB:));
-    });
-}
 
 int main(int argc, char *argv[]) {
     @autoreleasepool {
-        SwizzleArchivedClasses();
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([MFBAppDelegate class]));
     }
 }

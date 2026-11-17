@@ -322,12 +322,11 @@ extension MFBWebServiceSvc_LogbookEntry : AutoDetectDelegate {
         }
     }
     
-    @objc public func encodeWithCoderMFB(_ encoder : NSCoder) {
+    public override func encodeFields(to encoder : NSCoder) {
         encodeBaseObject(encoder)
     }
     
-    @objc(initWithCoderMFB:) public convenience init(_ decoder : NSCoder) {
-        self.init()
+    public override func decodeFields(from decoder : NSCoder) {
         decodeBaseObject(decoder)
     }
     
@@ -823,13 +822,12 @@ extension MFBWebServiceSvc_LogbookEntry : AutoDetectDelegate {
 
 // MARK: MFBWebServiceSvc_PendingFlight extensions
 extension MFBWebServiceSvc_PendingFlight {
-    @objc public override func encodeWithCoderMFB(_ encoder: NSCoder) {
+    public override func encodeFields(to encoder : NSCoder) {
         encodeBaseObject(encoder)
         encoder.encode(pendingID, forKey: _szKeyPendingID)
     }
     
-    @objc(initWithCoderMFB:) public convenience init(_ decoder: NSCoder) {
-        self.init()
+    public override func decodeFields(from decoder : NSCoder) {
         decodeBaseObject(decoder)
         pendingID = (decoder.decodeObject(of: NSString.self, forKey: _szKeyPendingID) ?? "") as String
     }
